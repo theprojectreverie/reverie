@@ -137,10 +137,10 @@ theme_override_constants/separation = 5
 [node name="ActionCategories" type="GridContainer" parent="SkillsPanel/SkillsContent"]
 columns = 3
 theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 5
+theme_override_constants/v_separation = 3
 
 [node name="AttackButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
-custom_minimum_size = Vector2(148, 40)
+custom_minimum_size = Vector2(148, 32)
 ignore_texture_size = true
 stretch_mode = 5
 size_flags_horizontal = 3
@@ -148,7 +148,7 @@ texture_normal = ExtResource("6_attack")
 tooltip_text = "Show attack abilities"
 
 [node name="SkillButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
-custom_minimum_size = Vector2(148, 40)
+custom_minimum_size = Vector2(148, 32)
 ignore_texture_size = true
 stretch_mode = 5
 size_flags_horizontal = 3
@@ -156,7 +156,7 @@ texture_normal = ExtResource("7_skill")
 tooltip_text = "Show support and utility skills"
 
 [node name="UltimateButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
-custom_minimum_size = Vector2(148, 40)
+custom_minimum_size = Vector2(148, 32)
 ignore_texture_size = true
 stretch_mode = 5
 size_flags_horizontal = 3
@@ -164,7 +164,7 @@ texture_normal = ExtResource("8_ultimate")
 tooltip_text = "Show ultimate ability"
 
 [node name="DefendButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
-custom_minimum_size = Vector2(148, 40)
+custom_minimum_size = Vector2(148, 32)
 ignore_texture_size = true
 stretch_mode = 5
 size_flags_horizontal = 3
@@ -172,7 +172,7 @@ texture_normal = ExtResource("9_defend")
 tooltip_text = "Reduce incoming damage until your next turn"
 
 [node name="ItemButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
-custom_minimum_size = Vector2(148, 40)
+custom_minimum_size = Vector2(148, 32)
 ignore_texture_size = true
 stretch_mode = 5
 size_flags_horizontal = 3
@@ -180,7 +180,7 @@ texture_normal = ExtResource("10_item")
 tooltip_text = "Battle items"
 
 [node name="EndTurnButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
-custom_minimum_size = Vector2(148, 40)
+custom_minimum_size = Vector2(148, 32)
 ignore_texture_size = true
 stretch_mode = 5
 size_flags_horizontal = 3
