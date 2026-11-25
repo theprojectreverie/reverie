@@ -26,7 +26,7 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		kael_attack_component.play_attack(attacker, target, skill_id, ultimate)
 		return
 	if generic_attack_component != null:
-		generic_attack_component.play_attack(attacker, target, element)
+		generic_attack_component.play_attack(attacker, target, element, skill_id, ultimate)
 
 
 ## Impact numbers and elemental particles are owned by their authored component.
@@ -39,6 +39,11 @@ func spawn_damage_number(actor: BattlefieldActor, text: String, color: Color,
 func spawn_elemental_burst(pos: Vector2, element: String) -> void:
 	if impact_component != null:
 		impact_component.spawn_elemental_burst(pos, element)
+
+
+func spawn_hit_effect(target: BattlefieldActor, source: BattlefieldActor, color: Color, strength: float = 1.0) -> void:
+	if impact_component != null:
+		impact_component.spawn_hit_effect(target, source, color, strength)
 
 
 func play_matron_phase(phase_number: int) -> void:

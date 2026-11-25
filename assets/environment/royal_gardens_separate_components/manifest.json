@@ -1,0 +1,1196 @@
+{
+  "source_sheet": "royal_gardens_transparent_sheet.png",
+  "component_count": 85,
+  "components": [
+    {
+      "file": "001_fence_and_rail.png",
+      "bbox": [
+        18,
+        12,
+        66,
+        136
+      ],
+      "pixel_area": 4303,
+      "size": [
+        58,
+        134
+      ]
+    },
+    {
+      "file": "002_fence_and_rail.png",
+      "bbox": [
+        88,
+        49,
+        221,
+        134
+      ],
+      "pixel_area": 8723,
+      "size": [
+        143,
+        95
+      ]
+    },
+    {
+      "file": "003_fence_and_rail.png",
+      "bbox": [
+        243,
+        13,
+        293,
+        136
+      ],
+      "pixel_area": 4506,
+      "size": [
+        60,
+        133
+      ]
+    },
+    {
+      "file": "004_fence_and_rail.png",
+      "bbox": [
+        310,
+        49,
+        455,
+        135
+      ],
+      "pixel_area": 9601,
+      "size": [
+        155,
+        96
+      ]
+    },
+    {
+      "file": "005_fence_and_rail.png",
+      "bbox": [
+        495,
+        51,
+        576,
+        135
+      ],
+      "pixel_area": 5135,
+      "size": [
+        91,
+        94
+      ]
+    },
+    {
+      "file": "006_fence_and_rail.png",
+      "bbox": [
+        602,
+        50,
+        679,
+        135
+      ],
+      "pixel_area": 4953,
+      "size": [
+        87,
+        95
+      ]
+    },
+    {
+      "file": "007_fence_and_rail.png",
+      "bbox": [
+        703,
+        10,
+        768,
+        137
+      ],
+      "pixel_area": 6097,
+      "size": [
+        75,
+        137
+      ]
+    },
+    {
+      "file": "008_fence_and_rail.png",
+      "bbox": [
+        789,
+        10,
+        927,
+        136
+      ],
+      "pixel_area": 11099,
+      "size": [
+        148,
+        136
+      ]
+    },
+    {
+      "file": "009_fence_and_rail.png",
+      "bbox": [
+        951,
+        13,
+        1059,
+        137
+      ],
+      "pixel_area": 8423,
+      "size": [
+        118,
+        134
+      ]
+    },
+    {
+      "file": "010_fence_and_rail.png",
+      "bbox": [
+        1095,
+        15,
+        1183,
+        137
+      ],
+      "pixel_area": 7066,
+      "size": [
+        98,
+        132
+      ]
+    },
+    {
+      "file": "011_fence_and_rail.png",
+      "bbox": [
+        1243,
+        20,
+        1367,
+        139
+      ],
+      "pixel_area": 10239,
+      "size": [
+        134,
+        129
+      ]
+    },
+    {
+      "file": "012_fence_and_rail.png",
+      "bbox": [
+        1411,
+        28,
+        1497,
+        136
+      ],
+      "pixel_area": 6040,
+      "size": [
+        96,
+        118
+      ]
+    },
+    {
+      "file": "013_gates_lanterns_banners.png",
+      "bbox": [
+        469,
+        159,
+        716,
+        322
+      ],
+      "pixel_area": 31821,
+      "size": [
+        257,
+        173
+      ]
+    },
+    {
+      "file": "014_gates_lanterns_banners.png",
+      "bbox": [
+        742,
+        159,
+        905,
+        311
+      ],
+      "pixel_area": 12659,
+      "size": [
+        173,
+        162
+      ]
+    },
+    {
+      "file": "015_gates_lanterns_banners.png",
+      "bbox": [
+        1102,
+        155,
+        1155,
+        330
+      ],
+      "pixel_area": 6015,
+      "size": [
+        63,
+        185
+      ]
+    },
+    {
+      "file": "016_gates_lanterns_banners.png",
+      "bbox": [
+        1178,
+        155,
+        1258,
+        333
+      ],
+      "pixel_area": 7089,
+      "size": [
+        90,
+        188
+      ]
+    },
+    {
+      "file": "017_gates_lanterns_banners.png",
+      "bbox": [
+        1463,
+        159,
+        1519,
+        333
+      ],
+      "pixel_area": 5088,
+      "size": [
+        66,
+        184
+      ]
+    },
+    {
+      "file": "018_gates_lanterns_banners.png",
+      "bbox": [
+        20,
+        164,
+        103,
+        311
+      ],
+      "pixel_area": 7173,
+      "size": [
+        93,
+        157
+      ]
+    },
+    {
+      "file": "019_gates_lanterns_banners.png",
+      "bbox": [
+        126,
+        172,
+        202,
+        313
+      ],
+      "pixel_area": 6405,
+      "size": [
+        86,
+        151
+      ]
+    },
+    {
+      "file": "020_gates_lanterns_banners.png",
+      "bbox": [
+        216,
+        161,
+        335,
+        317
+      ],
+      "pixel_area": 10984,
+      "size": [
+        129,
+        166
+      ]
+    },
+    {
+      "file": "021_gates_lanterns_banners.png",
+      "bbox": [
+        375,
+        181,
+        443,
+        309
+      ],
+      "pixel_area": 5607,
+      "size": [
+        78,
+        138
+      ]
+    },
+    {
+      "file": "022_gates_lanterns_banners.png",
+      "bbox": [
+        935,
+        166,
+        987,
+        326
+      ],
+      "pixel_area": 5048,
+      "size": [
+        62,
+        170
+      ]
+    },
+    {
+      "file": "023_gates_lanterns_banners.png",
+      "bbox": [
+        1018,
+        168,
+        1064,
+        327
+      ],
+      "pixel_area": 4871,
+      "size": [
+        56,
+        169
+      ]
+    },
+    {
+      "file": "024_gates_lanterns_banners.png",
+      "bbox": [
+        1293,
+        163,
+        1341,
+        333
+      ],
+      "pixel_area": 4235,
+      "size": [
+        58,
+        180
+      ]
+    },
+    {
+      "file": "025_gates_lanterns_banners.png",
+      "bbox": [
+        1360,
+        161,
+        1447,
+        333
+      ],
+      "pixel_area": 6984,
+      "size": [
+        97,
+        182
+      ]
+    },
+    {
+      "file": "026_cobblestone_paths.png",
+      "bbox": [
+        18,
+        361,
+        103,
+        450
+      ],
+      "pixel_area": 7510,
+      "size": [
+        95,
+        99
+      ]
+    },
+    {
+      "file": "027_cobblestone_paths.png",
+      "bbox": [
+        126,
+        367,
+        217,
+        441
+      ],
+      "pixel_area": 6652,
+      "size": [
+        101,
+        84
+      ]
+    },
+    {
+      "file": "028_cobblestone_paths.png",
+      "bbox": [
+        243,
+        349,
+        315,
+        454
+      ],
+      "pixel_area": 7516,
+      "size": [
+        82,
+        115
+      ]
+    },
+    {
+      "file": "029_cobblestone_paths.png",
+      "bbox": [
+        341,
+        349,
+        437,
+        453
+      ],
+      "pixel_area": 7369,
+      "size": [
+        106,
+        114
+      ]
+    },
+    {
+      "file": "030_cobblestone_paths.png",
+      "bbox": [
+        458,
+        348,
+        551,
+        451
+      ],
+      "pixel_area": 7192,
+      "size": [
+        103,
+        113
+      ]
+    },
+    {
+      "file": "031_cobblestone_paths.png",
+      "bbox": [
+        572,
+        348,
+        666,
+        451
+      ],
+      "pixel_area": 7533,
+      "size": [
+        104,
+        113
+      ]
+    },
+    {
+      "file": "032_cobblestone_paths.png",
+      "bbox": [
+        697,
+        348,
+        790,
+        453
+      ],
+      "pixel_area": 8653,
+      "size": [
+        103,
+        115
+      ]
+    },
+    {
+      "file": "033_cobblestone_paths.png",
+      "bbox": [
+        818,
+        348,
+        911,
+        453
+      ],
+      "pixel_area": 8333,
+      "size": [
+        103,
+        115
+      ]
+    },
+    {
+      "file": "034_cobblestone_paths.png",
+      "bbox": [
+        937,
+        349,
+        1051,
+        457
+      ],
+      "pixel_area": 9394,
+      "size": [
+        124,
+        118
+      ]
+    },
+    {
+      "file": "035_cobblestone_paths.png",
+      "bbox": [
+        1076,
+        349,
+        1190,
+        456
+      ],
+      "pixel_area": 9501,
+      "size": [
+        124,
+        117
+      ]
+    },
+    {
+      "file": "036_cobblestone_paths.png",
+      "bbox": [
+        1223,
+        347,
+        1300,
+        450
+      ],
+      "pixel_area": 6554,
+      "size": [
+        87,
+        113
+      ]
+    },
+    {
+      "file": "037_cobblestone_paths.png",
+      "bbox": [
+        1326,
+        349,
+        1409,
+        447
+      ],
+      "pixel_area": 6185,
+      "size": [
+        93,
+        108
+      ]
+    },
+    {
+      "file": "038_cobblestone_paths.png",
+      "bbox": [
+        1440,
+        367,
+        1511,
+        441
+      ],
+      "pixel_area": 4830,
+      "size": [
+        81,
+        84
+      ]
+    },
+    {
+      "file": "039_hedges_and_flowerbeds.png",
+      "bbox": [
+        13,
+        506,
+        129,
+        560
+      ],
+      "pixel_area": 5694,
+      "size": [
+        126,
+        64
+      ]
+    },
+    {
+      "file": "040_hedges_and_flowerbeds.png",
+      "bbox": [
+        149,
+        508,
+        223,
+        560
+      ],
+      "pixel_area": 3415,
+      "size": [
+        84,
+        62
+      ]
+    },
+    {
+      "file": "041_hedges_and_flowerbeds.png",
+      "bbox": [
+        243,
+        486,
+        326,
+        567
+      ],
+      "pixel_area": 4896,
+      "size": [
+        93,
+        91
+      ]
+    },
+    {
+      "file": "042_hedges_and_flowerbeds.png",
+      "bbox": [
+        344,
+        506,
+        437,
+        584
+      ],
+      "pixel_area": 5058,
+      "size": [
+        103,
+        88
+      ]
+    },
+    {
+      "file": "043_hedges_and_flowerbeds.png",
+      "bbox": [
+        449,
+        480,
+        542,
+        583
+      ],
+      "pixel_area": 5953,
+      "size": [
+        103,
+        113
+      ]
+    },
+    {
+      "file": "044_hedges_and_flowerbeds.png",
+      "bbox": [
+        561,
+        508,
+        627,
+        565
+      ],
+      "pixel_area": 3112,
+      "size": [
+        76,
+        67
+      ]
+    },
+    {
+      "file": "045_hedges_and_flowerbeds.png",
+      "bbox": [
+        648,
+        506,
+        743,
+        560
+      ],
+      "pixel_area": 4470,
+      "size": [
+        105,
+        64
+      ]
+    },
+    {
+      "file": "046_hedges_and_flowerbeds.png",
+      "bbox": [
+        755,
+        486,
+        832,
+        560
+      ],
+      "pixel_area": 4419,
+      "size": [
+        87,
+        84
+      ]
+    },
+    {
+      "file": "047_hedges_and_flowerbeds.png",
+      "bbox": [
+        846,
+        480,
+        946,
+        583
+      ],
+      "pixel_area": 6293,
+      "size": [
+        110,
+        113
+      ]
+    },
+    {
+      "file": "048_hedges_and_flowerbeds.png",
+      "bbox": [
+        961,
+        508,
+        1024,
+        570
+      ],
+      "pixel_area": 3174,
+      "size": [
+        73,
+        72
+      ]
+    },
+    {
+      "file": "049_hedges_and_flowerbeds.png",
+      "bbox": [
+        1038,
+        506,
+        1135,
+        560
+      ],
+      "pixel_area": 4445,
+      "size": [
+        107,
+        64
+      ]
+    },
+    {
+      "file": "050_hedges_and_flowerbeds.png",
+      "bbox": [
+        1148,
+        483,
+        1223,
+        560
+      ],
+      "pixel_area": 4504,
+      "size": [
+        85,
+        87
+      ]
+    },
+    {
+      "file": "051_hedges_and_flowerbeds.png",
+      "bbox": [
+        1239,
+        480,
+        1339,
+        584
+      ],
+      "pixel_area": 6379,
+      "size": [
+        110,
+        114
+      ]
+    },
+    {
+      "file": "052_hedges_and_flowerbeds.png",
+      "bbox": [
+        1356,
+        509,
+        1419,
+        571
+      ],
+      "pixel_area": 3100,
+      "size": [
+        73,
+        72
+      ]
+    },
+    {
+      "file": "053_hedges_and_flowerbeds.png",
+      "bbox": [
+        1440,
+        508,
+        1524,
+        572
+      ],
+      "pixel_area": 4505,
+      "size": [
+        94,
+        74
+      ]
+    },
+    {
+      "file": "054_fountains_statues_urns_benches.png",
+      "bbox": [
+        19,
+        594,
+        162,
+        756
+      ],
+      "pixel_area": 12677,
+      "size": [
+        153,
+        172
+      ]
+    },
+    {
+      "file": "055_fountains_statues_urns_benches.png",
+      "bbox": [
+        76,
+        611,
+        83,
+        621
+      ],
+      "pixel_area": 36,
+      "size": [
+        17,
+        20
+      ]
+    },
+    {
+      "file": "056_fountains_statues_urns_benches.png",
+      "bbox": [
+        186,
+        584,
+        351,
+        761
+      ],
+      "pixel_area": 16740,
+      "size": [
+        175,
+        187
+      ]
+    },
+    {
+      "file": "057_fountains_statues_urns_benches.png",
+      "bbox": [
+        395,
+        597,
+        475,
+        769
+      ],
+      "pixel_area": 8908,
+      "size": [
+        90,
+        182
+      ]
+    },
+    {
+      "file": "058_fountains_statues_urns_benches.png",
+      "bbox": [
+        532,
+        591,
+        616,
+        769
+      ],
+      "pixel_area": 9499,
+      "size": [
+        94,
+        188
+      ]
+    },
+    {
+      "file": "059_fountains_statues_urns_benches.png",
+      "bbox": [
+        634,
+        596,
+        728,
+        761
+      ],
+      "pixel_area": 8130,
+      "size": [
+        104,
+        175
+      ]
+    },
+    {
+      "file": "060_fountains_statues_urns_benches.png",
+      "bbox": [
+        757,
+        621,
+        839,
+        749
+      ],
+      "pixel_area": 5807,
+      "size": [
+        92,
+        138
+      ]
+    },
+    {
+      "file": "061_fountains_statues_urns_benches.png",
+      "bbox": [
+        858,
+        645,
+        934,
+        738
+      ],
+      "pixel_area": 3883,
+      "size": [
+        86,
+        103
+      ]
+    },
+    {
+      "file": "062_fountains_statues_urns_benches.png",
+      "bbox": [
+        960,
+        641,
+        1033,
+        737
+      ],
+      "pixel_area": 4195,
+      "size": [
+        83,
+        106
+      ]
+    },
+    {
+      "file": "063_fountains_statues_urns_benches.png",
+      "bbox": [
+        1059,
+        645,
+        1138,
+        735
+      ],
+      "pixel_area": 4661,
+      "size": [
+        89,
+        100
+      ]
+    },
+    {
+      "file": "064_fountains_statues_urns_benches.png",
+      "bbox": [
+        1160,
+        649,
+        1281,
+        736
+      ],
+      "pixel_area": 7277,
+      "size": [
+        131,
+        97
+      ]
+    },
+    {
+      "file": "065_fountains_statues_urns_benches.png",
+      "bbox": [
+        1306,
+        658,
+        1417,
+        736
+      ],
+      "pixel_area": 6064,
+      "size": [
+        121,
+        88
+      ]
+    },
+    {
+      "file": "066_fountains_statues_urns_benches.png",
+      "bbox": [
+        1443,
+        645,
+        1519,
+        738
+      ],
+      "pixel_area": 4092,
+      "size": [
+        86,
+        103
+      ]
+    },
+    {
+      "file": "067_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        6,
+        794,
+        136,
+        961
+      ],
+      "pixel_area": 12576,
+      "size": [
+        140,
+        177
+      ]
+    },
+    {
+      "file": "068_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        138,
+        788,
+        269,
+        960
+      ],
+      "pixel_area": 14958,
+      "size": [
+        141,
+        182
+      ]
+    },
+    {
+      "file": "069_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        274,
+        799,
+        388,
+        961
+      ],
+      "pixel_area": 10776,
+      "size": [
+        124,
+        172
+      ]
+    },
+    {
+      "file": "070_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        393,
+        793,
+        531,
+        960
+      ],
+      "pixel_area": 14662,
+      "size": [
+        148,
+        177
+      ]
+    },
+    {
+      "file": "071_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        1085,
+        791,
+        1219,
+        979
+      ],
+      "pixel_area": 20304,
+      "size": [
+        144,
+        198
+      ]
+    },
+    {
+      "file": "072_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        1410,
+        769,
+        1462,
+        971
+      ],
+      "pixel_area": 6768,
+      "size": [
+        62,
+        212
+      ]
+    },
+    {
+      "file": "073_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        540,
+        844,
+        622,
+        911
+      ],
+      "pixel_area": 3742,
+      "size": [
+        92,
+        77
+      ]
+    },
+    {
+      "file": "074_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        629,
+        840,
+        702,
+        902
+      ],
+      "pixel_area": 3085,
+      "size": [
+        83,
+        72
+      ]
+    },
+    {
+      "file": "075_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        710,
+        836,
+        767,
+        895
+      ],
+      "pixel_area": 2527,
+      "size": [
+        67,
+        69
+      ]
+    },
+    {
+      "file": "076_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        772,
+        817,
+        812,
+        890
+      ],
+      "pixel_area": 1529,
+      "size": [
+        50,
+        83
+      ]
+    },
+    {
+      "file": "077_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        814,
+        815,
+        927,
+        960
+      ],
+      "pixel_area": 9224,
+      "size": [
+        123,
+        155
+      ]
+    },
+    {
+      "file": "078_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        935,
+        807,
+        1066,
+        956
+      ],
+      "pixel_area": 12841,
+      "size": [
+        141,
+        159
+      ]
+    },
+    {
+      "file": "079_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        1232,
+        804,
+        1334,
+        956
+      ],
+      "pixel_area": 8822,
+      "size": [
+        112,
+        162
+      ]
+    },
+    {
+      "file": "080_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        1356,
+        816,
+        1403,
+        969
+      ],
+      "pixel_area": 4703,
+      "size": [
+        57,
+        163
+      ]
+    },
+    {
+      "file": "081_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        1477,
+        838,
+        1516,
+        967
+      ],
+      "pixel_area": 3043,
+      "size": [
+        49,
+        139
+      ]
+    },
+    {
+      "file": "082_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        532,
+        922,
+        606,
+        972
+      ],
+      "pixel_area": 2596,
+      "size": [
+        84,
+        60
+      ]
+    },
+    {
+      "file": "083_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        618,
+        924,
+        687,
+        970
+      ],
+      "pixel_area": 2241,
+      "size": [
+        79,
+        56
+      ]
+    },
+    {
+      "file": "084_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        703,
+        919,
+        742,
+        955
+      ],
+      "pixel_area": 879,
+      "size": [
+        49,
+        46
+      ]
+    },
+    {
+      "file": "085_trees_arches_gazebo_shrubs.png",
+      "bbox": [
+        755,
+        919,
+        807,
+        963
+      ],
+      "pixel_area": 1583,
+      "size": [
+        62,
+        54
+      ]
+    }
+  ]
+}

@@ -1,0 +1,368 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_plain.png" id="marble"]
+
+[node name="RoyalGardenMarbleRoad6x10" type="Node2D"]
+
+[node name="RoadTiles" type="Node2D" parent="."]
+z_index = -19
+
+[node name="Marble_00_00" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(0, 0)
+
+[node name="Marble_00_01" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-32, 16)
+
+[node name="Marble_00_02" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-64, 32)
+
+[node name="Marble_00_03" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-96, 48)
+
+[node name="Marble_00_04" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-128, 64)
+
+[node name="Marble_00_05" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-160, 80)
+
+[node name="Marble_00_06" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-192, 96)
+
+[node name="Marble_00_07" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-224, 112)
+
+[node name="Marble_00_08" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-256, 128)
+
+[node name="Marble_00_09" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-288, 144)
+
+[node name="Marble_01_00" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(32, 16)
+
+[node name="Marble_01_01" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(0, 32)
+
+[node name="Marble_01_02" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-32, 48)
+
+[node name="Marble_01_03" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-64, 64)
+
+[node name="Marble_01_04" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-96, 80)
+
+[node name="Marble_01_05" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-128, 96)
+
+[node name="Marble_01_06" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-160, 112)
+
+[node name="Marble_01_07" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-192, 128)
+
+[node name="Marble_01_08" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-224, 144)
+
+[node name="Marble_01_09" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-256, 160)
+
+[node name="Marble_02_00" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(64, 32)
+
+[node name="Marble_02_01" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(32, 48)
+
+[node name="Marble_02_02" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(0, 64)
+
+[node name="Marble_02_03" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-32, 80)
+
+[node name="Marble_02_04" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-64, 96)
+
+[node name="Marble_02_05" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-96, 112)
+
+[node name="Marble_02_06" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-128, 128)
+
+[node name="Marble_02_07" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-160, 144)
+
+[node name="Marble_02_08" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-192, 160)
+
+[node name="Marble_02_09" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-224, 176)
+
+[node name="Marble_03_00" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(96, 48)
+
+[node name="Marble_03_01" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(64, 64)
+
+[node name="Marble_03_02" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(32, 80)
+
+[node name="Marble_03_03" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(0, 96)
+
+[node name="Marble_03_04" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-32, 112)
+
+[node name="Marble_03_05" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-64, 128)
+
+[node name="Marble_03_06" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-96, 144)
+
+[node name="Marble_03_07" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-128, 160)
+
+[node name="Marble_03_08" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-160, 176)
+
+[node name="Marble_03_09" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-192, 192)
+
+[node name="Marble_04_00" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(128, 64)
+
+[node name="Marble_04_01" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(96, 80)
+
+[node name="Marble_04_02" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(64, 96)
+
+[node name="Marble_04_03" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(32, 112)
+
+[node name="Marble_04_04" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(0, 128)
+
+[node name="Marble_04_05" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-32, 144)
+
+[node name="Marble_04_06" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-64, 160)
+
+[node name="Marble_04_07" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-96, 176)
+
+[node name="Marble_04_08" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-128, 192)
+
+[node name="Marble_04_09" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-160, 208)
+
+[node name="Marble_05_00" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(160, 80)
+
+[node name="Marble_05_01" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(128, 96)
+
+[node name="Marble_05_02" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(96, 112)
+
+[node name="Marble_05_03" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(64, 128)
+
+[node name="Marble_05_04" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(32, 144)
+
+[node name="Marble_05_05" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(0, 160)
+
+[node name="Marble_05_06" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-32, 176)
+
+[node name="Marble_05_07" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-64, 192)
+
+[node name="Marble_05_08" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-96, 208)
+
+[node name="Marble_05_09" type="Sprite2D" parent="RoadTiles"]
+texture_filter = 1
+centered = false
+texture = ExtResource("marble")
+position = Vector2(-128, 224)

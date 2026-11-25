@@ -14,7 +14,12 @@ func bind(owner: Battlefield) -> void:
 ## A floating damage / heal number above an actor.
 func spawn_damage_number(actor: BattlefieldActor, text: String, color: Color,
 		delay: float = 0.0) -> void:
-	if actor == null or not is_instance_valid(actor):
+	if battlefield == null or not is_instance_valid(battlefield) or battlefield._stage == null:
+		return
+	var owner_screen := battlefield.get_parent() as CombatScreen
+	if owner_screen != null and owner_screen._resolved:
+		return
+	if actor == null or not is_instance_valid(actor) or not actor.is_inside_tree():
 		return
 	var label := preload("res://scenes/ui/combat/components/floating_combat_number.tscn").instantiate() as Label
 	label.text = text
@@ -26,19 +31,19 @@ func spawn_damage_number(actor: BattlefieldActor, text: String, color: Color,
 	battlefield._stage.add_child(label)
 	var start: Vector2 = actor.position + Vector2(-28.0, -74.0 * actor.visual.visual_scale)
 	label.position = start
-	var tween := create_tween()
-	tween.tween_interval(delay)
-	tween.tween_property(label, "position:y", start.y - 54.0, 0.85) \
-		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(label, "modulate:a", 0.0, 0.85).set_delay(0.25)
-	if text.contains("!"):
-		label.scale = Vector2(1.5, 1.5)
-		tween.tween_property(label, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_ELASTIC)
-	tween.chain().tween_callback(label.queue_free)
+	label.call("play_number", delay, text.contains("!"))
 
 
 ## The elemental burst at the impact point.
 func spawn_elemental_burst(pos: Vector2, element: String) -> void:
+	_spawn_elemental_burst(null, pos, element)
+
+
+func spawn_attack_elemental_burst(owner: BattlefieldActor, pos: Vector2, element: String) -> void:
+	_spawn_elemental_burst(owner, pos, element)
+
+
+func _spawn_elemental_burst(owner: BattlefieldActor, pos: Vector2, element: String) -> void:
 	var color := UITheme.element_color(element)
 	if color == UITheme.TEXT_DIM:
 		color = Color(0.85, 0.85, 0.9)
@@ -48,6 +53,24 @@ func spawn_elemental_burst(pos: Vector2, element: String) -> void:
 	particles.z_index = 35
 	particles.position = pos
 	add_child(particles)
+	if owner != null and is_instance_valid(owner):
+		owner.track_attack_effect(particles)
 	particles.finished.connect(particles.queue_free)
 	particles.emitting = true
+	if owner != null and is_instance_valid(owner):
+		owner.release_attack_effect(particles)
+
+
+## Reusable authored slash/ring impact at the resolved damage position.
+func spawn_hit_effect(target: BattlefieldActor, source: BattlefieldActor, color: Color, strength: float = 1.0) -> void:
+	if target == null or not is_instance_valid(target) or battlefield == null or battlefield._stage == null:
+		return
+	var effect := preload("res://scenes/ui/combat/components/battle_hit_effect.tscn").instantiate() as Node2D
+	var direction := Vector2.RIGHT
+	if source != null and is_instance_valid(source):
+		direction = target.position - source.position
+	effect.position = target.position + Vector2(0.0, -22.0 * target.visual.visual_scale)
+	effect.z_index = 36
+	battlefield._stage.add_child(effect)
+	effect.call("play_impact", direction, color, strength)
 

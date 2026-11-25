@@ -1,0 +1,5 @@
+﻿# Royal Gardens incoming design crops
+These are extracted review crops from six generated design sheets. They are NOT approved production assets.
+Automated crop extraction may leave touching objects grouped or imperfect alpha edges. Inspect each PNG before use.
+Do not treat these as a finished tileset or place them directly into the playable map.
+Original source archives remain in Downloads\Reverie_Royal_Gardens_Parts.

@@ -1,0 +1,129 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="SpriteFrames" path="res://assets/enemies/mossling/walk_pass_04/mossling_walk_preview.tres" id="1"]
+
+[node name="MosslingWalkReview" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(480, 360)
+
+[node name="down" type="Node2D" parent="."]
+position = Vector2(120, 190)
+
+[node name="DirectionLabel" type="Label" parent="down"]
+position = Vector2(-48, -154)
+size = Vector2(150, 24)
+text = "0  down"
+theme_override_colors/font_color = Color(0.82, 0.91, 0.65, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="down"]
+texture_filter = 1
+sprite_frames = ExtResource("1")
+animation = &"walk_0"
+autoplay = "walk_0"
+
+[node name="down_right" type="Node2D" parent="."]
+position = Vector2(360, 190)
+
+[node name="DirectionLabel" type="Label" parent="down_right"]
+position = Vector2(-48, -154)
+size = Vector2(150, 24)
+text = "1  down_right"
+theme_override_colors/font_color = Color(0.82, 0.91, 0.65, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="down_right"]
+texture_filter = 1
+sprite_frames = ExtResource("1")
+animation = &"walk_1"
+autoplay = "walk_1"
+
+[node name="right" type="Node2D" parent="."]
+position = Vector2(600, 190)
+
+[node name="DirectionLabel" type="Label" parent="right"]
+position = Vector2(-48, -154)
+size = Vector2(150, 24)
+text = "2  right"
+theme_override_colors/font_color = Color(0.82, 0.91, 0.65, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="right"]
+texture_filter = 1
+sprite_frames = ExtResource("1")
+animation = &"walk_2"
+autoplay = "walk_2"
+
+[node name="up_right" type="Node2D" parent="."]
+position = Vector2(840, 190)
+
+[node name="DirectionLabel" type="Label" parent="up_right"]
+position = Vector2(-48, -154)
+size = Vector2(150, 24)
+text = "3  up_right"
+theme_override_colors/font_color = Color(0.82, 0.91, 0.65, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="up_right"]
+texture_filter = 1
+sprite_frames = ExtResource("1")
+animation = &"walk_3"
+autoplay = "walk_3"
+
+[node name="up" type="Node2D" parent="."]
+position = Vector2(120, 530)
+
+[node name="DirectionLabel" type="Label" parent="up"]
+position = Vector2(-48, -154)
+size = Vector2(150, 24)
+text = "4  up"
+theme_override_colors/font_color = Color(0.82, 0.91, 0.65, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="up"]
+texture_filter = 1
+sprite_frames = ExtResource("1")
+animation = &"walk_4"
+autoplay = "walk_4"
+
+[node name="up_left" type="Node2D" parent="."]
+position = Vector2(360, 530)
+
+[node name="DirectionLabel" type="Label" parent="up_left"]
+position = Vector2(-48, -154)
+size = Vector2(150, 24)
+text = "5  up_left"
+theme_override_colors/font_color = Color(0.82, 0.91, 0.65, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="up_left"]
+texture_filter = 1
+sprite_frames = ExtResource("1")
+animation = &"walk_5"
+autoplay = "walk_5"
+
+[node name="left" type="Node2D" parent="."]
+position = Vector2(600, 530)
+
+[node name="DirectionLabel" type="Label" parent="left"]
+position = Vector2(-48, -154)
+size = Vector2(150, 24)
+text = "6  left"
+theme_override_colors/font_color = Color(0.82, 0.91, 0.65, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="left"]
+texture_filter = 1
+sprite_frames = ExtResource("1")
+animation = &"walk_6"
+autoplay = "walk_6"
+
+[node name="down_left" type="Node2D" parent="."]
+position = Vector2(840, 530)
+
+[node name="DirectionLabel" type="Label" parent="down_left"]
+position = Vector2(-48, -154)
+size = Vector2(150, 24)
+text = "7  down_left"
+theme_override_colors/font_color = Color(0.82, 0.91, 0.65, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="down_left"]
+texture_filter = 1
+sprite_frames = ExtResource("1")
+animation = &"walk_7"
+autoplay = "walk_7"
+

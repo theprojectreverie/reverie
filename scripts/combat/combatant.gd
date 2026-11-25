@@ -23,6 +23,7 @@ var crit_mult: float = 1.6
 var energy: float = 0.0
 var max_energy: float = 100.0
 var shield: float = 0.0
+var defending: bool = false
 
 var skills: Array = []
 var ultimate: String = ""

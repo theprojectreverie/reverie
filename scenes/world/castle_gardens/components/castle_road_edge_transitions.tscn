@@ -1,12 +1,290 @@
-[gd_scene format=4]
+[gd_scene format=3]
 
-[ext_resource type="TileSet" path="res://assets/environment/castle_gardens/terrain/royal_garden_ground_isometric_tileset.tres" id="1_xpb6t"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_path_edge_ne.png" id="1_ne"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_path_edge_nw.png" id="2_nw"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_path_edge_se.png" id="3_se"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_path_edge_sw.png" id="4_sw"]
 
 [node name="RoyalRoadEdgeTransitions" type="Node2D" unique_id=35554244]
 
-[node name="HandPaintedRoadEdgeTransitions" type="TileMapLayer" parent="." unique_id=280592]
+[node name="LegacyAtlasEdges" type="TileMapLayer" parent="."]
+visible = false
 z_index = -19
 z_as_relative = false
 texture_filter = 1
-tile_map_data = PackedByteArray("AAARAAAAAAAAAAIAAAATAP7/AAACAAIAAAATAAIAAAADAAIAAAAVAAAAAAAAAAEAAAAWAAUAAAAAAAIAAAAYAAMAAAACAAIAAAAYAAcAAAADAAIAAAAaAAUAAAAAAAEAAAAbAAoAAAAAAAIAAAAdAAgAAAACAAIAAAAdAAwAAAADAAIAAAAfAAoAAAAAAAEAAAAgAA8AAAAAAAIAAAAiAA0AAAACAAIAAAAiABEAAAADAAIAAAAkAA8AAAAAAAEAAAAlABQAAAAAAAIAAAAnABIAAAACAAIAAAAnABYAAAADAAIAAAApABQAAAAAAAEAAAAqABkAAAAAAAIAAAAsABcAAAACAAIAAAAXABEAAAADAAIAAAAYABIAAAAAAAEAAAAaABQAAAAAAAIAAAAcABQAAAACAAIAAAAeABQAAAADAAIAAAAeABIAAAAAAAEAAAAeABAAAAAAAAIAAAAkAAQAAAACAAIAAAAlAAUAAAADAAIAAAAnAAcAAAAAAAEAAAAnAAkAAAAAAAIAAAAnAAsAAAACAAIAAAAlAAsAAAADAAIAAAAjAAsAAAAAAAEAAAAgABIAAAAAAAIAAAAiABMAAAACAAIAAAAkABQAAAADAAIAAAAmABUAAAAAAAEAAAAnABQAAAAAAAIAAAAoABMAAAACAAIAAAAnABEAAAADAAIAAAAmAA8AAAAAAAEAAAAlAA0AAAAAAAIAAAA=")
-tile_set = ExtResource("1_xpb6t")
+
+[node name="NewAssetRoadEdges" type="Node2D" parent="."]
+visible = false
+position = Vector2(-140.8, 0)
+scale = Vector2(1.22, 1)
+z_index = -19
+z_as_relative = false
+[node name="RoadEdge_01_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(576, 288)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_02_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(704, 288)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_03_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(576, 352)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_04_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(704, 352)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_05_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(576, 448)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_06_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(704, 448)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_07_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(576, 512)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_08_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(704, 512)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_09_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(576, 608)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_10_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(704, 608)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_11_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(576, 672)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_12_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(704, 672)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_13_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(576, 768)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_14_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(704, 768)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_15_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(576, 832)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_16_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(704, 832)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_17_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(576, 928)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_18_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(704, 928)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_19_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(576, 992)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_20_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(704, 992)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_21_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(576, 1088)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_22_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(704, 1088)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_23_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(224, 656)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_24_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(224, 688)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_25_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(224, 752)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_26_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(288, 784)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_27_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(352, 816)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_28_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(416, 784)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_29_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(480, 752)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_30_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(1056, 656)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_31_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(1056, 688)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_32_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(1056, 752)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_33_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(992, 784)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_34_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(928, 816)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_35_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(864, 784)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_36_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(800, 752)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_37_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(480, 816)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_38_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(512, 864)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_39_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(544, 912)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_40_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(576, 960)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_41_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(640, 960)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_42_NE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("1_ne")
+position = Vector2(704, 960)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_43_SW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("4_sw")
+position = Vector2(736, 912)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_44_SE" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("3_se")
+position = Vector2(768, 864)
+texture_filter = 1
+centered = true
+
+[node name="RoadEdge_45_NW" type="Sprite2D" parent="NewAssetRoadEdges"]
+texture = ExtResource("2_nw")
+position = Vector2(800, 816)
+texture_filter = 1
+centered = true

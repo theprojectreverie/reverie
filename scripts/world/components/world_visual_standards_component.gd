@@ -16,12 +16,10 @@ func apply() -> void:
 	world._visual_standards_applied = true
 	world._visual_standards_tint = WorldVisualStandards.region_tint(world.region_id)
 	world._visual_standards_summary = WorldVisualStandards.summary()
-	if world.fog_component != null:
+	if world.fog_component != null and world.fog_material != null:
 		var seeded: Color = Color(0.8, 0.88, 0.95, 1.0).lerp(world._visual_standards_tint, 0.10)
-		world.fog_component.apply_appearance(seeded, float(world.fog_material.get_shader_parameter("density")))
-	elif world.fog_material != null:
-		var seeded: Color = Color(0.8, 0.88, 0.95, 1.0).lerp(world._visual_standards_tint, 0.10)
-		world.fog_material.set_shader_parameter("fog_color", seeded)
+		var density := float(world.fog_material.get_shader_parameter("density"))
+		world.fog_component.apply_appearance(seeded, density)
 
 
 func report() -> Dictionary:

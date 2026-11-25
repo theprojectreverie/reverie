@@ -26,7 +26,10 @@ z_index = 10
 
 [node name="CastleSystem" type="Node2D" parent="."]
 y_sort_enabled = true
-[node name="ModularCastleAssembly" parent="CastleSystem" instance=ExtResource("2_castle")]
+[node name="ModularCastleAssembly" type="Node2D" parent="CastleSystem"]
+position = Vector2(-416, -196)
+scale = Vector2(1.65, 1.65)
+[node name="CastleCollection" parent="CastleSystem/ModularCastleAssembly" instance=ExtResource("2_castle")]
 
 [node name="GardenFloraSystem" type="Node2D" parent="."]
 y_sort_enabled = true

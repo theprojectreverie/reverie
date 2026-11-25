@@ -1,0 +1,404 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="TileSet" path="res://assets/environment/act1_generated_tiles/act1_generated_grass_isometric_tileset.tres" id="1_grass"]
+[ext_resource type="TileSet" path="res://assets/environment/castle_gardens/terrain/royal_garden_ground_isometric_tileset.tres" id="2_ground"]
+[ext_resource type="TileSet" path="res://assets/environment/castle_gardens/terrain/royal_garden_paths_water_isometric_tileset.tres" id="3_paths"]
+[ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/royal_garden_isometric_layers_baked.tscn" id="4_royal_baked"]
+[ext_resource type="PackedScene" path="res://scenes/world/components/royal_gate_architecture.tscn" id="5_royal_gate"]
+
+[node name="Act1TilemapFoundation" type="Node2D"]
+y_sort_enabled = true
+metadata/world_design = "Six connected editable Act I regions"
+metadata/grid = "64x32 isometric logical cells; 32x32 art regions"
+metadata/production_rule = "Editor-authored TileMapLayer placement only. No procedural map generation."
+
+[node name="WorldTerrain" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="RoyalGardens" type="Node2D" parent="WorldTerrain"]
+y_sort_enabled = true
+metadata/region_id = "royal_gardens"
+metadata/region_order = 0
+
+[node name="BakedRoyalGardenTerrain" parent="WorldTerrain/RoyalGardens" instance=ExtResource("4_royal_baked")]
+
+[node name="GeneratedGrassCandidate" type="TileMapLayer" parent="WorldTerrain/RoyalGardens"]
+z_index = -33
+tile_set = ExtResource("1_grass")
+visible = false
+
+[node name="GroundBlend" type="TileMapLayer" parent="WorldTerrain/RoyalGardens"]
+z_index = -31
+tile_set = ExtResource("2_ground")
+
+[node name="Paths" type="TileMapLayer" parent="WorldTerrain/RoyalGardens"]
+z_index = -28
+tile_set = ExtResource("3_paths")
+
+[node name="Water" type="TileMapLayer" parent="WorldTerrain/RoyalGardens"]
+z_index = -27
+tile_set = ExtResource("3_paths")
+
+[node name="Vegetation" type="TileMapLayer" parent="WorldTerrain/RoyalGardens"]
+z_index = -24
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="Foreground" type="TileMapLayer" parent="WorldTerrain/RoyalGardens"]
+z_index = -20
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="CollisionGeometry" type="Node2D" parent="WorldTerrain/RoyalGardens"]
+
+[node name="RoyalGardensEntry" type="Marker2D" parent="WorldTerrain/RoyalGardens"]
+position = Vector2(-420, 210)
+
+[node name="RoyalGardensExit" type="Marker2D" parent="WorldTerrain/RoyalGardens"]
+position = Vector2(650, 145)
+
+[node name="RoyalGate" type="Node2D" parent="WorldTerrain"]
+position = Vector2(1000, 0)
+y_sort_enabled = true
+metadata/region_id = "royal_gate"
+metadata/region_order = 1
+
+[node name="BaseGround" type="TileMapLayer" parent="WorldTerrain/RoyalGate"]
+z_index = -32
+tile_set = ExtResource("2_ground")
+
+[node name="GeneratedGrassCandidate" type="TileMapLayer" parent="WorldTerrain/RoyalGate"]
+z_index = -33
+tile_set = ExtResource("1_grass")
+visible = false
+
+[node name="GroundBlend" type="TileMapLayer" parent="WorldTerrain/RoyalGate"]
+z_index = -31
+tile_set = ExtResource("2_ground")
+
+[node name="Paths" type="TileMapLayer" parent="WorldTerrain/RoyalGate"]
+z_index = -28
+tile_set = ExtResource("3_paths")
+
+[node name="Water" type="TileMapLayer" parent="WorldTerrain/RoyalGate"]
+z_index = -27
+tile_set = ExtResource("3_paths")
+
+[node name="Vegetation" type="TileMapLayer" parent="WorldTerrain/RoyalGate"]
+z_index = -24
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="Foreground" type="TileMapLayer" parent="WorldTerrain/RoyalGate"]
+z_index = -20
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="CollisionGeometry" type="Node2D" parent="WorldTerrain/RoyalGate"]
+
+[node name="RoyalGateArchitecture" parent="WorldTerrain/RoyalGate" instance=ExtResource("5_royal_gate")]
+[node name="AuthoredRoute" type="Node2D" parent="WorldTerrain/RoyalGate"]
+z_index = -28
+
+[node name="RouteBed" type="Line2D" parent="WorldTerrain/RoyalGate/AuthoredRoute"]
+points = PackedVector2Array(-350, 145, -230, 150, -100, 158, 30, 164, 160, 158, 300, 150, 500, 148)
+width = 76.0
+default_color = Color(0.25, 0.20, 0.17, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="RouteStone" type="Line2D" parent="WorldTerrain/RoyalGate/AuthoredRoute"]
+points = PackedVector2Array(-350, 145, -230, 150, -100, 158, 30, 164, 160, 158, 300, 150, 500, 148)
+width = 58.0
+default_color = Color(0.72, 0.64, 0.51, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Entry" type="Marker2D" parent="WorldTerrain/RoyalGate"]
+position = Vector2(-350, 145)
+
+[node name="Exit" type="Marker2D" parent="WorldTerrain/RoyalGate"]
+position = Vector2(500, 148)
+
+[node name="WillowFields" type="Node2D" parent="WorldTerrain"]
+position = Vector2(2000, 0)
+y_sort_enabled = true
+metadata/region_id = "willow_fields"
+metadata/region_order = 2
+
+[node name="BaseGround" type="TileMapLayer" parent="WorldTerrain/WillowFields"]
+z_index = -32
+tile_set = ExtResource("2_ground")
+
+[node name="GeneratedGrassCandidate" type="TileMapLayer" parent="WorldTerrain/WillowFields"]
+z_index = -33
+tile_set = ExtResource("1_grass")
+visible = false
+
+[node name="GroundBlend" type="TileMapLayer" parent="WorldTerrain/WillowFields"]
+z_index = -31
+tile_set = ExtResource("2_ground")
+
+[node name="Paths" type="TileMapLayer" parent="WorldTerrain/WillowFields"]
+z_index = -28
+tile_set = ExtResource("3_paths")
+
+[node name="Water" type="TileMapLayer" parent="WorldTerrain/WillowFields"]
+z_index = -27
+tile_set = ExtResource("3_paths")
+
+[node name="Vegetation" type="TileMapLayer" parent="WorldTerrain/WillowFields"]
+z_index = -24
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="Foreground" type="TileMapLayer" parent="WorldTerrain/WillowFields"]
+z_index = -20
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="CollisionGeometry" type="Node2D" parent="WorldTerrain/WillowFields"]
+
+[node name="AuthoredRoute" type="Node2D" parent="WorldTerrain/WillowFields"]
+z_index = -28
+
+[node name="RouteBed" type="Line2D" parent="WorldTerrain/WillowFields/AuthoredRoute"]
+points = PackedVector2Array(-500, 148, -360, 160, -220, 175, -70, 182, 80, 176, 230, 158, 370, 142, 500, 135)
+width = 78.0
+default_color = Color(0.25, 0.20, 0.17, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="RouteStone" type="Line2D" parent="WorldTerrain/WillowFields/AuthoredRoute"]
+points = PackedVector2Array(-500, 148, -360, 160, -220, 175, -70, 182, 80, 176, 230, 158, 370, 142, 500, 135)
+width = 60.0
+default_color = Color(0.72, 0.65, 0.48, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Entry" type="Marker2D" parent="WorldTerrain/WillowFields"]
+position = Vector2(-500, 148)
+
+[node name="Exit" type="Marker2D" parent="WorldTerrain/WillowFields"]
+position = Vector2(500, 135)
+
+[node name="ElderwoodGrove" type="Node2D" parent="WorldTerrain"]
+position = Vector2(3000, 0)
+y_sort_enabled = true
+metadata/region_id = "elderwood_grove"
+metadata/region_order = 3
+
+[node name="BaseGround" type="TileMapLayer" parent="WorldTerrain/ElderwoodGrove"]
+z_index = -32
+tile_set = ExtResource("2_ground")
+
+[node name="GeneratedGrassCandidate" type="TileMapLayer" parent="WorldTerrain/ElderwoodGrove"]
+z_index = -33
+tile_set = ExtResource("1_grass")
+visible = false
+
+[node name="GroundBlend" type="TileMapLayer" parent="WorldTerrain/ElderwoodGrove"]
+z_index = -31
+tile_set = ExtResource("2_ground")
+
+[node name="Paths" type="TileMapLayer" parent="WorldTerrain/ElderwoodGrove"]
+z_index = -28
+tile_set = ExtResource("3_paths")
+
+[node name="Water" type="TileMapLayer" parent="WorldTerrain/ElderwoodGrove"]
+z_index = -27
+tile_set = ExtResource("3_paths")
+
+[node name="Vegetation" type="TileMapLayer" parent="WorldTerrain/ElderwoodGrove"]
+z_index = -24
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="Foreground" type="TileMapLayer" parent="WorldTerrain/ElderwoodGrove"]
+z_index = -20
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="CollisionGeometry" type="Node2D" parent="WorldTerrain/ElderwoodGrove"]
+
+[node name="AuthoredRoute" type="Node2D" parent="WorldTerrain/ElderwoodGrove"]
+z_index = -28
+
+[node name="RouteBed" type="Line2D" parent="WorldTerrain/ElderwoodGrove/AuthoredRoute"]
+points = PackedVector2Array(-500, 135, -370, 125, -240, 112, -110, 115, 20, 132, 150, 150, 280, 145, 400, 137, 500, 132)
+width = 78.0
+default_color = Color(0.19, 0.20, 0.16, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="RouteStone" type="Line2D" parent="WorldTerrain/ElderwoodGrove/AuthoredRoute"]
+points = PackedVector2Array(-500, 135, -370, 125, -240, 112, -110, 115, 20, 132, 150, 150, 280, 145, 400, 137, 500, 132)
+width = 58.0
+default_color = Color(0.55, 0.58, 0.49, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Entry" type="Marker2D" parent="WorldTerrain/ElderwoodGrove"]
+position = Vector2(-500, 135)
+
+[node name="Exit" type="Marker2D" parent="WorldTerrain/ElderwoodGrove"]
+position = Vector2(500, 132)
+
+[node name="ForsakenRuins" type="Node2D" parent="WorldTerrain"]
+position = Vector2(4000, 0)
+y_sort_enabled = true
+metadata/region_id = "forsaken_ruins"
+metadata/region_order = 4
+
+[node name="BaseGround" type="TileMapLayer" parent="WorldTerrain/ForsakenRuins"]
+z_index = -32
+tile_set = ExtResource("2_ground")
+
+[node name="GeneratedGrassCandidate" type="TileMapLayer" parent="WorldTerrain/ForsakenRuins"]
+z_index = -33
+tile_set = ExtResource("1_grass")
+visible = false
+
+[node name="GroundBlend" type="TileMapLayer" parent="WorldTerrain/ForsakenRuins"]
+z_index = -31
+tile_set = ExtResource("2_ground")
+
+[node name="Paths" type="TileMapLayer" parent="WorldTerrain/ForsakenRuins"]
+z_index = -28
+tile_set = ExtResource("3_paths")
+
+[node name="Water" type="TileMapLayer" parent="WorldTerrain/ForsakenRuins"]
+z_index = -27
+tile_set = ExtResource("3_paths")
+
+[node name="Vegetation" type="TileMapLayer" parent="WorldTerrain/ForsakenRuins"]
+z_index = -24
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="Foreground" type="TileMapLayer" parent="WorldTerrain/ForsakenRuins"]
+z_index = -20
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="CollisionGeometry" type="Node2D" parent="WorldTerrain/ForsakenRuins"]
+
+[node name="AuthoredRoute" type="Node2D" parent="WorldTerrain/ForsakenRuins"]
+z_index = -28
+
+[node name="RouteBed" type="Line2D" parent="WorldTerrain/ForsakenRuins/AuthoredRoute"]
+points = PackedVector2Array(-500, 132, -370, 145, -240, 165, -110, 180, 20, 182, 150, 168, 280, 150, 400, 143, 500, 140)
+width = 78.0
+default_color = Color(0.20, 0.17, 0.19, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="RouteStone" type="Line2D" parent="WorldTerrain/ForsakenRuins/AuthoredRoute"]
+points = PackedVector2Array(-500, 132, -370, 145, -240, 165, -110, 180, 20, 182, 150, 168, 280, 150, 400, 143, 500, 140)
+width = 58.0
+default_color = Color(0.55, 0.48, 0.48, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Entry" type="Marker2D" parent="WorldTerrain/ForsakenRuins"]
+position = Vector2(-500, 132)
+
+[node name="Exit" type="Marker2D" parent="WorldTerrain/ForsakenRuins"]
+position = Vector2(500, 140)
+
+[node name="RuinedTower" type="Node2D" parent="WorldTerrain"]
+position = Vector2(5000, 0)
+y_sort_enabled = true
+metadata/region_id = "ruined_tower"
+metadata/region_order = 5
+
+[node name="BaseGround" type="TileMapLayer" parent="WorldTerrain/RuinedTower"]
+z_index = -32
+tile_set = ExtResource("2_ground")
+
+[node name="GeneratedGrassCandidate" type="TileMapLayer" parent="WorldTerrain/RuinedTower"]
+z_index = -33
+tile_set = ExtResource("1_grass")
+visible = false
+
+[node name="GroundBlend" type="TileMapLayer" parent="WorldTerrain/RuinedTower"]
+z_index = -31
+tile_set = ExtResource("2_ground")
+
+[node name="Paths" type="TileMapLayer" parent="WorldTerrain/RuinedTower"]
+z_index = -28
+tile_set = ExtResource("3_paths")
+
+[node name="Water" type="TileMapLayer" parent="WorldTerrain/RuinedTower"]
+z_index = -27
+tile_set = ExtResource("3_paths")
+
+[node name="Vegetation" type="TileMapLayer" parent="WorldTerrain/RuinedTower"]
+z_index = -24
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="Foreground" type="TileMapLayer" parent="WorldTerrain/RuinedTower"]
+z_index = -20
+y_sort_enabled = true
+tile_set = ExtResource("2_ground")
+
+[node name="CollisionGeometry" type="Node2D" parent="WorldTerrain/RuinedTower"]
+
+[node name="AuthoredRoute" type="Node2D" parent="WorldTerrain/RuinedTower"]
+z_index = -28
+
+[node name="RouteBed" type="Line2D" parent="WorldTerrain/RuinedTower/AuthoredRoute"]
+points = PackedVector2Array(-500, 140, -370, 155, -240, 178, -110, 190, 20, 185, 150, 165, 280, 150, 350, 135)
+width = 78.0
+default_color = Color(0.17, 0.15, 0.20, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="RouteStone" type="Line2D" parent="WorldTerrain/RuinedTower/AuthoredRoute"]
+points = PackedVector2Array(-500, 140, -370, 155, -240, 178, -110, 190, 20, 185, 150, 165, 280, 150, 350, 135)
+width = 58.0
+default_color = Color(0.48, 0.45, 0.49, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Entry" type="Marker2D" parent="WorldTerrain/RuinedTower"]
+position = Vector2(-500, 140)
+
+[node name="Exit" type="Marker2D" parent="WorldTerrain/RuinedTower"]
+position = Vector2(350, 135)
+
+[node name="RegionTransitions" type="Node2D" parent="."]
+
+[node name="RoyalToGate" type="Marker2D" parent="RegionTransitions"]
+position = Vector2(650, 145)
+
+[node name="GateToWillow" type="Marker2D" parent="RegionTransitions"]
+position = Vector2(1500, 148)
+
+[node name="WillowToElderwood" type="Marker2D" parent="RegionTransitions"]
+position = Vector2(2500, 135)
+
+[node name="ElderwoodToForsaken" type="Marker2D" parent="RegionTransitions"]
+position = Vector2(3500, 132)
+
+[node name="ForsakenToTower" type="Marker2D" parent="RegionTransitions"]
+position = Vector2(4500, 140)
+
+[node name="WorldBounds" type="Node2D" parent="."]
+metadata/minimum_world_position = Vector2(-650, -550)
+metadata/maximum_world_position = Vector2(5550, 550)
+metadata/region_count = 6
+metadata/layers_per_region = 6
+metadata/ground_tile_job = "e4233c0a-ebb2-44f0-92c1-5df0d12db474"
+metadata/no_procedural_maps = true

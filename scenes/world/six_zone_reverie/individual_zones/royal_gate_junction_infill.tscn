@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_stone_path.tscn" id="stone"]
+
+[node name="RoyalGateJunctionInfill" type="Node2D"]
+z_index = -19
+
+[node name="InnerWestStoneCorner" parent="." instance=ExtResource("stone")]
+position = Vector2(-208, 1726)
+
+[node name="InnerEastStoneCorner" parent="." instance=ExtResource("stone")]
+position = Vector2(208, 1902)

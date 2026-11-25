@@ -1,0 +1,226 @@
+[
+  {
+    "name": "royal_gate",
+    "file": "architecture/royal_gate.png",
+    "size": [
+      615,
+      436
+    ]
+  },
+  {
+    "name": "wall_left",
+    "file": "architecture/wall_left.png",
+    "size": [
+      266,
+      353
+    ]
+  },
+  {
+    "name": "wall_banner",
+    "file": "architecture/wall_banner.png",
+    "size": [
+      152,
+      296
+    ]
+  },
+  {
+    "name": "wall_right",
+    "file": "architecture/wall_right.png",
+    "size": [
+      213,
+      311
+    ]
+  },
+  {
+    "name": "tower",
+    "file": "architecture/tower.png",
+    "size": [
+      142,
+      370
+    ]
+  },
+  {
+    "name": "stone",
+    "file": "floor/stone.png",
+    "size": [
+      223,
+      128
+    ]
+  },
+  {
+    "name": "emblem",
+    "file": "floor/emblem.png",
+    "size": [
+      219,
+      127
+    ]
+  },
+  {
+    "name": "border",
+    "file": "floor/border.png",
+    "size": [
+      218,
+      145
+    ]
+  },
+  {
+    "name": "road",
+    "file": "floor/road.png",
+    "size": [
+      224,
+      130
+    ]
+  },
+  {
+    "name": "grass",
+    "file": "floor/grass.png",
+    "size": [
+      230,
+      127
+    ]
+  },
+  {
+    "name": "tree",
+    "file": "garden/tree.png",
+    "size": [
+      275,
+      270
+    ]
+  },
+  {
+    "name": "topiary",
+    "file": "garden/topiary.png",
+    "size": [
+      102,
+      253
+    ]
+  },
+  {
+    "name": "white_flowers",
+    "file": "garden/white_flowers.png",
+    "size": [
+      103,
+      104
+    ]
+  },
+  {
+    "name": "pink_flowers",
+    "file": "garden/pink_flowers.png",
+    "size": [
+      103,
+      100
+    ]
+  },
+  {
+    "name": "arch",
+    "file": "architecture/arch.png",
+    "size": [
+      193,
+      216
+    ]
+  },
+  {
+    "name": "column",
+    "file": "architecture/column.png",
+    "size": [
+      109,
+      228
+    ]
+  },
+  {
+    "name": "banner",
+    "file": "props/banner.png",
+    "size": [
+      62,
+      163
+    ]
+  },
+  {
+    "name": "lantern",
+    "file": "props/lantern.png",
+    "size": [
+      64,
+      226
+    ]
+  },
+  {
+    "name": "triple_lantern",
+    "file": "props/triple_lantern.png",
+    "size": [
+      122,
+      225
+    ]
+  },
+  {
+    "name": "pedestal_lantern",
+    "file": "props/pedestal_lantern.png",
+    "size": [
+      115,
+      217
+    ]
+  },
+  {
+    "name": "white_planter",
+    "file": "garden/white_planter.png",
+    "size": [
+      175,
+      138
+    ]
+  },
+  {
+    "name": "pink_planter",
+    "file": "garden/pink_planter.png",
+    "size": [
+      149,
+      121
+    ]
+  },
+  {
+    "name": "purple_planter",
+    "file": "garden/purple_planter.png",
+    "size": [
+      122,
+      135
+    ]
+  },
+  {
+    "name": "hedge_corner",
+    "file": "garden/hedge_corner.png",
+    "size": [
+      152,
+      136
+    ]
+  },
+  {
+    "name": "stairs",
+    "file": "props/stairs.png",
+    "size": [
+      172,
+      164
+    ]
+  },
+  {
+    "name": "bench",
+    "file": "props/bench.png",
+    "size": [
+      150,
+      129
+    ]
+  },
+  {
+    "name": "rocks",
+    "file": "props/rocks.png",
+    "size": [
+      162,
+      123
+    ]
+  },
+  {
+    "name": "balustrade",
+    "file": "architecture/balustrade.png",
+    "size": [
+      272,
+      203
+    ]
+  }
+]

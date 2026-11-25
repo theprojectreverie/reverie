@@ -1,0 +1,730 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_gold_paving_trial/border_ne.png" id="border_ne"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_gold_paving_trial/border_nw.png" id="border_nw"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_gold_paving_trial/border_se.png" id="border_se"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_gold_paving_trial/border_sw.png" id="border_sw"]
+
+[node name="GoldBorderTrial" type="Node2D"]
+z_index = -19
+y_sort_enabled = true
+
+[node name="Border_048_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(448, 1760)
+texture = ExtResource("border_ne")
+
+[node name="Border_048_067" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(608, 1840)
+texture = ExtResource("border_se")
+
+[node name="Border_049_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(416, 1776)
+texture = ExtResource("border_nw")
+
+[node name="Border_049_067" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(576, 1856)
+texture = ExtResource("border_se")
+
+[node name="Border_050_061" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(352, 1776)
+texture = ExtResource("border_ne")
+
+[node name="Border_050_067" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(544, 1872)
+texture = ExtResource("border_sw")
+
+[node name="Border_051_061" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(320, 1792)
+texture = ExtResource("border_nw")
+
+[node name="Border_051_066" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(480, 1872)
+texture = ExtResource("border_se")
+
+[node name="Border_052_061" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(288, 1808)
+texture = ExtResource("border_nw")
+
+[node name="Border_052_066" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(448, 1888)
+texture = ExtResource("border_sw")
+
+[node name="Border_053_060" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(224, 1808)
+texture = ExtResource("border_ne")
+
+[node name="Border_053_065" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(384, 1888)
+texture = ExtResource("border_se")
+
+[node name="Border_054_060" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(192, 1824)
+texture = ExtResource("border_nw")
+
+[node name="Border_054_065" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(352, 1904)
+texture = ExtResource("border_sw")
+
+[node name="Border_055_059" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(128, 1824)
+texture = ExtResource("border_ne")
+
+[node name="Border_055_064" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(288, 1904)
+texture = ExtResource("border_se")
+
+[node name="Border_056_059" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(96, 1840)
+texture = ExtResource("border_nw")
+
+[node name="Border_056_064" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(256, 1920)
+texture = ExtResource("border_sw")
+
+[node name="Border_057_034" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 1456)
+texture = ExtResource("border_ne")
+
+[node name="Border_057_058" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(32, 1840)
+texture = ExtResource("border_ne")
+
+[node name="Border_057_063" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(192, 1920)
+texture = ExtResource("border_se")
+
+[node name="Border_058_035" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 1488)
+texture = ExtResource("border_ne")
+
+[node name="Border_058_058" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(0, 1856)
+texture = ExtResource("border_nw")
+
+[node name="Border_058_063" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(160, 1936)
+texture = ExtResource("border_se")
+
+[node name="Border_059_036" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 1520)
+texture = ExtResource("border_ne")
+
+[node name="Border_059_057" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-64, 1856)
+texture = ExtResource("border_ne")
+
+[node name="Border_059_063" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(128, 1952)
+texture = ExtResource("border_sw")
+
+[node name="Border_060_037" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 1552)
+texture = ExtResource("border_ne")
+
+[node name="Border_060_057" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-96, 1872)
+texture = ExtResource("border_nw")
+
+[node name="Border_060_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(64, 1952)
+texture = ExtResource("border_se")
+
+[node name="Border_061_038" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 1584)
+texture = ExtResource("border_ne")
+
+[node name="Border_061_056" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-160, 1872)
+texture = ExtResource("border_ne")
+
+[node name="Border_061_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(32, 1968)
+texture = ExtResource("border_sw")
+
+[node name="Border_062_039" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 1616)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_043" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-608, 1680)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_044" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-576, 1696)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_045" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-544, 1712)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_046" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-512, 1728)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_047" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-480, 1744)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_048" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-448, 1760)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-416, 1776)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_050" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-384, 1792)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_051" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-352, 1808)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_052" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-320, 1824)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_053" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-288, 1840)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-256, 1856)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_055" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-224, 1872)
+texture = ExtResource("border_ne")
+
+[node name="Border_062_061" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-32, 1968)
+texture = ExtResource("border_se")
+
+[node name="Border_063_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 1648)
+texture = ExtResource("border_ne")
+
+[node name="Border_063_042" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-672, 1680)
+texture = ExtResource("border_ne")
+
+[node name="Border_063_061" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-64, 1984)
+texture = ExtResource("border_se")
+
+[node name="Border_064_041" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 1680)
+texture = ExtResource("border_ne")
+
+[node name="Border_064_061" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-96, 2000)
+texture = ExtResource("border_se")
+
+[node name="Border_064_068" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(128, 2112)
+texture = ExtResource("border_ne")
+
+[node name="Border_065_034" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-992, 1584)
+texture = ExtResource("border_nw")
+
+[node name="Border_065_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-96, 2032)
+texture = ExtResource("border_ne")
+
+[node name="Border_065_066" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(32, 2096)
+texture = ExtResource("border_ne")
+
+[node name="Border_065_067" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(64, 2112)
+texture = ExtResource("border_ne")
+
+[node name="Border_066_035" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-992, 1616)
+texture = ExtResource("border_nw")
+
+[node name="Border_066_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-128, 2048)
+texture = ExtResource("border_se")
+
+[node name="Border_066_065" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-32, 2096)
+texture = ExtResource("border_ne")
+
+[node name="Border_067_036" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-992, 1648)
+texture = ExtResource("border_nw")
+
+[node name="Border_067_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-160, 2064)
+texture = ExtResource("border_se")
+
+[node name="Border_067_064" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-96, 2096)
+texture = ExtResource("border_ne")
+
+[node name="Border_068_037" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-992, 1680)
+texture = ExtResource("border_nw")
+
+[node name="Border_068_063" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-160, 2096)
+texture = ExtResource("border_ne")
+
+[node name="Border_069_038" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-992, 1712)
+texture = ExtResource("border_nw")
+
+[node name="Border_070_039" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-992, 1744)
+texture = ExtResource("border_nw")
+
+[node name="Border_070_068" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-64, 2208)
+texture = ExtResource("border_sw")
+
+[node name="Border_071_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-992, 1776)
+texture = ExtResource("border_nw")
+
+[node name="Border_071_066" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-160, 2192)
+texture = ExtResource("border_sw")
+
+[node name="Border_071_067" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-128, 2208)
+texture = ExtResource("border_sw")
+
+[node name="Border_072_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1024, 1792)
+texture = ExtResource("border_nw")
+
+[node name="Border_072_065" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-224, 2192)
+texture = ExtResource("border_sw")
+
+[node name="Border_073_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1056, 1808)
+texture = ExtResource("border_nw")
+
+[node name="Border_073_063" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-320, 2176)
+texture = ExtResource("border_sw")
+
+[node name="Border_073_064" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-288, 2192)
+texture = ExtResource("border_sw")
+
+[node name="Border_074_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1088, 1824)
+texture = ExtResource("border_nw")
+
+[node name="Border_074_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-384, 2176)
+texture = ExtResource("border_se")
+
+[node name="Border_075_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1120, 1840)
+texture = ExtResource("border_nw")
+
+[node name="Border_075_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-416, 2192)
+texture = ExtResource("border_se")
+
+[node name="Border_076_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1152, 1856)
+texture = ExtResource("border_nw")
+
+[node name="Border_076_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-448, 2208)
+texture = ExtResource("border_se")
+
+[node name="Border_077_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1184, 1872)
+texture = ExtResource("border_nw")
+
+[node name="Border_077_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-480, 2224)
+texture = ExtResource("border_se")
+
+[node name="Border_078_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1216, 1888)
+texture = ExtResource("border_nw")
+
+[node name="Border_078_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-512, 2240)
+texture = ExtResource("border_se")
+
+[node name="Border_079_040" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1248, 1904)
+texture = ExtResource("border_nw")
+
+[node name="Border_079_062" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-544, 2256)
+texture = ExtResource("border_sw")
+
+[node name="Border_080_041" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1248, 1936)
+texture = ExtResource("border_nw")
+
+[node name="Border_080_061" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-608, 2256)
+texture = ExtResource("border_sw")
+
+[node name="Border_081_042" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1248, 1968)
+texture = ExtResource("border_nw")
+
+[node name="Border_081_060" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-672, 2256)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_043" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1248, 2000)
+texture = ExtResource("border_nw")
+
+[node name="Border_082_044" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1216, 2016)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_045" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1184, 2032)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_046" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1152, 2048)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_047" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1120, 2064)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_048" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1088, 2080)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_055" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-864, 2192)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_056" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-832, 2208)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_057" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-800, 2224)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_058" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-768, 2240)
+texture = ExtResource("border_sw")
+
+[node name="Border_082_059" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-736, 2256)
+texture = ExtResource("border_sw")
+
+[node name="Border_083_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1088, 2112)
+texture = ExtResource("border_nw")
+
+[node name="Border_083_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-928, 2192)
+texture = ExtResource("border_se")
+
+[node name="Border_084_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1120, 2128)
+texture = ExtResource("border_nw")
+
+[node name="Border_084_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-960, 2208)
+texture = ExtResource("border_se")
+
+[node name="Border_085_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1152, 2144)
+texture = ExtResource("border_nw")
+
+[node name="Border_085_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-992, 2224)
+texture = ExtResource("border_se")
+
+[node name="Border_086_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1184, 2160)
+texture = ExtResource("border_nw")
+
+[node name="Border_086_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1024, 2240)
+texture = ExtResource("border_se")
+
+[node name="Border_087_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1216, 2176)
+texture = ExtResource("border_nw")
+
+[node name="Border_087_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1056, 2256)
+texture = ExtResource("border_se")
+
+[node name="Border_088_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1248, 2192)
+texture = ExtResource("border_nw")
+
+[node name="Border_088_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1088, 2272)
+texture = ExtResource("border_se")
+
+[node name="Border_089_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1280, 2208)
+texture = ExtResource("border_nw")
+
+[node name="Border_089_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1120, 2288)
+texture = ExtResource("border_se")
+
+[node name="Border_090_049" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1312, 2224)
+texture = ExtResource("border_nw")
+
+[node name="Border_090_054" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+position = Vector2(-1152, 2304)
+texture = ExtResource("border_se")

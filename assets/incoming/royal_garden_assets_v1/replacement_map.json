@@ -1,0 +1,16 @@
+{
+  "pack": "Reverie Royal Garden Assets v1",
+  "replacement_count": 9,
+  "backup_directory": "C:/Users/quoth/Documents/Reverie_Backups/royal_garden_asset_replacements_20261119",
+  "replacements": [
+    {"scene":"Royal_Gardens/Decorations/lamp_post_gold.tscn","target":"Royal_Gardens/Decorations/lamp_post_gold.png","source":"sprites/props/lamp_ornate.png","sprite_offset":[32,96],"size":[64,96]},
+    {"scene":"Royal_Gardens/Decorations/bench_stone_x.tscn","target":"Royal_Gardens/Decorations/bench_stone_x.png","source":"sprites/structures/bench_stone_rose.png","sprite_offset":[48,96],"size":[96,96]},
+    {"scene":"Royal_Gardens/Decorations/fountain_small_1x1.tscn","target":"Royal_Gardens/Decorations/fountain_small_1x1.png","source":"sprites/structures/fountain_small.png","sprite_offset":[48,96],"size":[96,96]},
+    {"scene":"Royal_Gardens/Decorations/banner_royal_01.tscn","target":"Royal_Gardens/Decorations/banner_royal_01.png","source":"sprites/structures/royal_banner.png","sprite_offset":[32,96],"size":[64,96]},
+    {"scene":"Royal_Gardens/Decorations/flower_pot_01.tscn","target":"Royal_Gardens/Decorations/flower_pot_01.png","source":"sprites/flora/planter_rose.png","sprite_offset":[32,64],"size":[64,64]},
+    {"scene":"Royal_Gardens/Vegetation/rose_bush_01.tscn","target":"Royal_Gardens/Vegetation/rose_bush_01.png","source":"sprites/flora/flower_cluster_rose.png","sprite_offset":[32,64],"size":[64,64]},
+    {"scene":"Royal_Gardens/Vegetation/hedge_corner_1x1.tscn","target":"Royal_Gardens/Vegetation/hedge_corner_1x1.png","source":"sprites/structures/hedge_corner.png","sprite_offset":[48,96],"size":[96,96]},
+    {"scene":"Royal_Gardens/Vegetation/hedge_x_2x1.tscn","target":"Royal_Gardens/Vegetation/hedge_x_2x1.png","source":"sprites/structures/hedge_straight.png","sprite_offset":[48,96],"size":[96,96]},
+    {"scene":"Royal_Gardens/Vegetation/tree_topiary_cone.tscn","target":"Royal_Gardens/Vegetation/tree_topiary_cone.png","source":"sprites/flora/topiary_cypress.png","sprite_offset":[32,96],"size":[64,96]}
+  ]
+}

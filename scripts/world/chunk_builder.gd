@@ -298,6 +298,12 @@ static func _valid_kinds() -> Dictionary:
 	return _valid_kind_set
 
 
+## Release process-wide cached resources during deterministic test shutdown.
+static func clear_runtime_cache() -> void:
+	_detail_material = null
+	_valid_kind_set.clear()
+
+
 static func _detail_material_cached() -> ShaderMaterial:
 	if _detail_material == null:
 		var material := ShaderMaterial.new()

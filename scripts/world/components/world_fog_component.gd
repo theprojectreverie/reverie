@@ -6,9 +6,16 @@ var fog_material: ShaderMaterial
 var quad: Sprite2D
 var enabled: bool = true
 var density_scale: float = 1.0
+var visual_fog_enabled: bool = true
 
 
-func configure(initial_position: Vector2, fog_size: Vector2, initial_color: Color, initial_density: float, enabled: bool) -> void:
+func configure(initial_position: Vector2, fog_size: Vector2, initial_color: Color, initial_density: float, enabled: bool, enable_visual_fog: bool = true) -> void:
+	visual_fog_enabled = enable_visual_fog
+	if not visual_fog_enabled:
+		quad = get_node_or_null("FogQuad") as Sprite2D
+		if quad != null:
+			quad.visible = false
+		return
 	fog_material = ShaderMaterial.new()
 	fog_material.shader = load("res://resources/shaders/fog.gdshader")
 	apply_appearance(initial_color, initial_density)
@@ -28,7 +35,7 @@ func configure(initial_position: Vector2, fog_size: Vector2, initial_color: Colo
 
 
 func set_enabled(value: bool) -> void:
-	enabled = value
+	enabled = value and visual_fog_enabled
 	if quad != null:
 		quad.visible = enabled
 

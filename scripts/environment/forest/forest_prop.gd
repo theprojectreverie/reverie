@@ -21,6 +21,21 @@ extends Node2D
 var _wind_material: Material
 var _glow_activity: float = 1.0
 
+const AUTHORED_PROP_ART := {
+	"fern": preload("res://assets/environment/greenward/fern.svg"),
+	"flower_cluster": preload("res://assets/environment/greenward/wildflower_patch.svg"),
+	"bush": preload("res://assets/environment/greenward/forest_shrub.svg"),
+	"berry_bush": preload("res://assets/environment/greenward/forest_shrub.svg"),
+	"moss_rock": preload("res://assets/environment/greenward/moss_rock.svg"),
+	"spirit_bloom": preload("res://assets/environment/moonpetal/spirit_bloom.svg"),
+	"moon_lantern": preload("res://assets/environment/moonpetal/moon_lantern.svg"),
+	"willow_tree": preload("res://assets/environment/greenward/willow_tree.svg"),
+	"pine_tree": preload("res://assets/environment/greenward/pine_tree.svg"),
+	"birch_tree": preload("res://assets/environment/moonpetal/silver_birch.svg"),
+	"blossom_tree": preload("res://assets/environment/greenward/blossom_tree.svg"),
+	"dead_tree": preload("res://assets/environment/greenward/dead_tree.svg"),
+}
+
 
 func _ready() -> void:
 	_apply_visual()
@@ -55,9 +70,15 @@ func set_glow_activity(value: float) -> void:
 func _apply_visual() -> void:
 	if visual == null:
 		return
-	var texture := ProceduralArt.prop_texture(prop_kind, variant)
+	var texture := AUTHORED_PROP_ART.get(prop_kind) as Texture2D
 	if texture == null:
+		visual.texture = null
+		visual.visible = false
+		if shadow != null:
+			shadow.texture = null
+			shadow.visible = false
 		return
+	visual.visible = true
 	visual.texture = texture
 	visual.centered = false
 	visual.offset = Vector2(-float(texture.get_width()) * 0.5, -float(texture.get_height()) + 6.0)

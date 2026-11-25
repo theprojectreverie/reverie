@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://b4kj2asrdj808"]
+
+[ext_resource type="Texture2D" uid="uid://c6ql8bi7wcw06" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/decorative_floor_01.png" id="1_floor"]
+[ext_resource type="Texture2D" uid="uid://dn2y8pp0udr8d" path="res://assets/reverie_pack_v01/Royal_Gardens/Vegetation/tree_oak_01.png" id="2_tree"]
+[ext_resource type="Texture2D" uid="uid://batbicvkyodxj" path="res://assets/reverie_pack_v01/Royal_Gardens/Decorations/lamp_post_arcane.png" id="3_lamp"]
+[ext_resource type="Texture2D" uid="uid://b0cplcaifeawc" path="res://assets/reverie_pack_v01/Royal_Gardens/Vegetation/rose_bush_01.png" id="4_rose"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(1520, 24)
+
+[node name="TutorialArenaEnvironment" type="Node2D" unique_id=1980681201]
+
+[node name="Floor" type="Sprite2D" parent="." unique_id=1104229239]
+z_index = -20
+texture_repeat = 2
+position = Vector2(56, 32)
+texture = ExtResource("1_floor")
+region_enabled = true
+region_rect = Rect2(0, 0, 2048, 1024)
+
+[node name="NorthTree" type="Sprite2D" parent="." unique_id=1945151664]
+z_index = -2
+position = Vector2(-490, -310)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("2_tree")
+
+[node name="SouthTree" type="Sprite2D" parent="." unique_id=763785967]
+z_index = -2
+position = Vector2(510, 290)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_tree")
+
+[node name="WestArcaneLamp" type="Sprite2D" parent="." unique_id=731352660]
+position = Vector2(-625, 40)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("3_lamp")
+
+[node name="EastArcaneLamp" type="Sprite2D" parent="." unique_id=1092722286]
+position = Vector2(625, -40)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("3_lamp")
+
+[node name="RoseBedNorth" type="Sprite2D" parent="." unique_id=164744949]
+position = Vector2(-240, -340)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_rose")
+
+[node name="RoseBedSouth" type="Sprite2D" parent="." unique_id=1040619679]
+position = Vector2(260, 340)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_rose")
+
+[node name="ArenaBounds" type="Node2D" parent="." unique_id=902932898]
+
+[node name="NorthWall" type="StaticBody2D" parent="ArenaBounds" unique_id=2130849543]
+position = Vector2(0, -470)
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="ArenaBounds/NorthWall" unique_id=296431958]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="SouthWall" type="StaticBody2D" parent="ArenaBounds" unique_id=104859963]
+position = Vector2(0, 470)
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="ArenaBounds/SouthWall" unique_id=866855000]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="WestWall" type="StaticBody2D" parent="ArenaBounds" unique_id=2034224473]
+position = Vector2(-760, 0)
+rotation = 1.5708
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="ArenaBounds/WestWall" unique_id=1374127069]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="EastWall" type="StaticBody2D" parent="ArenaBounds" unique_id=1737028111]
+position = Vector2(760, 0)
+rotation = 1.5708
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="ArenaBounds/EastWall" unique_id=885494273]
+shape = SubResource("RectangleShape2D_wall")

@@ -1,0 +1,201 @@
+﻿[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/kael_combat_effects.gd" id="1"]
+
+[sub_resource type="Animation" id="idle"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0, 1, 2), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.24), Color(1, 1, 1, 0.48), Color(1, 1, 1, 0.24)]}
+
+[sub_resource type="Animation" id="walk"]
+resource_name = "walk"
+length = 0.32
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.16, 0.32), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.22), Color(1, 1, 1, 0.62), Color(1, 1, 1, 0.22)]}
+
+[sub_resource type="Animation" id="run"]
+resource_name = "run"
+length = 0.24
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.12, 0.24), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.3), Color(1, 1, 1, 0.9), Color(1, 1, 1, 0.3)]}
+
+[sub_resource type="Animation" id="attack"]
+resource_name = "attack"
+length = 0.42
+tracks/0/type = "value"
+tracks/0/path = NodePath("SlashTrail:visible")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.08, 0.34, 0.42), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 1, "values": [false, true, true, false]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SlashTrail:modulate")
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.08, 0.2, 0.34, 0.42), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.3), Color(1, 1, 1, 1), Color(1, 1, 1, 0.45), Color(1, 1, 1, 0)]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ImpactRing:scale")
+tracks/2/keys = {"times": PackedFloat32Array(0, 0.2, 0.3, 0.42), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 0, "values": [Vector2(0.3, 0.3), Vector2(0.3, 0.3), Vector2(1.8, 1.8), Vector2(2.4, 2.4)]}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ImpactRing:visible")
+tracks/3/keys = {"times": PackedFloat32Array(0, 0.2, 0.42), "transitions": PackedFloat32Array(1, 1, 1), "update": 1, "values": [false, true, false]}
+
+[sub_resource type="Animation" id="cast"]
+resource_name = "cast"
+length = 0.64
+tracks/0/type = "value"
+tracks/0/path = NodePath("CastRing:scale")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.28, 0.52, 0.64), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 0, "values": [Vector2(0.2, 0.2), Vector2(0.75, 0.75), Vector2(1.7, 1.7), Vector2(2.1, 2.1)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CastRing:modulate")
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.28, 0.52, 0.64), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.15), Color(1, 1, 1, 0.72), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EruptionCenter:scale")
+tracks/2/keys = {"times": PackedFloat32Array(0, 0.38, 0.52, 0.64), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 0, "values": [Vector2(0.4, 0.2), Vector2(0.4, 0.2), Vector2(1, 1.4), Vector2(1.2, 1.7)]}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CastRing:visible")
+tracks/3/keys = {"times": PackedFloat32Array(0, 0.08, 0.62, 0.64), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 1, "values": [false, true, true, false]}
+tracks/4/type = "value"
+tracks/4/path = NodePath("EruptionCenter:visible")
+tracks/4/keys = {"times": PackedFloat32Array(0, 0.38, 0.62, 0.64), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 1, "values": [false, true, true, false]}
+
+[sub_resource type="Animation" id="damage"]
+resource_name = "damage"
+length = 0.18
+tracks/0/type = "value"
+tracks/0/path = NodePath("ImpactRing:scale")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.08, 0.18), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(0.2, 0.2), Vector2(1.4, 1.4), Vector2(2, 2)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ImpactRing:visible")
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.18), "transitions": PackedFloat32Array(1, 1), "update": 1, "values": [true, false]}
+
+[sub_resource type="Animation" id="victory"]
+resource_name = "victory"
+length = 0.72
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("AuraHalo:scale")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.36, 0.72), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(0.82, 0.82), Vector2(1.16, 1.16), Vector2(0.82, 0.82)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AuraHalo:visible")
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.72), "transitions": PackedFloat32Array(1, 1), "update": 1, "values": [true, false]}
+
+[sub_resource type="Animation" id="interact"]
+resource_name = "interact"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("AuraHalo:scale")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.25, 0.5), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(0.7, 0.7), Vector2(1, 1), Vector2(0.7, 0.7)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AuraHalo:visible")
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.5), "transitions": PackedFloat32Array(1, 1), "update": 1, "values": [true, false]}
+
+[sub_resource type="Animation" id="defeat"]
+resource_name = "defeat"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.6), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Color(1, 1, 1, 0.5), Color(1, 1, 1, 0)]}
+
+[sub_resource type="AnimationLibrary" id="KaelAnimationLibrary"]
+_data = {
+&"idle": SubResource("idle"),
+&"walk": SubResource("walk"),
+&"run": SubResource("run"),
+&"attack": SubResource("attack"),
+&"cast": SubResource("cast"),
+&"damage": SubResource("damage"),
+&"victory": SubResource("victory"),
+&"interact": SubResource("interact"),
+&"defeat": SubResource("defeat")
+}
+
+[node name="KaelCombatEffects" type="Node2D"]
+script = ExtResource("1")
+modulate = Color(1, 1, 1, 0.4)
+
+[node name="SlashTrail" type="Line2D" parent="."]
+position = Vector2(20, -43)
+points = PackedVector2Array(18, -32, 27, -25, 33, -14, 31, -2, 23, 9, 12, 16)
+width = 5.0
+default_color = Color(1, 0.12, 0.3, 1)
+visible = false
+
+[node name="ImpactRing" type="Line2D" parent="."]
+visible = false
+position = Vector2(0, -35)
+points = PackedVector2Array(0, -12, 8, -8, 12, 0, 8, 8, 0, 12, -8, 8, -12, 0, -8, -8, 0, -12)
+width = 2.2
+default_color = Color(1, 0.35, 0.5, 0.8)
+
+[node name="CastRing" type="Line2D" parent="."]
+visible = false
+position = Vector2(0, -2)
+points = PackedVector2Array(0, -29, 20, -20, 29, 0, 20, 20, 0, 29, -20, 20, -29, 0, -20, -20, 0, -29)
+width = 2.4
+default_color = Color(1, 0.18, 0.38, 0.9)
+
+[node name="EruptionCenter" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+polygon = PackedVector2Array(-9, 0, -3, -38, 1, -17, 7, -48, 11, 0)
+color = Color(1, 0.12, 0.28, 0.95)
+
+[node name="AuraHalo" type="Line2D" parent="."]
+visible = false
+position = Vector2(0, -45)
+points = PackedVector2Array(0, -42, 28, -28, 42, 0, 28, 28, 0, 42, -28, 28, -42, 0, -28, -28, 0, -42)
+width = 2.0
+default_color = Color(1, 0.2, 0.38, 0.8)
+
+[node name="SlashSparks" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 18
+lifetime = 0.36
+one_shot = true
+explosiveness = 0.92
+direction = Vector2(1, 0)
+spread = 130.0
+gravity = Vector2(0, 30)
+initial_velocity_min = 48.0
+initial_velocity_max = 142.0
+scale_amount_min = 0.8
+scale_amount_max = 1.7
+color = Color(1, 0.22, 0.38, 0.96)
+
+[node name="ImpactSparks" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 24
+lifetime = 0.34
+one_shot = true
+explosiveness = 0.96
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 110)
+initial_velocity_min = 55.0
+initial_velocity_max = 170.0
+scale_amount_min = 0.7
+scale_amount_max = 1.5
+color = Color(1, 0.42, 0.55, 0.98)
+
+[node name="CastEmbers" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 28
+lifetime = 0.7
+one_shot = true
+explosiveness = 0.84
+direction = Vector2(0, -1)
+spread = 120.0
+gravity = Vector2(0, 16)
+initial_velocity_min = 22.0
+initial_velocity_max = 96.0
+scale_amount_min = 0.7
+scale_amount_max = 1.6
+color = Color(1, 0.18, 0.36, 0.92)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("KaelAnimationLibrary")
+}

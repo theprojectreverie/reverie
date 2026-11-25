@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/ornate_stone_bench.png" id="1_bench"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/bench_stone_rose.png" id="1_bench"]
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/robed_guardian_statue.png" id="2_statue"]
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/royal_banner.png" id="3_banner"]
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/royal_lantern_post.png" id="4_lantern"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/royal_banner.png" id="3_banner"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/props/lamp_ornate.png" id="4_lantern"]
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/flower_bench.png" id="5_flower_bench"]
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/gothic_archway.png" id="6_arch"]
 
@@ -11,6 +11,7 @@
 y_sort_enabled = true
 
 [node name="EntranceArchitecture" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 
 [node name="WestGothicArch" type="Sprite2D" parent="EntranceArchitecture"]
@@ -91,7 +92,7 @@ position = Vector2(800, 1010)
 flip_h = true
 
 [node name="SecondaryGardenFurnishings" type="Node2D" parent="."]
-visible = true
+visible = false
 y_sort_enabled = true
 
 [node name="LanternWestPromenadeNorth" type="Sprite2D" parent="SecondaryGardenFurnishings"]

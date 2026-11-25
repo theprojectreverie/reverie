@@ -21,6 +21,7 @@ var _main: HBoxContainer
 var _selected_banner: String = ""
 var _results_layer: Control
 var _summon_busy: bool = false
+var _previous_music := ""
 
 # Summon presentation state. Featured portrait assets are resolved by the
 # banner content component; missing optional portraits retain the safe fallback.
@@ -46,6 +47,7 @@ func _ready() -> void:
 		push_error("GachaScreen requires its authored SummoningChamberAtmosphere scene.")
 		return
 	atmosphere.z_index = -1
+	_previous_music = AudioDirector.begin_screen_music("summoning")
 	# OverlayScreen normally dims the whole scene and places an opaque glass
 	# panel over it. Summoning is a full-scene destination: soften that dimmer
 	# and turn the shell panel into translucent glass so the chamber is visible.
@@ -69,10 +71,22 @@ func _ready() -> void:
 	var backdrop := get_node_or_null("SummoningChamberIllustration") as TextureRect
 	if backdrop != null:
 		backdrop.visible = backdrop.texture != null
+	if not EventBus.currency_changed.is_connected(_on_wallet_changed):
+		EventBus.currency_changed.connect(_on_wallet_changed)
 
 
+func _exit_tree() -> void:
+	AudioDirector.end_screen_music("summoning", _previous_music)
+	if EventBus.currency_changed.is_connected(_on_wallet_changed):
+		EventBus.currency_changed.disconnect(_on_wallet_changed)
+	AudioDirector.stop_summon_ritual_ambience()
 
 
+func _on_wallet_changed() -> void:
+	# Refresh affordability and displayed balances when rewards arrive while
+	# this screen is open. A summon itself refreshes after its reveal completes.
+	if not _summon_busy and is_inside_tree() and _tabs != null:
+		_refresh()
 
 
 func _init() -> void:
@@ -85,7 +99,13 @@ func _input(event: InputEvent) -> void:
 	if _closing or event.is_echo():
 		return
 	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("open_menu"):
-		close_screen()
+		if _results_layer is SummonRevealOverlay:
+			_results_layer.skip_all()
+		elif _results_layer != null and is_instance_valid(_results_layer):
+			_results_layer.queue_free()
+			_results_layer = null
+		elif not _summon_busy:
+			close_screen()
 		var viewport := get_viewport()
 		if viewport != null:
 			viewport.set_input_as_handled()

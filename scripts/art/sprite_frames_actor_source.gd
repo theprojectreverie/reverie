@@ -85,6 +85,25 @@ static func register_playable(character_id: String) -> ActorFrameSource:
 	return register_character(character_id)
 
 
+## Enemy-only art lookup. Kept separate from the playable-character roster so
+## enemy IDs can never accidentally resolve to a protagonist's artwork.
+## Expected production resource: res://assets/enemies/<id>/world_sheet.tres.
+static func from_enemy(enemy_id: String) -> ActorFrameSource:
+	return _from_sheet_paths(enemy_id,
+		"res://assets/enemies/%s/world_sheet.tres" % enemy_id,
+		"res://assets/enemies/%s/world_sheet.png" % enemy_id)
+
+
+## Enemy registration follows the same strict 72-animation validation gate.
+## Incomplete/missing enemy art is returned as an unavailable source so the
+## caller retains its existing procedural fallback.
+static func register_enemy(enemy_id: String) -> ActorFrameSource:
+	var src: ActorFrameSource = from_enemy(enemy_id)
+	if src != null and src.has_frames() and src.validate_sheets().is_empty():
+		return src
+	return src
+
+
 static func _from_sheet_paths(character_id: String, tres: String, png: String) -> ActorFrameSource:
 	# Instantiate via a RUNTIME load() of this script rather than
 	# `SpriteFramesActorSource.new()`, and type against the BASE class. A static
@@ -156,7 +175,10 @@ func build_from_textures(palette: Dictionary) -> void:
 # -------------------------------------------------------- ActorFrameSource API
 
 func has_frames() -> bool:
-	return sprite_frames != null and sprite_frames.has_animation(_anim(0, 0))
+	# A single idle animation is not a production sheet. Expose frames only
+	# after the complete 9-state x 8-direction contract validates; otherwise
+	# ActorVisual must retain its procedural fallback for every state/direction.
+	return sprite_frames != null and validate_sheets().is_empty()
 
 
 ## FALSE only when a real disk-backed SpriteFrames is loaded.
@@ -242,28 +264,46 @@ func validate_sheets() -> Array[String]:
 		return errors
 	var width := int(GreenwardStyle.SPRITE_SPECS["world_width"])
 	var height := int(GreenwardStyle.SPRITE_SPECS["world_height"])
+	var expected_animation_count := CharacterAnimator.EXTENDED_STATES.size() * CharacterAnimator.ALL_DIRECTIONS.size()
+	var actual_animation_count := sprite_frames.get_animation_names().size()
+	if actual_animation_count != expected_animation_count:
+		errors.append("sheet has %d animations, expected exactly %d" % [actual_animation_count, expected_animation_count])
 	for raw_s in CharacterAnimator.EXTENDED_STATES:
 		var s := int(raw_s)
 		var expected_frames := CharacterAnimator.frame_count_for(s)
+		var expected_fps := CharacterAnimator.fps_for(s)
 		var expected_loop := CharacterAnimator.looping_for(s)
+		if character_id == "kael" and s in [4, 5]:
+			expected_frames = 8 if s == 4 else 4
+			expected_fps = 12.0
+		if character_id == "kael" and s == 0:
+			expected_fps = 6.0
 		for raw_d in CharacterAnimator.ALL_DIRECTIONS:
 			var d := int(raw_d)
+			var animation_expected_frames := expected_frames
 			var anim := _anim(s, d)
 			var label := _anim_name(s, d)
 			if not sprite_frames.has_animation(anim):
 				errors.append("missing animation '%s'" % label)
 				continue
 			var count := sprite_frames.get_frame_count(anim)
-			if count != expected_frames:
-				errors.append("animation '%s' has %d frames, expected %d" % [label, count, expected_frames])
+			if count != animation_expected_frames:
+				errors.append("animation '%s' has %d frames, expected %d" % [label, count, animation_expected_frames])
+			var actual_fps := sprite_frames.get_animation_speed(anim)
+			if not is_equal_approx(actual_fps, expected_fps):
+				errors.append("animation '%s' runs at %.3f FPS, expected %.3f FPS" % [label, actual_fps, expected_fps])
 			if sprite_frames.get_animation_loop(anim) != expected_loop:
 				errors.append("animation '%s' loop=%s, expected %s" % [label, str(sprite_frames.get_animation_loop(anim)), str(expected_loop)])
 			for i in count:
 				var tex := sprite_frames.get_frame_texture(anim, i)
 				if tex == null:
 					errors.append("animation '%s' frame %d is null" % [label, i])
-				elif tex.get_width() != width or tex.get_height() != height:
-					errors.append("animation '%s' frame %d is %dx%d, expected %dx%d" % [label, i, tex.get_width(), tex.get_height(), width, height])
+				else:
+					# Every production actor frame uses the shared 96x128 world canvas.
+					var frame_width := 128 if character_id == "kael" and s in [0, 4, 5] else width
+					var frame_height := height
+					if tex.get_width() != frame_width or tex.get_height() != frame_height:
+						errors.append("animation '%s' frame %d is %dx%d, expected %dx%d" % [label, i, tex.get_width(), tex.get_height(), frame_width, frame_height])
 	return errors
 
 
@@ -347,6 +387,36 @@ static func validation_report(character_id: String) -> Dictionary:
 		"disk_present": disk_present,
 		"has_frames": has_frames,
 		"validation_errors": validation_errors,
+		"registered": registered,
+		"fallback_active": not registered,
+		"animation_count": animation_count,
+	}
+
+
+## Machine-readable status for an enemy's dedicated art folder. Does not
+## consult CharacterAssetRegistry or MainCharacterRoster.
+static func enemy_validation_report(enemy_id: String) -> Dictionary:
+	var tres := "res://assets/enemies/%s/world_sheet.tres" % enemy_id
+	var png := "res://assets/enemies/%s/world_sheet.png" % enemy_id
+	var src: ActorFrameSource = from_enemy(enemy_id)
+	var errors: Array[String] = ["no enemy sprite sheet registered"]
+	var has_frames := false
+	var animation_count := 0
+	if src != null:
+		has_frames = src.has_frames()
+		errors = src.validate_sheets()
+		if src.has_method("load_report"):
+			var rep: Variant = src.call("load_report")
+			if rep is Dictionary:
+				animation_count = int((rep as Dictionary).get("animation_count", 0))
+	var registered := has_frames and errors.is_empty()
+	return {
+		"enemy_id": enemy_id,
+		"expected_tres": tres,
+		"expected_png": png,
+		"disk_present": _disk_asset_present(tres) or _disk_asset_present(png),
+		"has_frames": has_frames,
+		"validation_errors": errors,
 		"registered": registered,
 		"fallback_active": not registered,
 		"animation_count": animation_count,

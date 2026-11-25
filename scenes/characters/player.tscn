@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/characters/actor_visual.tscn" id="2_visual"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://scripts/characters/components/player_locomotion_component.gd" id="11_locomotion"]
 [ext_resource type="Script" path="res://scripts/characters/components/player_avatar_component.gd" id="12_avatar"]
 [ext_resource type="Script" path="res://scripts/characters/components/player_presentation_component.gd" id="13_presentation"]
+
+[ext_resource type="Script" path="res://scripts/characters/components/player_world_combat.gd" id="14_world_combat"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -45,3 +47,6 @@ script = ExtResource("12_avatar")
 
 [node name="PresentationComponent" type="Node" parent="."]
 script = ExtResource("13_presentation")
+
+[node name="WorldCombatComponent" type="Node" parent="."]
+script = ExtResource("14_world_combat")

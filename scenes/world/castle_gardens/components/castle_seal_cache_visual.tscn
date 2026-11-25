@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Decorations/urn_stone_01.png" id="1_urn"]
+[ext_resource type="Texture2D" path="res://assets/castle_pack_v02/effects/shadow_blob_64.png" id="2_shadow"]
+[ext_resource type="Texture2D" path="res://assets/castle_pack_v02/effects/glow_warm.png" id="3_glow"]
+
+[sub_resource type="Animation" id="Animation_glow_pulse"]
+resource_name = "glow_pulse"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SealGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 1, 2), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 0.78, 0.42, 0.22), Color(1, 0.86, 0.58, 0.62), Color(1, 0.78, 0.42, 0.22)]}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SealGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 1, 2), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(0.34, 0.34), Vector2(0.43, 0.43), Vector2(0.34, 0.34)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cache"]
+_data = {"glow_pulse": SubResource("Animation_glow_pulse")}
+
+[node name="CastleSealCacheVisual" type="Node2D"]
+
+[node name="ContactShadow" type="Sprite2D" parent="."]
+texture_filter = 1
+z_index = -1
+centered = false
+offset = Vector2(-32, -16)
+modulate = Color(1, 1, 1, 0.32)
+texture = ExtResource("2_shadow")
+
+[node name="CacheUrn" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+offset = Vector2(15, 36)
+texture = ExtResource("1_urn")
+
+[node name="SealGlow" type="Sprite2D" parent="."]
+texture = ExtResource("3_glow")
+position = Vector2(0, -24)
+z_index = 1
+modulate = Color(1, 0.78, 0.42, 0.22)
+scale = Vector2(0.34, 0.34)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {"": SubResource("AnimationLibrary_cache")}
+autoplay = "glow_pulse"

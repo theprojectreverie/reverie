@@ -141,6 +141,7 @@ position = Vector2(864, 1854)
 [node name="TowerLandmark" type="Node2D" parent="."]
 position = Vector2(864, 1910)
 y_sort_enabled = true
+metadata/region_id = "ruined_tower"
 
 [node name="RuinedTowerBody" parent="TowerLandmark" instance=ExtResource("7")]
 position = Vector2(0, 0)

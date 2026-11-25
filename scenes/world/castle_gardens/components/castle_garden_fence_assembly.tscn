@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=24 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Architecture/royal_fence_x_2x1.png" id="1_fx"]
 [ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Architecture/royal_fence_y_1x2.png" id="2_fy"]
@@ -29,10 +29,28 @@ atlas = ExtResource("4_generated")
 region = Rect2(32, 32, 32, 32)
 
 
+[sub_resource type="RectangleShape2D" id="NorthWestFenceCollision"]
+size = Vector2(416, 18)
+[sub_resource type="RectangleShape2D" id="NorthEastFenceCollision"]
+size = Vector2(416, 18)
+[sub_resource type="RectangleShape2D" id="OuterWestFenceCollision"]
+size = Vector2(18, 960)
+[sub_resource type="RectangleShape2D" id="OuterEastFenceCollision"]
+size = Vector2(18, 960)
+[sub_resource type="RectangleShape2D" id="FrontWestOuterCollision"]
+size = Vector2(78, 18)
+[sub_resource type="RectangleShape2D" id="FrontWestInnerCollision"]
+size = Vector2(138, 18)
+[sub_resource type="RectangleShape2D" id="FrontEastInnerCollision"]
+size = Vector2(138, 18)
+[sub_resource type="RectangleShape2D" id="FrontEastOuterCollision"]
+size = Vector2(78, 18)
+
 [node name="CastleGardenFences" type="Node2D"]
 y_sort_enabled = true
 
 [node name="FenceRuns" type="Node2D" parent="."]
+visible = false
 position = Vector2(-140.8, 0)
 scale = Vector2(1.22, 1.0)
 y_sort_enabled = true
@@ -363,6 +381,7 @@ scale = Vector2(1.02, 1.02)
 [node name="SideGateArchways" parent="FrontPerimeterFence" instance=ExtResource("6_side_arches")]
 
 [node name="OuterSideFenceRuns" type="Node2D" parent="."]
+visible = false
 position = Vector2(-166.4, 0)
 scale = Vector2(1.26, 1.0)
 y_sort_enabled = true
@@ -371,96 +390,97 @@ y_sort_enabled = true
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 620)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterWestRail02" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(60, 680)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterWestRail03" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 740)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterWestRail04" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(60, 800)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterWestRail05" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 860)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterWestRail06" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(60, 920)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterWestRail07" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 980)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 
 [node name="OuterEastRail01" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 620)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterEastRail02" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1220, 680)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterEastRail03" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 740)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterEastRail04" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1220, 800)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterEastRail05" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 860)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterEastRail06" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1220, 920)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterEastRail07" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 980)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 
 [node name="OuterWestNorthPillar" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("9_fence_rose")
 position = Vector2(60, 585)
 rotation = 1.570796
-scale = Vector2(1.55, 1.55)
+scale = Vector2(1.55, 1.23)
 [node name="OuterWestSouthPillar" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("9_fence_rose")
 position = Vector2(60, 1020)
 rotation = 1.570796
-scale = Vector2(1.55, 1.55)
+scale = Vector2(1.55, 1.23)
 [node name="OuterEastNorthPillar" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("9_fence_rose")
 position = Vector2(1220, 585)
 rotation = -1.570796
-scale = Vector2(-1.55, 1.55)
+scale = Vector2(-1.55, 1.23)
 [node name="OuterEastSouthPillar" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("9_fence_rose")
 position = Vector2(1220, 1020)
 rotation = -1.570796
-scale = Vector2(-1.55, 1.55)
+scale = Vector2(-1.55, 1.23)
 
 [node name="NorthPerimeterFence" type="Node2D" parent="."]
+visible = false
 position = Vector2(-166.4, 0)
 scale = Vector2(1.26, 1.0)
 y_sort_enabled = true
@@ -468,156 +488,185 @@ y_sort_enabled = true
 [node name="NorthWestRail01" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("7_fence_a")
 position = Vector2(100, 80)
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.508, 1.9)
 [node name="NorthWestRail02" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("8_fence_b")
 position = Vector2(160, 80)
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.508, 1.9)
 [node name="NorthWestRail03" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("7_fence_a")
 position = Vector2(220, 80)
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.508, 1.9)
 [node name="NorthWestRail04" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("8_fence_b")
 position = Vector2(280, 80)
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.508, 1.9)
 [node name="NorthWestRail05" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("7_fence_a")
 position = Vector2(340, 80)
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.508, 1.9)
 [node name="NorthEastRail01" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("7_fence_a")
 position = Vector2(940, 80)
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.508, 1.9)
 [node name="NorthEastRail02" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1000, 80)
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.508, 1.9)
 [node name="NorthEastRail03" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1060, 80)
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.508, 1.9)
 [node name="NorthEastRail04" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1120, 80)
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.508, 1.9)
 [node name="NorthEastRail05" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1180, 80)
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.508, 1.9)
 [node name="NorthWestOuterPillar" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("9_fence_rose")
 position = Vector2(70, 80)
-scale = Vector2(1.55, 1.55)
+scale = Vector2(1.23, 1.55)
 [node name="NorthWestInnerPillar" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("10_fence_flower")
 position = Vector2(400, 80)
-scale = Vector2(1.55, 1.55)
+scale = Vector2(1.23, 1.55)
 [node name="NorthEastInnerPillar" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("10_fence_flower")
 position = Vector2(880, 80)
-scale = Vector2(-1.55, 1.55)
+scale = Vector2(-1.23, 1.55)
 [node name="NorthEastOuterPillar" type="Sprite2D" parent="NorthPerimeterFence"]
 texture = ExtResource("9_fence_rose")
 position = Vector2(1210, 80)
-scale = Vector2(-1.55, 1.55)
+scale = Vector2(-1.23, 1.55)
 [node name="OuterWestExtendedRail01" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 140)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail01" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 140)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail02" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(60, 200)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail02" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1220, 200)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail03" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 260)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail03" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 260)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail04" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(60, 320)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail04" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1220, 320)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail05" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 380)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail05" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 380)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail06" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(60, 440)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail06" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1220, 440)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail07" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 500)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail07" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 500)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail08" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(60, 560)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail08" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1220, 560)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail09" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(60, 1040)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail09" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("7_fence_a")
 position = Vector2(1220, 1040)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
 [node name="OuterWestExtendedRail10" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(60, 1100)
 rotation = 1.570796
-scale = Vector2(1.9, 1.55)
+scale = Vector2(1.9, 1.508)
 [node name="OuterEastExtendedRail10" type="Sprite2D" parent="OuterSideFenceRuns"]
 texture = ExtResource("8_fence_b")
 position = Vector2(1220, 1100)
 rotation = -1.570796
-scale = Vector2(-1.9, 1.55)
+scale = Vector2(-1.9, 1.508)
+[node name="FenceCollision" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+[node name="NorthWestFence" type="CollisionShape2D" parent="FenceCollision"]
+position = Vector2(129.7, 80)
+shape = SubResource("NorthWestFenceCollision")
+[node name="NorthEastFence" type="CollisionShape2D" parent="FenceCollision"]
+position = Vector2(1150.9, 80)
+shape = SubResource("NorthEastFenceCollision")
+[node name="OuterWestFence" type="CollisionShape2D" parent="FenceCollision"]
+position = Vector2(-90.8, 620)
+shape = SubResource("OuterWestFenceCollision")
+[node name="OuterEastFence" type="CollisionShape2D" parent="FenceCollision"]
+position = Vector2(1370.8, 620)
+shape = SubResource("OuterEastFenceCollision")
+[node name="FrontWestOuterFence" type="CollisionShape2D" parent="FenceCollision"]
+position = Vector2(224, 1160)
+shape = SubResource("FrontWestOuterCollision")
+[node name="FrontWestInnerFence" type="CollisionShape2D" parent="FenceCollision"]
+position = Vector2(476, 1160)
+shape = SubResource("FrontWestInnerCollision")
+[node name="FrontEastInnerFence" type="CollisionShape2D" parent="FenceCollision"]
+position = Vector2(804, 1160)
+shape = SubResource("FrontEastInnerCollision")
+[node name="FrontEastOuterFence" type="CollisionShape2D" parent="FenceCollision"]
+position = Vector2(1056, 1160)
+shape = SubResource("FrontEastOuterCollision")
+
+

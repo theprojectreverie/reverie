@@ -1,0 +1,85 @@
+{
+    "shots":  [
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/01_Melancholy Titan at Sunset.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/02_Golden Sunset Block-Tower Bond.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/03_Joyful Run Through the Rose Garden.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/04_Sunset Market Stroll with Friends.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "image":  "res://assets/cinematics/gerald_story/fallen_guardian/06_Gerald Leads the Fiery Siege.png",
+                      "caption":  "",
+                      "duration":  5,
+                      "zoom":  1.035,
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/05_Accused Beneath the Sunset Banners.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/06_Protective Embrace in the Village Square.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/07_Heated Confrontation at Dusk.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/08_Tearful Sunset Embrace in the Village.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5,
+                      "image":  "res://assets/cinematics/gerald_story/before_the_fall/09_Tearful Farewell at the City Gate.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  }
+              ],
+    "title":  "Gerald - Before the Fall"
+}

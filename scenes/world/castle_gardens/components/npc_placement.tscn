@@ -9,7 +9,7 @@ script = ExtResource("1")
 position = Vector2(480, 176)
 metadata/npc_id = "castle_guard_left"
 metadata/display_name = "West Gate Guard"
-metadata/dialogue_id = "elder_maelin"
+metadata/dialogue_id = "castle_guard_west"
 metadata/role = "Royal Guard"
 metadata/race = "Human"
 metadata/grid_position = Vector2(13, -2)
@@ -19,28 +19,19 @@ metadata/palette = {"hair": "#6b5a3a", "primary": "#4a5a7a", "secondary": "#9aa8
 position = Vector2(704, 288)
 metadata/npc_id = "castle_guard_right"
 metadata/display_name = "East Gate Guard"
-metadata/dialogue_id = "elder_maelin"
+metadata/dialogue_id = "castle_guard_east"
 metadata/role = "Royal Guard"
 metadata/race = "Human"
 metadata/grid_position = Vector2(20, -2)
 metadata/palette = {"hair": "#5a4a32", "primary": "#4a5a7a", "secondary": "#9aa8c0", "accent": "#7fe3e0", "skin": "#e0c0a0"}
 
-[node name="Gardener" type="Marker2D" parent="."]
-position = Vector2(384, 448)
-metadata/npc_id = "royal_gardener"
-metadata/display_name = "Royal Gardener"
-metadata/dialogue_id = "merchant_sera"
-metadata/role = "Gardener"
-metadata/race = "Human"
-metadata/grid_position = Vector2(19.5, 6.5)
-metadata/palette = {"hair": "#7a5a3a", "primary": "#3f6a4a", "secondary": "#c9b07a", "accent": "#9be07f", "skin": "#e8c8a8"}
-
 [node name="Visitor" type="Marker2D" parent="."]
 position = Vector2(896, 448)
 metadata/npc_id = "garden_visitor"
-metadata/display_name = "Garden Visitor"
+metadata/display_name = "Pip"
 metadata/dialogue_id = "wanderer_pip"
-metadata/role = "Visitor"
+metadata/role = "Wandering Scout"
 metadata/race = "Elf"
-metadata/grid_position = Vector2(27.5, 4.5)
+metadata/grid_position = Vector2(28, 0)
 metadata/palette = {"hair": "#c9b07a", "primary": "#6a5a8a", "secondary": "#d0b070", "accent": "#7fe3e0", "skin": "#f0dcc0"}
+

@@ -1,0 +1,307 @@
+[gd_scene load_steps=60 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/ground_grass_flowers.png" id="asset_01"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_plain.png" id="asset_02"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_moss.png" id="asset_03"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_corner.png" id="asset_04"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_cross.png" id="asset_05"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_cross_alt.png" id="asset_06"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_turn.png" id="asset_07"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_curve.png" id="asset_08"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_crest.png" id="asset_09"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/hedge_straight.png" id="asset_10"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/hedge_rose.png" id="asset_11"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/hedge_corner.png" id="asset_12"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/arch_rose.png" id="asset_13"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/arch_wisteria.png" id="asset_14"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/arch_small_rose.png" id="asset_15"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/arch_flower.png" id="asset_16"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/trellis_rose.png" id="asset_17"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/staircase_rose.png" id="asset_18"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/balustrade_stone.png" id="asset_19"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/railing_stone.png" id="asset_20"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/garden_gate.png" id="asset_21"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/stone_pillar.png" id="asset_22"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/royal_banner.png" id="asset_23"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/pillar_capital.png" id="asset_24"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/urn_roses.png" id="asset_25"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/urn_flowers.png" id="asset_26"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/props/lamp_ornate.png" id="asset_27"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/props/lamp_small.png" id="asset_28"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/fountain_large.png" id="asset_29"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/fountain_small.png" id="asset_30"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/fountain_basin.png" id="asset_31"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/pond_lily.png" id="asset_32"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/waterfall_rocks_left.png" id="asset_33"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/waterfall_rocks_right.png" id="asset_34"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/bench_stone_rose.png" id="asset_35"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/bench_wood.png" id="asset_36"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/gazebo_wisteria.png" id="asset_37"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_rose.png" id="asset_38"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_white.png" id="asset_39"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_purple.png" id="asset_40"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_pink.png" id="asset_41"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/topiary_cypress.png" id="asset_42"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/topiary_rose.png" id="asset_43"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/topiary_round.png" id="asset_44"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/planter_yellow.png" id="asset_45"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/planter_purple.png" id="asset_46"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/planter_rose.png" id="asset_47"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/hanging_wisteria.png" id="asset_48"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_lily_white.png" id="asset_49"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_blue.png" id="asset_50"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_pink_spike.png" id="asset_51"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_lavender_spike.png" id="asset_52"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_hydrangea.png" id="asset_53"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_white_small.png" id="asset_54"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_rose_small.png" id="asset_55"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_yellow.png" id="asset_56"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/foliage_grass.png" id="asset_57"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/rocks_moss_cluster.png" id="asset_58"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/rocks_flower_cluster.png" id="asset_59"]
+
+[node name="RoyalGardenAssetLibrary" type="Node2D"]
+
+[node name="Tiles" type="Node2D" parent="."]
+[node name="ground_grass_flowers" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_01")
+visible = false
+texture_filter = 1
+[node name="path_stone_plain" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_02")
+visible = false
+texture_filter = 1
+[node name="path_stone_moss" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_03")
+visible = false
+texture_filter = 1
+[node name="path_stone_corner" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_04")
+visible = false
+texture_filter = 1
+[node name="path_stone_cross" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_05")
+visible = false
+texture_filter = 1
+[node name="path_stone_cross_alt" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_06")
+visible = false
+texture_filter = 1
+[node name="path_stone_turn" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_07")
+visible = false
+texture_filter = 1
+[node name="path_stone_curve" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_08")
+visible = false
+texture_filter = 1
+[node name="path_stone_crest" type="Sprite2D" parent="Tiles"]
+texture = ExtResource("asset_09")
+visible = false
+texture_filter = 1
+
+[node name="Structures" type="Node2D" parent="."]
+[node name="hedge_straight" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_10")
+visible = false
+texture_filter = 1
+[node name="hedge_rose" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_11")
+visible = false
+texture_filter = 1
+[node name="hedge_corner" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_12")
+visible = false
+texture_filter = 1
+[node name="arch_rose" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_13")
+visible = false
+texture_filter = 1
+[node name="arch_wisteria" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_14")
+visible = false
+texture_filter = 1
+[node name="arch_small_rose" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_15")
+visible = false
+texture_filter = 1
+[node name="arch_flower" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_16")
+visible = false
+texture_filter = 1
+[node name="trellis_rose" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_17")
+visible = false
+texture_filter = 1
+[node name="staircase_rose" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_18")
+visible = false
+texture_filter = 1
+[node name="balustrade_stone" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_19")
+visible = false
+texture_filter = 1
+[node name="railing_stone" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_20")
+visible = false
+texture_filter = 1
+[node name="garden_gate" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_21")
+visible = false
+texture_filter = 1
+[node name="stone_pillar" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_22")
+visible = false
+texture_filter = 1
+[node name="royal_banner" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_23")
+visible = false
+texture_filter = 1
+[node name="pillar_capital" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_24")
+visible = false
+texture_filter = 1
+[node name="fountain_large" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_29")
+visible = false
+texture_filter = 1
+[node name="fountain_small" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_30")
+visible = false
+texture_filter = 1
+[node name="fountain_basin" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_31")
+visible = false
+texture_filter = 1
+[node name="pond_lily" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_32")
+visible = false
+texture_filter = 1
+[node name="waterfall_rocks_left" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_33")
+visible = false
+texture_filter = 1
+[node name="waterfall_rocks_right" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_34")
+visible = false
+texture_filter = 1
+[node name="bench_stone_rose" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_35")
+visible = false
+texture_filter = 1
+[node name="bench_wood" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_36")
+visible = false
+texture_filter = 1
+[node name="gazebo_wisteria" type="Sprite2D" parent="Structures"]
+texture = ExtResource("asset_37")
+visible = false
+texture_filter = 1
+
+[node name="Props" type="Node2D" parent="."]
+[node name="lamp_ornate" type="Sprite2D" parent="Props"]
+texture = ExtResource("asset_27")
+visible = false
+texture_filter = 1
+[node name="lamp_small" type="Sprite2D" parent="Props"]
+texture = ExtResource("asset_28")
+visible = false
+texture_filter = 1
+
+[node name="Flora" type="Node2D" parent="."]
+[node name="urn_roses" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_25")
+visible = false
+texture_filter = 1
+[node name="urn_flowers" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_26")
+visible = false
+texture_filter = 1
+[node name="flower_cluster_rose" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_38")
+visible = false
+texture_filter = 1
+[node name="flower_cluster_white" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_39")
+visible = false
+texture_filter = 1
+[node name="flower_cluster_purple" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_40")
+visible = false
+texture_filter = 1
+[node name="flower_cluster_pink" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_41")
+visible = false
+texture_filter = 1
+[node name="topiary_cypress" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_42")
+visible = false
+texture_filter = 1
+[node name="topiary_rose" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_43")
+visible = false
+texture_filter = 1
+[node name="topiary_round" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_44")
+visible = false
+texture_filter = 1
+[node name="planter_yellow" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_45")
+visible = false
+texture_filter = 1
+[node name="planter_purple" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_46")
+visible = false
+texture_filter = 1
+[node name="planter_rose" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_47")
+visible = false
+texture_filter = 1
+[node name="hanging_wisteria" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_48")
+visible = false
+texture_filter = 1
+[node name="flower_lily_white" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_49")
+visible = false
+texture_filter = 1
+[node name="flower_blue" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_50")
+visible = false
+texture_filter = 1
+[node name="flower_pink_spike" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_51")
+visible = false
+texture_filter = 1
+[node name="flower_lavender_spike" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_52")
+visible = false
+texture_filter = 1
+[node name="flower_hydrangea" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_53")
+visible = false
+texture_filter = 1
+[node name="flower_white_small" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_54")
+visible = false
+texture_filter = 1
+[node name="flower_rose_small" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_55")
+visible = false
+texture_filter = 1
+[node name="flower_yellow" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_56")
+visible = false
+texture_filter = 1
+[node name="foliage_grass" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_57")
+visible = false
+texture_filter = 1
+[node name="rocks_moss_cluster" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_58")
+visible = false
+texture_filter = 1
+[node name="rocks_flower_cluster" type="Sprite2D" parent="Flora"]
+texture = ExtResource("asset_59")
+visible = false
+texture_filter = 1

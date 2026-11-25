@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/reverie_pack/reverie_piece.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Vegetation/ivy_wall_02.png" id="2_tex"]
+[ext_resource type="Shader" path="res://shaders/world/foliage_canopy_wind.gdshader" id="4_wind"]
+
+[sub_resource type="ShaderMaterial" id="CanopyWindMaterial"]
+shader = ExtResource("4_wind")
+shader_parameter/wind_amplitude = 0.5
+shader_parameter/wind_speed = 0.78
+shader_parameter/wind_phase = 4.5
 
 [node name="IvyWall02" type="Node2D"]
 y_sort_enabled = true
@@ -14,4 +21,5 @@ texture_filter = 1
 centered = false
 offset = Vector2(17, 55)
 texture = ExtResource("2_tex")
+material = SubResource("CanopyWindMaterial")
 

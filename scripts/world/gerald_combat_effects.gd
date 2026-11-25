@@ -60,6 +60,8 @@ func _process(_delta: float) -> void:
 	visible = state == CharacterAnimator.State.ATTACK or state == CharacterAnimator.CAST_STATE or state == CharacterAnimator.State.VICTORY or particles_active
 	if state != _last_state:
 		_last_state = state
+		if state in [CharacterAnimator.State.DAMAGE, CharacterAnimator.State.DEFEAT, CharacterAnimator.State.VICTORY]:
+			_clear_transient_particles()
 		_impact_fired = false
 		_cast_release_fired = false
 		_set_attack_visible(state == CharacterAnimator.State.ATTACK)
@@ -86,6 +88,15 @@ func _restart_particles(particles: CPUParticles2D) -> void:
 	particles.emitting = false
 	particles.restart()
 	particles.emitting = true
+
+
+## Damage, defeat and victory interrupt the previous action's particle burst.
+## Restarting while stopped clears particles already in flight, not just emission.
+func _clear_transient_particles() -> void:
+	for particles in [slash_sparks, impact_sparks, cast_embers, void_motes]:
+		particles.emitting = false
+		particles.restart()
+		particles.emitting = false
 
 
 ## Convert the animator's compass direction into a normalized local-space vector.

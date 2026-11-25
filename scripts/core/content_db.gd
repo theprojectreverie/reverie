@@ -63,6 +63,11 @@ func _load_defs(file_name: String, kind: String) -> Dictionary:
 		var entry: Dictionary = raw[key]
 		match kind:
 			"character":
+				# Retired definitions stay in characters.json for migration,
+				# historical art specs and strict validation, but are not part
+				# of the live playable roster or future acquisition pool.
+				if not bool(entry.get("gacha_enabled", true)):
+					continue
 				result[key] = CharacterDef.from_dict(key, entry)
 			"skill":
 				result[key] = SkillDef.from_dict(key, entry)
@@ -71,10 +76,10 @@ func _load_defs(file_name: String, kind: String) -> Dictionary:
 	return result
 
 
-## Main protagonists live in main_characters.json so the twelve collectible
-## art-pipeline characters keep their authored specs. Merging them here makes
-## ContentDB.get_character("gerald"/"lilith") resolve for the starting party,
-## portraits, combat and saves while keeping one definition per character.
+## Main protagonists live in main_characters.json. characters.json also keeps
+## retired definitions for validation, migration and historical art references;
+## _load_defs registers only gacha_enabled entries in the live runtime roster.
+## Merging the protagonists here keeps one definition per playable character.
 func _load_main_characters() -> void:
 	var raw := _read_json("main_characters.json")
 	if raw.is_empty():

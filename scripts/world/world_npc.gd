@@ -151,4 +151,11 @@ func interact() -> void:
 		return
 	if visual != null:
 		visual.play_interact()
+	_play_interaction_presentation()
 	EventBus.dialogue_requested.emit(dialogue_id)
+
+
+func _play_interaction_presentation() -> void:
+	# Subclasses may add editor-authored artwork gestures without changing
+	# interaction validation or the data-driven dialogue event.
+	pass

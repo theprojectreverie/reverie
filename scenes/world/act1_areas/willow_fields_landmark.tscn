@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/pixelpen_act1/willow_windmill.png" id="1"]
+
+[node name="willow_fields_landmark" type="Node2D"]
+position = Vector2(384, 512)
+y_sort_enabled = true
+
+[node name="LandmarkSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1")
+scale = Vector2(4.0, 4.0)
+texture_filter = 0
+z_index = 5

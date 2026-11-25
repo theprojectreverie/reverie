@@ -1,9 +1,26 @@
-ROYAL GARDENS -> BOSS TOWER ROAD MODULES
+REVERIE ACT I — ROYAL ROAD
 
-Four hand-authored reusable 3x3 isometric road segment scenes:
-- royal_stone_segment: bright royal cobble.
-- fading_stone_segment: first signs of corruption.
-- corrupted_stone_segment: dark stone with violet runes.
-- ruined_tower_approach_segment: broken, rune-marked tower approach.
+The live authored route follows a seven-area progression:
+1. Royal Gardens — existing authored garden world.
+2. Royal Gate — existing garden exit and road threshold.
+3. Willow Fields — calm pastoral roadside landmark assembly.
+4. Elderwood Grove — old woodland with the first visible corruption.
+5. Forsaken Ruins — broken processional arch and fallen stonework.
+6. Ruined Tower — final approach and violet spire.
+7. Gothic Castle — sealed keep and Baltoria arena.
 
-Each segment is composed only of explicit Sprite2D nodes referencing existing 64x32 ReveriePack textures. No scripts, procedural placement, generated scenery, or edits to the Royal Gardens scene. These are modular building blocks; they are not yet connected to the live world because its current ground builder also paints route tiles and must be reconciled before integration to avoid doubled roads.
+LIVE ACT I ROUTE
+- The playable progression is now a chain of regions: Royal Gardens -> Royal Gate -> Willow Fields -> Elderwood Grove -> Forsaken Ruins -> Ruined Tower -> Gothic Castle.
+- The five new intermediate regions use the existing streamed GreenwardWorld runtime with distinct biome palettes, prop weights, POIs, encounter groups, entry points and reciprocal travel gates.
+- Their authored landmark assemblies live in scenes/world/act1_areas/ and use original PixelPen PNG exports.
+- Editable PixelPen source projects and runtime PNGs are stored together in assets/pixelpen_act1/.
+- The original 40-tile road and roadside dressing in royal_road_to_baltoria.tscn remain preserved as the Gothic Castle route composition.
+
+REUSABLE ROAD PROTOTYPES
+The four 3x3 segment scenes remain authoring prototypes:
+- royal_stone_segment
+- fading_stone_segment
+- corrupted_stone_segment
+- ruined_tower_approach_segment
+
+Do not instance these prototypes over the live 40-tile road without first replacing the corresponding tiles; that would double the ground.

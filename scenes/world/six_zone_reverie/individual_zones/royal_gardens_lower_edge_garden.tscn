@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_28_prop.png" id="roses"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/08_cherry_blossom_tree.png" id="pinktree"]
+
+[node name="RoyalGardenLowerEdgeGarden" type="Node2D"]
+y_sort_enabled = true
+
+[node name="WestEdgeLiliesA" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-2336, 1808)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="WestEdgeLiliesB" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1824, 2064)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="WestEdgeLiliesC" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1056, 2512)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="WestEdgeLiliesD" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-640, 2656)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="WestEdgeLiliesE" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-224, 2864)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="EastEdgeRosesA" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2272, 1840)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="EastEdgeRosesB" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1760, 2096)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="EastEdgeRosesC" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(800, 2576)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="EastEdgeRosesD" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(320, 2816)
+scale = Vector2(0.91, 0.91)
+texture = ExtResource("roses")
+
+[node name="LowerGardenPinkBlossom" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-100, 2830)
+scale = Vector2(1.20, 1.20)
+texture = ExtResource("pinktree")

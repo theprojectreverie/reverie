@@ -12,22 +12,10 @@ func configure(owner: GreenwardWorld) -> void:
 func make_prop_sprite(kind: String, world_position: Vector2, scale_value: float, flip: bool, variant: int = 0) -> Sprite2D:
 	if world == null:
 		return null
-	var texture := ProceduralArt.prop_texture(kind, variant)
-	if texture == null:
-		return null
-	record_texture(kind, variant)
-	bump_prop_count(kind)
-	var sprite := world.WORLD_PROP_SPRITE_SCENE.instantiate() as Sprite2D
-	sprite.texture = texture
-	sprite.centered = false
-	sprite.offset = Vector2(-texture.get_width() * 0.5, -texture.get_height() + 6.0)
-	sprite.position = world_position
-	sprite.scale = Vector2.ONE * scale_value
-	sprite.flip_h = flip
-	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	if kind in world.FOLIAGE_KINDS:
-		sprite.material = world.wind_material
-	return sprite
+	# Greenward props must use scene-authored artwork. Do not manufacture a
+	# runtime texture when a matching authored prop scene is not available.
+	# Bridge registration remains in add_prop(), independent of this visual.
+	return null
 
 
 func add_prop(kind: String, grid_position: Vector2, scale_value: float = 1.0, flip: bool = false, variant: int = 0) -> Sprite2D:

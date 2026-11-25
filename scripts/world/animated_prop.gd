@@ -94,12 +94,10 @@ func _build_sprite(p_flip: bool) -> void:
 		_sprite.centered = false
 		_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 		add_child(_sprite)
-	var tex := ProceduralArt.prop_texture(kind, variant)
-	if tex == null:
-		tex = ProceduralArt.white_pixel()
-	_sprite.texture = tex
-	_sprite.centered = false
-	_sprite.offset = Vector2(-float(tex.get_width()) * 0.5, -float(tex.get_height()) + 6.0)
+	# No procedural placeholder: keep the motion component functional but
+	# visually dormant until a real authored texture is assigned.
+	_sprite.texture = null
+	_sprite.visible = false
 	_sprite.scale = Vector2.ONE * base_scale
 	_sprite.flip_h = p_flip
 	_base_modulate = _sprite.modulate

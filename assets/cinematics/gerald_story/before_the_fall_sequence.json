@@ -1,0 +1,141 @@
+{
+	"shots": [
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/01_Melancholy Titan at Sunset.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/03_Joyful Run Through the Rose Garden.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/02_Golden Sunset Block-Tower Bond.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/04_Sunset Market Stroll with Friends.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/Gerald_Accident_01_Collapsed_Roof.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/Gerald_Accident_02_Broken_Cart.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/Gerald_Accident_03_Titans_Regret.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/09_Accused Beneath the Sunset Banners.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/11_Heated Confrontation at Dusk.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/10_Protective Embrace in the Village Square.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/12_Tearful Sunset Embrace in the Village.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/13_LilithÃ¢â‚¬â„¢s Tears at Sunset.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/14_Tearful Farewell at the City Gate.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/07_Embers Over the Burning Fortress.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/05_Gerald Leads the Fiery Siege.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/06_Titan Warrior at the Burning Castle.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 5.0,
+			"image": "res://assets/cinematics/gerald_story/before_the_fall/08_The Colossus of the Burning Citadel.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		}
+	],
+	"title": "Before The Fall"
+}

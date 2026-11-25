@@ -1,0 +1,232 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_stone_path.tscn" id="native"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/border_ne.png" id="candidate"]
+
+[node name="RoyalGateBorderFitReview" type="Node2D"]
+texture_filter = 1
+
+[node name="NativeStoneReference" type="Node2D" parent="."]
+position = Vector2(-192, 0)
+
+[node name="CandidateBorderTest" type="Node2D" parent="."]
+position = Vector2(192, 0)
+
+[node name="RejectedBorderArtwork" type="Sprite2D" parent="CandidateBorderTest"]
+position = Vector2(64, 16)
+z_index = 1
+texture = ExtResource("candidate")
+
+[node name="ReferenceCamera" type="Camera2D" parent="."]
+enabled = true
+zoom = Vector2(2, 2)
+
+[node name="Stone_A_0_0" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-128, -48)
+
+[node name="Stone_B_0_0" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-128, -48)
+
+[node name="Stone_A_0_1" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-64, -48)
+
+[node name="Stone_B_0_1" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-64, -48)
+
+[node name="Stone_A_0_2" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(0, -48)
+
+[node name="Stone_B_0_2" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(0, -48)
+
+[node name="Stone_A_0_3" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(64, -48)
+
+[node name="Stone_B_0_3" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(64, -48)
+
+[node name="Stone_A_0_4" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(128, -48)
+
+[node name="Stone_B_0_4" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(128, -48)
+
+[node name="Stone_A_1_0" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-96, -32)
+
+[node name="Stone_B_1_0" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-96, -32)
+
+[node name="Stone_A_1_1" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-32, -32)
+
+[node name="Stone_B_1_1" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-32, -32)
+
+[node name="Stone_A_1_2" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(32, -32)
+
+[node name="Stone_B_1_2" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(32, -32)
+
+[node name="Stone_A_1_3" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(96, -32)
+
+[node name="Stone_B_1_3" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(96, -32)
+
+[node name="Stone_A_1_4" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(160, -32)
+
+[node name="Stone_B_1_4" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(160, -32)
+
+[node name="Stone_A_2_0" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-128, -16)
+
+[node name="Stone_B_2_0" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-128, -16)
+
+[node name="Stone_A_2_1" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-64, -16)
+
+[node name="Stone_B_2_1" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-64, -16)
+
+[node name="Stone_A_2_2" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(0, -16)
+
+[node name="Stone_B_2_2" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(0, -16)
+
+[node name="Stone_A_2_3" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(64, -16)
+
+[node name="Stone_B_2_3" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(64, -16)
+
+[node name="Stone_A_2_4" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(128, -16)
+
+[node name="Stone_B_2_4" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(128, -16)
+
+[node name="Stone_A_3_0" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-96, 0)
+
+[node name="Stone_B_3_0" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-96, 0)
+
+[node name="Stone_A_3_1" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-32, 0)
+
+[node name="Stone_B_3_1" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-32, 0)
+
+[node name="Stone_A_3_2" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(32, 0)
+
+[node name="Stone_B_3_2" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(32, 0)
+
+[node name="Stone_A_3_3" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(96, 0)
+
+[node name="Stone_B_3_3" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(96, 0)
+
+[node name="Stone_A_3_4" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(160, 0)
+
+[node name="Stone_B_3_4" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(160, 0)
+
+[node name="Stone_A_4_0" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-128, 16)
+
+[node name="Stone_B_4_0" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-128, 16)
+
+[node name="Stone_A_4_1" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-64, 16)
+
+[node name="Stone_B_4_1" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-64, 16)
+
+[node name="Stone_A_4_2" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(0, 16)
+
+[node name="Stone_B_4_2" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(0, 16)
+
+[node name="Stone_A_4_3" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(64, 16)
+
+[node name="Stone_B_4_3" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(64, 16)
+
+[node name="Stone_A_4_4" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(128, 16)
+
+[node name="Stone_B_4_4" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(128, 16)
+
+[node name="Stone_A_5_0" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-96, 32)
+
+[node name="Stone_B_5_0" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-96, 32)
+
+[node name="Stone_A_5_1" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-32, 32)
+
+[node name="Stone_B_5_1" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-32, 32)
+
+[node name="Stone_A_5_2" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(32, 32)
+
+[node name="Stone_B_5_2" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(32, 32)
+
+[node name="Stone_A_5_3" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(96, 32)
+
+[node name="Stone_B_5_3" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(96, 32)
+
+[node name="Stone_A_5_4" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(160, 32)
+
+[node name="Stone_B_5_4" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(160, 32)
+
+[node name="Stone_A_6_0" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-128, 48)
+
+[node name="Stone_B_6_0" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-128, 48)
+
+[node name="Stone_A_6_1" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(-64, 48)
+
+[node name="Stone_B_6_1" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(-64, 48)
+
+[node name="Stone_A_6_2" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(0, 48)
+
+[node name="Stone_B_6_2" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(0, 48)
+
+[node name="Stone_A_6_3" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(64, 48)
+
+[node name="Stone_B_6_3" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(64, 48)
+
+[node name="Stone_A_6_4" parent="NativeStoneReference" instance=ExtResource("native")]
+position = Vector2(128, 48)
+
+[node name="Stone_B_6_4" parent="CandidateBorderTest" instance=ExtResource("native")]
+position = Vector2(128, 48)

@@ -1,0 +1,964 @@
+[gd_scene load_steps=27 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/rear_wall_rising_right.png" id="1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/rear_wall_falling_right.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/throne_wall.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/exterior_wall_left.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/exterior_wall_right.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/grand_gate.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/grand_stairs.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/crystal_fountain.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/long_carpet.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/flower_planter_long.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/flowering_tree_and_ground.png" id="11"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/short_railing_left.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/short_railing_right.png" id="13"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/column_wide.png" id="terrace_column"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/candelabrum.png" id="terrace_lamp"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/diamond_carpet.png" id="boss_carpet"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/gothic_purple_pool.png" id="pool"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/gothic_raised_terrace.png" id="terrace"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/cypress_left.png" id="cypress"]
+
+[ext_resource type="Texture2D" path="res://assets/castle_pack_v02/effects/glow_warm.png" id="warm"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Effects/purple_glow_soft.png" id="violet"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/flower_urn_left.png" id="hall_urn"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/terrace_falling_right.png" id="new_terrace_left"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/terrace_rising_right.png" id="new_terrace_right"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/connector_rising_right.png" id="terrace_join_l"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/connector_falling_right.png" id="terrace_join_r"]
+
+[node name="GothicArchitecture" type="Node2D"]
+y_sort_enabled = true
+texture_filter = 1
+
+[node name="InteriorLeft" type="StaticBody2D" parent="."]
+position = Vector2(-1080, 870)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="InteriorLeft"]
+centered = false
+position = Vector2(-278, -330)
+texture = ExtResource("1")
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="InteriorLeft"]
+polygon = PackedVector2Array(-260,8,260,-78,260,-51,-260,35)
+
+[node name="InteriorRight" type="StaticBody2D" parent="."]
+position = Vector2(1080, 870)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="InteriorRight"]
+centered = false
+position = Vector2(-278, -330)
+texture = ExtResource("2")
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="InteriorRight"]
+polygon = PackedVector2Array(-260,-78,260,8,260,35,-260,-51)
+
+[node name="ThroneWall" type="StaticBody2D" parent="."]
+position = Vector2(0, 785)
+scale = Vector2(1.85, 1.85)
+
+[node name="Artwork" type="Sprite2D" parent="ThroneWall"]
+centered = false
+position = Vector2(-295.5, -303)
+texture = ExtResource("3")
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="ThroneWall"]
+polygon = PackedVector2Array(-295.5, -51, 295.5, -51, 295.5, -15, -295.5, -15)
+
+[node name="ExteriorLeft" type="StaticBody2D" parent="."]
+position = Vector2(-1000, 1350)
+scale = Vector2(1.6, 1.6)
+
+[node name="Artwork" type="Sprite2D" parent="ExteriorLeft"]
+centered = false
+position = Vector2(-320, -370)
+texture = ExtResource("new_terrace_left")
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="ExteriorLeft"]
+polygon = PackedVector2Array(-280,-140,250,50,250,82,-280,-108)
+
+[node name="ExteriorRight" type="StaticBody2D" parent="."]
+position = Vector2(1000, 1350)
+scale = Vector2(1.6, 1.6)
+
+[node name="Artwork" type="Sprite2D" parent="ExteriorRight"]
+centered = false
+position = Vector2(-320, -370)
+texture = ExtResource("new_terrace_right")
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="ExteriorRight"]
+polygon = PackedVector2Array(-250,50,280,-140,280,-108,-250,82)
+
+[node name="GrandGate" type="StaticBody2D" parent="."]
+position = Vector2(0, 2940)
+scale = Vector2(1.8, 1.8)
+
+[node name="Artwork" type="Sprite2D" parent="GrandGate"]
+centered = false
+position = Vector2(-222.5, -287)
+texture = ExtResource("6")
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="GrandGate"]
+polygon = PackedVector2Array(-222.5, -57, -72.5, -57, -72.5, -17, -222.5, -17)
+
+[node name="Footprint2" type="CollisionPolygon2D" parent="GrandGate"]
+polygon = PackedVector2Array(72.5, -57, 222.5, -57, 222.5, -17, 72.5, -17)
+
+[node name="GrandStairs" type="StaticBody2D" parent="."]
+position = Vector2(0, 1510)
+scale = Vector2(1.8, 1.8)
+
+[node name="Artwork" type="Sprite2D" parent="GrandStairs"]
+centered = false
+position = Vector2(-257, -237)
+texture = ExtResource("7")
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="GrandStairs"]
+polygon = PackedVector2Array(-257, -67, -137, -67, -137, -2, -257, -2)
+
+[node name="Footprint2" type="CollisionPolygon2D" parent="GrandStairs"]
+polygon = PackedVector2Array(137, -67, 257, -67, 257, -2, 137, -2)
+
+[node name="Fountain" type="StaticBody2D" parent="."]
+position = Vector2(0, 1930)
+scale = Vector2(1.25, 1.25)
+
+[node name="Artwork" type="Sprite2D" parent="Fountain"]
+centered = false
+position = Vector2(-133.5, -230)
+texture = ExtResource("8")
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="Fountain"]
+polygon = PackedVector2Array(-133.5, -47, -78.5, -76, 76.5, -76, 133.5, -47, 76.5, -6, -78.5, -6)
+
+[node name="Carpet" type="Node2D" parent="."]
+position = Vector2(0, 1250)
+scale = Vector2(1.2, 1.2)
+z_index = -10
+
+[node name="Artwork" type="Sprite2D" parent="Carpet"]
+centered = false
+position = Vector2(-178.5, -106)
+texture = ExtResource("9")
+
+[node name="RoseLeft" type="StaticBody2D" parent="."]
+position = Vector2(-650, 1850)
+scale = Vector2(1.2, 1.2)
+
+[node name="Artwork" type="Sprite2D" parent="RoseLeft"]
+centered = false
+position = Vector2(-76, -106)
+texture = ExtResource("10")
+
+[node name="RoseRight" type="StaticBody2D" parent="."]
+position = Vector2(650, 1850)
+scale = Vector2(1.2, 1.2)
+
+[node name="Artwork" type="Sprite2D" parent="RoseRight"]
+centered = false
+position = Vector2(-76, -106)
+texture = ExtResource("10")
+
+[node name="TreeLeft" type="StaticBody2D" parent="."]
+position = Vector2(-850, 1770)
+scale = Vector2(1.3, 1.3)
+
+[node name="Artwork" type="Sprite2D" parent="TreeLeft"]
+centered = false
+position = Vector2(-113.5, -267)
+texture = ExtResource("11")
+
+[node name="TreeRight" type="StaticBody2D" parent="."]
+position = Vector2(850, 1770)
+scale = Vector2(1.3, 1.3)
+
+[node name="Artwork" type="Sprite2D" parent="TreeRight"]
+centered = false
+position = Vector2(-113.5, -267)
+texture = ExtResource("11")
+
+[node name="LeftStairPillar" type="StaticBody2D" parent="."]
+position = Vector2(-470, 1460)
+scale = Vector2(1.8, 1.8)
+
+[node name="Artwork" type="Sprite2D" parent="LeftStairPillar"]
+texture = ExtResource("terrace_column")
+offset = Vector2(0, -62)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="LeftStairPillar"]
+polygon = PackedVector2Array(-25, -12, 0, -25, 25, -12, 0, 0)
+
+[node name="RightStairPillar" type="StaticBody2D" parent="."]
+position = Vector2(470, 1460)
+scale = Vector2(1.8, 1.8)
+
+[node name="Artwork" type="Sprite2D" parent="RightStairPillar"]
+texture = ExtResource("terrace_column")
+offset = Vector2(0, -62)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RightStairPillar"]
+polygon = PackedVector2Array(-25, -12, 0, -25, 25, -12, 0, 0)
+
+[node name="LeftHallLamp" type="StaticBody2D" parent="."]
+position = Vector2(-520, 1080)
+scale = Vector2(1.5, 1.5)
+
+[node name="Artwork" type="Sprite2D" parent="LeftHallLamp"]
+texture = ExtResource("terrace_lamp")
+offset = Vector2(0, -65)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="LeftHallLamp"]
+polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
+
+[node name="RightHallLamp" type="StaticBody2D" parent="."]
+position = Vector2(520, 1080)
+scale = Vector2(1.5, 1.5)
+
+[node name="Artwork" type="Sprite2D" parent="RightHallLamp"]
+texture = ExtResource("terrace_lamp")
+offset = Vector2(0, -65)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RightHallLamp"]
+polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
+
+[node name="BossArenaCarpet" type="Sprite2D" parent="."]
+position = Vector2(0, 1060)
+scale = Vector2(3, 3)
+z_index = -9
+texture = ExtResource("boss_carpet")
+
+[node name="PerimeterL0" type="StaticBody2D" parent="."]
+position = Vector2(-455, 2850)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL0"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL0"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterL1" type="StaticBody2D" parent="."]
+position = Vector2(-625, 2770)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL1"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL1"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterL2" type="StaticBody2D" parent="."]
+position = Vector2(-795, 2690)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL2"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL2"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterL3" type="StaticBody2D" parent="."]
+position = Vector2(-965, 2610)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL3"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL3"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterL4" type="StaticBody2D" parent="."]
+position = Vector2(-1135, 2530)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL4"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL4"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterL5" type="StaticBody2D" parent="."]
+position = Vector2(-1305, 2450)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL5"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL5"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterL6" type="StaticBody2D" parent="."]
+position = Vector2(-1475, 2370)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL6"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL6"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterL7" type="StaticBody2D" parent="."]
+position = Vector2(-1645, 2290)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL7"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL7"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterL8" type="StaticBody2D" parent="."]
+position = Vector2(-1815, 2210)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterL8"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL8"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="PerimeterR0" type="StaticBody2D" parent="."]
+position = Vector2(455, 2850)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR0"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR0"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="PerimeterR1" type="StaticBody2D" parent="."]
+position = Vector2(625, 2770)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR1"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR1"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="PerimeterR2" type="StaticBody2D" parent="."]
+position = Vector2(795, 2690)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR2"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR2"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="PerimeterR3" type="StaticBody2D" parent="."]
+position = Vector2(965, 2610)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR3"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR3"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="PerimeterR4" type="StaticBody2D" parent="."]
+position = Vector2(1135, 2530)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR4"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR4"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="PerimeterR5" type="StaticBody2D" parent="."]
+position = Vector2(1305, 2450)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR5"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR5"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="PerimeterR6" type="StaticBody2D" parent="."]
+position = Vector2(1475, 2370)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR6"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR6"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="PerimeterR7" type="StaticBody2D" parent="."]
+position = Vector2(1645, 2290)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR7"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR7"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="PerimeterR8" type="StaticBody2D" parent="."]
+position = Vector2(1815, 2210)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="PerimeterR8"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR8"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="CourtyardPoolLeft" type="StaticBody2D" parent="."]
+position = Vector2(-1000, 2070)
+
+[node name="Artwork" type="Sprite2D" parent="CourtyardPoolLeft"]
+texture = ExtResource("pool")
+scale = Vector2(0.8, 0.8)
+offset = Vector2(0, -90)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CourtyardPoolLeft"]
+polygon = PackedVector2Array(-305,-62,-210,-140,0,-181,210,-140,305,-62,290,40,120,115,-120,115,-290,40)
+
+[node name="CourtyardPoolRight" type="StaticBody2D" parent="."]
+position = Vector2(1000, 2070)
+
+[node name="Artwork" type="Sprite2D" parent="CourtyardPoolRight"]
+texture = ExtResource("pool")
+scale = Vector2(0.8, 0.8)
+offset = Vector2(0, -90)
+flip_h = true
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CourtyardPoolRight"]
+polygon = PackedVector2Array(-305,-62,-210,-140,0,-181,210,-140,305,-62,290,40,120,115,-120,115,-290,40)
+
+[node name="RaisedBossTerrace" type="Node2D" parent="."]
+position = Vector2(0, 1100)
+z_index = -8
+
+[node name="Artwork" type="Sprite2D" parent="RaisedBossTerrace"]
+texture = ExtResource("terrace")
+scale = Vector2(1.05, 1.05)
+offset = Vector2(0, -30)
+
+[node name="TerraceRailCollisions" type="StaticBody2D" parent="."]
+position = Vector2(0, 1100)
+
+[node name="LeftRail" type="CollisionPolygon2D" parent="TerraceRailCollisions"]
+polygon = PackedVector2Array(-400,-135,-375,-146,-170,72,-195,100,-407,-80)
+
+[node name="RightRail" type="CollisionPolygon2D" parent="TerraceRailCollisions"]
+polygon = PackedVector2Array(400,-135,375,-146,170,72,195,100,407,-80)
+
+[node name="SideWallL0" type="StaticBody2D" parent="."]
+position = Vector2(-1985, 2130)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallL0"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL0"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="SideWallL1" type="StaticBody2D" parent="."]
+position = Vector2(-2155, 2050)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallL1"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL1"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="SideWallL2" type="StaticBody2D" parent="."]
+position = Vector2(-2325, 1970)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallL2"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL2"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="SideWallL3" type="StaticBody2D" parent="."]
+position = Vector2(-2490, 1890)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallL3"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL3"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="SideWallL4" type="StaticBody2D" parent="."]
+position = Vector2(-2325, 1805)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallL4"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL4"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="SideWallL5" type="StaticBody2D" parent="."]
+position = Vector2(-2155, 1720)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallL5"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL5"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="SideWallL6" type="StaticBody2D" parent="."]
+position = Vector2(-1985, 1635)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallL6"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL6"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="SideWallR0" type="StaticBody2D" parent="."]
+position = Vector2(1985, 2130)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallR0"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR0"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="SideWallR1" type="StaticBody2D" parent="."]
+position = Vector2(2155, 2050)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallR1"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR1"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="SideWallR2" type="StaticBody2D" parent="."]
+position = Vector2(2325, 1970)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallR2"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR2"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="SideWallR3" type="StaticBody2D" parent="."]
+position = Vector2(2490, 1890)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallR3"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR3"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="SideWallR4" type="StaticBody2D" parent="."]
+position = Vector2(2325, 1805)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallR4"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR4"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="SideWallR5" type="StaticBody2D" parent="."]
+position = Vector2(2155, 1720)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallR5"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR5"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="SideWallR6" type="StaticBody2D" parent="."]
+position = Vector2(1985, 1635)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="SideWallR6"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR6"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="RearLinkL0" type="StaticBody2D" parent="."]
+position = Vector2(-1815, 1550)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="RearLinkL0"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RearLinkL0"]
+polygon = PackedVector2Array(-50,15,50,-31,50,-19,-50,27)
+
+[node name="RearLinkL1" type="StaticBody2D" parent="."]
+position = Vector2(-1645, 1465)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="RearLinkL1"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RearLinkL1"]
+polygon = PackedVector2Array(-50,15,50,-31,50,-19,-50,27)
+
+[node name="RearLinkR0" type="StaticBody2D" parent="."]
+position = Vector2(1815, 1550)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="RearLinkR0"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RearLinkR0"]
+polygon = PackedVector2Array(-50,-31,50,15,50,27,-50,-19)
+
+[node name="RearLinkR1" type="StaticBody2D" parent="."]
+position = Vector2(1645, 1465)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="RearLinkR1"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RearLinkR1"]
+polygon = PackedVector2Array(-50,-31,50,15,50,27,-50,-19)
+
+[node name="PoolFlowersL" type="StaticBody2D" parent="."]
+position = Vector2(-1400, 2140)
+scale = Vector2(1.5, 1.5)
+
+[node name="Artwork" type="Sprite2D" parent="PoolFlowersL"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PoolFlowersL"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="GardenLampL" type="StaticBody2D" parent="."]
+position = Vector2(-480, 2250)
+scale = Vector2(1.35, 1.35)
+
+[node name="Artwork" type="Sprite2D" parent="GardenLampL"]
+texture = ExtResource("terrace_lamp")
+offset = Vector2(0, -65)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenLampL"]
+polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
+
+[node name="GateLampL" type="StaticBody2D" parent="."]
+position = Vector2(-320, 2700)
+scale = Vector2(1.35, 1.35)
+
+[node name="Artwork" type="Sprite2D" parent="GateLampL"]
+texture = ExtResource("terrace_lamp")
+offset = Vector2(0, -65)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GateLampL"]
+polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
+
+[node name="OuterCypressL" type="StaticBody2D" parent="."]
+position = Vector2(-1720, 1790)
+scale = Vector2(1.5, 1.5)
+
+[node name="Artwork" type="Sprite2D" parent="OuterCypressL"]
+texture = ExtResource("cypress")
+offset = Vector2(0, -72)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="OuterCypressL"]
+polygon = PackedVector2Array(-16,-8,0,-20,16,-8,0,0)
+
+[node name="PoolCypressL" type="StaticBody2D" parent="."]
+position = Vector2(-1370, 2330)
+scale = Vector2(1.4, 1.4)
+
+[node name="Artwork" type="Sprite2D" parent="PoolCypressL"]
+texture = ExtResource("cypress")
+offset = Vector2(0, -72)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PoolCypressL"]
+polygon = PackedVector2Array(-16,-8,0,-20,16,-8,0,0)
+
+[node name="StairFlowersL" type="StaticBody2D" parent="."]
+position = Vector2(-570, 1580)
+scale = Vector2(1.3, 1.3)
+
+[node name="Artwork" type="Sprite2D" parent="StairFlowersL"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="StairFlowersL"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="PoolFlowersR" type="StaticBody2D" parent="."]
+position = Vector2(1400, 2140)
+scale = Vector2(1.5, 1.5)
+
+[node name="Artwork" type="Sprite2D" parent="PoolFlowersR"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PoolFlowersR"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="GardenLampR" type="StaticBody2D" parent="."]
+position = Vector2(480, 2250)
+scale = Vector2(1.35, 1.35)
+
+[node name="Artwork" type="Sprite2D" parent="GardenLampR"]
+texture = ExtResource("terrace_lamp")
+offset = Vector2(0, -65)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenLampR"]
+polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
+
+[node name="GateLampR" type="StaticBody2D" parent="."]
+position = Vector2(320, 2700)
+scale = Vector2(1.35, 1.35)
+
+[node name="Artwork" type="Sprite2D" parent="GateLampR"]
+texture = ExtResource("terrace_lamp")
+offset = Vector2(0, -65)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GateLampR"]
+polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
+
+[node name="OuterCypressR" type="StaticBody2D" parent="."]
+position = Vector2(1720, 1790)
+scale = Vector2(1.5, 1.5)
+
+[node name="Artwork" type="Sprite2D" parent="OuterCypressR"]
+texture = ExtResource("cypress")
+offset = Vector2(0, -72)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="OuterCypressR"]
+polygon = PackedVector2Array(-16,-8,0,-20,16,-8,0,0)
+
+[node name="PoolCypressR" type="StaticBody2D" parent="."]
+position = Vector2(1370, 2330)
+scale = Vector2(1.4, 1.4)
+
+[node name="Artwork" type="Sprite2D" parent="PoolCypressR"]
+texture = ExtResource("cypress")
+offset = Vector2(0, -72)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PoolCypressR"]
+polygon = PackedVector2Array(-16,-8,0,-20,16,-8,0,0)
+
+[node name="StairFlowersR" type="StaticBody2D" parent="."]
+position = Vector2(570, 1580)
+scale = Vector2(1.3, 1.3)
+
+[node name="Artwork" type="Sprite2D" parent="StairFlowersR"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="StairFlowersR"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="GardenFootprint" type="CollisionPolygon2D" parent="RoseLeft"]
+polygon = PackedVector2Array(-65, -18, -40, -35, 65, -35, 65, -10, 40, 0, -65, 0)
+
+[node name="GardenFootprint" type="CollisionPolygon2D" parent="RoseRight"]
+polygon = PackedVector2Array(-65, -18, -40, -35, 65, -35, 65, -10, 40, 0, -65, 0)
+
+[node name="GardenFootprint" type="CollisionPolygon2D" parent="TreeLeft"]
+polygon = PackedVector2Array(-28, -16, 0, -30, 28, -16, 0, 0)
+
+[node name="GardenFootprint" type="CollisionPolygon2D" parent="TreeRight"]
+polygon = PackedVector2Array(-28, -16, 0, -30, 28, -16, 0, 0)
+
+[node name="CastleAmbient" type="CanvasModulate" parent="."]
+color = Color(0.83, 0.78, 0.92, 1)
+
+[node name="LightFountain" type="PointLight2D" parent="."]
+position = Vector2(0, 1740)
+texture = ExtResource("violet")
+texture_scale = 4
+energy = 0.65
+
+[node name="LightBoss" type="PointLight2D" parent="."]
+position = Vector2(0, 980)
+texture = ExtResource("violet")
+texture_scale = 5
+energy = 0.55
+
+[node name="LightPoolL" type="PointLight2D" parent="."]
+position = Vector2(-1000, 1950)
+texture = ExtResource("violet")
+texture_scale = 4
+energy = 0.5
+
+[node name="LightPoolR" type="PointLight2D" parent="."]
+position = Vector2(1000, 1950)
+texture = ExtResource("violet")
+texture_scale = 4
+energy = 0.5
+
+[node name="LightStairsL" type="PointLight2D" parent="."]
+position = Vector2(-390, 1350)
+texture = ExtResource("warm")
+texture_scale = 3
+energy = 0.7
+
+[node name="LightStairsR" type="PointLight2D" parent="."]
+position = Vector2(390, 1350)
+texture = ExtResource("warm")
+texture_scale = 3
+energy = 0.7
+
+[node name="LightGateL" type="PointLight2D" parent="."]
+position = Vector2(-230, 2750)
+texture = ExtResource("warm")
+texture_scale = 3
+energy = 0.65
+
+[node name="LightGateR" type="PointLight2D" parent="."]
+position = Vector2(230, 2750)
+texture = ExtResource("warm")
+texture_scale = 3
+energy = 0.65
+
+[node name="SideHallRugL" type="Sprite2D" parent="."]
+position = Vector2(-870, 1110)
+scale = Vector2(2.1, 2.1)
+z_index = -10
+texture = ExtResource("boss_carpet")
+
+[node name="SideHallUrnL" type="StaticBody2D" parent="."]
+position = Vector2(-1160, 1190)
+
+[node name="Artwork" type="Sprite2D" parent="SideHallUrnL"]
+texture = ExtResource("hall_urn")
+offset = Vector2(0, -59)
+scale = Vector2(1.5, 1.5)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideHallUrnL"]
+polygon = PackedVector2Array(-30,-12,0,-28,30,-12,0,0)
+
+[node name="SideHallRugR" type="Sprite2D" parent="."]
+position = Vector2(870, 1110)
+scale = Vector2(2.1, 2.1)
+z_index = -10
+texture = ExtResource("boss_carpet")
+
+[node name="SideHallUrnR" type="StaticBody2D" parent="."]
+position = Vector2(1160, 1190)
+
+[node name="Artwork" type="Sprite2D" parent="SideHallUrnR"]
+texture = ExtResource("hall_urn")
+offset = Vector2(0, -59)
+scale = Vector2(1.5, 1.5)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SideHallUrnR"]
+polygon = PackedVector2Array(-30,-12,0,-28,30,-12,0,0)
+
+[node name="TerraceJoinL" type="StaticBody2D" parent="."]
+position = Vector2(-1510, 1300)
+scale = Vector2(1.4, 1.4)
+
+[node name="Artwork" type="Sprite2D" parent="TerraceJoinL"]
+centered = false
+position = Vector2(-95, -165)
+texture = ExtResource("terrace_join_l")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="TerraceJoinL"]
+polygon = PackedVector2Array(-70,35,70,-35,70,-10,-70,60)
+
+[node name="TerraceJoinR" type="StaticBody2D" parent="."]
+position = Vector2(1510, 1300)
+scale = Vector2(1.4, 1.4)
+
+[node name="Artwork" type="Sprite2D" parent="TerraceJoinR"]
+centered = false
+position = Vector2(-95, -165)
+texture = ExtResource("terrace_join_r")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="TerraceJoinR"]
+polygon = PackedVector2Array(-70,-35,70,35,70,60,-70,-10)

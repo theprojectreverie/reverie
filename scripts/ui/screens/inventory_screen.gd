@@ -95,6 +95,8 @@ func _on_equip_requested(item_id: String, uid: String) -> void:
 		EventBus.toast_requested.emit("Choose a character first.")
 		return
 	var result: Dictionary = _ItemInteractionScript.equip(uid, item_id)
+	if bool(result.get("ok", false)):
+		AudioDirector.play_inventory_equip()
 	EventBus.toast_requested.emit("Equipment updated." if bool(result.get("ok", false)) else str(result.get("reason", "Could not equip that item.")))
 	_rebuild_grid()
 

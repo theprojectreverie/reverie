@@ -1,0 +1,52 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_001.tscn" id="s1"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_002.tscn" id="s2"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_003.tscn" id="s3"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_004.tscn" id="s4"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_005.tscn" id="s5"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_006.tscn" id="s6"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_015.tscn" id="s15"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_016.tscn" id="s16"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_023.tscn" id="s23"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_024.tscn" id="s24"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_031.tscn" id="s31"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/extracted_v2/sprite_032.tscn" id="s32"]
+
+[node name="RoyalGardensScaleReview" type="Node2D"]
+
+[node name="ReviewSprite_1" parent="." instance=ExtResource("s1")]
+position = Vector2(0, 0)
+
+[node name="ReviewSprite_2" parent="." instance=ExtResource("s2")]
+position = Vector2(190, 0)
+
+[node name="ReviewSprite_3" parent="." instance=ExtResource("s3")]
+position = Vector2(380, 0)
+
+[node name="ReviewSprite_4" parent="." instance=ExtResource("s4")]
+position = Vector2(570, 0)
+
+[node name="ReviewSprite_5" parent="." instance=ExtResource("s5")]
+position = Vector2(0, 180)
+
+[node name="ReviewSprite_6" parent="." instance=ExtResource("s6")]
+position = Vector2(190, 180)
+
+[node name="ReviewSprite_15" parent="." instance=ExtResource("s15")]
+position = Vector2(380, 180)
+
+[node name="ReviewSprite_16" parent="." instance=ExtResource("s16")]
+position = Vector2(570, 180)
+
+[node name="ReviewSprite_23" parent="." instance=ExtResource("s23")]
+position = Vector2(0, 360)
+
+[node name="ReviewSprite_24" parent="." instance=ExtResource("s24")]
+position = Vector2(190, 360)
+
+[node name="ReviewSprite_31" parent="." instance=ExtResource("s31")]
+position = Vector2(380, 360)
+
+[node name="ReviewSprite_32" parent="." instance=ExtResource("s32")]
+position = Vector2(570, 360)

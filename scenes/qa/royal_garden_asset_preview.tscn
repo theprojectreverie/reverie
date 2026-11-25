@@ -1,0 +1,75 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/tiles/path_stone_plain.png" id="1"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/tiles/path_stone_corner.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/structures/hedge_straight.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/structures/arch_rose.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/structures/fountain_large.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/structures/bench_stone_rose.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/props/lamp_ornate.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/flora/flower_cluster_rose.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/flora/topiary_cypress.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/flora/hanging_wisteria.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/structures/pond_lily.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/incoming/royal_garden_assets_v1/sprites/structures/garden_gate.png" id="12"]
+
+[node name="RoyalGardenAssetPreview" type="Node2D"]
+
+[node name="Backdrop" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-480, -270, 480, -270, 480, 270, -480, 270)
+color = Color(0.105, 0.09, 0.11, 1)
+
+[node name="PathPlain" type="Sprite2D" parent="."]
+texture = ExtResource("1")
+position = Vector2(-380, -160)
+scale = Vector2(4, 4)
+
+[node name="PathCorner" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+position = Vector2(-260, -160)
+scale = Vector2(4, 4)
+
+[node name="Hedge" type="Sprite2D" parent="."]
+texture = ExtResource("3")
+position = Vector2(-80, -160)
+
+[node name="RoseArch" type="Sprite2D" parent="."]
+texture = ExtResource("4")
+position = Vector2(110, -160)
+
+[node name="Fountain" type="Sprite2D" parent="."]
+texture = ExtResource("5")
+position = Vector2(330, -150)
+
+[node name="Bench" type="Sprite2D" parent="."]
+texture = ExtResource("6")
+position = Vector2(-340, 110)
+
+[node name="Lamp" type="Sprite2D" parent="."]
+texture = ExtResource("7")
+position = Vector2(-180, 100)
+
+[node name="RoseCluster" type="Sprite2D" parent="."]
+texture = ExtResource("8")
+position = Vector2(-30, 110)
+
+[node name="Topiary" type="Sprite2D" parent="."]
+texture = ExtResource("9")
+position = Vector2(110, 110)
+
+[node name="Wisteria" type="Sprite2D" parent="."]
+texture = ExtResource("10")
+position = Vector2(260, 110)
+
+[node name="Pond" type="Sprite2D" parent="."]
+texture = ExtResource("11")
+position = Vector2(360, 110)
+
+[node name="GardenGate" type="Sprite2D" parent="."]
+texture = ExtResource("12")
+position = Vector2(0, 220)
+
+[node name="PreviewCamera" type="Camera2D" parent="."]
+position = Vector2(0, 0)
+zoom = Vector2(1, 1)
+enabled = true

@@ -81,6 +81,7 @@ signal frame_changed(frame: int)
 signal one_shot_finished(state: int)
 signal transitioned(from_state: int, to_state: int, direction: int)
 
+var kael_combat_frames := false
 var state: int = 0
 var direction: int = 0
 var frame: int = 0
@@ -174,7 +175,9 @@ func set_direction_from_vector(v: Vector2) -> int:
 	var a := v.angle()
 	if a < 0.0:
 		a += TAU
-	var sector := int(round(a / (PI * 0.25))) % 8
+	# A tiny angular epsilon makes mathematically exact half-sector ties stable
+	# despite atan2 floating-point rounding (notably the 337.5-degree wrap).
+	var sector := int(round((a + 0.000001) / (PI * 0.25))) % 8
 	var chosen := int(_DIR_BY_ANGLE[sector])
 	if chosen != direction:
 		direction = chosen
@@ -236,13 +239,17 @@ func is_looping() -> bool:
 
 ## Number of frames for the current state (always >= 1).
 func frame_count() -> int:
+	if kael_combat_frames and state in [State.ATTACK, State.DAMAGE]:
+		return 8 if state == State.ATTACK else 4
 	return maxi(1, frame_count_for(state))
 
 
 ## Nominal playback rate (fps) for the current state, before speed_scale.
 ## Guarded: a non-positive / non-finite value is treated as 1.0.
 func fps() -> float:
-	var base := fps_for(state)
+	if kael_combat_frames and state == State.IDLE:
+		return 6.0
+	var base := 12.0 if kael_combat_frames and state in [State.ATTACK, State.DAMAGE] else fps_for(state)
 	if not (base > 0.0):
 		return 1.0
 	return base

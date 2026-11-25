@@ -1,5 +1,30 @@
-[gd_scene format=3]
+[gd_scene load_steps=4 format=3]
+
+[sub_resource type="Animation" id="Animation_slash"]
+resource_name = "slash"
+length = 0.24
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.12, 0.24), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [10.0, 5.0, 0.8]}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.24), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_slash"]
+_data = {"slash": SubResource("Animation_slash")}
 
 [node name="KaelCrossSlash" type="Line2D"]
+points = PackedVector2Array(-34, -25, -5, 2, 31, 27)
 begin_cap_mode = 2
 end_cap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {&"": SubResource("AnimationLibrary_slash")}

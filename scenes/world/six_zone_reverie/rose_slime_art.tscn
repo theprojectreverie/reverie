@@ -1,0 +1,169 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/monsters/rose_slime/rose_slime_idle_64x64.png" id="idle"]
+[ext_resource type="Texture2D" path="res://assets/monsters/rose_slime/rose_slime_walk_64x64.png" id="walk"]
+[ext_resource type="Texture2D" path="res://assets/monsters/rose_slime/rose_slime_attack_64x64.png" id="attack"]
+[ext_resource type="Texture2D" path="res://assets/monsters/rose_slime/rose_slime_hit_64x64.png" id="hit"]
+[ext_resource type="Texture2D" path="res://assets/monsters/rose_slime/rose_slime_defeat_64x64.png" id="defeat"]
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("idle")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("idle")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("idle")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("idle")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="idle_4"]
+atlas = ExtResource("idle")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="idle_5"]
+atlas = ExtResource("idle")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="walk_0"]
+atlas = ExtResource("walk")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="walk_1"]
+atlas = ExtResource("walk")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="walk_2"]
+atlas = ExtResource("walk")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="walk_3"]
+atlas = ExtResource("walk")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="walk_4"]
+atlas = ExtResource("walk")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="walk_5"]
+atlas = ExtResource("walk")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="walk_6"]
+atlas = ExtResource("walk")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="walk_7"]
+atlas = ExtResource("walk")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="attack_0"]
+atlas = ExtResource("attack")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="attack_1"]
+atlas = ExtResource("attack")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="attack_2"]
+atlas = ExtResource("attack")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="attack_3"]
+atlas = ExtResource("attack")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="attack_4"]
+atlas = ExtResource("attack")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="attack_5"]
+atlas = ExtResource("attack")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="attack_6"]
+atlas = ExtResource("attack")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="attack_7"]
+atlas = ExtResource("attack")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="hit_0"]
+atlas = ExtResource("hit")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="hit_1"]
+atlas = ExtResource("hit")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="hit_2"]
+atlas = ExtResource("hit")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="hit_3"]
+atlas = ExtResource("hit")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="hit_4"]
+atlas = ExtResource("hit")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="hit_5"]
+atlas = ExtResource("hit")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="hit_6"]
+atlas = ExtResource("hit")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="hit_7"]
+atlas = ExtResource("hit")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="defeat_0"]
+atlas = ExtResource("defeat")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="defeat_1"]
+atlas = ExtResource("defeat")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="defeat_2"]
+atlas = ExtResource("defeat")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="defeat_3"]
+atlas = ExtResource("defeat")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="defeat_4"]
+atlas = ExtResource("defeat")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="defeat_5"]
+atlas = ExtResource("defeat")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="defeat_6"]
+atlas = ExtResource("defeat")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="defeat_7"]
+atlas = ExtResource("defeat")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("idle_0")}, {"duration": 1.0, "texture": SubResource("idle_1")}, {"duration": 1.0, "texture": SubResource("idle_2")}, {"duration": 1.0, "texture": SubResource("idle_3")}, {"duration": 1.0, "texture": SubResource("idle_4")}, {"duration": 1.0, "texture": SubResource("idle_5")}], "loop": true, "name": &"idle", "speed": 5.0}, {"frames": [{"duration": 1.0, "texture": SubResource("walk_0")}, {"duration": 1.0, "texture": SubResource("walk_1")}, {"duration": 1.0, "texture": SubResource("walk_2")}, {"duration": 1.0, "texture": SubResource("walk_3")}, {"duration": 1.0, "texture": SubResource("walk_4")}, {"duration": 1.0, "texture": SubResource("walk_5")}, {"duration": 1.0, "texture": SubResource("walk_6")}, {"duration": 1.0, "texture": SubResource("walk_7")}], "loop": true, "name": &"walk", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": SubResource("attack_0")}, {"duration": 1.0, "texture": SubResource("attack_1")}, {"duration": 1.0, "texture": SubResource("attack_2")}, {"duration": 1.0, "texture": SubResource("attack_3")}, {"duration": 1.0, "texture": SubResource("attack_4")}, {"duration": 1.0, "texture": SubResource("attack_5")}, {"duration": 1.0, "texture": SubResource("attack_6")}, {"duration": 1.0, "texture": SubResource("attack_7")}], "loop": false, "name": &"attack", "speed": 12.0}, {"frames": [{"duration": 1.0, "texture": SubResource("hit_0")}, {"duration": 1.0, "texture": SubResource("hit_1")}, {"duration": 1.0, "texture": SubResource("hit_2")}, {"duration": 1.0, "texture": SubResource("hit_3")}, {"duration": 1.0, "texture": SubResource("hit_4")}, {"duration": 1.0, "texture": SubResource("hit_5")}, {"duration": 1.0, "texture": SubResource("hit_6")}, {"duration": 1.0, "texture": SubResource("hit_7")}], "loop": false, "name": &"hit", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": SubResource("defeat_0")}, {"duration": 1.0, "texture": SubResource("defeat_1")}, {"duration": 1.0, "texture": SubResource("defeat_2")}, {"duration": 1.0, "texture": SubResource("defeat_3")}, {"duration": 1.0, "texture": SubResource("defeat_4")}, {"duration": 1.0, "texture": SubResource("defeat_5")}, {"duration": 1.0, "texture": SubResource("defeat_6")}, {"duration": 1.0, "texture": SubResource("defeat_7")}], "loop": false, "name": &"defeat", "speed": 10.0}]
+
+[node name="RoseSlimeArt" type="AnimatedSprite2D"]
+texture_filter = 1
+position = Vector2(0, -32)
+sprite_frames = SubResource("frames")
+animation = &"idle"
+autoplay = "idle"

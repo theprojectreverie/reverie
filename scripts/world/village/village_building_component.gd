@@ -91,18 +91,11 @@ func apply_building_config(cfg: Resource) -> void:
 	_apply_part_visibility()
 
 func _apply_visual() -> void:
-	if sprite == null or building_kind.is_empty():
+	# No generic or procedural building art: await a matching authored building scene.
+	if sprite == null:
 		return
-	var texture := ProceduralArt.prop_texture(building_kind, visual_variant)
-	if texture == null:
-		return
-	sprite.texture = texture
-	sprite.centered = false
-	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	sprite.offset = Vector2(-float(texture.get_width()) * 0.5, -float(texture.get_height()) + 6.0)
-	sprite.scale = Vector2.ONE * visual_scale
-	sprite.flip_h = visual_flip_h
-	sprite.material = null
+	sprite.texture = null
+	sprite.visible = false
 	_apply_part_visibility()
 
 func _apply_part_visibility() -> void:

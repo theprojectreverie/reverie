@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/royal_gardens_ground_64x32/garden_stone_path.png" id="pink_stone"]
+
+[node name="RoyalGardensRosyStone" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+modulate = Color(1, 0.89, 0.92, 1)
+texture = ExtResource("pink_stone")

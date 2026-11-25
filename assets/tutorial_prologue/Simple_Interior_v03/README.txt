@@ -1,0 +1,1 @@
+Reverie simple interior v03. Separate transparent PNGs. Pixel art is authored imagery; alpha cleaned from generated sheet. Review edges in Godot before production. Walls are modular Sprite2D assets; align visually to 32px grid.

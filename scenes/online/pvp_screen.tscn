@@ -1,0 +1,115 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/online/pvp_screen.gd" id="1"]
+
+[node name="PvpScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(680, 430)
+layout_mode = 2
+
+[node name="Margins" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margins"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+text = "FRIENDLY DUEL"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 30
+
+[node name="Subtitle" type="Label" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+text = "Server-authoritative PvP · Your saved party and equipment are used"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Status" type="Label" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+text = "Ready for a friendly duel."
+horizontal_alignment = 1
+
+[node name="MatchInfo" type="Label" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+text = "No active match"
+horizontal_alignment = 1
+
+[node name="ActionRow" type="HBoxContainer" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Actor" type="OptionButton" parent="Center/Panel/Margins/Content/ActionRow"]
+custom_minimum_size = Vector2(160, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Skill" type="OptionButton" parent="Center/Panel/Margins/Content/ActionRow"]
+custom_minimum_size = Vector2(160, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Target" type="OptionButton" parent="Center/Panel/Margins/Content/ActionRow"]
+custom_minimum_size = Vector2(160, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubmitButton" type="Button" parent="Center/Panel/Margins/Content/ActionRow"]
+custom_minimum_size = Vector2(120, 42)
+layout_mode = 2
+text = "ACT"
+
+[node name="Buttons" type="HBoxContainer" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="QueueButton" type="Button" parent="Center/Panel/Margins/Content/Buttons"]
+custom_minimum_size = Vector2(180, 48)
+layout_mode = 2
+text = "FIND OPPONENT"
+
+[node name="CancelButton" type="Button" parent="Center/Panel/Margins/Content/Buttons"]
+custom_minimum_size = Vector2(150, 48)
+layout_mode = 2
+text = "CANCEL QUEUE"
+
+[node name="SurrenderButton" type="Button" parent="Center/Panel/Margins/Content/Buttons"]
+custom_minimum_size = Vector2(120, 48)
+layout_mode = 2
+text = "SURRENDER"
+
+[node name="CloseButton" type="Button" parent="Center/Panel/Margins/Content/Buttons"]
+custom_minimum_size = Vector2(120, 48)
+layout_mode = 2
+text = "CLOSE"
+
+[connection signal="pressed" from="Center/Panel/Margins/Content/Buttons/QueueButton" to="." method="_join_queue"]
+[connection signal="pressed" from="Center/Panel/Margins/Content/Buttons/CancelButton" to="." method="_leave_queue"]
+[connection signal="pressed" from="Center/Panel/Margins/Content/Buttons/SurrenderButton" to="." method="_surrender"]
+[connection signal="pressed" from="Center/Panel/Margins/Content/Buttons/CloseButton" to="." method="_close"]
+[connection signal="pressed" from="Center/Panel/Margins/Content/ActionRow/SubmitButton" to="." method="_submit_action"]
+[connection signal="item_selected" from="Center/Panel/Margins/Content/ActionRow/Actor" to="." method="_on_actor_selected"]
+[connection signal="item_selected" from="Center/Panel/Margins/Content/ActionRow/Skill" to="." method="_on_skill_selected"]

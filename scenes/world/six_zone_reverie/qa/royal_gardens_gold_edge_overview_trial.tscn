@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_01_royal_gardens.tscn" id="zone"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/qa/royal_gardens_gold_edge_overlay_trial.tscn" id="gold"]
+
+[node name="RoyalGardensGoldEdgeTrial" type="Node2D"]
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="GoldBorderTrial" parent="." instance=ExtResource("gold")]
+
+[node name="OverviewCamera" type="Camera2D" parent="."]
+position = Vector2(700, 2180)
+zoom = Vector2(0.135, 0.135)

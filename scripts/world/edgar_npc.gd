@@ -21,3 +21,11 @@ func _ready() -> void:
 	role = "Market Keeper"
 	quest_marker_y = -178.0
 	super._ready()
+
+
+func _play_interaction_presentation() -> void:
+	var player := get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if player == null or not player.has_animation("edgar_talk_nod"):
+		return
+	player.play("edgar_talk_nod")
+	player.queue("edgar_idle_breath")

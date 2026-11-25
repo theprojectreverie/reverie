@@ -3,6 +3,10 @@ extends Node2D
 
 signal bridge_enabled_changed(enabled: bool)
 
+const AUTHORED_BRIDGE_ART := {
+	"stone_bridge": "res://assets/environment/greenward/stone_bridge.svg",
+}
+
 @export var bridge_kind: String = "wooden_bridge"
 @export var variant: int = 0
 @export var enabled: bool = true:
@@ -23,12 +27,18 @@ func _ready() -> void:
 
 
 func _apply() -> void:
-	if deck != null and not bridge_kind.is_empty():
-		var tex := ProceduralArt.prop_texture(bridge_kind, variant)
-		if tex != null:
-			deck.texture = tex
-			deck.centered = false
-			deck.offset = Vector2(-float(tex.get_width()) * 0.5, -float(tex.get_height()) + 6.0)
+	if deck != null:
+		var art_path: String = str(AUTHORED_BRIDGE_ART.get(bridge_kind, ""))
+		if art_path.is_empty():
+			deck.texture = null
+			deck.visible = false
+		else:
+			var texture := load(art_path) as Texture2D
+			deck.texture = texture
+			deck.visible = texture != null
+			if texture != null:
+				deck.centered = false
+				deck.offset = Vector2(-float(texture.get_width()) * 0.5, -float(texture.get_height()) + 6.0)
 	if walk_shape != null and walk_shape.shape is RectangleShape2D:
 		(walk_shape.shape as RectangleShape2D).size = Vector2(span_length, 28.0)
 	if walkable_area != null:

@@ -163,7 +163,10 @@ func region_at_world_position(world_pos: Vector2) -> String:
 	for raw_id in regions.keys():
 		var rid := str(raw_id)
 		var d := world_pos.distance_to(world_origin(rid))
-		if d < best_distance:
+		# A few authored maps may intentionally share a logical origin while
+		# their transition data is being migrated. Resolve exact ties toward
+		# the default overworld instead of whichever dictionary key loads first.
+		if d < best_distance or (is_equal_approx(d, best_distance) and rid == DEFAULT_REGION):
 			best_distance = d
 			best = rid
 	return best if not best.is_empty() else DEFAULT_REGION

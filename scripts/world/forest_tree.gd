@@ -19,6 +19,27 @@ signal canopy_restore_requested
 
 var _occluders: int = 0
 
+const AUTHORED_ENVIRONMENT_ART := {
+	"ancient_tree": preload("res://assets/environment/greenward/ancient_oak.svg"),
+	"glade_tree": preload("res://assets/environment/greenward/ancient_oak.svg"),
+	"willow_tree": preload("res://assets/environment/greenward/willow_tree.svg"),
+	"pine_tree": preload("res://assets/environment/greenward/pine_tree.svg"),
+	"birch_tree": preload("res://assets/environment/moonpetal/silver_birch.svg"),
+	"blossom_tree": preload("res://assets/environment/greenward/blossom_tree.svg"),
+	"dead_tree": preload("res://assets/environment/greenward/dead_tree.svg"),
+	"wisteria_tree": preload("res://assets/environment/greenward/wisteria_tree_a.png"),
+	"cherry_blossom_tree": preload("res://assets/environment/greenward/cherry_blossom_tree_a.png"),
+	"white_blossom_tree": preload("res://assets/environment/greenward/white_blossom_tree_a.png"),
+}
+
+
+func _authored_environment_texture(kind: String) -> Texture2D:
+	return AUTHORED_ENVIRONMENT_ART.get(kind) as Texture2D
+
+
+func _is_authored_environment_kind(kind: String) -> bool:
+	return AUTHORED_ENVIRONMENT_ART.has(kind)
+
 
 func _ready() -> void:
 	if not occlusion_area.body_entered.is_connected(_on_body_entered):
@@ -66,8 +87,31 @@ func _apply_flip_and_wind(flip_h: bool, wind_mat: Material) -> void:
 
 
 func _apply_art(wind_mat: Material = null) -> void:
-	var tex := ProceduralArt.prop_texture(prop_kind, variant)
+	var tex := _authored_environment_texture(prop_kind)
 	if tex == null:
+		# Unknown tree kinds must never fall back to generated placeholder art.
+		# Keep the reusable node safe and invisible until authored art is assigned.
+		for sprite in [shadow_sprite, trunk_sprite, canopy_sprite]:
+			if sprite != null:
+				sprite.texture = null
+				sprite.visible = false
+		return
+	for sprite in [shadow_sprite, trunk_sprite, canopy_sprite]:
+		if sprite != null:
+			sprite.visible = true
+	# Authored environment illustrations are complete compositions with their
+	# own trunk/canopy silhouettes and ground shadow. Keep them intact rather
+	# than cutting the artwork at an arbitrary procedural split line.
+	if _is_authored_environment_kind(prop_kind):
+		trunk_sprite.texture = null
+		shadow_sprite.texture = null
+		canopy_sprite.texture = tex
+		_configure_layout(tex)
+		var flip_h := bool(get_meta("_flip", false))
+		var wm: Material = wind_mat
+		if wm == null and has_meta("_wind_mat"):
+			wm = get_meta("_wind_mat")
+		_apply_flip_and_wind(flip_h, wm)
 		return
 	var img: Image = tex.get_image()
 	if img == null:
@@ -115,7 +159,9 @@ func _configure_layout(tex: Texture2D) -> void:
 			continue
 		s.centered = false
 		s.offset = off
-		s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		# Preserve hard pixel clusters for the dedicated Greenward pixel-art tree.
+		var is_pixel_art_tree := tex.resource_path.ends_with("wisteria_tree_a.png") or tex.resource_path.ends_with("cherry_blossom_tree_a.png") or tex.resource_path.ends_with("white_blossom_tree_a.png")
+		s.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if is_pixel_art_tree else CanvasItem.TEXTURE_FILTER_LINEAR
 	# Detect the player's GROUND ANCHOR beneath the canopy, not the
 	# canopy pixels themselves. Player collision bodies sit around y=-22..0;
 	# the old box at -0.55h floated far above them, so canopy_fade never fired

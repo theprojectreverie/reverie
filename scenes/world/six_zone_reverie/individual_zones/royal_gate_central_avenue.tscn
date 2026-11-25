@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_straight_road_section.tscn" id="road"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_gate_approach_unique.tscn" id="approach_unique"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_plaza_foundation.tscn" id="plaza"]
+
+[node name="RoyalGateCentralAvenue" type="Node2D"]
+z_index = -19
+
+[node name="GateApproachSection" parent="." instance=ExtResource("approach_unique")]
+position = Vector2(0, 590)
+
+[node name="AvenueSection01" parent="." instance=ExtResource("road")]
+position = Vector2(0, 750)
+
+[node name="AvenueSection02" parent="." instance=ExtResource("road")]
+position = Vector2(0, 910)
+
+[node name="AvenueSection03" parent="." instance=ExtResource("road")]
+position = Vector2(0, 1070)
+
+[node name="AvenueSection04" parent="." instance=ExtResource("road")]
+position = Vector2(0, 1230)
+
+[node name="AvenueSection05" parent="." instance=ExtResource("road")]
+position = Vector2(0, 1390)
+
+[node name="AvenueSection06" parent="." instance=ExtResource("road")]
+position = Vector2(0, 1550)
+
+[node name="AvenueSection07" parent="." instance=ExtResource("road")]
+position = Vector2(0, 1710)
+
+[node name="AvenueSection08" parent="." instance=ExtResource("road")]
+position = Vector2(0, 1870)
+
+[node name="AvenueSection09" parent="." instance=ExtResource("road")]
+position = Vector2(0, 2030)
+
+[node name="AvenueSection10" parent="." instance=ExtResource("road")]
+position = Vector2(0, 2190)
+
+[node name="AvenueSection11" parent="." instance=ExtResource("road")]
+position = Vector2(0, 2350)
+
+[node name="AvenueSection12" parent="." instance=ExtResource("road")]
+position = Vector2(0, 2510)
+
+[node name="AvenueSection13" parent="." instance=ExtResource("road")]
+position = Vector2(0, 2670)
+
+[node name="AvenueSection14" parent="." instance=ExtResource("road")]
+position = Vector2(0, 2830)
+
+[node name="PlazaFoundation" parent="." instance=ExtResource("plaza")]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_gold_paving_trial/border_sw.png" id="tex"]
+
+[node name="Goldborder_sw" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("tex")

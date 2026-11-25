@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/qa/willow_narrow_edge_all_test.tscn" id="zone"]
+
+[node name="WillowNarrowEdgeQA" type="Node2D"]
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1500, 1760)
+zoom = Vector2(1, 1)
+enabled = true

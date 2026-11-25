@@ -1,0 +1,186 @@
+[
+  {
+    "file": "garden_edges\\grass_cliff_corner_01.png",
+    "size": [
+      92,
+      88
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "garden_edges\\grass_cliff_corner_02.png",
+    "size": [
+      92,
+      104
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "garden_edges\\grass_cliff_corner_03.png",
+    "size": [
+      84,
+      96
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "garden_edges\\grass_cliff_edge_01.png",
+    "size": [
+      86,
+      98
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "garden_edges\\grass_cliff_edge_02.png",
+    "size": [
+      100,
+      116
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "garden_edges\\grass_cliff_edge_03.png",
+    "size": [
+      102,
+      122
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "garden_edges\\paving_corner_01.png",
+    "size": [
+      76,
+      116
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "garden_edges\\paving_corner_03.png",
+    "size": [
+      84,
+      92
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_flower_pink\\grass_dense_pink_01.png",
+    "size": [
+      110,
+      118
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_flower_pink\\grass_mixed_flower_01.png",
+    "size": [
+      114,
+      118
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_flower_pink\\grass_pink_flower_01.png",
+    "size": [
+      116,
+      118
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_flower_white\\grass_flower_mix_02.png",
+    "size": [
+      106,
+      118
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_flower_white\\grass_white_flower_01.png",
+    "size": [
+      108,
+      118
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_grass_plain\\grass_plain_01.png",
+    "size": [
+      112,
+      118
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_grass_plain\\grass_plain_02.png",
+    "size": [
+      114,
+      120
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_paving\\paving_cream_moss_01.png",
+    "size": [
+      96,
+      114
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_paving\\paving_cream_moss_02.png",
+    "size": [
+      102,
+      114
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_paving\\paving_cream_plain_01.png",
+    "size": [
+      110,
+      114
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_paving\\paving_gold_diamond_01.png",
+    "size": [
+      110,
+      114
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_paving\\paving_gold_diamond_02.png",
+    "size": [
+      114,
+      118
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_paving\\paving_gold_medallion_01.png",
+    "size": [
+      120,
+      118
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_paving\\paving_gold_square_01.png",
+    "size": [
+      116,
+      116
+    ],
+    "alpha": "RGBA"
+  },
+  {
+    "file": "ground_paving\\paving_gold_square_02.png",
+    "size": [
+      92,
+      110
+    ],
+    "alpha": "RGBA"
+  }
+]

@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_14_prop.png" id="bed_1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_15_prop.png" id="bed_2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_20_prop.png" id="bed_3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_09_prop.png" id="bed_4"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_15_prop.png" id="bed_5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_14_prop.png" id="bed_6"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_13_prop.png" id="bed_7"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_09_prop.png" id="bed_8"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_20_prop.png" id="bed_9"]
+
+[node name="RoyalGardensFlowerbedsV4" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CastleEastFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-360, 1170)
+scale = Vector2(1.0, 1.0)
+texture = ExtResource("bed_1")
+
+[node name="PondWestFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-70, 950)
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("bed_2")
+
+[node name="PondEastFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(950, 930)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("bed_3")
+
+[node name="FountainWestFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1550, 1940)
+scale = Vector2(1.0, 1.0)
+texture = ExtResource("bed_4")
+
+[node name="FountainSouthFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-992, 2448)
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("bed_5")
+
+[node name="PlazaSouthFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 2450)
+scale = Vector2(1.0, 1.0)
+texture = ExtResource("bed_6")
+
+[node name="GazeboApproachFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(900, 1560)
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("bed_7")
+
+[node name="GazeboSouthFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1780, 1690)
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("bed_8")
+
+[node name="ExitFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(850, 2400)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("bed_9")

@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/combat/battle_hit_effect.gd" id="1_script"]
+
+[sub_resource type="Animation" id="Animation_impact"]
+resource_name = "impact"
+length = 0.32
+tracks/0/type = "value"
+tracks/0/path = NodePath("Art:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.09, 0.32), "transitions": PackedFloat32Array(1, 0.65, 1), "update": 0, "values": [Vector2(0.32, 0.32), Vector2(1.12, 1.12), Vector2(1.75, 1.75)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Art:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.32), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [-0.18, 0.24]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Art:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {"times": PackedFloat32Array(0, 0.20, 0.32), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.82), Color(1, 1, 1, 0)]}
+
+[sub_resource type="Animation" id="Animation_critical"]
+resource_name = "critical"
+length = 0.42
+tracks/0/type = "value"
+tracks/0/path = NodePath("Art:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.11, 0.42), "transitions": PackedFloat32Array(0.35, 0.65, 1), "update": 0, "values": [Vector2(0.38, 0.38), Vector2(1.35, 1.35), Vector2(2.0, 2.0)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Art:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.42), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [-0.28, 0.48]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Art:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {"times": PackedFloat32Array(0, 0.24, 0.42), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.88), Color(1, 1, 1, 0)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_impact"]
+_data = {"impact": SubResource("Animation_impact"), "critical": SubResource("Animation_critical")}
+
+[node name="BattleHitEffect" type="Node2D"]
+script = ExtResource("1_script")
+z_index = 36
+
+[node name="Art" type="Node2D" parent="."]
+
+[node name="Slash" type="Line2D" parent="Art"]
+points = PackedVector2Array(-28, -23, -10, -7, 8, 8, 25, 23)
+width = 8.0
+antialiased = true
+
+[node name="Core" type="Line2D" parent="Art"]
+points = PackedVector2Array(-22, -17, -7, -5, 8, 7, 20, 18)
+width = 2.4
+antialiased = true
+
+[node name="Ring" type="Line2D" parent="Art"]
+points = PackedVector2Array(0, -26, 18, -18, 26, 0, 18, 18, 0, 26, -18, 18, -26, 0, -18, -18, 0, -26)
+width = 2.0
+antialiased = true
+
+[node name="SparkA" type="Line2D" parent="Art"]
+points = PackedVector2Array(10, -8, 21, -18)
+width = 2.0
+antialiased = true
+
+[node name="SparkB" type="Line2D" parent="Art"]
+points = PackedVector2Array(-9, 7, -22, 18)
+width = 2.0
+antialiased = true
+
+[node name="SparkC" type="Line2D" parent="Art"]
+points = PackedVector2Array(8, 12, 14, 26)
+width = 1.6
+antialiased = true
+
+[node name="SparkD" type="Line2D" parent="Art"]
+points = PackedVector2Array(-8, -10, -18, -25)
+width = 1.6
+antialiased = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {"": SubResource("AnimationLibrary_impact")}

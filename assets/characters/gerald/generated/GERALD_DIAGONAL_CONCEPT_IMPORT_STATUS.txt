@@ -1,0 +1,5 @@
+GERALD DIAGONAL WALK CONCEPT - NOT IMPORTED
+
+2172x724 RGB, no alpha channel (opaque background). Does not meet the production contract of four diagonal directions, 16 clean frames per direction, 128x128 transparent cells. Presentation labels/layout prevent safe slicing.
+
+No existing SpriteFrames animations were changed. Diagonal walk animations remain unchanged until a technically valid, consistent sheet is available.

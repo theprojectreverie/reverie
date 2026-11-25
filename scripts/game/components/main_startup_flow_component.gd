@@ -10,6 +10,7 @@ const LOADING_SCENE: PackedScene = preload("res://scenes/ui/loading_screen.tscn"
 var host: Control
 var title: TitleScreen
 var loading: LoadingScreen
+var pending_account_action := ""
 
 func bind(owner: Control) -> void:
 	host = owner
@@ -26,6 +27,25 @@ func begin() -> void:
 	title.quit_requested.connect(quit_requested.emit)
 
 func _on_title_action(action: String) -> void:
+	if not AuthGateway.is_authenticated():
+		if AuthGateway.restoring_session:
+			return
+		pending_account_action = action
+		if title.has_node("RequiredAccountOverlay"):
+			return
+		var overlay := preload("res://scenes/online/account_screen.tscn").instantiate()
+		overlay.name = "RequiredAccountOverlay"
+		overlay.z_index = 50
+		title.add_child(overlay)
+		overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		overlay.closed.connect(overlay.queue_free)
+		overlay.account_authenticated.connect(func(_player: Dictionary) -> void:
+			overlay.queue_free()
+			var next := pending_account_action
+			pending_account_action = ""
+			_on_title_action.call_deferred(next)
+		)
+		return
 	if action == "new" and SaveService.has_save():
 		var confirm := ConfirmationDialog.new()
 		confirm.title = "Begin a New Journey?"
@@ -42,10 +62,17 @@ func _on_title_action(action: String) -> void:
 	if action == "new":
 		_prepare_new_journey()
 		_launch_new_journey()
-	elif action in ["continue", "load"] and SaveService.has_save():
+	elif action in ["continue", "load"]:
 		var data := SaveService.load_save()
-		if not data.is_empty():
-			GameState._load_from_dict(data)
+		if data.is_empty():
+			var notice := AcceptDialog.new()
+			notice.title = "Save unavailable"
+			notice.dialog_text = "Your save could not be read. Please retry Continue. Progress has not been reset."
+			host.add_child(notice)
+			notice.confirmed.connect(notice.queue_free)
+			notice.popup_centered()
+			return
+		GameState._load_from_dict(data)
 		GameState.session_domain.loaded_from_save = true
 	_load_menu()
 

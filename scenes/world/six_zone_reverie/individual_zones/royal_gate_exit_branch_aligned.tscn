@@ -1,0 +1,996 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_stone_path.tscn" id="stone"]
+
+[node name="RoyalGateExitBranchAligned" type="Node2D"]
+z_index = -19
+
+[node name="Stone_000" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1660)
+
+[node name="Stone_001" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1676)
+
+[node name="Stone_002" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1692)
+
+[node name="Stone_003" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1692)
+
+[node name="Stone_004" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1708)
+
+[node name="Stone_005" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1724)
+
+[node name="Stone_006" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1708)
+
+[node name="Stone_007" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1724)
+
+[node name="Stone_008" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1740)
+
+[node name="Stone_009" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1756)
+
+[node name="Stone_010" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1724)
+
+[node name="Stone_011" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1740)
+
+[node name="Stone_012" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1756)
+
+[node name="Stone_013" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1772)
+
+[node name="Stone_014" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1788)
+
+[node name="Stone_015" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1740)
+
+[node name="Stone_016" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1756)
+
+[node name="Stone_017" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1772)
+
+[node name="Stone_018" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1788)
+
+[node name="Stone_019" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1804)
+
+[node name="Stone_020" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1820)
+
+[node name="Stone_021" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1756)
+
+[node name="Stone_022" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1772)
+
+[node name="Stone_023" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1788)
+
+[node name="Stone_024" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1804)
+
+[node name="Stone_025" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1820)
+
+[node name="Stone_026" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1836)
+
+[node name="Stone_027" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1772)
+
+[node name="Stone_028" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1788)
+
+[node name="Stone_029" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1804)
+
+[node name="Stone_030" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1820)
+
+[node name="Stone_031" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1836)
+
+[node name="Stone_032" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1852)
+
+[node name="Stone_033" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1788)
+
+[node name="Stone_034" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1804)
+
+[node name="Stone_035" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1820)
+
+[node name="Stone_036" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1836)
+
+[node name="Stone_037" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1852)
+
+[node name="Stone_038" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1868)
+
+[node name="Stone_039" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1804)
+
+[node name="Stone_040" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1820)
+
+[node name="Stone_041" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1836)
+
+[node name="Stone_042" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1852)
+
+[node name="Stone_043" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1868)
+
+[node name="Stone_044" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1884)
+
+[node name="Stone_045" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1820)
+
+[node name="Stone_046" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1836)
+
+[node name="Stone_047" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1852)
+
+[node name="Stone_048" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1868)
+
+[node name="Stone_049" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1884)
+
+[node name="Stone_050" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1900)
+
+[node name="Stone_051" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1836)
+
+[node name="Stone_052" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1852)
+
+[node name="Stone_053" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1868)
+
+[node name="Stone_054" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1884)
+
+[node name="Stone_055" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1900)
+
+[node name="Stone_056" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1916)
+
+[node name="Stone_057" parent="." instance=ExtResource("stone")]
+position = Vector2(722, 1852)
+
+[node name="Stone_058" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1868)
+
+[node name="Stone_059" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1884)
+
+[node name="Stone_060" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1900)
+
+[node name="Stone_061" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1916)
+
+[node name="Stone_062" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1932)
+
+[node name="Stone_063" parent="." instance=ExtResource("stone")]
+position = Vector2(754, 1868)
+
+[node name="Stone_064" parent="." instance=ExtResource("stone")]
+position = Vector2(722, 1884)
+
+[node name="Stone_065" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1900)
+
+[node name="Stone_066" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1916)
+
+[node name="Stone_067" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1932)
+
+[node name="Stone_068" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1948)
+
+[node name="Stone_069" parent="." instance=ExtResource("stone")]
+position = Vector2(786, 1884)
+
+[node name="Stone_070" parent="." instance=ExtResource("stone")]
+position = Vector2(754, 1900)
+
+[node name="Stone_071" parent="." instance=ExtResource("stone")]
+position = Vector2(722, 1916)
+
+[node name="Stone_072" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1932)
+
+[node name="Stone_073" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1948)
+
+[node name="Stone_074" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1964)
+
+[node name="Stone_075" parent="." instance=ExtResource("stone")]
+position = Vector2(818, 1900)
+
+[node name="Stone_076" parent="." instance=ExtResource("stone")]
+position = Vector2(786, 1916)
+
+[node name="Stone_077" parent="." instance=ExtResource("stone")]
+position = Vector2(754, 1932)
+
+[node name="Stone_078" parent="." instance=ExtResource("stone")]
+position = Vector2(722, 1948)
+
+[node name="Stone_079" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1964)
+
+[node name="Stone_080" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1980)
+
+[node name="Stone_081" parent="." instance=ExtResource("stone")]
+position = Vector2(850, 1916)
+
+[node name="Stone_082" parent="." instance=ExtResource("stone")]
+position = Vector2(818, 1932)
+
+[node name="Stone_083" parent="." instance=ExtResource("stone")]
+position = Vector2(786, 1948)
+
+[node name="Stone_084" parent="." instance=ExtResource("stone")]
+position = Vector2(754, 1964)
+
+[node name="Stone_085" parent="." instance=ExtResource("stone")]
+position = Vector2(722, 1980)
+
+[node name="Stone_086" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1996)
+
+[node name="Stone_087" parent="." instance=ExtResource("stone")]
+position = Vector2(882, 1932)
+
+[node name="Stone_088" parent="." instance=ExtResource("stone")]
+position = Vector2(850, 1948)
+
+[node name="Stone_089" parent="." instance=ExtResource("stone")]
+position = Vector2(818, 1964)
+
+[node name="Stone_090" parent="." instance=ExtResource("stone")]
+position = Vector2(786, 1980)
+
+[node name="Stone_091" parent="." instance=ExtResource("stone")]
+position = Vector2(754, 1996)
+
+[node name="Stone_092" parent="." instance=ExtResource("stone")]
+position = Vector2(722, 2012)
+
+[node name="Stone_093" parent="." instance=ExtResource("stone")]
+position = Vector2(914, 1948)
+
+[node name="Stone_094" parent="." instance=ExtResource("stone")]
+position = Vector2(882, 1964)
+
+[node name="Stone_095" parent="." instance=ExtResource("stone")]
+position = Vector2(850, 1980)
+
+[node name="Stone_096" parent="." instance=ExtResource("stone")]
+position = Vector2(818, 1996)
+
+[node name="Stone_097" parent="." instance=ExtResource("stone")]
+position = Vector2(786, 2012)
+
+[node name="Stone_098" parent="." instance=ExtResource("stone")]
+position = Vector2(754, 2028)
+
+[node name="Stone_099" parent="." instance=ExtResource("stone")]
+position = Vector2(946, 1964)
+
+[node name="Stone_100" parent="." instance=ExtResource("stone")]
+position = Vector2(914, 1980)
+
+[node name="Stone_101" parent="." instance=ExtResource("stone")]
+position = Vector2(882, 1996)
+
+[node name="Stone_102" parent="." instance=ExtResource("stone")]
+position = Vector2(850, 2012)
+
+[node name="Stone_103" parent="." instance=ExtResource("stone")]
+position = Vector2(818, 2028)
+
+[node name="Stone_104" parent="." instance=ExtResource("stone")]
+position = Vector2(786, 2044)
+
+[node name="Stone_105" parent="." instance=ExtResource("stone")]
+position = Vector2(978, 1980)
+
+[node name="Stone_106" parent="." instance=ExtResource("stone")]
+position = Vector2(946, 1996)
+
+[node name="Stone_107" parent="." instance=ExtResource("stone")]
+position = Vector2(914, 2012)
+
+[node name="Stone_108" parent="." instance=ExtResource("stone")]
+position = Vector2(882, 2028)
+
+[node name="Stone_109" parent="." instance=ExtResource("stone")]
+position = Vector2(850, 2044)
+
+[node name="Stone_110" parent="." instance=ExtResource("stone")]
+position = Vector2(818, 2060)
+
+[node name="Stone_111" parent="." instance=ExtResource("stone")]
+position = Vector2(1010, 1996)
+
+[node name="Stone_112" parent="." instance=ExtResource("stone")]
+position = Vector2(978, 2012)
+
+[node name="Stone_113" parent="." instance=ExtResource("stone")]
+position = Vector2(946, 2028)
+
+[node name="Stone_114" parent="." instance=ExtResource("stone")]
+position = Vector2(914, 2044)
+
+[node name="Stone_115" parent="." instance=ExtResource("stone")]
+position = Vector2(882, 2060)
+
+[node name="Stone_116" parent="." instance=ExtResource("stone")]
+position = Vector2(850, 2076)
+
+[node name="Stone_117" parent="." instance=ExtResource("stone")]
+position = Vector2(1042, 2012)
+
+[node name="Stone_118" parent="." instance=ExtResource("stone")]
+position = Vector2(1010, 2028)
+
+[node name="Stone_119" parent="." instance=ExtResource("stone")]
+position = Vector2(978, 2044)
+
+[node name="Stone_120" parent="." instance=ExtResource("stone")]
+position = Vector2(946, 2060)
+
+[node name="Stone_121" parent="." instance=ExtResource("stone")]
+position = Vector2(914, 2076)
+
+[node name="Stone_122" parent="." instance=ExtResource("stone")]
+position = Vector2(882, 2092)
+
+[node name="Stone_123" parent="." instance=ExtResource("stone")]
+position = Vector2(1074, 2028)
+
+[node name="Stone_124" parent="." instance=ExtResource("stone")]
+position = Vector2(1042, 2044)
+
+[node name="Stone_125" parent="." instance=ExtResource("stone")]
+position = Vector2(1010, 2060)
+
+[node name="Stone_126" parent="." instance=ExtResource("stone")]
+position = Vector2(978, 2076)
+
+[node name="Stone_127" parent="." instance=ExtResource("stone")]
+position = Vector2(946, 2092)
+
+[node name="Stone_128" parent="." instance=ExtResource("stone")]
+position = Vector2(914, 2108)
+
+[node name="Stone_129" parent="." instance=ExtResource("stone")]
+position = Vector2(1106, 2044)
+
+[node name="Stone_130" parent="." instance=ExtResource("stone")]
+position = Vector2(1074, 2060)
+
+[node name="Stone_131" parent="." instance=ExtResource("stone")]
+position = Vector2(1042, 2076)
+
+[node name="Stone_132" parent="." instance=ExtResource("stone")]
+position = Vector2(1010, 2092)
+
+[node name="Stone_133" parent="." instance=ExtResource("stone")]
+position = Vector2(978, 2108)
+
+[node name="Stone_134" parent="." instance=ExtResource("stone")]
+position = Vector2(946, 2124)
+
+[node name="Stone_135" parent="." instance=ExtResource("stone")]
+position = Vector2(1138, 2060)
+
+[node name="Stone_136" parent="." instance=ExtResource("stone")]
+position = Vector2(1106, 2076)
+
+[node name="Stone_137" parent="." instance=ExtResource("stone")]
+position = Vector2(1074, 2092)
+
+[node name="Stone_138" parent="." instance=ExtResource("stone")]
+position = Vector2(1042, 2108)
+
+[node name="Stone_139" parent="." instance=ExtResource("stone")]
+position = Vector2(1010, 2124)
+
+[node name="Stone_140" parent="." instance=ExtResource("stone")]
+position = Vector2(978, 2140)
+
+[node name="Stone_141" parent="." instance=ExtResource("stone")]
+position = Vector2(1170, 2076)
+
+[node name="Stone_142" parent="." instance=ExtResource("stone")]
+position = Vector2(1138, 2092)
+
+[node name="Stone_143" parent="." instance=ExtResource("stone")]
+position = Vector2(1106, 2108)
+
+[node name="Stone_144" parent="." instance=ExtResource("stone")]
+position = Vector2(1074, 2124)
+
+[node name="Stone_145" parent="." instance=ExtResource("stone")]
+position = Vector2(1042, 2140)
+
+[node name="Stone_146" parent="." instance=ExtResource("stone")]
+position = Vector2(1010, 2156)
+
+[node name="Stone_147" parent="." instance=ExtResource("stone")]
+position = Vector2(1202, 2092)
+
+[node name="Stone_148" parent="." instance=ExtResource("stone")]
+position = Vector2(1170, 2108)
+
+[node name="Stone_149" parent="." instance=ExtResource("stone")]
+position = Vector2(1138, 2124)
+
+[node name="Stone_150" parent="." instance=ExtResource("stone")]
+position = Vector2(1106, 2140)
+
+[node name="Stone_151" parent="." instance=ExtResource("stone")]
+position = Vector2(1074, 2156)
+
+[node name="Stone_152" parent="." instance=ExtResource("stone")]
+position = Vector2(1042, 2172)
+
+[node name="Stone_153" parent="." instance=ExtResource("stone")]
+position = Vector2(1234, 2108)
+
+[node name="Stone_154" parent="." instance=ExtResource("stone")]
+position = Vector2(1202, 2124)
+
+[node name="Stone_155" parent="." instance=ExtResource("stone")]
+position = Vector2(1170, 2140)
+
+[node name="Stone_156" parent="." instance=ExtResource("stone")]
+position = Vector2(1138, 2156)
+
+[node name="Stone_157" parent="." instance=ExtResource("stone")]
+position = Vector2(1106, 2172)
+
+[node name="Stone_158" parent="." instance=ExtResource("stone")]
+position = Vector2(1074, 2188)
+
+[node name="Stone_159" parent="." instance=ExtResource("stone")]
+position = Vector2(1266, 2124)
+
+[node name="Stone_160" parent="." instance=ExtResource("stone")]
+position = Vector2(1234, 2140)
+
+[node name="Stone_161" parent="." instance=ExtResource("stone")]
+position = Vector2(1202, 2156)
+
+[node name="Stone_162" parent="." instance=ExtResource("stone")]
+position = Vector2(1170, 2172)
+
+[node name="Stone_163" parent="." instance=ExtResource("stone")]
+position = Vector2(1138, 2188)
+
+[node name="Stone_164" parent="." instance=ExtResource("stone")]
+position = Vector2(1106, 2204)
+
+[node name="Stone_165" parent="." instance=ExtResource("stone")]
+position = Vector2(1298, 2140)
+
+[node name="Stone_166" parent="." instance=ExtResource("stone")]
+position = Vector2(1266, 2156)
+
+[node name="Stone_167" parent="." instance=ExtResource("stone")]
+position = Vector2(1234, 2172)
+
+[node name="Stone_168" parent="." instance=ExtResource("stone")]
+position = Vector2(1202, 2188)
+
+[node name="Stone_169" parent="." instance=ExtResource("stone")]
+position = Vector2(1170, 2204)
+
+[node name="Stone_170" parent="." instance=ExtResource("stone")]
+position = Vector2(1138, 2220)
+
+[node name="Stone_171" parent="." instance=ExtResource("stone")]
+position = Vector2(1330, 2156)
+
+[node name="Stone_172" parent="." instance=ExtResource("stone")]
+position = Vector2(1298, 2172)
+
+[node name="Stone_173" parent="." instance=ExtResource("stone")]
+position = Vector2(1266, 2188)
+
+[node name="Stone_174" parent="." instance=ExtResource("stone")]
+position = Vector2(1234, 2204)
+
+[node name="Stone_175" parent="." instance=ExtResource("stone")]
+position = Vector2(1202, 2220)
+
+[node name="Stone_176" parent="." instance=ExtResource("stone")]
+position = Vector2(1170, 2236)
+
+[node name="Stone_177" parent="." instance=ExtResource("stone")]
+position = Vector2(1362, 2172)
+
+[node name="Stone_178" parent="." instance=ExtResource("stone")]
+position = Vector2(1330, 2188)
+
+[node name="Stone_179" parent="." instance=ExtResource("stone")]
+position = Vector2(1298, 2204)
+
+[node name="Stone_180" parent="." instance=ExtResource("stone")]
+position = Vector2(1266, 2220)
+
+[node name="Stone_181" parent="." instance=ExtResource("stone")]
+position = Vector2(1234, 2236)
+
+[node name="Stone_182" parent="." instance=ExtResource("stone")]
+position = Vector2(1202, 2252)
+
+[node name="Stone_183" parent="." instance=ExtResource("stone")]
+position = Vector2(1394, 2188)
+
+[node name="Stone_184" parent="." instance=ExtResource("stone")]
+position = Vector2(1362, 2204)
+
+[node name="Stone_185" parent="." instance=ExtResource("stone")]
+position = Vector2(1330, 2220)
+
+[node name="Stone_186" parent="." instance=ExtResource("stone")]
+position = Vector2(1298, 2236)
+
+[node name="Stone_187" parent="." instance=ExtResource("stone")]
+position = Vector2(1266, 2252)
+
+[node name="Stone_188" parent="." instance=ExtResource("stone")]
+position = Vector2(1234, 2268)
+
+[node name="Stone_189" parent="." instance=ExtResource("stone")]
+position = Vector2(1426, 2204)
+
+[node name="Stone_190" parent="." instance=ExtResource("stone")]
+position = Vector2(1394, 2220)
+
+[node name="Stone_191" parent="." instance=ExtResource("stone")]
+position = Vector2(1362, 2236)
+
+[node name="Stone_192" parent="." instance=ExtResource("stone")]
+position = Vector2(1330, 2252)
+
+[node name="Stone_193" parent="." instance=ExtResource("stone")]
+position = Vector2(1298, 2268)
+
+[node name="Stone_194" parent="." instance=ExtResource("stone")]
+position = Vector2(1266, 2284)
+
+[node name="Stone_195" parent="." instance=ExtResource("stone")]
+position = Vector2(1458, 2220)
+
+[node name="Stone_196" parent="." instance=ExtResource("stone")]
+position = Vector2(1426, 2236)
+
+[node name="Stone_197" parent="." instance=ExtResource("stone")]
+position = Vector2(1394, 2252)
+
+[node name="Stone_198" parent="." instance=ExtResource("stone")]
+position = Vector2(1362, 2268)
+
+[node name="Stone_199" parent="." instance=ExtResource("stone")]
+position = Vector2(1330, 2284)
+
+[node name="Stone_200" parent="." instance=ExtResource("stone")]
+position = Vector2(1298, 2300)
+
+[node name="Stone_201" parent="." instance=ExtResource("stone")]
+position = Vector2(1490, 2236)
+
+[node name="Stone_202" parent="." instance=ExtResource("stone")]
+position = Vector2(1458, 2252)
+
+[node name="Stone_203" parent="." instance=ExtResource("stone")]
+position = Vector2(1426, 2268)
+
+[node name="Stone_204" parent="." instance=ExtResource("stone")]
+position = Vector2(1394, 2284)
+
+[node name="Stone_205" parent="." instance=ExtResource("stone")]
+position = Vector2(1362, 2300)
+
+[node name="Stone_206" parent="." instance=ExtResource("stone")]
+position = Vector2(1330, 2316)
+
+[node name="Stone_207" parent="." instance=ExtResource("stone")]
+position = Vector2(1362, 2332)
+
+[node name="Stone_208" parent="." instance=ExtResource("stone")]
+position = Vector2(1394, 2348)
+
+[node name="Stone_209" parent="." instance=ExtResource("stone")]
+position = Vector2(1426, 2364)
+
+[node name="Stone_210" parent="." instance=ExtResource("stone")]
+position = Vector2(1458, 2380)
+
+[node name="PlazaExitLink_0" parent="." instance=ExtResource("stone")]
+position = Vector2(210, 1420)
+
+[node name="PlazaExitLink_1" parent="." instance=ExtResource("stone")]
+position = Vector2(274, 1420)
+
+[node name="PlazaExitLink_2" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1420)
+
+[node name="PlazaExitLink_3" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1420)
+
+[node name="PlazaExitLink_4" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1420)
+
+[node name="PlazaExitLink_5" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1420)
+
+[node name="PlazaExitLink_6" parent="." instance=ExtResource("stone")]
+position = Vector2(242, 1436)
+
+[node name="PlazaExitLink_7" parent="." instance=ExtResource("stone")]
+position = Vector2(306, 1436)
+
+[node name="PlazaExitLink_8" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1436)
+
+[node name="PlazaExitLink_9" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1436)
+
+[node name="PlazaExitLink_10" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1436)
+
+[node name="PlazaExitLink_11" parent="." instance=ExtResource("stone")]
+position = Vector2(210, 1452)
+
+[node name="PlazaExitLink_12" parent="." instance=ExtResource("stone")]
+position = Vector2(274, 1452)
+
+[node name="PlazaExitLink_13" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1452)
+
+[node name="PlazaExitLink_14" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1452)
+
+[node name="PlazaExitLink_15" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1452)
+
+[node name="PlazaExitLink_16" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1452)
+
+[node name="PlazaExitLink_17" parent="." instance=ExtResource("stone")]
+position = Vector2(242, 1468)
+
+[node name="PlazaExitLink_18" parent="." instance=ExtResource("stone")]
+position = Vector2(306, 1468)
+
+[node name="PlazaExitLink_19" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1468)
+
+[node name="PlazaExitLink_20" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1468)
+
+[node name="PlazaExitLink_21" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1468)
+
+[node name="PlazaExitLink_22" parent="." instance=ExtResource("stone")]
+position = Vector2(210, 1484)
+
+[node name="PlazaExitLink_23" parent="." instance=ExtResource("stone")]
+position = Vector2(274, 1484)
+
+[node name="PlazaExitLink_24" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1484)
+
+[node name="PlazaExitLink_25" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1484)
+
+[node name="PlazaExitLink_26" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1484)
+
+[node name="PlazaExitLink_27" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1484)
+
+[node name="PlazaExitLink_28" parent="." instance=ExtResource("stone")]
+position = Vector2(178, 1500)
+
+[node name="PlazaExitLink_29" parent="." instance=ExtResource("stone")]
+position = Vector2(242, 1500)
+
+[node name="PlazaExitLink_30" parent="." instance=ExtResource("stone")]
+position = Vector2(306, 1500)
+
+[node name="PlazaExitLink_31" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1500)
+
+[node name="PlazaExitLink_32" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1500)
+
+[node name="PlazaExitLink_33" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1500)
+
+[node name="PlazaExitLink_34" parent="." instance=ExtResource("stone")]
+position = Vector2(210, 1516)
+
+[node name="PlazaExitLink_35" parent="." instance=ExtResource("stone")]
+position = Vector2(274, 1516)
+
+[node name="PlazaExitLink_36" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1516)
+
+[node name="PlazaExitLink_37" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1516)
+
+[node name="PlazaExitLink_38" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1516)
+
+[node name="PlazaExitLink_39" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1516)
+
+[node name="PlazaExitLink_40" parent="." instance=ExtResource("stone")]
+position = Vector2(178, 1532)
+
+[node name="PlazaExitLink_41" parent="." instance=ExtResource("stone")]
+position = Vector2(242, 1532)
+
+[node name="PlazaExitLink_42" parent="." instance=ExtResource("stone")]
+position = Vector2(306, 1532)
+
+[node name="PlazaExitLink_43" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1532)
+
+[node name="PlazaExitLink_44" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1532)
+
+[node name="PlazaExitLink_45" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1532)
+
+[node name="PlazaExitLink_46" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1532)
+
+[node name="PlazaExitLink_47" parent="." instance=ExtResource("stone")]
+position = Vector2(210, 1548)
+
+[node name="PlazaExitLink_48" parent="." instance=ExtResource("stone")]
+position = Vector2(274, 1548)
+
+[node name="PlazaExitLink_49" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1548)
+
+[node name="PlazaExitLink_50" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1548)
+
+[node name="PlazaExitLink_51" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1548)
+
+[node name="PlazaExitLink_52" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1548)
+
+[node name="PlazaExitLink_53" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1548)
+
+[node name="PlazaExitLink_54" parent="." instance=ExtResource("stone")]
+position = Vector2(178, 1564)
+
+[node name="PlazaExitLink_55" parent="." instance=ExtResource("stone")]
+position = Vector2(242, 1564)
+
+[node name="PlazaExitLink_56" parent="." instance=ExtResource("stone")]
+position = Vector2(306, 1564)
+
+[node name="PlazaExitLink_57" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1564)
+
+[node name="PlazaExitLink_58" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1564)
+
+[node name="PlazaExitLink_59" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1564)
+
+[node name="PlazaExitLink_60" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1564)
+
+[node name="PlazaExitLink_61" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1564)
+
+[node name="PlazaExitLink_62" parent="." instance=ExtResource("stone")]
+position = Vector2(210, 1580)
+
+[node name="PlazaExitLink_63" parent="." instance=ExtResource("stone")]
+position = Vector2(274, 1580)
+
+[node name="PlazaExitLink_64" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1580)
+
+[node name="PlazaExitLink_65" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1580)
+
+[node name="PlazaExitLink_66" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1580)
+
+[node name="PlazaExitLink_67" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1580)
+
+[node name="PlazaExitLink_68" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1580)
+
+[node name="PlazaExitLink_69" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1580)
+
+[node name="PlazaExitLink_70" parent="." instance=ExtResource("stone")]
+position = Vector2(178, 1596)
+
+[node name="PlazaExitLink_71" parent="." instance=ExtResource("stone")]
+position = Vector2(242, 1596)
+
+[node name="PlazaExitLink_72" parent="." instance=ExtResource("stone")]
+position = Vector2(306, 1596)
+
+[node name="PlazaExitLink_73" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1596)
+
+[node name="PlazaExitLink_74" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1596)
+
+[node name="PlazaExitLink_75" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1596)
+
+[node name="PlazaExitLink_76" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1596)
+
+[node name="PlazaExitLink_77" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1596)
+
+[node name="PlazaExitLink_78" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1596)
+
+[node name="PlazaExitLink_79" parent="." instance=ExtResource("stone")]
+position = Vector2(210, 1612)
+
+[node name="PlazaExitLink_80" parent="." instance=ExtResource("stone")]
+position = Vector2(274, 1612)
+
+[node name="PlazaExitLink_81" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1612)
+
+[node name="PlazaExitLink_82" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1612)
+
+[node name="PlazaExitLink_83" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1612)
+
+[node name="PlazaExitLink_84" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1612)
+
+[node name="PlazaExitLink_85" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1612)
+
+[node name="PlazaExitLink_86" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1612)
+
+[node name="PlazaExitLink_87" parent="." instance=ExtResource("stone")]
+position = Vector2(722, 1612)
+
+[node name="PlazaExitLink_88" parent="." instance=ExtResource("stone")]
+position = Vector2(178, 1628)
+
+[node name="PlazaExitLink_89" parent="." instance=ExtResource("stone")]
+position = Vector2(242, 1628)
+
+[node name="PlazaExitLink_90" parent="." instance=ExtResource("stone")]
+position = Vector2(306, 1628)
+
+[node name="PlazaExitLink_91" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1628)
+
+[node name="PlazaExitLink_92" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1628)
+
+[node name="PlazaExitLink_93" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1628)
+
+[node name="PlazaExitLink_94" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1628)
+
+[node name="PlazaExitLink_95" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1628)
+
+[node name="PlazaExitLink_96" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1628)
+
+[node name="PlazaExitLink_97" parent="." instance=ExtResource("stone")]
+position = Vector2(754, 1628)
+
+[node name="PlazaExitLink_98" parent="." instance=ExtResource("stone")]
+position = Vector2(210, 1644)
+
+[node name="PlazaExitLink_99" parent="." instance=ExtResource("stone")]
+position = Vector2(274, 1644)
+
+[node name="PlazaExitLink_100" parent="." instance=ExtResource("stone")]
+position = Vector2(338, 1644)
+
+[node name="PlazaExitLink_101" parent="." instance=ExtResource("stone")]
+position = Vector2(402, 1644)
+
+[node name="PlazaExitLink_102" parent="." instance=ExtResource("stone")]
+position = Vector2(466, 1644)
+
+[node name="PlazaExitLink_103" parent="." instance=ExtResource("stone")]
+position = Vector2(530, 1644)
+
+[node name="PlazaExitLink_104" parent="." instance=ExtResource("stone")]
+position = Vector2(594, 1644)
+
+[node name="PlazaExitLink_105" parent="." instance=ExtResource("stone")]
+position = Vector2(658, 1644)
+
+[node name="PlazaExitLink_106" parent="." instance=ExtResource("stone")]
+position = Vector2(722, 1644)
+
+[node name="PlazaExitLink_107" parent="." instance=ExtResource("stone")]
+position = Vector2(786, 1644)
+
+[node name="PlazaExitLink_108" parent="." instance=ExtResource("stone")]
+position = Vector2(178, 1660)
+
+[node name="PlazaExitLink_109" parent="." instance=ExtResource("stone")]
+position = Vector2(242, 1660)
+
+[node name="PlazaExitLink_110" parent="." instance=ExtResource("stone")]
+position = Vector2(306, 1660)
+
+[node name="PlazaExitLink_111" parent="." instance=ExtResource("stone")]
+position = Vector2(370, 1660)
+
+[node name="PlazaExitLink_112" parent="." instance=ExtResource("stone")]
+position = Vector2(434, 1660)
+
+[node name="PlazaExitLink_113" parent="." instance=ExtResource("stone")]
+position = Vector2(498, 1660)
+
+[node name="PlazaExitLink_114" parent="." instance=ExtResource("stone")]
+position = Vector2(562, 1660)
+
+[node name="PlazaExitLink_115" parent="." instance=ExtResource("stone")]
+position = Vector2(626, 1660)
+
+[node name="PlazaExitLink_116" parent="." instance=ExtResource("stone")]
+position = Vector2(690, 1660)
+
+[node name="PlazaExitLink_117" parent="." instance=ExtResource("stone")]
+position = Vector2(754, 1660)
+
+[node name="PlazaExitLink_118" parent="." instance=ExtResource("stone")]
+position = Vector2(818, 1660)

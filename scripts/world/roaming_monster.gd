@@ -232,6 +232,11 @@ func _defeat() -> void:
 			health_component.emit_signal("died")
 	if enemy_controller != null and enemy_controller.has_method("emit_defeated"):
 		enemy_controller.call("emit_defeated")
+	# Victory is the authoritative world-enemy defeat event. Use the authored
+	# enemy ID, not the spawn-group ID, for kill-objective matching.
+	var defeated_enemy_id := str(visual_definition.get("id", ""))
+	if not defeated_enemy_id.is_empty() and is_instance_valid(GameState.quest_domain):
+		GameState.quest_domain.record_kill(defeated_enemy_id)
 	await get_tree().create_timer(respawn_seconds).timeout
 	if not is_instance_valid(self):
 		return

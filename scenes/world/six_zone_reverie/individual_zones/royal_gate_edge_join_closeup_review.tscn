@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_central_avenue.tscn" id="avenue"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_diagonal_crossing.tscn" id="crossing"]
+
+[node name="RoyalGateEdgeJoinCloseupReview" type="Node2D"]
+
+[node name="CentralAvenue" parent="." instance=ExtResource("avenue")]
+
+[node name="DiagonalCrossing" parent="." instance=ExtResource("crossing")]
+
+[node name="ReviewCamera" type="Camera2D" parent="."]
+position = Vector2(0, 1660)
+zoom = Vector2(1.25, 1.25)

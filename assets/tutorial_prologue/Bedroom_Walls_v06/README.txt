@@ -1,0 +1,1 @@
+Transparent separate wall pieces for Reverie. Dimensions are multiples of 32 but illustrated pieces are NOT seamless native 32x32 tiles. Side walls are perspective wall sprites; use at authored scale and check alignment in Godot.

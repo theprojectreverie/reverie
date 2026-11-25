@@ -1,0 +1,322 @@
+[gd_scene load_steps=54 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_01.png" id="a1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_02.png" id="a2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_03.png" id="a3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_04.png" id="a4"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_05.png" id="a5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_06.png" id="a6"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_07.png" id="a7"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_08.png" id="a8"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_09.png" id="a9"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_10.png" id="a10"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_11.png" id="a11"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_12.png" id="a12"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_13.png" id="a13"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_14.png" id="a14"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_15.png" id="a15"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_16.png" id="a16"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_17.png" id="a17"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_18.png" id="a18"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_19.png" id="a19"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_20.png" id="a20"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_21.png" id="a21"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_22.png" id="a22"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_23.png" id="a23"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_24.png" id="a24"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_25.png" id="a25"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_26.png" id="a26"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_27.png" id="a27"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_28.png" id="a28"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_29.png" id="a29"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_30.png" id="a30"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_31.png" id="a31"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_32.png" id="a32"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_33.png" id="a33"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_34.png" id="a34"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_35.png" id="a35"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_36.png" id="a36"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_37.png" id="a37"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_38.png" id="a38"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_39.png" id="a39"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_40.png" id="a40"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_41.png" id="a41"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_42.png" id="a42"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_43.png" id="a43"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_44.png" id="a44"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_45.png" id="a45"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_46.png" id="a46"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_47.png" id="a47"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_48.png" id="a48"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_49.png" id="a49"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_50.png" id="a50"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_51.png" id="a51"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_52.png" id="a52"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_53.png" id="a53"]
+
+[node name="RoyalGardensFullAssetReview" type="Node2D"]
+
+[node name="Asset_01" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+texture = ExtResource("a1")
+texture_filter = 1
+
+[node name="Asset_02" type="Sprite2D" parent="."]
+position = Vector2(370, 0)
+texture = ExtResource("a2")
+texture_filter = 1
+
+[node name="Asset_03" type="Sprite2D" parent="."]
+position = Vector2(740, 0)
+texture = ExtResource("a3")
+texture_filter = 1
+
+[node name="Asset_04" type="Sprite2D" parent="."]
+position = Vector2(1110, 0)
+texture = ExtResource("a4")
+texture_filter = 1
+
+[node name="Asset_05" type="Sprite2D" parent="."]
+position = Vector2(1480, 0)
+texture = ExtResource("a5")
+texture_filter = 1
+
+[node name="Asset_06" type="Sprite2D" parent="."]
+position = Vector2(1850, 0)
+texture = ExtResource("a6")
+texture_filter = 1
+
+[node name="Asset_07" type="Sprite2D" parent="."]
+position = Vector2(0, 260)
+texture = ExtResource("a7")
+texture_filter = 1
+
+[node name="Asset_08" type="Sprite2D" parent="."]
+position = Vector2(370, 260)
+texture = ExtResource("a8")
+texture_filter = 1
+
+[node name="Asset_09" type="Sprite2D" parent="."]
+position = Vector2(740, 260)
+texture = ExtResource("a9")
+texture_filter = 1
+
+[node name="Asset_10" type="Sprite2D" parent="."]
+position = Vector2(1110, 260)
+texture = ExtResource("a10")
+texture_filter = 1
+
+[node name="Asset_11" type="Sprite2D" parent="."]
+position = Vector2(1480, 260)
+texture = ExtResource("a11")
+texture_filter = 1
+
+[node name="Asset_12" type="Sprite2D" parent="."]
+position = Vector2(1850, 260)
+texture = ExtResource("a12")
+texture_filter = 1
+
+[node name="Asset_13" type="Sprite2D" parent="."]
+position = Vector2(0, 520)
+texture = ExtResource("a13")
+texture_filter = 1
+
+[node name="Asset_14" type="Sprite2D" parent="."]
+position = Vector2(370, 520)
+texture = ExtResource("a14")
+texture_filter = 1
+
+[node name="Asset_15" type="Sprite2D" parent="."]
+position = Vector2(740, 520)
+texture = ExtResource("a15")
+texture_filter = 1
+
+[node name="Asset_16" type="Sprite2D" parent="."]
+position = Vector2(1110, 520)
+texture = ExtResource("a16")
+texture_filter = 1
+
+[node name="Asset_17" type="Sprite2D" parent="."]
+position = Vector2(1480, 520)
+texture = ExtResource("a17")
+texture_filter = 1
+
+[node name="Asset_18" type="Sprite2D" parent="."]
+position = Vector2(1850, 520)
+texture = ExtResource("a18")
+texture_filter = 1
+
+[node name="Asset_19" type="Sprite2D" parent="."]
+position = Vector2(0, 780)
+texture = ExtResource("a19")
+texture_filter = 1
+
+[node name="Asset_20" type="Sprite2D" parent="."]
+position = Vector2(370, 780)
+texture = ExtResource("a20")
+texture_filter = 1
+
+[node name="Asset_21" type="Sprite2D" parent="."]
+position = Vector2(740, 780)
+texture = ExtResource("a21")
+texture_filter = 1
+
+[node name="Asset_22" type="Sprite2D" parent="."]
+position = Vector2(1110, 780)
+texture = ExtResource("a22")
+texture_filter = 1
+
+[node name="Asset_23" type="Sprite2D" parent="."]
+position = Vector2(1480, 780)
+texture = ExtResource("a23")
+texture_filter = 1
+
+[node name="Asset_24" type="Sprite2D" parent="."]
+position = Vector2(1850, 780)
+texture = ExtResource("a24")
+texture_filter = 1
+
+[node name="Asset_25" type="Sprite2D" parent="."]
+position = Vector2(0, 1040)
+texture = ExtResource("a25")
+texture_filter = 1
+
+[node name="Asset_26" type="Sprite2D" parent="."]
+position = Vector2(370, 1040)
+texture = ExtResource("a26")
+texture_filter = 1
+
+[node name="Asset_27" type="Sprite2D" parent="."]
+position = Vector2(740, 1040)
+texture = ExtResource("a27")
+texture_filter = 1
+
+[node name="Asset_28" type="Sprite2D" parent="."]
+position = Vector2(1110, 1040)
+texture = ExtResource("a28")
+texture_filter = 1
+
+[node name="Asset_29" type="Sprite2D" parent="."]
+position = Vector2(1480, 1040)
+texture = ExtResource("a29")
+texture_filter = 1
+
+[node name="Asset_30" type="Sprite2D" parent="."]
+position = Vector2(1850, 1040)
+texture = ExtResource("a30")
+texture_filter = 1
+
+[node name="Asset_31" type="Sprite2D" parent="."]
+position = Vector2(0, 1300)
+texture = ExtResource("a31")
+texture_filter = 1
+
+[node name="Asset_32" type="Sprite2D" parent="."]
+position = Vector2(370, 1300)
+texture = ExtResource("a32")
+texture_filter = 1
+
+[node name="Asset_33" type="Sprite2D" parent="."]
+position = Vector2(740, 1300)
+texture = ExtResource("a33")
+texture_filter = 1
+
+[node name="Asset_34" type="Sprite2D" parent="."]
+position = Vector2(1110, 1300)
+texture = ExtResource("a34")
+texture_filter = 1
+
+[node name="Asset_35" type="Sprite2D" parent="."]
+position = Vector2(1480, 1300)
+texture = ExtResource("a35")
+texture_filter = 1
+
+[node name="Asset_36" type="Sprite2D" parent="."]
+position = Vector2(1850, 1300)
+texture = ExtResource("a36")
+texture_filter = 1
+
+[node name="Asset_37" type="Sprite2D" parent="."]
+position = Vector2(0, 1560)
+texture = ExtResource("a37")
+texture_filter = 1
+
+[node name="Asset_38" type="Sprite2D" parent="."]
+position = Vector2(370, 1560)
+texture = ExtResource("a38")
+texture_filter = 1
+
+[node name="Asset_39" type="Sprite2D" parent="."]
+position = Vector2(740, 1560)
+texture = ExtResource("a39")
+texture_filter = 1
+
+[node name="Asset_40" type="Sprite2D" parent="."]
+position = Vector2(1110, 1560)
+texture = ExtResource("a40")
+texture_filter = 1
+
+[node name="Asset_41" type="Sprite2D" parent="."]
+position = Vector2(1480, 1560)
+texture = ExtResource("a41")
+texture_filter = 1
+
+[node name="Asset_42" type="Sprite2D" parent="."]
+position = Vector2(1850, 1560)
+texture = ExtResource("a42")
+texture_filter = 1
+
+[node name="Asset_43" type="Sprite2D" parent="."]
+position = Vector2(0, 1820)
+texture = ExtResource("a43")
+texture_filter = 1
+
+[node name="Asset_44" type="Sprite2D" parent="."]
+position = Vector2(370, 1820)
+texture = ExtResource("a44")
+texture_filter = 1
+
+[node name="Asset_45" type="Sprite2D" parent="."]
+position = Vector2(740, 1820)
+texture = ExtResource("a45")
+texture_filter = 1
+
+[node name="Asset_46" type="Sprite2D" parent="."]
+position = Vector2(1110, 1820)
+texture = ExtResource("a46")
+texture_filter = 1
+
+[node name="Asset_47" type="Sprite2D" parent="."]
+position = Vector2(1480, 1820)
+texture = ExtResource("a47")
+texture_filter = 1
+
+[node name="Asset_48" type="Sprite2D" parent="."]
+position = Vector2(1850, 1820)
+texture = ExtResource("a48")
+texture_filter = 1
+
+[node name="Asset_49" type="Sprite2D" parent="."]
+position = Vector2(0, 2080)
+texture = ExtResource("a49")
+texture_filter = 1
+
+[node name="Asset_50" type="Sprite2D" parent="."]
+position = Vector2(370, 2080)
+texture = ExtResource("a50")
+texture_filter = 1
+
+[node name="Asset_51" type="Sprite2D" parent="."]
+position = Vector2(740, 2080)
+texture = ExtResource("a51")
+texture_filter = 1
+
+[node name="Asset_52" type="Sprite2D" parent="."]
+position = Vector2(1110, 2080)
+texture = ExtResource("a52")
+texture_filter = 1
+
+[node name="Asset_53" type="Sprite2D" parent="."]
+position = Vector2(1480, 2080)
+texture = ExtResource("a53")
+texture_filter = 1

@@ -5,33 +5,30 @@ extends Node
 ## offline/single-player. Phase 12 replaces it with server-owned state. The
 ## format is intentionally plain JSON so it can be migrated and inspected.
 
-const SAVE_PATH := "user://project_fantasy_save.json"
-const BACKUP_PATH := "user://project_fantasy_save.backup.json"
+var SAVE_PATH := "user://project_fantasy_save.json"
+var BACKUP_PATH := "user://project_fantasy_save.backup.json"
 const SAVE_VERSION := 1
 
 
 func has_save() -> bool:
-	return FileAccess.file_exists(SAVE_PATH)
+	return FileAccess.file_exists(SAVE_PATH) or FileAccess.file_exists(SAVE_PATH + ".previous.tmp") or FileAccess.file_exists(SAVE_PATH + ".last_good")
 
-
-func load_save() -> Dictionary:
-	if not has_save():
+func _read_valid(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path):
 		return {}
-	var text := FileAccess.get_file_as_string(SAVE_PATH)
-	var parsed: Variant = JSON.parse_string(text)
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if typeof(parsed) != TYPE_DICTIONARY:
-		push_warning("[SaveService] Save file is corrupt; keeping a backup and starting fresh.")
-		_backup_corrupt_file()
 		return {}
 	var data: Dictionary = parsed
-	var validation_errors := validate_save_data(data)
-	if not validation_errors.is_empty():
-		push_warning("[SaveService] Save structure is invalid; keeping a backup and starting fresh: %s" % "; ".join(validation_errors))
-		_backup_corrupt_file()
-		return {}
-	if int(data.get("version", 0)) > SAVE_VERSION:
-		push_warning("[SaveService] Save is from a newer version; attempting best-effort load.")
-	return data
+	return data if validate_save_data(data).is_empty() else {}
+
+func load_save() -> Dictionary:
+	# Never discard a save just because another writer is replacing it.
+	for path in [SAVE_PATH, SAVE_PATH + ".previous.tmp", SAVE_PATH + ".last_good"]:
+		var data := _read_valid(path)
+		if not data.is_empty():
+			return data
+	return {}
 
 
 ## Validate the typed containers GameState consumes before assigning them.
@@ -64,10 +61,14 @@ func validate_save_data(data: Dictionary) -> Array[String]:
 
 
 func write_save(data: Dictionary) -> bool:
+	# Multiplayer E2E clients load the local profile read-only. Multiple test
+	# processes must never race to replace the user's single-player save file.
+	if OS.get_environment("REVERIE_E2E_DISABLE_LOCAL_SAVE") == "1":
+		return true
 	data["version"] = SAVE_VERSION
 	data["saved_at"] = Time.get_datetime_string_from_system()
 	var text := JSON.stringify(data, "\t")
-	var temp_path := SAVE_PATH + ".tmp"
+	var temp_path := SAVE_PATH + "." + str(OS.get_process_id()) + ".tmp"
 	var file := FileAccess.open(temp_path, FileAccess.WRITE)
 	if file == null:
 		push_error("[SaveService] Could not open save file for writing.")
@@ -114,14 +115,19 @@ func write_save(data: Dictionary) -> bool:
 		push_error("[SaveService] Could not finalize save file (error %d)." % error)
 		return false
 	if had_previous and FileAccess.file_exists(SAVE_PATH + ".previous.tmp"):
+		var good_path := ProjectSettings.globalize_path(SAVE_PATH + ".last_good")
+		if not _read_valid(SAVE_PATH + ".previous.tmp").is_empty():
+			DirAccess.copy_absolute(previous_absolute, good_path)
 		DirAccess.remove_absolute(previous_absolute)
 	return true
 
 
 func delete_save() -> void:
+	if OS.get_environment("REVERIE_E2E_DISABLE_LOCAL_SAVE") == "1":
+		return
 	# A reset must remove interrupted-write artifacts too; otherwise the next
 	# write could recover an old .previous.tmp and resurrect deleted progress.
-	for path in [SAVE_PATH, SAVE_PATH + ".tmp", SAVE_PATH + ".previous.tmp"]:
+	for path in [SAVE_PATH, SAVE_PATH + ".tmp", SAVE_PATH + ".previous.tmp", SAVE_PATH + ".last_good"]:
 		if FileAccess.file_exists(path):
 			DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
@@ -143,3 +149,10 @@ func _backup_corrupt_file() -> void:
 	var remove_error := DirAccess.remove_absolute(source_absolute)
 	if remove_error != OK:
 		push_error("[SaveService] Backup was created, but the corrupt save could not be removed (error %d)." % remove_error)
+
+func select_player(player_id: String) -> void:
+	var valid := RegEx.new()
+	valid.compile("^[0-9a-fA-F-]{36}$")
+	var suffix := "_" + player_id.to_lower() if valid.search(player_id) != null else ""
+	SAVE_PATH = "user://project_fantasy_save" + suffix + ".json"
+	BACKUP_PATH = "user://project_fantasy_save" + suffix + ".backup.json"

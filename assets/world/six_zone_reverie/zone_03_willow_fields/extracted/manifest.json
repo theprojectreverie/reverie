@@ -1,0 +1,422 @@
+[
+  {
+    "file": "willow_asset_001.png",
+    "bounds": [
+      1,
+      0,
+      459,
+      661
+    ],
+    "pixels": 47359
+  },
+  {
+    "file": "willow_asset_002.png",
+    "bounds": [
+      1193,
+      9,
+      1536,
+      375
+    ],
+    "pixels": 21991
+  },
+  {
+    "file": "willow_asset_003.png",
+    "bounds": [
+      627,
+      23,
+      945,
+      327
+    ],
+    "pixels": 16388
+  },
+  {
+    "file": "willow_asset_004.png",
+    "bounds": [
+      941,
+      59,
+      1111,
+      275
+    ],
+    "pixels": 6409
+  },
+  {
+    "file": "willow_asset_005.png",
+    "bounds": [
+      407,
+      61,
+      635,
+      393
+    ],
+    "pixels": 12282
+  },
+  {
+    "file": "willow_asset_006.png",
+    "bounds": [
+      1103,
+      79,
+      1221,
+      271
+    ],
+    "pixels": 3865
+  },
+  {
+    "file": "willow_asset_007.png",
+    "bounds": [
+      717,
+      337,
+      861,
+      609
+    ],
+    "pixels": 4745
+  },
+  {
+    "file": "willow_asset_008.png",
+    "bounds": [
+      899,
+      349,
+      1027,
+      609
+    ],
+    "pixels": 4735
+  },
+  {
+    "file": "willow_asset_009.png",
+    "bounds": [
+      1233,
+      405,
+      1535,
+      603
+    ],
+    "pixels": 10001
+  },
+  {
+    "file": "willow_asset_010.png",
+    "bounds": [
+      451,
+      435,
+      715,
+      599
+    ],
+    "pixels": 6112
+  },
+  {
+    "file": "willow_asset_011.png",
+    "bounds": [
+      1003,
+      437,
+      1225,
+      607
+    ],
+    "pixels": 6058
+  },
+  {
+    "file": "willow_asset_012.png",
+    "bounds": [
+      809,
+      461,
+      905,
+      595
+    ],
+    "pixels": 1903
+  },
+  {
+    "file": "willow_asset_013.png",
+    "bounds": [
+      1005,
+      603,
+      1227,
+      899
+    ],
+    "pixels": 8880
+  },
+  {
+    "file": "willow_asset_014.png",
+    "bounds": [
+      675,
+      615,
+      861,
+      761
+    ],
+    "pixels": 4627
+  },
+  {
+    "file": "willow_asset_015.png",
+    "bounds": [
+      865,
+      615,
+      1013,
+      743
+    ],
+    "pixels": 3485
+  },
+  {
+    "file": "willow_asset_016.png",
+    "bounds": [
+      521,
+      617,
+      681,
+      755
+    ],
+    "pixels": 3774
+  },
+  {
+    "file": "willow_asset_017.png",
+    "bounds": [
+      1223,
+      619,
+      1385,
+      753
+    ],
+    "pixels": 3424
+  },
+  {
+    "file": "willow_asset_018.png",
+    "bounds": [
+      355,
+      627,
+      527,
+      761
+    ],
+    "pixels": 3220
+  },
+  {
+    "file": "willow_asset_019.png",
+    "bounds": [
+      7,
+      631,
+      191,
+      765
+    ],
+    "pixels": 3386
+  },
+  {
+    "file": "willow_asset_020.png",
+    "bounds": [
+      1379,
+      631,
+      1529,
+      743
+    ],
+    "pixels": 2078
+  },
+  {
+    "file": "willow_asset_021.png",
+    "bounds": [
+      193,
+      633,
+      361,
+      761
+    ],
+    "pixels": 2965
+  },
+  {
+    "file": "willow_asset_022.png",
+    "bounds": [
+      877,
+      737,
+      1009,
+      895
+    ],
+    "pixels": 3178
+  },
+  {
+    "file": "willow_asset_023.png",
+    "bounds": [
+      499,
+      747,
+      661,
+      895
+    ],
+    "pixels": 3561
+  },
+  {
+    "file": "willow_asset_024.png",
+    "bounds": [
+      13,
+      757,
+      185,
+      895
+    ],
+    "pixels": 3458
+  },
+  {
+    "file": "willow_asset_025.png",
+    "bounds": [
+      179,
+      757,
+      351,
+      895
+    ],
+    "pixels": 3491
+  },
+  {
+    "file": "willow_asset_026.png",
+    "bounds": [
+      345,
+      757,
+      505,
+      895
+    ],
+    "pixels": 3312
+  },
+  {
+    "file": "willow_asset_027.png",
+    "bounds": [
+      653,
+      759,
+      765,
+      897
+    ],
+    "pixels": 2248
+  },
+  {
+    "file": "willow_asset_028.png",
+    "bounds": [
+      1253,
+      763,
+      1387,
+      885
+    ],
+    "pixels": 2655
+  },
+  {
+    "file": "willow_asset_029.png",
+    "bounds": [
+      1385,
+      763,
+      1525,
+      885
+    ],
+    "pixels": 2516
+  },
+  {
+    "file": "willow_asset_030.png",
+    "bounds": [
+      1135,
+      773,
+      1259,
+      891
+    ],
+    "pixels": 2238
+  },
+  {
+    "file": "willow_asset_031.png",
+    "bounds": [
+      759,
+      787,
+      885,
+      881
+    ],
+    "pixels": 1618
+  },
+  {
+    "file": "willow_asset_032.png",
+    "bounds": [
+      1369,
+      885,
+      1536,
+      1019
+    ],
+    "pixels": 3521
+  },
+  {
+    "file": "willow_asset_033.png",
+    "bounds": [
+      1191,
+      889,
+      1387,
+      1019
+    ],
+    "pixels": 3905
+  },
+  {
+    "file": "willow_asset_034.png",
+    "bounds": [
+      5,
+      893,
+      463,
+      1023
+    ],
+    "pixels": 9610
+  },
+  {
+    "file": "willow_asset_035.png",
+    "bounds": [
+      455,
+      899,
+      593,
+      1019
+    ],
+    "pixels": 2561
+  },
+  {
+    "file": "willow_asset_036.png",
+    "bounds": [
+      585,
+      899,
+      825,
+      1019
+    ],
+    "pixels": 4568
+  },
+  {
+    "file": "willow_asset_037.png",
+    "bounds": [
+      951,
+      905,
+      1085,
+      1013
+    ],
+    "pixels": 2229
+  },
+  {
+    "file": "willow_asset_038.png",
+    "bounds": [
+      817,
+      907,
+      959,
+      1015
+    ],
+    "pixels": 2344
+  },
+  {
+    "file": "willow_asset_039.png",
+    "bounds": [
+      1125,
+      917,
+      1179,
+      957
+    ],
+    "pixels": 218
+  },
+  {
+    "file": "willow_asset_040.png",
+    "bounds": [
+      1083,
+      933,
+      1129,
+      967
+    ],
+    "pixels": 153
+  },
+  {
+    "file": "willow_asset_041.png",
+    "bounds": [
+      1125,
+      949,
+      1199,
+      987
+    ],
+    "pixels": 293
+  },
+  {
+    "file": "willow_asset_042.png",
+    "bounds": [
+      1081,
+      963,
+      1129,
+      997
+    ],
+    "pixels": 164
+  }
+]

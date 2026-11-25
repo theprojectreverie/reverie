@@ -1,4 +1,13 @@
-{
+{"tutorial_fairy_spar":{"name":"Companion - Friendly Sparring","region":"castle_royal_gardens","level":1,"boss":true,"enemies":["fairy_spar"],"rewards":{"xp":1},"quest_kills":{},"drops":[]},"crownling_garden_1":{"name":"Crownling","region":"castle_royal_gardens","level":2,"enemies":["crownling"],"rewards":{"gold":20,"xp":15,"crystals":0},"quest_kills":{"crownling":1},"drops":[]},
+"crownling_garden_2":{"name":"Crownling","region":"castle_royal_gardens","level":2,"enemies":["crownling"],"rewards":{"gold":20,"xp":15,"crystals":0},"quest_kills":{"crownling":1},"drops":[]},
+"crownling_garden_3":{"name":"Crownling","region":"castle_royal_gardens","level":2,"enemies":["crownling"],"rewards":{"gold":20,"xp":15,"crystals":0},"quest_kills":{"crownling":1},"drops":[]},
+
+"rose_slime_garden_1": {"name":"Rose Slime","region":"castle_royal_gardens","level":1,"enemies":["rose_slime"],"rewards":{"gold":15,"xp":10,"crystals":0},"quest_kills":{"rose_slime":1},"drops":[]},
+"rose_slime_garden_2": {"name":"Rose Slime","region":"castle_royal_gardens","level":1,"enemies":["rose_slime"],"rewards":{"gold":15,"xp":10,"crystals":0},"quest_kills":{"rose_slime":1},"drops":[]},
+"rose_slime_garden_3": {"name":"Rose Slime","region":"castle_royal_gardens","level":1,"enemies":["rose_slime"],"rewards":{"gold":15,"xp":10,"crystals":0},"quest_kills":{"rose_slime":1},"drops":[]},
+"rose_slime_garden_4": {"name":"Rose Slime","region":"castle_royal_gardens","level":1,"enemies":["rose_slime"],"rewards":{"gold":15,"xp":10,"crystals":0},"quest_kills":{"rose_slime":1},"drops":[]},
+"rose_slime_garden_5": {"name":"Rose Slime","region":"castle_royal_gardens","level":1,"enemies":["rose_slime"],"rewards":{"gold":15,"xp":10,"crystals":0},"quest_kills":{"rose_slime":1},"drops":[]},
+"rose_slime_garden_6": {"name":"Rose Slime","region":"castle_royal_gardens","level":1,"enemies":["rose_slime"],"rewards":{"gold":15,"xp":10,"crystals":0},"quest_kills":{"rose_slime":1},"drops":[]},
  "glade_mossling_pack": {
   "name": "Mossling Ambush",
   "region": "greenward",
@@ -350,5 +359,26 @@
     "max": 1
    }
   ]
+ },
+ "gerald_boss_encounter": {
+  "name": "Gerald, the Fallen Guardian",
+  "boss": true,
+  "level": 8,
+  "region": "gothic_castle_boss_zone",
+  "enemies": [
+   "gerald_boss"
+  ],
+  "rewards": {
+   "gold": 1000,
+   "xp": 1500,
+   "crystals": 200,
+   "ancient_coins": 3,
+   "items": {
+    "dew_of_awakening": 3
+   }
+  },
+  "quest_kills": {
+   "gerald_boss": 1
+  }
  }
 }

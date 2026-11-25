@@ -1,0 +1,18 @@
+﻿[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_33_prop.png" id="banner"]
+
+[node name="RoyalGardensExitBanners" type="Node2D"]
+y_sort_enabled = true
+
+[node name="LeftRoyalBanner" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1420, 2190)
+scale = Vector2(0.88, 0.88)
+texture = ExtResource("banner")
+
+[node name="RightRoyalBanner" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1250, 2390)
+scale = Vector2(0.88, 0.88)
+texture = ExtResource("banner")

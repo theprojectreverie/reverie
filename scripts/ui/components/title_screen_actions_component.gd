@@ -7,7 +7,8 @@ signal quit_requested
 
 const BUTTON_ACTIONS := {
 	"ContinueButton": "continue", "NewJourneyButton": "new", "LoadGameButton": "load",
-	"SettingsButton": "settings", "ExtrasButton": "extras", "QuitGameButton": "quit"
+	"SettingsButton": "settings", "ExtrasButton": "extras", "QuitGameButton": "quit",
+	"OnlineButton": "online"
 }
 var screen: Control
 
@@ -27,13 +28,20 @@ func bind(owner: Control) -> void:
 		button.add_theme_stylebox_override("hover", _hover_style())
 		button.add_theme_stylebox_override("pressed", _pressed_style())
 		button.add_theme_stylebox_override("focus", _hover_style())
-		button.text = ""
+		if button_name != "OnlineButton":
+			button.text = ""
+		else:
+			button.add_theme_stylebox_override("normal", _online_style())
+			button.add_theme_color_override("font_color", Color(0.96, 0.86, 0.75, 1.0))
+			button.add_theme_font_size_override("font_size", 16)
+	AuthGateway.authentication_changed.connect(func(_ok: bool, _player: Dictionary) -> void: refresh_save_actions())
+	AuthGateway.session_restore_finished.connect(refresh_save_actions)
 	refresh_save_actions()
 
 func refresh_save_actions() -> void:
 	if screen == null:
 		return
-	var has_save := SaveService.has_save()
+	var has_save := SaveService.has_save() if AuthGateway.is_authenticated() else true
 	var continue_button := screen.get_node_or_null("ContinueButton") as Button
 	var load_button := screen.get_node_or_null("LoadGameButton") as Button
 	if continue_button != null:
@@ -45,12 +53,59 @@ func _on_action(action: String) -> void:
 	match action:
 		"continue", "new", "load":
 			menu_requested.emit(action)
+		"online":
+			_open_account()
 		"settings":
 			_open_settings()
 		"extras":
 			_show_extras()
 		"quit":
 			quit_requested.emit()
+
+func _open_account() -> void:
+	if screen.has_node("AccountOverlay"):
+		return
+	var packed := load("res://scenes/online/account_screen.tscn") as PackedScene
+	if packed == null:
+		EventBus.toast_requested.emit("Online account services are unavailable.")
+		return
+	var overlay := packed.instantiate() as Control
+	overlay.name = "AccountOverlay"
+	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	overlay.z_index = 30
+	screen.add_child(overlay)
+	overlay.connect("closed", Callable(overlay, "queue_free"))
+	overlay.connect("account_authenticated", Callable(self, "_on_online_account_authenticated").bind(overlay))
+
+func _on_online_account_authenticated(player: Dictionary, overlay: Control) -> void:
+	EventBus.toast_requested.emit("Signed in as %s." % str(player.get("name", "Wanderer")))
+	if is_instance_valid(overlay):
+		overlay.queue_free()
+	_open_coop_lobby()
+
+func _open_coop_lobby() -> void:
+	if screen.has_node("CoopLobbyOverlay"):
+		return
+	var packed := load("res://scenes/online/coop_lobby_screen.tscn") as PackedScene
+	if packed == null:
+		EventBus.toast_requested.emit("Co-op expedition services are unavailable.")
+		return
+	var lobby := packed.instantiate() as Control
+	lobby.name = "CoopLobbyOverlay"
+	lobby.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	lobby.z_index = 31
+	screen.add_child(lobby)
+	lobby.connect("closed", Callable(lobby, "queue_free"))
+
+func _online_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.055, 0.035, 0.075, 0.88)
+	style.border_color = Color(0.79, 0.66, 0.53, 0.9)
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(12)
+	style.content_margin_left = 14
+	style.content_margin_right = 14
+	return style
 
 func _open_settings() -> void:
 	if screen.has_node("TitleSettingsOverlay"):

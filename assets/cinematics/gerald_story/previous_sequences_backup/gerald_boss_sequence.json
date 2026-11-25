@@ -1,0 +1,61 @@
+{
+    "shots":  [
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  3.5,
+                      "image":  "res://assets/cinematics/gerald_story/fallen_guardian/07_Ashes of a Burning Village.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  4.5,
+                      "image":  "res://assets/cinematics/gerald_story/fallen_guardian/01_Tragedy Beneath the Burning Village.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5.5,
+                      "image":  "res://assets/cinematics/gerald_story/fallen_guardian/02_Grief Beneath the Burning Ruins.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  4.5,
+                      "image":  "res://assets/cinematics/gerald_story/fallen_guardian/03_Whispers Beneath the Burning Town.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  5.5,
+                      "image":  "res://assets/cinematics/gerald_story/fallen_guardian/04_Geraldâ€™s Tear Amidst the Flames.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  4.5,
+                      "image":  "res://assets/cinematics/gerald_story/fallen_guardian/05_Berserk Knight Amidst Burning Ruins.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  },
+                  {
+                      "zoom":  1.035,
+                      "caption":  "",
+                      "duration":  6,
+                      "image":  "res://assets/cinematics/gerald_story/fallen_guardian/08_Gerald Walks Through Burning Ruins.png",
+                      "pan_x":  0,
+                      "pan_y":  0
+                  }
+              ],
+    "title":  "Gerald - The Fallen Guardian"
+}

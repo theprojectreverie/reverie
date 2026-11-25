@@ -1,0 +1,1019 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_03.png" id="grass"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/soil_garden_01.png" id="soil"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/water_tile.png" id="water"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/dirt_edge_north.png" id="candidate_0"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/dirt_edge_northeast.png" id="candidate_1"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/dirt_edge_northwest.png" id="candidate_2"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/dirt_edge_south.png" id="candidate_3"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/dirt_inner_corner_north.png" id="candidate_4"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/dirt_outer_corner_east.png" id="candidate_5"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/dirt_outer_corner_west.png" id="candidate_6"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/dirt_path_narrow.png" id="candidate_7"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/water_bank_curve_left.png" id="candidate_8"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/water_bank_curve_right.png" id="candidate_9"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/water_bank_inner_curve.png" id="candidate_10"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/water_bank_rock_corner.png" id="candidate_11"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/water_bank_rock_left.png" id="candidate_12"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/water_bank_rock_right.png" id="candidate_13"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/water_bank_upper_left.png" id="candidate_14"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates/water_bank_upper_right.png" id="candidate_15"]
+
+[node name="WillowTilesQA" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(388, 330)
+zoom = Vector2(0.94, 0.94)
+
+[node name="TileReview00" type="Node2D" parent="."]
+position = Vector2(90, 100)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview00"]
+texture = ExtResource("candidate_0")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1818182, 0.1624365)
+
+[node name="Title" type="Label" parent="TileReview00"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "dirt_edge_north"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview01" type="Node2D" parent="."]
+position = Vector2(295, 100)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview01"]
+texture = ExtResource("candidate_1")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1844380, 0.1624365)
+
+[node name="Title" type="Label" parent="TileReview01"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "dirt_edge_northeast"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview02" type="Node2D" parent="."]
+position = Vector2(500, 100)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview02"]
+texture = ExtResource("candidate_2")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1792717, 0.1624365)
+
+[node name="Title" type="Label" parent="TileReview02"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "dirt_edge_northwest"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview03" type="Node2D" parent="."]
+position = Vector2(705, 100)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview03"]
+texture = ExtResource("candidate_3")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1807910, 0.1616162)
+
+[node name="Title" type="Label" parent="TileReview03"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "dirt_edge_south"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview04" type="Node2D" parent="."]
+position = Vector2(90, 247)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview04"]
+texture = ExtResource("candidate_4")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1802817, 0.1592040)
+
+[node name="Title" type="Label" parent="TileReview04"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "dirt_inner_corner_north"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview05" type="Node2D" parent="."]
+position = Vector2(295, 247)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview05"]
+texture = ExtResource("candidate_5")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1818182, 0.1584158)
+
+[node name="Title" type="Label" parent="TileReview05"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "dirt_outer_corner_east"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview06" type="Node2D" parent="."]
+position = Vector2(500, 247)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview06"]
+texture = ExtResource("candidate_6")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1787709, 0.1269841)
+
+[node name="Title" type="Label" parent="TileReview06"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "dirt_outer_corner_west"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview07" type="Node2D" parent="."]
+position = Vector2(705, 247)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("soil")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview07"]
+texture = ExtResource("candidate_7")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1802817, 0.1592040)
+
+[node name="Title" type="Label" parent="TileReview07"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "dirt_path_narrow"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview08" type="Node2D" parent="."]
+position = Vector2(90, 394)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview08"]
+texture = ExtResource("candidate_8")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1797753, 0.1592040)
+
+[node name="Title" type="Label" parent="TileReview08"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "water_bank_curve_left"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview09" type="Node2D" parent="."]
+position = Vector2(295, 394)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview09"]
+texture = ExtResource("candidate_9")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1807910, 0.1576355)
+
+[node name="Title" type="Label" parent="TileReview09"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "water_bank_curve_right"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview10" type="Node2D" parent="."]
+position = Vector2(500, 394)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview10"]
+texture = ExtResource("candidate_10")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1818182, 0.1608040)
+
+[node name="Title" type="Label" parent="TileReview10"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "water_bank_inner_curve"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview11" type="Node2D" parent="."]
+position = Vector2(705, 394)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview11"]
+texture = ExtResource("candidate_11")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1802817, 0.1624365)
+
+[node name="Title" type="Label" parent="TileReview11"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "water_bank_rock_corner"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview12" type="Node2D" parent="."]
+position = Vector2(90, 541)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview12"]
+texture = ExtResource("candidate_12")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1828571, 0.1616162)
+
+[node name="Title" type="Label" parent="TileReview12"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "water_bank_rock_left"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview13" type="Node2D" parent="."]
+position = Vector2(295, 541)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview13"]
+texture = ExtResource("candidate_13")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1797753, 0.1608040)
+
+[node name="Title" type="Label" parent="TileReview13"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "water_bank_rock_right"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview14" type="Node2D" parent="."]
+position = Vector2(500, 541)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview14"]
+texture = ExtResource("candidate_14")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1787709, 0.1584158)
+
+[node name="Title" type="Label" parent="TileReview14"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "water_bank_upper_left"
+theme_override_font_sizes/font_size = 9
+
+[node name="TileReview15" type="Node2D" parent="."]
+position = Vector2(705, 541)
+
+[node name="Surround_0_0" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(0, 0)
+
+[node name="Surround_0_1" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 16)
+
+[node name="Surround_0_2" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(64, 32)
+
+[node name="Surround_1_0" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-32, 16)
+
+[node name="Surround_1_1" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 32)
+
+[node name="Surround_1_2" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(32, 48)
+
+[node name="Surround_2_0" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("grass")
+texture_filter = 1
+position = Vector2(-64, 32)
+
+[node name="Surround_2_1" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(-32, 48)
+
+[node name="Surround_2_2" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("water")
+texture_filter = 1
+position = Vector2(0, 64)
+
+[node name="Candidate" type="Sprite2D" parent="TileReview15"]
+texture = ExtResource("candidate_15")
+texture_filter = 1
+position = Vector2(0, 32)
+scale = Vector2(0.1813031, 0.1592040)
+
+[node name="Title" type="Label" parent="TileReview15"]
+offset_left = -85.0
+offset_top = -47.0
+offset_right = 85.0
+offset_bottom = -30.0
+text = "water_bank_upper_right"
+theme_override_font_sizes/font_size = 9

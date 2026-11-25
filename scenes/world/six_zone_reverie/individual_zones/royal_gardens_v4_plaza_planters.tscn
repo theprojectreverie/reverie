@@ -1,0 +1,37 @@
+﻿[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/cleaned_20261124/art_36.png" id="roseplanter"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_26_prop.png" id="bench"]
+
+[node name="RoyalGardenPlazaPlantersV4" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CourtyardNorthWestFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1250, 1660)
+scale = Vector2(1.1200, 1.1200)
+texture = ExtResource("roseplanter")
+
+[node name="CourtyardNorthEastFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-80, 1610)
+scale = Vector2(1.1200, 1.1200)
+texture = ExtResource("roseplanter")
+
+[node name="CourtyardSouthWestFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1450, 2040)
+scale = Vector2(1.1200, 1.1200)
+texture = ExtResource("roseplanter")
+
+[node name="CourtyardSouthEastFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-100, 2310)
+scale = Vector2(1.1200, 1.1200)
+texture = ExtResource("roseplanter")
+
+[node name="GazeboGardenBench" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1700, 1810)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("bench")

@@ -1,0 +1,224 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/pink_blossom_tree.png" id="1_pink_tree"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/purple_wisteria_tree.png" id="2_wisteria"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/white_blossom_tree.png" id="3_white_tree"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/royal_cypress_tree.png" id="4_cypress"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/hedge_rose.png" id="5_hedge"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_rose.png" id="6_pink_shrub"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/topiary_rose.png" id="7_rose"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_purple.png" id="8_violet"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/props/lamp_ornate.png" id="9_lantern"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/robed_guardian_statue.png" id="10_statue"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/bench_stone_rose.png" id="11_bench"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/planter_rose.png" id="12_planter"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/urn_roses.png" id="14_urn_roses"]
+
+[node name="SymmetricalGardenLayout" type="Node2D"]
+y_sort_enabled = true
+
+[node name="OuterCanopy" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="NorthWestWisteria" type="Sprite2D" parent="OuterCanopy"]
+texture = ExtResource("2_wisteria")
+position = Vector2(150, 170)
+scale = Vector2(0.82, 0.82)
+y_sort_origin = 48
+
+[node name="NorthEastWisteria" type="Sprite2D" parent="OuterCanopy"]
+texture = ExtResource("2_wisteria")
+position = Vector2(1130, 170)
+scale = Vector2(0.82, 0.82)
+flip_h = true
+y_sort_origin = 48
+
+[node name="WestBlossomTree" type="Sprite2D" parent="OuterCanopy"]
+texture = ExtResource("1_pink_tree")
+position = Vector2(255, 410)
+scale = Vector2(0.9, 0.9)
+y_sort_origin = 72
+
+[node name="EastBlossomTree" type="Sprite2D" parent="OuterCanopy"]
+texture = ExtResource("1_pink_tree")
+position = Vector2(1025, 410)
+scale = Vector2(0.9, 0.9)
+flip_h = true
+y_sort_origin = 72
+
+[node name="SouthWestWhiteBlossom" type="Sprite2D" parent="OuterCanopy"]
+texture = ExtResource("3_white_tree")
+position = Vector2(170, 920)
+scale = Vector2(0.88, 0.88)
+y_sort_origin = 58
+
+[node name="SouthEastWhiteBlossom" type="Sprite2D" parent="OuterCanopy"]
+texture = ExtResource("3_white_tree")
+position = Vector2(1110, 920)
+scale = Vector2(0.88, 0.88)
+flip_h = true
+y_sort_origin = 58
+
+[node name="WestCypress" type="Sprite2D" parent="OuterCanopy"]
+texture = ExtResource("4_cypress")
+position = Vector2(105, 680)
+scale = Vector2(0.84, 0.84)
+y_sort_origin = 76
+
+[node name="EastCypress" type="Sprite2D" parent="OuterCanopy"]
+texture = ExtResource("4_cypress")
+position = Vector2(1175, 680)
+scale = Vector2(0.84, 0.84)
+flip_h = true
+y_sort_origin = 76
+
+[node name="GardenBeds" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="WestNorthHedge" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("5_hedge")
+position = Vector2(330, 490)
+scale = Vector2(1.2, 1.0)
+
+[node name="EastNorthHedge" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("5_hedge")
+position = Vector2(950, 490)
+scale = Vector2(-1.2, 1.0)
+
+[node name="WestSouthHedge" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("5_hedge")
+position = Vector2(330, 990)
+scale = Vector2(1.2, 1.0)
+
+[node name="EastSouthHedge" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("5_hedge")
+position = Vector2(950, 990)
+scale = Vector2(-1.2, 1.0)
+
+[node name="WestNorthFlowers" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("6_pink_shrub")
+position = Vector2(330, 475)
+scale = Vector2(0.88, 0.88)
+
+[node name="EastNorthFlowers" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("6_pink_shrub")
+position = Vector2(950, 475)
+scale = Vector2(0.88, 0.88)
+flip_h = true
+
+[node name="WestSouthFlowers" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("6_pink_shrub")
+position = Vector2(330, 975)
+scale = Vector2(0.88, 0.88)
+
+[node name="EastSouthFlowers" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("6_pink_shrub")
+position = Vector2(950, 975)
+scale = Vector2(0.88, 0.88)
+flip_h = true
+
+[node name="WestUpperRose" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("7_rose")
+position = Vector2(430, 545)
+scale = Vector2(0.82, 0.82)
+
+[node name="EastUpperRose" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("7_rose")
+position = Vector2(850, 545)
+scale = Vector2(0.82, 0.82)
+flip_h = true
+
+[node name="WestLowerRose" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("7_rose")
+position = Vector2(255, 860)
+scale = Vector2(0.82, 0.82)
+
+[node name="EastLowerRose" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("7_rose")
+position = Vector2(1025, 860)
+scale = Vector2(0.82, 0.82)
+flip_h = true
+
+[node name="WestLowerViolet" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("8_violet")
+position = Vector2(395, 1015)
+scale = Vector2(0.82, 0.82)
+
+[node name="EastLowerViolet" type="Sprite2D" parent="GardenBeds"]
+texture = ExtResource("8_violet")
+position = Vector2(885, 1015)
+scale = Vector2(0.82, 0.82)
+flip_h = true
+
+[node name="OuterPlanterAccents" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="WestRosePlanter" type="Sprite2D" parent="OuterPlanterAccents"]
+texture = ExtResource("12_planter")
+position = Vector2(260, 540)
+scale = Vector2(0.82, 0.82)
+y_sort_origin = 24
+
+[node name="EastRosePlanter" type="Sprite2D" parent="OuterPlanterAccents"]
+texture = ExtResource("12_planter")
+position = Vector2(1020, 540)
+scale = Vector2(-0.82, 0.82)
+y_sort_origin = 24
+
+[node name="EntranceUrnAccents" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="WestRoseUrn" type="Sprite2D" parent="EntranceUrnAccents"]
+texture = ExtResource("14_urn_roses")
+position = Vector2(520, 440)
+scale = Vector2(0.72, 0.72)
+y_sort_origin = 28
+
+[node name="EastRoseUrn" type="Sprite2D" parent="EntranceUrnAccents"]
+texture = ExtResource("14_urn_roses")
+position = Vector2(760, 440)
+scale = Vector2(-0.72, 0.72)
+y_sort_origin = 28
+
+[node name="Furnishings" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="WestNorthLantern" type="Sprite2D" parent="Furnishings"]
+texture = ExtResource("9_lantern")
+position = Vector2(530, 520)
+scale = Vector2(0.78, 0.78)
+
+[node name="EastNorthLantern" type="Sprite2D" parent="Furnishings"]
+texture = ExtResource("9_lantern")
+position = Vector2(750, 520)
+scale = Vector2(-0.78, 0.78)
+
+[node name="WestSouthLantern" type="Sprite2D" parent="Furnishings"]
+texture = ExtResource("9_lantern")
+position = Vector2(500, 1015)
+scale = Vector2(0.72, 0.72)
+
+[node name="EastSouthLantern" type="Sprite2D" parent="Furnishings"]
+texture = ExtResource("9_lantern")
+position = Vector2(780, 1015)
+scale = Vector2(-0.72, 0.72)
+
+[node name="WestGuardian" type="Sprite2D" parent="Furnishings"]
+texture = ExtResource("10_statue")
+position = Vector2(450, 760)
+scale = Vector2(0.84, 0.84)
+
+[node name="EastGuardian" type="Sprite2D" parent="Furnishings"]
+texture = ExtResource("10_statue")
+position = Vector2(830, 760)
+scale = Vector2(-0.84, 0.84)
+
+[node name="WestBench" type="Sprite2D" parent="Furnishings"]
+texture = ExtResource("11_bench")
+position = Vector2(420, 1080)
+scale = Vector2(0.78, 0.78)
+
+[node name="EastBench" type="Sprite2D" parent="Furnishings"]
+texture = ExtResource("11_bench")
+position = Vector2(860, 1080)
+scale = Vector2(-0.78, 0.78)

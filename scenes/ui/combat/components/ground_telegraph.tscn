@@ -1,12 +1,51 @@
-[gd_scene format=3]
+[gd_scene load_steps=4 format=3]
+
+[sub_resource type="Animation" id="Animation_warning"]
+resource_name = "warning"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.7), "transitions": PackedFloat32Array(0.35, 1), "update": 0, "values": [Vector2(0.45, 0.45), Vector2(1.55, 1.55)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.7), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [1.0, 0.0]}
+
+[sub_resource type="Animation" id="Animation_verdict_warning"]
+resource_name = "verdict_warning"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.7), "transitions": PackedFloat32Array(0.35, 1), "update": 0, "values": [Vector2(1, 1), Vector2(1.55, 1.55)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.7), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [1.0, 0.0]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_warning"]
+_data = {"warning": SubResource("Animation_warning"), "verdict_warning": SubResource("Animation_verdict_warning")}
 
 [node name="GroundTelegraph" type="Node2D"]
 
 [node name="Ring" type="Line2D" parent="."]
+points = PackedVector2Array(36, 0, 35.69, 4.69, 34.77, 9.30, 33.26, 13.78, 31.18, 18, 28.58, 21.91, 25.46, 25.46, 21.91, 28.58, 18, 31.18, 13.78, 33.26, 9.30, 34.77, 4.69, 35.69, 0, 36, -4.69, 35.69, -9.30, 34.77, -13.78, 33.26, -18, 31.18, -21.91, 28.58, -25.46, 25.46, -28.58, 21.91, -31.18, 18, -33.26, 13.78, -34.77, 9.30, -35.69, 4.69, -36, 0, -35.69, -4.69, -34.77, -9.30, -33.26, -13.78, -31.18, -18, -28.58, -21.91, -25.46, -25.46, -21.91, -28.58, -18, -31.18, -13.78, -33.26, -9.30, -34.77, -4.69, -35.69, 0)
 closed = true
+width = 3.0
 begin_cap_mode = 2
 end_cap_mode = 2
+antialiased = true
 
 [node name="Cross" type="Line2D" parent="."]
+points = PackedVector2Array(-52, 0, 52, 0)
+width = 1.5
 begin_cap_mode = 2
 end_cap_mode = 2
+antialiased = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("..")
+libraries = {"": SubResource("AnimationLibrary_warning")}

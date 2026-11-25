@@ -1,0 +1,2155 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_03_willow_fields.tscn" id="zone"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_grass_fringe/dirt_edge_n_fringe.png" id="dirt_edge_n_fringe"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_grass_fringe/dirt_edge_s_fringe.png" id="dirt_edge_s_fringe"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_grass_fringe/dirt_edge_ne_fringe.png" id="dirt_edge_ne_fringe"]
+
+[node name="WillowRoadAllEdgeQA" type="Node2D"]
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 1804)
+zoom = Vector2(1, 1)
+
+[node name="HandPaintedAllRoadEdges" type="Node2D" parent="."]
+z_index = -18
+
+[node name="Fringe_N_000" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(2272, 1456)
+
+[node name="Fringe_TR_001" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(2330, 1466)
+flip_h = true
+
+[node name="Fringe_TR_002" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(2362, 1482)
+flip_h = true
+
+[node name="Fringe_E_003" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(2394, 1504)
+flip_h = true
+
+[node name="Fringe_N_004" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(2208, 1456)
+
+[node name="Fringe_E_005" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(2394, 1536)
+flip_h = true
+
+[node name="Fringe_N_006" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(2144, 1456)
+
+[node name="Fringe_BR_007" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(2350, 1586)
+
+[node name="Fringe_N_008" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(2080, 1456)
+
+[node name="Fringe_BR_009" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(2318, 1602)
+
+[node name="Fringe_N_010" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(2016, 1456)
+
+[node name="Fringe_S_011" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(2272, 1618)
+
+[node name="Fringe_N_012" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1952, 1456)
+
+[node name="Fringe_S_013" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(2208, 1618)
+
+[node name="Fringe_N_014" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1888, 1456)
+
+[node name="Fringe_S_015" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(2144, 1618)
+
+[node name="Fringe_N_016" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1824, 1456)
+
+[node name="Fringe_S_017" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(2080, 1618)
+
+[node name="Fringe_N_018" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1760, 1456)
+
+[node name="Fringe_BL_019" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1970, 1602)
+
+[node name="Fringe_S_020" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(2016, 1618)
+
+[node name="Fringe_N_021" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1696, 1456)
+
+[node name="Fringe_S_022" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1920, 1602)
+
+[node name="Fringe_TL_023" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1638, 1466)
+
+[node name="Fringe_S_024" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1856, 1602)
+
+[node name="Fringe_N_025" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1600, 1472)
+
+[node name="Fringe_BR_026" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1806, 1602)
+
+[node name="Fringe_N_027" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1536, 1472)
+
+[node name="Fringe_S_028" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1760, 1618)
+
+[node name="Fringe_TL_029" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1478, 1482)
+
+[node name="Fringe_S_030" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1696, 1618)
+
+[node name="Fringe_N_031" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1440, 1488)
+
+[node name="Fringe_BL_032" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1586, 1602)
+
+[node name="Fringe_S_033" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1632, 1618)
+
+[node name="Fringe_TL_034" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1414, 1514)
+
+[node name="Fringe_BR_035" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1550, 1602)
+
+[node name="Fringe_TL_036" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1382, 1530)
+
+[node name="Fringe_S_037" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1504, 1618)
+
+[node name="Fringe_TL_038" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1350, 1546)
+
+[node name="Fringe_BR_039" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1454, 1618)
+
+[node name="Fringe_TL_040" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1318, 1562)
+
+[node name="Fringe_BR_041" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1422, 1634)
+
+[node name="Fringe_TL_042" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1286, 1578)
+
+[node name="Fringe_BR_043" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1390, 1650)
+
+[node name="Fringe_N_044" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1248, 1584)
+
+[node name="Fringe_BR_045" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1358, 1666)
+
+[node name="Fringe_N_046" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-480, 752)
+
+[node name="Fringe_TR_047" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-422, 762)
+flip_h = true
+
+[node name="Fringe_TR_048" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-390, 778)
+flip_h = true
+
+[node name="Fringe_TR_049" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-358, 794)
+flip_h = true
+
+[node name="Fringe_E_050" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-326, 816)
+flip_h = true
+
+[node name="Fringe_TL_051" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1190, 1594)
+
+[node name="Fringe_BR_052" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1326, 1682)
+
+[node name="Fringe_W_053" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-538, 768)
+
+[node name="Fringe_TR_054" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-326, 842)
+flip_h = true
+
+[node name="Fringe_E_055" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-294, 864)
+flip_h = true
+
+[node name="Fringe_TL_056" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1158, 1610)
+
+[node name="Fringe_BR_057" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1294, 1698)
+
+[node name="Fringe_TL_058" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-538, 794)
+
+[node name="Fringe_E_059" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-294, 896)
+flip_h = true
+
+[node name="Fringe_TL_060" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1126, 1626)
+
+[node name="Fringe_BR_061" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1262, 1714)
+
+[node name="Fringe_W_062" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-570, 816)
+
+[node name="Fringe_TR_063" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-294, 922)
+flip_h = true
+
+[node name="Fringe_E_064" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-262, 944)
+flip_h = true
+
+[node name="Fringe_N_065" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1024, 1600)
+
+[node name="Fringe_N_066" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1088, 1632)
+
+[node name="Fringe_E_067" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1274, 1712)
+flip_h = true
+
+[node name="Fringe_N_068" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1312, 1744)
+
+[node name="Fringe_W_069" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-570, 848)
+
+[node name="Fringe_TR_070" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-262, 970)
+flip_h = true
+
+[node name="Fringe_E_071" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-230, 992)
+flip_h = true
+
+[node name="Fringe_N_072" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(960, 1600)
+
+[node name="Fringe_N_073" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(1024, 1632)
+
+[node name="Fringe_TR_074" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1274, 1738)
+flip_h = true
+
+[node name="Fringe_E_075" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1338, 1776)
+flip_h = true
+
+[node name="Fringe_W_076" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-570, 880)
+
+[node name="Fringe_BL_077" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-526, 930)
+
+[node name="Fringe_TR_078" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-230, 1018)
+flip_h = true
+
+[node name="Fringe_E_079" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-198, 1040)
+flip_h = true
+
+[node name="Fringe_TL_080" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(966, 1642)
+
+[node name="Fringe_BL_081" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1202, 1794)
+
+[node name="Fringe_BR_082" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1294, 1826)
+
+[node name="Fringe_W_083" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-538, 928)
+
+[node name="Fringe_BL_084" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-494, 978)
+
+[node name="Fringe_TR_085" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-198, 1066)
+flip_h = true
+
+[node name="Fringe_E_086" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-166, 1088)
+flip_h = true
+
+[node name="Fringe_N_087" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(768, 1568)
+
+[node name="Fringe_TR_088" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(826, 1578)
+flip_h = true
+
+[node name="Fringe_TR_089" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(858, 1594)
+flip_h = true
+
+[node name="Fringe_S_090" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(864, 1650)
+
+[node name="Fringe_TL_091" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(934, 1658)
+
+[node name="Fringe_BR_092" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1166, 1794)
+
+[node name="Fringe_W_093" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(1190, 1792)
+
+[node name="Fringe_S_094" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1248, 1842)
+
+[node name="Fringe_W_095" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-506, 976)
+
+[node name="Fringe_BL_096" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-462, 1026)
+
+[node name="Fringe_TR_097" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-166, 1114)
+flip_h = true
+
+[node name="Fringe_TR_098" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-134, 1130)
+flip_h = true
+
+[node name="Fringe_TR_099" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-102, 1146)
+flip_h = true
+
+[node name="Fringe_TR_100" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-70, 1162)
+flip_h = true
+
+[node name="Fringe_TR_101" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-38, 1178)
+flip_h = true
+
+[node name="Fringe_TR_102" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-6, 1194)
+flip_h = true
+
+[node name="Fringe_TR_103" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(26, 1210)
+flip_h = true
+
+[node name="Fringe_TR_104" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(58, 1226)
+flip_h = true
+
+[node name="Fringe_E_105" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(90, 1248)
+flip_h = true
+
+[node name="Fringe_TL_106" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(742, 1594)
+
+[node name="Fringe_BR_107" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(814, 1650)
+
+[node name="Fringe_TL_108" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(902, 1674)
+
+[node name="Fringe_BR_109" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1134, 1810)
+
+[node name="Fringe_W_110" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-474, 1024)
+
+[node name="Fringe_BL_111" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-430, 1074)
+
+[node name="Fringe_TR_112" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(90, 1274)
+flip_h = true
+
+[node name="Fringe_TR_113" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(122, 1290)
+flip_h = true
+
+[node name="Fringe_TR_114" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(154, 1306)
+flip_h = true
+
+[node name="Fringe_TR_115" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(186, 1322)
+flip_h = true
+
+[node name="Fringe_TR_116" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(218, 1338)
+flip_h = true
+
+[node name="Fringe_TR_117" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(250, 1354)
+flip_h = true
+
+[node name="Fringe_TR_118" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(282, 1370)
+flip_h = true
+
+[node name="Fringe_E_119" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(314, 1392)
+flip_h = true
+
+[node name="Fringe_N_120" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(512, 1504)
+
+[node name="Fringe_TR_121" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(570, 1514)
+flip_h = true
+
+[node name="Fringe_TR_122" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(602, 1530)
+flip_h = true
+
+[node name="Fringe_TR_123" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(634, 1546)
+flip_h = true
+
+[node name="Fringe_TR_124" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(666, 1562)
+flip_h = true
+
+[node name="Fringe_TR_125" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(698, 1578)
+flip_h = true
+
+[node name="Fringe_TR_126" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(730, 1594)
+flip_h = true
+
+[node name="Fringe_TR_127" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(826, 1642)
+flip_h = true
+
+[node name="Fringe_TR_128" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(858, 1658)
+flip_h = true
+
+[node name="Fringe_TR_129" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(890, 1674)
+flip_h = true
+
+[node name="Fringe_BR_130" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1102, 1826)
+
+[node name="Fringe_W_131" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-442, 1072)
+
+[node name="Fringe_TR_132" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(314, 1418)
+flip_h = true
+
+[node name="Fringe_TR_133" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(346, 1434)
+flip_h = true
+
+[node name="Fringe_TR_134" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(378, 1450)
+flip_h = true
+
+[node name="Fringe_TR_135" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(410, 1466)
+flip_h = true
+
+[node name="Fringe_TR_136" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(442, 1482)
+flip_h = true
+
+[node name="Fringe_TR_137" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(474, 1498)
+flip_h = true
+
+[node name="Fringe_BR_138" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1070, 1842)
+
+[node name="Fringe_W_139" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-442, 1104)
+
+[node name="Fringe_BL_140" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-398, 1154)
+
+[node name="Fringe_BR_141" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1038, 1858)
+
+[node name="Fringe_W_142" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-410, 1152)
+
+[node name="Fringe_BL_143" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-366, 1202)
+
+[node name="Fringe_BR_144" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(1006, 1874)
+
+[node name="Fringe_W_145" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-378, 1200)
+
+[node name="Fringe_BL_146" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-334, 1250)
+
+[node name="Fringe_BR_147" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(974, 1890)
+
+[node name="Fringe_W_148" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-346, 1248)
+
+[node name="Fringe_BL_149" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-302, 1298)
+
+[node name="Fringe_BL_150" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-270, 1314)
+
+[node name="Fringe_BL_151" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-238, 1330)
+
+[node name="Fringe_BL_152" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-206, 1346)
+
+[node name="Fringe_BL_153" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-174, 1362)
+
+[node name="Fringe_BL_154" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-142, 1378)
+
+[node name="Fringe_BL_155" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-110, 1394)
+
+[node name="Fringe_BL_156" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(50, 1474)
+
+[node name="Fringe_BL_157" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(82, 1490)
+
+[node name="Fringe_BL_158" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(114, 1506)
+
+[node name="Fringe_BL_159" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(146, 1522)
+
+[node name="Fringe_BL_160" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(178, 1538)
+
+[node name="Fringe_BL_161" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(210, 1554)
+
+[node name="Fringe_BL_162" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(242, 1570)
+
+[node name="Fringe_BL_163" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(274, 1586)
+
+[node name="Fringe_BL_164" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(306, 1602)
+
+[node name="Fringe_BL_165" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(338, 1618)
+
+[node name="Fringe_BL_166" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(370, 1634)
+
+[node name="Fringe_BL_167" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(402, 1650)
+
+[node name="Fringe_BL_168" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(434, 1666)
+
+[node name="Fringe_BL_169" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(466, 1682)
+
+[node name="Fringe_BL_170" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(498, 1698)
+
+[node name="Fringe_BL_171" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(530, 1714)
+
+[node name="Fringe_BR_172" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(942, 1906)
+
+[node name="Fringe_W_173" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-122, 1392)
+
+[node name="Fringe_BL_174" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-78, 1442)
+
+[node name="Fringe_BL_175" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-46, 1458)
+
+[node name="Fringe_S_176" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(0, 1474)
+
+[node name="Fringe_TL_177" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(518, 1706)
+
+[node name="Fringe_BR_178" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(910, 1922)
+
+[node name="Fringe_TL_179" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(486, 1722)
+
+[node name="Fringe_E_180" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(922, 1920)
+flip_h = true
+
+[node name="Fringe_TL_181" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(454, 1738)
+
+[node name="Fringe_BR_182" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(878, 1970)
+
+[node name="Fringe_TL_183" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(422, 1754)
+
+[node name="Fringe_BR_184" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(846, 1986)
+
+[node name="Fringe_N_185" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(384, 1760)
+
+[node name="Fringe_BR_186" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(814, 2002)
+
+[node name="Fringe_TL_187" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(326, 1770)
+
+[node name="Fringe_S_188" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(800, 2034)
+
+[node name="Fringe_N_189" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(288, 1776)
+
+[node name="Fringe_BR_190" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(750, 2034)
+
+[node name="Fringe_N_191" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(800, 2032)
+
+[node name="Fringe_N_192" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(224, 1776)
+
+[node name="Fringe_BR_193" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(718, 2050)
+
+[node name="Fringe_S_194" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(768, 2082)
+
+[node name="Fringe_N_195" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(128, 1760)
+
+[node name="Fringe_TR_196" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(186, 1770)
+flip_h = true
+
+[node name="Fringe_S_197" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(672, 2066)
+
+[node name="Fringe_N_198" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(32, 1744)
+
+[node name="Fringe_TR_199" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(90, 1754)
+flip_h = true
+
+[node name="Fringe_BR_200" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(622, 2066)
+
+[node name="Fringe_N_201" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-64, 1728)
+
+[node name="Fringe_TR_202" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-6, 1738)
+flip_h = true
+
+[node name="Fringe_S_203" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(576, 2082)
+
+[node name="Fringe_N_204" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-160, 1712)
+
+[node name="Fringe_TR_205" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-102, 1722)
+flip_h = true
+
+[node name="Fringe_BR_206" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(526, 2082)
+
+[node name="Fringe_N_207" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-1088, 1280)
+
+[node name="Fringe_TR_208" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1030, 1290)
+flip_h = true
+
+[node name="Fringe_TR_209" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-998, 1306)
+flip_h = true
+
+[node name="Fringe_TR_210" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-966, 1322)
+flip_h = true
+
+[node name="Fringe_TR_211" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-934, 1338)
+flip_h = true
+
+[node name="Fringe_TR_212" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-902, 1354)
+flip_h = true
+
+[node name="Fringe_TR_213" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-870, 1370)
+flip_h = true
+
+[node name="Fringe_TR_214" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-838, 1386)
+flip_h = true
+
+[node name="Fringe_TR_215" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-806, 1402)
+flip_h = true
+
+[node name="Fringe_TR_216" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-774, 1418)
+flip_h = true
+
+[node name="Fringe_TR_217" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-742, 1434)
+flip_h = true
+
+[node name="Fringe_TR_218" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-710, 1450)
+flip_h = true
+
+[node name="Fringe_TR_219" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-678, 1466)
+flip_h = true
+
+[node name="Fringe_TR_220" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-646, 1482)
+flip_h = true
+
+[node name="Fringe_TR_221" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-614, 1498)
+flip_h = true
+
+[node name="Fringe_TR_222" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-582, 1514)
+flip_h = true
+
+[node name="Fringe_TR_223" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-550, 1530)
+flip_h = true
+
+[node name="Fringe_E_224" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-518, 1552)
+flip_h = true
+
+[node name="Fringe_N_225" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-256, 1696)
+
+[node name="Fringe_TR_226" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-198, 1706)
+flip_h = true
+
+[node name="Fringe_S_227" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(480, 2098)
+
+[node name="Fringe_N_228" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-1216, 1248)
+
+[node name="Fringe_TR_229" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1158, 1258)
+flip_h = true
+
+[node name="Fringe_TR_230" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1126, 1274)
+flip_h = true
+
+[node name="Fringe_TR_231" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-518, 1578)
+flip_h = true
+
+[node name="Fringe_E_232" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-486, 1600)
+flip_h = true
+
+[node name="Fringe_N_233" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-352, 1680)
+
+[node name="Fringe_TR_234" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-294, 1690)
+flip_h = true
+
+[node name="Fringe_BL_235" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(18, 1906)
+
+[node name="Fringe_BL_236" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(50, 1922)
+
+[node name="Fringe_BL_237" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(82, 1938)
+
+[node name="Fringe_BL_238" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(114, 1954)
+
+[node name="Fringe_BL_239" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(146, 1970)
+
+[node name="Fringe_BR_240" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(430, 2098)
+
+[node name="Fringe_N_241" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-1344, 1216)
+
+[node name="Fringe_TR_242" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1286, 1226)
+flip_h = true
+
+[node name="Fringe_TR_243" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1254, 1242)
+flip_h = true
+
+[node name="Fringe_TR_244" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-486, 1626)
+flip_h = true
+
+[node name="Fringe_TR_245" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-454, 1642)
+flip_h = true
+
+[node name="Fringe_TR_246" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-422, 1658)
+flip_h = true
+
+[node name="Fringe_TR_247" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-390, 1674)
+flip_h = true
+
+[node name="Fringe_BL_248" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-78, 1890)
+
+[node name="Fringe_S_249" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-32, 1906)
+
+[node name="Fringe_TL_250" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(134, 1962)
+
+[node name="Fringe_S_251" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(384, 2114)
+
+[node name="Fringe_N_252" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-1472, 1184)
+
+[node name="Fringe_TR_253" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1414, 1194)
+flip_h = true
+
+[node name="Fringe_TR_254" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1382, 1210)
+flip_h = true
+
+[node name="Fringe_BL_255" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-174, 1874)
+
+[node name="Fringe_S_256" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-128, 1890)
+
+[node name="Fringe_TL_257" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(102, 1978)
+
+[node name="Fringe_BR_258" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(334, 2114)
+
+[node name="Fringe_N_259" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-1568, 1168)
+
+[node name="Fringe_TR_260" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1510, 1178)
+flip_h = true
+
+[node name="Fringe_BL_261" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-270, 1858)
+
+[node name="Fringe_S_262" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-224, 1874)
+
+[node name="Fringe_TL_263" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(70, 1994)
+
+[node name="Fringe_S_264" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(288, 2130)
+
+[node name="Fringe_N_265" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-1632, 1168)
+
+[node name="Fringe_BL_266" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-366, 1842)
+
+[node name="Fringe_S_267" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-320, 1858)
+
+[node name="Fringe_N_268" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(32, 2000)
+
+[node name="Fringe_BR_269" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(238, 2130)
+
+[node name="Fringe_N_270" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-1696, 1168)
+
+[node name="Fringe_BL_271" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1102, 1506)
+
+[node name="Fringe_BL_272" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1070, 1522)
+
+[node name="Fringe_BL_273" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1038, 1538)
+
+[node name="Fringe_BL_274" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1006, 1554)
+
+[node name="Fringe_BL_275" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-974, 1570)
+
+[node name="Fringe_BL_276" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-942, 1586)
+
+[node name="Fringe_BL_277" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-910, 1602)
+
+[node name="Fringe_BL_278" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-878, 1618)
+
+[node name="Fringe_BL_279" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-846, 1634)
+
+[node name="Fringe_BL_280" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-814, 1650)
+
+[node name="Fringe_BL_281" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-590, 1762)
+
+[node name="Fringe_BL_282" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-558, 1778)
+
+[node name="Fringe_BL_283" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-526, 1794)
+
+[node name="Fringe_BL_284" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-494, 1810)
+
+[node name="Fringe_BL_285" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-462, 1826)
+
+[node name="Fringe_S_286" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-416, 1842)
+
+[node name="Fringe_TL_287" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-26, 2010)
+
+[node name="Fringe_S_288" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(192, 2146)
+
+[node name="Fringe_TL_289" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1754, 1178)
+
+[node name="Fringe_BL_290" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1230, 1474)
+
+[node name="Fringe_BL_291" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1198, 1490)
+
+[node name="Fringe_S_292" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1152, 1506)
+
+[node name="Fringe_W_293" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-826, 1648)
+
+[node name="Fringe_BL_294" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-782, 1698)
+
+[node name="Fringe_BL_295" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-750, 1714)
+
+[node name="Fringe_BL_296" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-718, 1730)
+
+[node name="Fringe_BL_297" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-686, 1746)
+
+[node name="Fringe_S_298" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-640, 1762)
+
+[node name="Fringe_N_299" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-64, 2016)
+
+[node name="Fringe_BR_300" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(142, 2146)
+
+[node name="Fringe_TL_301" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1786, 1194)
+
+[node name="Fringe_BL_302" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1358, 1442)
+
+[node name="Fringe_BL_303" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1326, 1458)
+
+[node name="Fringe_S_304" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1280, 1474)
+
+[node name="Fringe_TL_305" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-122, 2026)
+
+[node name="Fringe_S_306" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(96, 2162)
+
+[node name="Fringe_TL_307" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1818, 1210)
+
+[node name="Fringe_BL_308" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1486, 1410)
+
+[node name="Fringe_BL_309" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1454, 1426)
+
+[node name="Fringe_S_310" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1408, 1442)
+
+[node name="Fringe_N_311" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-160, 2032)
+
+[node name="Fringe_BR_312" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(46, 2162)
+
+[node name="Fringe_N_313" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-1856, 1216)
+
+[node name="Fringe_BL_314" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1582, 1394)
+
+[node name="Fringe_S_315" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1536, 1410)
+
+[node name="Fringe_TL_316" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-218, 2042)
+
+[node name="Fringe_S_317" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(0, 2178)
+
+[node name="Fringe_TL_318" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1914, 1226)
+
+[node name="Fringe_S_319" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1632, 1394)
+
+[node name="Fringe_N_320" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-256, 2048)
+
+[node name="Fringe_BR_321" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-50, 2178)
+
+[node name="Fringe_TL_322" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1946, 1242)
+
+[node name="Fringe_BR_323" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1682, 1394)
+
+[node name="Fringe_TL_324" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-314, 2058)
+
+[node name="Fringe_S_325" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-96, 2194)
+
+[node name="Fringe_TL_326" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1978, 1258)
+
+[node name="Fringe_BR_327" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1714, 1410)
+
+[node name="Fringe_N_328" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-352, 2064)
+
+[node name="Fringe_BR_329" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-146, 2194)
+
+[node name="Fringe_TL_330" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2010, 1274)
+
+[node name="Fringe_BR_331" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1746, 1426)
+
+[node name="Fringe_TL_332" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-410, 2074)
+
+[node name="Fringe_BR_333" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-178, 2210)
+
+[node name="Fringe_TL_334" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2042, 1290)
+
+[node name="Fringe_S_335" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1792, 1442)
+
+[node name="Fringe_N_336" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-448, 2080)
+
+[node name="Fringe_S_337" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-192, 2242)
+
+[node name="Fringe_N_338" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-2080, 1296)
+
+[node name="Fringe_BR_339" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1842, 1442)
+
+[node name="Fringe_N_340" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-512, 2080)
+
+[node name="Fringe_BR_341" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-242, 2242)
+
+[node name="Fringe_TL_342" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2138, 1306)
+
+[node name="Fringe_BR_343" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1874, 1458)
+
+[node name="Fringe_TL_344" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-570, 2090)
+
+[node name="Fringe_S_345" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-288, 2258)
+
+[node name="Fringe_TL_346" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2170, 1322)
+
+[node name="Fringe_BR_347" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1906, 1474)
+
+[node name="Fringe_N_348" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-608, 2096)
+
+[node name="Fringe_BR_349" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-338, 2258)
+
+[node name="Fringe_TL_350" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2202, 1338)
+
+[node name="Fringe_BR_351" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1938, 1490)
+
+[node name="Fringe_TL_352" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-666, 2106)
+
+[node name="Fringe_S_353" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-384, 2274)
+
+[node name="Fringe_TL_354" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2234, 1354)
+
+[node name="Fringe_BR_355" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1970, 1506)
+
+[node name="Fringe_TL_356" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-698, 2122)
+
+[node name="Fringe_BR_357" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-434, 2274)
+
+[node name="Fringe_TL_358" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2266, 1370)
+
+[node name="Fringe_S_359" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2016, 1522)
+
+[node name="Fringe_TL_360" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-730, 2138)
+
+[node name="Fringe_BR_361" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-466, 2290)
+
+[node name="Fringe_N_362" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-2304, 1376)
+
+[node name="Fringe_BR_363" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2066, 1522)
+
+[node name="Fringe_TL_364" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-762, 2154)
+
+[node name="Fringe_BR_365" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-498, 2306)
+
+[node name="Fringe_TL_366" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2362, 1386)
+
+[node name="Fringe_BR_367" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2098, 1538)
+
+[node name="Fringe_TL_368" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-794, 2170)
+
+[node name="Fringe_BR_369" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-530, 2322)
+
+[node name="Fringe_TL_370" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2394, 1402)
+
+[node name="Fringe_BR_371" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2130, 1554)
+
+[node name="Fringe_TL_372" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-826, 2186)
+
+[node name="Fringe_S_373" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-576, 2338)
+
+[node name="Fringe_TL_374" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2426, 1418)
+
+[node name="Fringe_BR_375" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2162, 1570)
+
+[node name="Fringe_N_376" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_n_fringe")
+texture_filter = 1
+position = Vector2(-864, 2192)
+
+[node name="Fringe_BR_377" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-626, 2338)
+
+[node name="Fringe_W_378" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2458, 1440)
+
+[node name="Fringe_BR_379" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2194, 1586)
+
+[node name="Fringe_TL_380" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-922, 2202)
+
+[node name="Fringe_BR_381" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-658, 2354)
+
+[node name="Fringe_W_382" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2458, 1472)
+
+[node name="Fringe_S_383" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2240, 1602)
+
+[node name="Fringe_TL_384" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-954, 2218)
+
+[node name="Fringe_BR_385" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-690, 2370)
+
+[node name="Fringe_W_386" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2458, 1504)
+
+[node name="Fringe_BR_387" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2290, 1602)
+
+[node name="Fringe_TL_388" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-986, 2234)
+
+[node name="Fringe_BR_389" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-722, 2386)
+
+[node name="Fringe_W_390" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-2458, 1536)
+
+[node name="Fringe_BL_391" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2414, 1586)
+
+[node name="Fringe_S_392" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2336, 1618)
+
+[node name="Fringe_TL_393" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1018, 2250)
+
+[node name="Fringe_BR_394" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-754, 2402)
+
+[node name="Fringe_S_395" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-2400, 1618)
+
+[node name="Fringe_TL_396" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1050, 2266)
+
+[node name="Fringe_BR_397" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-786, 2418)
+
+[node name="Fringe_TL_398" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1082, 2282)
+
+[node name="Fringe_S_399" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-832, 2434)
+
+[node name="Fringe_W_400" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1114, 2304)
+
+[node name="Fringe_BR_401" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-882, 2434)
+
+[node name="Fringe_W_402" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1114, 2336)
+
+[node name="Fringe_BR_403" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-914, 2450)
+
+[node name="Fringe_W_404" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1114, 2368)
+
+[node name="Fringe_S_405" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-960, 2466)
+
+[node name="Fringe_W_406" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_ne_fringe")
+texture_filter = 1
+position = Vector2(-1114, 2400)
+
+[node name="Fringe_BL_407" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1070, 2450)
+
+[node name="Fringe_S_408" type="Sprite2D" parent="HandPaintedAllRoadEdges"]
+texture = ExtResource("dirt_edge_s_fringe")
+texture_filter = 1
+position = Vector2(-1024, 2466)

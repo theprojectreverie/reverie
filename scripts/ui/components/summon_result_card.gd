@@ -33,7 +33,12 @@ func setup(roll: Dictionary) -> void:
 		_portrait.setup_character(definition)
 	else:
 		_portrait.setup({}, "Human", "neutral", rarity, 0)
-	_name_label.text = definition.display_name if definition != null else character_id
+	var result_name := definition.display_name if definition != null else character_id
+	# Variant copies share the original character identity; rarity is already
+	# shown on its own line, so remove the redundant aspect suffix here.
+	for aspect in ["Common", "Rare", "Epic", "Legendary", "Mythic"]:
+		result_name = result_name.trim_suffix(" (" + aspect + " Aspect)")
+	_name_label.text = result_name
 	_rarity_label.text = rarity.capitalize()
 	_rarity_label.add_theme_color_override("font_color", color)
 	_tier_label.visible = premium

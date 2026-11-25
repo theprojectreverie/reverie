@@ -1,0 +1,363 @@
+[gd_scene load_steps=60 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_01_prop.png" id="tex_01"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_02_prop.png" id="tex_02"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_03_prop.png" id="tex_03"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_04_prop.png" id="tex_04"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_05_prop.png" id="tex_05"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_06_prop.png" id="tex_06"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_07_prop.png" id="tex_07"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_08_prop.png" id="tex_08"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_09_prop.png" id="tex_09"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_10_prop.png" id="tex_10"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_11_prop.png" id="tex_11"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_12_prop.png" id="tex_12"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_13_prop.png" id="tex_13"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_14_prop.png" id="tex_14"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_15_prop.png" id="tex_15"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_16_prop.png" id="tex_16"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_17_prop.png" id="tex_17"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_18_prop.png" id="tex_18"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_19_prop.png" id="tex_19"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_20_prop.png" id="tex_20"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_21_prop.png" id="tex_21"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_22_prop.png" id="tex_22"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_23_prop.png" id="tex_23"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_24_prop.png" id="tex_24"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_25_prop.png" id="tex_25"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_26_prop.png" id="tex_26"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_27_prop.png" id="tex_27"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_28_prop.png" id="tex_28"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_29_prop.png" id="tex_29"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_30_prop.png" id="tex_30"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_31_prop.png" id="tex_31"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_32_prop.png" id="tex_32"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_33_prop.png" id="tex_33"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_34_prop.png" id="tex_34"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_35_prop.png" id="tex_35"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_36_prop.png" id="tex_36"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_37_prop.png" id="tex_37"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_38_prop.png" id="tex_38"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_39_terrain.png" id="tex_39"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_40_terrain.png" id="tex_40"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_41_terrain.png" id="tex_41"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_42_terrain.png" id="tex_42"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_43_terrain.png" id="tex_43"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_44_terrain.png" id="tex_44"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_45_terrain.png" id="tex_45"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_46_terrain.png" id="tex_46"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_47_terrain.png" id="tex_47"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_48_terrain.png" id="tex_48"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_49_terrain.png" id="tex_49"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_50_terrain.png" id="tex_50"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_51_terrain.png" id="tex_51"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_52_terrain.png" id="tex_52"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_53_terrain.png" id="tex_53"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_54_terrain.png" id="tex_54"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_55_terrain.png" id="tex_55"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_56_terrain.png" id="tex_56"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_57_terrain.png" id="tex_57"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_58_terrain.png" id="tex_58"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_59_terrain.png" id="tex_59"]
+
+[node name="RoyalGardensV4AssetLibrary" type="Node2D"]
+
+[node name="DecorativeProps" type="Node2D" parent="."]
+
+[node name="TerrainCandidates_Unaligned" type="Node2D" parent="."]
+visible = false
+
+[node name="royal_garden_01_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_01")
+position = Vector2(160, 180)
+
+[node name="royal_garden_02_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_02")
+position = Vector2(460, 180)
+
+[node name="royal_garden_03_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_03")
+position = Vector2(760, 180)
+
+[node name="royal_garden_04_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_04")
+position = Vector2(1060, 180)
+
+[node name="royal_garden_05_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_05")
+position = Vector2(1360, 180)
+
+[node name="royal_garden_06_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_06")
+position = Vector2(1660, 180)
+
+[node name="royal_garden_07_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_07")
+position = Vector2(160, 440)
+
+[node name="royal_garden_08_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_08")
+position = Vector2(460, 440)
+
+[node name="royal_garden_09_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_09")
+position = Vector2(760, 440)
+
+[node name="royal_garden_10_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_10")
+position = Vector2(1060, 440)
+
+[node name="royal_garden_11_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_11")
+position = Vector2(1360, 440)
+
+[node name="royal_garden_12_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_12")
+position = Vector2(1660, 440)
+
+[node name="royal_garden_13_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_13")
+position = Vector2(160, 700)
+
+[node name="royal_garden_14_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_14")
+position = Vector2(460, 700)
+
+[node name="royal_garden_15_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_15")
+position = Vector2(760, 700)
+
+[node name="royal_garden_16_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_16")
+position = Vector2(1060, 700)
+
+[node name="royal_garden_17_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_17")
+position = Vector2(1360, 700)
+
+[node name="royal_garden_18_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_18")
+position = Vector2(1660, 700)
+
+[node name="royal_garden_19_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_19")
+position = Vector2(160, 960)
+
+[node name="royal_garden_20_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_20")
+position = Vector2(460, 960)
+
+[node name="royal_garden_21_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_21")
+position = Vector2(760, 960)
+
+[node name="royal_garden_22_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_22")
+position = Vector2(1060, 960)
+
+[node name="royal_garden_23_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_23")
+position = Vector2(1360, 960)
+
+[node name="royal_garden_24_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_24")
+position = Vector2(1660, 960)
+
+[node name="royal_garden_25_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_25")
+position = Vector2(160, 1220)
+
+[node name="royal_garden_26_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_26")
+position = Vector2(460, 1220)
+
+[node name="royal_garden_27_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_27")
+position = Vector2(760, 1220)
+
+[node name="royal_garden_28_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_28")
+position = Vector2(1060, 1220)
+
+[node name="royal_garden_29_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_29")
+position = Vector2(1360, 1220)
+
+[node name="royal_garden_30_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_30")
+position = Vector2(1660, 1220)
+
+[node name="royal_garden_31_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_31")
+position = Vector2(160, 1480)
+
+[node name="royal_garden_32_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_32")
+position = Vector2(460, 1480)
+
+[node name="royal_garden_33_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_33")
+position = Vector2(760, 1480)
+
+[node name="royal_garden_34_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_34")
+position = Vector2(1060, 1480)
+
+[node name="royal_garden_35_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_35")
+position = Vector2(1360, 1480)
+
+[node name="royal_garden_36_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_36")
+position = Vector2(1660, 1480)
+
+[node name="royal_garden_37_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_37")
+position = Vector2(160, 1740)
+
+[node name="royal_garden_38_prop" type="Sprite2D" parent="DecorativeProps"]
+texture_filter = 1
+texture = ExtResource("tex_38")
+position = Vector2(460, 1740)
+
+[node name="royal_garden_39_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_39")
+position = Vector2(160, 180)
+
+[node name="royal_garden_40_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_40")
+position = Vector2(460, 180)
+
+[node name="royal_garden_41_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_41")
+position = Vector2(760, 180)
+
+[node name="royal_garden_42_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_42")
+position = Vector2(1060, 180)
+
+[node name="royal_garden_43_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_43")
+position = Vector2(1360, 180)
+
+[node name="royal_garden_44_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_44")
+position = Vector2(1660, 180)
+
+[node name="royal_garden_45_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_45")
+position = Vector2(160, 440)
+
+[node name="royal_garden_46_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_46")
+position = Vector2(460, 440)
+
+[node name="royal_garden_47_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_47")
+position = Vector2(760, 440)
+
+[node name="royal_garden_48_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_48")
+position = Vector2(1060, 440)
+
+[node name="royal_garden_49_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_49")
+position = Vector2(1360, 440)
+
+[node name="royal_garden_50_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_50")
+position = Vector2(1660, 440)
+
+[node name="royal_garden_51_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_51")
+position = Vector2(160, 700)
+
+[node name="royal_garden_52_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_52")
+position = Vector2(460, 700)
+
+[node name="royal_garden_53_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_53")
+position = Vector2(760, 700)
+
+[node name="royal_garden_54_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_54")
+position = Vector2(1060, 700)
+
+[node name="royal_garden_55_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_55")
+position = Vector2(1360, 700)
+
+[node name="royal_garden_56_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_56")
+position = Vector2(1660, 700)
+
+[node name="royal_garden_57_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_57")
+position = Vector2(160, 960)
+
+[node name="royal_garden_58_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_58")
+position = Vector2(460, 960)
+
+[node name="royal_garden_59_terrain" type="Sprite2D" parent="TerrainCandidates_Unaligned"]
+texture_filter = 1
+texture = ExtResource("tex_59")
+position = Vector2(760, 960)

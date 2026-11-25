@@ -27,6 +27,7 @@ static func validate_characters(data: Dictionary, context: Dictionary, elements:
 		ContentValidator._optional_string(character, "race", path, file, errors)
 		ContentValidator._optional_string(character, "role", path, file, errors)
 		ContentValidator._optional_string(character, "lore", path, file, errors)
+		ContentValidator._require_bool(character, "gacha_enabled", path, file, errors, false)
 
 		var base = ContentValidator._require(character, "base", "dictionary", path, file, errors)
 		if typeof(base) == TYPE_DICTIONARY:

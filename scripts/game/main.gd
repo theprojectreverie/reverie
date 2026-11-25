@@ -14,4 +14,8 @@ func _ready() -> void:
 
 func _quit() -> void:
 	GameState.save_now()
+	# Stop playback and release its stream before tearing down the scene tree.
+	# The short drain window lets the audio mixer finish its final callback.
+	AudioDirector.stop_all_audio_immediately()
+	await get_tree().create_timer(0.35).timeout
 	get_tree().quit()

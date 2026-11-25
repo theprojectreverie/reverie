@@ -1,0 +1,65 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/plaza_plain.png" id="tile0"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/border_nw.png" id="tile1"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/border_ne.png" id="tile2"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/border_sw.png" id="tile3"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/border_se.png" id="tile4"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/corner_gold_left.png" id="tile5"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/corner_gold_right.png" id="tile6"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/corner_gold_center.png" id="tile7"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/corner_gold_front.png" id="tile8"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/edge_grass_right.png" id="tile9"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/outer_corner_grass.png" id="tile10"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/plaza_junction.png" id="tile11"]
+
+[node name="RoyalGateCornerTilesEditorPreview" type="Node2D"]
+texture_filter = 1
+
+[node name="plaza_plain" type="Sprite2D" parent="."]
+position = Vector2(-144, -78)
+texture = ExtResource("tile0")
+
+[node name="border_nw" type="Sprite2D" parent="."]
+position = Vector2(-48, -78)
+texture = ExtResource("tile1")
+
+[node name="border_ne" type="Sprite2D" parent="."]
+position = Vector2(48, -78)
+texture = ExtResource("tile2")
+
+[node name="border_sw" type="Sprite2D" parent="."]
+position = Vector2(144, -78)
+texture = ExtResource("tile3")
+
+[node name="border_se" type="Sprite2D" parent="."]
+position = Vector2(-144, 0)
+texture = ExtResource("tile4")
+
+[node name="corner_gold_left" type="Sprite2D" parent="."]
+position = Vector2(-48, 0)
+texture = ExtResource("tile5")
+
+[node name="corner_gold_right" type="Sprite2D" parent="."]
+position = Vector2(48, 0)
+texture = ExtResource("tile6")
+
+[node name="corner_gold_center" type="Sprite2D" parent="."]
+position = Vector2(144, 0)
+texture = ExtResource("tile7")
+
+[node name="corner_gold_front" type="Sprite2D" parent="."]
+position = Vector2(-144, 78)
+texture = ExtResource("tile8")
+
+[node name="edge_grass_right" type="Sprite2D" parent="."]
+position = Vector2(-48, 78)
+texture = ExtResource("tile9")
+
+[node name="outer_corner_grass" type="Sprite2D" parent="."]
+position = Vector2(48, 78)
+texture = ExtResource("tile10")
+
+[node name="plaza_junction" type="Sprite2D" parent="."]
+position = Vector2(144, 78)
+texture = ExtResource("tile11")

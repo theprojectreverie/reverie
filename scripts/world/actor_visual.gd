@@ -194,6 +194,12 @@ func configure_character(character_id: String) -> Dictionary:
 	_ensure_sprite_component()
 	return sprite_component.configure_character(character_id) if sprite_component != null else {"character_id": character_id, "registered": false, "fallback_active": true}
 
+
+## Enemy-only art registration. Kept separate from playable character lookup.
+func configure_enemy_art(enemy_id: String) -> Dictionary:
+	_ensure_sprite_component()
+	return sprite_component.configure_enemy_character(enemy_id) if sprite_component != null else {"character_id": enemy_id, "registered": false, "fallback_active": true}
+
 func character_art_report() -> Dictionary:
 	_ensure_sprite_component()
 	return sprite_component.character_art_report() if sprite_component != null else {}
@@ -236,21 +242,72 @@ func _update_sprite_frame() -> void:
 func play(state: int, direction: int = -1, speed_scale: float = 1.0) -> void:
 	if animator != null:
 		animator.play(state, direction, speed_scale)
-	_update_locomotion_animation(state, speed_scale)
+	var actual_state := animator.state if animator != null else state
+	var restart_action := actual_state == state and not (actual_state in [S_IDLE, S_WALK, S_RUN])
+	_update_locomotion_animation(actual_state, speed_scale, restart_action)
 	if not _sprite_active:
 		_queue_visual_redraw()
 
 
 ## The authored AnimationPlayer handles secondary body motion; CharacterAnimator
 ## remains the source of truth for directional sprite frames and one-shots.
-func _update_locomotion_animation(state: int, speed_scale: float = 1.0) -> void:
+func _update_locomotion_animation(state: int, speed_scale: float = 1.0, restart_action: bool = false) -> void:
 	if animation_component == null:
 		return
+	if character_id == "kael":
+		var authored_clip: StringName = &"kael_idle_pose"
+		match state:
+			S_WALK:
+				authored_clip = &"kael_walk_pose"
+			S_RUN:
+				authored_clip = &"kael_run_pose"
+			S_INTERACT:
+				authored_clip = &"kael_interact_pose"
+			S_ATTACK:
+				authored_clip = &"kael_attack_pose"
+			S_DAMAGE:
+				authored_clip = &"kael_damage_pose"
+			S_VICTORY:
+				authored_clip = &"kael_victory_pose"
+			S_DEFEAT:
+				authored_clip = &"kael_defeat_pose"
+			S_CAST:
+				authored_clip = &"kael_cast_pose"
+		animation_component.play(authored_clip, speed_scale, restart_action)
+		return
+	if character_id == "gerald" or character_id == "lilith" or race == "Spirit":
+		# Their bespoke secondary motion remains owned by ActorPoseComponent.
+		animation_component.stop(true)
+		return
+	if state not in [S_IDLE, S_WALK, S_RUN]:
+		var action_clip: StringName = &"generic_interact_pose"
+		match state:
+			S_ATTACK:
+				action_clip = &"generic_attack_pose"
+			S_DAMAGE:
+				action_clip = &"generic_damage_pose"
+			S_VICTORY:
+				action_clip = &"generic_victory_pose"
+			S_DEFEAT:
+				action_clip = &"generic_defeat_pose"
+			S_CAST:
+				action_clip = &"generic_cast_pose"
+		animation_component.play(action_clip, speed_scale, restart_action)
+		return
 	var locomotion_state: StringName = &"idle"
-	if state == S_WALK:
-		locomotion_state = &"walk"
-	elif state == S_RUN:
-		locomotion_state = &"run"
+	match state:
+		S_IDLE:
+			locomotion_state = &"idle"
+		S_WALK:
+			locomotion_state = &"walk"
+		S_RUN:
+			locomotion_state = &"run"
+		_:
+			# Until a generic action-pose clip exists, do not leave an idle/walk/run
+			# loop playing underneath an attack or other one-shot. CharacterAnimator
+			# remains responsible for the action frames and completion transition.
+			animation_component.stop(true)
+			return
 	animation_component.play_locomotion(locomotion_state, speed_scale)
 
 
@@ -265,6 +322,7 @@ func hit() -> void:
 	hit_flash = 1.0
 	if animator != null:
 		animator.play_forced(S_DAMAGE)
+		_update_locomotion_animation(S_DAMAGE, animator.speed_scale, true)
 	_queue_visual_redraw()
 
 
@@ -291,6 +349,7 @@ func play_cast(skill_variant: String = "ground_eruption") -> void:
 	_set_gerald_skill_variant(skill_variant)
 	if animator != null:
 		animator.play_cast()
+		_update_locomotion_animation(animator.state, animator.speed_scale, animator.state == S_CAST)
 	_queue_visual_redraw()
 
 
@@ -325,10 +384,13 @@ func _set_gerald_skill_variant(variant: String) -> void:
 func _play_state(s: int) -> void:
 	if animator != null:
 		animator.play(s)
+		_update_locomotion_animation(animator.state, animator.speed_scale, animator.state == s and not (s in [S_IDLE, S_WALK, S_RUN]))
 	_queue_visual_redraw()
 
 
 func _on_animator_state_changed(_state: int, _direction: int) -> void:
+	if animator != null:
+		_update_locomotion_animation(animator.state, animator.speed_scale)
 	if animator != null and _direction != _last_pose_direction:
 		var direction_step := wrapi(_direction - _last_pose_direction, -4, 4)
 		_turn_pose_sign = -1.0 if direction_step < 0 else 1.0
@@ -368,10 +430,13 @@ func tick_animation(delta: float) -> void:
 		_update_locomotion_pose(delta)
 		# A frame-backed sprite does not need the procedural _draw() pass every
 		# rendered frame. Redraw only for a changed frame, cast aura or hit flash.
+		# CharacterEffects also renders the shared identity layer for every
+		# other frame-backed hero. Keep its state-driven arcs, motes and cast
+		# particles in sync even when the body itself is a Sprite2D.
+		if character_effects_component != null:
+			character_effects_component.queue_redraw()
 		if (character_id == "kael") or (character_id == "lilith") or (animator.state == S_CAST) or hit_flash > 0.0:
 			_queue_visual_redraw()
-			if character_effects_component != null:
-				character_effects_component.queue_redraw()
 	else:
 		# Procedural fallback uses anim_time for its limbs, bob and effects.
 		_queue_visual_redraw()

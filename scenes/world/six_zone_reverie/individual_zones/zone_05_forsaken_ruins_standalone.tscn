@@ -1,0 +1,614 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_03.png" id="perimeter_cloud_3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_04.png" id="perimeter_cloud_4"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_05.png" id="perimeter_cloud_5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_04.png" id="road_fog_ToPreviousZone"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_05.png" id="road_fog_ToNextZone"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_ui.tscn" id="existing_game_ui"]
+[ext_resource type="Script" path="res://scripts/game/game_overlay_router_component.gd" id="existing_overlay_router"]
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_ui_binding.gd" id="zone_ui_binding"]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/standalone_zone_controller.gd" id="zone_controller"]
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_05_forsaken_ruins.png" id="prepared_background"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_05_forsaken_ruins.tscn" id="zone"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
+
+[sub_resource type="RectangleShape2D" id="TransferDetection"]
+size = Vector2(112, 96)
+
+[sub_resource type="Animation" id="FogDrift_ToPreviousZone"]
+resource_name = "drift"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6, 9, 12),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-48, -24), Vector2(-36, -29), Vector2(-48, -32), Vector2(-60, -27), Vector2(-48, -24)]
+}
+
+[sub_resource type="AnimationLibrary" id="FogDriftLibrary_ToPreviousZone"]
+_data = {&"drift": SubResource("FogDrift_ToPreviousZone")}
+[sub_resource type="Animation" id="FogDrift_ToNextZone"]
+resource_name = "drift"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6, 9, 12),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(48, 24), Vector2(60, 19), Vector2(48, 16), Vector2(36, 21), Vector2(48, 24)]
+}
+
+[sub_resource type="AnimationLibrary" id="FogDriftLibrary_ToNextZone"]
+_data = {&"drift": SubResource("FogDrift_ToNextZone")}
+
+[node name="StandaloneZone05" type="Node2D"]
+script = ExtResource("zone_controller")
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="ZoneCamera" type="Camera2D" parent="."]
+position = Vector2(2100, 1050)
+zoom = Vector2(0.45, 0.45)
+
+[node name="ExitRoadToZone06" parent="." instance=ExtResource("road")]
+position = Vector2(1568, 2352)
+
+[node name="EntryRoadFromZone04" parent="." instance=ExtResource("road")]
+position = Vector2(-1648, 720)
+
+[node name="ScenicBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Artwork" type="TextureRect" parent="ScenicBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+modulate = Color(0.38, 0.38, 0.38, 1)
+texture = ExtResource("prepared_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TransferPoints" type="Node2D" parent="."]
+
+[node name="ToPreviousZone" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-1744, 800)
+metadata/target_zone = 4
+metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn"
+metadata/connection = "entry"
+
+[node name="ToNextZone" type="Marker2D" parent="TransferPoints"]
+position = Vector2(1664, 2432)
+metadata/target_zone = 6
+metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_06_ruined_tower_standalone.tscn"
+metadata/connection = "exit"
+
+[node name="ToPreviousZoneTrigger" type="Area2D" parent="TransferPoints/ToPreviousZone"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("transfer_script")
+destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn"
+arrival_marker = &"ToNextZone"
+
+[node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToPreviousZone/ToPreviousZoneTrigger"]
+shape = SubResource("TransferDetection")
+
+[node name="ToNextZoneTrigger" type="Area2D" parent="TransferPoints/ToNextZone"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("transfer_script")
+destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_06_ruined_tower_standalone.tscn"
+arrival_marker = &"ToPreviousZone"
+
+[node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger"]
+shape = SubResource("TransferDetection")
+
+[node name="UI" parent="." instance=ExtResource("existing_game_ui")]
+
+[node name="OverlayRouter" type="Node" parent="."]
+script = ExtResource("existing_overlay_router")
+
+[node name="ZoneUIBinding" type="Node" parent="."]
+script = ExtResource("zone_ui_binding")
+
+[node name="RoadFog" type="Sprite2D" parent="TransferPoints/ToPreviousZone"]
+texture_filter = 2
+z_index = 30
+position = Vector2(-48, -24)
+rotation = -0.25
+scale = Vector2(0.48, 0.48)
+modulate = Color(1, 1, 1, 0.68)
+texture = ExtResource("road_fog_ToPreviousZone")
+
+[node name="RoadFog" type="Sprite2D" parent="TransferPoints/ToNextZone"]
+texture_filter = 2
+z_index = 30
+position = Vector2(48, 24)
+rotation = 0.25
+scale = Vector2(0.33, 0.33)
+modulate = Color(1, 1, 1, 0.68)
+texture = ExtResource("road_fog_ToNextZone")
+[node name="FogDrift" type="AnimationPlayer" parent="TransferPoints/ToPreviousZone/RoadFog"]
+autoplay = "drift"
+libraries = {&"": SubResource("FogDriftLibrary_ToPreviousZone")}
+[node name="FogDrift" type="AnimationPlayer" parent="TransferPoints/ToNextZone/RoadFog"]
+autoplay = "drift"
+libraries = {&"": SubResource("FogDriftLibrary_ToNextZone")}
+
+[node name="RoadFogFlankA" type="Sprite2D" parent="TransferPoints/ToPreviousZone"]
+texture_filter = 2
+z_index = 30
+position = Vector2(-115, 48)
+rotation = -0.35
+scale = Vector2(0.58, 0.58)
+modulate = Color(1, 1, 1, 0.55)
+texture = ExtResource("road_fog_ToPreviousZone")
+
+[node name="RoadFogFlankB" type="Sprite2D" parent="TransferPoints/ToPreviousZone"]
+texture_filter = 2
+z_index = 30
+position = Vector2(115, -48)
+rotation = 0.35
+scale = Vector2(0.58, 0.58)
+modulate = Color(1, 1, 1, 0.55)
+flip_h = true
+texture = ExtResource("road_fog_ToPreviousZone")
+
+[node name="RoadFogFlankA" type="Sprite2D" parent="TransferPoints/ToNextZone"]
+texture_filter = 2
+z_index = 30
+position = Vector2(-115, 48)
+rotation = -0.35
+scale = Vector2(0.58, 0.58)
+modulate = Color(1, 1, 1, 0.55)
+texture = ExtResource("road_fog_ToNextZone")
+
+[node name="RoadFogFlankB" type="Sprite2D" parent="TransferPoints/ToNextZone"]
+texture_filter = 2
+z_index = 30
+position = Vector2(115, -48)
+rotation = 0.35
+scale = Vector2(0.58, 0.58)
+modulate = Color(1, 1, 1, 0.55)
+flip_h = true
+texture = ExtResource("road_fog_ToNextZone")
+
+[node name="PerimeterFog" type="Node2D" parent="."]
+z_index = 28
+
+[node name="Cloud01" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(155.387, -6.159)
+rotation = 0.444
+scale = Vector2(1.003, 1.003)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud02" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(399.079, 115.687)
+rotation = 0.354
+scale = Vector2(0.65, 0.65)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud03" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(642.772, 237.533)
+rotation = 0.468
+scale = Vector2(0.937, 0.937)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud04" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(886.464, 359.379)
+rotation = 0.391
+scale = Vector2(0.663, 0.663)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud05" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(1130.156, 481.226)
+rotation = 0.454
+scale = Vector2(0.889, 0.889)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud06" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(1373.849, 603.072)
+rotation = 0.55
+scale = Vector2(0.578, 0.578)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud07" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(1617.541, 724.918)
+rotation = 0.374
+scale = Vector2(0.96, 0.96)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud08" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(1861.233, 846.764)
+rotation = 0.404
+scale = Vector2(1.011, 1.011)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud09" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(2104.926, 968.61)
+rotation = 0.449
+scale = Vector2(0.877, 0.877)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud10" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(2348.618, 1090.456)
+rotation = 0.488
+scale = Vector2(1.036, 1.036)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud11" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(2592.31, 1212.303)
+rotation = 0.374
+scale = Vector2(0.879, 0.879)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud12" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(2836.003, 1334.149)
+rotation = 0.438
+scale = Vector2(0.993, 0.993)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud13" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(3079.695, 1455.995)
+rotation = 0.365
+scale = Vector2(0.598, 0.598)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud14" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(3079.695, 1712.005)
+rotation = -0.469
+scale = Vector2(0.594, 0.594)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud15" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(2836.003, 1833.851)
+rotation = -0.481
+scale = Vector2(1.027, 1.027)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud16" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(2592.31, 1955.697)
+rotation = -0.421
+scale = Vector2(0.662, 0.662)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud17" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(2348.618, 2077.544)
+rotation = -0.446
+scale = Vector2(0.671, 0.671)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud18" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(2104.926, 2199.39)
+rotation = -0.433
+scale = Vector2(0.999, 0.999)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud19" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(1917.135, 2433.039)
+rotation = -0.364
+scale = Vector2(0.877, 0.877)
+modulate = Color(1, 1, 1, 0.44)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud20" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(1673.443, 2554.885)
+rotation = -0.421
+scale = Vector2(0.943, 0.943)
+modulate = Color(1, 1, 1, 0.44)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud21" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(1429.75, 2676.732)
+rotation = -0.482
+scale = Vector2(0.918, 0.918)
+modulate = Color(1, 1, 1, 0.44)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud22" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(1130.156, 2686.774)
+rotation = -0.398
+scale = Vector2(0.651, 0.651)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud23" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(886.464, 2808.621)
+rotation = -0.489
+scale = Vector2(0.935, 0.935)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud24" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(642.772, 2930.467)
+rotation = -0.394
+scale = Vector2(1.005, 1.005)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud25" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(399.079, 3052.313)
+rotation = -0.509
+scale = Vector2(0.66, 0.66)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud26" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(155.387, 3174.159)
+rotation = -0.375
+scale = Vector2(0.972, 0.972)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud27" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-155.387, 3174.159)
+rotation = 0.396
+scale = Vector2(0.635, 0.635)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud28" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-399.079, 3052.313)
+rotation = 0.363
+scale = Vector2(0.633, 0.633)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud29" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-642.772, 2930.467)
+rotation = 0.42
+scale = Vector2(0.973, 0.973)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud30" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-886.464, 2808.621)
+rotation = 0.503
+scale = Vector2(1.008, 1.008)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud31" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-1130.156, 2686.774)
+rotation = 0.54
+scale = Vector2(1.011, 1.011)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud32" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-1373.849, 2564.928)
+rotation = 0.563
+scale = Vector2(0.905, 0.905)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud33" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-1617.541, 2443.082)
+rotation = 0.391
+scale = Vector2(0.989, 0.989)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud34" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-1861.233, 2321.236)
+rotation = 0.457
+scale = Vector2(1.02, 1.02)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud35" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-2104.926, 2199.39)
+rotation = 0.384
+scale = Vector2(0.981, 0.981)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud36" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-2348.618, 2077.544)
+rotation = 0.558
+scale = Vector2(0.65, 0.65)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud37" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-2592.31, 1955.697)
+rotation = 0.451
+scale = Vector2(1.006, 1.006)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud38" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-2836.003, 1833.851)
+rotation = 0.535
+scale = Vector2(0.938, 0.938)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud39" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-3079.695, 1712.005)
+rotation = 0.507
+scale = Vector2(1.015, 1.015)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud40" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-3079.695, 1455.995)
+rotation = -0.542
+scale = Vector2(1.024, 1.024)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud41" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-2836.003, 1334.149)
+rotation = -0.448
+scale = Vector2(0.981, 0.981)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud42" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-2592.31, 1212.303)
+rotation = -0.362
+scale = Vector2(0.643, 0.643)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud43" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-2348.618, 1090.456)
+rotation = -0.438
+scale = Vector2(0.625, 0.625)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud44" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-2160.827, 856.807)
+rotation = -0.376
+scale = Vector2(0.969, 0.969)
+modulate = Color(1, 1, 1, 0.44)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud45" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-1917.135, 734.961)
+rotation = -0.415
+scale = Vector2(0.591, 0.591)
+modulate = Color(1, 1, 1, 0.44)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud46" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-1673.443, 613.115)
+rotation = -0.368
+scale = Vector2(0.619, 0.619)
+modulate = Color(1, 1, 1, 0.44)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud47" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-1429.75, 491.268)
+rotation = -0.383
+scale = Vector2(0.6, 0.6)
+modulate = Color(1, 1, 1, 0.44)
+texture = ExtResource("perimeter_cloud_5")
+
+[node name="Cloud48" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-1130.156, 481.226)
+rotation = -0.571
+scale = Vector2(0.893, 0.893)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_2")
+
+[node name="Cloud49" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-886.464, 359.379)
+rotation = -0.479
+scale = Vector2(0.939, 0.939)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud50" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-642.772, 237.533)
+rotation = -0.495
+scale = Vector2(1.02, 1.02)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud51" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-399.079, 115.687)
+rotation = -0.399
+scale = Vector2(0.991, 0.991)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")
+
+[node name="Cloud52" type="Sprite2D" parent="PerimeterFog"]
+texture_filter = 2
+position = Vector2(-155.387, -6.159)
+rotation = -0.523
+scale = Vector2(0.896, 0.896)
+modulate = Color(1, 1, 1, 0.72)
+texture = ExtResource("perimeter_cloud_1")

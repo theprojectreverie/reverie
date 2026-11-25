@@ -12,6 +12,6 @@ footprint_cells = Vector2i(1, 1)
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 centered = false
-offset = Vector2(25, 95)
+offset = Vector2(32, 96)
 texture = ExtResource("2_tex")
 

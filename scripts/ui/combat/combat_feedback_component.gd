@@ -34,20 +34,101 @@ func float_text(actor: BattlefieldActor, text: String, color: Color, delay: floa
 
 
 func show_banner(text: String) -> void:
-	if screen == null:
+	if screen == null or not screen.is_inside_tree():
 		return
-	var banner := preload("res://scenes/ui/combat/components/battle_event_banner.tscn").instantiate() as Label
-	banner.text = text
-	banner.add_theme_font_size_override("font_size", 26)
-	banner.add_theme_color_override("font_color", UITheme.GOLD_BRIGHT)
-	banner.add_theme_color_override("font_outline_color", Color(0.01, 0.02, 0.05, 0.95))
-	banner.add_theme_constant_override("outline_size", 7)
+	var banner := preload("res://scenes/ui/combat/components/battle_event_banner.tscn").instantiate() as PanelContainer
+	if banner == null:
+		return
+	var title := banner.get_node_or_null("Title") as Label
+	if title == null:
+		banner.queue_free()
+		return
+	title.text = text
+	title.add_theme_font_size_override("font_size", 24)
+	title.add_theme_color_override("font_color", UITheme.GOLD_BRIGHT)
+	title.add_theme_color_override("font_outline_color", Color(0.01, 0.02, 0.05, 0.95))
+	title.add_theme_constant_override("outline_size", 5)
+	title.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.85))
+	title.add_theme_constant_override("shadow_offset_x", 1)
+	title.add_theme_constant_override("shadow_offset_y", 2)
+
+	var frame_texture := load("res://assets/ui/battle/panels/battle_dialogue_panel.png") as Texture2D
+	if frame_texture != null:
+		var frame := StyleBoxTexture.new()
+		frame.texture = frame_texture
+		frame.texture_margin_left = 34.0
+		frame.texture_margin_right = 34.0
+		frame.texture_margin_top = 38.0
+		frame.texture_margin_bottom = 38.0
+		frame.content_margin_left = 58.0
+		frame.content_margin_right = 58.0
+		frame.content_margin_top = 38.0
+		frame.content_margin_bottom = 38.0
+		banner.add_theme_stylebox_override("panel", frame)
+	else:
+		push_warning("Battle dialogue frame could not be loaded; event banner uses the scene fallback.")
+
+	if text.to_lower().contains("defeat"):
+		title.add_theme_color_override("font_color", UITheme.DANGER)
+	elif text.to_lower().contains("victory"):
+		title.add_theme_color_override("font_color", UITheme.GOLD_BRIGHT)
 	screen.add_child(banner)
 	banner.modulate = Color(1, 1, 1, 0)
 	var tween := screen.create_tween()
-	tween.tween_property(banner, "modulate:a", 1.0, 0.25)
-	tween.tween_interval(1.3)
-	tween.tween_property(banner, "modulate:a", 0.0, 0.35)
+	tween.tween_property(banner, "modulate:a", 1.0, 0.22)
+	tween.tween_interval(1.35)
+	tween.tween_property(banner, "modulate:a", 0.0, 0.36)
+	tween.tween_callback(banner.queue_free)
+
+
+
+func show_boss_intro(boss_name: String) -> void:
+	if screen == null or not screen.is_inside_tree():
+		return
+	var banner := preload("res://scenes/ui/combat/components/boss_intro_banner.tscn").instantiate() as PanelContainer
+	if banner == null:
+		return
+	var eyebrow := banner.get_node_or_null("Content/TextStack/Eyebrow") as Label
+	var title := banner.get_node_or_null("Content/TextStack/BossName") as Label
+	var subline := banner.get_node_or_null("Content/TextStack/Subline") as Label
+	if eyebrow == null or title == null or subline == null:
+		banner.queue_free()
+		push_error("Boss intro banner is missing an authored text node.")
+		return
+	title.text = boss_name
+	eyebrow.add_theme_font_size_override("font_size", 11)
+	eyebrow.add_theme_color_override("font_color", Color("#e5b8c8"))
+	title.add_theme_font_size_override("font_size", 27)
+	title.add_theme_color_override("font_color", UITheme.GOLD_BRIGHT)
+	title.add_theme_color_override("font_outline_color", Color(0.01, 0.01, 0.03, 0.95))
+	title.add_theme_constant_override("outline_size", 4)
+	subline.add_theme_font_size_override("font_size", 11)
+	subline.add_theme_color_override("font_color", UITheme.TEXT_DIM)
+	var frame_texture := load("res://assets/ui/battle/panels/battle_dialogue_panel.png") as Texture2D
+	if frame_texture != null:
+		var frame := StyleBoxTexture.new()
+		frame.texture = frame_texture
+		frame.texture_margin_left = 34.0
+		frame.texture_margin_right = 34.0
+		frame.texture_margin_top = 38.0
+		frame.texture_margin_bottom = 38.0
+		frame.content_margin_left = 48.0
+		frame.content_margin_right = 48.0
+		frame.content_margin_top = 20.0
+		frame.content_margin_bottom = 20.0
+		banner.add_theme_stylebox_override("panel", frame)
+	screen.add_child(banner)
+	banner.modulate = Color(1.0, 1.0, 1.0, 0.0)
+	banner.scale = Vector2(0.96, 0.96)
+	var tween := screen.create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(banner, "modulate:a", 1.0, 0.28)
+	tween.tween_property(banner, "scale", Vector2.ONE, 0.32)
+	tween.set_parallel(false)
+	tween.tween_interval(1.55)
+	tween.tween_property(banner, "modulate:a", 0.0, 0.34)
 	tween.tween_callback(banner.queue_free)
 
 

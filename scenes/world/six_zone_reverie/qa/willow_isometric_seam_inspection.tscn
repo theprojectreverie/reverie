@@ -1,0 +1,344 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/grass_03.tscn" id="grass"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/soil_garden_01.tscn" id="soil"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_straight_edges/straight_edge_1_0.tscn" id="edge0"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_straight_edges/straight_edge_1_1.tscn" id="edge1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_corners/handdrawn_direction_0.tscn" id="corner0"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_corners/handdrawn_direction_1.tscn" id="corner1"]
+
+[node name="WillowIsometricSeamInspection" type="Node2D"]
+
+[node name="InspectionCamera" type="Camera2D" parent="."]
+position = Vector2(390, 265)
+zoom = Vector2(1.7, 1.7)
+process_callback = 0
+
+[node name="Panel0" type="Node2D" parent="."]
+position = Vector2(0, 0)
+
+[node name="Title0" type="Label" parent="Panel0"]
+position = Vector2(40, -42)
+text = "Straight edge 1_0"
+
+[node name="Tile_0_0" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(160, 32)
+
+[node name="Tile_0_1" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(192, 48)
+
+[node name="Tile_0_2" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(224, 64)
+
+[node name="Tile_0_3" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(256, 80)
+
+[node name="Tile_0_4" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(288, 96)
+
+[node name="Tile_1_0" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(128, 48)
+
+[node name="Tile_1_1" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(160, 64)
+
+[node name="Tile_1_2" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(192, 80)
+
+[node name="Tile_1_3" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(224, 96)
+
+[node name="Tile_1_4" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(256, 112)
+
+[node name="Tile_2_0" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(96, 64)
+
+[node name="Tile_2_1" parent="Panel0" instance=ExtResource("soil")]
+position = Vector2(128, 80)
+
+[node name="Tile_2_2" parent="Panel0" instance=ExtResource("edge0")]
+position = Vector2(160, 96)
+
+[node name="Tile_2_3" parent="Panel0" instance=ExtResource("soil")]
+position = Vector2(192, 112)
+
+[node name="Tile_2_4" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(224, 128)
+
+[node name="Tile_3_0" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(64, 80)
+
+[node name="Tile_3_1" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(96, 96)
+
+[node name="Tile_3_2" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(128, 112)
+
+[node name="Tile_3_3" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(160, 128)
+
+[node name="Tile_3_4" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(192, 144)
+
+[node name="Tile_4_0" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(32, 96)
+
+[node name="Tile_4_1" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(64, 112)
+
+[node name="Tile_4_2" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(96, 128)
+
+[node name="Tile_4_3" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(128, 144)
+
+[node name="Tile_4_4" parent="Panel0" instance=ExtResource("grass")]
+position = Vector2(160, 160)
+
+[node name="Panel1" type="Node2D" parent="."]
+position = Vector2(440, 0)
+
+[node name="Title1" type="Label" parent="Panel1"]
+position = Vector2(40, -42)
+text = "Straight edge 1_1"
+
+[node name="Tile_0_0" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(160, 32)
+
+[node name="Tile_0_1" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(192, 48)
+
+[node name="Tile_0_2" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(224, 64)
+
+[node name="Tile_0_3" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(256, 80)
+
+[node name="Tile_0_4" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(288, 96)
+
+[node name="Tile_1_0" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(128, 48)
+
+[node name="Tile_1_1" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(160, 64)
+
+[node name="Tile_1_2" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(192, 80)
+
+[node name="Tile_1_3" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(224, 96)
+
+[node name="Tile_1_4" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(256, 112)
+
+[node name="Tile_2_0" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(96, 64)
+
+[node name="Tile_2_1" parent="Panel1" instance=ExtResource("soil")]
+position = Vector2(128, 80)
+
+[node name="Tile_2_2" parent="Panel1" instance=ExtResource("edge1")]
+position = Vector2(160, 96)
+
+[node name="Tile_2_3" parent="Panel1" instance=ExtResource("soil")]
+position = Vector2(192, 112)
+
+[node name="Tile_2_4" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(224, 128)
+
+[node name="Tile_3_0" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(64, 80)
+
+[node name="Tile_3_1" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(96, 96)
+
+[node name="Tile_3_2" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(128, 112)
+
+[node name="Tile_3_3" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(160, 128)
+
+[node name="Tile_3_4" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(192, 144)
+
+[node name="Tile_4_0" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(32, 96)
+
+[node name="Tile_4_1" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(64, 112)
+
+[node name="Tile_4_2" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(96, 128)
+
+[node name="Tile_4_3" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(128, 144)
+
+[node name="Tile_4_4" parent="Panel1" instance=ExtResource("grass")]
+position = Vector2(160, 160)
+
+[node name="Panel2" type="Node2D" parent="."]
+position = Vector2(0, 300)
+
+[node name="Title2" type="Label" parent="Panel2"]
+position = Vector2(40, -42)
+text = "Corner direction 0"
+
+[node name="Tile_0_0" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(160, 32)
+
+[node name="Tile_0_1" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(192, 48)
+
+[node name="Tile_0_2" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(224, 64)
+
+[node name="Tile_0_3" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(256, 80)
+
+[node name="Tile_0_4" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(288, 96)
+
+[node name="Tile_1_0" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(128, 48)
+
+[node name="Tile_1_1" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(160, 64)
+
+[node name="Tile_1_2" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(192, 80)
+
+[node name="Tile_1_3" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(224, 96)
+
+[node name="Tile_1_4" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(256, 112)
+
+[node name="Tile_2_0" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(96, 64)
+
+[node name="Tile_2_1" parent="Panel2" instance=ExtResource("soil")]
+position = Vector2(128, 80)
+
+[node name="Tile_2_2" parent="Panel2" instance=ExtResource("corner0")]
+position = Vector2(160, 96)
+
+[node name="Tile_2_3" parent="Panel2" instance=ExtResource("soil")]
+position = Vector2(192, 112)
+
+[node name="Tile_2_4" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(224, 128)
+
+[node name="Tile_3_0" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(64, 80)
+
+[node name="Tile_3_1" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(96, 96)
+
+[node name="Tile_3_2" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(128, 112)
+
+[node name="Tile_3_3" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(160, 128)
+
+[node name="Tile_3_4" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(192, 144)
+
+[node name="Tile_4_0" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(32, 96)
+
+[node name="Tile_4_1" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(64, 112)
+
+[node name="Tile_4_2" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(96, 128)
+
+[node name="Tile_4_3" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(128, 144)
+
+[node name="Tile_4_4" parent="Panel2" instance=ExtResource("grass")]
+position = Vector2(160, 160)
+
+[node name="Panel3" type="Node2D" parent="."]
+position = Vector2(440, 300)
+
+[node name="Title3" type="Label" parent="Panel3"]
+position = Vector2(40, -42)
+text = "Corner direction 1"
+
+[node name="Tile_0_0" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(160, 32)
+
+[node name="Tile_0_1" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(192, 48)
+
+[node name="Tile_0_2" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(224, 64)
+
+[node name="Tile_0_3" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(256, 80)
+
+[node name="Tile_0_4" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(288, 96)
+
+[node name="Tile_1_0" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(128, 48)
+
+[node name="Tile_1_1" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(160, 64)
+
+[node name="Tile_1_2" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(192, 80)
+
+[node name="Tile_1_3" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(224, 96)
+
+[node name="Tile_1_4" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(256, 112)
+
+[node name="Tile_2_0" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(96, 64)
+
+[node name="Tile_2_1" parent="Panel3" instance=ExtResource("soil")]
+position = Vector2(128, 80)
+
+[node name="Tile_2_2" parent="Panel3" instance=ExtResource("corner1")]
+position = Vector2(160, 96)
+
+[node name="Tile_2_3" parent="Panel3" instance=ExtResource("soil")]
+position = Vector2(192, 112)
+
+[node name="Tile_2_4" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(224, 128)
+
+[node name="Tile_3_0" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(64, 80)
+
+[node name="Tile_3_1" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(96, 96)
+
+[node name="Tile_3_2" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(128, 112)
+
+[node name="Tile_3_3" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(160, 128)
+
+[node name="Tile_3_4" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(192, 144)
+
+[node name="Tile_4_0" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(32, 96)
+
+[node name="Tile_4_1" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(64, 112)
+
+[node name="Tile_4_2" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(96, 128)
+
+[node name="Tile_4_3" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(128, 144)
+
+[node name="Tile_4_4" parent="Panel3" instance=ExtResource("grass")]
+position = Vector2(160, 160)
+

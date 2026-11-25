@@ -1,13 +1,24 @@
 [gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/castle_gardens/v2/castle_piece.gd" id="1_script"]
-[ext_resource type="Script" path="res://scripts/world/castle_gardens/v2/animated_frame_sprite.gd" id="7_anim"]
 [ext_resource type="Texture2D" path="res://assets/castle_pack_v02/environment/water/fountain_tiered_2x2.png" id="2_tex"]
 [ext_resource type="Texture2D" path="res://assets/castle_pack_v02/effects/shadow_blob_64.png" id="3_shadow"]
 [ext_resource type="Texture2D" path="res://assets/castle_pack_v02/effects/fountain_spray_anim.png" id="6_spray"]
 
 [sub_resource type="ConvexPolygonShape2D" id="Shape_footprint"]
 points = PackedVector2Array(0.0, -32.0, 64.0, 0.0, 0.0, 32.0, -64.0, 0.0)
+
+[sub_resource type="Animation" id="Animation_flow"]
+resource_name = "flow"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Spray:frame")
+tracks/0/interp = 1
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5), "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1), "update": 1, "values": [0, 1, 2, 3, 4, 5]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fountain"]
+_data = {"flow": SubResource("Animation_flow")}
 
 [node name="FountainTiered" type="Node2D"]
 y_sort_enabled = true
@@ -45,7 +56,9 @@ z_index = 2
 hframes = 6
 vframes = 1
 modulate = Color(1, 1, 1, 0.85)
-frames_per_second = 10.0
 texture = ExtResource("6_spray")
-script = ExtResource("7_anim")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("..")
+libraries = {"": SubResource("AnimationLibrary_fountain")}
+autoplay = "flow"

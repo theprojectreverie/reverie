@@ -12,20 +12,23 @@ signal interaction_requested(interactable: Node)
 @export var interaction_group: StringName = &"interactables"
 
 var _owner_node: Node2D
-var _scan_accumulator: float = 0.0
+var _scan_timer: Timer
 var _current: Interactable
+var _current_prompt: String = ""
 
 
 func _ready() -> void:
 	_owner_node = get_parent() as Node2D
+	_scan_timer = get_node_or_null("ScanTimer") as Timer
+	if _scan_timer != null:
+		_scan_timer.wait_time = maxf(0.02, scan_interval)
+		_scan_timer.timeout.connect(_on_scan_timeout)
+		if scan_enabled:
+			_scan_timer.start()
 
 
-func _process(delta: float) -> void:
-	if not scan_enabled or _owner_node == null:
-		return
-	_scan_accumulator += delta
-	if _scan_accumulator >= scan_interval:
-		_scan_accumulator = 0.0
+func _on_scan_timeout() -> void:
+	if scan_enabled:
 		refresh_nearest()
 
 
@@ -70,8 +73,21 @@ func current_prompt() -> String:
 
 
 func _set_current(value: Interactable) -> void:
+	var next_prompt := value.prompt if value != null and is_instance_valid(value) else ""
 	if _current == value:
+		if _current_prompt != next_prompt:
+			_current_prompt = next_prompt
+			interaction_prompt_changed.emit(_current_prompt)
 		return
+	if is_instance_valid(_current) and _current.tree_exiting.is_connected(_on_current_tree_exiting):
+		_current.tree_exiting.disconnect(_on_current_tree_exiting)
 	_current = value
+	_current_prompt = next_prompt
+	if is_instance_valid(_current) and _current.is_inside_tree():
+		_current.tree_exiting.connect(_on_current_tree_exiting, CONNECT_ONE_SHOT)
 	interactable_changed.emit(_current)
-	interaction_prompt_changed.emit(current_prompt())
+	interaction_prompt_changed.emit(_current_prompt)
+
+
+func _on_current_tree_exiting() -> void:
+	_set_current(null)

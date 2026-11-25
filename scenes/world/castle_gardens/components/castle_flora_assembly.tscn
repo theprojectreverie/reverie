@@ -4,15 +4,15 @@
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/purple_wisteria_tree.png" id="2_wisteria"]
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/white_blossom_tree.png" id="3_white"]
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/royal_cypress_tree.png" id="4_cypress"]
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/rose_arch.png" id="5_arch"]
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/rose_gazebo.png" id="6_gazebo"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/arch_rose.png" id="5_arch"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/gazebo_wisteria.png" id="6_gazebo"]
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/flower_pedestal.png" id="7_pedestal"]
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/pink_flower_shrub.png" id="8_pink_shrub"]
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/purple_flower_shrub.png" id="9_purple_shrub"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_rose.png" id="8_pink_shrub"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_purple.png" id="9_purple_shrub"]
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/round_rose_shrub.png" id="10_hedge"]
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/white_flower_shrub.png" id="11_white_shrub"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/flora/flower_cluster_white.png" id="11_white_shrub"]
 
-[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/rose_hedge_block.png" id="12_rose_hedge"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/hedge_rose.png" id="12_rose_hedge"]
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/violet_flower_shrub.png" id="13_violet_shrub"]
 [ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/castle_pathside_planting.tscn" id="14_pathside"]
 [ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/castle_upper_parterre_planting.tscn" id="15_upper_parterre"]
@@ -27,27 +27,27 @@ y_sort_enabled = true
 [node name="PathsidePlanting" parent="." instance=ExtResource("14_pathside")]
 position = Vector2(-51.2, 0)
 scale = Vector2(1.08, 1.0)
-visible = true
+visible = false
 [node name="UpperParterrePlanting" parent="." instance=ExtResource("15_upper_parterre")]
 position = Vector2(-51.2, 0)
 scale = Vector2(1.08, 1.0)
-visible = true
+visible = false
 [node name="OuterCloisterNiches" parent="." instance=ExtResource("16_cloisters")]
 position = Vector2(-51.2, 0)
 scale = Vector2(1.08, 1.0)
-visible = true
+visible = false
 [node name="NorthApproachCeremonialCourts" parent="." instance=ExtResource("17_north_courts")]
 position = Vector2(-51.2, 0)
 scale = Vector2(1.08, 1.0)
-visible = true
+visible = false
 [node name="OuterGardenSeatingAlcoves" parent="." instance=ExtResource("18_seating")]
 position = Vector2(-51.2, 0)
 scale = Vector2(1.08, 1.0)
-visible = true
+visible = false
 [node name="SouthOuterCloisterExtensions" parent="." instance=ExtResource("19_south_cloisters")]
 position = Vector2(-51.2, 0)
 scale = Vector2(1.08, 1.0)
-visible = true
+visible = false
 
 [node name="SignatureTrees" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -181,7 +181,7 @@ position = Vector2(760, 620)
 
 
 [node name="PromenadeFlowerBorders" type="Node2D" parent="."]
-visible = true
+visible = false
 y_sort_enabled = true
 
 [node name="WestPromenadeRose01" type="Sprite2D" parent="PromenadeFlowerBorders"]
@@ -294,7 +294,7 @@ y_sort_origin = 32
 
 
 [node name="FountainFlowerbeds" type="Node2D" parent="."]
-visible = true
+visible = false
 y_sort_enabled = true
 
 [node name="WBedHedgeNW" type="Sprite2D" parent="FountainFlowerbeds"]
@@ -512,13 +512,15 @@ position = Vector2(745, 755)
 scale = Vector2(0.78, 0.78)
 
 [node name="OuterGardenBorderAccents" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 
 [node name="OuterGardenParterreBeds" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 
 [node name="OuterGardenEnrichment" type="Node2D" parent="."]
-visible = true
+visible = false
 y_sort_enabled = true
 
 [node name="OuterWestPink01" type="Sprite2D" parent="OuterGardenEnrichment"]

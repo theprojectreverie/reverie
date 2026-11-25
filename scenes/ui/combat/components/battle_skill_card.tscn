@@ -1,0 +1,113 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/battle_status_panel.png" id="1_panel"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_normal"]
+texture = ExtResource("1_panel")
+texture_margin_left = 28.0
+texture_margin_right = 28.0
+texture_margin_top = 20.0
+texture_margin_bottom = 20.0
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hover"]
+texture = ExtResource("1_panel")
+texture_margin_left = 28.0
+texture_margin_right = 28.0
+texture_margin_top = 20.0
+texture_margin_bottom = 20.0
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+modulate_color = Color(1.08, 1.04, 0.94, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pressed"]
+texture = ExtResource("1_panel")
+texture_margin_left = 28.0
+texture_margin_right = 28.0
+texture_margin_top = 20.0
+texture_margin_bottom = 20.0
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+modulate_color = Color(0.72, 0.70, 0.82, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_disabled"]
+texture = ExtResource("1_panel")
+texture_margin_left = 28.0
+texture_margin_right = 28.0
+texture_margin_top = 20.0
+texture_margin_bottom = 20.0
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+modulate_color = Color(0.62, 0.62, 0.68, 0.72)
+
+[node name="BattleSkillCard" type="Button"]
+custom_minimum_size = Vector2(166, 62)
+focus_mode = 0
+theme_override_colors/font_color = Color(0.91, 0.89, 0.84, 1)
+theme_override_colors/font_hover_color = Color(1, 0.86, 0.56, 1)
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxTexture_normal")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hover")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pressed")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_disabled")
+
+[node name="CardContent" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 5.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 7
+mouse_filter = 2
+
+[node name="SkillIcon" type="TextureRect" parent="CardContent"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 1
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="TextStack" type="VBoxContainer" parent="CardContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/separation = 0
+mouse_filter = 2
+
+[node name="SkillName" type="Label" parent="CardContent/TextStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.90, 0.74, 1)
+theme_override_font_sizes/font_size = 10
+text = "Skill"
+clip_text = true
+mouse_filter = 2
+
+[node name="SkillDetail" type="Label" parent="CardContent/TextStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.80, 0.81, 0.84, 1)
+theme_override_font_sizes/font_size = 9
+text = "Element · DMG · 0"
+clip_text = true
+mouse_filter = 2
+
+[node name="SkillCost" type="Label" parent="CardContent/TextStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.76, 0.60, 1)
+theme_override_font_sizes/font_size = 8
+text = "FREE"
+clip_text = true
+mouse_filter = 2

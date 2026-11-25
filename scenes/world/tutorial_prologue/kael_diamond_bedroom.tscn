@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://bnijj6jw6h2fv"]
+
+[ext_resource type="Texture2D" uid="uid://bcwv6g7uvvv8d" path="res://assets/tutorial_prologue/DiamondBedroom/diamond_bedroom.png" id="1"]
+[ext_resource type="Script" uid="uid://c2kcesknir0wn" path="res://scripts/world/tutorial_prologue/bedroom_exit_trigger.gd" id="exit_script"]
+[ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="player_scene"]
+
+[ext_resource type="Texture2D" path="res://assets/tutorial_prologue/DiamondBedroom/castle_interior_background.png" id="castle_bg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(110, 56)
+
+[node name="KaelDiamondBedroom" type="Node2D" unique_id=971949132]
+
+[node name="CastleInteriorBackground" type="Sprite2D" parent="."]
+z_index = -10
+texture_filter = 1
+position = Vector2(-5, 12)
+scale = Vector2(1.42, 1.42)
+texture = ExtResource("castle_bg")
+
+[node name="RoomArtwork" type="Sprite2D" parent="." unique_id=90427737]
+texture_filter = 1
+position = Vector2(-5, 6)
+texture = ExtResource("1")
+
+[node name="Collision" type="StaticBody2D" parent="." unique_id=1124190365]
+
+[node name="NorthWestWall" type="CollisionPolygon2D" parent="Collision" unique_id=687631911]
+position = Vector2(13, 17)
+polygon = PackedVector2Array(-743, -87, -12, -535, 12, -515, -90, -334, -200, -172, -284, -111, -665, 60, -716, -65)
+
+[node name="NorthEastWall" type="CollisionPolygon2D" parent="Collision" unique_id=257661116]
+position = Vector2(-11, 29)
+polygon = PackedVector2Array(12, -535, 743, -87, 716, -65, 688, 65, 493, 4, 222, -158, 124, -220, -12, -515)
+
+[node name="SouthWestBoundary" type="CollisionPolygon2D" parent="Collision" unique_id=1785945719]
+position = Vector2(61, -65)
+polygon = PackedVector2Array(-742, 125, -395, 303, -104, 466, -117, 490, -759, 149)
+
+[node name="SouthEastBoundary" type="CollisionPolygon2D" parent="Collision" unique_id=1203512553]
+position = Vector2(-48, -59)
+polygon = PackedVector2Array(104, 466, 742, 125, 759, 149, 117, 490)
+
+[node name="DoorLeftJamb" type="CollisionPolygon2D" parent="Collision" unique_id=871928270]
+position = Vector2(26, -83)
+polygon = PackedVector2Array(-154, 309, -82, 337, -82, 466, -119, 466, -171, 442, -176, 378)
+
+[node name="DoorRightJamb" type="CollisionPolygon2D" parent="Collision" unique_id=1975069336]
+position = Vector2(-30, -84)
+polygon = PackedVector2Array(82, 337, 119, 337, 146, 310, 168, 407, 168, 471, 119, 466, 82, 466)
+
+[node name="DoorRightJamb" type="CollisionPolygon2D" parent="Collision/DoorRightJamb" unique_id=539061383]
+position = Vector2(-693, -288)
+polygon = PackedVector2Array(68, 399, 122, 380, 134, 471, 82, 466)
+
+[node name="DoorRightJamb" type="CollisionPolygon2D" parent="Collision/DoorRightJamb/DoorRightJamb" unique_id=1433713801]
+position = Vector2(583, 188)
+polygon = PackedVector2Array(82, 413, 143, 388, 220, 438, 195, 460, 170, 443, 118, 430, 82, 466)
+
+[node name="BedCollision" type="CollisionPolygon2D" parent="Collision" unique_id=1578753832]
+polygon = PackedVector2Array(-93, -305, 88, -288, 143, -270, 171, -166, 122, -154, 105, -175, 87, -22, -80, -29, -98, -160, -171, -155, -163, -254)
+
+[node name="LeftFurnitureCollision" type="CollisionPolygon2D" parent="Collision" unique_id=1214261054]
+position = Vector2(69, -6)
+polygon = PackedVector2Array(-516, 60, -396, -17, -339, 25, -326, 152, -358, 167, -379, 160, -393, 110, -422, 145, -459, 172, -513, 142)
+
+[node name="RightFurnitureCollision" type="CollisionPolygon2D" parent="Collision" unique_id=1449214162]
+position = Vector2(-19, -151)
+polygon = PackedVector2Array(331, -37, 523, 5, 479, 222, 315, 140)
+
+[node name="LeftDeskCollision" type="CollisionPolygon2D" parent="Collision" unique_id=1440948016]
+position = Vector2(-35, -230)
+polygon = PackedVector2Array(-443, 70, -291, -8, -265, 121, -243, 128, -231, 215, -253, 217, -256, 190, -440, 286)
+
+[node name="RightSeatCollision" type="CollisionPolygon2D" parent="Collision" unique_id=1548393763]
+position = Vector2(4, -113)
+polygon = PackedVector2Array(222, 168, 278, 142, 316, 195, 351, 169, 420, 151, 359, 301, 231, 287, 202, 234)
+
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=144359948]
+position = Vector2(-5, 160)
+
+[node name="ExitTrigger" type="Area2D" parent="." unique_id=1489586400]
+position = Vector2(0, 247)
+collision_mask = 2
+script = ExtResource("exit_script")
+
+[node name="ExitTrigger/CollisionShape2D" type="CollisionShape2D" parent="ExitTrigger" unique_id=316002663]
+position = Vector2(-5, -40)
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="Kael" parent="." unique_id=498745428 instance=ExtResource("player_scene")]
+position = Vector2(161, -60)
+
+[node name="DoorRightJamb" type="CollisionPolygon2D" parent="." unique_id=1288961031]
+position = Vector2(-611, -389)
+polygon = PackedVector2Array(86, 347, 137, 375, 119, 466, 82, 466, 65, 381)
+
+[node name="DoorRightJamb2" type="CollisionPolygon2D" parent="." unique_id=1642265131]
+position = Vector2(944.5471, 168.00002)
+scale = Vector2(3.3800676, 1)
+polygon = PackedVector2Array(-126.662674, -185, -89.662674, -185, -89.662674, -56, -120.86952, -28.000015, -133.59117, -86.000015)
+
+[node name="Camera2D" parent="Kael" index="0"]
+scene_min_zoom = 1.05

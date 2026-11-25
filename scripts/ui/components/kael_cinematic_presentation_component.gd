@@ -37,7 +37,7 @@ func show_shot(index: int, shot: Dictionary, total: int) -> void:
 	_update_artwork_pivot()
 	var fade := create_tween()
 	fade.tween_property(_artwork, "modulate:a", 1.0, 0.4)
-	fade.parallel().tween_property(_caption, "modulate:a", 1.0, 0.4).set_delay(0.06)
+	fade.parallel().tween_property(_caption, "modulate:a", 1.0, 0.18)
 
 func update_progress(progress: float) -> void:
 	_timeline_progress.anchor_right = clampf(progress, 0.0, 1.0)

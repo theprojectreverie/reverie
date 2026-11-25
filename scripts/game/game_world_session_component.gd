@@ -12,6 +12,11 @@ const GREENWARD_WORLD_SCENE: PackedScene = preload("res://scenes/world/greenward
 const WORLD_SCENES := {
 	"greenward": preload("res://scenes/world/greenward_world.tscn"),
 	"moonpetal_hollow": preload("res://scenes/world/greenward_world.tscn"),
+	"royal_gate": preload("res://scenes/world/greenward_world.tscn"),
+	"willow_fields": preload("res://scenes/world/greenward_world.tscn"),
+	"elderwood_grove": preload("res://scenes/world/greenward_world.tscn"),
+	"forsaken_ruins": preload("res://scenes/world/greenward_world.tscn"),
+	"ruined_tower": preload("res://scenes/world/greenward_world.tscn"),
 	"castle_royal_gardens": preload("res://scenes/world/castle_royal_gardens.tscn"),
 	"gothic_castle_boss_zone": preload("res://scenes/world/gothic_castle_boss_zone.tscn"),
 }
@@ -64,6 +69,7 @@ func build_world(region_id: String = "", entry_point: String = "") -> Node2D:
 		world.entry_point = entry_point
 	world.name = "World_" + resolved_id
 	world_host.add_child(world)
+	AudioDirector.sync_region_ambience(resolved_id)
 	GameState.queue_save()
 	world_changed.emit(world, current_region_id)
 	return world

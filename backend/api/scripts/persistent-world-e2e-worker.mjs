@@ -1,0 +1,18 @@
+import Fastify from 'fastify';
+import jwt from '@fastify/jwt';
+import websocket from '@fastify/websocket';
+import {config} from '../src/config.ts';
+import {pool} from '../src/db.ts';
+import {gameServerRoutes} from '../src/routes/game-servers.ts';
+import {persistentWorldRealtimeRoutes} from '../src/routes/persistent-world-realtime.ts';
+const app=Fastify({logger:false});
+await app.register(jwt,{secret:config.JWT_SECRET});
+await app.register(websocket);
+await app.register(gameServerRoutes,{prefix:'/v1/game-servers'});
+await app.register(persistentWorldRealtimeRoutes,{prefix:'/v1'});
+app.addHook('onClose',async()=>pool.end());
+await app.listen({host:'127.0.0.1',port:0});
+const address=app.server.address();
+if(!address||typeof address==='string')throw new Error('worker failed to bind');
+if(process.send)process.send({type:'ready',port:address.port,pid:process.pid});
+process.on('message',async message=>{if(message?.type==='stop'){await app.close();process.exit(0);}});

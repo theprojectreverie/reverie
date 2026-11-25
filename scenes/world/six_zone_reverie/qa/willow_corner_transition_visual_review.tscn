@@ -1,0 +1,140 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/grass_03.tscn" id="grass"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/soil_garden_01.tscn" id="soil"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_corners/handdrawn_direction_0.tscn" id="corner0"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_corners/handdrawn_direction_1.tscn" id="corner1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_corners/transition_01_0.tscn" id="corner2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_corners/transition_02_0.tscn" id="corner3"]
+
+[node name="WillowCornerReview" type="Node2D"]
+
+[node name="InspectionCamera" type="Camera2D" parent="."]
+position = Vector2(245, 200)
+zoom = Vector2(1.4, 1.4)
+process_callback = 0
+
+[node name="Review0" type="Node2D" parent="."]
+position = Vector2(0, 0)
+
+[node name="Label0" type="Label" parent="Review0"]
+position = Vector2(0, -40)
+text = "handdrawn_direction_0"
+
+[node name="Grass0" parent="Review0" instance=ExtResource("grass")]
+position = Vector2(0, 0)
+
+[node name="Grass1" parent="Review0" instance=ExtResource("grass")]
+position = Vector2(64, 0)
+
+[node name="Grass2" parent="Review0" instance=ExtResource("grass")]
+position = Vector2(128, 0)
+
+[node name="Grass3" parent="Review0" instance=ExtResource("grass")]
+position = Vector2(192, 0)
+
+[node name="Grass4" parent="Review0" instance=ExtResource("grass")]
+position = Vector2(256, 0)
+
+[node name="SoilLeft" parent="Review0" instance=ExtResource("soil")]
+position = Vector2(64, 0)
+
+[node name="SoilRight" parent="Review0" instance=ExtResource("soil")]
+position = Vector2(192, 0)
+
+[node name="CornerCandidate" parent="Review0" instance=ExtResource("corner0")]
+position = Vector2(128, 0)
+
+[node name="Review1" type="Node2D" parent="."]
+position = Vector2(350, 0)
+
+[node name="Label1" type="Label" parent="Review1"]
+position = Vector2(0, -40)
+text = "handdrawn_direction_1"
+
+[node name="Grass0" parent="Review1" instance=ExtResource("grass")]
+position = Vector2(0, 0)
+
+[node name="Grass1" parent="Review1" instance=ExtResource("grass")]
+position = Vector2(64, 0)
+
+[node name="Grass2" parent="Review1" instance=ExtResource("grass")]
+position = Vector2(128, 0)
+
+[node name="Grass3" parent="Review1" instance=ExtResource("grass")]
+position = Vector2(192, 0)
+
+[node name="Grass4" parent="Review1" instance=ExtResource("grass")]
+position = Vector2(256, 0)
+
+[node name="SoilLeft" parent="Review1" instance=ExtResource("soil")]
+position = Vector2(64, 0)
+
+[node name="SoilRight" parent="Review1" instance=ExtResource("soil")]
+position = Vector2(192, 0)
+
+[node name="CornerCandidate" parent="Review1" instance=ExtResource("corner1")]
+position = Vector2(128, 0)
+
+[node name="Review2" type="Node2D" parent="."]
+position = Vector2(0, 240)
+
+[node name="Label2" type="Label" parent="Review2"]
+position = Vector2(0, -40)
+text = "transition_01_0"
+
+[node name="Grass0" parent="Review2" instance=ExtResource("grass")]
+position = Vector2(0, 0)
+
+[node name="Grass1" parent="Review2" instance=ExtResource("grass")]
+position = Vector2(64, 0)
+
+[node name="Grass2" parent="Review2" instance=ExtResource("grass")]
+position = Vector2(128, 0)
+
+[node name="Grass3" parent="Review2" instance=ExtResource("grass")]
+position = Vector2(192, 0)
+
+[node name="Grass4" parent="Review2" instance=ExtResource("grass")]
+position = Vector2(256, 0)
+
+[node name="SoilLeft" parent="Review2" instance=ExtResource("soil")]
+position = Vector2(64, 0)
+
+[node name="SoilRight" parent="Review2" instance=ExtResource("soil")]
+position = Vector2(192, 0)
+
+[node name="CornerCandidate" parent="Review2" instance=ExtResource("corner2")]
+position = Vector2(128, 0)
+
+[node name="Review3" type="Node2D" parent="."]
+position = Vector2(350, 240)
+
+[node name="Label3" type="Label" parent="Review3"]
+position = Vector2(0, -40)
+text = "transition_02_0"
+
+[node name="Grass0" parent="Review3" instance=ExtResource("grass")]
+position = Vector2(0, 0)
+
+[node name="Grass1" parent="Review3" instance=ExtResource("grass")]
+position = Vector2(64, 0)
+
+[node name="Grass2" parent="Review3" instance=ExtResource("grass")]
+position = Vector2(128, 0)
+
+[node name="Grass3" parent="Review3" instance=ExtResource("grass")]
+position = Vector2(192, 0)
+
+[node name="Grass4" parent="Review3" instance=ExtResource("grass")]
+position = Vector2(256, 0)
+
+[node name="SoilLeft" parent="Review3" instance=ExtResource("soil")]
+position = Vector2(64, 0)
+
+[node name="SoilRight" parent="Review3" instance=ExtResource("soil")]
+position = Vector2(192, 0)
+
+[node name="CornerCandidate" parent="Review3" instance=ExtResource("corner3")]
+position = Vector2(128, 0)
+

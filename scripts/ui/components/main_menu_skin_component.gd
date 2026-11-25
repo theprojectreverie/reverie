@@ -51,16 +51,39 @@ func _style_button(button: Button) -> void:
 	if not artwork.is_empty():
 		var texture := load("res://assets/ui/buttons/%s.png" % artwork) as Texture2D
 		if texture != null:
+			# Icon-only navigation: keep the artwork itself transparent and remove
+			# all button captions so the icon is the sole visual label.
 			button.icon = texture
-			button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			button.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
-			button.expand_icon = false
+			button.text = ""
 			var is_bottom_nav := button.get_parent().name == "BottomNavigation"
 			var is_rail := button.get_parent().name == "LeftRail"
-			button.add_theme_constant_override("icon_max_width", 38 if is_bottom_nav else (30 if is_rail else 26))
-			button.add_theme_constant_override("h_separation", 2)
-			button.add_theme_font_size_override("font_size", 13 if is_bottom_nav else (12 if is_rail else 14))
-			button.add_theme_constant_override("outline_size", 2)
+			var is_currency := button.get_parent().name == "CurrencyBar"
+			button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
+			button.expand_icon = false
+			if is_currency:
+				# Currency tiles retain their framed plates. Icon and live count
+				# are a single horizontal row with a clear gap between them.
+				button.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
+				button.alignment = HORIZONTAL_ALIGNMENT_CENTER
+				button.add_theme_constant_override("icon_max_width", 34)
+				button.add_theme_constant_override("h_separation", 14)
+				button.add_theme_font_size_override("font_size", 17)
+			else:
+				# Navigation artwork floats directly over the menu scene: keep
+				# the clickable control, but remove its visible rectangular plate.
+				var empty_plate := StyleBoxEmpty.new()
+				button.add_theme_stylebox_override("normal", empty_plate)
+				button.add_theme_stylebox_override("hover", empty_plate)
+				button.add_theme_stylebox_override("pressed", empty_plate)
+				button.add_theme_stylebox_override("focus", empty_plate)
+				button.add_theme_stylebox_override("disabled", empty_plate)
+				button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				button.alignment = HORIZONTAL_ALIGNMENT_CENTER
+				var icon_width := 76 if is_bottom_nav else (60 if is_rail else 54)
+				button.add_theme_constant_override("icon_max_width", icon_width)
+				button.add_theme_constant_override("h_separation", 0)
+				button.add_theme_font_size_override("font_size", 1)
+			button.add_theme_constant_override("outline_size", 0)
 	else:
 		button.add_theme_font_size_override("font_size", 15)
 
@@ -68,8 +91,8 @@ func _button_artwork_for(button_name: String) -> String:
 	var artwork := {
 		"PremiumCurrency": "crystals_double",
 		"GoldCurrency": "gold_coins",
-		"ResourceCurrency": "resources_crystals",
-		"MailButton": "messages_envelope",
+		"PaidCurrency": "paid_moonstone",
+		"MailButton": "mail_stationery",
 		"SettingsShortcut": "settings_gear",
 		"EventsButton": "events_calendar",
 		"CalendarButton": "calendar_grid",
@@ -77,7 +100,7 @@ func _button_artwork_for(button_name: String) -> String:
 		"AchievementsButton": "achievements_crown",
 		"WorldButton": "world_compass",
 		"CommunicationButton": "messages_envelope",
-		"CharactersButton": "profile_portrait",
+		"CharactersButton": "party",
 		"InventoryButton": "inventory_chest",
 		"SummonButton": "crystals_single",
 		"StoryButton": "story_book",

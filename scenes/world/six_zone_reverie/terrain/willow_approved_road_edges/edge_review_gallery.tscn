@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_approved_road_edges/dirt_edge_n.tscn" id="edge_n"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_approved_road_edges/dirt_edge_ne.tscn" id="edge_ne"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_approved_road_edges/dirt_edge_nw.tscn" id="edge_nw"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_approved_road_edges/dirt_edge_s.tscn" id="edge_s"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/grass_03.tscn" id="grass_tile"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/soil_garden_01.tscn" id="soil_tile"]
+
+[node name="WillowRoadEdgeReview" type="Node2D"]
+
+[node name="Grass_n" parent="." instance=ExtResource("grass_tile")]
+position = Vector2(100, 120)
+
+[node name="Soil_n" parent="." instance=ExtResource("soil_tile")]
+position = Vector2(100, 200)
+
+[node name="Edge_n" parent="." instance=ExtResource("edge_n")]
+position = Vector2(100, 120)
+
+[node name="Grass_ne" parent="." instance=ExtResource("grass_tile")]
+position = Vector2(196, 120)
+
+[node name="Soil_ne" parent="." instance=ExtResource("soil_tile")]
+position = Vector2(196, 200)
+
+[node name="Edge_ne" parent="." instance=ExtResource("edge_ne")]
+position = Vector2(196, 120)
+
+[node name="Grass_nw" parent="." instance=ExtResource("grass_tile")]
+position = Vector2(292, 120)
+
+[node name="Soil_nw" parent="." instance=ExtResource("soil_tile")]
+position = Vector2(292, 200)
+
+[node name="Edge_nw" parent="." instance=ExtResource("edge_nw")]
+position = Vector2(292, 120)
+
+[node name="Grass_s" parent="." instance=ExtResource("grass_tile")]
+position = Vector2(388, 120)
+
+[node name="Soil_s" parent="." instance=ExtResource("soil_tile")]
+position = Vector2(388, 200)
+
+[node name="Edge_s" parent="." instance=ExtResource("edge_s")]
+position = Vector2(388, 120)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/reverie_pack/reverie_piece.gd" id="piece_script"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/approved_native/dirt_edge_nw.png" id="edge_texture"]
+
+[node name="WillowApprovedDirtEdge" type="Node2D"]
+script = ExtResource("piece_script")
+asset_id = "willow_approved_dirt_edge_nw"
+footprint_cells = Vector2i(1, 1)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+offset = Vector2(32, 16)
+texture = ExtResource("edge_texture")

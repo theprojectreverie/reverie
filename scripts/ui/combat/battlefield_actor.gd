@@ -22,15 +22,16 @@ const PLATE_HEIGHT := 6.0
 const PLATE_OFFSET := 14.0
 
 
+var rose_art: AnimatedSprite2D
 var unit: Combatant = null
 var visual: ActorVisual = null
 var _matron_presentation: FallenMatronPresentationComponent
-var _boss_action_tween: Tween = null
 var is_player: bool = false
 var home_position: Vector2 = Vector2.ZERO
 var targetable: bool = false
 var active: bool = false
 var dead: bool = false
+var interruption_serial: int = 0
 
 var _hp_ratio: float = 1.0
 var _hp_color: Color = Color(0.4, 0.9, 0.5)
@@ -41,6 +42,12 @@ var _pulse: float = 0.0
 var _hit_shake: float = 0.0
 var _base_scale: float = 1.0
 var _ground_fx: BattlefieldActorGroundFX = null
+var _hit_flash_tween: Tween = null
+@onready var _animation_player: AnimationPlayer = $AnimationPlayer
+
+
+func _ready() -> void:
+	_animation_player.animation_finished.connect(_on_authored_animation_finished)
 
 
 func setup(p_unit: Combatant, p_is_player: bool) -> void:
@@ -63,38 +70,19 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 	if not hit.gui_input.is_connected(_on_hit_input):
 		hit.gui_input.connect(_on_hit_input)
 	_name_label.text = unit.display_name
-	_name_label.add_theme_font_size_override("font_size", 11)
 	_name_label.add_theme_color_override("font_color", UITheme.TEXT)
-	_name_label.add_theme_color_override("font_outline_color", Color(0.01, 0.02, 0.05, 0.95))
-	_name_label.add_theme_constant_override("outline_size", 4)
-	_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_name_label.position = Vector2(-PLATE_WIDTH * 0.5, PLATE_OFFSET + PLATE_HEIGHT + 2.0)
-	_name_label.size = Vector2(PLATE_WIDTH, 16)
 	_intent_label.visible = false
-	_intent_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_intent_label.add_theme_font_size_override("font_size", 10)
-	_intent_label.add_theme_color_override("font_color", UITheme.GOLD_BRIGHT)
-	_intent_label.add_theme_color_override("font_outline_color", Color(0.02, 0.015, 0.025, 0.98))
-	_intent_label.add_theme_constant_override("outline_size", 5)
-	_intent_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	# The HP plate is scene-owned; this component only configures its presentation.
+
+	# Meter geometry and frame are authored in combatant_hp_plate.tscn.
+	_hp_color = UITheme.GREEN if is_player else UITheme.DANGER
 	if _hp_plate != null:
 		_hp_plate.min_value = 0.0
 		_hp_plate.max_value = 1.0
 		_hp_plate.show_percentage = false
 		_hp_plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var plate_bg := StyleBoxFlat.new()
-		plate_bg.bg_color = Color(0.02, 0.03, 0.06, 0.85)
-		plate_bg.border_width_left = 1
-		plate_bg.border_width_top = 1
-		plate_bg.border_width_right = 1
-		plate_bg.border_width_bottom = 1
-		plate_bg.border_color = Color(0.01, 0.015, 0.025, 0.95)
-		_hp_plate.add_theme_stylebox_override("background", plate_bg)
-		var plate_fill := StyleBoxFlat.new()
-		plate_fill.bg_color = _hp_color
-		_hp_plate.add_theme_stylebox_override("fill", plate_fill)
+		var plate_fill := _hp_plate.get_theme_stylebox("fill") as StyleBoxFlat
+		if plate_fill != null:
+			plate_fill.bg_color = _hp_color
 
 	visual.is_boss = unit.is_boss
 	if is_player:
@@ -114,9 +102,18 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 		else:
 			visual.setup(unit.palette, kind, unit.def_id, race, unit.element)
 	else:
-		# Enemies have no painted sheets yet: the procedural creature renderer
-		# draws a species-specific placeholder from the enemy palette.
+		# Enemy sheets use the dedicated enemy-only registry path. Until a complete
+		# validated 72-animation SpriteFrames resource exists, ActorVisual keeps
+		# its species-specific procedural placeholder without borrowing playable art.
 		visual.setup(unit.palette, ActorVisual.Kind.MONSTER, unit.def_id, "Monster", unit.element)
+		visual.configure_enemy_art(unit.def_id)
+		if unit.def_id in ["rose_slime", "crownling"]:
+			rose_art = load("res://scenes/world/six_zone_reverie/%s_art.tscn" % unit.def_id).instantiate() as AnimatedSprite2D
+			add_child(rose_art)
+			rose_art.scale = Vector2(1.4, 1.4)
+			rose_art.position.y = -44.0
+			visual.hide()
+			rose_art.animation_finished.connect(_rose_animation_finished)
 	# The bespoke boss presentation is a scene-owned child component.
 	_matron_presentation.configure(unit, visual)
 	_base_scale = SPRITE_SCALE if not visual.using_temporary_art else PLACEOLDER_SCALE
@@ -134,7 +131,13 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 			_:
 				_base_scale *= BOSS_MULTIPLIER
 	visual.visual_scale = _base_scale
-	_hp_color = UITheme.GREEN if is_player else UITheme.DANGER
+	if unit.def_id == "fairy_spar":
+		var spar_art := visual.get_node("FairySparArt") as AnimatedSprite2D
+		spar_art.reparent(self, false)
+		spar_art.show()
+		visual.hide()
+	if unit.is_boss and unit.def_id != "fallen_matron":
+		_animation_player.play("boss_idle")
 	var element_color := UITheme.element_color(unit.element)
 	if element_color == UITheme.TEXT_DIM:
 		element_color = Color("#c6cad6")
@@ -167,7 +170,7 @@ func refresh() -> void:
 	_name_label.text = ("◆  " if targetable else "") + unit.display_name
 	_name_label.add_theme_color_override("font_color",
 		UITheme.GOLD_BRIGHT if targetable else UITheme.TEXT if unit.is_alive() else UITheme.TEXT_DIM)
-	if not unit.is_alive():
+	if not unit.is_alive() and not is_instance_valid(rose_art):
 		modulate = Color(1, 1, 1, 0.38)
 	queue_redraw()
 
@@ -202,7 +205,8 @@ func set_home(position: Vector2) -> void:
 func _process(delta: float) -> void:
 	_pulse += delta
 	_sync_ground_fx()
-	_matron_presentation.refresh_phase(_hp_ratio)
+	if _matron_presentation != null:
+		_matron_presentation.refresh_phase(_hp_ratio)
 	if _hit_shake > 0.0:
 		_hit_shake = maxf(0.0, _hit_shake - delta * 4.0)
 	if visual == null:
@@ -211,80 +215,214 @@ func _process(delta: float) -> void:
 	var bob := sin(_pulse * 1.7) * 1.6
 	if _matron_presentation != null and _matron_presentation.active:
 		_matron_presentation.update_idle(_pulse, _hit_shake, bob, dead)
-	elif not dead:
+	elif not dead and (unit == null or not unit.is_boss):
 		visual.position = Vector2(_hit_shake * 6.0, bob)
 
 
+func track_attack_motion(motion: Tween) -> void:
+	if motion == null or not motion.is_valid():
+		return
+	if has_meta("attack_motion_tween"):
+		var previous = get_meta("attack_motion_tween")
+		if previous is Tween and previous.is_valid() and previous.is_running():
+			previous.kill()
+	set_meta("attack_motion_tween", motion)
+	var motion_ref: WeakRef = weakref(motion)
+	motion.finished.connect(func() -> void:
+		var tracked_motion := motion_ref.get_ref() as Tween
+		if tracked_motion != null and has_meta("attack_motion_tween") and get_meta("attack_motion_tween") == tracked_motion:
+			remove_meta("attack_motion_tween")
+	)
+
+
+## A second cancellable channel for timed stage callbacks that must coexist
+## with the actor's spatial attack motion.
+func track_attack_sequence(motion: Tween) -> void:
+	if motion == null or not motion.is_valid():
+		return
+	if has_meta("attack_sequence_tween"):
+		var previous = get_meta("attack_sequence_tween")
+		if previous is Tween and previous.is_valid() and previous.is_running():
+			previous.kill()
+	set_meta("attack_sequence_tween", motion)
+	var motion_ref: WeakRef = weakref(motion)
+	motion.finished.connect(func() -> void:
+		var tracked_motion := motion_ref.get_ref() as Tween
+		if tracked_motion != null and has_meta("attack_sequence_tween") and get_meta("attack_sequence_tween") == tracked_motion:
+			remove_meta("attack_sequence_tween")
+	)
+
+
+## Pending telegraphs and pre-launch effects remain owned by the current attack
+## so interruption can remove them. Release a committed projectile or started
+## one-shot with release_attack_effect() so it can finish independently.
+var _attack_effects: Array[Node] = []
+
+
+func track_attack_effect(effect: Node) -> void:
+	if effect == null or not is_instance_valid(effect):
+		return
+	if not _attack_effects.has(effect):
+		_attack_effects.append(effect)
+		effect.tree_exited.connect(_on_attack_effect_tree_exited.bind(effect), CONNECT_ONE_SHOT)
+
+
+func _on_attack_effect_tree_exited(effect: Node) -> void:
+	_attack_effects.erase(effect)
+
+
+## Once an effect has launched or its authored one-shot has begun, it owns its
+## own completion. Attacker interruption may cancel pending windups/telegraphs,
+## but must not erase a projectile already in flight or an impact already playing.
+func release_attack_effect(effect: Node) -> void:
+	if effect == null:
+		return
+	_attack_effects.erase(effect)
+
+
+func cancel_attack_effects() -> void:
+	for effect in _attack_effects:
+		if is_instance_valid(effect) and not effect.is_queued_for_deletion():
+			effect.queue_free()
+	_attack_effects.clear()
+
+
+func cancel_attack_motion(restore_formation: bool = true) -> void:
+	interruption_serial += 1
+	for key in ["attack_motion_tween", "attack_sequence_tween"]:
+		if has_meta(key):
+			var motion = get_meta(key)
+			if motion is Tween and motion.is_valid() and motion.is_running():
+				motion.kill()
+			remove_meta(key)
+	cancel_attack_effects()
+	if restore_formation:
+		position = home_position
+
+func track_recoil_motion(motion: Tween) -> void:
+	if motion == null or not motion.is_valid():
+		return
+	if has_meta("battle_recoil_tween"):
+		var previous = get_meta("battle_recoil_tween")
+		if previous is Tween and previous.is_valid() and previous.is_running():
+			previous.kill()
+	set_meta("battle_recoil_tween", motion)
+	var motion_ref: WeakRef = weakref(motion)
+	motion.finished.connect(func() -> void:
+		var tracked_motion := motion_ref.get_ref() as Tween
+		if tracked_motion != null and has_meta("battle_recoil_tween") and get_meta("battle_recoil_tween") == tracked_motion:
+			remove_meta("battle_recoil_tween")
+	)
+
+
+func cancel_recoil_motion(restore_formation: bool = true) -> void:
+	if has_meta("battle_recoil_tween"):
+		var motion = get_meta("battle_recoil_tween")
+		if motion is Tween and motion.is_valid() and motion.is_running():
+			motion.kill()
+		remove_meta("battle_recoil_tween")
+	if restore_formation:
+		position = home_position
+
+
+func _cancel_hit_flash(restore_tint: bool = true) -> void:
+	if _hit_flash_tween != null and _hit_flash_tween.is_valid() and _hit_flash_tween.is_running():
+		_hit_flash_tween.kill()
+	_hit_flash_tween = null
+	if restore_tint and visual != null and is_instance_valid(visual):
+		visual.modulate = Color.WHITE
+
+
+func _recover_combat_pose() -> void:
+	var battle_player := get_node_or_null("BattlePoseAnimationPlayer") as AnimationPlayer
+	if battle_player != null and battle_player.has_animation("battle_recover"):
+		battle_player.play("battle_recover")
+	var kael_player := get_node_or_null("KaelAnimationPlayer") as AnimationPlayer
+	if kael_player != null and kael_player.has_animation("kael_recover"):
+		kael_player.play("kael_recover")
+
 ## Damage reaction: white flash + a short shake + the damage animation.
 func take_hit() -> void:
+	if is_instance_valid(rose_art) and not dead:
+		rose_art.play("hit")
+		return
+	_cancel_hit_flash()
+	cancel_attack_motion()
+	cancel_recoil_motion()
+	_recover_combat_pose()
 	if visual == null:
 		return
 	_hit_shake = 1.0
 	if _matron_presentation != null and _matron_presentation.active:
 		_matron_presentation.take_hit()
 		return
-	visual.hit()
-	var tween := create_tween()
-	tween.tween_property(visual, "modulate", Color(2.2, 2.2, 2.4, 1.0), 0.05)
-	tween.tween_property(visual, "modulate", Color.WHITE, 0.28)
 	if unit != null and unit.is_boss:
-		if _boss_action_tween != null and _boss_action_tween.is_running():
-			_boss_action_tween.kill()
-		_boss_action_tween = create_tween()
-		_boss_action_tween.tween_property(visual, "rotation", deg_to_rad(4.0), 0.055).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		_boss_action_tween.parallel().tween_property(visual, "scale", Vector2(1.12, 0.88), 0.07)
-		_boss_action_tween.tween_property(visual, "rotation", deg_to_rad(-1.8), 0.07)
-		_boss_action_tween.parallel().tween_property(visual, "scale", Vector2(0.96, 1.04), 0.08)
-		_boss_action_tween.tween_property(visual, "rotation", 0.0, 0.13).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		_boss_action_tween.parallel().tween_property(visual, "scale", Vector2.ONE, 0.13)
+		_animation_player.play("boss_hit")
+		return
+	visual.hit()
+	_hit_flash_tween = create_tween()
+	_hit_flash_tween.tween_property(visual, "modulate", Color(2.2, 2.2, 2.4, 1.0), 0.05)
+	_hit_flash_tween.tween_property(visual, "modulate", Color.WHITE, 0.28)
+	_hit_flash_tween.tween_callback(func() -> void:
+		_hit_flash_tween = null
+	)
 
 
 ## The attack lunge is driven by the battlefield (it knows the target).
 func play_attack() -> void:
+	if is_instance_valid(rose_art):
+		rose_art.play("attack")
+		return
 	if visual == null:
 		return
 	if _matron_presentation != null and _matron_presentation.active:
 		_matron_presentation.play_attack()
 		return
-	visual.play_attack()
 	if unit != null and unit.is_boss:
-		if _boss_action_tween != null and _boss_action_tween.is_running():
-			_boss_action_tween.kill()
-		_boss_action_tween = create_tween()
-		# Bosses telegraph with a heavier coil, snap into the strike, then settle
-		# back into their idle silhouette instead of using the same tiny hit bob.
-		_boss_action_tween.tween_property(visual, "scale", Vector2(0.90, 1.12), 0.20).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		_boss_action_tween.parallel().tween_property(visual, "rotation", deg_to_rad(-3.0), 0.20)
-		_boss_action_tween.tween_property(visual, "scale", Vector2(1.14, 0.88), 0.10).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-		_boss_action_tween.parallel().tween_property(visual, "rotation", deg_to_rad(2.5), 0.10)
-		_boss_action_tween.tween_property(visual, "scale", Vector2.ONE, 0.30).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		_boss_action_tween.parallel().tween_property(visual, "rotation", 0.0, 0.30)
+		_animation_player.play("boss_attack")
+		return
+	visual.play_attack()
 
 
 func play_victory() -> void:
+	_cancel_hit_flash()
+	cancel_attack_motion()
+	cancel_recoil_motion()
+	_recover_combat_pose()
 	if visual == null:
 		return
 	visual.play_victory()
 
 
 func play_death() -> void:
+	if is_instance_valid(rose_art):
+		dead = true
+		modulate = Color.WHITE
+		rose_art.play("defeat")
+		return
+	_cancel_hit_flash()
+	cancel_attack_motion()
+	cancel_recoil_motion()
+	_recover_combat_pose()
 	if visual == null:
 		return
 	dead = true
 	if _matron_presentation != null and _matron_presentation.active:
 		_matron_presentation.play_death()
-	else:
-		visual.play_defeat()
-		if unit != null and unit.is_boss:
-			if _boss_action_tween != null and _boss_action_tween.is_running():
-				_boss_action_tween.kill()
-			_boss_action_tween = create_tween()
-			_boss_action_tween.tween_property(visual, "rotation", deg_to_rad(12.0), 0.62).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-			_boss_action_tween.parallel().tween_property(visual, "position:y", visual.position.y + 24.0, 0.62)
-			_boss_action_tween.parallel().tween_property(visual, "scale", Vector2(0.72, 1.18), 0.62)
+		return
+	if unit != null and unit.is_boss:
+		_animation_player.play("boss_death")
+		_name_label.modulate = Color(1, 1, 1, 0.0)
+		return
+	visual.play_defeat()
 	var tween := create_tween()
 	tween.tween_property(self, "modulate", Color(1, 1, 1, 0.0), 0.68)
 	_name_label.modulate = Color(1, 1, 1, 0.0)
+
+
+func _on_authored_animation_finished(animation_name: StringName) -> void:
+	if unit != null and unit.is_boss and unit.def_id != "fallen_matron" and not dead and animation_name != &"boss_idle":
+		_animation_player.play("boss_idle")
 
 
 func _sync_ground_fx() -> void:
@@ -296,3 +434,9 @@ func _sync_ground_fx() -> void:
 func _on_hit_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		clicked.emit(self)
+
+func _rose_animation_finished() -> void:
+	if dead:
+		rose_art.hide()
+	else:
+		rose_art.play("idle")

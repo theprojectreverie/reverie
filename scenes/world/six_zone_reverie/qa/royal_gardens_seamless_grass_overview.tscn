@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/qa/royal_gardens_seamless_grass_test.tscn" id="zone"]
+
+[node name="RoyalGardensSeamlessGrassOverview" type="Node2D"]
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="OverviewCamera" type="Camera2D" parent="."]
+position = Vector2(0, 1536)
+zoom = Vector2(0.205, 0.205)

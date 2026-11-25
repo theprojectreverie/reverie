@@ -25,9 +25,12 @@ var collectible_id: String = ""
 var collectible_rewards: Dictionary = {}
 var collectible_label: String = ""
 var _sprite: Sprite2D
+var _authored_visual: CanvasItem
 var _highlight_node: Node2D
+var _highlight_player: AnimationPlayer
 var _highlight: float = 0.0
 var _player: Node2D
+var _collect_animation: AnimationPlayer
 
 
 ## `p_position` is a world-space position. Called before or after add_child() —
@@ -57,28 +60,38 @@ func _ready() -> void:
 		visible = false
 		set_process(false)
 		return
-	if _sprite == null:
-		_build_visual()  # safe fallback for a bare InteractiveProp.new()
+	_build_visual()  # refresh scene-authored child references after the prop enters the tree
 	set_process(true)
 
 
 func _build_visual() -> void:
+	if _authored_visual == null:
+		_authored_visual = get_node_or_null("AuthoredVisual") as CanvasItem
 	if _sprite == null:
 		_sprite = get_node_or_null("Sprite") as Sprite2D
 	if _highlight_node == null:
 		_highlight_node = get_node_or_null("InteractionHighlight") as Node2D
+	if _highlight_player == null and _highlight_node != null:
+		_highlight_player = _highlight_node.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if _collect_animation == null:
+		_collect_animation = get_node_or_null("AnimationPlayer") as AnimationPlayer
+		if _collect_animation != null and not _collect_animation.animation_finished.is_connected(_on_collect_animation_finished):
+			_collect_animation.animation_finished.connect(_on_collect_animation_finished)
 	if _sprite == null:
 		_sprite = Sprite2D.new() # compatibility for bare InteractiveProp.new()
 		_sprite.name = "Sprite"
 		_sprite.centered = false
 		_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 		add_child(_sprite)
-	var tex := ProceduralArt.prop_texture(prop_kind, variant)
-	if tex == null:
-		tex = ProceduralArt.white_pixel()
-	_sprite.texture = tex
-	_sprite.centered = false
-	_sprite.offset = Vector2(-float(tex.get_width()) * 0.5, -float(tex.get_height()) + 6.0)
+	# Keep interaction and collectible behavior available without inventing
+	# placeholder art. A matching authored sprite can be assigned by the scene.
+	_sprite.texture = null
+	_sprite.visible = false
+
+
+func _on_collect_animation_finished(animation_name: StringName) -> void:
+	if animation_name == &"collect":
+		visible = false
 
 
 func _process(delta: float) -> void:
@@ -89,16 +102,23 @@ func _process(delta: float) -> void:
 		var d := global_position.distance_to(_player.global_position)
 		if d < HIGHLIGHT_RADIUS:
 			target = 1.0 - d / HIGHLIGHT_RADIUS
-	if absf(target - _highlight) > 0.01:
-		_highlight = move_toward(_highlight, target, delta * 3.0)
-		if _sprite != null:
-			var boost := 1.0 + _highlight * 0.35
-			_sprite.modulate = Color(boost, boost, boost, 1.0)
+	var previous_highlight := _highlight
+	_highlight = move_toward(_highlight, target, delta * 3.0)
+	if not is_equal_approx(previous_highlight, _highlight) and _sprite != null:
+		var boost := 1.0 + _highlight * 0.35
+		_sprite.modulate = Color(boost, boost, boost, 1.0)
+	if _authored_visual != null:
+		_authored_visual.modulate = Color(1.0 + _highlight * 0.18, 1.0 + _highlight * 0.10, 1.0 - _highlight * 0.08, 1.0)
 	if _highlight_node != null:
-		_highlight_node.visible = _highlight > 0.005
+		var active := _highlight > 0.005
+		_highlight_node.visible = active
 		_highlight_node.modulate.a = _highlight
-		var pulse := 1.0 + _highlight * 0.1
-		_highlight_node.scale = Vector2(pulse, pulse)
+		if _highlight_player != null:
+			if active and not _highlight_player.is_playing() and _highlight_player.has_animation(&"pulse"):
+				_highlight_player.play(&"pulse")
+			elif not active and _highlight_player.is_playing():
+				_highlight_player.stop()
+				_highlight_node.scale = Vector2.ONE
 
 
 ## Lore props remain flavour-only. Configured gathering props grant their
@@ -118,8 +138,11 @@ func interact() -> void:
 		GameState.inventory_domain.grant_reward_items(collectible_rewards)
 		GameState.queue_save()
 		enabled = false
-		visible = false
 		set_process(false)
+		if _collect_animation != null and _collect_animation.has_animation(&"collect"):
+			_collect_animation.play(&"collect")
+		else:
+			visible = false
 		var reward_names: Array[String] = []
 		for item_id in collectible_rewards.keys():
 			var item: Dictionary = ContentDB.get_item(str(item_id))

@@ -1,0 +1,288 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/grand_ornate_gate.png" id="1_gate"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/wall_segment_01.png" id="2_wall"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/wall_corner_tower.png" id="3_tower"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/royal_banner.png" id="4_banner"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/royal_lantern_post.png" id="5_lantern"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/pink_flower_shrub.png" id="6_flower"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/angel_tiered_fountain.png" id="7_fountain"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/robed_guardian_statue.png" id="8_statue"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/purple_wisteria_tree.png" id="9_wisteria"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/flower_bench.png" id="10_bench"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/purple_flower_shrub.png" id="11_shrub"]
+[ext_resource type="TileSet" path="res://assets/environment/castle_gardens/terrain/royal_garden_paths_water_isometric_tileset.tres" id="12_path_tiles"]
+
+[sub_resource type="RectangleShape2D" id="Rect_left_wall"]
+size = Vector2(120, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_left_pier"]
+size = Vector2(50, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_right_pier"]
+size = Vector2(50, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_right_wall"]
+size = Vector2(120, 20)
+
+[sub_resource type="CircleShape2D" id="PropSmallCircle"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="FountainCircle"]
+radius = 24.0
+
+[sub_resource type="RectangleShape2D" id="BenchFootprint"]
+size = Vector2(40, 10)
+
+[node name="RoyalGateArchitecture" type="Node2D"]
+y_sort_enabled = true
+metadata/composition = "Royal Gate entrance, hand-placed modular architecture"
+metadata/art_source = "Reverie Royal Gardens authored production assets"
+metadata/collision_status = "Four wall blockers and eight forecourt prop blockers; 160px central walk-through opening"
+
+[node name="Architecture" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="LeftWall" type="Sprite2D" parent="Architecture"]
+texture = ExtResource("2_wall")
+centered = false
+position = Vector2(-250, -119)
+z_index = 1
+
+[node name="RightWall" type="Sprite2D" parent="Architecture"]
+texture = ExtResource("2_wall")
+centered = false
+position = Vector2(108, -119)
+z_index = 1
+flip_h = true
+
+[node name="LeftTower" type="Sprite2D" parent="Architecture"]
+texture = ExtResource("3_tower")
+centered = false
+position = Vector2(-310, -178)
+z_index = 2
+
+[node name="RightTower" type="Sprite2D" parent="Architecture"]
+texture = ExtResource("3_tower")
+centered = false
+position = Vector2(200, -178)
+z_index = 2
+flip_h = true
+
+[node name="MainGate" type="Sprite2D" parent="Architecture"]
+texture = ExtResource("1_gate")
+centered = false
+position = Vector2(-138, -160)
+z_index = 4
+
+[node name="LeftBanner" type="Sprite2D" parent="Architecture"]
+texture = ExtResource("4_banner")
+centered = false
+position = Vector2(-92, -190)
+z_index = 5
+scale = Vector2(0.72, 0.72)
+
+[node name="RightBanner" type="Sprite2D" parent="Architecture"]
+texture = ExtResource("4_banner")
+centered = false
+position = Vector2(20, -190)
+z_index = 5
+scale = Vector2(0.72, 0.72)
+
+[node name="ApproachLanterns" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="LeftLantern" type="Sprite2D" parent="ApproachLanterns"]
+texture = ExtResource("5_lantern")
+centered = false
+position = Vector2(-180, -55)
+z_index = 6
+
+[node name="RightLantern" type="Sprite2D" parent="ApproachLanterns"]
+texture = ExtResource("5_lantern")
+centered = false
+position = Vector2(105, -55)
+z_index = 6
+flip_h = true
+
+[node name="FlowerAccents" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="LeftFlower" type="Sprite2D" parent="FlowerAccents"]
+texture = ExtResource("6_flower")
+centered = false
+position = Vector2(-250, -10)
+z_index = 7
+
+[node name="RightFlower" type="Sprite2D" parent="FlowerAccents"]
+texture = ExtResource("6_flower")
+centered = false
+position = Vector2(190, -10)
+z_index = 7
+flip_h = true
+
+[node name="CourtyardDetails" type="Node2D" parent="."]
+y_sort_enabled = true
+metadata/authoring = "Hand-placed authored art; preserve central player approach"
+
+[node name="LeftGuardian" type="Sprite2D" parent="CourtyardDetails"]
+texture = ExtResource("8_statue")
+centered = false
+position = Vector2(-250, -8)
+z_index = 6
+
+[node name="RightGuardian" type="Sprite2D" parent="CourtyardDetails"]
+texture = ExtResource("8_statue")
+centered = false
+position = Vector2(165, -8)
+z_index = 6
+flip_h = true
+
+[node name="LeftWisteria" type="Sprite2D" parent="CourtyardDetails"]
+texture = ExtResource("9_wisteria")
+centered = false
+position = Vector2(-390, 38)
+z_index = 2
+
+[node name="RightWisteria" type="Sprite2D" parent="CourtyardDetails"]
+texture = ExtResource("9_wisteria")
+centered = false
+position = Vector2(285, 38)
+z_index = 2
+flip_h = true
+
+[node name="SideFountain" type="Sprite2D" parent="CourtyardDetails"]
+texture = ExtResource("7_fountain")
+centered = false
+position = Vector2(-335, 145)
+z_index = 7
+scale = Vector2(0.86, 0.86)
+
+[node name="GardenBench" type="Sprite2D" parent="CourtyardDetails"]
+texture = ExtResource("10_bench")
+centered = false
+position = Vector2(220, 172)
+z_index = 7
+scale = Vector2(0.9, 0.9)
+
+[node name="LeftVioletShrub" type="Sprite2D" parent="CourtyardDetails"]
+texture = ExtResource("11_shrub")
+centered = false
+position = Vector2(-265, 210)
+z_index = 8
+
+[node name="RightVioletShrub" type="Sprite2D" parent="CourtyardDetails"]
+texture = ExtResource("11_shrub")
+centered = false
+position = Vector2(205, 210)
+z_index = 8
+flip_h = true
+
+[node name="ApproachPath" type="TileMapLayer" parent="."]
+z_index = -2
+tile_set = ExtResource("12_path_tiles")
+metadata/authoring = "Paint by hand in the Godot TileMap editor; no procedural cell generation"
+
+[node name="GateThreshold" type="Marker2D" parent="."]
+position = Vector2(0, 20)
+
+[node name="ArrivalPoint" type="Marker2D" parent="."]
+position = Vector2(0, 130)
+
+[node name="CollisionGeometry" type="Node2D" parent="."]
+
+[node name="LeftWallBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(-190, -8)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/LeftWallBlocker"]
+shape = SubResource("Rect_left_wall")
+
+[node name="LeftGatePierBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(-105, -8)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/LeftGatePierBlocker"]
+shape = SubResource("Rect_left_pier")
+
+[node name="RightGatePierBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(105, -8)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/RightGatePierBlocker"]
+shape = SubResource("Rect_right_pier")
+
+[node name="RightWallBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(190, -8)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/RightWallBlocker"]
+shape = SubResource("Rect_right_wall")
+
+[node name="LeftGuardianBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(-208, 146)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/LeftGuardianBlocker"]
+shape = SubResource("PropSmallCircle")
+
+[node name="RightGuardianBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(208, 146)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/RightGuardianBlocker"]
+shape = SubResource("PropSmallCircle")
+
+[node name="LeftWisteriaBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(-338, 160)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/LeftWisteriaBlocker"]
+shape = SubResource("PropSmallCircle")
+
+[node name="RightWisteriaBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(338, 160)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/RightWisteriaBlocker"]
+shape = SubResource("PropSmallCircle")
+
+[node name="SideFountainBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(-270, 276)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/SideFountainBlocker"]
+shape = SubResource("FountainCircle")
+
+[node name="GardenBenchBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(260, 234)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/GardenBenchBlocker"]
+shape = SubResource("BenchFootprint")
+
+[node name="LeftVioletShrubBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(-238, 262)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/LeftVioletShrubBlocker"]
+shape = SubResource("PropSmallCircle")
+
+[node name="RightVioletShrubBlocker" type="StaticBody2D" parent="CollisionGeometry"]
+position = Vector2(232, 262)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionGeometry/RightVioletShrubBlocker"]
+shape = SubResource("PropSmallCircle")

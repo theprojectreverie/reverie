@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Reverie"
-config/description="Offline single-player anime-fantasy RPG - Reverie."
+config/description="Gothic fantasy RPG with solo play, cooperative exploration and optional PvP."
 config/version="0.1.0"
 run/main_scene="res://scenes/main.tscn"
 config/use_custom_user_dir=true
@@ -34,6 +34,11 @@ ContentDB="*res://scripts/core/content_db.gd"
 SaveService="*res://scripts/core/save_service.gd"
 GameState="*res://scenes/core/game_state.tscn"
 AudioDirector="*res://scenes/core/audio_director.tscn"
+AuthGateway="*res://scenes/online/auth_gateway.tscn"
+MultiplayerGateway="*res://scenes/online/multiplayer_gateway.tscn"
+CoopGateway="*res://scenes/online/coop_gateway.tscn"
+PvpGateway="*res://scenes/online/pvp_gateway.tscn"
+ServerDirectoryGateway="*res://scenes/online/server_directory_gateway.tscn"
 
 [display]
 
@@ -43,6 +48,10 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gerald_storyboard/plugin.cfg", "res://addons/net.yarvis.pixel_pen/plugin.cfg")
 
 [gui]
 
@@ -55,8 +64,13 @@ theme/default_font_multichannel_signed_distance_field=true
 2d_physics/layer_3="actors"
 2d_physics/layer_4="interactables"
 
+[physics]
+
+common/physics_interpolation=true
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true

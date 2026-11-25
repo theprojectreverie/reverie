@@ -40,7 +40,7 @@ func _resolve_nodes() -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
-	var quest_id := GameState.quest_domain.tracked_quest()
+	var quest_id: String = GameState.quest_domain.tracked_quest()
 	if quest_id.is_empty():
 		visible = false
 		return
@@ -53,7 +53,7 @@ func _process(delta: float) -> void:
 		if str(definition.get("region", "greenward")) != (world as GreenwardWorld).region_id:
 			visible = false
 			return
-	var target_position := GameState.quest_domain.quest_target_position(quest_id)
+	var target_position: Vector2 = GameState.quest_domain.quest_target_position(quest_id)
 	var game_screen := get_tree().get_first_node_in_group("game_screen")
 	if game_screen != null and game_screen.get("quest_resolver") is QuestNavigationResolver:
 		var resolver := game_screen.get("quest_resolver") as QuestNavigationResolver

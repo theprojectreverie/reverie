@@ -5,7 +5,7 @@ extends Node
 var applied_config: EnvironmentPresentationConfig
 
 
-func configure(config: Resource, day_night: DayNight, ambient_effects: WorldAmbientEffectsComponent, fog: WorldFogComponent, lighting: WorldLightingComponent, water_root: Node2D, sound_root: Node2D) -> bool:
+func configure(config: Resource, day_night: DayNight, ambient_effects: WorldAmbientEffectsComponent, fog: WorldFogComponent, lighting: WorldLightingComponent, water_root: Node2D, sound_root: Node2D, ambient_motion_root: Node2D = null) -> bool:
 	if not config is EnvironmentPresentationConfig:
 		return false
 	applied_config = config as EnvironmentPresentationConfig
@@ -26,4 +26,6 @@ func configure(config: Resource, day_night: DayNight, ambient_effects: WorldAmbi
 		water_root.visible = applied_config.water_presentation_enabled
 	if sound_root != null:
 		sound_root.visible = applied_config.environmental_sound_enabled
+	if ambient_motion_root != null:
+		ambient_motion_root.visible = applied_config.ambient_particles_enabled
 	return true

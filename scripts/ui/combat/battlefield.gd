@@ -138,6 +138,33 @@ func spawn_elemental_burst(pos: Vector2, element: String) -> void:
 		_effects_component.spawn_elemental_burst(pos, element)
 
 
+func spawn_attack_elemental_burst(owner: BattlefieldActor, pos: Vector2, element: String) -> void:
+	if _impact_component != null:
+		_impact_component.spawn_attack_elemental_burst(owner, pos, element)
+
+
+func spawn_hit_effect(target: BattlefieldActor, source: BattlefieldActor, color: Color, strength: float = 1.0) -> void:
+	if _effects_component != null and _effects_component.impact_component != null:
+		_effects_component.impact_component.spawn_hit_effect(target, source, color, strength)
+
+
+## Stop every short-lived battle presentation without destroying the actor stage.
+## Called on resolution and scene teardown; authored victory/death poses remain intact.
+func clear_transient_presentations() -> void:
+	for entry in actors():
+		var actor := entry as BattlefieldActor
+		if is_instance_valid(actor):
+			actor.cancel_attack_motion(false)
+			actor.cancel_recoil_motion(false)
+	if _stage != null and is_instance_valid(_stage):
+		for child in _stage.get_children():
+			if not child is BattlefieldActor:
+				child.queue_free()
+	if _impact_component != null and is_instance_valid(_impact_component):
+		for child in _impact_component.get_children():
+			child.queue_free()
+
+
 func play_matron_phase(phase_number: int) -> void:
 	if _effects_component != null:
 		_effects_component.play_matron_phase(phase_number)

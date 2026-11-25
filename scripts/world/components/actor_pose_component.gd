@@ -14,40 +14,14 @@ func update_locomotion_pose(delta: float) -> void:
 	var state := visual.animator.state
 	var locomotion := state == ActorVisual.S_WALK or state == ActorVisual.S_RUN
 	var idle := state == ActorVisual.S_IDLE
+	if visual.character_id == "kael":
+		# Kael's editor-authored AnimationPlayer clips own all secondary body motion.
+		return
+	if visual.character_id != "gerald" and visual.character_id != "lilith" and visual.race != "Spirit":
+		# Generic grounded actors use the reusable editor-authored locomotion
+		# library. Do not write Sprite2D transforms from this runtime component.
+		return
 	if not locomotion and not idle:
-		# Kael's authored action poses get a little secondary body animation:
-		# weight shifts into the sword strike, a recoil on impact, and a lifted
-		# chest during the cast. Keep it restrained so the hand-drawn frames lead.
-		if visual.character_id == "kael":
-			var action_count := float(maxi(1, visual.animator.frame_count()))
-			var action_t := clampf((float(visual.animator.frame) + visual.animator.elapsed * visual.animator.fps() * visual.animator.speed_scale) / action_count, 0.0, 1.0)
-			visual._sprite.position = Vector2.ZERO
-			visual._sprite.rotation = 0.0
-			visual._sprite.scale = Vector2.ONE * visual._base_visual_scale
-			match state:
-				ActorVisual.S_ATTACK:
-					var windup := smoothstep(0.0, 0.30, action_t) * (1.0 - smoothstep(0.72, 1.0, action_t))
-					var impact := smoothstep(0.34, 0.48, action_t) * (1.0 - smoothstep(0.52, 0.68, action_t))
-					visual._sprite.position = Vector2(-2.2 * windup + 1.4 * impact, -1.0 * windup)
-					visual._sprite.rotation = deg_to_rad(-5.0 * windup + 2.0 * impact)
-					visual._sprite.scale = Vector2(visual._base_visual_scale * (1.0 + 0.025 * impact), visual._base_visual_scale * (1.0 - 0.025 * impact))
-				ActorVisual.S_CAST:
-					var gather := sin(PI * action_t)
-					visual._sprite.position = Vector2(sin(visual.anim_time * 7.0) * 0.7, -2.2 * gather)
-					visual._sprite.rotation = sin(visual.anim_time * 3.0) * 0.012
-					visual._sprite.scale = Vector2(visual._base_visual_scale * (1.0 - 0.018 * gather), visual._base_visual_scale * (1.0 + 0.025 * gather))
-				ActorVisual.S_DAMAGE:
-					var recoil := 1.0 - action_t
-					visual._sprite.position = Vector2(2.0 * recoil, -0.8 * recoil)
-					visual._sprite.rotation = deg_to_rad(3.0 * recoil)
-				ActorVisual.S_VICTORY:
-					var rise := sin(PI * action_t)
-					visual._sprite.position = Vector2(0.0, -2.0 * rise)
-					visual._sprite.rotation = sin(action_t * PI * 2.0) * 0.018
-				_:
-					visual._sprite.position = Vector2.ZERO
-					visual._sprite.rotation = 0.0
-			return
 		visual._sprite.position = Vector2.ZERO
 		visual._sprite.rotation = 0.0
 		visual._sprite.scale = Vector2.ONE * visual._base_visual_scale

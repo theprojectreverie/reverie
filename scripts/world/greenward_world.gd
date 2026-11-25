@@ -1,23 +1,14 @@
 class_name GreenwardWorld
 extends Node2D
-## The playable Greenward slice: streamed square-grid top-down 3/4 terrain, a village hub,
-## roaming monsters, NPCs, ambient life, weather, fog and a day/night cycle.
+## The playable world runtime owns player movement, NPCs, monsters, quests, portals,
+## weather, atmosphere, region transitions and world persistence.
 ##
-## Phase 3 (Visual World): all art is PROCEDURAL PLACEHOLDER. Lighting, fog,
-## weather and particles are driven by GreenwardStyle (single source of truth),
-## DayNight and WeatherDirector. Chunk streaming + per-layer MultiMesh batching
-## are preserved: the optional `detail` MultiMesh ground-cover layer is ALREADY
-## parented to `data.terrain` by ChunkBuilder and is intentionally NOT re-added
-## or re-parented here. There is one MultiMesh draw call per terrain/water/detail
-## layer; no per-tile Sprite2D is ever added.
+## Environment art is authored in scenes and imported textures. Chunk coordinates
+## are retained only for streaming/navigation bookkeeping; no terrain, water,
+## foliage, props, roads or map backgrounds are generated at runtime.
 ##
-## PART 5 (World Presentation): these are COMPOSITIONAL / STANDARDS improvements
-## ONLY — ZERO final assets, all art is still PROCEDURAL PLACEHOLDER. The four
-## new silhouettes (birch_grove / moon_lantern / stone_path / village_gate) and
-## the two recognisable region compositions are procedural. WorldVisualStandards
-## is applied through validation + reporting (apply_visual_standards /
-## visual_standards_report); NO existing node is repositioned and NO public API
-## or _ready() order is changed.
+## WorldVisualStandards remains a reporting/atmosphere contract and does not create
+## environmental geometry or substitute artwork.
 
 @export var presentation_config: Resource
 @onready var terrain_transitions: Node2D = get_node_or_null("TerrainTransitions") as Node2D
@@ -47,6 +38,7 @@ var visual_standards_component: WorldVisualStandardsComponent
 @onready var localized_lights_root: Node2D = get_node_or_null("EnvironmentPresentation/LocalizedLights") as Node2D
 @onready var water_presentation_root: Node2D = get_node_or_null("EnvironmentPresentation/WaterPresentation") as Node2D
 @onready var ambient_sound_root: Node2D = get_node_or_null("EnvironmentPresentation/AmbientSound") as Node2D
+@onready var ambient_motion_root: Node2D = get_node_or_null("EnvironmentPresentation/AmbientDrift") as Node2D
 
 const DEFAULT_REGION_ID := "greenward"
 const PLAYER_SCENE: PackedScene = preload("res://scenes/characters/player.tscn")
@@ -55,13 +47,8 @@ const INTERACTIVE_PROP_SCENE: PackedScene = preload("res://scenes/world/interact
 const ANIMATED_PROP_SCENE: PackedScene = preload("res://scenes/world/animated_prop.tscn")
 const REGION_PORTAL_SCENE: PackedScene = preload("res://scenes/world/region_portal.tscn")
 const QUEST_MARKER_SCENE: PackedScene = preload("res://scenes/world/quest_destination_marker.tscn")
-const GROUND_CHUNK_SCENE: PackedScene = preload("res://scenes/world/ground_chunk.tscn")
-const FOREST_TREE_SCENE: PackedScene = preload("res://scenes/world/forest_tree.tscn")
 const WORLD_PROP_SPRITE_SCENE: PackedScene = preload("res://scenes/world/components/world_prop_sprite.tscn")
 const WORLD_POINT_LIGHT_SCENE: PackedScene = preload("res://scenes/world/components/world_point_light.tscn")
-# Step 4 visual prototype: one representative Greenward chunk near the starting
-# village, avoiding important NPCs, portals and quest locations.
-const PROTOTYPE_GROUND_CHUNK := Vector2i(-1, 0)
 var region_id: String = DEFAULT_REGION_ID
 var entry_point: String = ""
 
@@ -92,7 +79,7 @@ const ZONE_TINTS := {
 #  spirit_bloom, lily_pad, willow/birch/pine/blossom/dead trees + originals)
 const FOLIAGE_KINDS := [
 	"glade_tree", "ancient_tree", "willow_tree", "birch_tree", "pine_tree",
-	"blossom_tree", "dead_tree", "fern", "tall_grass", "reeds", "lily_pad",
+	"blossom_tree", "dead_tree", "wisteria_tree", "cherry_blossom_tree", "white_blossom_tree", "fern", "tall_grass", "reeds", "lily_pad",
 	"berry_bush", "flower_cluster", "glow_mushroom", "spirit_bloom",
 	"mushroom", "bush", "flower",
 ]
@@ -183,13 +170,19 @@ func _ready() -> void:
 	_setup_layers()
 	resource_setup_component.setup_noise()
 	_setup_day_night()
+	# Keep the Greenward village gameplay scene only in its home region.
+	# Its placeholder ground/paths/props are retired below; NPCs and navigation
+	# anchors remain available. Other regions never inherit the settlement.
+	var village_root := get_node_or_null("Village") as Node2D
+	if village_root != null:
+		village_root.visible = region_id == DEFAULT_REGION_ID
+		if region_id != DEFAULT_REGION_ID:
+			_disable_hidden_village_collisions(village_root)
 	_integrate_village_depth_sort()
+	_retire_village_placeholder_art()
 	_spawn_player()
 	if region_id == DEFAULT_REGION_ID:
-		_build_village()          # includes _build_river()
-		_build_landmarks()
-		_build_extra_landmarks()  # PART 4: extra recognisable landmarks
-		_build_paths()            # PART 4: readable routes
+		_build_village()          # authored village scene + content-backed NPCs
 	else:
 		_build_generic_region()   # data-driven builder for other regions
 		if region_id == "moonpetal_hollow":
@@ -203,10 +196,8 @@ func _ready() -> void:
 	_setup_fog()
 	_setup_effect_follow_component()
 	_setup_presentation_config()
-	if region_id == DEFAULT_REGION_ID:
-		_setup_wildlife()
-		_setup_interactive_props()
-		_build_extra_interactive_and_animated()  # PART 4
+	# Procedurally composed wildlife, gathering props and animated set dressing
+	# are retired. NPCs, monsters, quest marker and region portals remain active.
 	var quest_marker := QUEST_MARKER_SCENE.instantiate() as QuestDestinationMarker
 	quest_marker.name = "QuestDestinationMarker"
 	entities.add_child(quest_marker)
@@ -254,7 +245,7 @@ func _setup_layers() -> void:
 	chunk_lifecycle_component.configure(self)
 	region_builder_component.configure(self)
 	greenward_builder_component.configure(self)
-	lighting_component.configure(entities, MAX_LIGHTS)
+	lighting_component.configure(entities, MAX_LIGHTS, false)
 	_lights = lighting_component.lights
 	region_context_component.configure(self)
 	day_night_presentation_component.configure(self)
@@ -264,10 +255,13 @@ func _setup_layers() -> void:
 	diagnostics_component.configure(self)
 
 func _integrate_village_depth_sort() -> void:
-	# Share one world Y-sort container (Entities) so village-authored depth objects
-	# (trees/building slots/visuals) interleave correctly with player, NPCs, and
-	# runtime-spawned props. Ground/PathNetwork/Lighting/AmbientEffects remain in the
-	# village scene layers and are not moved.
+	# The static Greenward settlement is not part of other streamed regions.
+	# Do not reparent its depth-sorted visuals into the shared Entities layer.
+	if region_id != DEFAULT_REGION_ID:
+		return
+	# Share one world Y-sort container (Entities) so village gameplay NPCs
+	# interleave correctly with the player. Legacy placeholder art nodes are
+	# retained for scene compatibility and hidden immediately after reparenting.
 	if entities == null:
 		return
 	var village := get_node_or_null("Village")
@@ -275,6 +269,68 @@ func _integrate_village_depth_sort() -> void:
 		return
 	if village.has_method("set_shared_depth_parent"):
 		village.set_shared_depth_parent(entities)
+
+
+func _retire_village_placeholder_art() -> void:
+	if region_id != DEFAULT_REGION_ID:
+		return
+	var village := get_node_or_null("Village") as Node2D
+	if village == null:
+		return
+	# The old settlement's ground, paths, lights and generic props were drawn
+	# from placeholder geometry/textures. Keep their scene nodes and navigation
+	# anchors, while allowing ForestTree to render its dedicated authored SVG art.
+	for layer_name in [
+		"Ground", "TerrainTransitions", "PathNetwork", "WaterAndBridges",
+		"Lighting", "AmbientEffects", "EnvironmentPresentation",
+	]:
+		var layer := village.get_node_or_null(layer_name) as CanvasItem
+		if layer != null:
+			layer.visible = false
+	if entities == null:
+		return
+	for child in entities.get_children():
+		if str(child.get_meta("village_sort_category", "")) == "npc":
+			continue
+		var building := child.get_node_or_null("Building")
+		var is_placeholder_environment := (
+			child is VillageProp
+			or building is VillageBuildingComponent
+		)
+		if not is_placeholder_environment:
+			continue
+		if child is CanvasItem:
+			(child as CanvasItem).visible = false
+		_disable_environment_collision(child)
+
+
+func _disable_hidden_village_collisions(node: Node) -> void:
+	# The village scene remains mounted for compatibility, but hidden geometry
+	# must not keep colliding in streamed regions that do not contain the village.
+	# Preserve CharacterBody2D NPCs; retire only static environment blockers.
+	if node is StaticBody2D:
+		var body := node as StaticBody2D
+		body.collision_layer = 0
+		body.collision_mask = 0
+	for child in node.get_children():
+		if child is CollisionShape2D and node is StaticBody2D:
+			(child as CollisionShape2D).set_deferred("disabled", true)
+		else:
+			_disable_hidden_village_collisions(child)
+
+
+func _disable_environment_collision(node: Node) -> void:
+	if node is CollisionShape2D:
+		(node as CollisionShape2D).disabled = true
+	if node is CollisionObject2D:
+		var collision_object := node as CollisionObject2D
+		collision_object.collision_layer = 0
+		collision_object.collision_mask = 0
+		if collision_object is Area2D:
+			(collision_object as Area2D).monitoring = false
+			(collision_object as Area2D).monitorable = false
+	for child in node.get_children():
+		_disable_environment_collision(child)
 
 
 func _setup_noise() -> void:
@@ -335,11 +391,9 @@ func get_bridge_radius() -> float:
 	return navigation_component.get_bridge_radius() if navigation_component != null else WorldNavigationComponent.DEFAULT_BRIDGE_RADIUS
 
 
-# ---------------------------------- main-thread chunk preparation (PART 5)
-# NO THREADS: MultiMesh / Image / ShaderMaterial creation and every scene-tree
-# operation are NOT thread-safe in Godot 4. Chunk generation is therefore kept
-# on the MAIN THREAD and FRAME-SLICED — at most ONE chunk is built per frame in
-# _process. ChunkPreparer is the deterministic, bounded LRU scheduling cache.
+# -------------------------------------- streaming compatibility interface
+# Chunk preparation is retired. These methods remain as no-op compatibility
+# entry points while the authored world keeps coordinate streaming active.
 
 func _prepare_one_chunk(player_grid: Vector2) -> void:
 	if chunk_streaming_component != null:
@@ -431,50 +485,8 @@ func _spawn_npc(npc_id: String, display_name: String, dialogue_id: String, grid:
 		return
 
 
-func _build_river() -> void:
-	if greenward_builder_component != null:
-		greenward_builder_component.build_river()
-		return
-
-
 func _add_animated_prop(kind: String, grid_position: Vector2, scale_value: float, flip: bool, motion: int, variant: int = 0) -> AnimatedProp:
 	return prop_factory_component.add_animated_prop(kind, grid_position, scale_value, flip, motion, variant) if prop_factory_component != null else null
-
-func _build_landmarks() -> void:
-	if greenward_builder_component != null:
-		greenward_builder_component.build_landmarks()
-		return
-
-
-func _build_extra_landmarks() -> void:
-	if greenward_builder_component != null:
-		greenward_builder_component.build_extra_landmarks()
-		return
-
-
-func _build_elder_hollow_territory() -> void:
-	if greenward_builder_component != null:
-		greenward_builder_component.build_elder_hollow_territory()
-		return
-
-
-func _build_fallen_matron_territory() -> void:
-	if greenward_builder_component != null:
-		greenward_builder_component.build_fallen_matron_territory()
-		return
-
-
-func _build_paths() -> void:
-	if greenward_builder_component != null:
-		greenward_builder_component.build_paths()
-		return
-
-
-func _build_extra_interactive_and_animated() -> void:
-	if greenward_builder_component != null:
-		greenward_builder_component.build_extra_interactive_and_animated()
-		return
-
 
 func _build_generic_region() -> void:
 	if region_builder_component != null:
@@ -520,7 +532,7 @@ func _setup_ambient() -> void:
 	if effects == null:
 		push_error("GreenwardWorld requires its authored AmbientEffects scene")
 		return
-	ambient_effects_component.configure(effects, day_night.is_night())
+	ambient_effects_component.configure(effects, day_night.is_night(), false)
 	ambient = ambient_effects_component.ambient
 	fireflies = ambient_effects_component.fireflies
 	rain = ambient_effects_component.rain
@@ -536,8 +548,13 @@ func _setup_weather() -> void:
 func _setup_presentation_config() -> void:
 	presentation_config_component.configure(
 		presentation_config, day_night, ambient_effects_component,
-		fog_component, lighting_component, water_and_bridges, ambient_sound_root
+		fog_component, lighting_component, water_and_bridges, ambient_sound_root,
+		ambient_motion_root
 	)
+	# The ambient leaf drift is authored for Greenward; other streamed regions
+	# opt in only when they receive their own environment-specific dressing.
+	if ambient_motion_root != null and region_id != DEFAULT_REGION_ID:
+		ambient_motion_root.visible = false
 
 func _setup_fog() -> void:
 	fog_component.configure(
@@ -545,7 +562,8 @@ func _setup_fog() -> void:
 		FOG_SIZE,
 		Color(0.8, 0.88, 0.95, 1.0),
 		0.08,
-		GreenwardStyle.performance_tier() != "mobile"
+		GreenwardStyle.performance_tier() != "mobile",
+		false
 	)
 	fog_material = fog_component.fog_material
 	fog_quad = fog_component.quad
@@ -617,10 +635,4 @@ func apply_visual_standards() -> void:
 
 func visual_standards_report() -> Dictionary:
 	return visual_standards_component.report() if visual_standards_component != null else {}
-
-func _build_greenward_gate_composition() -> void:
-	if greenward_builder_component != null:
-		greenward_builder_component.build_greenward_gate_composition()
-		return
-
 

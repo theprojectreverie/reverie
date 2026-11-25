@@ -1,5 +1,12 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=18 format=3]
 
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/party.png" id="hud_icon_RosterButton"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/castle_moon.png" id="hud_icon_MainMenuButton"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/world_compass.png" id="hud_icon_MapButton"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/inventory_chest.png" id="hud_icon_InventoryButton"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/quest_scroll.png" id="hud_icon_QuestsButton"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/settings_gear.png" id="hud_icon_MenuButton"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/summoning_portal.png" id="hud_icon_SummonButton"]
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/minimap.tscn" id="2_minimap"]
 [ext_resource type="PackedScene" path="res://scenes/ui/virtual_joystick.tscn" id="3_joystick"]
@@ -94,6 +101,9 @@ size_flags_vertical = 4
 theme_override_constants/separation = 8
 
 [node name="MainMenuButton" type="Button" parent="TopBar/TopRow"]
+icon = ExtResource("hud_icon_MainMenuButton")
+expand_icon = true
+theme_override_constants/icon_max_width = 30
 custom_minimum_size = Vector2(132, 42)
 layout_mode = 2
 text = "MAIN MENU"
@@ -152,31 +162,49 @@ grow_vertical = 0
 theme_override_constants/separation = 7
 
 [node name="SummonButton" type="Button" parent="ActionStack"]
+icon = ExtResource("hud_icon_SummonButton")
+expand_icon = true
+theme_override_constants/icon_max_width = 30
 custom_minimum_size = Vector2(138, 42)
 layout_mode = 2
 text = "Summon"
 
 [node name="RosterButton" type="Button" parent="ActionStack"]
+icon = ExtResource("hud_icon_RosterButton")
+expand_icon = true
+theme_override_constants/icon_max_width = 30
 custom_minimum_size = Vector2(138, 42)
 layout_mode = 2
 text = "Roster"
 
 [node name="InventoryButton" type="Button" parent="ActionStack"]
+icon = ExtResource("hud_icon_InventoryButton")
+expand_icon = true
+theme_override_constants/icon_max_width = 30
 custom_minimum_size = Vector2(138, 42)
 layout_mode = 2
 text = "Inventory"
 
 [node name="QuestsButton" type="Button" parent="ActionStack"]
+icon = ExtResource("hud_icon_QuestsButton")
+expand_icon = true
+theme_override_constants/icon_max_width = 30
 custom_minimum_size = Vector2(138, 42)
 layout_mode = 2
 text = "Quests"
 
 [node name="MapButton" type="Button" parent="ActionStack"]
+icon = ExtResource("hud_icon_MapButton")
+expand_icon = true
+theme_override_constants/icon_max_width = 30
 custom_minimum_size = Vector2(138, 42)
 layout_mode = 2
 text = "Map"
 
 [node name="MenuButton" type="Button" parent="ActionStack"]
+icon = ExtResource("hud_icon_MenuButton")
+expand_icon = true
+theme_override_constants/icon_max_width = 30
 custom_minimum_size = Vector2(138, 42)
 layout_mode = 2
 text = "Menu"

@@ -150,8 +150,11 @@ static func validate_banners(data: Dictionary, context: Dictionary, rarities: Ar
 				if typeof(pool_list) != TYPE_ARRAY:
 					ContentValidator._err(errors, file, path + ".pool." + rarity, "expected an array")
 					continue
-				if pool_list.is_empty():
-					ContentValidator._err(errors, file, path + ".pool." + rarity, "pool must not be empty")
+				var rarity_rate := 0.0
+				if typeof(rates) == TYPE_DICTIONARY:
+					rarity_rate = float(rates.get(rarity, 0.0))
+				if pool_list.is_empty() and rarity_rate > 0.0:
+					ContentValidator._err(errors, file, path + ".pool." + rarity, "pool must not be empty when its summon rate is positive")
 				for index in pool_list.size():
 					var character_id: Variant = pool_list[index]
 					var character_path := "%s.pool.%s[%d]" % [path, rarity, index]
@@ -163,6 +166,8 @@ static func validate_banners(data: Dictionary, context: Dictionary, rarities: Ar
 						ContentValidator._err(errors, file, character_path, "references missing character '%s'" % character_key)
 						continue
 					var character: Variant = characters[character_key]
+					if typeof(character) == TYPE_DICTIONARY and not bool(character.get("gacha_enabled", true)):
+						ContentValidator._err(errors, file, character_path, "character '%s' is disabled for gacha" % character_key)
 					if typeof(character) == TYPE_DICTIONARY and str(character.get("rarity", "")) != rarity:
 						ContentValidator._err(errors, file, character_path, "character '%s' is not %s rarity" % [character_key, rarity])
 					if seen_characters.has(character_key):
@@ -171,6 +176,14 @@ static func validate_banners(data: Dictionary, context: Dictionary, rarities: Ar
 			for raw_rarity in pool_dict.keys():
 				if not rarities.has(str(raw_rarity)):
 					ContentValidator._err(errors, file, path + ".pool." + str(raw_rarity), "unknown rarity")
+			if bool(banner.get("ten_pull_epic_guarantee", false)):
+				var has_epic_or_better := false
+				for floor_rarity in ["epic", "legendary", "mythic"]:
+					var floor_candidates: Variant = pool_dict.get(floor_rarity, [])
+					if typeof(floor_candidates) == TYPE_ARRAY and not floor_candidates.is_empty():
+						has_epic_or_better = true
+				if not has_epic_or_better:
+					ContentValidator._err(errors, file, path + ".pool", "Epic-or-better ten-pull guarantee requires at least one Epic, Legendary or Mythic character")
 
 		var featured = ContentValidator._require(banner, "featured", "array", path, file, errors)
 		if typeof(featured) == TYPE_ARRAY:

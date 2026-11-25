@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/castle_pack_v02/effects/fountain_spray_anim.png" id="1_spray"]
+
+[sub_resource type="Animation" id="Animation_flow"]
+resource_name = "flow"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Spray:frame")
+tracks/0/interp = 1
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5), "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1), "update": 1, "values": [0, 1, 2, 3, 4, 5]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Spray:modulate")
+tracks/1/interp = 1
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.3, 0.6), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.72), Color(1, 1, 1, 1), Color(1, 1, 1, 0.72)]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BasinRipple:scale")
+tracks/2/interp = 1
+tracks/2/keys = {"times": PackedFloat32Array(0, 0.3, 0.6), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(0.78, 0.78), Vector2(1.08, 1.08), Vector2(0.78, 0.78)]}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BasinRipple:modulate")
+tracks/3/interp = 1
+tracks/3/keys = {"times": PackedFloat32Array(0, 0.3, 0.6), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.18), Color(1, 1, 1, 0.58), Color(1, 1, 1, 0.18)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fountain"]
+_data = {"flow": SubResource("Animation_flow")}
+
+[node name="FountainWaterFX" type="Node2D"]
+y_sort_enabled = true
+
+[node name="BasinRipple" type="Line2D" parent="."]
+position = Vector2(0, 9)
+z_index = -1
+points = PackedVector2Array(-27, 0, -19.1, -13.5, 0, -19, 19.1, -13.5, 27, 0, 19.1, 13.5, 0, 19, -19.1, 13.5, -27, 0)
+width = 2.0
+default_color = Color(0.48, 0.82, 0.91, 0.5)
+closed = true
+antialiased = true
+
+[node name="Spray" type="Sprite2D" parent="."]
+position = Vector2(0, -55)
+z_index = 2
+texture_filter = 1
+centered = false
+offset = Vector2(-24, -64)
+hframes = 6
+texture = ExtResource("1_spray")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("..")
+libraries = {"": SubResource("AnimationLibrary_fountain")}
+autoplay = "flow"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/village/village_light_source.gd" id="1_script"]
+[ext_resource type="AnimationLibrary" path="res://resources/world/environment/village_light_presentation.tres" id="2_presentation"]
 
 [node name="LocalizedLightSource" type="Node2D"]
 script = ExtResource("1_script")
@@ -10,5 +11,11 @@ energy = 0.9
 texture_scale = 1.8
 color = Color(1, 0.811765, 0.415686, 1)
 blend_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("2_presentation")
+}
+autoplay = "village_light_bloom"
 
 [node name="Source" type="Node2D" parent="."]

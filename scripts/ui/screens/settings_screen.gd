@@ -41,6 +41,11 @@ var _capturing_action: String = ""
 var _capture_button: Button = null
 var _dirty: bool = false
 static var _project_default_input_events: Dictionary = {}
+
+
+## Release cached InputEvent RefCounteds after isolated test-runner shutdown.
+static func clear_project_default_input_cache() -> void:
+	_project_default_input_events.clear()
 var _default_input_events: Dictionary = {}
 
 

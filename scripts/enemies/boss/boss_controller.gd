@@ -49,6 +49,8 @@ func set_phase(new_phase: int) -> void:
 		return
 	var prev := current_phase
 	current_phase = new_phase
+	if phase_controller != null and phase_controller.has_method("apply_phase"):
+		phase_controller.call("apply_phase", new_phase)
 	phase_changed.emit(prev, new_phase)
 	if transition_effects != null and transition_effects.has_method("play_transition"):
 		transition_effects.call("play_transition", prev, new_phase)

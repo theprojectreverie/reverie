@@ -161,17 +161,31 @@ size_flags_horizontal = 3
 
 [node name="PlayerName" type="Label" parent="ReferenceInterface/TopProfile/ProfileRow/ProfileDetails"]
 layout_mode = 2
-text = "TRAVELER"
+theme_override_colors/font_color = Color(0.98, 0.87, 0.68, 1)
+theme_override_font_sizes/font_size = 20
+text_overrun_behavior = 3
+text = "Traveler"
 
 [node name="PlayerLevel" type="Label" parent="ReferenceInterface/TopProfile/ProfileRow/ProfileDetails"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.81, 0.76, 0.83, 1)
+theme_override_font_sizes/font_size = 13
 text = "LEVEL 01"
 
 [node name="ExperienceBar" type="ProgressBar" parent="ReferenceInterface/TopProfile/ProfileRow/ProfileDetails"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 show_percentage = false
-value = 35.0
+value = 0.0
+
+[node name="ProfileHitTarget" type="Button" parent="ReferenceInterface/TopProfile"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
 
 [node name="CurrencyBar" type="HBoxContainer" parent="ReferenceInterface"]
 anchor_left = 0.355
@@ -206,7 +220,7 @@ theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 13
 
-[node name="ResourceCurrency" type="Button" parent="ReferenceInterface/CurrencyBar"]
+[node name="PaidCurrency" type="Button" parent="ReferenceInterface/CurrencyBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "◇  RESOURCES   +"
@@ -319,7 +333,7 @@ theme_override_constants/separation = 10
 [node name="FeaturedBannerOne" type="Button" parent="ReferenceInterface/FeaturedBanners"]
 custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
-text = "VESPER NOCT\nCRIMSON COVENANT"
+text = "NYX VAELORA\nHOLLOW MOON OVERTURE"
 theme_override_styles/normal = SubResource("MenuButtonNormal")
 theme_override_styles/hover = SubResource("MenuButtonHover")
 theme_override_styles/pressed = SubResource("MenuButtonPressed")
@@ -332,7 +346,7 @@ theme_override_font_sizes/font_size = 15
 [node name="FeaturedBannerTwo" type="Button" parent="ReferenceInterface/FeaturedBanners"]
 custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
-text = "SCARLET REQUIEM"
+text = "CRIMSON WITCH\nSCARLET REQUIEM"
 theme_override_styles/normal = SubResource("MenuButtonNormal")
 theme_override_styles/hover = SubResource("MenuButtonHover")
 theme_override_styles/pressed = SubResource("MenuButtonPressed")
@@ -510,6 +524,19 @@ theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 19
 
+[node name="PvpButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
+custom_minimum_size = Vector2(84, 68)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PVP"
+theme_override_styles/normal = SubResource("MenuButtonNormal")
+theme_override_styles/hover = SubResource("MenuButtonHover")
+theme_override_styles/pressed = SubResource("MenuButtonPressed")
+theme_override_styles/focus = SubResource("MenuButtonHover")
+theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
+theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
+theme_override_font_sizes/font_size = 19
 [node name="RaviennaPortrait" type="TextureRect" parent="."]
 z_index = 0
 anchor_left = 0.53
@@ -579,3 +606,26 @@ script = ExtResource("4_skin")
 
 [node name="Overlays" type="Node" parent="."]
 script = ExtResource("5_overlays")
+
+
+[node name="RaviennaDialogueTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = false
+autostart = true
+
+[connection signal="timeout" from="RaviennaDialogueTimer" to="." method="_advance_ravienna_dialogue"]
+[connection signal="pressed" from="ReferenceInterface/BottomNavigation/PvpButton" to="." method="_open_pvp"]
+
+[node name="PersistentWorldsButton" type="Button" parent="ReferenceInterface/LeftRail"]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+text = "WORLDS"
+theme_override_styles/normal = SubResource("MenuButtonNormal")
+theme_override_styles/hover = SubResource("MenuButtonHover")
+theme_override_styles/pressed = SubResource("MenuButtonPressed")
+theme_override_styles/focus = SubResource("MenuButtonHover")
+theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
+theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
+theme_override_font_sizes/font_size = 15
+
+[connection signal="pressed" from="ReferenceInterface/LeftRail/PersistentWorldsButton" to="." method="_open_server_browser"]

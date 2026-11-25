@@ -1,0 +1,271 @@
+[gd_scene format=3 uid="uid://ce8xte6fa7jsn"]
+
+[ext_resource type="Texture2D" uid="uid://c6kwubyrg31or" path="res://assets/royal_gate_replacement/royal_gate_replacement_transparent.png" id="gate"]
+[ext_resource type="Texture2D" uid="uid://c1xwqjwnp6vdt" path="res://assets/royal_gate_isometric_cleaned/props/lantern.png" id="lamp"]
+[ext_resource type="Texture2D" uid="uid://deqioghv3xfcf" path="res://assets/royal_gate_isometric_cleaned/garden/topiary.png" id="shrub"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_isometric_cleaned/garden/tree_cleaned_v6.png" id="tree"]
+
+[ext_resource type="Texture2D" path="res://assets/royal_gate_isometric_cleaned/garden/white_planter.png" id="flowerbed"]
+
+[ext_resource type="Texture2D" path="res://assets/royal_gate_structural/plaza_star.png" id="emblem"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_structural/hedge_inner_corner.png" id="hedge_corner"]
+
+[ext_resource type="Texture2D" path="res://assets/royal_gate_structural/hedge_straight.png" id="hedge_line"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_structural/wall_left.png" id="wall_l"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_structural/wall_right.png" id="wall_r"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_structural/edge_low.png" id="curb"]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/royal_gardens_prop_collision.gd" id="prop_depth"]
+
+[node name="RoyalGateArtLayout" type="Node2D" unique_id=1499521655]
+script = ExtResource("prop_depth")
+y_sort_enabled = true
+texture_filter = 1
+
+[node name="SingleRoyalGate" type="Sprite2D" parent="." unique_id=2138865593]
+position = Vector2(48, 425)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("gate")
+
+[node name="LeftLantern" type="Sprite2D" parent="." unique_id=833452407]
+position = Vector2(-255, 1110)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("lamp")
+
+[node name="RightLantern" type="Sprite2D" parent="." unique_id=122169895]
+position = Vector2(351, 1110)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("lamp")
+
+[node name="LeftTree" type="Sprite2D" parent="." unique_id=1837882949]
+position = Vector2(-680, 1140)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("tree")
+
+[node name="RightTree" type="Sprite2D" parent="." unique_id=345298847]
+position = Vector2(776, 1140)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("tree")
+
+[node name="LeftTopiary" type="Sprite2D" parent="." unique_id=2112671943]
+position = Vector2(-570, 690)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("shrub")
+
+[node name="RightTopiary" type="Sprite2D" parent="." unique_id=1366977668]
+position = Vector2(666, 690)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("shrub")
+
+[node name="RoyalAvenueEmblem" type="Sprite2D" parent="."]
+z_index = -18
+position = Vector2(48, 1410)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("emblem")
+
+[node name="LeftGardenHedgeCorner" type="Sprite2D" parent="."]
+position = Vector2(-390, 1210)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("hedge_corner")
+
+[node name="RightGardenHedgeCorner" type="Sprite2D" parent="."]
+position = Vector2(486, 1210)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("hedge_corner")
+flip_h = true
+
+[node name="LeftFlowerbedUpper" type="Sprite2D" parent="."]
+position = Vector2(-240, 1620)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("flowerbed")
+
+[node name="RightFlowerbedUpper" type="Sprite2D" parent="."]
+position = Vector2(336, 1620)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("flowerbed")
+
+[node name="LeftFlowerbedLower" type="Sprite2D" parent="."]
+position = Vector2(-280, 2330)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("flowerbed")
+
+[node name="RightFlowerbedLower" type="Sprite2D" parent="."]
+position = Vector2(376, 2330)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("flowerbed")
+
+[node name="WestHedge" type="Sprite2D" parent="."]
+position = Vector2(-390, 1530)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("hedge_line")
+
+
+[node name="EastHedge" type="Sprite2D" parent="."]
+position = Vector2(486, 1530)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("hedge_line")
+flip_h = true
+
+
+[node name="WestGateWall" type="Sprite2D" parent="."]
+position = Vector2(-675, 570)
+scale = Vector2(1, 1)
+texture = ExtResource("wall_l")
+
+
+[node name="EastGateWall" type="Sprite2D" parent="."]
+position = Vector2(771, 570)
+scale = Vector2(1, 1)
+texture = ExtResource("wall_r")
+
+
+[node name="WestPlazaCurb" type="Sprite2D" parent="."]
+position = Vector2(-405, 1410)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("curb")
+
+
+[node name="EastPlazaCurb" type="Sprite2D" parent="."]
+position = Vector2(501, 1410)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("curb")
+flip_h = true
+
+[node name="LeftPlazaSouthHedgeCorner" type="Sprite2D" parent="."]
+position = Vector2(-350, 1630)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("hedge_corner")
+flip_v = true
+
+[node name="RightPlazaSouthHedgeCorner" type="Sprite2D" parent="."]
+position = Vector2(446, 1630)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("hedge_corner")
+flip_h = true
+flip_v = true
+
+[node name="FootprintCollision" type="StaticBody2D" parent="SingleRoyalGate"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SingleRoyalGate/FootprintCollision"]
+polygon = PackedVector2Array(-753.950012207031, 292.7099609375, -443.5, 328.190002441406, -195.140014648438, 319.320007324219, 177.400024414063, 239.489990234375, 425.760009765625, 266.100036621094, 762.820068359375, 141.920043945313, 762.820068359375, 204.010009765625, 425.760009765625, 345.929992675781, 177.400024414063, 301.579956054688, -177.399963378906, 399.149963378906, -425.760009765625, 416.890014648438, -753.950012207031, 345.929992675781)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="LeftLantern"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftLantern/FootprintCollision"]
+polygon = PackedVector2Array(-11.5200004577637, 61.0199890136719, 11.5200004577637, 61.0199890136719, 11.5200004577637, 106.219985961914, -11.5200004577637, 106.219985961914)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="RightLantern"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightLantern/FootprintCollision"]
+polygon = PackedVector2Array(-11.5200004577637, 61.0199890136719, 11.5200004577637, 61.0199890136719, 11.5200004577637, 106.219985961914, -11.5200004577637, 106.219985961914)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="LeftTree"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftTree/FootprintCollision"]
+polygon = PackedVector2Array(-30.2500076293945, 72.8999938964844, 30.25, 72.8999938964844, 30.25, 126.899993896484, -30.2500076293945, 126.899993896484)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="RightTree"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightTree/FootprintCollision"]
+polygon = PackedVector2Array(-30.2500076293945, 72.8999938964844, 30.25, 72.8999938964844, 30.25, 126.899993896484, -30.2500076293945, 126.899993896484)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="LeftTopiary"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftTopiary/FootprintCollision"]
+polygon = PackedVector2Array(-11.2200012207031, 68.3099975585938, 11.2200012207031, 68.3099975585938, 11.2200012207031, 118.90998840332, -11.2200012207031, 118.90998840332)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="RightTopiary"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightTopiary/FootprintCollision"]
+polygon = PackedVector2Array(-11.2200012207031, 68.3099975585938, 11.2200012207031, 68.3099975585938, 11.2200012207031, 118.90998840332, -11.2200012207031, 118.90998840332)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="LeftGardenHedgeCorner"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftGardenHedgeCorner/FootprintCollision"]
+polygon = PackedVector2Array(-70.8399963378906, 6.09999847412109, 70.8399963378906, 6.09999847412109, 70.8399963378906, 52.4599990844727, -70.8399963378906, 52.4599990844727)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="RightGardenHedgeCorner"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightGardenHedgeCorner/FootprintCollision"]
+polygon = PackedVector2Array(-70.8399963378906, 6.09999847412109, 70.8399963378906, 6.09999847412109, 70.8399963378906, 52.4599990844727, -70.8399963378906, 52.4599990844727)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="LeftFlowerbedUpper"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftFlowerbedUpper/FootprintCollision"]
+polygon = PackedVector2Array(-63.0, 9.65999603271484, 63.0, 9.65999603271484, 63.0, 59.3399963378906, -63.0, 59.3399963378906)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="RightFlowerbedUpper"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightFlowerbedUpper/FootprintCollision"]
+polygon = PackedVector2Array(-63.0, 9.65999603271484, 63.0, 9.65999603271484, 63.0, 59.3399963378906, -63.0, 59.3399963378906)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="LeftFlowerbedLower"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftFlowerbedLower/FootprintCollision"]
+polygon = PackedVector2Array(-63.0, 9.65999603271484, 63.0, 9.65999603271484, 63.0, 59.3399963378906, -63.0, 59.3399963378906)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="RightFlowerbedLower"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightFlowerbedLower/FootprintCollision"]
+polygon = PackedVector2Array(-63.0, 9.65999603271484, 63.0, 9.65999603271484, 63.0, 59.3399963378906, -63.0, 59.3399963378906)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="WestHedge"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WestHedge/FootprintCollision"]
+polygon = PackedVector2Array(-88.879997253418, 3.60000228881836, 88.8800048828125, 3.60000228881836, 88.8800048828125, 30.9599990844727, -88.879997253418, 30.9599990844727)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="EastHedge"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EastHedge/FootprintCollision"]
+polygon = PackedVector2Array(-88.879997253418, 3.60000228881836, 88.8800048828125, 3.60000228881836, 88.8800048828125, 30.9599990844727, -88.879997253418, 30.9599990844727)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="WestGateWall"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WestGateWall/FootprintCollision"]
+polygon = PackedVector2Array(-119.970001220703, 42.2099914550781, 119.970001220703, 42.2099914550781, 119.970001220703, 92.4599914550781, -119.970001220703, 92.4599914550781)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="EastGateWall"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EastGateWall/FootprintCollision"]
+polygon = PackedVector2Array(-98.0400009155273, 43.0500030517578, 98.0400085449219, 43.0500030517578, 98.0400085449219, 94.3000030517578, -98.0400009155273, 94.3000030517578)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="WestPlazaCurb"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WestPlazaCurb/FootprintCollision"]
+polygon = PackedVector2Array(-53.6800003051758, 5.30000305175781, 53.6800003051758, 5.30000305175781, 53.6800003051758, 45.5800018310547, -53.6800003051758, 45.5800018310547)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="EastPlazaCurb"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EastPlazaCurb/FootprintCollision"]
+polygon = PackedVector2Array(-53.6800003051758, 5.30000305175781, 53.6800003051758, 5.30000305175781, 53.6800003051758, 45.5800018310547, -53.6800003051758, 45.5800018310547)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="LeftPlazaSouthHedgeCorner"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftPlazaSouthHedgeCorner/FootprintCollision"]
+polygon = PackedVector2Array(-70.8399963378906, 6.09999847412109, 70.8399963378906, 6.09999847412109, 70.8399963378906, 52.4599990844727, -70.8399963378906, 52.4599990844727)
+
+[node name="FootprintCollision" type="StaticBody2D" parent="RightPlazaSouthHedgeCorner"]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightPlazaSouthHedgeCorner/FootprintCollision"]
+polygon = PackedVector2Array(-70.8399963378906, 6.09999847412109, 70.8399963378906, 6.09999847412109, 70.8399963378906, 52.4599990844727, -70.8399963378906, 52.4599990844727)

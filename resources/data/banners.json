@@ -1,40 +1,246 @@
 {
-  "crimson_covenant": {
-    "name": "Hollow Moon Overture",
-    "subtitle": "Limited summon — Nyx Vaelora",
-    "type": "limited",
-    "featured": ["nyx"],
-    "featured_rate": 0.5,
-    "rates": { "common": 0.50, "rare": 0.31, "epic": 0.13, "legendary": 0.05, "mythic": 0.01 },
-    "hard_pity": 80,
-    "featured_pity": 160,
-    "ten_pull_epic_guarantee": true,
-    "cost": { "currency": "crystals", "single": 180, "ten": 1620 },
-    "pool": {
-      "common": ["mira_sol"],
-      "rare": ["bramble", "thistle", "kael"],
-      "epic": ["lyra_vey", "coralyn", "vespera", "arachnia"],
-      "legendary": ["seraphine", "nyx", "terra"],
-      "mythic": ["ignis"]
+    "crimson_covenant": {
+        "name": "Hollow Moon Overture",
+        "subtitle": "Limited summon â€” Nyx Vaelora",
+        "type": "limited",
+        "featured": [
+            "nyx"
+        ],
+        "featured_rate": 0.5,
+        "rates": {
+            "common": 0.5,
+            "legendary": 0.035,
+            "mythic": 0.005,
+            "rare": 0.3,
+            "epic": 0.16
+        },
+        "hard_pity": 80,
+        "featured_pity": 160,
+        "ten_pull_epic_guarantee": true,
+        "cost": {
+            "currency": "crystals",
+            "single": 120,
+            "ten": 1200
+        },
+        "pool": {
+            "legendary": [
+                "kael_legendary",
+                "lilith_legendary",
+                "gerald_legendary",
+                "ravienna",
+                "cassien_legendary",
+                "nyx",
+                "crimson_witch_legendary",
+                "mirene_legendary",
+                "caelith_legendary"
+            ],
+            "mythic": [
+                "kael_mythic",
+                "lilith_mythic",
+                "gerald_mythic",
+                "ravienna_mythic",
+                "cassien_mythic",
+                "nyx_mythic",
+                "crimson_witch_mythic",
+                "mirene_mythic",
+                "caelith_mythic"
+            ],
+            "epic": [
+                "kael_epic",
+                "lilith_epic",
+                "gerald_epic",
+                "ravienna_epic",
+                "cassien_epic",
+                "nyx_epic",
+                "crimson_witch_epic",
+                "mirene_epic",
+                "caelith_epic"
+            ],
+            "rare": [
+                "kael",
+                "lilith",
+                "gerald",
+                "ravienna_rare",
+                "cassien",
+                "nyx_rare",
+                "crimson_witch",
+                "mirene",
+                "caelith"
+            ],
+            "common": [
+                "kael_common",
+                "lilith_common",
+                "gerald_common",
+                "ravienna_common",
+                "cassien_common",
+                "nyx_common",
+                "crimson_witch_common",
+                "mirene_common",
+                "caelith_common"
+            ]
+        }
+    },
+    "scarlet_requiem": {
+        "name": "Scarlet Requiem",
+        "subtitle": "Limited summon â€” Crimson Witch",
+        "type": "limited",
+        "featured": [
+            "crimson_witch"
+        ],
+        "featured_rate": 0.5,
+        "rates": {
+            "common": 0.5,
+            "legendary": 0.035,
+            "mythic": 0.005,
+            "rare": 0.3,
+            "epic": 0.16
+        },
+        "hard_pity": 80,
+        "featured_pity": 160,
+        "ten_pull_epic_guarantee": true,
+        "cost": {
+            "currency": "crystals",
+            "single": 120,
+            "ten": 1200
+        },
+        "pool": {
+            "legendary": [
+                "kael_legendary",
+                "lilith_legendary",
+                "gerald_legendary",
+                "ravienna",
+                "cassien_legendary",
+                "nyx",
+                "crimson_witch_legendary",
+                "mirene_legendary",
+                "caelith_legendary"
+            ],
+            "mythic": [
+                "kael_mythic",
+                "lilith_mythic",
+                "gerald_mythic",
+                "ravienna_mythic",
+                "cassien_mythic",
+                "nyx_mythic",
+                "crimson_witch_mythic",
+                "mirene_mythic",
+                "caelith_mythic"
+            ],
+            "epic": [
+                "kael_epic",
+                "lilith_epic",
+                "gerald_epic",
+                "ravienna_epic",
+                "cassien_epic",
+                "nyx_epic",
+                "crimson_witch_epic",
+                "mirene_epic",
+                "caelith_epic"
+            ],
+            "rare": [
+                "kael",
+                "lilith",
+                "gerald",
+                "ravienna_rare",
+                "cassien",
+                "nyx_rare",
+                "crimson_witch",
+                "mirene",
+                "caelith"
+            ],
+            "common": [
+                "kael_common",
+                "lilith_common",
+                "gerald_common",
+                "ravienna_common",
+                "cassien_common",
+                "nyx_common",
+                "crimson_witch_common",
+                "mirene_common",
+                "caelith_common"
+            ]
+        }
+    },
+    "lily_of_shadows": {
+        "name": "The Lily of Shadows",
+        "subtitle": "Limited summon — Élathra",
+        "type": "limited",
+        "featured": [
+            "elathra"
+        ],
+        "featured_rate": 0.5,
+        "rates": {
+            "common": 0.5,
+            "legendary": 0.035,
+            "mythic": 0.005,
+            "rare": 0.3,
+            "epic": 0.16
+        },
+        "hard_pity": 80,
+        "featured_pity": 160,
+        "ten_pull_epic_guarantee": true,
+        "cost": {
+            "currency": "crystals",
+            "single": 120,
+            "ten": 1200
+        },
+        "pool": {
+            "legendary": [
+                "kael_legendary",
+                "lilith_legendary",
+                "gerald_legendary",
+                "ravienna",
+                "cassien_legendary",
+                "nyx",
+                "crimson_witch_legendary",
+                "mirene_legendary",
+                "caelith_legendary",
+                "elathra"
+            ],
+            "mythic": [
+                "kael_mythic",
+                "lilith_mythic",
+                "gerald_mythic",
+                "ravienna_mythic",
+                "cassien_mythic",
+                "nyx_mythic",
+                "crimson_witch_mythic",
+                "mirene_mythic",
+                "caelith_mythic"
+            ],
+            "epic": [
+                "kael_epic",
+                "lilith_epic",
+                "gerald_epic",
+                "ravienna_epic",
+                "cassien_epic",
+                "nyx_epic",
+                "crimson_witch_epic",
+                "mirene_epic",
+                "caelith_epic"
+            ],
+            "rare": [
+                "kael",
+                "lilith",
+                "gerald",
+                "ravienna_rare",
+                "cassien",
+                "nyx_rare",
+                "crimson_witch",
+                "mirene",
+                "caelith"
+            ],
+            "common": [
+                "kael_common",
+                "lilith_common",
+                "gerald_common",
+                "ravienna_common",
+                "cassien_common",
+                "nyx_common",
+                "crimson_witch_common",
+                "mirene_common",
+                "caelith_common"
+            ]
+        }
     }
-  },
-  "scarlet_requiem": {
-    "name": "Scarlet Requiem",
-    "subtitle": "Limited summon — The Crimson Reaper",
-    "type": "limited",
-    "featured": ["scarlet_requiem"],
-    "featured_rate": 0.5,
-    "rates": { "common": 0.50, "rare": 0.31, "epic": 0.13, "legendary": 0.05, "mythic": 0.01 },
-    "hard_pity": 80,
-    "featured_pity": 160,
-    "ten_pull_epic_guarantee": true,
-    "cost": { "currency": "crystals", "single": 180, "ten": 1620 },
-    "pool": {
-      "common": ["mira_sol"],
-      "rare": ["bramble", "thistle", "kael"],
-      "epic": ["lyra_vey", "coralyn", "vespera", "arachnia", "scarlet_requiem"],
-      "legendary": ["seraphine", "nyx", "terra"],
-      "mythic": ["ignis"]
-    }
-  }
 }

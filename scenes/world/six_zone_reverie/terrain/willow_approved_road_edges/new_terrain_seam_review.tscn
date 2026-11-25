@@ -1,0 +1,147 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/terrain_nov24_review/tile_02.png" id="grass"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/terrain_nov24_review/tile_03.png" id="dirt"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/terrain_nov24_review/tile_15.png" id="edge"]
+
+[node name="WillowNewTerrainSeamReview" type="Node2D"]
+
+[node name="Tile_0_0" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+scale = Vector2(0.3004694835680751, 0.3004694835680751)
+texture_filter = 1
+texture = ExtResource("grass")
+offset = Vector2(0, -12.32)
+
+[node name="Tile_0_1" type="Sprite2D" parent="."]
+position = Vector2(352, 196)
+scale = Vector2(0.3004694835680751, 0.3004694835680751)
+texture_filter = 1
+texture = ExtResource("grass")
+offset = Vector2(0, -12.32)
+
+[node name="Tile_0_2" type="Sprite2D" parent="."]
+position = Vector2(384, 212)
+scale = Vector2(0.34972677595628415, 0.34972677595628415)
+texture_filter = 1
+texture = ExtResource("edge")
+offset = Vector2(0, -9.68)
+
+[node name="Tile_0_3" type="Sprite2D" parent="."]
+position = Vector2(416, 228)
+scale = Vector2(0.3018867924528302, 0.3018867924528302)
+texture_filter = 1
+texture = ExtResource("dirt")
+offset = Vector2(0, -11.52)
+
+[node name="Tile_0_4" type="Sprite2D" parent="."]
+position = Vector2(448, 244)
+scale = Vector2(0.3018867924528302, 0.3018867924528302)
+texture_filter = 1
+texture = ExtResource("dirt")
+offset = Vector2(0, -11.52)
+
+[node name="Tile_1_0" type="Sprite2D" parent="."]
+position = Vector2(288, 196)
+scale = Vector2(0.3004694835680751, 0.3004694835680751)
+texture_filter = 1
+texture = ExtResource("grass")
+offset = Vector2(0, -12.32)
+
+[node name="Tile_1_1" type="Sprite2D" parent="."]
+position = Vector2(320, 212)
+scale = Vector2(0.3004694835680751, 0.3004694835680751)
+texture_filter = 1
+texture = ExtResource("grass")
+offset = Vector2(0, -12.32)
+
+[node name="Tile_1_2" type="Sprite2D" parent="."]
+position = Vector2(352, 228)
+scale = Vector2(0.34972677595628415, 0.34972677595628415)
+texture_filter = 1
+texture = ExtResource("edge")
+offset = Vector2(0, -9.68)
+
+[node name="Tile_1_3" type="Sprite2D" parent="."]
+position = Vector2(384, 244)
+scale = Vector2(0.3018867924528302, 0.3018867924528302)
+texture_filter = 1
+texture = ExtResource("dirt")
+offset = Vector2(0, -11.52)
+
+[node name="Tile_1_4" type="Sprite2D" parent="."]
+position = Vector2(416, 260)
+scale = Vector2(0.3018867924528302, 0.3018867924528302)
+texture_filter = 1
+texture = ExtResource("dirt")
+offset = Vector2(0, -11.52)
+
+[node name="Tile_2_0" type="Sprite2D" parent="."]
+position = Vector2(256, 212)
+scale = Vector2(0.3004694835680751, 0.3004694835680751)
+texture_filter = 1
+texture = ExtResource("grass")
+offset = Vector2(0, -12.32)
+
+[node name="Tile_2_1" type="Sprite2D" parent="."]
+position = Vector2(288, 228)
+scale = Vector2(0.3004694835680751, 0.3004694835680751)
+texture_filter = 1
+texture = ExtResource("grass")
+offset = Vector2(0, -12.32)
+
+[node name="Tile_2_2" type="Sprite2D" parent="."]
+position = Vector2(320, 244)
+scale = Vector2(0.34972677595628415, 0.34972677595628415)
+texture_filter = 1
+texture = ExtResource("edge")
+offset = Vector2(0, -9.68)
+
+[node name="Tile_2_3" type="Sprite2D" parent="."]
+position = Vector2(352, 260)
+scale = Vector2(0.3018867924528302, 0.3018867924528302)
+texture_filter = 1
+texture = ExtResource("dirt")
+offset = Vector2(0, -11.52)
+
+[node name="Tile_2_4" type="Sprite2D" parent="."]
+position = Vector2(384, 276)
+scale = Vector2(0.3018867924528302, 0.3018867924528302)
+texture_filter = 1
+texture = ExtResource("dirt")
+offset = Vector2(0, -11.52)
+
+[node name="Tile_3_0" type="Sprite2D" parent="."]
+position = Vector2(224, 228)
+scale = Vector2(0.3004694835680751, 0.3004694835680751)
+texture_filter = 1
+texture = ExtResource("grass")
+offset = Vector2(0, -12.32)
+
+[node name="Tile_3_1" type="Sprite2D" parent="."]
+position = Vector2(256, 244)
+scale = Vector2(0.3004694835680751, 0.3004694835680751)
+texture_filter = 1
+texture = ExtResource("grass")
+offset = Vector2(0, -12.32)
+
+[node name="Tile_3_2" type="Sprite2D" parent="."]
+position = Vector2(288, 260)
+scale = Vector2(0.34972677595628415, 0.34972677595628415)
+texture_filter = 1
+texture = ExtResource("edge")
+offset = Vector2(0, -9.68)
+
+[node name="Tile_3_3" type="Sprite2D" parent="."]
+position = Vector2(320, 276)
+scale = Vector2(0.3018867924528302, 0.3018867924528302)
+texture_filter = 1
+texture = ExtResource("dirt")
+offset = Vector2(0, -11.52)
+
+[node name="Tile_3_4" type="Sprite2D" parent="."]
+position = Vector2(352, 292)
+scale = Vector2(0.3018867924528302, 0.3018867924528302)
+texture_filter = 1
+texture = ExtResource("dirt")
+offset = Vector2(0, -11.52)

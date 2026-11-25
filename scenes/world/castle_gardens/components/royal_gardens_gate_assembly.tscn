@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/region_portal.tscn" id="1_portal"]
+
+[node name="RoyalGardensGateAssembly" type="Node2D"]
+
+[node name="GreenwardReturnGate" parent="." instance=ExtResource("1_portal")]
+position = Vector2(-64, 352)
+region_id = "castle_royal_gardens"
+connection_id = "gardens_to_greenward"
+target_region = "greenward"
+entry_point = "royal_road"
+portal_label = "Return to Greenward"

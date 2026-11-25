@@ -15,22 +15,56 @@ func bind(owner: Battlefield) -> void:
 	by_uid = battlefield._by_uid
 
 
+static func battle_background_path_for_group(group_id: String) -> String:
+	var group_data: Dictionary = ContentDB.get_enemy_group(group_id)
+	var region_id := str(group_data.get("region", "greenward"))
+	match group_id:
+		"tutorial_fairy_spar":
+			return "res://assets/ui/battle/backgrounds/frozen_castle_courtyard.png"
+		"fallen_matron_encounter":
+			return "res://assets/backgrounds/withered_estate_battle.svg"
+		"corrupted_treant":
+			return "res://assets/ui/battle/backgrounds/crimson_castle_ruins.png"
+		"elder_hollow":
+			return "res://assets/backgrounds/greenward_battle.svg"
+		"baltoria_encounter":
+			return "res://assets/ui/battle/backgrounds/gothic_cathedral_hall.png"
+	match region_id:
+		"castle_royal_gardens":
+			return "res://assets/ui/battle/backgrounds/moonlit_royal_garden.png"
+		"gothic_castle_boss_zone", "royal_gate", "training_ground":
+			return "res://assets/ui/battle/backgrounds/frozen_castle_courtyard.png"
+		"forsaken_ruins", "ruined_tower":
+			return "res://assets/ui/battle/backgrounds/crimson_castle_ruins.png"
+	return "res://assets/backgrounds/greenward_battle.svg"
+
+
 func build_environment() -> void:
 	if battlefield == null:
 		return
+	var art_backdrop := battlefield.get_node_or_null("ArenaArtBackdrop") as TextureRect
 	var field_backdrop := battlefield.get_node_or_null("GreenwardForestBackdrop") as Control
 	var boss_backdrop := battlefield.get_node_or_null("GreenwardRootArenaBackdrop") as Control
 	var estate_backdrop := battlefield.get_node_or_null("WitheredEstateBackdrop") as Control
 	embers = battlefield.get_node_or_null("Embers") as CPUParticles2D
 	stage = battlefield.get_node_or_null("Actors") as Node2D
-	if field_backdrop == null or boss_backdrop == null or estate_backdrop == null or embers == null or stage == null:
+	if art_backdrop == null or field_backdrop == null or boss_backdrop == null or estate_backdrop == null or embers == null or stage == null:
 		push_error("Battlefield scene is missing an authored backdrop, Embers, or Actors node.")
 		return
-	field_backdrop.visible = battlefield.arena_id not in ["fallen_matron_encounter", "corrupted_treant", "elder_hollow"]
-	boss_backdrop.visible = battlefield.arena_id in ["corrupted_treant", "elder_hollow"]
+	var art_path := battle_background_path_for_group(battlefield.arena_id)
+	var has_dedicated_arena_art := art_path.begins_with("res://assets/ui/battle/backgrounds/")
+	art_backdrop.texture = load(art_path) as Texture2D if has_dedicated_arena_art else null
+	art_backdrop.visible = has_dedicated_arena_art and art_backdrop.texture != null
+	field_backdrop.visible = not art_backdrop.visible and battlefield.arena_id not in ["fallen_matron_encounter", "corrupted_treant", "elder_hollow"]
+	boss_backdrop.visible = not art_backdrop.visible and battlefield.arena_id in ["corrupted_treant", "elder_hollow"]
 	boss_backdrop.set("arena_id", battlefield.arena_id)
-	estate_backdrop.visible = battlefield.arena_id == "fallen_matron_encounter"
-	embers.color = Color(0.85, 0.6, 0.95, 0.22) if battlefield.arena_id == "fallen_matron_encounter" else Color(0.62, 0.9, 0.48, 0.20)
+	estate_backdrop.visible = not art_backdrop.visible and battlefield.arena_id == "fallen_matron_encounter"
+	if battlefield.arena_id == "fallen_matron_encounter":
+		embers.color = Color(0.85, 0.6, 0.95, 0.22)
+	elif battlefield.arena_id == "baltoria_encounter" or has_dedicated_arena_art:
+		embers.color = Color(0.78, 0.55, 0.95, 0.20)
+	else:
+		embers.color = Color(0.62, 0.9, 0.48, 0.20)
 	battlefield._embers = embers
 	battlefield._stage = stage
 

@@ -1,0 +1,154 @@
+[gd_scene load_steps=26 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/01_rose_arch.png" id="asset_1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/02_royal_banner_arch.png" id="asset_2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/03_banner_pillar.png" id="asset_3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/04_royal_lantern_post.png" id="asset_4"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/05_rose_statue.png" id="asset_5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/06_wisteria_gazebo.png" id="asset_6"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/07_tiered_fountain.png" id="asset_7"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/08_cherry_blossom_tree.png" id="asset_8"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/09_wisteria_tree.png" id="asset_9"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/10_topiary.png" id="asset_10"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/11_ornate_bench.png" id="asset_11"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/12_rose_planter.png" id="asset_12"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/13_white_lily_planter.png" id="asset_13"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/14_violet_planter.png" id="asset_14"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/15_flower_hedge.png" id="asset_15"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/16_royal_banner_rail.png" id="asset_16"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/17_flowering_rock_cluster.png" id="asset_17"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/18_stone_tile_block.png" id="asset_18"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/19_curved_path_corner_a.png" id="asset_19"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/20_curved_path_corner_b.png" id="asset_20"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/21_diamond_medallion_tile.png" id="asset_21"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/22_long_stone_wall_strip.png" id="asset_22"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/23_short_stone_wall_strip.png" id="asset_23"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/24_grass_flower_patch_a.png" id="asset_24"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/25_grass_flower_patch_b.png" id="asset_25"]
+
+[node name="RoyalGardensAssetLibrary" type="Node2D"]
+
+[node name="01_rose_arch" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_1")
+position = Vector2(260, 250)
+
+[node name="02_royal_banner_arch" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_2")
+position = Vector2(820, 250)
+
+[node name="03_banner_pillar" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_3")
+position = Vector2(1380, 250)
+
+[node name="04_royal_lantern_post" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_4")
+position = Vector2(1940, 250)
+
+[node name="05_rose_statue" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_5")
+position = Vector2(2500, 250)
+
+[node name="06_wisteria_gazebo" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_6")
+position = Vector2(260, 750)
+
+[node name="07_tiered_fountain" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_7")
+position = Vector2(820, 750)
+
+[node name="08_cherry_blossom_tree" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_8")
+position = Vector2(1380, 750)
+
+[node name="09_wisteria_tree" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_9")
+position = Vector2(1940, 750)
+
+[node name="10_topiary" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_10")
+position = Vector2(2500, 750)
+
+[node name="11_ornate_bench" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_11")
+position = Vector2(260, 1250)
+
+[node name="12_rose_planter" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_12")
+position = Vector2(820, 1250)
+
+[node name="13_white_lily_planter" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_13")
+position = Vector2(1380, 1250)
+
+[node name="14_violet_planter" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_14")
+position = Vector2(1940, 1250)
+
+[node name="15_flower_hedge" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_15")
+position = Vector2(2500, 1250)
+
+[node name="16_royal_banner_rail" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_16")
+position = Vector2(260, 1750)
+
+[node name="17_flowering_rock_cluster" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_17")
+position = Vector2(820, 1750)
+
+[node name="18_stone_tile_block" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_18")
+position = Vector2(1380, 1750)
+
+[node name="19_curved_path_corner_a" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_19")
+position = Vector2(1940, 1750)
+
+[node name="20_curved_path_corner_b" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_20")
+position = Vector2(2500, 1750)
+
+[node name="21_diamond_medallion_tile" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_21")
+position = Vector2(260, 2250)
+
+[node name="22_long_stone_wall_strip" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_22")
+position = Vector2(820, 2250)
+
+[node name="23_short_stone_wall_strip" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_23")
+position = Vector2(1380, 2250)
+
+[node name="24_grass_flower_patch_a" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_24")
+position = Vector2(1940, 2250)
+
+[node name="25_grass_flower_patch_b" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("asset_25")
+position = Vector2(2500, 2250)

@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_stone_path.tscn" id="tile"]
+
+[node name="RoyalGateExitNativeBridge" type="Node2D"]
+z_index = -19
+
+[node name="StoneBridge_01" parent="." instance=ExtResource("tile")]
+position = Vector2(1490, 2268)
+
+[node name="StoneBridge_02" parent="." instance=ExtResource("tile")]
+position = Vector2(1554, 2268)
+
+[node name="StoneBridge_03" parent="." instance=ExtResource("tile")]
+position = Vector2(1618, 2268)
+
+[node name="StoneBridge_04" parent="." instance=ExtResource("tile")]
+position = Vector2(1458, 2284)
+
+[node name="StoneBridge_05" parent="." instance=ExtResource("tile")]
+position = Vector2(1522, 2284)
+
+[node name="StoneBridge_06" parent="." instance=ExtResource("tile")]
+position = Vector2(1586, 2284)
+
+[node name="StoneBridge_07" parent="." instance=ExtResource("tile")]
+position = Vector2(1650, 2284)
+
+[node name="StoneBridge_08" parent="." instance=ExtResource("tile")]
+position = Vector2(1490, 2300)
+
+[node name="StoneBridge_09" parent="." instance=ExtResource("tile")]
+position = Vector2(1554, 2300)
+
+[node name="StoneBridge_10" parent="." instance=ExtResource("tile")]
+position = Vector2(1618, 2300)
+
+[node name="StoneBridge_11" parent="." instance=ExtResource("tile")]
+position = Vector2(1458, 2316)
+
+[node name="StoneBridge_12" parent="." instance=ExtResource("tile")]
+position = Vector2(1522, 2316)
+
+[node name="StoneBridge_13" parent="." instance=ExtResource("tile")]
+position = Vector2(1586, 2316)
+
+[node name="StoneBridge_14" parent="." instance=ExtResource("tile")]
+position = Vector2(1650, 2316)
+
+[node name="StoneBridge_15" parent="." instance=ExtResource("tile")]
+position = Vector2(1490, 2332)
+
+[node name="StoneBridge_16" parent="." instance=ExtResource("tile")]
+position = Vector2(1554, 2332)
+
+[node name="StoneBridge_17" parent="." instance=ExtResource("tile")]
+position = Vector2(1618, 2332)
+
+[node name="StoneBridge_18" parent="." instance=ExtResource("tile")]
+position = Vector2(1522, 2348)
+
+[node name="StoneBridge_19" parent="." instance=ExtResource("tile")]
+position = Vector2(1586, 2348)
+
+[node name="EdgeNotchWest_01" parent="." instance=ExtResource("tile")]
+position = Vector2(1426, 2300)
+
+[node name="EdgeNotchWest_02" parent="." instance=ExtResource("tile")]
+position = Vector2(1394, 2316)
+
+[node name="EdgeNotchWest_03" parent="." instance=ExtResource("tile")]
+position = Vector2(1426, 2332)
+
+[node name="EdgeNotchNorth_01" parent="." instance=ExtResource("tile")]
+position = Vector2(1522, 2252)
+
+[node name="EdgeNotchNorth_02" parent="." instance=ExtResource("tile")]
+position = Vector2(1586, 2252)
+
+[node name="EdgeNeckSouthWest" parent="." instance=ExtResource("tile")]
+position = Vector2(1458, 2348)

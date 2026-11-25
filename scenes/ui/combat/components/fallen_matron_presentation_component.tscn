@@ -1,8 +1,92 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/combat/fallen_matron_presentation_component.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/ui/combat/components/fallen_matron_illustration.tscn" id="2_art"]
 [ext_resource type="PackedScene" path="res://scenes/ui/combat/components/matron_corruption_motes.tscn" id="3_motes"]
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 1.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Art:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.45, 0.9, 1.35, 1.8), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [Vector2(0, -96), Vector2(2, -92.5), Vector2(0, -96), Vector2(-2, -92.5), Vector2(0, -96)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Art:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.9, 1.8), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [-0.022, 0.022, -0.022]}
+
+[sub_resource type="Animation" id="Animation_phase_change"]
+resource_name = "phase_change"
+length = 0.42
+tracks/0/type = "value"
+tracks/0/path = NodePath("Art:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.18, 0.42), "transitions": PackedFloat32Array(1, 0.65, 1), "update": 0, "values": [0.0, 0.055, 0.0]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Art:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.08, 0.42), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1.25, 0.9, 1.35, 1), Color(1, 1, 1, 1)]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Art:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {"times": PackedFloat32Array(0, 0.18, 0.42), "transitions": PackedFloat32Array(1, 0.65, 1), "update": 0, "values": [Vector2(0, -96), Vector2(0, -103), Vector2(0, -96)]}
+
+[sub_resource type="Animation" id="Animation_hit"]
+resource_name = "hit"
+length = 0.30
+tracks/0/type = "value"
+tracks/0/path = NodePath("Art:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.06, 0.30), "transitions": PackedFloat32Array(1, 0.7, 1), "update": 0, "values": [0.0, 0.05236, 0.0]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Art:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.055, 0.30), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(2, 1.45, 2.2, 1), Color(1, 1, 1, 1)]}
+
+[sub_resource type="Animation" id="Animation_attack"]
+resource_name = "attack"
+length = 0.54
+tracks/0/type = "value"
+tracks/0/path = NodePath("Art:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.18, 0.28, 0.54), "transitions": PackedFloat32Array(1, 0.7, 1, 1), "update": 0, "values": [0.0, 0.0872665, -0.0872665, 0.0]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Art:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.18, 0.28, 0.54), "transitions": PackedFloat32Array(1, 0.7, 1, 1), "update": 0, "values": [Vector2(0, -96), Vector2(0, -106), Vector2(0, -91), Vector2(0, -96)]}
+
+[sub_resource type="Animation" id="Animation_death"]
+resource_name = "death"
+length = 0.62
+tracks/0/type = "value"
+tracks/0/path = NodePath("Art:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.42), "transitions": PackedFloat32Array(1, 0.35), "update": 0, "values": [0.0, -0.20944]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Art:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.55), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Vector2(0, -96), Vector2(0, -66)]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Art:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {"times": PackedFloat32Array(0, 0.62), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(0.62, 0.38, 0.78, 0)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_matron"]
+_data = {"idle": SubResource("Animation_idle"), "phase_change": SubResource("Animation_phase_change"), "hit": SubResource("Animation_hit"), "attack": SubResource("Animation_attack"), "death": SubResource("Animation_death")}
 
 [node name="MatronPresentation" type="Node2D"]
 script = ExtResource("1_script")
@@ -10,3 +94,6 @@ script = ExtResource("1_script")
 [node name="Art" parent="." instance=ExtResource("2_art")]
 
 [node name="CorruptionMotes" parent="." instance=ExtResource("3_motes")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {"": SubResource("AnimationLibrary_matron")}

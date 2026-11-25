@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/components/vegetation_part.gd" id="1_script"]
+[ext_resource type="AnimationLibrary" path="res://resources/world/environment/vegetation_canopy_presentation.tres" id="2_presentation"]
 
 [node name="VegetationCanopy" type="Node2D"]
 script = ExtResource("1_script")
@@ -10,3 +11,9 @@ texture_kind = "glade_tree"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 centered = false
 texture_filter = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("2_presentation")
+}
+autoplay = "canopy_wind_sway"

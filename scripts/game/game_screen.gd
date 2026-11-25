@@ -16,6 +16,7 @@ var combat_router: GameCombatRouterComponent
 var input_router: GameInputRouterComponent
 var runtime_component: GameRuntimeComponent
 var quest_navigation_component: GameQuestNavigationComponent
+var coop_sync_component: CoopWorldSyncComponent
 var ui_layer: CanvasLayer
 var hud: HUD
 var dialogue: DialogueBox
@@ -36,6 +37,7 @@ func _ready() -> void:
 	world_session = get_node_or_null("WorldSession") as GameWorldSessionComponent
 	runtime_component = get_node_or_null("Runtime") as GameRuntimeComponent
 	quest_navigation_component = get_node_or_null("QuestNavigation") as GameQuestNavigationComponent
+	coop_sync_component = get_node_or_null("CoopWorldSync") as CoopWorldSyncComponent
 	quest_resolver = quest_navigation_component.resolver if quest_navigation_component != null else null
 	overlay_router = get_node_or_null("OverlayRouter") as GameOverlayRouterComponent
 	combat_router = get_node_or_null("CombatRouter") as GameCombatRouterComponent
@@ -45,6 +47,8 @@ func _ready() -> void:
 		return
 	runtime_component.bind(self)
 	_build_world(GameState.session_domain.player_region, "")
+	if coop_sync_component != null:
+		coop_sync_component.bind(self)
 	AudioDirector.play_exploration_theme()
 	_build_ui()
 	overlay_router.overlay_closed.connect(_on_overlay_closed)
@@ -57,6 +61,7 @@ func _ready() -> void:
 	_set_world_active(true)
 
 func _exit_tree() -> void:
+	AudioDirector.sync_region_ambience("title_screen")
 	# Explicit shutdown cleanup BEFORE the RenderingServer is finalized. GDScript
 	# static state lives on the script resource, which is freed during global
 	# cleanup AFTER the dummy renderer; any ImageTexture still pinned by a static
@@ -65,12 +70,6 @@ func _exit_tree() -> void:
 	# they free cleanly. Caches are lazy, so this is also safe on a region change
 	# / return-to-title (textures just regenerate on the next request).
 	ProceduralArt.clear_all_caches()
-	# ChunkBuilder caches one shared ShaderMaterial (and its detail.gdshader) in a
-	# static var. That static reference would likewise outlive the dummy renderer,
-	# leaking its DummyMaterial / DummyShader RID; release it at teardown too. It
-	# is rebuilt lazily by _detail_material_cached() on the next build.
-	ChunkBuilder._detail_material = null
-	ChunkBuilder._valid_kind_set = {}
 	if world_session != null:
 		world_session.persist_current_world_state()
 	TouchInput.release()

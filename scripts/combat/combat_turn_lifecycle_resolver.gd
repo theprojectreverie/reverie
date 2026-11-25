@@ -8,6 +8,9 @@ static func begin_actor_turn(actor: Combatant) -> Dictionary:
 		return {"events": [], "log_messages": [], "skipped": true}
 	var events: Array = []
 	var log_messages: Array[String] = []
+	# Defend protects through the opponents' turns and expires as the unit's
+	# next turn begins.
+	actor.defending = false
 	for ready_skill_id in actor.tick_skill_cooldowns():
 		events.append({
 			"type": "cooldown_ready",

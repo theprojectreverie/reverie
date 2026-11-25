@@ -66,11 +66,12 @@ func _check_new_game() -> void:
 	_check("gerald resolves in ContentDB", ContentDB.get_character("gerald") != null)
 	_check("lilith resolves in ContentDB", ContentDB.get_character("lilith") != null)
 	_check("kael resolves in ContentDB", ContentDB.get_character("kael") != null)
-	_check("removed starters are not owned", not GameState.owns_character("mira_sol") and not GameState.owns_character("bramble"))
+	for retired_id in GameState.REMOVED_CHARACTERS:
+		_check("new_game excludes retired character " + retired_id, not GameState.owns_character(retired_id))
 	var menu_scene := load("res://scenes/ui/main_menu.tscn") as PackedScene
 	var menu := menu_scene.instantiate() as MainMenu
 	add_child(menu)
-	_check("main menu uses the authored title composition", menu.get_node_or_null("ContinueButton") != null and menu.get_node_or_null("NewJourneyButton") != null)
+	_check("main menu uses the authored title composition", menu.get_node_or_null("RaviennaPortrait") is TextureRect and menu.get_node_or_null("ReferenceInterface/ReverieTitleLogo") is TextureRect and menu.get_node_or_null("ReferenceInterface/BottomNavigation/StoryButton") is Button and menu.get_node_or_null("ReferenceInterface/BottomNavigation/WorldButton") is Button)
 	menu.queue_free()
 	_check("MainCharacterRoster sees gerald in ContentDB", MainCharacterRoster.is_in_content_db("gerald"))
 	_check("MainCharacterRoster sees lilith in ContentDB", MainCharacterRoster.is_in_content_db("lilith"))
@@ -112,10 +113,23 @@ func _legacy_save() -> Dictionary:
 	var kael := CharacterInstance.create("kael", "legacy_kael")
 	var bramble := CharacterInstance.create("bramble", "legacy_bramble")
 	bramble.equipment = { "armor": "mossweave_vest" }
+	var retired_roster: Array = [mira.to_dict(), kael.to_dict(), bramble.to_dict()]
+	var retired_party := ["legacy_mira", "legacy_kael", "legacy_bramble"]
+	for retired_id in GameState.REMOVED_CHARACTERS:
+		if retired_id in ["mira_sol", "bramble"]:
+			continue
+		var retired := CharacterInstance.create(retired_id, "legacy_" + retired_id)
+		if retired_id == "lyra_vey":
+			retired.equipment = { "weapon": "gladewood_bow" }
+		elif retired_id == "seraphine":
+			retired.equipment = { "armor": "mossweave_vest" }
+		retired_roster.append(retired.to_dict())
+		if retired_id == "lyra_vey":
+			retired_party.append(retired.uid)
 	return {
 		"profile": { "name": "Legacy", "level": 1, "gold": 0, "crystals": 0 },
-		"roster": [mira.to_dict(), kael.to_dict(), bramble.to_dict()],
-		"party": ["legacy_mira", "legacy_kael", "legacy_bramble"],
+		"roster": retired_roster,
+		"party": retired_party,
 		"inventory": {},
 		"quests": {},
 		"pity": {},
@@ -127,20 +141,20 @@ func _legacy_save() -> Dictionary:
 
 func _check_legacy_save_migration() -> void:
 	GameState._load_from_dict(_legacy_save())
-	_check("migration removes mira_sol", not GameState.owns_character("mira_sol"))
-	_check("migration removes bramble", not GameState.owns_character("bramble"))
+	for retired_id in GameState.REMOVED_CHARACTERS:
+		_check("migration removes retired character " + retired_id, not GameState.owns_character(retired_id))
 	_check("migration adds gerald", GameState.owns_character("gerald"))
 	_check("migration adds lilith", GameState.owns_character("lilith"))
 	_check("migration keeps kael", GameState.owns_character("kael"))
 	_check("migrated roster is exactly the 3 starters", GameState.roster.size() == 3, str(GameState.roster.size()))
 	_check("migrated party is exactly the 3 starters", _party_ids() == ["gerald", "lilith", "kael"], str(_party_ids()))
-	_check("equipped weapon was refunded", GameState.item_count("gladewood_bow") == 1, str(GameState.item_count("gladewood_bow")))
-	_check("equipped armor was refunded", GameState.item_count("mossweave_vest") == 1, str(GameState.item_count("mossweave_vest")))
+	_check("all retired weapon copies were refunded", GameState.item_count("gladewood_bow") == 2, str(GameState.item_count("gladewood_bow")))
+	_check("all retired armor copies were refunded", GameState.item_count("mossweave_vest") == 2, str(GameState.item_count("mossweave_vest")))
 
 
 func _check_save_round_trip() -> void:
 	GameState.new_game("Round Trip")
-	GameState.add_character("coralyn")
+	GameState.add_character("ravienna")
 	GameState.save_now()
 	var loaded := SaveService.load_save()
 	_check("save contains 4 owned characters", loaded.get("roster", []).size() == 4, str(loaded.get("roster", []).size()))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/actor_visual.gd" id="1_actor_visual"]
 [ext_resource type="PackedScene" path="res://scenes/characters/components/directional_equipment/directional_equipment_layers.tscn" id="2_directional"]
@@ -15,6 +15,10 @@
 [ext_resource type="Script" path="res://scripts/world/components/actor_sprite_component.gd" id="12_sprite"]
 [ext_resource type="Script" path="res://scripts/world/components/actor_character_effects_component.gd" id="13_character_fx"]
 
+[ext_resource type="PackedScene" path="res://scenes/characters/components/kael_combat_effects.tscn" id="15_kael_fx"]
+[ext_resource type="PackedScene" path="res://scenes/characters/components/lilith_spectral_effects.tscn" id="16_lilith_fx"]
+[ext_resource type="PackedScene" path="res://scenes/characters/components/shared_character_effects.tscn" id="17_shared_fx"]
+
 [node name="ActorVisual" type="Node2D"]
 script = ExtResource("1_actor_visual")
 
@@ -25,6 +29,9 @@ texture_filter = 1
 [node name="DirectionalEquipment" parent="." instance=ExtResource("2_directional")]
 
 [node name="Effects" parent="." instance=ExtResource("3_effects")]
+[node name="KaelCombatEffects" parent="." instance=ExtResource("15_kael_fx")]
+[node name="LilithSpectralEffects" parent="." instance=ExtResource("16_lilith_fx")]
+[node name="SharedCharacterEffects" parent="." instance=ExtResource("17_shared_fx")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

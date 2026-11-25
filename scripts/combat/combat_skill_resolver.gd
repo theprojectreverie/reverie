@@ -228,7 +228,17 @@ func check_boss_phases(unit: Combatant) -> Array:
 					float(status.get("potency", 0.0))
 				)
 			var message := str(phase.get("message", "The boss changes."))
-			events.append({ "type": "phase", "actor_uid": unit.uid, "message": message })
+			events.append({
+				"type": "phase",
+				"actor_uid": unit.uid,
+				"boss_id": unit.def_id,
+				"boss_name": unit.display_name,
+				"phase_index": phase_index,
+				# The pre-transition combat state is Phase 1; the first HP
+				# threshold therefore enters Phase 2, then Phase 3.
+				"phase_number": phase_index + 2,
+				"message": message,
+			})
 			engine._append_log(message)
 	return events
 

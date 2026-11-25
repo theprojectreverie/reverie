@@ -35,6 +35,7 @@ func interact() -> void:
 	_is_open = true
 	if animation_player and animation_player.has_animation("open"):
 		animation_player.play("open")
+	AudioDirector.play_variant("chest_open")
 	opened.emit()
 	if not rewards.is_empty():
 		GameState.inventory_domain.grant_reward_items(rewards)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/online/pvp_gateway.gd" id="1"]
+
+[node name="PvpGateway" type="Node"]
+script = ExtResource("1")
+
+[node name="QueueJoinRequest" type="HTTPRequest" parent="."]
+
+[node name="QueueLeaveRequest" type="HTTPRequest" parent="."]
+
+[node name="QueueStatusRequest" type="HTTPRequest" parent="."]
+
+[node name="MatchEventsRequest" type="HTTPRequest" parent="."]
+
+[node name="MatchActionRequest" type="HTTPRequest" parent="."]
+
+[node name="MatchSurrenderRequest" type="HTTPRequest" parent="."]
+
+[node name="QueueStatusTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = false
+
+[node name="MatchEventsTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = false
+[connection signal="timeout" from="QueueStatusTimer" to="." method="refresh_queue_status"]
+[connection signal="timeout" from="MatchEventsTimer" to="." method="_poll_match_events"]

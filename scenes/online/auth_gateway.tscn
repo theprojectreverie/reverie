@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/online/auth_gateway.gd" id="1"]
+
+[node name="AuthGateway" type="Node"]
+script = ExtResource("1")
+
+[node name="RegisterRequest" type="HTTPRequest" parent="."]
+timeout = 15.0
+
+[node name="VerifyRequest" type="HTTPRequest" parent="."]
+timeout = 15.0
+
+[node name="LoginRequest" type="HTTPRequest" parent="."]
+timeout = 15.0
+
+[node name="RefreshRequest" type="HTTPRequest" parent="."]
+timeout = 15.0
+
+[node name="LogoutRequest" type="HTTPRequest" parent="."]
+timeout = 15.0
+
+[node name="LogoutAllRequest" type="HTTPRequest" parent="."]
+timeout = 15.0

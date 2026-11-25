@@ -1,0 +1,249 @@
+[gd_resource type="AnimationLibrary" format=3 uid="uid://buvg6w7erouh0"]
+
+[sub_resource type="Animation" id="Animation_battle_basic"]
+resource_name = "battle_basic"
+length = 0.48
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.22, 0.48),
+"transitions": PackedFloat32Array(1, 0.65, 1, 1),
+"update": 0,
+"values": [0.0, -0.07, 0.055, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.22, 0.48),
+"transitions": PackedFloat32Array(1, 0.65, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.94, 1.06), Vector2(1.08, 0.94), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_battle_cast"]
+resource_name = "battle_cast"
+length = 0.62
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.22, 0.62),
+"transitions": PackedFloat32Array(1, 0.7, 1),
+"update": 0,
+"values": [0.0, -0.095, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.22, 0.38, 0.62),
+"transitions": PackedFloat32Array(1, 0.65, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 1.1), Vector2(1.12, 0.88), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_battle_hit"]
+resource_name = "battle_hit"
+length = 0.34
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.16, 0.34),
+"transitions": PackedFloat32Array(1, 0.65, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-7, 2), Vector2(3, -1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.16, 0.34),
+"transitions": PackedFloat32Array(1, 0.65, 1, 1),
+"update": 0,
+"values": [0.0, 0.09, -0.035, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorVisual:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.16, 0.34),
+"transitions": PackedFloat32Array(1, 0.65, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 0.91), Vector2(0.97, 1.04), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_battle_recover"]
+resource_name = "battle_recover"
+length = 0.12
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12),
+"transitions": PackedFloat32Array(0.7, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12),
+"transitions": PackedFloat32Array(0.7, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gerald_attack"]
+resource_name = "gerald_attack"
+length = 0.54
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.28, 0.54),
+"transitions": PackedFloat32Array(1, 0.55, 1, 1),
+"update": 0,
+"values": [0.0, -0.16, 0.11, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.28, 0.54),
+"transitions": PackedFloat32Array(1, 0.6, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.91, 1.08), Vector2(1.1, 0.92), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gerald_cast"]
+resource_name = "gerald_cast"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.24, 0.44, 0.7),
+"transitions": PackedFloat32Array(1, 0.65, 0.9, 1),
+"update": 0,
+"values": [0.0, -0.12, 0.06, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.24, 0.44, 0.7),
+"transitions": PackedFloat32Array(1, 0.65, 0.9, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.93, 1.07), Vector2(1.09, 0.94), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lilith_attack"]
+resource_name = "lilith_attack"
+length = 0.66
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.36, 0.66),
+"transitions": PackedFloat32Array(1, 0.6, 1, 1),
+"update": 0,
+"values": [0.0, -0.13, 0.1, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.36, 0.66),
+"transitions": PackedFloat32Array(1, 0.7, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.96, 1.05), Vector2(1.06, 0.94), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lilith_cast"]
+resource_name = "lilith_cast"
+length = 0.82
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.58, 0.82),
+"transitions": PackedFloat32Array(1, 0.7, 0.8, 1),
+"update": 0,
+"values": [0.0, -0.1, 0.07, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.58, 0.82),
+"transitions": PackedFloat32Array(1, 0.7, 0.8, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.92, 1.08), Vector2(1.08, 0.94), Vector2(1, 1)]
+}
+
+[resource]
+_data = {
+&"battle_basic": SubResource("Animation_battle_basic"),
+&"battle_cast": SubResource("Animation_battle_cast"),
+&"battle_hit": SubResource("Animation_battle_hit"),
+&"battle_recover": SubResource("Animation_battle_recover"),
+&"gerald_attack": SubResource("Animation_gerald_attack"),
+&"gerald_cast": SubResource("Animation_gerald_cast"),
+&"lilith_attack": SubResource("Animation_lilith_attack"),
+&"lilith_cast": SubResource("Animation_lilith_cast")
+}

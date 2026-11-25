@@ -57,12 +57,13 @@ func tick_roam_timer(delta: float) -> bool:
 
 
 func pick_roam_target(current_position: Vector2, is_walkable: Callable = Callable(), rng: RandomNumberGenerator = null) -> Vector2:
+	# Sample a disk, not a square: roam_radius is a true maximum distance
+	# from the authored home position in the monster parent's local space.
 	for _i in 8:
-		var offset := Vector2(
-			rng.randf_range(-roam_radius, roam_radius) if rng != null else randf_range(-roam_radius, roam_radius),
-			rng.randf_range(-roam_radius, roam_radius) if rng != null else randf_range(-roam_radius, roam_radius)
-		)
-		var candidate := home_position + offset
+		var angle := rng.randf_range(0.0, TAU) if rng != null else randf_range(0.0, TAU)
+		# sqrt gives a uniform distribution over the disk's area.
+		var distance := sqrt(rng.randf()) * maxf(roam_radius, 0.0) if rng != null else sqrt(randf()) * maxf(roam_radius, 0.0)
+		var candidate := home_position + Vector2(cos(angle), sin(angle)) * distance
 		if not is_walkable.is_valid() or bool(is_walkable.call(candidate)):
 			current_target_position = candidate
 			return candidate
@@ -73,14 +74,18 @@ func pick_roam_target(current_position: Vector2, is_walkable: Callable = Callabl
 func move_toward_target(body: Node2D, target_pos: Vector2, delta: float, speed_mult: float = 1.0) -> Vector2:
 	if body == null:
 		return Vector2.ZERO
-	if body.global_position.distance_to(target_pos) <= 4.0:
+	# Roaming targets and home positions are stored in the monster parent's
+	# local space (setup() assigns Node2D.position). Keep movement in that same
+	# space; mixing a local target with global_position breaks as soon as the
+	# authored Entities/container node has a transform.
+	if body.position.distance_to(target_pos) <= 4.0:
 		destination_reached.emit(target_pos)
 		return Vector2.ZERO
-	var dir := (target_pos - body.global_position)
+	var dir := target_pos - body.position
 	if dir.length() <= 0.001:
 		return Vector2.ZERO
 	var step := move_speed * speed_mult * delta
-	body.global_position = body.global_position.move_toward(target_pos, step)
+	body.position = body.position.move_toward(target_pos, step)
 	return dir.normalized()
 
 

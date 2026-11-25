@@ -1,0 +1,1 @@
+18 separate RGBA PNG sprites extracted from the generated source. Transparent pixels outside each sprite. Canvas dimensions are multiples of 32 pixels, without resizing or blurring. These are multi-tile sprites, not individually hand-authored 32x32 tiles. Inspect in Godot before deployment.

@@ -6,14 +6,14 @@ extends Control
 ## Phase 12).
 
 signal closed
+signal boss_phase_transition_completed
 
 const TURN_DELAY := 0.78
 const IMPACT_DELAY := 0.58
-const BATTLEFIELD_SCENE: PackedScene = preload("res://scenes/ui/battlefield.tscn")
-const COMBAT_LAYOUT_SCENE: PackedScene = preload("res://scenes/ui/components/combat_screen_layout.tscn")
 const PORTRAIT_VIEW_SCENE: PackedScene = preload("res://scenes/ui/components/portrait_view.tscn")
 
 var group_id: String = ""
+var _previous_music := ""
 var engine: CombatEngine
 var _battlefield: Battlefield = null
 var _enemy_row: HBoxContainer
@@ -60,6 +60,7 @@ var _hud_component: CombatHudComponent
 var _layout_component: CombatLayoutComponent
 var _session_component: CombatSessionComponent
 var _input_component: CombatInputComponent
+var _boss_presentation_rig: Node = null
 
 
 func _ready() -> void:
@@ -76,6 +77,11 @@ func _ready() -> void:
 	_hud_component = get_node_or_null("HUD") as CombatHudComponent
 	_session_component = get_node_or_null("Session") as CombatSessionComponent
 	_input_component = get_node_or_null("Input") as CombatInputComponent
+	_boss_presentation_rig = get_node_or_null("BossPresentationRig")
+	if _boss_presentation_rig != null and _boss_presentation_rig.has_signal("phase_change_finished"):
+		var phase_finished_callback := Callable(self, "_on_boss_phase_transition_finished")
+		if not _boss_presentation_rig.is_connected("phase_change_finished", phase_finished_callback):
+			_boss_presentation_rig.connect("phase_change_finished", phase_finished_callback)
 	if _layout_component == null or _feedback == null or _turn_flow == null or _targeting_component == null or _turn_order_component == null or _result_component == null or _event_presentation_component == null or _hud_component == null or _session_component == null or _input_component == null:
 		push_error("CombatScreen is missing an authored component child.")
 		return
@@ -90,7 +96,18 @@ func _ready() -> void:
 	_hud_component.bind(self)
 	_session_component.bind(self)
 	_input_component.bind(self)
+	_previous_music = AudioDirector.begin_screen_music("combat")
 	_start_battle()
+
+
+func _exit_tree() -> void:
+	AudioDirector.end_screen_music("combat", _previous_music)
+	# Invalidate turn/event continuations before releasing their presentation owners.
+	_turn_token += 1
+	if _battlefield != null and is_instance_valid(_battlefield):
+		_battlefield.clear_transient_presentations()
+	if _boss_presentation_rig != null and is_instance_valid(_boss_presentation_rig) and _boss_presentation_rig.has_method("clear_transients"):
+		_boss_presentation_rig.call("clear_transients")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -175,6 +192,26 @@ func _execute_current(skill_id: String, targets: Array) -> void:
 		await _session_component.execute_action(skill_id, targets)
 
 
+func _defend() -> void:
+	if _session_component != null:
+		await _session_component.defend()
+
+
+func _end_turn() -> void:
+	if _session_component != null:
+		await _session_component.end_turn()
+
+
+func _set_action_locked(locked: bool) -> void:
+	_animating = locked
+	if _auto_button != null:
+		_auto_button.disabled = locked
+	if _speed_button != null:
+		_speed_button.disabled = locked
+	if _hud_component != null:
+		_hud_component.refresh_skills()
+
+
 func _cancel_targeting() -> void:
 	if _targeting_component != null:
 		_targeting_component.cancel_targeting()
@@ -217,6 +254,23 @@ func _show_banner(text: String) -> void:
 		_feedback.show_banner(text)
 
 
+func _show_boss_intro(boss_name: String) -> void:
+	if _feedback != null:
+		_feedback.show_boss_intro(boss_name)
+
+
+func _show_boss_phase_transition(boss_id: String, phase_number: int, message: String, boss_name: String = "") -> void:
+	if _boss_presentation_rig != null and _boss_presentation_rig.has_method("show_phase_transition"):
+		_boss_presentation_rig.call("show_phase_transition", boss_id, phase_number, message, boss_name)
+		await boss_phase_transition_completed
+	else:
+		_show_banner(message)
+
+
+func _on_boss_phase_transition_finished() -> void:
+	boss_phase_transition_completed.emit()
+
+
 func _log(line: String) -> void:
 	if _feedback != null:
 		_feedback.log(line)
@@ -248,6 +302,13 @@ func _retry() -> void:
 func _confirm_retreat() -> void:
 	if _result_component != null:
 		_result_component.confirm_retreat()
+
+
+## Public close request used by GameCombatRouterComponent. Keep the same
+## confirmation path as the Retreat button instead of freeing the battle
+## screen while turn timers, effects, or rewards are still active.
+func close_screen() -> void:
+	_confirm_retreat()
 
 
 func _claim(victory: bool) -> void:

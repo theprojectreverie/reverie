@@ -1,0 +1,182 @@
+{
+  "grid_footprint_px": [
+    64,
+    32
+  ],
+  "canvas_size_px": [
+    64,
+    40
+  ],
+  "ornament_height_px": 8,
+  "items": [
+    {
+      "name": "plaza_plain",
+      "source_px": [
+        335,
+        214
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "border_nw",
+      "source_px": [
+        346,
+        226
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "border_ne",
+      "source_px": [
+        346,
+        223
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "border_sw",
+      "source_px": [
+        342,
+        222
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "border_se",
+      "source_px": [
+        341,
+        223
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "corner_gold_left",
+      "source_px": [
+        341,
+        223
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "corner_gold_right",
+      "source_px": [
+        340,
+        222
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "corner_gold_center",
+      "source_px": [
+        339,
+        223
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "corner_gold_front",
+      "source_px": [
+        339,
+        218
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "edge_grass_right",
+      "source_px": [
+        341,
+        221
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "outer_corner_grass",
+      "source_px": [
+        341,
+        226
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    },
+    {
+      "name": "plaza_junction",
+      "source_px": [
+        341,
+        236
+      ],
+      "output_px": [
+        64,
+        40
+      ],
+      "has_transparency": true,
+      "has_opaque": true,
+      "transparent_pixel_verified": true
+    }
+  ],
+  "note": "Paving tiles are modular visual art for path junctions; 2:1 diamond grid with elevated stone-front visual. Not a collision tileset."
+}

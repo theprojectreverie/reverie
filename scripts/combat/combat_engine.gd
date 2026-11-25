@@ -59,6 +59,7 @@ func setup(player_units: Array, enemy_units: Array, battle_seed: int = 12345) ->
 		combatants[index].combat_index = index
 		combatants[index].triggered_phases.clear()
 		combatants[index].skill_cooldowns.clear()
+		combatants[index].defending = false
 	rng.seed = battle_seed
 	finished = false
 	winner_team = -1
@@ -180,6 +181,39 @@ func execute(actor_index: int, skill_id: String, target_indices: Array = []) -> 
 
 	if _check_finish():
 		return events + _finish_events()
+	events.append_array(advance_turn())
+	return events
+
+
+func defend(actor_index: int) -> Array:
+	if finished or actor_index < 0 or actor_index >= combatants.size() or actor_index != current_actor_index:
+		return []
+	var actor: Combatant = combatants[actor_index]
+	if not actor.is_alive() or actor.team != PLAYER_TEAM:
+		return []
+	actor.defending = true
+	_append_log("%s takes a defensive stance." % actor.display_name)
+	var events: Array = [{
+		"type": "defend",
+		"actor_uid": actor.uid,
+		"actor_name": actor.display_name,
+	}]
+	events.append_array(advance_turn())
+	return events
+
+
+func end_turn(actor_index: int) -> Array:
+	if finished or actor_index < 0 or actor_index >= combatants.size() or actor_index != current_actor_index:
+		return []
+	var actor: Combatant = combatants[actor_index]
+	if not actor.is_alive() or actor.team != PLAYER_TEAM:
+		return []
+	_append_log("%s ends their turn." % actor.display_name)
+	var events: Array = [{
+		"type": "end_turn",
+		"actor_uid": actor.uid,
+		"actor_name": actor.display_name,
+	}]
 	events.append_array(advance_turn())
 	return events
 
@@ -326,7 +360,10 @@ func outgoing_multiplier(actor: Combatant, skill_element: String, target: Combat
 
 ## Damage multiplier applied to incoming damage from the defender's passives.
 func incoming_multiplier(target: Combatant) -> float:
-	return CombatPassiveResolver.incoming_multiplier(target, living(target.team))
+	var multiplier := CombatPassiveResolver.incoming_multiplier(target, living(target.team))
+	if target.defending:
+		multiplier *= 1.0 - DEFEND_DAMAGE_REDUCTION
+	return multiplier
 
 func _build_order() -> void:
 	var alive_indices := living_indices(PLAYER_TEAM) + living_indices(ENEMY_TEAM)

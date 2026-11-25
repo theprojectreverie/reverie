@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="320" viewBox="0 0 256 320">
+<defs>
+ <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9aa6a0"/><stop offset=".35" stop-color="#52666a"/><stop offset=".7" stop-color="#293d48"/><stop offset="1" stop-color="#172b39"/></linearGradient>
+ <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d5e0ce"/><stop offset=".4" stop-color="#718c88"/><stop offset="1" stop-color="#243c49"/></linearGradient>
+ <radialGradient id="veil"><stop stop-color="#d6fff1" stop-opacity=".92"/><stop offset=".38" stop-color="#62d7c9" stop-opacity=".58"/><stop offset=".76" stop-color="#3a7eae" stop-opacity=".22"/><stop offset="1" stop-color="#1a3454" stop-opacity="0"/></radialGradient>
+ <linearGradient id="rune" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff4c4"/><stop offset=".5" stop-color="#a9fff0"/><stop offset="1" stop-color="#65b9e4"/></linearGradient>
+ <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="soft"><feGaussianBlur stdDeviation="13"/></filter>
+</defs>
+<!-- ground shadow and reflected light -->
+<ellipse cx="128" cy="289" rx="91" ry="15" fill="#061b2b" opacity=".68"/>
+<ellipse cx="128" cy="283" rx="67" ry="9" fill="#66dfd0" opacity=".28" filter="url(#soft)"/>
+<!-- portal veil -->
+<path d="M67 269V116a61 61 0 0 1 122 0v153Z" fill="url(#veil)" opacity=".95"/>
+<path d="M82 266V116a46 46 0 0 1 92 0v150" fill="none" stroke="#a8fff0" stroke-width="3" opacity=".68" filter="url(#glow)"/>
+<path d="M91 258V117a37 37 0 0 1 74 0v141" fill="none" stroke="#d5fff0" stroke-width="1.5" opacity=".5"/>
+<!-- carved stone pillars -->
+<path d="M43 276V119Q43 44 128 35Q213 44 213 119V276H187V119Q187 69 128 61Q69 69 69 119V276Z" fill="url(#stone)" stroke="#182e3b" stroke-width="5"/>
+<path d="M50 274V119Q50 53 128 44Q206 53 206 119V274" fill="none" stroke="url(#edge)" stroke-width="7"/>
+<path d="M42 270H74V284H42ZM182 270H214V284H182Z" fill="#304752" stroke="#9eb4a9" stroke-width="2"/>
+<!-- masonry joints -->
+<path d="M44 103l28 5M45 157l27 1M45 211l27-2M184 108l28-5M184 158l27-1M184 210l27 2" stroke="#142b38" stroke-width="3" opacity=".7"/>
+<path d="M51 126l15 4m-15 54 15-3m124-51 15-4m-15 58 15 3" stroke="#b3c5b4" stroke-width="2" opacity=".55"/>
+<!-- crown keystone -->
+<path d="M95 45L108 18L128 7L148 18L161 45L148 59H108Z" fill="url(#stone)" stroke="#d2e1c9" stroke-width="3"/>
+<path d="M128 15l8 16-8 17-8-17Z" fill="url(#rune)" filter="url(#glow)"/>
+<!-- carved runes -->
+<g fill="none" stroke="url(#rune)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+ <path d="M55 139l7-12 7 12m-7-12v25m-6-3h12"/>
+ <path d="M55 191l7-10 7 10m-14 7h14m-7-17v27"/>
+ <path d="M201 139l-7-12-7 12m7-12v25m-6-3h12"/>
+ <path d="M201 191l-7-10-7 10m14 7h-14m7-17v27"/>
+</g>
+<!-- floating motes -->
+<g fill="#c9fff1" filter="url(#glow)">
+ <circle cx="83" cy="89" r="2.5"/><circle cx="176" cy="82" r="2"/><circle cx="91" cy="225" r="2"/><circle cx="167" cy="212" r="2.4"/><circle cx="128" cy="74" r="2"/>
+</g>
+<!-- threshold stones -->
+<path d="M64 274H192L181 291H75Z" fill="#405966" stroke="#a4b9ad" stroke-width="3"/>
+<path d="M78 278H178" stroke="#b8fff0" stroke-width="2" opacity=".8" filter="url(#glow)"/>
+<path d="M95 288l-8 8m74-8 8 8" stroke="#728d8c" stroke-width="3"/>
+</svg>

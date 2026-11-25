@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/corner_gold_left.png" id="left"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/corner_gold_right.png" id="right"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_corners_edges/tiles_1x/outer_corner_grass.png" id="grass"]
+
+[node name="RoyalGateCornerEdgeAccents" type="Node2D"]
+texture_filter = 1
+z_index = -18
+modulate = Color(1.065, 1.055, 0.91, 1)
+
+[node name="AvenueNorthLeftCorner" type="Sprite2D" parent="."]
+position = Vector2(-112, 782)
+texture = ExtResource("left")
+
+[node name="AvenueNorthRightCorner" type="Sprite2D" parent="."]
+position = Vector2(208, 782)
+texture = ExtResource("right")
+
+[node name="AvenueSouthLeftGrassCorner" type="Sprite2D" parent="."]
+position = Vector2(-112, 2990)
+texture = ExtResource("grass")
+
+[node name="AvenueSouthRightGrassCorner" type="Sprite2D" parent="."]
+position = Vector2(208, 2990)
+flip_h = true
+texture = ExtResource("grass")

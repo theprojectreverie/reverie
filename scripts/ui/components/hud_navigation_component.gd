@@ -47,9 +47,9 @@ func _style_button(button: Button, accent: Color, primary: bool = false) -> void
 	button.add_theme_color_override("font_pressed_color", accent.lightened(0.22))
 	button.add_theme_color_override("font_disabled_color", UITheme.TEXT_FAINT)
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	button.add_theme_stylebox_override("normal", UITheme.style(Color("#090d19").lerp(accent, 0.055 if primary else 0.025), Color(accent.r, accent.g, accent.b, 0.68), 9, 1, 12, true))
-	button.add_theme_stylebox_override("hover", UITheme.style(Color("#1a2034").lerp(accent, 0.12), accent.lightened(0.16), 9, 2, 12, true))
-	button.add_theme_stylebox_override("pressed", UITheme.style(Color("#080b15").lerp(accent, 0.16), accent, 9, 2, 12))
+	button.add_theme_stylebox_override("normal", UITheme.style(Color("#241326").lerp(accent, 0.055 if primary else 0.025), Color("#b89962"), 9, 1, 12, true))
+	button.add_theme_stylebox_override("hover", UITheme.style(Color("#43223d").lerp(accent, 0.12), accent.lightened(0.16), 9, 2, 12, true))
+	button.add_theme_stylebox_override("pressed", UITheme.style(Color("#180d20").lerp(accent, 0.16), accent, 9, 2, 12))
 	button.add_theme_stylebox_override("disabled", UITheme.style(Color("#0b0e18"), UITheme.BORDER_SOFT, 9, 1, 12))
 	button.add_theme_stylebox_override("focus", UITheme.style(Color("#171b2b"), UITheme.GOLD_BRIGHT, 9, 2, 12, true))
 	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND

@@ -1,4 +1,6 @@
-{
+{"fairy_spar":{"name":"Mysterious Companion","element":"dark","rarity":"legendary","role":"Control Mage","base":{"hp":65,"atk":5,"def":5,"spd":8,"crit":0.0},"skills":["lunar_wisp","crimson_binding"],"ultimate":"hollow_wail","palette":{"primary":"#22212a","secondary":"#d9d2d2","accent":"#e966a0"}},"crownling":{"name":"Crownling","element":"earth","rarity":"common","role":"Minion","base":{"hp":35,"atk":6,"def":4,"spd":10,"crit":0.03},"skills":["moss_slam"],"ultimate":"","lore":"A tiny monarch of the royal gardens.","palette":{"primary":"#c99154","secondary":"#ffe0a0","accent":"#b52d50"}},
+
+ "rose_slime": {"name":"Rose Slime","element":"earth","rarity":"common","role":"Minion","base":{"hp":24,"atk":4,"def":2,"spd":10,"crit":0.03},"skills":["moss_slam"],"ultimate":"","lore":"A little jelly that tends the royal roses.","palette":{"primary":"#e966a0","secondary":"#ffadd0","accent":"#ffffff"}},
  "mossling": {
   "name": "Mossling",
   "element": "earth",
@@ -345,6 +347,53 @@
    "primary": "#26143c",
    "secondary": "#7c4a9c",
    "accent": "#e08cff"
+  }
+ },
+ "gerald_boss": {
+  "name": "Gerald, the Fallen Guardian",
+  "element": "fire",
+  "rarity": "mythic",
+  "role": "Boss",
+  "base": {
+   "hp": 1200,
+   "atk": 30,
+   "def": 19,
+   "spd": 14,
+   "crit": 0.14,
+   "crit_dmg": 1.8
+  },
+  "skills": [
+   "ember_lance",
+   "cinder_veil"
+  ],
+  "ultimate": "inferno_crown",
+  "phases": [
+   {
+    "hp_below": 0.6,
+    "message": "The orange Titan emblem burns brighter. Gerald's restraint begins to fracture.",
+    "status": {
+     "id": "atk_up",
+     "turns": 99,
+     "potency": 0.22
+    }
+   },
+   {
+    "hp_below": 0.3,
+    "message": "The last restraint breaks. The Fallen Guardian enters his berserk state.",
+    "status": {
+     "id": "atk_up",
+     "turns": 99,
+     "potency": 0.3
+    }
+   }
+  ],
+  "lore": "Once the village's half-Titan guardian, Gerald returned from war to find his mother and little sister murdered by the people he had protected. He shed one final tear, then answered the betrayal with terrible fury.",
+  "palette": {
+   "hair": "#e5e0e8",
+   "skin": "#b9a0a0",
+   "primary": "#211b2b",
+   "secondary": "#d8c9bd",
+   "accent": "#ff6a24"
   }
  }
 }

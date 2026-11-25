@@ -1,0 +1,538 @@
+﻿{
+    "pack":  "Reverie Royal Garden Assets v1",
+    "grid_unit":  "32x32",
+    "asset_count":  59,
+    "assets":  [
+                   {
+                       "name":  "ground_grass_flowers",
+                       "file":  "sprites/tiles/ground_grass_flowers.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x22",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "path_stone_plain",
+                       "file":  "sprites/tiles/path_stone_plain.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x23",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "path_stone_moss",
+                       "file":  "sprites/tiles/path_stone_moss.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x23",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "path_stone_corner",
+                       "file":  "sprites/tiles/path_stone_corner.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x27",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "path_stone_cross",
+                       "file":  "sprites/tiles/path_stone_cross.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x30",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "path_stone_cross_alt",
+                       "file":  "sprites/tiles/path_stone_cross_alt.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x27",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "path_stone_turn",
+                       "file":  "sprites/tiles/path_stone_turn.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x31",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "path_stone_curve",
+                       "file":  "sprites/tiles/path_stone_curve.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x28",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "path_stone_crest",
+                       "file":  "sprites/tiles/path_stone_crest.png",
+                       "category":  "tile",
+                       "png_size":  "32x32",
+                       "visible_sprite_size":  "32x32",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "hedge_straight",
+                       "file":  "sprites/structures/hedge_straight.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "94x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "hedge_rose",
+                       "file":  "sprites/structures/hedge_rose.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "92x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "hedge_corner",
+                       "file":  "sprites/structures/hedge_corner.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x83",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "arch_rose",
+                       "file":  "sprites/structures/arch_rose.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "94x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "arch_wisteria",
+                       "file":  "sprites/structures/arch_wisteria.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x91",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "arch_small_rose",
+                       "file":  "sprites/structures/arch_small_rose.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "94x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "arch_flower",
+                       "file":  "sprites/structures/arch_flower.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x92",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "trellis_rose",
+                       "file":  "sprites/structures/trellis_rose.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "77x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "staircase_rose",
+                       "file":  "sprites/structures/staircase_rose.png",
+                       "category":  "prop",
+                       "png_size":  "96x64",
+                       "visible_sprite_size":  "96x58",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "balustrade_stone",
+                       "file":  "sprites/structures/balustrade_stone.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "53x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "railing_stone",
+                       "file":  "sprites/structures/railing_stone.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x51",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "garden_gate",
+                       "file":  "sprites/structures/garden_gate.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x71",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "stone_pillar",
+                       "file":  "sprites/structures/stone_pillar.png",
+                       "category":  "prop",
+                       "png_size":  "32x64",
+                       "visible_sprite_size":  "27x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "royal_banner",
+                       "file":  "sprites/structures/royal_banner.png",
+                       "category":  "prop",
+                       "png_size":  "64x96",
+                       "visible_sprite_size":  "42x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "pillar_capital",
+                       "file":  "sprites/structures/pillar_capital.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "39x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "urn_roses",
+                       "file":  "sprites/flora/urn_roses.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "52x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "urn_flowers",
+                       "file":  "sprites/flora/urn_flowers.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "42x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "lamp_ornate",
+                       "file":  "sprites/props/lamp_ornate.png",
+                       "category":  "prop",
+                       "png_size":  "64x96",
+                       "visible_sprite_size":  "39x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "lamp_small",
+                       "file":  "sprites/props/lamp_small.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "50x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "fountain_large",
+                       "file":  "sprites/structures/fountain_large.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x86",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "fountain_small",
+                       "file":  "sprites/structures/fountain_small.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "71x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "fountain_basin",
+                       "file":  "sprites/structures/fountain_basin.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x60",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "pond_lily",
+                       "file":  "sprites/structures/pond_lily.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x76",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "waterfall_rocks_left",
+                       "file":  "sprites/structures/waterfall_rocks_left.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x80",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "waterfall_rocks_right",
+                       "file":  "sprites/structures/waterfall_rocks_right.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x59",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "bench_stone_rose",
+                       "file":  "sprites/structures/bench_stone_rose.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x88",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "bench_wood",
+                       "file":  "sprites/structures/bench_wood.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x61",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "gazebo_wisteria",
+                       "file":  "sprites/structures/gazebo_wisteria.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "77x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_cluster_rose",
+                       "file":  "sprites/flora/flower_cluster_rose.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x50",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_cluster_white",
+                       "file":  "sprites/flora/flower_cluster_white.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x53",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_cluster_purple",
+                       "file":  "sprites/flora/flower_cluster_purple.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x57",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_cluster_pink",
+                       "file":  "sprites/flora/flower_cluster_pink.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x57",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "topiary_cypress",
+                       "file":  "sprites/flora/topiary_cypress.png",
+                       "category":  "prop",
+                       "png_size":  "64x96",
+                       "visible_sprite_size":  "36x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "topiary_rose",
+                       "file":  "sprites/flora/topiary_rose.png",
+                       "category":  "prop",
+                       "png_size":  "64x96",
+                       "visible_sprite_size":  "48x96",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "topiary_round",
+                       "file":  "sprites/flora/topiary_round.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "37x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "planter_yellow",
+                       "file":  "sprites/flora/planter_yellow.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x60",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "planter_purple",
+                       "file":  "sprites/flora/planter_purple.png",
+                       "category":  "prop",
+                       "png_size":  "96x64",
+                       "visible_sprite_size":  "96x54",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "planter_rose",
+                       "file":  "sprites/flora/planter_rose.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "53x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "hanging_wisteria",
+                       "file":  "sprites/flora/hanging_wisteria.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x60",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_lily_white",
+                       "file":  "sprites/flora/flower_lily_white.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x55",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_blue",
+                       "file":  "sprites/flora/flower_blue.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x63",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_pink_spike",
+                       "file":  "sprites/flora/flower_pink_spike.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "54x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_lavender_spike",
+                       "file":  "sprites/flora/flower_lavender_spike.png",
+                       "category":  "prop",
+                       "png_size":  "96x96",
+                       "visible_sprite_size":  "96x66",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_hydrangea",
+                       "file":  "sprites/flora/flower_hydrangea.png",
+                       "category":  "prop",
+                       "png_size":  "96x64",
+                       "visible_sprite_size":  "96x52",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_white_small",
+                       "file":  "sprites/flora/flower_white_small.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x52",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_rose_small",
+                       "file":  "sprites/flora/flower_rose_small.png",
+                       "category":  "prop",
+                       "png_size":  "96x64",
+                       "visible_sprite_size":  "96x58",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "flower_yellow",
+                       "file":  "sprites/flora/flower_yellow.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "64x43",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "foliage_grass",
+                       "file":  "sprites/flora/foliage_grass.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "53x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "rocks_moss_cluster",
+                       "file":  "sprites/flora/rocks_moss_cluster.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "56x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   },
+                   {
+                       "name":  "rocks_flower_cluster",
+                       "file":  "sprites/flora/rocks_flower_cluster.png",
+                       "category":  "prop",
+                       "png_size":  "64x64",
+                       "visible_sprite_size":  "63x64",
+                       "grid_unit":  "32x32",
+                       "transparent_background":  true
+                   }
+               ]
+}

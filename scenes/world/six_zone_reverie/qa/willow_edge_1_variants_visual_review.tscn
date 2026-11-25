@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/grass_03.tscn" id="grass"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/soil_garden_01.tscn" id="soil"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_straight_edges/straight_edge_1_0.tscn" id="edge0"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_dirt_straight_edges/straight_edge_1_1.tscn" id="edge1"]
+
+[node name="WillowEdgeVariantReview" type="Node2D"]
+
+[node name="InspectionCamera" type="Camera2D" parent="."]
+position = Vector2(155, 92)
+zoom = Vector2(2, 2)
+
+[node name="Variant1_0" type="Node2D" parent="."]
+
+[node name="Variant1_0_Label" type="Label" parent="Variant1_0"]
+position = Vector2(0, -44)
+text = "STRAIGHT EDGE 1_0 - REFERENCE"
+
+[node name="Grass0" parent="Variant1_0" instance=ExtResource("grass")]
+position = Vector2(0, 0)
+
+[node name="Grass1" parent="Variant1_0" instance=ExtResource("grass")]
+position = Vector2(64, 0)
+
+[node name="Grass2" parent="Variant1_0" instance=ExtResource("grass")]
+position = Vector2(128, 0)
+
+[node name="Grass3" parent="Variant1_0" instance=ExtResource("grass")]
+position = Vector2(192, 0)
+
+[node name="Grass4" parent="Variant1_0" instance=ExtResource("grass")]
+position = Vector2(256, 0)
+
+[node name="RoadLeft" parent="Variant1_0" instance=ExtResource("soil")]
+position = Vector2(64, 0)
+
+[node name="RoadRight" parent="Variant1_0" instance=ExtResource("soil")]
+position = Vector2(192, 0)
+
+[node name="Candidate" parent="Variant1_0" instance=ExtResource("edge0")]
+position = Vector2(128, 0)
+
+[node name="Variant1_1" type="Node2D" parent="."]
+position = Vector2(0, 160)
+
+[node name="Variant1_1_Label" type="Label" parent="Variant1_1"]
+position = Vector2(0, -44)
+text = "STRAIGHT EDGE 1_1 - DUPLICATE"
+
+[node name="Grass0" parent="Variant1_1" instance=ExtResource("grass")]
+position = Vector2(0, 0)
+
+[node name="Grass1" parent="Variant1_1" instance=ExtResource("grass")]
+position = Vector2(64, 0)
+
+[node name="Grass2" parent="Variant1_1" instance=ExtResource("grass")]
+position = Vector2(128, 0)
+
+[node name="Grass3" parent="Variant1_1" instance=ExtResource("grass")]
+position = Vector2(192, 0)
+
+[node name="Grass4" parent="Variant1_1" instance=ExtResource("grass")]
+position = Vector2(256, 0)
+
+[node name="RoadLeft" parent="Variant1_1" instance=ExtResource("soil")]
+position = Vector2(64, 0)
+
+[node name="RoadRight" parent="Variant1_1" instance=ExtResource("soil")]
+position = Vector2(192, 0)
+
+[node name="Candidate" parent="Variant1_1" instance=ExtResource("edge1")]
+position = Vector2(128, 0)

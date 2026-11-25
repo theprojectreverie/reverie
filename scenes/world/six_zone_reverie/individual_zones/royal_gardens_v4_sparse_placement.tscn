@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_26_prop.png" id="v4_1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_15_prop.png" id="v4_2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_14_prop.png" id="v4_3"]
+
+[node name="RoyalGardensV4SparsePlacement" type="Node2D"]
+y_sort_enabled = true
+
+[node name="SmallRoyalBench" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1570, 1920)
+scale = Vector2(0.92, 0.92)
+texture = ExtResource("v4_1")
+
+[node name="WhiteFlowerBushWest" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1620, 2270)
+scale = Vector2(0.83, 0.83)
+texture = ExtResource("v4_2")
+
+[node name="PinkFlowerBushEast" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1660, 1910)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("v4_3")

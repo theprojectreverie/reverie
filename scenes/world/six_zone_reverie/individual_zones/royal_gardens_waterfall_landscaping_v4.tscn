@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_09_prop.png" id="prop9"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_11_prop.png" id="prop11"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_14_prop.png" id="prop14"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_15_prop.png" id="prop15"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_18_prop.png" id="prop18"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_19_prop.png" id="prop19"]
+
+[node name="RoyalGardenWaterfallLandscapingV4" type="Node2D"]
+y_sort_enabled = true
+
+[node name="PondWestLilies" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-40, 930)
+scale = Vector2(0.94, 0.94)
+texture = ExtResource("prop15")
+
+[node name="PondWestRoses" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(130, 1000)
+scale = Vector2(1.0, 1.0)
+texture = ExtResource("prop9")
+
+[node name="PondSouthLilies" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(390, 1100)
+scale = Vector2(0.93, 0.93)
+texture = ExtResource("prop15")
+
+[node name="PondSouthRoses" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(650, 1050)
+scale = Vector2(0.92, 0.92)
+texture = ExtResource("prop14")
+
+[node name="PondEastFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(810, 970)
+scale = Vector2(1.06, 1.06)
+texture = ExtResource("prop9")
+
+[node name="CliffNorthFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(60, 350)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("prop18")
+
+[node name="CliffWestFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(30, 680)
+scale = Vector2(0.88, 0.88)
+texture = ExtResource("prop14")
+
+[node name="OuterRockWest" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-130, 950)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("prop19")
+
+[node name="OuterRockEast" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(830, 1120)
+scale = Vector2(0.87, 0.87)
+texture = ExtResource("prop11")

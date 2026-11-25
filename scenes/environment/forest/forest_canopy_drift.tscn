@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="Animation" id="Animation_canopy_drift"]
+resource_name = "canopy_drift"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeafA:position")
+tracks/0/interp = 1
+tracks/0/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 0.8, 1, 0.8, 1), "update": 0, "values": [Vector2(-170, -76), Vector2(-128, -26), Vector2(-170, 24), Vector2(-212, -26), Vector2(-170, -76)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LeafA:rotation")
+tracks/1.interp = 1
+tracks/1/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.0, 1.2, 2.4, 3.6, 6.283185]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("LeafA:modulate")
+tracks/2.interp = 1
+tracks/2/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.35), Color(1, 1, 1, 0.9), Color(1, 1, 1, 0.6), Color(1, 1, 1, 0.85), Color(1, 1, 1, 0.35)]}
+tracks/3/type = "value"
+tracks/3/path = NodePath("LeafB:position")
+tracks/3.interp = 1
+tracks/3/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 0.8, 1, 0.8, 1), "update": 0, "values": [Vector2(132, -118), Vector2(174, -68), Vector2(132, -18), Vector2(90, -68), Vector2(132, -118)]}
+tracks/4/type = "value"
+tracks/4/path = NodePath("LeafB:rotation")
+tracks/4.interp = 1
+tracks/4/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.7, 1.9, 3.1, 4.3, 6.983185]}
+tracks/5/type = "value"
+tracks/5/path = NodePath("LeafB:modulate")
+tracks/5.interp = 1
+tracks/5/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.7), Color(1, 1, 1, 0.35), Color(1, 1, 1, 0.95), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.7)]}
+tracks/6/type = "value"
+tracks/6/path = NodePath("LeafC:position")
+tracks/6.interp = 1
+tracks/6/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 0.8, 1, 0.8, 1), "update": 0, "values": [Vector2(8, 82), Vector2(48, 122), Vector2(8, 162), Vector2(-32, 122), Vector2(8, 82)]}
+tracks/7/type = "value"
+tracks/7/path = NodePath("LeafC:rotation")
+tracks/7.interp = 1
+tracks/7/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [-0.4, 0.8, 2.0, 3.2, 5.883185]}
+tracks/8/type = "value"
+tracks/8/path = NodePath("LeafC:modulate")
+tracks/8.interp = 1
+tracks/8/keys = {"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0.45), Color(1, 1, 1, 0.8), Color(1, 1, 1, 0.4), Color(1, 1, 1, 0.9), Color(1, 1, 1, 0.45)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_canopy"]
+_data = {"canopy_drift": SubResource("Animation_canopy_drift")}
+
+[node name="ForestCanopyDrift" type="Node2D"]
+z_index = 22
+
+[node name="LeafA" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-13, 0, -4, -5, 8, -3, 14, 0, 6, 5, -5, 4)
+color = Color(0.86, 0.78, 0.48, 0.75)
+
+[node name="LeafB" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-11, 0, -3, -6, 7, -4, 12, 0, 4, 5, -5, 4)
+color = Color(0.64, 0.76, 0.48, 0.72)
+
+[node name="LeafC" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-12, 0, -4, -5, 7, -3, 13, 0, 5, 5, -5, 4)
+color = Color(0.91, 0.7, 0.42, 0.7)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "canopy_drift"
+libraries = {"": SubResource("AnimationLibrary_canopy")}

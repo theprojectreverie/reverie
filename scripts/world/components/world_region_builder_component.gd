@@ -1,8 +1,25 @@
 class_name WorldRegionBuilderComponent
 extends Node
-## Owns data-driven composition for non-Greenward regions and their portals.
+## Spawns authored Act I landmark scenes, content-backed NPCs and gameplay portals.
+## Environmental dressing is supplied by authored artwork, never runtime generators.
 
 var world: GreenwardWorld
+
+const ACT1_LANDMARK_SCENES := {
+	"royal_gate": preload("res://scenes/world/act1_areas/royal_gate_landmark.tscn"),
+	"willow_fields": preload("res://scenes/world/act1_areas/willow_fields_landmark.tscn"),
+	"elderwood_grove": preload("res://scenes/world/act1_areas/elderwood_grove_landmark.tscn"),
+	"forsaken_ruins": preload("res://scenes/world/act1_areas/forsaken_ruins_landmark.tscn"),
+	"ruined_tower": preload("res://scenes/world/act1_areas/ruined_tower_landmark.tscn"),
+}
+
+const ACT1_LANDMARK_POI_IDS := {
+	"royal_gate": "royal_gate_landmark",
+	"willow_fields": "willow_fields_windmill",
+	"elderwood_grove": "ancient_watch",
+	"forsaken_ruins": "forsaken_arch",
+	"ruined_tower": "ruined_tower_landmark",
+}
 
 
 func configure(owner_world: GreenwardWorld) -> void:
@@ -12,53 +29,53 @@ func configure(owner_world: GreenwardWorld) -> void:
 func build_generic_region() -> void:
 	if world == null:
 		return
-	var env := world.environment_data()
-	var tint := Color(str(env.get("ambient_tint", "#7fe3e0")))
-	if world.region_id == "moonpetal_hollow":
-		build_moonpetal_hollow_composition(tint)
 	var pois: Variant = world.region.get("pois", [])
 	if typeof(pois) != TYPE_ARRAY:
 		pois = []
-	var cluster_kinds := [
-		"birch_tree", "moss_rock", "fern", "flower_cluster",
-		"glow_mushroom", "reeds", "crystal_cluster", "wisp_lantern",
-	]
-	var offsets := [
-		Vector2(-1.2, 0), Vector2(1.2, 0), Vector2(0, -1.2),
-		Vector2(0, 1.2), Vector2(-0.9, -0.9), Vector2(0.9, 0.9),
-	]
-	var prop_count := 0
-	var poi_index := 0
-	for poi in pois:
-		if typeof(poi) != TYPE_DICTIONARY:
-			continue
-		var grid: Variant = poi.get("grid", [0, 0])
-		if typeof(grid) != TYPE_ARRAY or grid.size() != 2:
-			continue
-		var center := Vector2(float(grid[0]), float(grid[1]))
-		for j in offsets.size():
-			if prop_count >= GreenwardWorld.GENERIC_PROP_CAP:
-				break
-			var kind := str(cluster_kinds[(poi_index + j) % cluster_kinds.size()])
-			world.add_prop(kind, center + offsets[j], 0.85, j % 2 == 0, j % 3)
-			prop_count += 1
-		if poi_index < 2:
-			world.add_animated_prop("foam_ripple", center + Vector2(0.6, 0.8), 0.9, false, AnimatedProp.MOTION_PULSE, 0)
-		world.add_light(center, tint, 1.1, 2.4)
-		poi_index += 1
 
-	var interactives := [
-		["rune_stone", "Moonlit Rune", "The vale keeps its own quiet counsel."],
-		["spirit_bloom", "Silver Bloom", "It opens only under a borrowed moon."],
-	]
-	for index in interactives.size():
-		if not world.can_add_interactive_prop():
-			break
-		var entry: Array = interactives[index]
-		var anchor := Vector2(8.0, 8.0) + Vector2(float(index) * 2.0, 0.0)
-		world.add_interactive_prop(str(entry[0]), anchor, str(entry[1]), str(entry[2]), index % 2)
-	world.add_animated_prop("moth", Vector2(9, 7), 0.85, false, AnimatedProp.MOTION_DRIFT, 0)
-	world.add_animated_prop("firefly_sprite", Vector2(7, 9), 0.85, true, AnimatedProp.MOTION_DRIFT, 0)
+	var landmark_scene := ACT1_LANDMARK_SCENES.get(world.region_id) as PackedScene
+	if landmark_scene != null and world.entities != null:
+		var landmark_assembly := landmark_scene.instantiate() as Node2D
+		if landmark_assembly != null:
+			var landmark_poi_id := str(ACT1_LANDMARK_POI_IDS.get(world.region_id, ""))
+			for poi in pois:
+				if typeof(poi) != TYPE_DICTIONARY or str(poi.get("id", "")) != landmark_poi_id:
+					continue
+				var grid: Variant = poi.get("grid", [])
+				if typeof(grid) == TYPE_ARRAY and grid.size() == 2:
+					landmark_assembly.position = IsoMath.grid_to_world(float(grid[0]), float(grid[1]))
+				break
+			landmark_assembly.z_as_relative = true
+			world.entities.add_child(landmark_assembly)
+
+	# NPC POIs are content-backed characters with dialogue resources.
+	for poi in pois:
+		if typeof(poi) != TYPE_DICTIONARY or str(poi.get("type", "")) != "npc":
+			continue
+		var npc_grid: Variant = poi.get("grid", [8, 8])
+		if typeof(npc_grid) != TYPE_ARRAY or npc_grid.size() != 2:
+			continue
+		var npc_palette: Variant = poi.get("palette", {})
+		var palette: Dictionary = npc_palette if typeof(npc_palette) == TYPE_DICTIONARY else {}
+		world._spawn_npc(
+			str(poi.get("npc_id", poi.get("id", "road_npc"))),
+			str(poi.get("name", "Wayfarer")),
+			str(poi.get("dialogue_id", "")),
+			Vector2(float(npc_grid[0]), float(npc_grid[1])),
+			palette,
+			str(poi.get("race", "Human")),
+			str(poi.get("role", ""))
+		)
+
+
+func _has_authored_portal(connection_id: String) -> bool:
+	if world == null or connection_id.is_empty():
+		return false
+	for node in world.find_children("*", "RegionPortal", true, false):
+		var portal := node as RegionPortal
+		if portal != null and portal.connection_id == connection_id:
+			return true
+	return false
 
 
 func spawn_region_portals() -> void:
@@ -72,6 +89,12 @@ func spawn_region_portals() -> void:
 	for connection in connections:
 		if typeof(connection) != TYPE_DICTIONARY:
 			continue
+		var connection_id := str(connection.get("id", ""))
+		# Authored scene instances take precedence over data-driven fallback
+		# spawns. This lets hand-placed gates coexist with the generic builder
+		# without duplicate interactables or doubled portal artwork.
+		if _has_authored_portal(connection_id):
+			continue
 		var via := str(connection.get("via", ""))
 		var grid: Variant = entry_dict.get(via, null)
 		if typeof(grid) != TYPE_ARRAY or grid.size() != 2:
@@ -81,24 +104,3 @@ func spawn_region_portals() -> void:
 		portal.position = IsoMath.grid_to_world(float(grid[0]), float(grid[1]))
 		world.entities.add_child(portal)
 		world.register_portal(portal)
-
-
-func build_moonpetal_hollow_composition(cool_tint: Color) -> void:
-	var gate := Vector2(6, 4.4)
-	world.add_prop("village_gate", gate, 0.95, false, 1)
-	for i in 3:
-		world.add_prop("stone_path", Vector2(6, 5.2 + i * 0.8), 0.95, false, i % 2)
-	world.add_prop("birch_grove", Vector2(3.4, 8.2), 0.9, false, 0)
-	world.add_prop("birch_grove", Vector2(9.2, 8.4), 0.9, true, 2)
-	world.add_prop("moon_lantern", Vector2(4.4, 6.2), 0.95, false, 0)
-	world.add_prop("moon_lantern", Vector2(8.0, 6.2), 0.95, true, 1)
-	world.add_prop("moon_shrine", Vector2(6, 9.4), 0.95, false, 1)
-	world.add_prop("gazebo", Vector2(10.6, 10.2), 0.9, false, 1)
-	world.add_prop("spirit_bloom", Vector2(4.8, 9.6), 0.9, false, 0)
-	world.add_prop("spirit_bloom", Vector2(9.0, 10.6), 0.85, true, 2)
-	world.add_prop("crystal_cluster", Vector2(7.6, 10.4), 0.9, false, 1)
-	world.add_prop("wisp_lantern", Vector2(11.2, 8.0), 0.9, false, 0)
-	world.add_light(Vector2(6, 6), cool_tint, 1.2, 2.6)
-	world.add_light(Vector2(6, 9.4), cool_tint, 1.0, 2.2)
-	world.add_light(Vector2(4.4, 6.2), GreenwardStyle.LIGHT.cool_moon, 0.9, 1.8)
-	world.add_light(Vector2(8.0, 6.2), GreenwardStyle.LIGHT.cool_moon, 0.9, 1.8)

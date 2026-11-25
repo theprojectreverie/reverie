@@ -68,8 +68,8 @@ func build(parent: VBoxContainer, banner: Dictionary, featured_def: CharacterDef
 	if featured_def != null:
 		portrait.setup_character(featured_def)
 		var summon_path := "res://assets/portraits/summon/%s.png" % featured_def.id
-		if featured_def.id == "scarlet_requiem":
-			summon_path = "res://assets/characters/scarlet_requiem/banner_portrait.jpg"
+		if featured_def.id == "crimson_witch":
+			summon_path = "res://assets/characters/crimson_witch/portrait_512.png"
 		if ResourceLoader.exists(summon_path):
 			var texture := load(summon_path) as Texture2D
 			if texture != null:

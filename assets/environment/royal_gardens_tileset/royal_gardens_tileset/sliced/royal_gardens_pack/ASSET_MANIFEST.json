@@ -1,0 +1,1145 @@
+[
+  {
+    "file": "ground_tiles/royal_garden_001.png",
+    "size": [
+      112,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_002.png",
+    "size": [
+      114,
+      120
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_003.png",
+    "size": [
+      116,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_004.png",
+    "size": [
+      114,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_005.png",
+    "size": [
+      110,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_006.png",
+    "size": [
+      108,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_007.png",
+    "size": [
+      106,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_008.png",
+    "size": [
+      110,
+      114
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_009.png",
+    "size": [
+      96,
+      114
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_016.png",
+    "size": [
+      90,
+      90
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "ground_tiles/royal_garden_057.png",
+    "size": [
+      92,
+      82
+    ],
+    "mode": "RGBA",
+    "category": "ground_tiles"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_011.png",
+    "size": [
+      102,
+      114
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_012.png",
+    "size": [
+      98,
+      114
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_014.png",
+    "size": [
+      110,
+      114
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_020.png",
+    "size": [
+      114,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_021.png",
+    "size": [
+      120,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_022.png",
+    "size": [
+      116,
+      116
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_023.png",
+    "size": [
+      76,
+      116
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_024.png",
+    "size": [
+      92,
+      110
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_025.png",
+    "size": [
+      110,
+      110
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_026.png",
+    "size": [
+      84,
+      92
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_027.png",
+    "size": [
+      92,
+      88
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_028.png",
+    "size": [
+      92,
+      104
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "stone_paving_and_borders/royal_garden_029.png",
+    "size": [
+      84,
+      96
+    ],
+    "mode": "RGBA",
+    "category": "stone_paving_and_borders"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_017.png",
+    "size": [
+      86,
+      98
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_018.png",
+    "size": [
+      100,
+      116
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_019.png",
+    "size": [
+      102,
+      122
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_031.png",
+    "size": [
+      112,
+      64
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_032.png",
+    "size": [
+      92,
+      62
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_033.png",
+    "size": [
+      84,
+      56
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_040.png",
+    "size": [
+      134,
+      120
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_044.png",
+    "size": [
+      120,
+      98
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_045.png",
+    "size": [
+      90,
+      90
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_046.png",
+    "size": [
+      88,
+      90
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_047.png",
+    "size": [
+      86,
+      90
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_048.png",
+    "size": [
+      116,
+      106
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_049.png",
+    "size": [
+      90,
+      80
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_058.png",
+    "size": [
+      94,
+      94
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_059.png",
+    "size": [
+      110,
+      94
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_060.png",
+    "size": [
+      90,
+      92
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "hedges_and_garden_edges/royal_garden_068.png",
+    "size": [
+      80,
+      174
+    ],
+    "mode": "RGBA",
+    "category": "hedges_and_garden_edges"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_030.png",
+    "size": [
+      206,
+      194
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_050.png",
+    "size": [
+      92,
+      158
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_051.png",
+    "size": [
+      90,
+      160
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_052.png",
+    "size": [
+      92,
+      158
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_053.png",
+    "size": [
+      108,
+      156
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_054.png",
+    "size": [
+      90,
+      158
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_055.png",
+    "size": [
+      88,
+      156
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_061.png",
+    "size": [
+      156,
+      146
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_062.png",
+    "size": [
+      94,
+      126
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_063.png",
+    "size": [
+      76,
+      124
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "water_and_fountains/royal_garden_065.png",
+    "size": [
+      184,
+      182
+    ],
+    "mode": "RGBA",
+    "category": "water_and_fountains"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_010.png",
+    "size": [
+      102,
+      114
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_013.png",
+    "size": [
+      106,
+      114
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_064.png",
+    "size": [
+      84,
+      122
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_066.png",
+    "size": [
+      204,
+      180
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_067.png",
+    "size": [
+      64,
+      174
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_069.png",
+    "size": [
+      116,
+      168
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_070.png",
+    "size": [
+      46,
+      156
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_071.png",
+    "size": [
+      66,
+      162
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_072.png",
+    "size": [
+      404,
+      162
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_073.png",
+    "size": [
+      68,
+      142
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_074.png",
+    "size": [
+      38,
+      146
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_075.png",
+    "size": [
+      70,
+      140
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_076.png",
+    "size": [
+      118,
+      128
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_077.png",
+    "size": [
+      34,
+      136
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_097.png",
+    "size": [
+      214,
+      142
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_098.png",
+    "size": [
+      94,
+      128
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_099.png",
+    "size": [
+      178,
+      100
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_100.png",
+    "size": [
+      174,
+      122
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_101.png",
+    "size": [
+      190,
+      116
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_102.png",
+    "size": [
+      86,
+      116
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_103.png",
+    "size": [
+      166,
+      110
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "architecture_and_fences/royal_garden_104.png",
+    "size": [
+      80,
+      116
+    ],
+    "mode": "RGBA",
+    "category": "architecture_and_fences"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_078.png",
+    "size": [
+      182,
+      196
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_079.png",
+    "size": [
+      62,
+      186
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_080.png",
+    "size": [
+      294,
+      188
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_081.png",
+    "size": [
+      76,
+      184
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_082.png",
+    "size": [
+      140,
+      178
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_083.png",
+    "size": [
+      108,
+      96
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_084.png",
+    "size": [
+      112,
+      84
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_085.png",
+    "size": [
+      118,
+      86
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_086.png",
+    "size": [
+      108,
+      90
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_087.png",
+    "size": [
+      100,
+      80
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_088.png",
+    "size": [
+      90,
+      82
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_089.png",
+    "size": [
+      54,
+      146
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_090.png",
+    "size": [
+      44,
+      128
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_091.png",
+    "size": [
+      100,
+      86
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_092.png",
+    "size": [
+      88,
+      74
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_093.png",
+    "size": [
+      158,
+      80
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_094.png",
+    "size": [
+      108,
+      78
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_095.png",
+    "size": [
+      82,
+      72
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "trees_and_plants/royal_garden_096.png",
+    "size": [
+      112,
+      78
+    ],
+    "mode": "RGBA",
+    "category": "trees_and_plants"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_105.png",
+    "size": [
+      94,
+      122
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_106.png",
+    "size": [
+      100,
+      118
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_107.png",
+    "size": [
+      74,
+      110
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_108.png",
+    "size": [
+      84,
+      108
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_109.png",
+    "size": [
+      78,
+      108
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_110.png",
+    "size": [
+      50,
+      86
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_111.png",
+    "size": [
+      124,
+      80
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_112.png",
+    "size": [
+      100,
+      80
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_113.png",
+    "size": [
+      54,
+      76
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_114.png",
+    "size": [
+      74,
+      76
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_115.png",
+    "size": [
+      52,
+      76
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_116.png",
+    "size": [
+      46,
+      70
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_117.png",
+    "size": [
+      68,
+      62
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_118.png",
+    "size": [
+      58,
+      60
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_119.png",
+    "size": [
+      48,
+      68
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_120.png",
+    "size": [
+      30,
+      28
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_121.png",
+    "size": [
+      78,
+      58
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_122.png",
+    "size": [
+      56,
+      52
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_123.png",
+    "size": [
+      26,
+      24
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_124.png",
+    "size": [
+      58,
+      50
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_125.png",
+    "size": [
+      60,
+      50
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_126.png",
+    "size": [
+      28,
+      26
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_127.png",
+    "size": [
+      66,
+      38
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_128.png",
+    "size": [
+      24,
+      22
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_129.png",
+    "size": [
+      26,
+      22
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_130.png",
+    "size": [
+      24,
+      20
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_131.png",
+    "size": [
+      28,
+      18
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_132.png",
+    "size": [
+      34,
+      30
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_133.png",
+    "size": [
+      26,
+      26
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_134.png",
+    "size": [
+      48,
+      24
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_135.png",
+    "size": [
+      30,
+      22
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_136.png",
+    "size": [
+      26,
+      20
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_137.png",
+    "size": [
+      26,
+      20
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  },
+  {
+    "file": "flower_clusters_and_small_details/royal_garden_138.png",
+    "size": [
+      24,
+      20
+    ],
+    "mode": "RGBA",
+    "category": "flower_clusters_and_small_details"
+  }
+]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_stone_path.tscn" id="tile"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_exit_native_bridge.tscn" id="exit_bridge"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_exit_branch_aligned.tscn" id="exit_diagonal"]
+
+[node name="RoyalGateTransferRoadConnectors" type="Node2D"]
+
+[node name="EntryContinuation01" parent="." instance=ExtResource("road")]
+position = Vector2(-110, 284)
+
+[node name="EntryContinuation02" parent="." instance=ExtResource("road")]
+position = Vector2(210, 444)
+
+[node name="ExitDiagonalAvenue" parent="." instance=ExtResource("exit_diagonal")]
+
+[node name="ExitNativeBridge" parent="." instance=ExtResource("exit_bridge")]
+
+[node name="NativeStoneSeamTiles" type="Node2D" parent="."]
+z_index = -19
+
+[node name="EntrySeamLeft" parent="NativeStoneSeamTiles" instance=ExtResource("tile")]
+position = Vector2(274, 652)
+
+
+[node name="EntrySeamOuterLeft" parent="NativeStoneSeamTiles" instance=ExtResource("tile")]
+position = Vector2(242, 636)
+
+
+

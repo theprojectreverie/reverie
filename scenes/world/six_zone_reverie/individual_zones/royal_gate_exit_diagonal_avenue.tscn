@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_exit_junction_clean.tscn" id="junction"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_exit_bridge_approach_clean.tscn" id="bridge_approach"]
+
+[node name="RoyalGateExitDiagonalAvenue" type="Node2D"]
+
+[node name="ExitBranch01" parent="." instance=ExtResource("junction")]
+position = Vector2(80, 1550)
+
+[node name="ExitBranch02" parent="." instance=ExtResource("road")]
+position = Vector2(400, 1710)
+
+[node name="ExitBranch03" parent="." instance=ExtResource("road")]
+position = Vector2(720, 1870)
+
+[node name="ExitBranch04" parent="." instance=ExtResource("road")]
+position = Vector2(1040, 2030)
+
+[node name="ExitBranch05" parent="." instance=ExtResource("bridge_approach")]
+position = Vector2(1360, 2190)

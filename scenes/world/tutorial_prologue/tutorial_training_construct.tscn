@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/straw_practice_dummy.png" id="1_texture"]
+[ext_resource type="Script" path="res://scripts/world/tutorial_training_construct.gd" id="2_script"]
+
+[node name="TrainingConstruct" type="Node2D"]
+script = ExtResource("2_script")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_texture")
+texture_filter = 1
+position = Vector2(0, -58)
+
+[node name="HitFlash" type="Sprite2D" parent="."]
+texture = ExtResource("1_texture")
+modulate = Color(1, 0.45, 0.82, 0)
+texture_filter = 1
+position = Vector2(0, -58)

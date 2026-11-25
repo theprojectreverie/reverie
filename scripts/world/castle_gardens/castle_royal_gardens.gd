@@ -60,6 +60,7 @@ func _ready() -> void:
 	runtime_component.bind(self)
 	presentation_component.bind(self)
 	_build_environment()
+	_apply_castle_architecture_transform()
 	player = player_spawner_component.spawn_player()
 	if player == null:
 		push_error("CastleRoyalGardens failed to spawn its player.")
@@ -83,6 +84,17 @@ func _build_environment() -> void:
 	_configure_lighting_and_effects()
 	_configure_bounds()
 
+
+func _apply_castle_architecture_transform() -> void:
+	# The live garden's parent uses a compressed Y scale for the playable field.
+	# Keep the castle collection aligned to the full-preview's authored transform.
+	var architecture := get_node_or_null("RoyalCastleArchitecture") as Node2D
+	if architecture == null:
+		push_error("CastleRoyalGardens requires its authored RoyalCastleArchitecture wrapper.")
+		return
+	architecture.position = Vector2(0.0, -36.8)
+	architecture.scale = Vector2(1.0, 1.32)
+
 func _build_iso_ground() -> void:
 	terrain_component.build()
 
@@ -99,11 +111,14 @@ func _configure_bounds() -> void:
 		return
 
 func get_spawn_position(marker_name: String) -> Vector2:
-	var marker := spawn_points.get_node_or_null(marker_name) as Node2D if spawn_points != null else null
+	# Resolve the authored marker from the live scene tree. This avoids relying
+	# on a cached onready reference during early world initialization.
+	var marker_container := get_node_or_null("MapSpawnPoints") as Node2D
+	var marker := marker_container.get_node_or_null(marker_name) as Node2D if marker_container != null else null
 	if marker != null:
 		return marker.position
+	push_warning("CastleRoyalGardens is missing spawn marker '%s'; using the canonical emergency spawn." % marker_name)
 	return IsoMath.grid_to_world(29.38, 9.38)
-
 func get_spawn_points() -> Array[Node2D]:
 	var result: Array[Node2D] = []
 	if spawn_points != null:
@@ -134,6 +149,25 @@ func get_world_monsters() -> Array:
 
 func is_water_world(pos: Vector2) -> bool:
 	return water_component.is_water_world(pos) if water_component != null else false
+
+
+func is_walkable(pos: Vector2) -> bool:
+	if is_water_world(pos):
+		return false
+	if entities == null or not is_inside_tree():
+		return true
+	# Probe the same environment collision layer used by the player. Roaming
+	# enemies use this method to avoid fountain bases, walls and other blockers.
+	var probe := CircleShape2D.new()
+	probe.radius = 10.0
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = probe
+	query.transform = Transform2D(0.0, entities.to_global(pos))
+	query.collision_mask = 1
+	query.collide_with_bodies = true
+	query.collide_with_areas = false
+	return get_world_2d().direct_space_state.intersect_shape(query, 1).is_empty()
+
 
 func visual_standards_report() -> Dictionary:
 	return presentation_component.visual_standards_report() if presentation_component != null else {}

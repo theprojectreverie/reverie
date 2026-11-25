@@ -1,0 +1,131 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/online/coop_lobby_screen.gd" id="1"]
+
+[node name="CoopLobbyScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.012, 0.008, 0.025, 0.86)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(560, 620)
+layout_mode = 2
+
+[node name="Margins" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 26
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 26
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margins"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Header" type="HBoxContainer" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/Panel/Margins/Content/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+text = "CO-OP EXPEDITIONS"
+
+[node name="CloseButton" type="Button" parent="Center/Panel/Margins/Content/Header"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+text = "×"
+
+[node name="Subtitle" type="Label" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+autowrap_mode = 2
+text = "Explore Reverie's regions together. Invite up to three friends."
+
+[node name="RegionLabel" type="Label" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+text = "EXPEDITION REGION"
+
+[node name="Region" type="LineEdit" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "royal_gardens"
+placeholder_text = "Region ID"
+
+[node name="CreateButton" type="Button" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "CREATE PRIVATE EXPEDITION"
+
+[node name="Divider" type="HSeparator" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+
+[node name="InviteCode" type="LineEdit" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+placeholder_text = "Paste a friend's invite code"
+
+[node name="JoinButton" type="Button" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "JOIN EXPEDITION"
+
+[node name="InviteDisplay" type="Label" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+autowrap_mode = 2
+text = "Create a lobby or join with an invite code."
+
+[node name="Members" type="Label" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+autowrap_mode = 2
+text = "No active expedition yet."
+
+[node name="Actions" type="HBoxContainer" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RefreshButton" type="Button" parent="Center/Panel/Margins/Content/Actions"]
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+layout_mode = 2
+text = "REFRESH"
+
+[node name="LeaveButton" type="Button" parent="Center/Panel/Margins/Content/Actions"]
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+layout_mode = 2
+text = "LEAVE"
+
+[node name="ServerBrowserButton" type="Button" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "BROWSE PERSISTENT WORLDS"
+
+[node name="Status" type="Label" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+autowrap_mode = 2
+text = "Checking your expedition status…"

@@ -1,17 +1,10 @@
 class_name PortraitView
 extends Control
-## Original procedural character portrait. This is placeholder art, drawn from
-## the same palette data the world actors use, so every character is visually
-## distinct without shipping third-party images. The public API stays stable
-## when final painted portraits arrive.
-##
-## Phase 5 presentation seam: ZERO final painted portraits exist. For every one
-## of the 12 characters PortraitAssetSource.texture_for(<id>, "hud") returns
-## null, so the procedural fallback below is the ACTIVE rendering path. When a
-## real validated portrait is dropped at the expected path, portrait_texture is
-## used instead and the procedural base is skipped — but the sigil / rarity
-## frame / dim overlays are ALWAYS drawn on top. No image/binary art file is
-## created here.
+## Procedural portrait renderer and safe fallback. setup_character() prefers
+## the protagonist art source, then a validated HUD portrait, then an authored
+## collection portrait. The procedural base is used only when none is available.
+## Painted portraits replace the base while sigil, rarity frame and dim overlays
+## remain part of this authored UI component. No image art is generated here.
 
 var palette: Dictionary = {}
 var race: String = "Human"
@@ -22,13 +15,21 @@ var dim: bool = false
 var selected: bool = false
 var show_frame: bool = true
 
-# Real-portrait seam. ZERO final portraits exist today, so portrait_texture is
-# null for all characters and the procedural fallback stays active.
+# Resolved painted portrait texture. Null means the procedural fallback is active.
 var character_id: String = ""
 var portrait_texture: Texture2D = null
 var show_rarity_effect: bool = true
+var battle_frame_style: String = ""
+var _battle_frame_texture: Texture2D = null
+var _battle_frame_art: TextureRect
+
+@onready var portrait_art: TextureRect = get_node_or_null("PortraitArt") as TextureRect
 
 var _time: float = 0.0
+var _battle_frame_paths := {
+	"round": "res://assets/ui/battle/panels/sliced/portrait_frame_round_overlay.png",
+	"tall": "res://assets/ui/battle/panels/sliced/portrait_frame_tall_overlay.png",
+}
 var _hair: Color = Color("#4a3020")
 var _skin: Color = Color("#f3d7c0")
 var _primary: Color = Color("#3f5a6b")
@@ -44,8 +45,20 @@ func _ready() -> void:
 		custom_minimum_size = Vector2(96, 96)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	clip_contents = true
+	if portrait_art != null:
+		portrait_art.texture = portrait_texture
+		portrait_art.visible = portrait_texture != null
+	_battle_frame_art = get_node_or_null("BattleFrameArt") as TextureRect
+	_refresh_battle_frame()
 	set_process(true)
 
+
+func _refresh_battle_frame() -> void:
+	if _battle_frame_art == null:
+		return
+	_battle_frame_texture = load(str(_battle_frame_paths.get(battle_frame_style, ""))) as Texture2D if not battle_frame_style.is_empty() else null
+	_battle_frame_art.texture = _battle_frame_texture
+	_battle_frame_art.visible = _battle_frame_texture != null
 
 func setup(
 	p_palette: Dictionary,
@@ -57,6 +70,9 @@ func setup(
 	# Raw palette path is always the procedural fallback (no real portrait).
 	character_id = ""
 	portrait_texture = null
+	if is_node_ready() and portrait_art != null:
+		portrait_art.texture = null
+		portrait_art.visible = false
 	palette = p_palette
 	race = p_race
 	element = p_element
@@ -80,26 +96,32 @@ func setup_character(definition: CharacterDef, p_rarity: String = "") -> void:
 		p_rarity if not p_rarity.is_empty() else definition.rarity,
 		definition.portrait_seed
 	)
-	# setup() clears these, so set them AFTER the call. A character's FINAL
-	# portrait (the protagonists) is looked up through its registered
-	# playable-art path first; the twelve collectible characters have none, so
-	# PortraitAssetSource returns null and the procedural fallback stays the
-	# active rendering path for them.
+	# setup() clears these, so set them AFTER the call. Prefer the protagonist's
+	# registered playable portrait, then a validated HUD cut-out, then the
+	# downloaded collection portrait. Only characters without any of those
+	# assets use the procedural fallback.
 	character_id = definition.id
 	portrait_texture = MainCharacterRoster.portrait_texture(definition.id)
 	if portrait_texture == null:
 		portrait_texture = PortraitAssetSource.texture_for(definition.id, "hud")
+	if portrait_texture == null:
+		portrait_texture = PortraitAssetSource.texture_for(definition.id, "collection")
+	if is_node_ready() and portrait_art != null:
+		portrait_art.texture = portrait_texture
+		portrait_art.visible = portrait_texture != null
 
 
 ## Inject a real validated painted portrait (the future seam). When null, the
 ## procedural fallback is restored.
 func set_portrait_texture(tex: Texture2D) -> void:
 	portrait_texture = tex
+	if is_node_ready() and portrait_art != null:
+		portrait_art.texture = tex
+		portrait_art.visible = tex != null
 	queue_redraw()
 
 
-## Honest report of the active rendering path. ZERO final portraits today means
-## has_texture == false, texture_source == "none" and fallback_active == true.
+## Honest report of the currently resolved rendering path for this character.
 func portrait_report() -> Dictionary:
 	return {
 		"character_id": character_id,
@@ -130,39 +152,31 @@ func _draw() -> void:
 	# Additive premium aura drawn BEFORE the base (behind everything).
 	_draw_rarity_aura(w, h, unit)
 
-	# ZERO final portraits: portrait_texture == null for all 12 characters, so
-	# the procedural BASE is the active rendering path. A real validated texture
-	# replaces only the base; the overlays below ALWAYS run either way.
+	# The procedural BASE is only used when no real portrait was resolved.
+	# A painted texture replaces only the base; the overlays below ALWAYS run.
 	if portrait_texture == null:
 		_draw_procedural_base(w, h, unit)
-	else:
-		# Preserve painted portrait proportions. Stretching a tall portrait into
-		# the wide HUD card distorts the face and makes the art look soft.
-		var texture_size := portrait_texture.get_size()
-		if texture_size.x > 0.0 and texture_size.y > 0.0:
-			var fit_scale := minf(w / texture_size.x, h / texture_size.y)
-			var fitted_size := texture_size * fit_scale
-			var fitted_rect := Rect2((size - fitted_size) * 0.5, fitted_size)
-			draw_texture_rect(portrait_texture, fitted_rect, false)
 
 	# Painted portraits already contain their own species details; only the
 	# procedural fallback needs the extra race ornament drawn over the base.
 	if portrait_texture == null:
 		_draw_race_details(w, h, head_center, head_radius)
 
-	# Element sigil (unchanged).
-	var sigil_center := Vector2(w * 0.82, h * 0.18)
-	var sigil_color := UITheme.element_color(element)
-	draw_circle(sigil_center, unit * 0.075, Color(0.02, 0.03, 0.06, 0.82))
-	draw_arc(sigil_center, unit * 0.075, 0, TAU, 18, Color(sigil_color.r, sigil_color.g, sigil_color.b, 0.85), 1.5)
-	draw_colored_polygon(PackedVector2Array([
-		sigil_center + Vector2(0, -unit * 0.040),
-		sigil_center + Vector2(unit * 0.034, 0),
-		sigil_center + Vector2(0, unit * 0.040),
-		sigil_center + Vector2(-unit * 0.034, 0),
-	]), sigil_color)
+	# The editor-authored TextureRect displays painted art without procedural
+	# overlays. Sigils and synthetic decorations are reserved for fallback art.
+	if portrait_texture == null:
+		var sigil_center := Vector2(w * 0.82, h * 0.18)
+		var sigil_color := UITheme.element_color(element)
+		draw_circle(sigil_center, unit * 0.075, Color(0.02, 0.03, 0.06, 0.82))
+		draw_arc(sigil_center, unit * 0.075, 0, TAU, 18, Color(sigil_color.r, sigil_color.g, sigil_color.b, 0.85), 1.5)
+		draw_colored_polygon(PackedVector2Array([
+			sigil_center + Vector2(0, -unit * 0.040),
+			sigil_center + Vector2(unit * 0.034, 0),
+			sigil_center + Vector2(0, unit * 0.040),
+			sigil_center + Vector2(-unit * 0.034, 0),
+		]), sigil_color)
 
-	if show_frame:
+	if show_frame and _battle_frame_texture == null:
 		var frame_color := UITheme.rarity_color(rarity)
 		var thickness := 3.0 if selected else 2.0
 		draw_rect(Rect2(Vector2.ZERO, size), Color(frame_color.r, frame_color.g, frame_color.b, 0.95), false, thickness)
@@ -170,7 +184,7 @@ func _draw() -> void:
 		draw_line(Vector2(w * 0.08, h * 0.94), Vector2(w * 0.92, h * 0.94), Color(frame_color.r, frame_color.g, frame_color.b, 0.35), 1.0)
 
 	# Premium rarity: an extra inner accent frame AFTER the existing frame.
-	if show_frame and show_rarity_effect and UITheme.is_premium_rarity(rarity):
+	if show_frame and _battle_frame_texture == null and show_rarity_effect and UITheme.is_premium_rarity(rarity):
 		var frame_effect := UITheme.rarity_effect(rarity)
 		var frame_glow: Color = frame_effect.get("glow", UITheme.GOLD_BRIGHT)
 		draw_rect(Rect2(Vector2(6, 6), size - Vector2(12, 12)), Color(frame_glow.r, frame_glow.g, frame_glow.b, 0.30), false, 1.0)
@@ -182,7 +196,7 @@ func _draw() -> void:
 ## Cheap, deterministic premium aura (a handful of draw calls). Only legendary /
 ## mythic draw it, and only when show_rarity_effect is enabled. Uses _time gently.
 func _draw_rarity_aura(w: float, h: float, unit: float) -> void:
-	if not show_rarity_effect or not UITheme.is_premium_rarity(rarity):
+	if portrait_texture != null or not show_rarity_effect or not UITheme.is_premium_rarity(rarity):
 		return
 	var effect := UITheme.rarity_effect(rarity)
 	var glow: Color = effect.get("glow", UITheme.GOLD_BRIGHT)

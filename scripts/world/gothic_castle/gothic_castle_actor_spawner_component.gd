@@ -84,10 +84,13 @@ func _spawn_monsters() -> void:
 			var radius := float(s.get("radius", 1))
 			var cell := Vector2(float(grid[0]) + rng.randf_range(-radius, radius),
 					float(grid[1]) + rng.randf_range(-radius, radius))
-			var monster := (BOSS_MONSTER_SCENE.instantiate() if is_boss else MONSTER_SCENE.instantiate()) as RoamingMonster
+			var monster_scene: PackedScene = BOSS_MONSTER_SCENE if group_id == "baltoria_encounter" else MONSTER_SCENE
+			var monster := monster_scene.instantiate() as RoamingMonster
 			if monster == null:
 				continue
 			monster.setup(group_id, IsoMath.grid_to_world(cell.x, cell.y), enemy_def, is_boss)
+			monster.required_quest = str(s.get("requires_quest", ""))
+			monster.required_quest_step = int(s.get("requires_quest_step", 0))
 			entities.add_child(monster)
 			monsters.append(monster)
 

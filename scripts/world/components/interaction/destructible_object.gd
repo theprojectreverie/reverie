@@ -16,6 +16,8 @@ signal destroyed
 
 func _ready() -> void:
 	current_health = clampf(current_health, 0.0, max_health)
+	if animation_player != null:
+		animation_player.animation_finished.connect(_on_animation_finished)
 	var key := _key()
 	if not key.is_empty() and bool(GameState.quest_domain.flags.get(key, false)):
 		_apply_destroyed_state(false)
@@ -37,21 +39,30 @@ func destroy() -> void:
 	if not key.is_empty():
 		GameState.quest_domain.flags[key] = true
 		GameState.queue_save()
+	if str(object_id).to_lower().contains("crystal"):
+		AudioDirector.play_variant("crystal_shatter")
 	_apply_destroyed_state(true)
 	destroyed.emit()
 
 
 func _apply_destroyed_state(play_fx: bool) -> void:
-	if play_fx and animation_player and animation_player.has_animation("destroy"):
-		animation_player.play("destroy")
-	visible = false
 	if not collision_path.is_empty():
 		var node := get_node_or_null(collision_path)
 		if node is CollisionShape2D:
-			(node as CollisionShape2D).disabled = true
+			(node as CollisionShape2D).set_deferred("disabled", true)
 		elif node is CollisionObject2D:
 			(node as CollisionObject2D).set_deferred("collision_layer", 0)
 			(node as CollisionObject2D).set_deferred("collision_mask", 0)
+	if play_fx and animation_player != null and animation_player.has_animation("destroy"):
+		visible = true
+		animation_player.play("destroy")
+	else:
+		visible = false
+
+
+func _on_animation_finished(animation_name: StringName) -> void:
+	if animation_name == &"destroy" and current_health <= 0.0:
+		visible = false
 
 
 func _key() -> String:

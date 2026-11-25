@@ -1,23 +1,18 @@
 class_name RegionPortal
 extends Interactable
-## A visible, interactable gate that REQUESTS a region transition through
-## EventBus. It NEVER mutates GameState directly — GameScreen owns transitions,
-## validates them with RegionGraph and rebuilds the world. Headless-safe: no
-## per-frame work, no heavy processing, all art is procedural placeholder.
+## Authored scene-based region gate. Route identity and transition behavior
+## are inspector-configurable; the portal's visuals live in region_portal.tscn.
 
-var region_id: String = ""
-var connection_id: String = ""
-var target_region: String = ""
-var entry_point: String = ""
-var portal_label: String = "Travel"
+@export var region_id: String = ""
+@export var connection_id: String = ""
+@export var target_region: String = ""
+@export var entry_point: String = ""
+@export var portal_label: String = "Travel"
+@export var required_quest: String = ""
+@export_multiline var locked_message: String = "The way remains sealed."
+
 var target_region_name: String = ""
-var required_quest: String = ""
-var locked_message: String = ""
-
-var _sprite: Sprite2D
-var _light: PointLight2D
-var _label: Label
-
+@onready var _label: Label = get_node_or_null("Label") as Label
 
 func setup(p_region_id: String, p_connection: Dictionary) -> void:
 	region_id = p_region_id
@@ -27,72 +22,31 @@ func setup(p_region_id: String, p_connection: Dictionary) -> void:
 	portal_label = str(p_connection.get("label", "Travel"))
 	required_quest = str(p_connection.get("requires_quest", ""))
 	locked_message = str(p_connection.get("locked_message", "The way remains sealed."))
-	target_region_name = _lookup_region_name(target_region)
-
+	_refresh_target_name()
 
 func _ready() -> void:
-	super._ready()  # keeps this node in the "interactables" group
+	super._ready()
 	interaction_radius = 110.0
-	prompt = "Travel to " + portal_label
-	if not required_quest.is_empty() and not _requirement_met():
-		prompt = "Sealed: " + portal_label
-	if target_region_name.is_empty():
-		target_region_name = _lookup_region_name(target_region)
-	_build_visual()
+	_refresh_target_name()
+	_refresh_presentation()
 
+func _refresh_target_name() -> void:
+	if not target_region.is_empty():
+		var definition: Dictionary = ContentDB.get_region(target_region)
+		target_region_name = str(definition.get("name", target_region))
 
-func _build_visual() -> void:
-	_sprite = get_node_or_null("Sprite") as Sprite2D
-	if _sprite == null:
-		_sprite = Sprite2D.new()
-		_sprite.name = "Sprite"
-		_sprite.centered = false
-		_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-		add_child(_sprite)
-	var tex := ProceduralArt.prop_texture("waypoint", 1)
-	if tex == null:
-		tex = ProceduralArt.white_pixel()
-	_sprite.texture = tex
-	_sprite.centered = false
-	_sprite.offset = Vector2(-float(tex.get_width()) * 0.5, -float(tex.get_height()) + 6.0)
-
-	# Reuse the authored glow and label; fallbacks keep direct construction safe.
-	_light = get_node_or_null("Glow") as PointLight2D
-	if _light == null:
-		_light = PointLight2D.new()
-		_light.name = "Glow"
-		_light.position = Vector2(0, -36)
-		add_child(_light)
-	_light.texture = ProceduralArt.soft_glow(GreenwardStyle.MAGIC.teal, 96)
-	_light.color = GreenwardStyle.MAGIC.teal
-	_light.energy = 1.0
-	_light.texture_scale = 2.2
-	_light.blend_mode = Light2D.BLEND_MODE_ADD
-
-	_label = get_node_or_null("Label") as Label
-	if _label == null:
-		_label = Label.new()
-		_label.name = "Label"
-		_label.position = Vector2(-64, -96)
-		add_child(_label)
-	_label.text = portal_label
-	_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
+func _refresh_presentation() -> void:
+	var unlocked := _requirement_met()
+	prompt = ("Travel to " if unlocked else "Sealed: ") + portal_label
+	if is_instance_valid(_label):
+		_label.text = portal_label if unlocked else "Sealed Road"
 
 func can_interact() -> bool:
-	_update_gate_prompt()
-	return enabled and visible
-
-
-func _update_gate_prompt() -> void:
-	prompt = "Travel to " + portal_label if _requirement_met() else "Sealed: " + portal_label
-	if _label != null:
-		_label.text = prompt
-
+	_refresh_presentation()
+	return enabled and visible and not target_region.is_empty() and not entry_point.is_empty()
 
 func _requirement_met() -> bool:
 	return required_quest.is_empty() or GameState.quest_domain.quest_state(required_quest) == "complete"
-
 
 func interact() -> void:
 	if not can_interact():
@@ -100,12 +54,6 @@ func interact() -> void:
 	if not _requirement_met():
 		EventBus.toast_requested.emit(locked_message)
 		return
+	AudioDirector.play_variant("portal_transition")
 	EventBus.region_change_requested.emit(target_region, entry_point)
 	EventBus.toast_requested.emit("Travelling to " + target_region_name)
-
-
-func _lookup_region_name(id: String) -> String:
-	# Read-only, defensive lookup: fall back to the id if ContentDB is empty.
-	var def: Dictionary = ContentDB.get_region(id)
-	var name_value := str(def.get("name", ""))
-	return name_value if not name_value.is_empty() else id

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_crossing_midsection_unique.tscn" id="unique_mid"]
+
+[node name="RoyalGateDiagonalCrossing" type="Node2D"]
+position = Vector2(-16, -2)
+
+[node name="CrossingSegment01" parent="." instance=ExtResource("road")]
+position = Vector2(-1440, 880)
+
+[node name="CrossingSegment02" parent="." instance=ExtResource("road")]
+position = Vector2(-1120, 1040)
+
+[node name="CrossingSegment03" parent="." instance=ExtResource("road")]
+position = Vector2(-800, 1200)
+
+[node name="CrossingSegment04" parent="." instance=ExtResource("road")]
+position = Vector2(-480, 1360)
+
+[node name="CrossingUniqueMidsection" parent="." instance=ExtResource("unique_mid")]
+
+[node name="CrossingSegment07" parent="." instance=ExtResource("road")]
+position = Vector2(480, 1840)
+
+[node name="CrossingSegment08" parent="." instance=ExtResource("road")]
+position = Vector2(800, 2000)
+
+[node name="CrossingSegment09" parent="." instance=ExtResource("road")]
+position = Vector2(1120, 2160)

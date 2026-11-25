@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/screens/combat_screen.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/ui/combat/components/combat_screen_backdrop.tscn" id="2"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/ui/combat/combat_layout_component.gd" id="11_layout"]
 [ext_resource type="Script" path="res://scripts/ui/combat/combat_session_component.gd" id="12_session"]
 [ext_resource type="Script" path="res://scripts/ui/combat/combat_input_component.gd" id="13_input"]
+[ext_resource type="PackedScene" path="res://scenes/combat/presentation/boss_presentation_rig.tscn" id="14_boss"]
 
 [node name="CombatScreen" type="Control"]
 script = ExtResource("1")
@@ -62,3 +63,11 @@ script = ExtResource("12_session")
 
 [node name="Input" type="Node" parent="."]
 script = ExtResource("13_input")
+
+[node name="BossPresentationRig" parent="." instance=ExtResource("14_boss")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

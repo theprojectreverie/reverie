@@ -35,16 +35,34 @@ func set_frame_source(source: ActorFrameSource) -> void:
 
 
 func configure_character(character_id: String) -> Dictionary:
+	return _configure_registered_source(character_id, SpriteFramesActorSource.register_playable(character_id))
+
+
+## Enemy-specific route. Does not consult MainCharacterRoster or collectible
+## character paths; a complete enemy SpriteFrames resource is required before
+## the shared Sprite2D presentation can replace the procedural fallback.
+func configure_enemy_character(enemy_id: String) -> Dictionary:
+	return _configure_registered_source(enemy_id, SpriteFramesActorSource.register_enemy(enemy_id))
+
+
+func _configure_registered_source(asset_id: String, source: ActorFrameSource) -> Dictionary:
 	if visual == null:
-		return {"character_id": character_id, "registered": false, "fallback_active": true}
-	visual.character_id = character_id
-	var source: ActorFrameSource = SpriteFramesActorSource.register_playable(character_id)
+		return {"character_id": asset_id, "registered": false, "fallback_active": true}
+	visual.character_id = asset_id
+	if visual.animator != null:
+		visual.animator.kael_combat_frames = asset_id == "kael" and source != null and source.has_frames()
 	var registered := false
 	if source != null and source.has_frames() and source.validate_sheets().is_empty():
 		set_frame_source(source)
 		registered = true
+	else:
+		# Registration is an explicit replacement, not a best-effort overlay.
+		# Never leave a previously registered actor's SpriteFrames visible when
+		# this ID is missing or invalid; that would display the wrong character's
+		# art while the report claims the procedural fallback is active.
+		set_frame_source(null)
 	return {
-		"character_id": character_id,
+		"character_id": asset_id,
 		"registered": registered,
 		"fallback_active": not registered,
 		"using_temporary_art": visual.using_temporary_art,
@@ -129,8 +147,6 @@ func update_sprite_frame() -> void:
 	if visual == null or visual._sprite == null or visual.frame_source == null or not visual._sprite_active:
 		return
 	var key: int = (visual.animator.state << 16) | (visual.animator.direction << 8) | visual.animator.frame
-	if key == visual._last_sprite_key and visual._sprite.visible:
-		return
 	var texture: Texture2D
 	if visual.animator.state == CharacterAnimator.CAST_STATE:
 		texture = visual.frame_source.cast_frame(visual.animator.direction, visual.animator.frame)
@@ -139,9 +155,13 @@ func update_sprite_frame() -> void:
 	else:
 		texture = visual.frame_source.frame(visual.animator.state, visual.animator.direction, visual.animator.frame)
 	if texture == null:
-		visual._sprite_active = false
-		hide_sprite()
-		visual._queue_visual_redraw()
+		# A source can become incomplete after initial registration (resource
+		# mutation, hot reload, or an unexpected missing directional frame).
+		# Route through the same fallback transition as registration so the
+		# report, source flags and visible renderer cannot disagree.
+		set_frame_source(null)
+		return
+	if key == visual._last_sprite_key and visual._sprite.visible and visual._sprite.texture == texture:
 		return
 	visual._last_sprite_key = key
 	visual._sprite.texture = texture

@@ -32,3 +32,8 @@ func rebuild() -> void:
 		button.set_anchors_preset(Control.PRESET_TOP_LEFT)
 		button.position = origin + Vector2(820.0, BUTTON_CENTRES_Y[index] - 29.0) * scale_factor
 		button.size = Vector2(370.0, 58.0) * scale_factor
+	var online_button := screen.get_node_or_null("OnlineButton") as Button
+	if online_button != null:
+		online_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+		online_button.position = Vector2(-184.0, 24.0)
+		online_button.size = Vector2(160.0, 48.0)

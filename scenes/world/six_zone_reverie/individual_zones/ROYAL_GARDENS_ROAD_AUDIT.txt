@@ -1,0 +1,12 @@
+ROYAL GARDENS ROAD AUDIT - updated 2026-11-21
+The original 100x100 ground pattern was replaced with editor-authored PackedScene tile instances.
+Current pink stone path count: 897 tiles at last verified count.
+Connectivity: 1 connected section at last verified count.
+Verified landmark anchors from royal_gardens_reference_layout.tscn:
+Gazebo Sprite2D: world (2185,1242), corresponding tile grid approximately (4.67,72.95).
+Fountain Sprite2D: world (-680,1980), grid approximately (72.50,51.25).
+The gazebo path extension reaches approximately grid (9,73), stopping short of its base.
+The earlier assumption gazebo was at world (1780,1360) was incorrect and superseded.
+The current desktop screenshots show a different Reverie scene; they do NOT visually validate Royal Gardens.
+IMPORTANT: Next work must launch or foreground the Royal Gardens standalone scene specifically, inspect the entire diamond, and adjust paths from that screenshot.
+No collision work. Preserve original castle. No code-generated art.

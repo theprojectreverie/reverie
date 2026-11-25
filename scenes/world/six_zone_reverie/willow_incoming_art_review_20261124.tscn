@@ -1,0 +1,259 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_01.png" id="1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_02.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_03.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_04.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_05.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_06.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_07.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_08.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_09.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_10.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_11.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_12.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_13.png" id="13"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_14.png" id="14"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_15.png" id="15"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_16.png" id="16"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_17.png" id="17"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_18.png" id="18"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_19.png" id="19"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_20.png" id="20"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_21.png" id="21"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_22.png" id="22"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_23.png" id="23"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_24.png" id="24"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_25.png" id="25"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_26.png" id="26"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_27.png" id="27"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_28.png" id="28"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_29.png" id="29"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_30.png" id="30"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_31.png" id="31"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_32.png" id="32"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_33.png" id="33"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_34.png" id="34"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_35.png" id="35"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_36.png" id="36"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_37.png" id="37"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_38.png" id="38"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_39.png" id="39"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_40.png" id="40"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_41.png" id="41"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_42.png" id="42"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_43.png" id="43"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_44.png" id="44"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_45.png" id="45"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_46.png" id="46"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_47.png" id="47"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_48.png" id="48"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_49.png" id="49"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/incoming_20261124/willow_extracted_review/willow_piece_50.png" id="50"]
+
+[node name="WillowIncomingArtReview" type="Node2D"]
+texture_filter = 1
+
+[node name="Piece1" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+texture = ExtResource("1")
+
+[node name="Piece2" type="Sprite2D" parent="."]
+position = Vector2(250, 0)
+texture = ExtResource("2")
+
+[node name="Piece3" type="Sprite2D" parent="."]
+position = Vector2(500, 0)
+texture = ExtResource("3")
+
+[node name="Piece4" type="Sprite2D" parent="."]
+position = Vector2(750, 0)
+texture = ExtResource("4")
+
+[node name="Piece5" type="Sprite2D" parent="."]
+position = Vector2(1000, 0)
+texture = ExtResource("5")
+
+[node name="Piece6" type="Sprite2D" parent="."]
+position = Vector2(1250, 0)
+texture = ExtResource("6")
+
+[node name="Piece7" type="Sprite2D" parent="."]
+position = Vector2(1500, 0)
+texture = ExtResource("7")
+
+[node name="Piece8" type="Sprite2D" parent="."]
+position = Vector2(0, 180)
+texture = ExtResource("8")
+
+[node name="Piece9" type="Sprite2D" parent="."]
+position = Vector2(250, 180)
+texture = ExtResource("9")
+
+[node name="Piece10" type="Sprite2D" parent="."]
+position = Vector2(500, 180)
+texture = ExtResource("10")
+
+[node name="Piece11" type="Sprite2D" parent="."]
+position = Vector2(750, 180)
+texture = ExtResource("11")
+
+[node name="Piece12" type="Sprite2D" parent="."]
+position = Vector2(1000, 180)
+texture = ExtResource("12")
+
+[node name="Piece13" type="Sprite2D" parent="."]
+position = Vector2(1250, 180)
+texture = ExtResource("13")
+
+[node name="Piece14" type="Sprite2D" parent="."]
+position = Vector2(1500, 180)
+texture = ExtResource("14")
+
+[node name="Piece15" type="Sprite2D" parent="."]
+position = Vector2(0, 360)
+texture = ExtResource("15")
+
+[node name="Piece16" type="Sprite2D" parent="."]
+position = Vector2(250, 360)
+texture = ExtResource("16")
+
+[node name="Piece17" type="Sprite2D" parent="."]
+position = Vector2(500, 360)
+texture = ExtResource("17")
+
+[node name="Piece18" type="Sprite2D" parent="."]
+position = Vector2(750, 360)
+texture = ExtResource("18")
+
+[node name="Piece19" type="Sprite2D" parent="."]
+position = Vector2(1000, 360)
+texture = ExtResource("19")
+
+[node name="Piece20" type="Sprite2D" parent="."]
+position = Vector2(1250, 360)
+texture = ExtResource("20")
+
+[node name="Piece21" type="Sprite2D" parent="."]
+position = Vector2(1500, 360)
+texture = ExtResource("21")
+
+[node name="Piece22" type="Sprite2D" parent="."]
+position = Vector2(0, 540)
+texture = ExtResource("22")
+
+[node name="Piece23" type="Sprite2D" parent="."]
+position = Vector2(250, 540)
+texture = ExtResource("23")
+
+[node name="Piece24" type="Sprite2D" parent="."]
+position = Vector2(500, 540)
+texture = ExtResource("24")
+
+[node name="Piece25" type="Sprite2D" parent="."]
+position = Vector2(750, 540)
+texture = ExtResource("25")
+
+[node name="Piece26" type="Sprite2D" parent="."]
+position = Vector2(1000, 540)
+texture = ExtResource("26")
+
+[node name="Piece27" type="Sprite2D" parent="."]
+position = Vector2(1250, 540)
+texture = ExtResource("27")
+
+[node name="Piece28" type="Sprite2D" parent="."]
+position = Vector2(1500, 540)
+texture = ExtResource("28")
+
+[node name="Piece29" type="Sprite2D" parent="."]
+position = Vector2(0, 720)
+texture = ExtResource("29")
+
+[node name="Piece30" type="Sprite2D" parent="."]
+position = Vector2(250, 720)
+texture = ExtResource("30")
+
+[node name="Piece31" type="Sprite2D" parent="."]
+position = Vector2(500, 720)
+texture = ExtResource("31")
+
+[node name="Piece32" type="Sprite2D" parent="."]
+position = Vector2(750, 720)
+texture = ExtResource("32")
+
+[node name="Piece33" type="Sprite2D" parent="."]
+position = Vector2(1000, 720)
+texture = ExtResource("33")
+
+[node name="Piece34" type="Sprite2D" parent="."]
+position = Vector2(1250, 720)
+texture = ExtResource("34")
+
+[node name="Piece35" type="Sprite2D" parent="."]
+position = Vector2(1500, 720)
+texture = ExtResource("35")
+
+[node name="Piece36" type="Sprite2D" parent="."]
+position = Vector2(0, 900)
+texture = ExtResource("36")
+
+[node name="Piece37" type="Sprite2D" parent="."]
+position = Vector2(250, 900)
+texture = ExtResource("37")
+
+[node name="Piece38" type="Sprite2D" parent="."]
+position = Vector2(500, 900)
+texture = ExtResource("38")
+
+[node name="Piece39" type="Sprite2D" parent="."]
+position = Vector2(750, 900)
+texture = ExtResource("39")
+
+[node name="Piece40" type="Sprite2D" parent="."]
+position = Vector2(1000, 900)
+texture = ExtResource("40")
+
+[node name="Piece41" type="Sprite2D" parent="."]
+position = Vector2(1250, 900)
+texture = ExtResource("41")
+
+[node name="Piece42" type="Sprite2D" parent="."]
+position = Vector2(1500, 900)
+texture = ExtResource("42")
+
+[node name="Piece43" type="Sprite2D" parent="."]
+position = Vector2(0, 1080)
+texture = ExtResource("43")
+
+[node name="Piece44" type="Sprite2D" parent="."]
+position = Vector2(250, 1080)
+texture = ExtResource("44")
+
+[node name="Piece45" type="Sprite2D" parent="."]
+position = Vector2(500, 1080)
+texture = ExtResource("45")
+
+[node name="Piece46" type="Sprite2D" parent="."]
+position = Vector2(750, 1080)
+texture = ExtResource("46")
+
+[node name="Piece47" type="Sprite2D" parent="."]
+position = Vector2(1000, 1080)
+texture = ExtResource("47")
+
+[node name="Piece48" type="Sprite2D" parent="."]
+position = Vector2(1250, 1080)
+texture = ExtResource("48")
+
+[node name="Piece49" type="Sprite2D" parent="."]
+position = Vector2(1500, 1080)
+texture = ExtResource("49")
+
+[node name="Piece50" type="Sprite2D" parent="."]
+position = Vector2(0, 1260)
+texture = ExtResource("50")
+
+[node name="ReviewCamera" type="Camera2D" parent="."]
+position = Vector2(750, 630)
+zoom = Vector2(0.65, 0.65)

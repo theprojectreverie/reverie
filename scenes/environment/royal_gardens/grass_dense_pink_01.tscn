@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_flower_pink/grass_dense_pink_01.png" id="texture"]
+
+[node name="grass_dense_pink_01" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = true
+texture = ExtResource("texture")

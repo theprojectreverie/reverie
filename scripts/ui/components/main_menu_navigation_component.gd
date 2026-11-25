@@ -17,6 +17,7 @@ signal characters_requested
 signal combat_requested
 signal castle_requested
 signal resources_requested
+signal paid_currency_requested
 signal crystals_requested
 signal gold_requested
 
@@ -43,7 +44,7 @@ func bind(owner: Control) -> void:
 	_connect("ResourcesButton", resources_requested.emit, "ReferenceInterface/BottomNavigation")
 	_connect("PremiumCurrency", crystals_requested.emit, "ReferenceInterface/CurrencyBar")
 	_connect("GoldCurrency", gold_requested.emit, "ReferenceInterface/CurrencyBar")
-	_connect("ResourceCurrency", resources_requested.emit, "ReferenceInterface/CurrencyBar")
+	_connect("PaidCurrency", paid_currency_requested.emit, "ReferenceInterface/CurrencyBar")
 
 func _connect(node_name: String, callback: Callable, parent_path := "ReferenceInterface") -> void:
 	var parent := menu.get_node_or_null(parent_path)

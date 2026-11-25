@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/willow_fields_standalone_controller.gd" id="zone_controller"]
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/zone_03_background_reference.tscn" id="prepared_background"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_03_willow_fields.tscn" id="zone"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/willow_dirt_road_4x10.tscn" id="road"]
+
+[sub_resource type="RectangleShape2D" id="TransferDetection"]
+size = Vector2(112, 96)
+
+[node name="StandaloneZone03" type="Node2D"]
+
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="ZoneCamera" type="Camera2D" parent="."]
+position = Vector2(0, 1584)
+zoom = Vector2(0.30, 0.30)
+enabled = true
+
+[node name="ExitRoadToZone04" parent="." instance=ExtResource("road")]
+position = Vector2(2400, 1400)
+
+[node name="EntryRoadFromZone02" parent="." instance=ExtResource("road")]
+position = Vector2(-2656, 1328)
+
+[node name="PreparedBackgroundReference" parent="." instance=ExtResource("prepared_background")]
+visible = false
+
+[node name="TransferPoints" type="Node2D" parent="."]
+
+[node name="ToPreviousZone" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-2720, 1360)
+metadata/target_zone = 2
+metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_02_royal_gate_standalone.tscn"
+metadata/connection = "entry"
+
+[node name="ToNextZone" type="Marker2D" parent="TransferPoints"]
+position = Vector2(2624, 1576)
+metadata/target_zone = 4
+metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn"
+metadata/connection = "exit"
+
+[node name="ToPreviousZoneTrigger" type="Area2D" parent="TransferPoints/ToPreviousZone"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("transfer_script")
+destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_02_royal_gate_standalone.tscn"
+arrival_marker = &"ToNextZone"
+
+[node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToPreviousZone/ToPreviousZoneTrigger"]
+shape = SubResource("TransferDetection")
+
+[node name="ToNextZoneTrigger" type="Area2D" parent="TransferPoints/ToNextZone"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("transfer_script")
+destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn"
+arrival_marker = &"ToPreviousZone"
+
+[node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger"]
+shape = SubResource("TransferDetection")

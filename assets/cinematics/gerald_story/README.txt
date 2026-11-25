@@ -1,0 +1,1 @@
+All 30 images from the Gerald story Library folder. Chapter assignments and sequence are editorial proposals; review visually before using as canon. War illustrations are placed before the tragedy. The Fallen Guardian chapter contains no image explicitly verified as Gerald killing villagers after berserk.

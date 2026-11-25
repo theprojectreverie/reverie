@@ -4,7 +4,7 @@ extends Node2D
 signal completed
 
 @onready var _glyph: Node2D = $Glyph
-@onready var _elder_style: Node2D = $Glyph/Artwork/ElderStyle
+@onready var _root_crest: Sprite2D = $Glyph/Artwork/RootCrest
 @onready var _matron_style: Node2D = $Glyph/Artwork/MatronStyle
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -18,7 +18,7 @@ func play(profile: Resource, duration: float = 0.42) -> void:
 		modulate = profile.get("telegraph_color")
 		_glyph.scale = Vector2.ONE * float(profile.get("telegraph_scale"))
 		var visual_style := str(profile.get("visual_style"))
-		_elder_style.visible = visual_style != "bloom"
+		_root_crest.visible = visual_style != "bloom"
 		_matron_style.visible = visual_style == "bloom"
 	var animation := _animation_player.get_animation("warning")
 	_animation_player.speed_scale = animation.length / maxf(0.12, duration)

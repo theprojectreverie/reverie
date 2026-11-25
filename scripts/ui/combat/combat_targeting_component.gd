@@ -23,7 +23,7 @@ func is_targeting() -> bool:
 
 
 func select_skill(skill: SkillDef) -> void:
-	if screen == null or screen._resolved or screen.engine == null:
+	if screen == null or screen._resolved or screen._animating or screen.engine == null:
 		return
 	var actor: Combatant = screen.engine.current_actor()
 	if actor == null or actor.team != CombatEngine.PLAYER_TEAM:
@@ -43,7 +43,7 @@ func select_skill(skill: SkillDef) -> void:
 
 
 func on_battlefield_actor_clicked(actor: BattlefieldActor) -> void:
-	if not targeting or pending_skill == null or actor == null:
+	if screen == null or screen._animating or not targeting or pending_skill == null or actor == null:
 		return
 	if actor.unit == null or actor.unit.team != target_team or not actor.unit.is_alive():
 		return
@@ -51,7 +51,7 @@ func on_battlefield_actor_clicked(actor: BattlefieldActor) -> void:
 
 
 func on_roster_clicked(unit: Combatant) -> void:
-	if not targeting or pending_skill == null or unit == null:
+	if screen == null or screen._animating or not targeting or pending_skill == null or unit == null:
 		return
 	if unit.team != target_team or not unit.is_alive():
 		return

@@ -8,6 +8,7 @@ signal village_ready
 
 @export var layout_config: Resource
 @export var environment_presentation_config: Resource
+@export var generate_tree_groups: bool = true
 
 @onready var ground: Node2D = $Ground
 @onready var terrain_transitions: Node2D = get_node_or_null("TerrainTransitions") as Node2D
@@ -58,7 +59,8 @@ func _rehome_depth_children(from_node: Node2D, to_node: Node2D) -> void:
 const FOREST_TREE_SCENE: PackedScene = preload("res://scenes/world/forest_tree.tscn")
 
 func _ready() -> void:
-	_populate_tree_groups()
+	if generate_tree_groups:
+		_populate_tree_groups()
 	village_ready.emit()
 
 func repopulate_tree_groups() -> void:

@@ -1,0 +1,123 @@
+from pathlib import Path
+import shutil
+p=Path(r'C:\Users\quoth\Documents\Default Project\project-fantasy')
+f=p/'scripts/ui/main_menu.gd';t=f.read_text(encoding='utf-8-sig');shutil.copy2(f,str(f)+'.before_profile_overlay')
+a=t.index('\t\tvar player := AuthGateway.current_player()',t.index('func _open_profile()'))
+b=t.index('\n\t\treturn',a)
+t=t[:a]+'''		if has_node("PlayerProfileOverlay"):
+			return
+		var overlay := preload("res://scenes/ui/player_profile_overlay.tscn").instantiate()
+		add_child(overlay)'''+t[b:]
+f.write_text(t,encoding='utf-8')
+g=p/'scripts/ui/player_profile_overlay.gd'
+g.write_text('''extends Control
+
+func _ready() -> void:
+	var profile: Dictionary = GameState.profile
+	var player := AuthGateway.current_player()
+	$Center/Panel/Margin/Content/Name.text = str(player.get("name", profile.get("name", "Traveler")))
+	$Center/Panel/Margin/Content/Level.text = "LEVEL %02d" % int(profile.get("level", 1))
+	$Center/Panel/Margin/Content/Experience.text = "Experience  •  %d XP" % int(profile.get("xp", 0))
+	$Center/Panel/Margin/Content/Crystals.text = "Summon crystals  •  " + UIFactory.number(int(profile.get("crystals", 0)))
+	$Center/Panel/Margin/Content/Moonstones.text = "Moonstones  •  " + UIFactory.number(int(profile.get("paid_moonstones", 0)))
+	$Center/Panel/Margin/Content/Close.pressed.connect(queue_free)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		queue_free()
+		get_viewport().set_input_as_handled()
+''',encoding='utf-8')
+s=p/'scenes/ui/player_profile_overlay.tscn'
+s.write_text('''[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/player_profile_overlay.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.13, 0.065, 0.13, 0.98)
+border_color = Color(0.74, 0.56, 0.32, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_left = 15
+corner_radius_bottom_right = 15
+
+[sub_resource type="StyleBoxFlat" id="Button"]
+bg_color = Color(0.25, 0.12, 0.23, 1)
+border_color = Color(0.74, 0.56, 0.32, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
+[node name="PlayerProfileOverlay" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+z_index = 120
+mouse_filter = 0
+script = ExtResource("1")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.04, 0.015, 0.045, 0.65)
+
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(480, 350)
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin"]
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content"]
+text = "REVERIE  /  PLAYER PROFILE"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.8, 0.65, 0.43, 1)
+theme_override_font_sizes/font_size = 15
+
+[node name="Name" type="Label" parent="Center/Panel/Margin/Content"]
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 0.88, 0.68, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="Level" type="Label" parent="Center/Panel/Margin/Content"]
+horizontal_alignment = 1
+
+[node name="Experience" type="Label" parent="Center/Panel/Margin/Content"]
+horizontal_alignment = 1
+
+[node name="Crystals" type="Label" parent="Center/Panel/Margin/Content"]
+horizontal_alignment = 1
+
+[node name="Moonstones" type="Label" parent="Center/Panel/Margin/Content"]
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="Center/Panel/Margin/Content"]
+text = "Online account connected"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.65, 0.82, 0.7, 1)
+
+[node name="Close" type="Button" parent="Center/Panel/Margin/Content"]
+custom_minimum_size = Vector2(0, 40)
+text = "Close"
+theme_override_styles/normal = SubResource("Button")
+theme_override_styles/hover = SubResource("Button")
+theme_override_styles/pressed = SubResource("Button")
+''',encoding='utf-8')
+print('New editable profile overlay installed.')

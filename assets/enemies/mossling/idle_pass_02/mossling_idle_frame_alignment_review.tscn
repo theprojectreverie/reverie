@@ -1,0 +1,945 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/enemies/mossling/idle_pass_02/mossling_idle_8dir_4f_96x128.png" id="1_p8fb0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(0, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(96, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(192, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(288, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(0, 128, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(96, 128, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(192, 128, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_9"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(288, 128, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(0, 256, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(96, 256, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(192, 256, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(288, 256, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(0, 384, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(96, 384, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(192, 384, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(288, 384, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(0, 512, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_19"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(96, 512, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(192, 512, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(288, 512, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(0, 640, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(96, 640, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(192, 640, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(288, 640, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(0, 768, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(96, 768, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(192, 768, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_29"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(288, 768, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(0, 896, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(96, 896, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(192, 896, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33"]
+atlas = ExtResource("1_p8fb0")
+region = Rect2(288, 896, 96, 128)
+
+[node name="IdleFrameAlignmentReview" type="Node2D" unique_id=1108419232]
+
+[node name="ReviewCamera" type="Camera2D" parent="." unique_id=83232584]
+physics_interpolation_mode = 2
+position = Vector2(400, 700)
+zoom = Vector2(0.62, 0.62)
+
+[node name="ReviewTitle" type="Label" parent="." unique_id=1346927948]
+offset_left = 24.0
+offset_top = 12.0
+offset_right = 24.0
+offset_bottom = 12.0
+text = "Mossling idle — frame alignment review (96×128 cells)"
+
+[node name="Direction_0" type="Label" parent="." unique_id=935752037]
+offset_left = 24.0
+offset_top = 44.0
+offset_right = 24.0
+offset_bottom = 44.0
+text = "0  down"
+
+[node name="GroundBaseline_0" type="Line2D" parent="." unique_id=1475164728]
+points = PackedVector2Array(24, 136, 472, 136)
+width = 1.0
+default_color = Color(0.35, 0.8, 0.45, 0.9)
+
+[node name="Cell_0_0" type="Node2D" parent="." unique_id=1690834031]
+position = Vector2(72, 72)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_0_0" unique_id=1986200461]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_0_0" unique_id=552529045]
+texture_filter = 1
+texture = SubResource("AtlasTexture_2")
+
+[node name="FrameNumber" type="Label" parent="Cell_0_0" unique_id=649651818]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F1"
+
+[node name="Cell_0_1" type="Node2D" parent="." unique_id=1466979389]
+position = Vector2(184, 72)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_0_1" unique_id=892809776]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_0_1" unique_id=1506701026]
+texture_filter = 1
+texture = SubResource("AtlasTexture_3")
+
+[node name="FrameNumber" type="Label" parent="Cell_0_1" unique_id=1712443864]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F2"
+
+[node name="Cell_0_2" type="Node2D" parent="." unique_id=1383786695]
+position = Vector2(296, 72)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_0_2" unique_id=132644942]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_0_2" unique_id=1573688060]
+texture_filter = 1
+texture = SubResource("AtlasTexture_4")
+
+[node name="FrameNumber" type="Label" parent="Cell_0_2" unique_id=1293038499]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F3"
+
+[node name="Cell_0_3" type="Node2D" parent="." unique_id=2001412509]
+position = Vector2(408, 72)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_0_3" unique_id=331303963]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_0_3" unique_id=1769580602]
+texture_filter = 1
+texture = SubResource("AtlasTexture_5")
+
+[node name="FrameNumber" type="Label" parent="Cell_0_3" unique_id=878797931]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F4"
+
+[node name="Direction_1" type="Label" parent="." unique_id=818253896]
+offset_left = 24.0
+offset_top = 212.0
+offset_right = 24.0
+offset_bottom = 212.0
+text = "1  down_right"
+
+[node name="GroundBaseline_1" type="Line2D" parent="." unique_id=634803100]
+points = PackedVector2Array(24, 304, 472, 304)
+width = 1.0
+default_color = Color(0.35, 0.8, 0.45, 0.9)
+
+[node name="Cell_1_0" type="Node2D" parent="." unique_id=993151287]
+position = Vector2(72, 240)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_1_0" unique_id=544327009]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_1_0" unique_id=1777264095]
+texture_filter = 1
+texture = SubResource("AtlasTexture_6")
+
+[node name="FrameNumber" type="Label" parent="Cell_1_0" unique_id=904192479]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F1"
+
+[node name="Cell_1_1" type="Node2D" parent="." unique_id=482616584]
+position = Vector2(184, 240)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_1_1" unique_id=1964291329]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_1_1" unique_id=795278543]
+texture_filter = 1
+texture = SubResource("AtlasTexture_7")
+
+[node name="FrameNumber" type="Label" parent="Cell_1_1" unique_id=874110989]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F2"
+
+[node name="Cell_1_2" type="Node2D" parent="." unique_id=2032484332]
+position = Vector2(296, 240)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_1_2" unique_id=1907691020]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_1_2" unique_id=336464657]
+texture_filter = 1
+texture = SubResource("AtlasTexture_8")
+
+[node name="FrameNumber" type="Label" parent="Cell_1_2" unique_id=466461075]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F3"
+
+[node name="Cell_1_3" type="Node2D" parent="." unique_id=1366607338]
+position = Vector2(408, 240)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_1_3" unique_id=2037217597]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_1_3" unique_id=235103481]
+texture_filter = 1
+texture = SubResource("AtlasTexture_9")
+
+[node name="FrameNumber" type="Label" parent="Cell_1_3" unique_id=411216401]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F4"
+
+[node name="Direction_2" type="Label" parent="." unique_id=436790640]
+offset_left = 24.0
+offset_top = 380.0
+offset_right = 24.0
+offset_bottom = 380.0
+text = "2  right"
+
+[node name="GroundBaseline_2" type="Line2D" parent="." unique_id=1837686647]
+points = PackedVector2Array(24, 472, 472, 472)
+width = 1.0
+default_color = Color(0.35, 0.8, 0.45, 0.9)
+
+[node name="Cell_2_0" type="Node2D" parent="." unique_id=1883738137]
+position = Vector2(72, 408)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_2_0" unique_id=823995937]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_2_0" unique_id=1137848004]
+texture_filter = 1
+texture = SubResource("AtlasTexture_10")
+
+[node name="FrameNumber" type="Label" parent="Cell_2_0" unique_id=1356216680]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F1"
+
+[node name="Cell_2_1" type="Node2D" parent="." unique_id=728847611]
+position = Vector2(184, 408)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_2_1" unique_id=2033260823]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_2_1" unique_id=1251414595]
+texture_filter = 1
+texture = SubResource("AtlasTexture_11")
+
+[node name="FrameNumber" type="Label" parent="Cell_2_1" unique_id=132692671]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F2"
+
+[node name="Cell_2_2" type="Node2D" parent="." unique_id=674049125]
+position = Vector2(296, 408)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_2_2" unique_id=1284817254]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_2_2" unique_id=1505063335]
+texture_filter = 1
+texture = SubResource("AtlasTexture_12")
+
+[node name="FrameNumber" type="Label" parent="Cell_2_2" unique_id=1268918148]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F3"
+
+[node name="Cell_2_3" type="Node2D" parent="." unique_id=1493343095]
+position = Vector2(408, 408)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_2_3" unique_id=1289303335]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_2_3" unique_id=1535518343]
+texture_filter = 1
+texture = SubResource("AtlasTexture_13")
+
+[node name="FrameNumber" type="Label" parent="Cell_2_3" unique_id=1890550325]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F4"
+
+[node name="Direction_3" type="Label" parent="." unique_id=1682231508]
+offset_left = 24.0
+offset_top = 548.0
+offset_right = 24.0
+offset_bottom = 548.0
+text = "3  up_right"
+
+[node name="GroundBaseline_3" type="Line2D" parent="." unique_id=125572968]
+points = PackedVector2Array(24, 640, 472, 640)
+width = 1.0
+default_color = Color(0.35, 0.8, 0.45, 0.9)
+
+[node name="Cell_3_0" type="Node2D" parent="." unique_id=891929761]
+position = Vector2(72, 576)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_3_0" unique_id=360322174]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_3_0" unique_id=605370199]
+texture_filter = 1
+texture = SubResource("AtlasTexture_14")
+
+[node name="FrameNumber" type="Label" parent="Cell_3_0" unique_id=1374223269]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F1"
+
+[node name="Cell_3_1" type="Node2D" parent="." unique_id=1278318162]
+position = Vector2(184, 576)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_3_1" unique_id=358511565]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_3_1" unique_id=1255561973]
+texture_filter = 1
+texture = SubResource("AtlasTexture_15")
+
+[node name="FrameNumber" type="Label" parent="Cell_3_1" unique_id=1152055082]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F2"
+
+[node name="Cell_3_2" type="Node2D" parent="." unique_id=622785855]
+position = Vector2(296, 576)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_3_2" unique_id=1104439944]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_3_2" unique_id=718345744]
+texture_filter = 1
+texture = SubResource("AtlasTexture_16")
+
+[node name="FrameNumber" type="Label" parent="Cell_3_2" unique_id=710056196]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F3"
+
+[node name="Cell_3_3" type="Node2D" parent="." unique_id=1793974625]
+position = Vector2(408, 576)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_3_3" unique_id=1215454648]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_3_3" unique_id=588153636]
+texture_filter = 1
+texture = SubResource("AtlasTexture_17")
+
+[node name="FrameNumber" type="Label" parent="Cell_3_3" unique_id=1024811468]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F4"
+
+[node name="Direction_4" type="Label" parent="." unique_id=894783491]
+offset_left = 24.0
+offset_top = 716.0
+offset_right = 24.0
+offset_bottom = 716.0
+text = "4  up"
+
+[node name="GroundBaseline_4" type="Line2D" parent="." unique_id=1051723196]
+points = PackedVector2Array(24, 808, 472, 808)
+width = 1.0
+default_color = Color(0.35, 0.8, 0.45, 0.9)
+
+[node name="Cell_4_0" type="Node2D" parent="." unique_id=109158930]
+position = Vector2(72, 744)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_4_0" unique_id=186156355]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_4_0" unique_id=1577494346]
+texture_filter = 1
+texture = SubResource("AtlasTexture_18")
+
+[node name="FrameNumber" type="Label" parent="Cell_4_0" unique_id=1449507865]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F1"
+
+[node name="Cell_4_1" type="Node2D" parent="." unique_id=547893675]
+position = Vector2(184, 744)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_4_1" unique_id=786157143]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_4_1" unique_id=2142656939]
+texture_filter = 1
+texture = SubResource("AtlasTexture_19")
+
+[node name="FrameNumber" type="Label" parent="Cell_4_1" unique_id=1843701037]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F2"
+
+[node name="Cell_4_2" type="Node2D" parent="." unique_id=2044493865]
+position = Vector2(296, 744)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_4_2" unique_id=1108458101]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_4_2" unique_id=700245563]
+texture_filter = 1
+texture = SubResource("AtlasTexture_20")
+
+[node name="FrameNumber" type="Label" parent="Cell_4_2" unique_id=577069404]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F3"
+
+[node name="Cell_4_3" type="Node2D" parent="." unique_id=1771954202]
+position = Vector2(408, 744)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_4_3" unique_id=1853718943]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_4_3" unique_id=1728962313]
+texture_filter = 1
+texture = SubResource("AtlasTexture_21")
+
+[node name="FrameNumber" type="Label" parent="Cell_4_3" unique_id=945258897]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F4"
+
+[node name="Direction_5" type="Label" parent="." unique_id=1582477768]
+offset_left = 24.0
+offset_top = 884.0
+offset_right = 24.0
+offset_bottom = 884.0
+text = "5  up_left"
+
+[node name="GroundBaseline_5" type="Line2D" parent="." unique_id=1985222204]
+points = PackedVector2Array(24, 976, 472, 976)
+width = 1.0
+default_color = Color(0.35, 0.8, 0.45, 0.9)
+
+[node name="Cell_5_0" type="Node2D" parent="." unique_id=569626737]
+position = Vector2(72, 912)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_5_0" unique_id=948267640]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_5_0" unique_id=2103541321]
+texture_filter = 1
+texture = SubResource("AtlasTexture_22")
+
+[node name="FrameNumber" type="Label" parent="Cell_5_0" unique_id=147694161]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F1"
+
+[node name="Cell_5_1" type="Node2D" parent="." unique_id=1011270172]
+position = Vector2(184, 912)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_5_1" unique_id=1606063737]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_5_1" unique_id=1975864320]
+texture_filter = 1
+texture = SubResource("AtlasTexture_23")
+
+[node name="FrameNumber" type="Label" parent="Cell_5_1" unique_id=1226869866]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F2"
+
+[node name="Cell_5_2" type="Node2D" parent="." unique_id=2005328387]
+position = Vector2(296, 912)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_5_2" unique_id=243728456]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_5_2" unique_id=705436266]
+texture_filter = 1
+texture = SubResource("AtlasTexture_24")
+
+[node name="FrameNumber" type="Label" parent="Cell_5_2" unique_id=1647968260]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F3"
+
+[node name="Cell_5_3" type="Node2D" parent="." unique_id=1718097800]
+position = Vector2(408, 912)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_5_3" unique_id=936087378]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_5_3" unique_id=2094128476]
+texture_filter = 1
+texture = SubResource("AtlasTexture_25")
+
+[node name="FrameNumber" type="Label" parent="Cell_5_3" unique_id=227256249]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F4"
+
+[node name="Direction_6" type="Label" parent="." unique_id=756430701]
+offset_left = 24.0
+offset_top = 1052.0
+offset_right = 24.0
+offset_bottom = 1052.0
+text = "6  left"
+
+[node name="GroundBaseline_6" type="Line2D" parent="." unique_id=1998675972]
+points = PackedVector2Array(24, 1144, 472, 1144)
+width = 1.0
+default_color = Color(0.35, 0.8, 0.45, 0.9)
+
+[node name="Cell_6_0" type="Node2D" parent="." unique_id=2100517970]
+position = Vector2(72, 1080)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_6_0" unique_id=2045627126]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_6_0" unique_id=1895577790]
+texture_filter = 1
+texture = SubResource("AtlasTexture_26")
+
+[node name="FrameNumber" type="Label" parent="Cell_6_0" unique_id=568693159]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F1"
+
+[node name="Cell_6_1" type="Node2D" parent="." unique_id=295246731]
+position = Vector2(184, 1080)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_6_1" unique_id=1620565097]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_6_1" unique_id=1284598974]
+texture_filter = 1
+texture = SubResource("AtlasTexture_27")
+
+[node name="FrameNumber" type="Label" parent="Cell_6_1" unique_id=1717830275]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F2"
+
+[node name="Cell_6_2" type="Node2D" parent="." unique_id=1022533119]
+position = Vector2(296, 1080)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_6_2" unique_id=708116237]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_6_2" unique_id=457134879]
+texture_filter = 1
+texture = SubResource("AtlasTexture_28")
+
+[node name="FrameNumber" type="Label" parent="Cell_6_2" unique_id=1275971494]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F3"
+
+[node name="Cell_6_3" type="Node2D" parent="." unique_id=1880628353]
+position = Vector2(408, 1080)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_6_3" unique_id=1741696538]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_6_3" unique_id=1106618599]
+texture_filter = 1
+texture = SubResource("AtlasTexture_29")
+
+[node name="FrameNumber" type="Label" parent="Cell_6_3" unique_id=279253168]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F4"
+
+[node name="Direction_7" type="Label" parent="." unique_id=1907770272]
+offset_left = 24.0
+offset_top = 1220.0
+offset_right = 24.0
+offset_bottom = 1220.0
+text = "7  down_left"
+
+[node name="GroundBaseline_7" type="Line2D" parent="." unique_id=1463468474]
+points = PackedVector2Array(24, 1312, 472, 1312)
+width = 1.0
+default_color = Color(0.35, 0.8, 0.45, 0.9)
+
+[node name="Cell_7_0" type="Node2D" parent="." unique_id=1858600214]
+position = Vector2(72, 1248)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_7_0" unique_id=649137687]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_7_0" unique_id=954817186]
+texture_filter = 1
+texture = SubResource("AtlasTexture_30")
+
+[node name="FrameNumber" type="Label" parent="Cell_7_0" unique_id=114666507]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F1"
+
+[node name="Cell_7_1" type="Node2D" parent="." unique_id=2131390241]
+position = Vector2(184, 1248)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_7_1" unique_id=1687404954]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_7_1" unique_id=2099651708]
+texture_filter = 1
+texture = SubResource("AtlasTexture_31")
+
+[node name="FrameNumber" type="Label" parent="Cell_7_1" unique_id=225536630]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F2"
+
+[node name="Cell_7_2" type="Node2D" parent="." unique_id=1342842982]
+position = Vector2(296, 1248)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_7_2" unique_id=847834919]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_7_2" unique_id=318405452]
+texture_filter = 1
+texture = SubResource("AtlasTexture_32")
+
+[node name="FrameNumber" type="Label" parent="Cell_7_2" unique_id=1598794374]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F3"
+
+[node name="Cell_7_3" type="Node2D" parent="." unique_id=392435205]
+position = Vector2(408, 1248)
+
+[node name="Canvas96x128" type="ReferenceRect" parent="Cell_7_3" unique_id=1204953363]
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+border_color = Color(0.45, 0.65, 0.9, 0.55)
+editor_only = false
+
+[node name="Artwork" type="Sprite2D" parent="Cell_7_3" unique_id=770302255]
+texture_filter = 1
+texture = SubResource("AtlasTexture_33")
+
+[node name="FrameNumber" type="Label" parent="Cell_7_3" unique_id=2026715701]
+offset_left = -44.0
+offset_top = 68.0
+offset_right = -44.0
+offset_bottom = 68.0
+text = "F4"

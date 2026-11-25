@@ -1,0 +1,294 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_plain.png" id="lawn_inlay"]
+
+[node name="LawnPavingInlays" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CastleWestPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1469, 1325)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="CastleWestPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1411, 1325)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="CastleWestPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1469, 1355)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="CastleWestPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1411, 1355)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="CastleEastPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-439, 1175)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="CastleEastPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-381, 1175)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="CastleEastPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-439, 1205)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="CastleEastPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-381, 1205)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WestLawnPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1949, 1935)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WestLawnPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1891, 1935)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WestLawnPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1949, 1965)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WestLawnPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1891, 1965)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WestLowerPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1489, 2125)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WestLowerPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1431, 2125)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WestLowerPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1489, 2155)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WestLowerPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1431, 2155)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterNorthPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-229, 785)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterNorthPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-171, 785)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterNorthPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-229, 815)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterNorthPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-171, 815)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterSouthPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(421, 1185)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterSouthPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(479, 1185)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterSouthPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(421, 1215)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterSouthPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(479, 1215)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterEastPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1111, 1115)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterEastPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1169, 1115)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterEastPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1111, 1145)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="WaterEastPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1169, 1145)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GardenCenterPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(481, 1495)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GardenCenterPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(539, 1495)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GardenCenterPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(481, 1525)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GardenCenterPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(539, 1525)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GazeboNorthPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1651, 1015)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GazeboNorthPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1709, 1015)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GazeboNorthPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1651, 1045)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GazeboNorthPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1709, 1045)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GazeboSouthPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1801, 1835)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GazeboSouthPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1859, 1835)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GazeboSouthPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1801, 1865)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="GazeboSouthPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1859, 1865)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="SouthLawnPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-379, 2735)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="SouthLawnPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-321, 2735)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="SouthLawnPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-379, 2765)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="SouthLawnPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-321, 2765)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="SoutheastLawnPaver1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(751, 2455)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="SoutheastLawnPaver2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(809, 2455)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="SoutheastLawnPaver3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(751, 2485)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")
+
+[node name="SoutheastLawnPaver4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(809, 2485)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("lawn_inlay")

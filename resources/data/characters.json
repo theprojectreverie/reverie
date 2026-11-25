@@ -1,568 +1,3067 @@
 {
-  "lyra_vey": {
-    "name": "Lyra Vey",
-    "title": "Warden of the Whispering Glade",
-    "race": "Elf",
-    "element": "wind",
-    "rarity": "epic",
-    "role": "Ranged Support",
-    "base": {
-      "hp": 48,
-      "atk": 14,
-      "def": 8,
-      "spd": 14,
-      "crit": 0.08,
-      "crit_dmg": 1.4
+    "kael": {
+        "name": "Kael Ashford",
+        "title": "Blade Without a Banner",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "rare",
+        "role": "Damage",
+        "base": {
+            "hp": 43,
+            "atk": 14,
+            "def": 7,
+            "spd": 12,
+            "crit": 0.09,
+            "crit_dmg": 1.35
+        },
+        "skills": [
+            "ember_lance",
+            "rally_cry"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Nothing to Lose",
+            "id": "nothing_to_lose",
+            "text": "Deals 12% more damage below 40% health."
+        },
+        "lore": "A sellsword who burned his banner and kept the sword. He fights for anyone with coin, and for one person without it.",
+        "palette": {
+            "hair": "#4a3020",
+            "primary": "#5a3a2a",
+            "secondary": "#c96f3a",
+            "accent": "#ffcf6a",
+            "skin": "#e8b890"
+        },
+        "portrait_seed": 127,
+        "growth": {
+            "hp": 3,
+            "atk": 2,
+            "def": 1,
+            "spd": 1,
+            "crit": 0.004,
+            "crit_dmg": 0.008
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/kael",
+            "playable_folder": "res://assets/characters/kael_avatar",
+            "reference_sheet": "res://assets/characters/kael/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/kael_avatar/portrait.png",
+            "portrait_target_dimensions": [
+                256,
+                384
+            ],
+            "portrait_status": "final",
+            "world_sheet": "res://assets/characters/kael_avatar/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/kael_avatar/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/kael_avatar/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy isometric character sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Run/Attack/Skill/Hit/Death strips and its SE/SW/NE/NW isometric views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration. The playable art lives in its own folder because res://assets/characters/kael/ belongs to the collectible asset registry."
+        },
+        "gacha_enabled": true
     },
-    "skills": [
-      "gale_shot",
-      "zephyr_blessing"
-    ],
-    "ultimate": "tempest_dance",
-    "passive": {
-      "name": "Whisperstep",
-      "id": "whisperstep",
-      "text": "Allies gain 8% Speed while Lyra is alive."
+    "lilith": {
+        "name": "Lilith",
+        "title": "The Little Sister",
+        "race": "Spirit",
+        "element": "water",
+        "rarity": "rare",
+        "role": "Ghost Support",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 46,
+            "atk": 12,
+            "def": 7,
+            "spd": 13,
+            "crit": 0.07,
+            "crit_dmg": 1.4
+        },
+        "growth": {
+            "hp": 3,
+            "atk": 1,
+            "def": 1,
+            "spd": 2,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "frost_bind",
+            "tidal_caress"
+        ],
+        "ultimate": "abyssal_hymn",
+        "passive": {
+            "name": "Thirteen Winters",
+            "id": "small_miracles",
+            "text": "The cold she carries gentles her allies; her healing mends a little more than it should."
+        },
+        "lore": "A white-haired, blue-eyed ghost who stopped aging at thirteen. Lilith remembers the shape of a home she can no longer enter and follows her brother because he is the only warm thing left in the world.",
+        "palette": {
+            "hair": "#f2f5fa",
+            "primary": "#6f8fbf",
+            "secondary": "#b9d4e8",
+            "accent": "#7fd4ff",
+            "skin": "#e8eef7"
+        },
+        "portrait_seed": 13,
+        "assets": {
+            "asset_folder": "res://assets/characters/main/little_sister",
+            "playable_folder": "res://assets/characters/lilith",
+            "reference_sheet": "res://assets/characters/main/little_sister/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/lilith/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ],
+            "portrait_status": "final",
+            "world_sheet": "res://assets/characters/lilith/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/lilith/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/lilith/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_lilith_sheet.py -> tools/build_lilith_sheet.py -> tools/build_lilith_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true
     },
-    "lore": "Last warden of a glade that no longer remembers her name. Lyra speaks to the wind and listens to what it refuses to say.",
-    "palette": {
-      "hair": "#d8e8c8",
-      "primary": "#2f6b4f",
-      "secondary": "#c9a45a",
-      "accent": "#9df5cf",
-      "skin": "#f3d7c0"
+    "gerald": {
+        "name": "Gerald",
+        "title": "The Flamebound Guardian",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "rare",
+        "role": "Armored Bruiser",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 54,
+            "atk": 15,
+            "def": 11,
+            "spd": 10,
+            "crit": 0.06,
+            "crit_dmg": 1.45
+        },
+        "growth": {
+            "hp": 4,
+            "atk": 2,
+            "def": 2,
+            "spd": 1,
+            "crit": 0.003,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "ember_lance",
+            "cinder_veil"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Oath of Ash",
+            "id": "nothing_to_lose",
+            "text": "He has already buried everything but her. The lower his health, the harder he strikes."
+        },
+        "lore": "Lilith's older brother. A masked warrior in blackened plate whose seams glow with banked orange flame. He does not speak of the night she died, and the fire answers for him.",
+        "palette": {
+            "hair": "#eef1f6",
+            "primary": "#1b1a1f",
+            "secondary": "#e0702a",
+            "accent": "#ff9a3c",
+            "skin": "#d9c3b0"
+        },
+        "portrait_seed": 31,
+        "assets": {
+            "asset_folder": "res://assets/characters/main/guardian",
+            "playable_folder": "res://assets/characters/gerald",
+            "reference_sheet": "res://assets/characters/main/guardian/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/gerald/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ],
+            "portrait_status": "final",
+            "world_sheet": "res://assets/characters/gerald/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/gerald/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/gerald/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true
     },
-    "portrait_seed": 11,
-    "growth": {
-      "hp": 3,
-      "atk": 2,
-      "def": 1,
-      "spd": 2,
-      "crit": 0.004,
-      "crit_dmg": 0.01
+    "ravienna": {
+        "name": "Queen Ravienna",
+        "title": "The Eclipse Sovereign",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "legendary",
+        "role": "Mage",
+        "base": {
+            "hp": 52,
+            "atk": 18,
+            "def": 9,
+            "spd": 14,
+            "crit": 0.09,
+            "crit_dmg": 1.55
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Eclipse Sovereign",
+            "id": "hollow_crown",
+            "text": "Ravienna's dark magic is empowered against enemies suffering a debuff."
+        },
+        "lore": "Once human, Ravienna became the sovereign of the Eclipse Castle. Her silver-lavender hair, violet roses and crescent crown mark a queen who commands the quiet between moonlight and shadow.",
+        "palette": {
+            "hair": "#d9c5ed",
+            "primary": "#4a245e",
+            "secondary": "#a66acb",
+            "accent": "#e4a9ff",
+            "skin": "#f1dce8"
+        },
+        "portrait_seed": 149,
+        "assets": {
+            "asset_folder": "res://assets/characters/ravienna",
+            "portrait_target": "res://assets/characters/ravienna/portrait_512.png",
+            "portrait_status": "final",
+            "full_body_illustration": "res://assets/characters/ravienna/main_menu_illustration.png",
+            "art_status": "illustration_available_no_combat_sheet",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ]
+        },
+        "gacha_enabled": true
+    },
+    "cassien": {
+        "name": "Cassien",
+        "title": "The Crimson Oath",
+        "race": "Vampire",
+        "element": "dark",
+        "rarity": "rare",
+        "role": "Assassin",
+        "base": {
+            "hp": 42,
+            "atk": 16,
+            "def": 7,
+            "spd": 15,
+            "crit": 0.11,
+            "crit_dmg": 1.5
+        },
+        "growth": {
+            "hp": 3,
+            "atk": 2,
+            "def": 1,
+            "spd": 2,
+            "crit": 0.005,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "umbral_rend",
+            "blood_waltz"
+        ],
+        "ultimate": "soul_drain",
+        "passive": {
+            "id": "sanguine_waltz",
+            "name": "Bloodbound Waltz",
+            "text": "Cassien restores a portion of the damage he deals."
+        },
+        "lore": "A mysterious crimson-eyed noble whose black feathered mantle and blood-red jewels hint at an old, dangerous oath.",
+        "palette": {
+            "hair": "#21171d",
+            "primary": "#211b20",
+            "secondary": "#5b1825",
+            "accent": "#c52d43",
+            "skin": "#e5c6c4"
+        },
+        "portrait_seed": 219,
+        "assets": {
+            "asset_folder": "res://assets/characters/cassien",
+            "portrait_target": "res://assets/characters/cassien/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ],
+            "portrait_status": "final"
+        },
+        "gacha_enabled": true
+    },
+    "nyx": {
+        "name": "Nyx Vaelora",
+        "title": "Queen of the Hollow Moon",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "legendary",
+        "role": "Mage",
+        "base": {
+            "hp": 50,
+            "atk": 17,
+            "def": 8,
+            "spd": 15,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Moonbound Familiar",
+            "id": "hollow_crown",
+            "text": "Nyx's familiar feeds on afflicted foes: her dark attacks deal 15% more damage to enemies suffering a debuff."
+        },
+        "lore": "A queen who traded her reflection for a throne. The moon she rules over is a hole in the sky, and it is always full.",
+        "palette": {
+            "hair": "#2a1533",
+            "primary": "#3b1f4e",
+            "secondary": "#a87bd4",
+            "accent": "#ff6fae",
+            "skin": "#e8cdd8"
+        },
+        "portrait_seed": 41,
+        "growth": {
+            "hp": 4,
+            "atk": 3,
+            "def": 1,
+            "spd": 2,
+            "crit": 0.005,
+            "crit_dmg": 0.012
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/nyx",
+            "portrait_target": "res://assets/characters/nyx/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ],
+            "portrait_status": "final"
+        },
+        "gacha_enabled": true
+    },
+    "crimson_witch": {
+        "name": "Crimson Witch",
+        "title": "The Scarlet Requiem",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "rare",
+        "role": "Assassin",
+        "base": {
+            "hp": 44,
+            "atk": 17,
+            "def": 7,
+            "spd": 14,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "reapers_waltz",
+            "crimson_binding"
+        ],
+        "ultimate": "red_requiem",
+        "lore": "A horned scythe-wielder whose crimson magic turns every flourish into a fatal promise.",
+        "palette": {
+            "hair": "#26141c",
+            "primary": "#24131c",
+            "secondary": "#7c2036",
+            "accent": "#e34259",
+            "skin": "#e8c8cb"
+        },
+        "portrait_seed": 304,
+        "assets": {
+            "asset_folder": "res://assets/characters/crimson_witch",
+            "portrait_target": "res://assets/characters/crimson_witch/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ],
+            "portrait_status": "final"
+        },
+        "passive": {
+            "id": "ashen_wake",
+            "name": "Ashen Omen",
+            "text": "Her critical strikes leave a lingering ember of dark flame."
+        },
+        "gacha_enabled": true
+    },
+    "mirene": {
+        "name": "MirÃ©ne",
+        "title": "The Crimson Fool",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "rare",
+        "role": "Trickster",
+        "base": {
+            "hp": 43,
+            "atk": 16,
+            "def": 8,
+            "spd": 14,
+            "crit": 0.09,
+            "crit_dmg": 1.48
+        },
+        "skills": [
+            "shadow_feint",
+            "corruption_bolt"
+        ],
+        "ultimate": "hollow_wail",
+        "lore": "A masked harlequin whose playful smile hides a dangerous command of crimson illusion.",
+        "palette": {
+            "hair": "#eee3e7",
+            "primary": "#25131d",
+            "secondary": "#8f263e",
+            "accent": "#d94b61",
+            "skin": "#f0d7d9"
+        },
+        "portrait_seed": 305,
+        "assets": {
+            "asset_folder": "res://assets/characters/mirene",
+            "portrait_target": "res://assets/characters/mirene/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ],
+            "portrait_status": "final"
+        },
+        "passive": {
+            "id": "whisperstep",
+            "name": "Masquerade Step",
+            "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+        },
+        "gacha_enabled": true
+    },
+    "caelith": {
+        "name": "Caelith",
+        "title": "The Veiled Arbiter",
+        "race": "Human",
+        "element": "dark",
+        "rarity": "rare",
+        "role": "Mage",
+        "base": {
+            "hp": 46,
+            "atk": 17,
+            "def": 8,
+            "spd": 13,
+            "crit": 0.09,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "corruption_bolt",
+            "shadow_lash"
+        ],
+        "ultimate": "soul_drain",
+        "lore": "A silver-lavender arbiter whose filigree veil and amethyst staff weigh every soul against the silence of the moon.",
+        "palette": {
+            "hair": "#c9bad8",
+            "primary": "#241b30",
+            "secondary": "#73558e",
+            "accent": "#b58aff",
+            "skin": "#eadce9"
+        },
+        "portrait_seed": 306,
+        "assets": {
+            "asset_folder": "res://assets/characters/caelith",
+            "portrait_target": "res://assets/characters/caelith/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ],
+            "portrait_status": "final"
+        },
+        "passive": {
+            "id": "patient_weaver",
+            "name": "Measured Judgment",
+            "text": "Caelith deals increased damage to enemies suffering a disabling status."
+        },
+        "gacha_enabled": true
+    },
+    "lyra_vey": {
+        "name": "Lyra Vey",
+        "title": "Warden of the Whispering Glade",
+        "race": "Elf",
+        "element": "wind",
+        "rarity": "epic",
+        "role": "Ranged Support",
+        "base": {
+            "hp": 48,
+            "atk": 14,
+            "def": 8,
+            "spd": 14,
+            "crit": 0.08,
+            "crit_dmg": 1.4
+        },
+        "skills": [
+            "gale_shot",
+            "zephyr_blessing"
+        ],
+        "ultimate": "tempest_dance",
+        "passive": {
+            "name": "Whisperstep",
+            "id": "whisperstep",
+            "text": "Allies gain 8% Speed while Lyra is alive."
+        },
+        "lore": "Last warden of a glade that no longer remembers her name. Lyra speaks to the wind and listens to what it refuses to say.",
+        "palette": {
+            "hair": "#d8e8c8",
+            "primary": "#2f6b4f",
+            "secondary": "#c9a45a",
+            "accent": "#9df5cf",
+            "skin": "#f3d7c0"
+        },
+        "portrait_seed": 11,
+        "growth": {
+            "hp": 3,
+            "atk": 2,
+            "def": 1,
+            "spd": 2,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "gacha_enabled": false
+    },
+    "bramble": {
+        "name": "Bramble",
+        "title": "Thorn-Touched Wanderer",
+        "race": "Beastkin",
+        "element": "earth",
+        "rarity": "rare",
+        "role": "Bruiser",
+        "base": {
+            "hp": 50,
+            "atk": 13,
+            "def": 9,
+            "spd": 11,
+            "crit": 0.06,
+            "crit_dmg": 1.35
+        },
+        "skills": [
+            "thorn_lash",
+            "stone_bulwark"
+        ],
+        "ultimate": "worldroot",
+        "passive": {
+            "name": "Rooted",
+            "id": "rooted",
+            "text": "Bramble takes 10% less damage while below half health."
+        },
+        "lore": "A fox-eared drifter raised by the bramble hedges. She apologizes to every tree she cuts and means it every time.",
+        "palette": {
+            "hair": "#c96f3a",
+            "primary": "#5a4a2e",
+            "secondary": "#8fbf6a",
+            "accent": "#ffd27a",
+            "skin": "#f0c8a8"
+        },
+        "portrait_seed": 23,
+        "growth": {
+            "hp": 4,
+            "atk": 2,
+            "def": 2,
+            "spd": 1,
+            "crit": 0.003,
+            "crit_dmg": 0.008
+        },
+        "gacha_enabled": false
+    },
+    "seraphine": {
+        "name": "Seraphine Ael",
+        "title": "Dawn's Last Ember",
+        "race": "Angel",
+        "element": "light",
+        "rarity": "legendary",
+        "role": "Healer",
+        "base": {
+            "hp": 55,
+            "atk": 14,
+            "def": 12,
+            "spd": 14,
+            "crit": 0.07,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "dawn_mend",
+            "radiance"
+        ],
+        "ultimate": "starfall",
+        "passive": {
+            "name": "Dawnkeeper",
+            "id": "dawnkeeper",
+            "text": "The first healing skill each battle costs no turn energy."
+        },
+        "lore": "The last ember of a sun that set before the world was named. Seraphine carries its warmth in her hands and gives it away freely.",
+        "palette": {
+            "hair": "#fff2c4",
+            "primary": "#f2ead7",
+            "secondary": "#d9b45c",
+            "accent": "#ffe9a3",
+            "skin": "#f7ddc9"
+        },
+        "portrait_seed": 37,
+        "growth": {
+            "hp": 5,
+            "atk": 2,
+            "def": 2,
+            "spd": 1,
+            "crit": 0.005,
+            "crit_dmg": 0.012
+        },
+        "gacha_enabled": false
+    },
+    "coralyn": {
+        "name": "Coralyn Tide",
+        "title": "Song Beneath the Reef",
+        "race": "Mermaid",
+        "element": "water",
+        "rarity": "epic",
+        "role": "Healer",
+        "base": {
+            "hp": 53,
+            "atk": 12,
+            "def": 10,
+            "spd": 13,
+            "crit": 0.05,
+            "crit_dmg": 1.4
+        },
+        "skills": [
+            "tidal_caress",
+            "frost_bind"
+        ],
+        "ultimate": "abyssal_hymn",
+        "passive": {
+            "name": "Tidecall",
+            "id": "tidecall",
+            "text": "Healing skills also grant a small shield."
+        },
+        "lore": "Coralyn left the deep reef to learn why the tides kept whispering a name that was not hers. She still hums it when she is afraid.",
+        "palette": {
+            "hair": "#7fe3e0",
+            "primary": "#1f6f8f",
+            "secondary": "#ffb3c7",
+            "accent": "#b9f6ff",
+            "skin": "#f4d9cd"
+        },
+        "portrait_seed": 53,
+        "growth": {
+            "hp": 4,
+            "atk": 1,
+            "def": 2,
+            "spd": 1,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "gacha_enabled": false
+    },
+    "ignis": {
+        "name": "Ignis Karroth",
+        "title": "Crown of Cinders",
+        "race": "Dragonkin",
+        "element": "fire",
+        "rarity": "mythic",
+        "role": "Damage",
+        "base": {
+            "hp": 53,
+            "atk": 20,
+            "def": 12,
+            "spd": 15,
+            "crit": 0.12,
+            "crit_dmg": 1.6
+        },
+        "skills": [
+            "ember_lance",
+            "cinder_veil"
+        ],
+        "ultimate": "inferno_crown",
+        "passive": {
+            "name": "Ashen Wake",
+            "id": "ashen_wake",
+            "text": "Critical hits burn the target for 2 turns."
+        },
+        "lore": "The last heir of a kingdom that burned itself to keep him warm. Ignis wears its crown of cinders and has never once apologized.",
+        "palette": {
+            "hair": "#ff7a3c",
+            "primary": "#3a1414",
+            "secondary": "#d9a441",
+            "accent": "#ffb347",
+            "skin": "#e8b28f"
+        },
+        "portrait_seed": 67,
+        "growth": {
+            "hp": 5,
+            "atk": 3,
+            "def": 2,
+            "spd": 1,
+            "crit": 0.007,
+            "crit_dmg": 0.015
+        },
+        "gacha_enabled": false
+    },
+    "mira_sol": {
+        "name": "Mira Sol",
+        "title": "Squire of the Golden Gate",
+        "race": "Human",
+        "element": "light",
+        "rarity": "common",
+        "role": "Tank",
+        "base": {
+            "hp": 50,
+            "atk": 8,
+            "def": 8,
+            "spd": 9,
+            "crit": 0.04,
+            "crit_dmg": 1.3
+        },
+        "skills": [
+            "shield_bash",
+            "rally_cry"
+        ],
+        "ultimate": "aegis_dawn",
+        "passive": {
+            "name": "Hold the Line",
+            "id": "hold_the_line",
+            "text": "Allies behind Mira take 6% less damage."
+        },
+        "lore": "A squire who never got knighted because the kingdom ran out of knights before it ran out of wars. She keeps the oath anyway.",
+        "palette": {
+            "hair": "#e8c27a",
+            "primary": "#c9d2e0",
+            "secondary": "#d9b45c",
+            "accent": "#fff0b8",
+            "skin": "#f0cbb0"
+        },
+        "portrait_seed": 71,
+        "growth": {
+            "hp": 3,
+            "atk": 1,
+            "def": 2,
+            "spd": 0,
+            "crit": 0.002,
+            "crit_dmg": 0.005
+        },
+        "gacha_enabled": false
+    },
+    "thistle": {
+        "name": "Thistle",
+        "title": "Lantern of Small Wishes",
+        "race": "Spirit",
+        "element": "wind",
+        "rarity": "rare",
+        "role": "Support",
+        "base": {
+            "hp": 48,
+            "atk": 10,
+            "def": 9,
+            "spd": 13,
+            "crit": 0.06,
+            "crit_dmg": 1.35
+        },
+        "skills": [
+            "wishlight",
+            "zephyr_blessing"
+        ],
+        "ultimate": "thousand_lanterns",
+        "passive": {
+            "name": "Small Miracles",
+            "id": "small_miracles",
+            "text": "At the start of battle, grant the team 10 energy."
+        },
+        "lore": "A wisp born from a child's wish on a winter night. Thistle collects abandoned wishes in a lantern and lights them when someone needs hope.",
+        "palette": {
+            "hair": "#f2e2a8",
+            "primary": "#3f5a6b",
+            "secondary": "#8fd9c4",
+            "accent": "#ffeaa0",
+            "skin": "#f6e3cf"
+        },
+        "portrait_seed": 83,
+        "growth": {
+            "hp": 3,
+            "atk": 1,
+            "def": 2,
+            "spd": 2,
+            "crit": 0.003,
+            "crit_dmg": 0.008
+        },
+        "gacha_enabled": false
+    },
+    "vespera": {
+        "name": "Vespera Noct",
+        "title": "Velvet Requiem",
+        "race": "Vampire",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Assassin",
+        "base": {
+            "hp": 45,
+            "atk": 17,
+            "def": 6,
+            "spd": 15,
+            "crit": 0.14,
+            "crit_dmg": 1.4
+        },
+        "skills": [
+            "reapers_waltz",
+            "crimson_binding"
+        ],
+        "ultimate": "red_requiem",
+        "passive": {
+            "name": "Bloodstained Encore",
+            "id": "sanguine_waltz",
+            "text": "Vespera restores 20% of damage dealt as health; critical strikes leave her poised for a faster follow-up."
+        },
+        "lore": "Vespera attends every funeral in Nocturne, dressed in white. Nobody has ever seen her leave before the last candle goes out.",
+        "palette": {
+            "hair": "#d8d8e8",
+            "primary": "#2a1a2e",
+            "secondary": "#8f2f4f",
+            "accent": "#ff8fb3",
+            "skin": "#f0e0e0"
+        },
+        "portrait_seed": 97,
+        "growth": {
+            "hp": 3,
+            "atk": 2,
+            "def": 1,
+            "spd": 2,
+            "crit": 0.006,
+            "crit_dmg": 0.01
+        },
+        "gacha_enabled": false
+    },
+    "scarlet_requiem": {
+        "name": "Scarlet Requiem",
+        "title": "The Crimson Reaper",
+        "race": "Vampire",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Assassin",
+        "base": {
+            "hp": 45,
+            "atk": 17,
+            "def": 6,
+            "spd": 15,
+            "crit": 0.14,
+            "crit_dmg": 1.4
+        },
+        "skills": [
+            "reapers_waltz",
+            "crimson_binding"
+        ],
+        "ultimate": "red_requiem",
+        "passive": {
+            "name": "Blood Moon Waltz",
+            "id": "sanguine_waltz",
+            "text": "Scarlet restores 20% of damage dealt as health; critical strikes prepare a faster follow-up."
+        },
+        "lore": "When the blood moon rises above the old cathedral, a crimson reaper walks among the roses. Her scythe remembers every name the night has taken.",
+        "palette": {
+            "hair": "#24151d",
+            "primary": "#171019",
+            "secondary": "#8f1f3d",
+            "accent": "#ff405f",
+            "skin": "#f0d6d7"
+        },
+        "portrait_seed": 131,
+        "growth": {
+            "hp": 3,
+            "atk": 2,
+            "def": 1,
+            "spd": 2,
+            "crit": 0.006,
+            "crit_dmg": 0.01
+        },
+        "gacha_enabled": false
+    },
+    "arachnia": {
+        "name": "Arachnia Silk",
+        "title": "Weaver of the Quiet Web",
+        "race": "Monster Girl",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Controller",
+        "base": {
+            "hp": 48,
+            "atk": 14,
+            "def": 10,
+            "spd": 13,
+            "crit": 0.08,
+            "crit_dmg": 1.4
+        },
+        "skills": [
+            "web_bind",
+            "venom_bite"
+        ],
+        "ultimate": "silk_dominion",
+        "passive": {
+            "name": "Patient Weaver",
+            "id": "patient_weaver",
+            "text": "Stunned enemies take 20% more damage from Arachnia."
+        },
+        "lore": "Arachne of the eighth strand, who wove a tapestry of every road in Aetheria and then hid the one that leads to her.",
+        "palette": {
+            "hair": "#3a2a4a",
+            "primary": "#4a2f5a",
+            "secondary": "#b07fd4",
+            "accent": "#c8ff8f",
+            "skin": "#e8c8d8"
+        },
+        "portrait_seed": 101,
+        "growth": {
+            "hp": 3,
+            "atk": 1,
+            "def": 2,
+            "spd": 2,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "gacha_enabled": false
+    },
+    "terra": {
+        "name": "Terra Rootheart",
+        "title": "The Mountain That Remembers",
+        "race": "Ancient",
+        "element": "earth",
+        "rarity": "legendary",
+        "role": "Tank",
+        "base": {
+            "hp": 60,
+            "atk": 14,
+            "def": 13,
+            "spd": 12,
+            "crit": 0.03,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "stone_bulwark",
+            "thorn_lash"
+        ],
+        "ultimate": "worldroot",
+        "passive": {
+            "name": "Deep Roots",
+            "id": "deep_roots",
+            "text": "Terra cannot be moved by knockback and gains 15% Defense."
+        },
+        "lore": "She was a mountain before she was a woman, and she still dreams in stone. When she speaks, the ground answers first.",
+        "palette": {
+            "hair": "#6f8f5a",
+            "primary": "#4a4030",
+            "secondary": "#8fbf6a",
+            "accent": "#d9ff9f",
+            "skin": "#c9a88a"
+        },
+        "portrait_seed": 113,
+        "growth": {
+            "hp": 5,
+            "atk": 2,
+            "def": 2,
+            "spd": 1,
+            "crit": 0.005,
+            "crit_dmg": 0.012
+        },
+        "gacha_enabled": false
+    },
+    "kael_common": {
+        "name": "Kael Ashford (Common Aspect)",
+        "title": "Blade Without a Banner Â· Common Aspect",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "common",
+        "role": "Damage",
+        "base": {
+            "hp": 34,
+            "atk": 11,
+            "def": 6,
+            "spd": 10,
+            "crit": 0.09,
+            "crit_dmg": 1.35
+        },
+        "skills": [
+            "ember_lance",
+            "rally_cry"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Nothing to Lose",
+            "id": "nothing_to_lose",
+            "text": "Deals 12% more damage below 40% health."
+        },
+        "lore": "A sellsword who burned his banner and kept the sword. He fights for anyone with coin, and for one person without it.",
+        "palette": {
+            "hair": "#4a3020",
+            "primary": "#5a3a2a",
+            "secondary": "#c96f3a",
+            "accent": "#ffcf6a",
+            "skin": "#e8b890"
+        },
+        "portrait_seed": 127,
+        "growth": {
+            "hp": 2.4,
+            "atk": 1.6,
+            "def": 0.8,
+            "spd": 0.8,
+            "crit": 0.004,
+            "crit_dmg": 0.008
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/kael_common",
+            "playable_folder": "res://assets/characters/kael_avatar",
+            "reference_sheet": "res://assets/characters/kael/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/kael_common/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/kael_avatar/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/kael_avatar/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/kael_avatar/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy isometric character sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Run/Attack/Skill/Hit/Death strips and its SE/SW/NE/NW isometric views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration. The playable art lives in its own folder because res://assets/characters/kael/ belongs to the collectible asset registry."
+        },
+        "gacha_enabled": true,
+        "variant_of": "kael"
+    },
+    "kael_epic": {
+        "name": "Kael Ashford (Epic Aspect)",
+        "title": "Blade Without a Banner Â· Epic Aspect",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "epic",
+        "role": "Damage",
+        "base": {
+            "hp": 49,
+            "atk": 16,
+            "def": 8,
+            "spd": 14,
+            "crit": 0.09,
+            "crit_dmg": 1.35
+        },
+        "skills": [
+            "ember_lance",
+            "rally_cry"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Nothing to Lose",
+            "id": "nothing_to_lose",
+            "text": "Deals 12% more damage below 40% health."
+        },
+        "lore": "A sellsword who burned his banner and kept the sword. He fights for anyone with coin, and for one person without it.",
+        "palette": {
+            "hair": "#4a3020",
+            "primary": "#5a3a2a",
+            "secondary": "#c96f3a",
+            "accent": "#ffcf6a",
+            "skin": "#e8b890"
+        },
+        "portrait_seed": 127,
+        "growth": {
+            "hp": 3.45,
+            "atk": 2.3,
+            "def": 1.15,
+            "spd": 1.15,
+            "crit": 0.004,
+            "crit_dmg": 0.008
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/kael_epic",
+            "playable_folder": "res://assets/characters/kael_avatar",
+            "reference_sheet": "res://assets/characters/kael/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/kael_epic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/kael_avatar/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/kael_avatar/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/kael_avatar/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy isometric character sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Run/Attack/Skill/Hit/Death strips and its SE/SW/NE/NW isometric views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration. The playable art lives in its own folder because res://assets/characters/kael/ belongs to the collectible asset registry."
+        },
+        "gacha_enabled": true,
+        "variant_of": "kael"
+    },
+    "kael_legendary": {
+        "name": "Kael Ashford (Legendary Aspect)",
+        "title": "Blade Without a Banner Â· Legendary Aspect",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "legendary",
+        "role": "Damage",
+        "base": {
+            "hp": 56,
+            "atk": 18,
+            "def": 9,
+            "spd": 16,
+            "crit": 0.09,
+            "crit_dmg": 1.35
+        },
+        "skills": [
+            "ember_lance",
+            "rally_cry"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Nothing to Lose",
+            "id": "nothing_to_lose",
+            "text": "Deals 12% more damage below 40% health."
+        },
+        "lore": "A sellsword who burned his banner and kept the sword. He fights for anyone with coin, and for one person without it.",
+        "palette": {
+            "hair": "#4a3020",
+            "primary": "#5a3a2a",
+            "secondary": "#c96f3a",
+            "accent": "#ffcf6a",
+            "skin": "#e8b890"
+        },
+        "portrait_seed": 127,
+        "growth": {
+            "hp": 3.9,
+            "atk": 2.6,
+            "def": 1.3,
+            "spd": 1.3,
+            "crit": 0.004,
+            "crit_dmg": 0.008
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/kael_legendary",
+            "playable_folder": "res://assets/characters/kael_avatar",
+            "reference_sheet": "res://assets/characters/kael/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/kael_legendary/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/kael_avatar/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/kael_avatar/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/kael_avatar/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy isometric character sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Run/Attack/Skill/Hit/Death strips and its SE/SW/NE/NW isometric views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration. The playable art lives in its own folder because res://assets/characters/kael/ belongs to the collectible asset registry."
+        },
+        "gacha_enabled": true,
+        "variant_of": "kael"
+    },
+    "kael_mythic": {
+        "name": "Kael Ashford (Mythic Aspect)",
+        "title": "Blade Without a Banner Â· Mythic Aspect",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "mythic",
+        "role": "Damage",
+        "base": {
+            "hp": 64,
+            "atk": 21,
+            "def": 10,
+            "spd": 18,
+            "crit": 0.09,
+            "crit_dmg": 1.35
+        },
+        "skills": [
+            "ember_lance",
+            "rally_cry"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Nothing to Lose",
+            "id": "nothing_to_lose",
+            "text": "Deals 12% more damage below 40% health."
+        },
+        "lore": "A sellsword who burned his banner and kept the sword. He fights for anyone with coin, and for one person without it.",
+        "palette": {
+            "hair": "#4a3020",
+            "primary": "#5a3a2a",
+            "secondary": "#c96f3a",
+            "accent": "#ffcf6a",
+            "skin": "#e8b890"
+        },
+        "portrait_seed": 127,
+        "growth": {
+            "hp": 4.5,
+            "atk": 3,
+            "def": 1.5,
+            "spd": 1.5,
+            "crit": 0.004,
+            "crit_dmg": 0.008
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/kael_mythic",
+            "playable_folder": "res://assets/characters/kael_avatar",
+            "reference_sheet": "res://assets/characters/kael/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/kael_mythic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/kael_avatar/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/kael_avatar/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/kael_avatar/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy isometric character sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Run/Attack/Skill/Hit/Death strips and its SE/SW/NE/NW isometric views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration. The playable art lives in its own folder because res://assets/characters/kael/ belongs to the collectible asset registry."
+        },
+        "gacha_enabled": true,
+        "variant_of": "kael"
+    },
+    "lilith_common": {
+        "name": "Lilith (Common Aspect)",
+        "title": "The Little Sister Â· Common Aspect",
+        "race": "Spirit",
+        "element": "water",
+        "rarity": "common",
+        "role": "Ghost Support",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 37,
+            "atk": 10,
+            "def": 6,
+            "spd": 10,
+            "crit": 0.07,
+            "crit_dmg": 1.4
+        },
+        "growth": {
+            "hp": 2.4,
+            "atk": 0.8,
+            "def": 0.8,
+            "spd": 1.6,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "frost_bind",
+            "tidal_caress"
+        ],
+        "ultimate": "abyssal_hymn",
+        "passive": {
+            "name": "Thirteen Winters",
+            "id": "small_miracles",
+            "text": "The cold she carries gentles her allies; her healing mends a little more than it should."
+        },
+        "lore": "A white-haired, blue-eyed ghost who stopped aging at thirteen. Lilith remembers the shape of a home she can no longer enter and follows her brother because he is the only warm thing left in the world.",
+        "palette": {
+            "hair": "#f2f5fa",
+            "primary": "#6f8fbf",
+            "secondary": "#b9d4e8",
+            "accent": "#7fd4ff",
+            "skin": "#e8eef7"
+        },
+        "portrait_seed": 13,
+        "assets": {
+            "asset_folder": "res://assets/characters/lilith_common",
+            "playable_folder": "res://assets/characters/lilith",
+            "reference_sheet": "res://assets/characters/main/little_sister/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/lilith_common/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/lilith/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/lilith/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/lilith/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_lilith_sheet.py -> tools/build_lilith_sheet.py -> tools/build_lilith_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true,
+        "variant_of": "lilith"
+    },
+    "lilith_epic": {
+        "name": "Lilith (Epic Aspect)",
+        "title": "The Little Sister Â· Epic Aspect",
+        "race": "Spirit",
+        "element": "water",
+        "rarity": "epic",
+        "role": "Ghost Support",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 53,
+            "atk": 14,
+            "def": 8,
+            "spd": 15,
+            "crit": 0.07,
+            "crit_dmg": 1.4
+        },
+        "growth": {
+            "hp": 3.45,
+            "atk": 1.15,
+            "def": 1.15,
+            "spd": 2.3,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "frost_bind",
+            "tidal_caress"
+        ],
+        "ultimate": "abyssal_hymn",
+        "passive": {
+            "name": "Thirteen Winters",
+            "id": "small_miracles",
+            "text": "The cold she carries gentles her allies; her healing mends a little more than it should."
+        },
+        "lore": "A white-haired, blue-eyed ghost who stopped aging at thirteen. Lilith remembers the shape of a home she can no longer enter and follows her brother because he is the only warm thing left in the world.",
+        "palette": {
+            "hair": "#f2f5fa",
+            "primary": "#6f8fbf",
+            "secondary": "#b9d4e8",
+            "accent": "#7fd4ff",
+            "skin": "#e8eef7"
+        },
+        "portrait_seed": 13,
+        "assets": {
+            "asset_folder": "res://assets/characters/lilith_epic",
+            "playable_folder": "res://assets/characters/lilith",
+            "reference_sheet": "res://assets/characters/main/little_sister/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/lilith_epic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/lilith/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/lilith/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/lilith/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_lilith_sheet.py -> tools/build_lilith_sheet.py -> tools/build_lilith_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true,
+        "variant_of": "lilith"
+    },
+    "lilith_legendary": {
+        "name": "Lilith (Legendary Aspect)",
+        "title": "The Little Sister Â· Legendary Aspect",
+        "race": "Spirit",
+        "element": "water",
+        "rarity": "legendary",
+        "role": "Ghost Support",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 60,
+            "atk": 16,
+            "def": 9,
+            "spd": 17,
+            "crit": 0.07,
+            "crit_dmg": 1.4
+        },
+        "growth": {
+            "hp": 3.9,
+            "atk": 1.3,
+            "def": 1.3,
+            "spd": 2.6,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "frost_bind",
+            "tidal_caress"
+        ],
+        "ultimate": "abyssal_hymn",
+        "passive": {
+            "name": "Thirteen Winters",
+            "id": "small_miracles",
+            "text": "The cold she carries gentles her allies; her healing mends a little more than it should."
+        },
+        "lore": "A white-haired, blue-eyed ghost who stopped aging at thirteen. Lilith remembers the shape of a home she can no longer enter and follows her brother because he is the only warm thing left in the world.",
+        "palette": {
+            "hair": "#f2f5fa",
+            "primary": "#6f8fbf",
+            "secondary": "#b9d4e8",
+            "accent": "#7fd4ff",
+            "skin": "#e8eef7"
+        },
+        "portrait_seed": 13,
+        "assets": {
+            "asset_folder": "res://assets/characters/lilith_legendary",
+            "playable_folder": "res://assets/characters/lilith",
+            "reference_sheet": "res://assets/characters/main/little_sister/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/lilith_legendary/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/lilith/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/lilith/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/lilith/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_lilith_sheet.py -> tools/build_lilith_sheet.py -> tools/build_lilith_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true,
+        "variant_of": "lilith"
+    },
+    "lilith_mythic": {
+        "name": "Lilith (Mythic Aspect)",
+        "title": "The Little Sister Â· Mythic Aspect",
+        "race": "Spirit",
+        "element": "water",
+        "rarity": "mythic",
+        "role": "Ghost Support",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 69,
+            "atk": 18,
+            "def": 10,
+            "spd": 20,
+            "crit": 0.07,
+            "crit_dmg": 1.4
+        },
+        "growth": {
+            "hp": 4.5,
+            "atk": 1.5,
+            "def": 1.5,
+            "spd": 3,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "frost_bind",
+            "tidal_caress"
+        ],
+        "ultimate": "abyssal_hymn",
+        "passive": {
+            "name": "Thirteen Winters",
+            "id": "small_miracles",
+            "text": "The cold she carries gentles her allies; her healing mends a little more than it should."
+        },
+        "lore": "A white-haired, blue-eyed ghost who stopped aging at thirteen. Lilith remembers the shape of a home she can no longer enter and follows her brother because he is the only warm thing left in the world.",
+        "palette": {
+            "hair": "#f2f5fa",
+            "primary": "#6f8fbf",
+            "secondary": "#b9d4e8",
+            "accent": "#7fd4ff",
+            "skin": "#e8eef7"
+        },
+        "portrait_seed": 13,
+        "assets": {
+            "asset_folder": "res://assets/characters/lilith_mythic",
+            "playable_folder": "res://assets/characters/lilith",
+            "reference_sheet": "res://assets/characters/main/little_sister/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/lilith_mythic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/lilith/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/lilith/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/lilith/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_lilith_sheet.py -> tools/build_lilith_sheet.py -> tools/build_lilith_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true,
+        "variant_of": "lilith"
+    },
+    "gerald_common": {
+        "name": "Gerald (Common Aspect)",
+        "title": "The Flamebound Guardian Â· Common Aspect",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "common",
+        "role": "Armored Bruiser",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 43,
+            "atk": 12,
+            "def": 9,
+            "spd": 8,
+            "crit": 0.06,
+            "crit_dmg": 1.45
+        },
+        "growth": {
+            "hp": 3.2,
+            "atk": 1.6,
+            "def": 1.6,
+            "spd": 0.8,
+            "crit": 0.003,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "ember_lance",
+            "cinder_veil"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Oath of Ash",
+            "id": "nothing_to_lose",
+            "text": "He has already buried everything but her. The lower his health, the harder he strikes."
+        },
+        "lore": "Lilith's older brother. A masked warrior in blackened plate whose seams glow with banked orange flame. He does not speak of the night she died, and the fire answers for him.",
+        "palette": {
+            "hair": "#eef1f6",
+            "primary": "#1b1a1f",
+            "secondary": "#e0702a",
+            "accent": "#ff9a3c",
+            "skin": "#d9c3b0"
+        },
+        "portrait_seed": 31,
+        "assets": {
+            "asset_folder": "res://assets/characters/gerald_common",
+            "playable_folder": "res://assets/characters/gerald",
+            "reference_sheet": "res://assets/characters/main/guardian/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/gerald_common/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/gerald/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/gerald/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/gerald/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true,
+        "variant_of": "gerald"
+    },
+    "gerald_epic": {
+        "name": "Gerald (Epic Aspect)",
+        "title": "The Flamebound Guardian Â· Epic Aspect",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "epic",
+        "role": "Armored Bruiser",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 62,
+            "atk": 17,
+            "def": 13,
+            "spd": 12,
+            "crit": 0.06,
+            "crit_dmg": 1.45
+        },
+        "growth": {
+            "hp": 4.6,
+            "atk": 2.3,
+            "def": 2.3,
+            "spd": 1.15,
+            "crit": 0.003,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "ember_lance",
+            "cinder_veil"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Oath of Ash",
+            "id": "nothing_to_lose",
+            "text": "He has already buried everything but her. The lower his health, the harder he strikes."
+        },
+        "lore": "Lilith's older brother. A masked warrior in blackened plate whose seams glow with banked orange flame. He does not speak of the night she died, and the fire answers for him.",
+        "palette": {
+            "hair": "#eef1f6",
+            "primary": "#1b1a1f",
+            "secondary": "#e0702a",
+            "accent": "#ff9a3c",
+            "skin": "#d9c3b0"
+        },
+        "portrait_seed": 31,
+        "assets": {
+            "asset_folder": "res://assets/characters/gerald_epic",
+            "playable_folder": "res://assets/characters/gerald",
+            "reference_sheet": "res://assets/characters/main/guardian/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/gerald_epic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/gerald/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/gerald/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/gerald/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true,
+        "variant_of": "gerald"
+    },
+    "gerald_legendary": {
+        "name": "Gerald (Legendary Aspect)",
+        "title": "The Flamebound Guardian Â· Legendary Aspect",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "legendary",
+        "role": "Armored Bruiser",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 70,
+            "atk": 20,
+            "def": 14,
+            "spd": 13,
+            "crit": 0.06,
+            "crit_dmg": 1.45
+        },
+        "growth": {
+            "hp": 5.2,
+            "atk": 2.6,
+            "def": 2.6,
+            "spd": 1.3,
+            "crit": 0.003,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "ember_lance",
+            "cinder_veil"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Oath of Ash",
+            "id": "nothing_to_lose",
+            "text": "He has already buried everything but her. The lower his health, the harder he strikes."
+        },
+        "lore": "Lilith's older brother. A masked warrior in blackened plate whose seams glow with banked orange flame. He does not speak of the night she died, and the fire answers for him.",
+        "palette": {
+            "hair": "#eef1f6",
+            "primary": "#1b1a1f",
+            "secondary": "#e0702a",
+            "accent": "#ff9a3c",
+            "skin": "#d9c3b0"
+        },
+        "portrait_seed": 31,
+        "assets": {
+            "asset_folder": "res://assets/characters/gerald_legendary",
+            "playable_folder": "res://assets/characters/gerald",
+            "reference_sheet": "res://assets/characters/main/guardian/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/gerald_legendary/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/gerald/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/gerald/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/gerald/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true,
+        "variant_of": "gerald"
+    },
+    "gerald_mythic": {
+        "name": "Gerald (Mythic Aspect)",
+        "title": "The Flamebound Guardian Â· Mythic Aspect",
+        "race": "Human",
+        "element": "fire",
+        "rarity": "mythic",
+        "role": "Armored Bruiser",
+        "main_character": true,
+        "playable": true,
+        "recruited_by_default": true,
+        "base": {
+            "hp": 81,
+            "atk": 22,
+            "def": 16,
+            "spd": 15,
+            "crit": 0.06,
+            "crit_dmg": 1.45
+        },
+        "growth": {
+            "hp": 6,
+            "atk": 3,
+            "def": 3,
+            "spd": 1.5,
+            "crit": 0.003,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "ember_lance",
+            "cinder_veil"
+        ],
+        "ultimate": "blazing_charge",
+        "passive": {
+            "name": "Oath of Ash",
+            "id": "nothing_to_lose",
+            "text": "He has already buried everything but her. The lower his health, the harder he strikes."
+        },
+        "lore": "Lilith's older brother. A masked warrior in blackened plate whose seams glow with banked orange flame. He does not speak of the night she died, and the fire answers for him.",
+        "palette": {
+            "hair": "#eef1f6",
+            "primary": "#1b1a1f",
+            "secondary": "#e0702a",
+            "accent": "#ff9a3c",
+            "skin": "#d9c3b0"
+        },
+        "portrait_seed": 31,
+        "assets": {
+            "asset_folder": "res://assets/characters/gerald_mythic",
+            "playable_folder": "res://assets/characters/gerald",
+            "reference_sheet": "res://assets/characters/main/guardian/reference_sheet.png",
+            "reference_dimensions": [
+                1536,
+                1024
+            ],
+            "reference_format": "RGB PNG (no alpha)",
+            "reference_role": "Design reference sheet. Not a cut-out portrait.",
+            "portrait_target": "res://assets/characters/gerald_mythic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art",
+            "world_sheet": "res://assets/characters/gerald/world_sheet.tres",
+            "world_sheet_animations": 72,
+            "world_sheet_frames": 432,
+            "combat_sprite": "res://assets/characters/gerald/combat_sprite.png",
+            "full_body_illustration": "res://assets/characters/gerald/full_body_illustration.png",
+            "art_status": "final",
+            "art_note": "Playable art extracted from the supplied Project Fantasy concept sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Attack/Cast/Hurt/Death strips and Front/Right/Back/Left views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration."
+        },
+        "gacha_enabled": true,
+        "variant_of": "gerald"
+    },
+    "ravienna_common": {
+        "name": "Queen Ravienna (Common Aspect)",
+        "title": "The Eclipse Sovereign Â· Common Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "common",
+        "role": "Mage",
+        "base": {
+            "hp": 32,
+            "atk": 11,
+            "def": 6,
+            "spd": 9,
+            "crit": 0.09,
+            "crit_dmg": 1.55
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Eclipse Sovereign",
+            "id": "hollow_crown",
+            "text": "Ravienna's dark magic is empowered against enemies suffering a debuff."
+        },
+        "lore": "Once human, Ravienna became the sovereign of the Eclipse Castle. Her silver-lavender hair, violet roses and crescent crown mark a queen who commands the quiet between moonlight and shadow.",
+        "palette": {
+            "hair": "#d9c5ed",
+            "primary": "#4a245e",
+            "secondary": "#a66acb",
+            "accent": "#e4a9ff",
+            "skin": "#f1dce8"
+        },
+        "portrait_seed": 149,
+        "assets": {
+            "asset_folder": "res://assets/characters/ravienna_common",
+            "portrait_target": "res://assets/characters/ravienna_common/portrait_512.png",
+            "portrait_status": "shared_character_art",
+            "full_body_illustration": "res://assets/characters/ravienna/main_menu_illustration.png",
+            "art_status": "illustration_available_no_combat_sheet",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ]
+        },
+        "gacha_enabled": true,
+        "variant_of": "ravienna"
+    },
+    "ravienna_rare": {
+        "name": "Queen Ravienna (Rare Aspect)",
+        "title": "The Eclipse Sovereign Â· Rare Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "rare",
+        "role": "Mage",
+        "base": {
+            "hp": 40,
+            "atk": 14,
+            "def": 7,
+            "spd": 11,
+            "crit": 0.09,
+            "crit_dmg": 1.55
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Eclipse Sovereign",
+            "id": "hollow_crown",
+            "text": "Ravienna's dark magic is empowered against enemies suffering a debuff."
+        },
+        "lore": "Once human, Ravienna became the sovereign of the Eclipse Castle. Her silver-lavender hair, violet roses and crescent crown mark a queen who commands the quiet between moonlight and shadow.",
+        "palette": {
+            "hair": "#d9c5ed",
+            "primary": "#4a245e",
+            "secondary": "#a66acb",
+            "accent": "#e4a9ff",
+            "skin": "#f1dce8"
+        },
+        "portrait_seed": 149,
+        "assets": {
+            "asset_folder": "res://assets/characters/ravienna_rare",
+            "portrait_target": "res://assets/characters/ravienna_rare/portrait_512.png",
+            "portrait_status": "shared_character_art",
+            "full_body_illustration": "res://assets/characters/ravienna/main_menu_illustration.png",
+            "art_status": "illustration_available_no_combat_sheet",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ]
+        },
+        "gacha_enabled": true,
+        "variant_of": "ravienna"
+    },
+    "ravienna_epic": {
+        "name": "Queen Ravienna (Epic Aspect)",
+        "title": "The Eclipse Sovereign Â· Epic Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Mage",
+        "base": {
+            "hp": 46,
+            "atk": 16,
+            "def": 8,
+            "spd": 12,
+            "crit": 0.09,
+            "crit_dmg": 1.55
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Eclipse Sovereign",
+            "id": "hollow_crown",
+            "text": "Ravienna's dark magic is empowered against enemies suffering a debuff."
+        },
+        "lore": "Once human, Ravienna became the sovereign of the Eclipse Castle. Her silver-lavender hair, violet roses and crescent crown mark a queen who commands the quiet between moonlight and shadow.",
+        "palette": {
+            "hair": "#d9c5ed",
+            "primary": "#4a245e",
+            "secondary": "#a66acb",
+            "accent": "#e4a9ff",
+            "skin": "#f1dce8"
+        },
+        "portrait_seed": 149,
+        "assets": {
+            "asset_folder": "res://assets/characters/ravienna_epic",
+            "portrait_target": "res://assets/characters/ravienna_epic/portrait_512.png",
+            "portrait_status": "shared_character_art",
+            "full_body_illustration": "res://assets/characters/ravienna/main_menu_illustration.png",
+            "art_status": "illustration_available_no_combat_sheet",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ]
+        },
+        "gacha_enabled": true,
+        "variant_of": "ravienna"
+    },
+    "ravienna_mythic": {
+        "name": "Queen Ravienna (Mythic Aspect)",
+        "title": "The Eclipse Sovereign Â· Mythic Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "mythic",
+        "role": "Mage",
+        "base": {
+            "hp": 60,
+            "atk": 21,
+            "def": 10,
+            "spd": 16,
+            "crit": 0.09,
+            "crit_dmg": 1.55
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Eclipse Sovereign",
+            "id": "hollow_crown",
+            "text": "Ravienna's dark magic is empowered against enemies suffering a debuff."
+        },
+        "lore": "Once human, Ravienna became the sovereign of the Eclipse Castle. Her silver-lavender hair, violet roses and crescent crown mark a queen who commands the quiet between moonlight and shadow.",
+        "palette": {
+            "hair": "#d9c5ed",
+            "primary": "#4a245e",
+            "secondary": "#a66acb",
+            "accent": "#e4a9ff",
+            "skin": "#f1dce8"
+        },
+        "portrait_seed": 149,
+        "assets": {
+            "asset_folder": "res://assets/characters/ravienna_mythic",
+            "portrait_target": "res://assets/characters/ravienna_mythic/portrait_512.png",
+            "portrait_status": "shared_character_art",
+            "full_body_illustration": "res://assets/characters/ravienna/main_menu_illustration.png",
+            "art_status": "illustration_available_no_combat_sheet",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ]
+        },
+        "gacha_enabled": true,
+        "variant_of": "ravienna"
+    },
+    "cassien_common": {
+        "name": "Cassien (Common Aspect)",
+        "title": "The Crimson Oath Â· Common Aspect",
+        "race": "Vampire",
+        "element": "dark",
+        "rarity": "common",
+        "role": "Assassin",
+        "base": {
+            "hp": 34,
+            "atk": 13,
+            "def": 6,
+            "spd": 12,
+            "crit": 0.11,
+            "crit_dmg": 1.5
+        },
+        "growth": {
+            "hp": 2.4,
+            "atk": 1.6,
+            "def": 0.8,
+            "spd": 1.6,
+            "crit": 0.005,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "umbral_rend",
+            "blood_waltz"
+        ],
+        "ultimate": "soul_drain",
+        "passive": {
+            "id": "sanguine_waltz",
+            "name": "Bloodbound Waltz",
+            "text": "Cassien restores a portion of the damage he deals."
+        },
+        "lore": "A mysterious crimson-eyed noble whose black feathered mantle and blood-red jewels hint at an old, dangerous oath.",
+        "palette": {
+            "hair": "#21171d",
+            "primary": "#211b20",
+            "secondary": "#5b1825",
+            "accent": "#c52d43",
+            "skin": "#e5c6c4"
+        },
+        "portrait_seed": 219,
+        "assets": {
+            "asset_folder": "res://assets/characters/cassien_common",
+            "portrait_target": "res://assets/characters/cassien_common/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "gacha_enabled": true,
+        "variant_of": "cassien"
+    },
+    "cassien_epic": {
+        "name": "Cassien (Epic Aspect)",
+        "title": "The Crimson Oath Â· Epic Aspect",
+        "race": "Vampire",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Assassin",
+        "base": {
+            "hp": 48,
+            "atk": 18,
+            "def": 8,
+            "spd": 17,
+            "crit": 0.11,
+            "crit_dmg": 1.5
+        },
+        "growth": {
+            "hp": 3.45,
+            "atk": 2.3,
+            "def": 1.15,
+            "spd": 2.3,
+            "crit": 0.005,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "umbral_rend",
+            "blood_waltz"
+        ],
+        "ultimate": "soul_drain",
+        "passive": {
+            "id": "sanguine_waltz",
+            "name": "Bloodbound Waltz",
+            "text": "Cassien restores a portion of the damage he deals."
+        },
+        "lore": "A mysterious crimson-eyed noble whose black feathered mantle and blood-red jewels hint at an old, dangerous oath.",
+        "palette": {
+            "hair": "#21171d",
+            "primary": "#211b20",
+            "secondary": "#5b1825",
+            "accent": "#c52d43",
+            "skin": "#e5c6c4"
+        },
+        "portrait_seed": 219,
+        "assets": {
+            "asset_folder": "res://assets/characters/cassien_epic",
+            "portrait_target": "res://assets/characters/cassien_epic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "gacha_enabled": true,
+        "variant_of": "cassien"
+    },
+    "cassien_legendary": {
+        "name": "Cassien (Legendary Aspect)",
+        "title": "The Crimson Oath Â· Legendary Aspect",
+        "race": "Vampire",
+        "element": "dark",
+        "rarity": "legendary",
+        "role": "Assassin",
+        "base": {
+            "hp": 55,
+            "atk": 21,
+            "def": 9,
+            "spd": 20,
+            "crit": 0.11,
+            "crit_dmg": 1.5
+        },
+        "growth": {
+            "hp": 3.9,
+            "atk": 2.6,
+            "def": 1.3,
+            "spd": 2.6,
+            "crit": 0.005,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "umbral_rend",
+            "blood_waltz"
+        ],
+        "ultimate": "soul_drain",
+        "passive": {
+            "id": "sanguine_waltz",
+            "name": "Bloodbound Waltz",
+            "text": "Cassien restores a portion of the damage he deals."
+        },
+        "lore": "A mysterious crimson-eyed noble whose black feathered mantle and blood-red jewels hint at an old, dangerous oath.",
+        "palette": {
+            "hair": "#21171d",
+            "primary": "#211b20",
+            "secondary": "#5b1825",
+            "accent": "#c52d43",
+            "skin": "#e5c6c4"
+        },
+        "portrait_seed": 219,
+        "assets": {
+            "asset_folder": "res://assets/characters/cassien_legendary",
+            "portrait_target": "res://assets/characters/cassien_legendary/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "gacha_enabled": true,
+        "variant_of": "cassien"
+    },
+    "cassien_mythic": {
+        "name": "Cassien (Mythic Aspect)",
+        "title": "The Crimson Oath Â· Mythic Aspect",
+        "race": "Vampire",
+        "element": "dark",
+        "rarity": "mythic",
+        "role": "Assassin",
+        "base": {
+            "hp": 63,
+            "atk": 24,
+            "def": 10,
+            "spd": 22,
+            "crit": 0.11,
+            "crit_dmg": 1.5
+        },
+        "growth": {
+            "hp": 4.5,
+            "atk": 3,
+            "def": 1.5,
+            "spd": 3,
+            "crit": 0.005,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "umbral_rend",
+            "blood_waltz"
+        ],
+        "ultimate": "soul_drain",
+        "passive": {
+            "id": "sanguine_waltz",
+            "name": "Bloodbound Waltz",
+            "text": "Cassien restores a portion of the damage he deals."
+        },
+        "lore": "A mysterious crimson-eyed noble whose black feathered mantle and blood-red jewels hint at an old, dangerous oath.",
+        "palette": {
+            "hair": "#21171d",
+            "primary": "#211b20",
+            "secondary": "#5b1825",
+            "accent": "#c52d43",
+            "skin": "#e5c6c4"
+        },
+        "portrait_seed": 219,
+        "assets": {
+            "asset_folder": "res://assets/characters/cassien_mythic",
+            "portrait_target": "res://assets/characters/cassien_mythic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "gacha_enabled": true,
+        "variant_of": "cassien"
+    },
+    "nyx_common": {
+        "name": "Nyx Vaelora (Common Aspect)",
+        "title": "Queen of the Hollow Moon Â· Common Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "common",
+        "role": "Mage",
+        "base": {
+            "hp": 31,
+            "atk": 10,
+            "def": 5,
+            "spd": 9,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Moonbound Familiar",
+            "id": "hollow_crown",
+            "text": "Nyx's familiar feeds on afflicted foes: her dark attacks deal 15% more damage to enemies suffering a debuff."
+        },
+        "lore": "A queen who traded her reflection for a throne. The moon she rules over is a hole in the sky, and it is always full.",
+        "palette": {
+            "hair": "#2a1533",
+            "primary": "#3b1f4e",
+            "secondary": "#a87bd4",
+            "accent": "#ff6fae",
+            "skin": "#e8cdd8"
+        },
+        "portrait_seed": 41,
+        "growth": {
+            "hp": 2.46,
+            "atk": 1.85,
+            "def": 0.62,
+            "spd": 1.23,
+            "crit": 0.005,
+            "crit_dmg": 0.012
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/nyx_common",
+            "portrait_target": "res://assets/characters/nyx_common/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "gacha_enabled": true,
+        "variant_of": "nyx"
+    },
+    "nyx_rare": {
+        "name": "Nyx Vaelora (Rare Aspect)",
+        "title": "Queen of the Hollow Moon Â· Rare Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "rare",
+        "role": "Mage",
+        "base": {
+            "hp": 38,
+            "atk": 13,
+            "def": 6,
+            "spd": 12,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Moonbound Familiar",
+            "id": "hollow_crown",
+            "text": "Nyx's familiar feeds on afflicted foes: her dark attacks deal 15% more damage to enemies suffering a debuff."
+        },
+        "lore": "A queen who traded her reflection for a throne. The moon she rules over is a hole in the sky, and it is always full.",
+        "palette": {
+            "hair": "#2a1533",
+            "primary": "#3b1f4e",
+            "secondary": "#a87bd4",
+            "accent": "#ff6fae",
+            "skin": "#e8cdd8"
+        },
+        "portrait_seed": 41,
+        "growth": {
+            "hp": 3.08,
+            "atk": 2.31,
+            "def": 0.77,
+            "spd": 1.54,
+            "crit": 0.005,
+            "crit_dmg": 0.012
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/nyx_rare",
+            "portrait_target": "res://assets/characters/nyx_rare/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "gacha_enabled": true,
+        "variant_of": "nyx"
+    },
+    "nyx_epic": {
+        "name": "Nyx Vaelora (Epic Aspect)",
+        "title": "Queen of the Hollow Moon Â· Epic Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Mage",
+        "base": {
+            "hp": 44,
+            "atk": 15,
+            "def": 7,
+            "spd": 13,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Moonbound Familiar",
+            "id": "hollow_crown",
+            "text": "Nyx's familiar feeds on afflicted foes: her dark attacks deal 15% more damage to enemies suffering a debuff."
+        },
+        "lore": "A queen who traded her reflection for a throne. The moon she rules over is a hole in the sky, and it is always full.",
+        "palette": {
+            "hair": "#2a1533",
+            "primary": "#3b1f4e",
+            "secondary": "#a87bd4",
+            "accent": "#ff6fae",
+            "skin": "#e8cdd8"
+        },
+        "portrait_seed": 41,
+        "growth": {
+            "hp": 3.54,
+            "atk": 2.65,
+            "def": 0.88,
+            "spd": 1.77,
+            "crit": 0.005,
+            "crit_dmg": 0.012
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/nyx_epic",
+            "portrait_target": "res://assets/characters/nyx_epic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "gacha_enabled": true,
+        "variant_of": "nyx"
+    },
+    "nyx_mythic": {
+        "name": "Nyx Vaelora (Mythic Aspect)",
+        "title": "Queen of the Hollow Moon Â· Mythic Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "mythic",
+        "role": "Mage",
+        "base": {
+            "hp": 58,
+            "atk": 20,
+            "def": 9,
+            "spd": 17,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "lunar_wisp",
+            "velvet_hex"
+        ],
+        "ultimate": "hollow_moon_eclipse",
+        "passive": {
+            "name": "Moonbound Familiar",
+            "id": "hollow_crown",
+            "text": "Nyx's familiar feeds on afflicted foes: her dark attacks deal 15% more damage to enemies suffering a debuff."
+        },
+        "lore": "A queen who traded her reflection for a throne. The moon she rules over is a hole in the sky, and it is always full.",
+        "palette": {
+            "hair": "#2a1533",
+            "primary": "#3b1f4e",
+            "secondary": "#a87bd4",
+            "accent": "#ff6fae",
+            "skin": "#e8cdd8"
+        },
+        "portrait_seed": 41,
+        "growth": {
+            "hp": 4.62,
+            "atk": 3.46,
+            "def": 1.15,
+            "spd": 2.31,
+            "crit": 0.005,
+            "crit_dmg": 0.012
+        },
+        "assets": {
+            "asset_folder": "res://assets/characters/nyx_mythic",
+            "portrait_target": "res://assets/characters/nyx_mythic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "gacha_enabled": true,
+        "variant_of": "nyx"
+    },
+    "crimson_witch_common": {
+        "name": "Crimson Witch (Common Aspect)",
+        "title": "The Scarlet Requiem Â· Common Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "common",
+        "role": "Assassin",
+        "base": {
+            "hp": 35,
+            "atk": 14,
+            "def": 6,
+            "spd": 11,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "reapers_waltz",
+            "crimson_binding"
+        ],
+        "ultimate": "red_requiem",
+        "lore": "A horned scythe-wielder whose crimson magic turns every flourish into a fatal promise.",
+        "palette": {
+            "hair": "#26141c",
+            "primary": "#24131c",
+            "secondary": "#7c2036",
+            "accent": "#e34259",
+            "skin": "#e8c8cb"
+        },
+        "portrait_seed": 304,
+        "assets": {
+            "asset_folder": "res://assets/characters/crimson_witch_common",
+            "portrait_target": "res://assets/characters/crimson_witch_common/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "ashen_wake",
+            "name": "Ashen Omen",
+            "text": "Her critical strikes leave a lingering ember of dark flame."
+        },
+        "gacha_enabled": true,
+        "variant_of": "crimson_witch"
+    },
+    "crimson_witch_epic": {
+        "name": "Crimson Witch (Epic Aspect)",
+        "title": "The Scarlet Requiem Â· Epic Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Assassin",
+        "base": {
+            "hp": 51,
+            "atk": 20,
+            "def": 8,
+            "spd": 16,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "reapers_waltz",
+            "crimson_binding"
+        ],
+        "ultimate": "red_requiem",
+        "lore": "A horned scythe-wielder whose crimson magic turns every flourish into a fatal promise.",
+        "palette": {
+            "hair": "#26141c",
+            "primary": "#24131c",
+            "secondary": "#7c2036",
+            "accent": "#e34259",
+            "skin": "#e8c8cb"
+        },
+        "portrait_seed": 304,
+        "assets": {
+            "asset_folder": "res://assets/characters/crimson_witch_epic",
+            "portrait_target": "res://assets/characters/crimson_witch_epic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "ashen_wake",
+            "name": "Ashen Omen",
+            "text": "Her critical strikes leave a lingering ember of dark flame."
+        },
+        "gacha_enabled": true,
+        "variant_of": "crimson_witch"
+    },
+    "crimson_witch_legendary": {
+        "name": "Crimson Witch (Legendary Aspect)",
+        "title": "The Scarlet Requiem Â· Legendary Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "legendary",
+        "role": "Assassin",
+        "base": {
+            "hp": 57,
+            "atk": 22,
+            "def": 9,
+            "spd": 18,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "reapers_waltz",
+            "crimson_binding"
+        ],
+        "ultimate": "red_requiem",
+        "lore": "A horned scythe-wielder whose crimson magic turns every flourish into a fatal promise.",
+        "palette": {
+            "hair": "#26141c",
+            "primary": "#24131c",
+            "secondary": "#7c2036",
+            "accent": "#e34259",
+            "skin": "#e8c8cb"
+        },
+        "portrait_seed": 304,
+        "assets": {
+            "asset_folder": "res://assets/characters/crimson_witch_legendary",
+            "portrait_target": "res://assets/characters/crimson_witch_legendary/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "ashen_wake",
+            "name": "Ashen Omen",
+            "text": "Her critical strikes leave a lingering ember of dark flame."
+        },
+        "gacha_enabled": true,
+        "variant_of": "crimson_witch"
+    },
+    "crimson_witch_mythic": {
+        "name": "Crimson Witch (Mythic Aspect)",
+        "title": "The Scarlet Requiem Â· Mythic Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "mythic",
+        "role": "Assassin",
+        "base": {
+            "hp": 66,
+            "atk": 26,
+            "def": 10,
+            "spd": 21,
+            "crit": 0.1,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "reapers_waltz",
+            "crimson_binding"
+        ],
+        "ultimate": "red_requiem",
+        "lore": "A horned scythe-wielder whose crimson magic turns every flourish into a fatal promise.",
+        "palette": {
+            "hair": "#26141c",
+            "primary": "#24131c",
+            "secondary": "#7c2036",
+            "accent": "#e34259",
+            "skin": "#e8c8cb"
+        },
+        "portrait_seed": 304,
+        "assets": {
+            "asset_folder": "res://assets/characters/crimson_witch_mythic",
+            "portrait_target": "res://assets/characters/crimson_witch_mythic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "ashen_wake",
+            "name": "Ashen Omen",
+            "text": "Her critical strikes leave a lingering ember of dark flame."
+        },
+        "gacha_enabled": true,
+        "variant_of": "crimson_witch"
+    },
+    "mirene_common": {
+        "name": "MirÃ©ne (Common Aspect)",
+        "title": "The Crimson Fool Â· Common Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "common",
+        "role": "Trickster",
+        "base": {
+            "hp": 34,
+            "atk": 13,
+            "def": 6,
+            "spd": 11,
+            "crit": 0.09,
+            "crit_dmg": 1.48
+        },
+        "skills": [
+            "shadow_feint",
+            "corruption_bolt"
+        ],
+        "ultimate": "hollow_wail",
+        "lore": "A masked harlequin whose playful smile hides a dangerous command of crimson illusion.",
+        "palette": {
+            "hair": "#eee3e7",
+            "primary": "#25131d",
+            "secondary": "#8f263e",
+            "accent": "#d94b61",
+            "skin": "#f0d7d9"
+        },
+        "portrait_seed": 305,
+        "assets": {
+            "asset_folder": "res://assets/characters/mirene_common",
+            "portrait_target": "res://assets/characters/mirene_common/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "whisperstep",
+            "name": "Masquerade Step",
+            "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+        },
+        "gacha_enabled": true,
+        "variant_of": "mirene"
+    },
+    "mirene_epic": {
+        "name": "MirÃ©ne (Epic Aspect)",
+        "title": "The Crimson Fool Â· Epic Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Trickster",
+        "base": {
+            "hp": 49,
+            "atk": 18,
+            "def": 9,
+            "spd": 16,
+            "crit": 0.09,
+            "crit_dmg": 1.48
+        },
+        "skills": [
+            "shadow_feint",
+            "corruption_bolt"
+        ],
+        "ultimate": "hollow_wail",
+        "lore": "A masked harlequin whose playful smile hides a dangerous command of crimson illusion.",
+        "palette": {
+            "hair": "#eee3e7",
+            "primary": "#25131d",
+            "secondary": "#8f263e",
+            "accent": "#d94b61",
+            "skin": "#f0d7d9"
+        },
+        "portrait_seed": 305,
+        "assets": {
+            "asset_folder": "res://assets/characters/mirene_epic",
+            "portrait_target": "res://assets/characters/mirene_epic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "whisperstep",
+            "name": "Masquerade Step",
+            "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+        },
+        "gacha_enabled": true,
+        "variant_of": "mirene"
+    },
+    "mirene_legendary": {
+        "name": "MirÃ©ne (Legendary Aspect)",
+        "title": "The Crimson Fool Â· Legendary Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "legendary",
+        "role": "Trickster",
+        "base": {
+            "hp": 56,
+            "atk": 21,
+            "def": 10,
+            "spd": 18,
+            "crit": 0.09,
+            "crit_dmg": 1.48
+        },
+        "skills": [
+            "shadow_feint",
+            "corruption_bolt"
+        ],
+        "ultimate": "hollow_wail",
+        "lore": "A masked harlequin whose playful smile hides a dangerous command of crimson illusion.",
+        "palette": {
+            "hair": "#eee3e7",
+            "primary": "#25131d",
+            "secondary": "#8f263e",
+            "accent": "#d94b61",
+            "skin": "#f0d7d9"
+        },
+        "portrait_seed": 305,
+        "assets": {
+            "asset_folder": "res://assets/characters/mirene_legendary",
+            "portrait_target": "res://assets/characters/mirene_legendary/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "whisperstep",
+            "name": "Masquerade Step",
+            "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+        },
+        "gacha_enabled": true,
+        "variant_of": "mirene"
+    },
+    "mirene_mythic": {
+        "name": "MirÃ©ne (Mythic Aspect)",
+        "title": "The Crimson Fool Â· Mythic Aspect",
+        "race": "Demon",
+        "element": "dark",
+        "rarity": "mythic",
+        "role": "Trickster",
+        "base": {
+            "hp": 64,
+            "atk": 24,
+            "def": 12,
+            "spd": 21,
+            "crit": 0.09,
+            "crit_dmg": 1.48
+        },
+        "skills": [
+            "shadow_feint",
+            "corruption_bolt"
+        ],
+        "ultimate": "hollow_wail",
+        "lore": "A masked harlequin whose playful smile hides a dangerous command of crimson illusion.",
+        "palette": {
+            "hair": "#eee3e7",
+            "primary": "#25131d",
+            "secondary": "#8f263e",
+            "accent": "#d94b61",
+            "skin": "#f0d7d9"
+        },
+        "portrait_seed": 305,
+        "assets": {
+            "asset_folder": "res://assets/characters/mirene_mythic",
+            "portrait_target": "res://assets/characters/mirene_mythic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "whisperstep",
+            "name": "Masquerade Step",
+            "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+        },
+        "gacha_enabled": true,
+        "variant_of": "mirene"
+    },
+    "caelith_common": {
+        "name": "Caelith (Common Aspect)",
+        "title": "The Veiled Arbiter Â· Common Aspect",
+        "race": "Human",
+        "element": "dark",
+        "rarity": "common",
+        "role": "Mage",
+        "base": {
+            "hp": 37,
+            "atk": 14,
+            "def": 6,
+            "spd": 10,
+            "crit": 0.09,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "corruption_bolt",
+            "shadow_lash"
+        ],
+        "ultimate": "soul_drain",
+        "lore": "A silver-lavender arbiter whose filigree veil and amethyst staff weigh every soul against the silence of the moon.",
+        "palette": {
+            "hair": "#c9bad8",
+            "primary": "#241b30",
+            "secondary": "#73558e",
+            "accent": "#b58aff",
+            "skin": "#eadce9"
+        },
+        "portrait_seed": 306,
+        "assets": {
+            "asset_folder": "res://assets/characters/caelith_common",
+            "portrait_target": "res://assets/characters/caelith_common/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "patient_weaver",
+            "name": "Measured Judgment",
+            "text": "Caelith deals increased damage to enemies suffering a disabling status."
+        },
+        "gacha_enabled": true,
+        "variant_of": "caelith"
+    },
+    "caelith_epic": {
+        "name": "Caelith (Epic Aspect)",
+        "title": "The Veiled Arbiter Â· Epic Aspect",
+        "race": "Human",
+        "element": "dark",
+        "rarity": "epic",
+        "role": "Mage",
+        "base": {
+            "hp": 53,
+            "atk": 20,
+            "def": 9,
+            "spd": 15,
+            "crit": 0.09,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "corruption_bolt",
+            "shadow_lash"
+        ],
+        "ultimate": "soul_drain",
+        "lore": "A silver-lavender arbiter whose filigree veil and amethyst staff weigh every soul against the silence of the moon.",
+        "palette": {
+            "hair": "#c9bad8",
+            "primary": "#241b30",
+            "secondary": "#73558e",
+            "accent": "#b58aff",
+            "skin": "#eadce9"
+        },
+        "portrait_seed": 306,
+        "assets": {
+            "asset_folder": "res://assets/characters/caelith_epic",
+            "portrait_target": "res://assets/characters/caelith_epic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "patient_weaver",
+            "name": "Measured Judgment",
+            "text": "Caelith deals increased damage to enemies suffering a disabling status."
+        },
+        "gacha_enabled": true,
+        "variant_of": "caelith"
+    },
+    "caelith_legendary": {
+        "name": "Caelith (Legendary Aspect)",
+        "title": "The Veiled Arbiter Â· Legendary Aspect",
+        "race": "Human",
+        "element": "dark",
+        "rarity": "legendary",
+        "role": "Mage",
+        "base": {
+            "hp": 60,
+            "atk": 22,
+            "def": 10,
+            "spd": 17,
+            "crit": 0.09,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "corruption_bolt",
+            "shadow_lash"
+        ],
+        "ultimate": "soul_drain",
+        "lore": "A silver-lavender arbiter whose filigree veil and amethyst staff weigh every soul against the silence of the moon.",
+        "palette": {
+            "hair": "#c9bad8",
+            "primary": "#241b30",
+            "secondary": "#73558e",
+            "accent": "#b58aff",
+            "skin": "#eadce9"
+        },
+        "portrait_seed": 306,
+        "assets": {
+            "asset_folder": "res://assets/characters/caelith_legendary",
+            "portrait_target": "res://assets/characters/caelith_legendary/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "patient_weaver",
+            "name": "Measured Judgment",
+            "text": "Caelith deals increased damage to enemies suffering a disabling status."
+        },
+        "gacha_enabled": true,
+        "variant_of": "caelith"
+    },
+    "caelith_mythic": {
+        "name": "Caelith (Mythic Aspect)",
+        "title": "The Veiled Arbiter Â· Mythic Aspect",
+        "race": "Human",
+        "element": "dark",
+        "rarity": "mythic",
+        "role": "Mage",
+        "base": {
+            "hp": 69,
+            "atk": 26,
+            "def": 12,
+            "spd": 20,
+            "crit": 0.09,
+            "crit_dmg": 1.5
+        },
+        "skills": [
+            "corruption_bolt",
+            "shadow_lash"
+        ],
+        "ultimate": "soul_drain",
+        "lore": "A silver-lavender arbiter whose filigree veil and amethyst staff weigh every soul against the silence of the moon.",
+        "palette": {
+            "hair": "#c9bad8",
+            "primary": "#241b30",
+            "secondary": "#73558e",
+            "accent": "#b58aff",
+            "skin": "#eadce9"
+        },
+        "portrait_seed": 306,
+        "assets": {
+            "asset_folder": "res://assets/characters/caelith_mythic",
+            "portrait_target": "res://assets/characters/caelith_mythic/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                768
+            ],
+            "portrait_status": "shared_character_art"
+        },
+        "passive": {
+            "id": "patient_weaver",
+            "name": "Measured Judgment",
+            "text": "Caelith deals increased damage to enemies suffering a disabling status."
+        },
+        "gacha_enabled": true,
+        "variant_of": "caelith"
+    },
+    "elathra": {
+        "name": "Élathra",
+        "title": "The Lily of Shadows",
+        "race": "Witch",
+        "element": "dark",
+        "rarity": "legendary",
+        "role": "Control Mage",
+        "base": {
+            "hp": 50,
+            "atk": 18,
+            "def": 9,
+            "spd": 14,
+            "crit": 0.09,
+            "crit_dmg": 1.55
+        },
+        "growth": {
+            "hp": 3,
+            "atk": 2,
+            "def": 1,
+            "spd": 1,
+            "crit": 0.004,
+            "crit_dmg": 0.01
+        },
+        "skills": [
+            "lunar_wisp",
+            "crimson_binding"
+        ],
+        "ultimate": "hollow_wail",
+        "passive": {
+            "name": "Veil of Lilies",
+            "id": "hollow_crown",
+            "text": "Her dark skills deal 15% more damage to enemies suffering a debuff."
+        },
+        "lore": "A poised wanderer of the dusk gardens, Élathra carries a lily-tipped staff and a quiet command over shadow. Beneath her ornate hat and silver-ash braids lies a patient will: she binds threats before they can reach those under her protection.",
+        "palette": {
+            "hair": "#d9d2d2",
+            "primary": "#22212a",
+            "secondary": "#243b59",
+            "accent": "#80b8e8",
+            "skin": "#eadbd7"
+        },
+        "portrait_seed": 413,
+        "assets": {
+            "asset_folder": "res://assets/characters/elathra",
+            "portrait_target": "res://assets/characters/elathra/portrait_512.png",
+            "portrait_target_dimensions": [
+                512,
+                683
+            ],
+            "portrait_status": "imported",
+            "full_body_illustration": "res://assets/characters/elathra/full_body_illustration.png",
+            "art_status": "pending_art_import"
+        },
+        "gacha_enabled": true
     }
-  },
-  "bramble": {
-    "name": "Bramble",
-    "title": "Thorn-Touched Wanderer",
-    "race": "Beastkin",
-    "element": "earth",
-    "rarity": "rare",
-    "role": "Bruiser",
-    "base": {
-      "hp": 50,
-      "atk": 13,
-      "def": 9,
-      "spd": 11,
-      "crit": 0.06,
-      "crit_dmg": 1.35
-    },
-    "skills": [
-      "thorn_lash",
-      "stone_bulwark"
-    ],
-    "ultimate": "worldroot",
-    "passive": {
-      "name": "Rooted",
-      "id": "rooted",
-      "text": "Bramble takes 10% less damage while below half health."
-    },
-    "lore": "A fox-eared drifter raised by the bramble hedges. She apologizes to every tree she cuts and means it every time.",
-    "palette": {
-      "hair": "#c96f3a",
-      "primary": "#5a4a2e",
-      "secondary": "#8fbf6a",
-      "accent": "#ffd27a",
-      "skin": "#f0c8a8"
-    },
-    "portrait_seed": 23,
-    "growth": {
-      "hp": 4,
-      "atk": 2,
-      "def": 2,
-      "spd": 1,
-      "crit": 0.003,
-      "crit_dmg": 0.008
-    }
-  },
-  "seraphine": {
-    "name": "Seraphine Ael",
-    "title": "Dawn's Last Ember",
-    "race": "Angel",
-    "element": "light",
-    "rarity": "legendary",
-    "role": "Healer",
-    "base": {
-      "hp": 55,
-      "atk": 14,
-      "def": 12,
-      "spd": 14,
-      "crit": 0.07,
-      "crit_dmg": 1.5
-    },
-    "skills": [
-      "dawn_mend",
-      "radiance"
-    ],
-    "ultimate": "starfall",
-    "passive": {
-      "name": "Dawnkeeper",
-      "id": "dawnkeeper",
-      "text": "The first healing skill each battle costs no turn energy."
-    },
-    "lore": "The last ember of a sun that set before the world was named. Seraphine carries its warmth in her hands and gives it away freely.",
-    "palette": {
-      "hair": "#fff2c4",
-      "primary": "#f2ead7",
-      "secondary": "#d9b45c",
-      "accent": "#ffe9a3",
-      "skin": "#f7ddc9"
-    },
-    "portrait_seed": 37,
-    "growth": {
-      "hp": 5,
-      "atk": 2,
-      "def": 2,
-      "spd": 1,
-      "crit": 0.005,
-      "crit_dmg": 0.012
-    }
-  },
-  "nyx": {
-    "name": "Nyx Vaelora",
-    "title": "Queen of the Hollow Moon",
-    "race": "Demon",
-    "element": "dark",
-    "rarity": "legendary",
-    "role": "Mage",
-    "base": {
-      "hp": 50,
-      "atk": 17,
-      "def": 8,
-      "spd": 15,
-      "crit": 0.1,
-      "crit_dmg": 1.5
-    },
-    "skills": [
-      "lunar_wisp",
-      "velvet_hex"
-    ],
-    "ultimate": "hollow_moon_eclipse",
-    "passive": {
-      "name": "Moonbound Familiar",
-      "id": "hollow_crown",
-      "text": "Nyx's familiar feeds on afflicted foes: her dark attacks deal 15% more damage to enemies suffering a debuff."
-    },
-    "lore": "A queen who traded her reflection for a throne. The moon she rules over is a hole in the sky, and it is always full.",
-    "palette": {
-      "hair": "#2a1533",
-      "primary": "#3b1f4e",
-      "secondary": "#a87bd4",
-      "accent": "#ff6fae",
-      "skin": "#e8cdd8"
-    },
-    "portrait_seed": 41,
-    "growth": {
-      "hp": 4,
-      "atk": 3,
-      "def": 1,
-      "spd": 2,
-      "crit": 0.005,
-      "crit_dmg": 0.012
-    }
-  },
-  "coralyn": {
-    "name": "Coralyn Tide",
-    "title": "Song Beneath the Reef",
-    "race": "Mermaid",
-    "element": "water",
-    "rarity": "epic",
-    "role": "Healer",
-    "base": {
-      "hp": 53,
-      "atk": 12,
-      "def": 10,
-      "spd": 13,
-      "crit": 0.05,
-      "crit_dmg": 1.4
-    },
-    "skills": [
-      "tidal_caress",
-      "frost_bind"
-    ],
-    "ultimate": "abyssal_hymn",
-    "passive": {
-      "name": "Tidecall",
-      "id": "tidecall",
-      "text": "Healing skills also grant a small shield."
-    },
-    "lore": "Coralyn left the deep reef to learn why the tides kept whispering a name that was not hers. She still hums it when she is afraid.",
-    "palette": {
-      "hair": "#7fe3e0",
-      "primary": "#1f6f8f",
-      "secondary": "#ffb3c7",
-      "accent": "#b9f6ff",
-      "skin": "#f4d9cd"
-    },
-    "portrait_seed": 53,
-    "growth": {
-      "hp": 4,
-      "atk": 1,
-      "def": 2,
-      "spd": 1,
-      "crit": 0.004,
-      "crit_dmg": 0.01
-    }
-  },
-  "ignis": {
-    "name": "Ignis Karroth",
-    "title": "Crown of Cinders",
-    "race": "Dragonkin",
-    "element": "fire",
-    "rarity": "mythic",
-    "role": "Damage",
-    "base": {
-      "hp": 53,
-      "atk": 20,
-      "def": 12,
-      "spd": 15,
-      "crit": 0.12,
-      "crit_dmg": 1.6
-    },
-    "skills": [
-      "ember_lance",
-      "cinder_veil"
-    ],
-    "ultimate": "inferno_crown",
-    "passive": {
-      "name": "Ashen Wake",
-      "id": "ashen_wake",
-      "text": "Critical hits burn the target for 2 turns."
-    },
-    "lore": "The last heir of a kingdom that burned itself to keep him warm. Ignis wears its crown of cinders and has never once apologized.",
-    "palette": {
-      "hair": "#ff7a3c",
-      "primary": "#3a1414",
-      "secondary": "#d9a441",
-      "accent": "#ffb347",
-      "skin": "#e8b28f"
-    },
-    "portrait_seed": 67,
-    "growth": {
-      "hp": 5,
-      "atk": 3,
-      "def": 2,
-      "spd": 1,
-      "crit": 0.007,
-      "crit_dmg": 0.015
-    }
-  },
-  "mira_sol": {
-    "name": "Mira Sol",
-    "title": "Squire of the Golden Gate",
-    "race": "Human",
-    "element": "light",
-    "rarity": "common",
-    "role": "Tank",
-    "base": {
-      "hp": 50,
-      "atk": 8,
-      "def": 8,
-      "spd": 9,
-      "crit": 0.04,
-      "crit_dmg": 1.3
-    },
-    "skills": [
-      "shield_bash",
-      "rally_cry"
-    ],
-    "ultimate": "aegis_dawn",
-    "passive": {
-      "name": "Hold the Line",
-      "id": "hold_the_line",
-      "text": "Allies behind Mira take 6% less damage."
-    },
-    "lore": "A squire who never got knighted because the kingdom ran out of knights before it ran out of wars. She keeps the oath anyway.",
-    "palette": {
-      "hair": "#e8c27a",
-      "primary": "#c9d2e0",
-      "secondary": "#d9b45c",
-      "accent": "#fff0b8",
-      "skin": "#f0cbb0"
-    },
-    "portrait_seed": 71,
-    "growth": {
-      "hp": 3,
-      "atk": 1,
-      "def": 2,
-      "spd": 0,
-      "crit": 0.002,
-      "crit_dmg": 0.005
-    }
-  },
-  "thistle": {
-    "name": "Thistle",
-    "title": "Lantern of Small Wishes",
-    "race": "Spirit",
-    "element": "wind",
-    "rarity": "rare",
-    "role": "Support",
-    "base": {
-      "hp": 48,
-      "atk": 10,
-      "def": 9,
-      "spd": 13,
-      "crit": 0.06,
-      "crit_dmg": 1.35
-    },
-    "skills": [
-      "wishlight",
-      "zephyr_blessing"
-    ],
-    "ultimate": "thousand_lanterns",
-    "passive": {
-      "name": "Small Miracles",
-      "id": "small_miracles",
-      "text": "At the start of battle, grant the team 10 energy."
-    },
-    "lore": "A wisp born from a child's wish on a winter night. Thistle collects abandoned wishes in a lantern and lights them when someone needs hope.",
-    "palette": {
-      "hair": "#f2e2a8",
-      "primary": "#3f5a6b",
-      "secondary": "#8fd9c4",
-      "accent": "#ffeaa0",
-      "skin": "#f6e3cf"
-    },
-    "portrait_seed": 83,
-    "growth": {
-      "hp": 3,
-      "atk": 1,
-      "def": 2,
-      "spd": 2,
-      "crit": 0.003,
-      "crit_dmg": 0.008
-    }
-  },
-  "vespera": {
-    "name": "Vespera Noct",
-    "title": "Velvet Requiem",
-    "race": "Vampire",
-    "element": "dark",
-    "rarity": "epic",
-    "role": "Assassin",
-    "base": {
-      "hp": 45,
-      "atk": 17,
-      "def": 6,
-      "spd": 15,
-      "crit": 0.14,
-      "crit_dmg": 1.4
-    },
-    "skills": [
-      "reapers_waltz",
-      "crimson_binding"
-    ],
-    "ultimate": "red_requiem",
-    "passive": {
-      "name": "Bloodstained Encore",
-      "id": "sanguine_waltz",
-      "text": "Vespera restores 20% of damage dealt as health; critical strikes leave her poised for a faster follow-up."
-    },
-    "lore": "Vespera attends every funeral in Nocturne, dressed in white. Nobody has ever seen her leave before the last candle goes out.",
-    "palette": {
-      "hair": "#d8d8e8",
-      "primary": "#2a1a2e",
-      "secondary": "#8f2f4f",
-      "accent": "#ff8fb3",
-      "skin": "#f0e0e0"
-    },
-    "portrait_seed": 97,
-    "growth": {
-      "hp": 3,
-      "atk": 2,
-      "def": 1,
-      "spd": 2,
-      "crit": 0.006,
-      "crit_dmg": 0.01
-    }
-  },
-  "scarlet_requiem": {
-    "name": "Scarlet Requiem",
-    "title": "The Crimson Reaper",
-    "race": "Vampire",
-    "element": "dark",
-    "rarity": "epic",
-    "role": "Assassin",
-    "base": { "hp": 45, "atk": 17, "def": 6, "spd": 15, "crit": 0.14, "crit_dmg": 1.4 },
-    "skills": ["reapers_waltz", "crimson_binding"],
-    "ultimate": "red_requiem",
-    "passive": {
-      "name": "Blood Moon Waltz",
-      "id": "sanguine_waltz",
-      "text": "Scarlet restores 20% of damage dealt as health; critical strikes prepare a faster follow-up."
-    },
-    "lore": "When the blood moon rises above the old cathedral, a crimson reaper walks among the roses. Her scythe remembers every name the night has taken.",
-    "palette": {
-      "hair": "#24151d",
-      "primary": "#171019",
-      "secondary": "#8f1f3d",
-      "accent": "#ff405f",
-      "skin": "#f0d6d7"
-    },
-    "portrait_seed": 131,
-    "growth": { "hp": 3, "atk": 2, "def": 1, "spd": 2, "crit": 0.006, "crit_dmg": 0.01 }
-  },
-  "arachnia": {
-    "name": "Arachnia Silk",
-    "title": "Weaver of the Quiet Web",
-    "race": "Monster Girl",
-    "element": "dark",
-    "rarity": "epic",
-    "role": "Controller",
-    "base": {
-      "hp": 48,
-      "atk": 14,
-      "def": 10,
-      "spd": 13,
-      "crit": 0.08,
-      "crit_dmg": 1.4
-    },
-    "skills": [
-      "web_bind",
-      "venom_bite"
-    ],
-    "ultimate": "silk_dominion",
-    "passive": {
-      "name": "Patient Weaver",
-      "id": "patient_weaver",
-      "text": "Stunned enemies take 20% more damage from Arachnia."
-    },
-    "lore": "Arachne of the eighth strand, who wove a tapestry of every road in Aetheria and then hid the one that leads to her.",
-    "palette": {
-      "hair": "#3a2a4a",
-      "primary": "#4a2f5a",
-      "secondary": "#b07fd4",
-      "accent": "#c8ff8f",
-      "skin": "#e8c8d8"
-    },
-    "portrait_seed": 101,
-    "growth": {
-      "hp": 3,
-      "atk": 1,
-      "def": 2,
-      "spd": 2,
-      "crit": 0.004,
-      "crit_dmg": 0.01
-    }
-  },
-  "terra": {
-    "name": "Terra Rootheart",
-    "title": "The Mountain That Remembers",
-    "race": "Ancient",
-    "element": "earth",
-    "rarity": "legendary",
-    "role": "Tank",
-    "base": {
-      "hp": 60,
-      "atk": 14,
-      "def": 13,
-      "spd": 12,
-      "crit": 0.03,
-      "crit_dmg": 1.5
-    },
-    "skills": [
-      "stone_bulwark",
-      "thorn_lash"
-    ],
-    "ultimate": "worldroot",
-    "passive": {
-      "name": "Deep Roots",
-      "id": "deep_roots",
-      "text": "Terra cannot be moved by knockback and gains 15% Defense."
-    },
-    "lore": "She was a mountain before she was a woman, and she still dreams in stone. When she speaks, the ground answers first.",
-    "palette": {
-      "hair": "#6f8f5a",
-      "primary": "#4a4030",
-      "secondary": "#8fbf6a",
-      "accent": "#d9ff9f",
-      "skin": "#c9a88a"
-    },
-    "portrait_seed": 113,
-    "growth": {
-      "hp": 5,
-      "atk": 2,
-      "def": 2,
-      "spd": 1,
-      "crit": 0.005,
-      "crit_dmg": 0.012
-    }
-  },
-  "kael": {
-    "name": "Kael Ashford",
-    "title": "Blade Without a Banner",
-    "race": "Human",
-    "element": "fire",
-    "rarity": "rare",
-    "role": "Damage",
-    "base": {
-      "hp": 43,
-      "atk": 14,
-      "def": 7,
-      "spd": 12,
-      "crit": 0.09,
-      "crit_dmg": 1.35
-    },
-    "skills": [
-      "ember_lance",
-      "rally_cry"
-    ],
-    "ultimate": "blazing_charge",
-    "passive": {
-      "name": "Nothing to Lose",
-      "id": "nothing_to_lose",
-      "text": "Deals 12% more damage below 40% health."
-    },
-    "lore": "A sellsword who burned his banner and kept the sword. He fights for anyone with coin, and for one person without it.",
-    "palette": {
-      "hair": "#4a3020",
-      "primary": "#5a3a2a",
-      "secondary": "#c96f3a",
-      "accent": "#ffcf6a",
-      "skin": "#e8b890"
-    },
-    "portrait_seed": 127,
-    "growth": {
-      "hp": 3,
-      "atk": 2,
-      "def": 1,
-      "spd": 1,
-      "crit": 0.004,
-      "crit_dmg": 0.008
-    },
-    "assets": {
-      "asset_folder": "res://assets/characters/kael",
-      "playable_folder": "res://assets/characters/kael_avatar",
-      "reference_sheet": "res://assets/characters/kael/reference_sheet.png",
-      "reference_dimensions": [
-        1536,
-        1024
-      ],
-      "reference_format": "RGB PNG (no alpha)",
-      "reference_role": "Design reference sheet. Not a cut-out portrait.",
-      "portrait_target": "res://assets/characters/kael_avatar/portrait.png",
-      "portrait_target_dimensions": [
-        256,
-        384
-      ],
-      "portrait_status": "final",
-      "world_sheet": "res://assets/characters/kael_avatar/world_sheet.tres",
-      "world_sheet_animations": 72,
-      "world_sheet_frames": 432,
-      "combat_sprite": "res://assets/characters/kael_avatar/combat_sprite.png",
-      "full_body_illustration": "res://assets/characters/kael_avatar/full_body_illustration.png",
-      "art_status": "final",
-      "art_note": "Playable art extracted from the supplied Project Fantasy isometric character sheet (tools/extract_character_sheet.py -> tools/build_character_sheet.py -> tools/build_character_static.py): the sheet's own Idle/Walk/Run/Attack/Skill/Hit/Death strips and its SE/SW/NE/NW isometric views, re-laid out as 9 states x 8 directions (72 animations), a 256x384 bust portrait, a 128x192 combat sprite and a 1024x2048 full-body key illustration. The playable art lives in its own folder because res://assets/characters/kael/ belongs to the collectible asset registry."
-    }
-  }
 }

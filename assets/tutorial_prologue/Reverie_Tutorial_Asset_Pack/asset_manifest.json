@@ -1,0 +1,990 @@
+[
+  {
+    "asset": "kael_bed",
+    "folder": "Bedroom",
+    "file": "Bedroom/kael_bed.png",
+    "size_px": "267x302",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      10,
+      5,
+      315,
+      365
+    ]
+  },
+  {
+    "asset": "crystal_nightstand",
+    "folder": "Bedroom",
+    "file": "Bedroom/crystal_nightstand.png",
+    "size_px": "98x153",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      305,
+      75,
+      465,
+      295
+    ]
+  },
+  {
+    "asset": "curtained_window",
+    "folder": "Bedroom",
+    "file": "Bedroom/curtained_window.png",
+    "size_px": "211x273",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      440,
+      5,
+      675,
+      300
+    ]
+  },
+  {
+    "asset": "ornate_wardrobe",
+    "folder": "Bedroom",
+    "file": "Bedroom/ornate_wardrobe.png",
+    "size_px": "156x274",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      675,
+      5,
+      875,
+      305
+    ]
+  },
+  {
+    "asset": "writing_desk_and_chair",
+    "folder": "Bedroom",
+    "file": "Bedroom/writing_desk_and_chair.png",
+    "size_px": "358x250",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      875,
+      75,
+      1235,
+      325
+    ]
+  },
+  {
+    "asset": "potted_purple_plant",
+    "folder": "Bedroom",
+    "file": "Bedroom/potted_purple_plant.png",
+    "size_px": "147x232",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1370,
+      15,
+      1535,
+      300
+    ]
+  },
+  {
+    "asset": "royal_bedroom_rug",
+    "folder": "Bedroom",
+    "file": "Bedroom/royal_bedroom_rug.png",
+    "size_px": "285x195",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      15,
+      355,
+      325,
+      565
+    ]
+  },
+  {
+    "asset": "storage_chest",
+    "folder": "Bedroom",
+    "file": "Bedroom/storage_chest.png",
+    "size_px": "151x107",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      330,
+      365,
+      530,
+      565
+    ]
+  },
+  {
+    "asset": "stone_fireplace",
+    "folder": "Bedroom",
+    "file": "Bedroom/stone_fireplace.png",
+    "size_px": "229x265",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      535,
+      285,
+      785,
+      570
+    ]
+  },
+  {
+    "asset": "arched_wooden_door",
+    "folder": "Bedroom",
+    "file": "Bedroom/arched_wooden_door.png",
+    "size_px": "155x229",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      795,
+      300,
+      995,
+      570
+    ]
+  },
+  {
+    "asset": "cloak_and_sword_stand",
+    "folder": "Bedroom",
+    "file": "Bedroom/cloak_and_sword_stand.png",
+    "size_px": "140x191",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1010,
+      335,
+      1220,
+      570
+    ]
+  },
+  {
+    "asset": "bookcase",
+    "folder": "Bedroom",
+    "file": "Bedroom/bookcase.png",
+    "size_px": "125x238",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1220,
+      305,
+      1395,
+      570
+    ]
+  },
+  {
+    "asset": "wall_banner",
+    "folder": "Bedroom",
+    "file": "Bedroom/wall_banner.png",
+    "size_px": "104x240",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1390,
+      300,
+      1535,
+      570
+    ]
+  },
+  {
+    "asset": "wood_floor_tile_source",
+    "folder": "Bedroom",
+    "file": "Bedroom/wood_floor_tile_source.png",
+    "size_px": "218x176",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      5,
+      555,
+      260,
+      755
+    ]
+  },
+  {
+    "asset": "stone_floor_tile_source",
+    "folder": "Bedroom",
+    "file": "Bedroom/stone_floor_tile_source.png",
+    "size_px": "164x86",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      265,
+      565,
+      455,
+      755
+    ]
+  },
+  {
+    "asset": "wall_panel_straight",
+    "folder": "Bedroom",
+    "file": "Bedroom/wall_panel_straight.png",
+    "size_px": "191x145",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      455,
+      555,
+      665,
+      760
+    ]
+  },
+  {
+    "asset": "wall_panel_corner",
+    "folder": "Bedroom",
+    "file": "Bedroom/wall_panel_corner.png",
+    "size_px": "200x155",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      665,
+      555,
+      865,
+      765
+    ]
+  },
+  {
+    "asset": "wall_pillar",
+    "folder": "Bedroom",
+    "file": "Bedroom/wall_pillar.png",
+    "size_px": "87x134",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      865,
+      555,
+      970,
+      765
+    ]
+  },
+  {
+    "asset": "wall_column",
+    "folder": "Bedroom",
+    "file": "Bedroom/wall_column.png",
+    "size_px": "77x152",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      965,
+      555,
+      1075,
+      765
+    ]
+  },
+  {
+    "asset": "rug_square",
+    "folder": "Bedroom",
+    "file": "Bedroom/rug_square.png",
+    "size_px": "201x152",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      995,
+      565,
+      1205,
+      760
+    ]
+  },
+  {
+    "asset": "rug_round",
+    "folder": "Bedroom",
+    "file": "Bedroom/rug_round.png",
+    "size_px": "151x146",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1210,
+      565,
+      1395,
+      760
+    ]
+  },
+  {
+    "asset": "rug_corner",
+    "folder": "Bedroom",
+    "file": "Bedroom/rug_corner.png",
+    "size_px": "102x180",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1390,
+      565,
+      1535,
+      760
+    ]
+  },
+  {
+    "asset": "books_and_open_journal",
+    "folder": "Bedroom",
+    "file": "Bedroom/books_and_open_journal.png",
+    "size_px": "325x120",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      835,
+      760,
+      1195,
+      900
+    ]
+  },
+  {
+    "asset": "crystal_lantern",
+    "folder": "Bedroom",
+    "file": "Bedroom/crystal_lantern.png",
+    "size_px": "104x87",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1190,
+      755,
+      1305,
+      900
+    ]
+  },
+  {
+    "asset": "bedside_stool",
+    "folder": "Bedroom",
+    "file": "Bedroom/bedside_stool.png",
+    "size_px": "88x84",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1295,
+      755,
+      1410,
+      900
+    ]
+  },
+  {
+    "asset": "crystal_pedestal",
+    "folder": "Bedroom",
+    "file": "Bedroom/crystal_pedestal.png",
+    "size_px": "53x116",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1400,
+      745,
+      1535,
+      900
+    ]
+  },
+  {
+    "asset": "lower_wall_segment",
+    "folder": "Bedroom",
+    "file": "Bedroom/lower_wall_segment.png",
+    "size_px": "157x101",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      15,
+      895,
+      215,
+      1020
+    ]
+  },
+  {
+    "asset": "window_lower_trim",
+    "folder": "Bedroom",
+    "file": "Bedroom/window_lower_trim.png",
+    "size_px": "131x103",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      215,
+      895,
+      390,
+      1020
+    ]
+  },
+  {
+    "asset": "curtain_pair",
+    "folder": "Bedroom",
+    "file": "Bedroom/curtain_pair.png",
+    "size_px": "137x100",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      390,
+      895,
+      535,
+      1020
+    ]
+  },
+  {
+    "asset": "hanging_banner_small",
+    "folder": "Bedroom",
+    "file": "Bedroom/hanging_banner_small.png",
+    "size_px": "109x102",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      525,
+      895,
+      640,
+      1020
+    ]
+  },
+  {
+    "asset": "shelf_bracket",
+    "folder": "Bedroom",
+    "file": "Bedroom/shelf_bracket.png",
+    "size_px": "143x89",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      635,
+      895,
+      815,
+      1020
+    ]
+  },
+  {
+    "asset": "hanging_lantern_beam",
+    "folder": "Bedroom",
+    "file": "Bedroom/hanging_lantern_beam.png",
+    "size_px": "183x92",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      815,
+      895,
+      1000,
+      1020
+    ]
+  },
+  {
+    "asset": "wooden_storage_panel",
+    "folder": "Bedroom",
+    "file": "Bedroom/wooden_storage_panel.png",
+    "size_px": "195x104",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1000,
+      895,
+      1210,
+      1020
+    ]
+  },
+  {
+    "asset": "stone_wall_trim",
+    "folder": "Bedroom",
+    "file": "Bedroom/stone_wall_trim.png",
+    "size_px": "137x83",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1210,
+      895,
+      1395,
+      1020
+    ]
+  },
+  {
+    "asset": "decorative_floor_tile",
+    "folder": "Bedroom",
+    "file": "Bedroom/decorative_floor_tile.png",
+    "size_px": "97x94",
+    "source": "bedroom sprite sheet",
+    "crop_box_source_px": [
+      1390,
+      895,
+      1535,
+      1020
+    ]
+  },
+  {
+    "asset": "rose_archway",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/rose_archway.png",
+    "size_px": "405x290",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      15,
+      0,
+      420,
+      290
+    ]
+  },
+  {
+    "asset": "royal_banner_stand",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/royal_banner_stand.png",
+    "size_px": "135x279",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      425,
+      0,
+      560,
+      285
+    ]
+  },
+  {
+    "asset": "ivy_stone_pillars",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/ivy_stone_pillars.png",
+    "size_px": "255x262",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      565,
+      0,
+      820,
+      285
+    ]
+  },
+  {
+    "asset": "ornate_stone_bench",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/ornate_stone_bench.png",
+    "size_px": "230x147",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      810,
+      95,
+      1040,
+      275
+    ]
+  },
+  {
+    "asset": "training_pavilion",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/training_pavilion.png",
+    "size_px": "325x262",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1030,
+      0,
+      1355,
+      290
+    ]
+  },
+  {
+    "asset": "blossom_tree",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/blossom_tree.png",
+    "size_px": "185x284",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1350,
+      0,
+      1535,
+      285
+    ]
+  },
+  {
+    "asset": "circular_sparring_platform",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/circular_sparring_platform.png",
+    "size_px": "455x260",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      0,
+      285,
+      455,
+      545
+    ]
+  },
+  {
+    "asset": "ornate_square_floor_inlay",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/ornate_square_floor_inlay.png",
+    "size_px": "201x179",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      455,
+      310,
+      660,
+      495
+    ]
+  },
+  {
+    "asset": "weapon_rack",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/weapon_rack.png",
+    "size_px": "190x196",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      660,
+      290,
+      850,
+      495
+    ]
+  },
+  {
+    "asset": "shield_rack",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/shield_rack.png",
+    "size_px": "194x197",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      850,
+      290,
+      1045,
+      495
+    ]
+  },
+  {
+    "asset": "training_crates",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/training_crates.png",
+    "size_px": "130x199",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1045,
+      290,
+      1175,
+      500
+    ]
+  },
+  {
+    "asset": "barrels_and_sack",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/barrels_and_sack.png",
+    "size_px": "130x175",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1170,
+      315,
+      1300,
+      500
+    ]
+  },
+  {
+    "asset": "crystal_supply_table",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/crystal_supply_table.png",
+    "size_px": "145x163",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1290,
+      300,
+      1435,
+      505
+    ]
+  },
+  {
+    "asset": "stone_brazier",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/stone_brazier.png",
+    "size_px": "92x199",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1430,
+      300,
+      1535,
+      505
+    ]
+  },
+  {
+    "asset": "straw_practice_dummy",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/straw_practice_dummy.png",
+    "size_px": "155x215",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      10,
+      535,
+      165,
+      750
+    ]
+  },
+  {
+    "asset": "armored_practice_dummy",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/armored_practice_dummy.png",
+    "size_px": "150x215",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      155,
+      535,
+      305,
+      750
+    ]
+  },
+  {
+    "asset": "wooden_post_dummy",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/wooden_post_dummy.png",
+    "size_px": "140x206",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      295,
+      535,
+      435,
+      750
+    ]
+  },
+  {
+    "asset": "hanging_training_dummy",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/hanging_training_dummy.png",
+    "size_px": "135x222",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      430,
+      520,
+      565,
+      750
+    ]
+  },
+  {
+    "asset": "standing_target_board",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/standing_target_board.png",
+    "size_px": "175x215",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      560,
+      535,
+      735,
+      750
+    ]
+  },
+  {
+    "asset": "spear_stand",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/spear_stand.png",
+    "size_px": "160x213",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      735,
+      525,
+      895,
+      750
+    ]
+  },
+  {
+    "asset": "double_royal_banner",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/double_royal_banner.png",
+    "size_px": "185x245",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      895,
+      505,
+      1080,
+      750
+    ]
+  },
+  {
+    "asset": "hanging_lantern",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/hanging_lantern.png",
+    "size_px": "119x175",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1080,
+      515,
+      1205,
+      690
+    ]
+  },
+  {
+    "asset": "stone_lantern_pedestal",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/stone_lantern_pedestal.png",
+    "size_px": "115x186",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1195,
+      530,
+      1310,
+      745
+    ]
+  },
+  {
+    "asset": "crystal_shrine",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/crystal_shrine.png",
+    "size_px": "110x225",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1300,
+      525,
+      1410,
+      750
+    ]
+  },
+  {
+    "asset": "rose_planter",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/rose_planter.png",
+    "size_px": "130x211",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1405,
+      530,
+      1535,
+      750
+    ]
+  },
+  {
+    "asset": "rose_hedge",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/rose_hedge.png",
+    "size_px": "270x130",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      0,
+      745,
+      270,
+      875
+    ]
+  },
+  {
+    "asset": "flower_rock_bed",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/flower_rock_bed.png",
+    "size_px": "255x124",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      265,
+      745,
+      520,
+      875
+    ]
+  },
+  {
+    "asset": "white_blossom_bed",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/white_blossom_bed.png",
+    "size_px": "245x130",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      515,
+      745,
+      760,
+      875
+    ]
+  },
+  {
+    "asset": "mossy_rock_cluster_a",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/mossy_rock_cluster_a.png",
+    "size_px": "170x122",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      755,
+      745,
+      925,
+      875
+    ]
+  },
+  {
+    "asset": "mossy_rock_cluster_b",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/mossy_rock_cluster_b.png",
+    "size_px": "165x130",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      915,
+      745,
+      1080,
+      875
+    ]
+  },
+  {
+    "asset": "stone_steps",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/stone_steps.png",
+    "size_px": "245x130",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1080,
+      745,
+      1325,
+      875
+    ]
+  },
+  {
+    "asset": "ivy_stone_wall",
+    "folder": "Training_Ground",
+    "file": "Training_Ground/ivy_stone_wall.png",
+    "size_px": "215x128",
+    "source": "training garden asset sheet",
+    "crop_box_source_px": [
+      1320,
+      745,
+      1535,
+      875
+    ]
+  },
+  {
+    "asset": "stone_plain",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/stone_plain_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      15,
+      875,
+      165,
+      1020
+    ]
+  },
+  {
+    "asset": "stone_moss_edge",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/stone_moss_edge_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      185,
+      875,
+      335,
+      1020
+    ]
+  },
+  {
+    "asset": "stone_petal_scatter",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/stone_petal_scatter_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      355,
+      875,
+      505,
+      1020
+    ]
+  },
+  {
+    "asset": "stone_gold_trim",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/stone_gold_trim_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      525,
+      875,
+      675,
+      1020
+    ]
+  },
+  {
+    "asset": "stone_arc_inlay",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/stone_arc_inlay_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      695,
+      875,
+      845,
+      1020
+    ]
+  },
+  {
+    "asset": "stone_star_inlay",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/stone_star_inlay_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      865,
+      875,
+      1015,
+      1020
+    ]
+  },
+  {
+    "asset": "grass_plain_flowers",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/grass_plain_flowers_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      1030,
+      875,
+      1180,
+      1020
+    ]
+  },
+  {
+    "asset": "grass_petal_scatter",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/grass_petal_scatter_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      1200,
+      875,
+      1350,
+      1020
+    ]
+  },
+  {
+    "asset": "grass_rose_edge",
+    "folder": "Tiles_32x32",
+    "file": "Tiles_32x32/grass_rose_edge_32x32.png",
+    "size_px": "32x32",
+    "source": "training garden ground tile, downsampled to 32x32",
+    "crop_box_source_px": [
+      1370,
+      875,
+      1525,
+      1020
+    ]
+  }
+]

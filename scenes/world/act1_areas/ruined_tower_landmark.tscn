@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/pixelpen_act1/ruined_tower.png" id="1"]
+
+[node name="ruined_tower_landmark" type="Node2D"]
+position = Vector2(448, 544)
+y_sort_enabled = true
+
+[node name="LandmarkSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1")
+scale = Vector2(4.5, 4.5)
+texture_filter = 0
+z_index = 5

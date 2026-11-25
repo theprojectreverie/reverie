@@ -1,0 +1,1755 @@
+{
+  "source": "royal_gardens_sheet.png",
+  "sprites": [
+    {
+      "file": "sprite_001.png",
+      "source_bounds": [
+        12,
+        15,
+        160,
+        112
+      ],
+      "size": [
+        148,
+        97
+      ],
+      "opaque_pixels": 7170
+    },
+    {
+      "file": "sprite_002.png",
+      "source_bounds": [
+        160,
+        13,
+        303,
+        111
+      ],
+      "size": [
+        143,
+        98
+      ],
+      "opaque_pixels": 7124
+    },
+    {
+      "file": "sprite_003.png",
+      "source_bounds": [
+        305,
+        14,
+        448,
+        112
+      ],
+      "size": [
+        143,
+        98
+      ],
+      "opaque_pixels": 7183
+    },
+    {
+      "file": "sprite_004.png",
+      "source_bounds": [
+        451,
+        13,
+        592,
+        110
+      ],
+      "size": [
+        141,
+        97
+      ],
+      "opaque_pixels": 7082
+    },
+    {
+      "file": "sprite_005.png",
+      "source_bounds": [
+        595,
+        15,
+        737,
+        110
+      ],
+      "size": [
+        142,
+        95
+      ],
+      "opaque_pixels": 6829
+    },
+    {
+      "file": "sprite_006.png",
+      "source_bounds": [
+        739,
+        15,
+        875,
+        107
+      ],
+      "size": [
+        136,
+        92
+      ],
+      "opaque_pixels": 6422
+    },
+    {
+      "file": "sprite_007.png",
+      "source_bounds": [
+        892,
+        15,
+        1026,
+        102
+      ],
+      "size": [
+        134,
+        87
+      ],
+      "opaque_pixels": 5838
+    },
+    {
+      "file": "sprite_008.png",
+      "source_bounds": [
+        1031,
+        14,
+        1160,
+        99
+      ],
+      "size": [
+        129,
+        85
+      ],
+      "opaque_pixels": 5474
+    },
+    {
+      "file": "sprite_009.png",
+      "source_bounds": [
+        1163,
+        16,
+        1286,
+        100
+      ],
+      "size": [
+        123,
+        84
+      ],
+      "opaque_pixels": 5216
+    },
+    {
+      "file": "sprite_010.png",
+      "source_bounds": [
+        1288,
+        15,
+        1414,
+        100
+      ],
+      "size": [
+        126,
+        85
+      ],
+      "opaque_pixels": 5587
+    },
+    {
+      "file": "sprite_011.png",
+      "source_bounds": [
+        1415,
+        15,
+        1532,
+        99
+      ],
+      "size": [
+        117,
+        84
+      ],
+      "opaque_pixels": 5042
+    },
+    {
+      "file": "sprite_012.png",
+      "source_bounds": [
+        446,
+        116,
+        581,
+        205
+      ],
+      "size": [
+        135,
+        89
+      ],
+      "opaque_pixels": 5804
+    },
+    {
+      "file": "sprite_013.png",
+      "source_bounds": [
+        592,
+        114,
+        726,
+        202
+      ],
+      "size": [
+        134,
+        88
+      ],
+      "opaque_pixels": 5907
+    },
+    {
+      "file": "sprite_014.png",
+      "source_bounds": [
+        734,
+        115,
+        869,
+        201
+      ],
+      "size": [
+        135,
+        86
+      ],
+      "opaque_pixels": 5745
+    },
+    {
+      "file": "sprite_015.png",
+      "source_bounds": [
+        877,
+        104,
+        1024,
+        202
+      ],
+      "size": [
+        147,
+        98
+      ],
+      "opaque_pixels": 7600
+    },
+    {
+      "file": "sprite_016.png",
+      "source_bounds": [
+        1028,
+        104,
+        1166,
+        199
+      ],
+      "size": [
+        138,
+        95
+      ],
+      "opaque_pixels": 6972
+    },
+    {
+      "file": "sprite_017.png",
+      "source_bounds": [
+        1167,
+        104,
+        1301,
+        198
+      ],
+      "size": [
+        134,
+        94
+      ],
+      "opaque_pixels": 6721
+    },
+    {
+      "file": "sprite_018.png",
+      "source_bounds": [
+        1304,
+        105,
+        1419,
+        192
+      ],
+      "size": [
+        115,
+        87
+      ],
+      "opaque_pixels": 5503
+    },
+    {
+      "file": "sprite_019.png",
+      "source_bounds": [
+        1419,
+        107,
+        1526,
+        188
+      ],
+      "size": [
+        107,
+        81
+      ],
+      "opaque_pixels": 4631
+    },
+    {
+      "file": "sprite_020.png",
+      "source_bounds": [
+        13,
+        118,
+        150,
+        205
+      ],
+      "size": [
+        137,
+        87
+      ],
+      "opaque_pixels": 5905
+    },
+    {
+      "file": "sprite_021.png",
+      "source_bounds": [
+        158,
+        117,
+        293,
+        205
+      ],
+      "size": [
+        135,
+        88
+      ],
+      "opaque_pixels": 5777
+    },
+    {
+      "file": "sprite_022.png",
+      "source_bounds": [
+        302,
+        117,
+        437,
+        205
+      ],
+      "size": [
+        135,
+        88
+      ],
+      "opaque_pixels": 5694
+    },
+    {
+      "file": "sprite_023.png",
+      "source_bounds": [
+        11,
+        212,
+        151,
+        337
+      ],
+      "size": [
+        140,
+        125
+      ],
+      "opaque_pixels": 10992
+    },
+    {
+      "file": "sprite_024.png",
+      "source_bounds": [
+        157,
+        212,
+        299,
+        331
+      ],
+      "size": [
+        142,
+        119
+      ],
+      "opaque_pixels": 10706
+    },
+    {
+      "file": "sprite_025.png",
+      "source_bounds": [
+        306,
+        211,
+        446,
+        322
+      ],
+      "size": [
+        140,
+        111
+      ],
+      "opaque_pixels": 10248
+    },
+    {
+      "file": "sprite_026.png",
+      "source_bounds": [
+        451,
+        210,
+        591,
+        321
+      ],
+      "size": [
+        140,
+        111
+      ],
+      "opaque_pixels": 9852
+    },
+    {
+      "file": "sprite_027.png",
+      "source_bounds": [
+        597,
+        211,
+        731,
+        328
+      ],
+      "size": [
+        134,
+        117
+      ],
+      "opaque_pixels": 9343
+    },
+    {
+      "file": "sprite_028.png",
+      "source_bounds": [
+        736,
+        210,
+        867,
+        326
+      ],
+      "size": [
+        131,
+        116
+      ],
+      "opaque_pixels": 8734
+    },
+    {
+      "file": "sprite_029.png",
+      "source_bounds": [
+        877,
+        214,
+        996,
+        329
+      ],
+      "size": [
+        119,
+        115
+      ],
+      "opaque_pixels": 8068
+    },
+    {
+      "file": "sprite_030.png",
+      "source_bounds": [
+        1003,
+        213,
+        1122,
+        326
+      ],
+      "size": [
+        119,
+        113
+      ],
+      "opaque_pixels": 7940
+    },
+    {
+      "file": "sprite_031.png",
+      "source_bounds": [
+        1128,
+        209,
+        1226,
+        311
+      ],
+      "size": [
+        98,
+        102
+      ],
+      "opaque_pixels": 6071
+    },
+    {
+      "file": "sprite_032.png",
+      "source_bounds": [
+        1233,
+        205,
+        1328,
+        309
+      ],
+      "size": [
+        95,
+        104
+      ],
+      "opaque_pixels": 5516
+    },
+    {
+      "file": "sprite_033.png",
+      "source_bounds": [
+        1343,
+        208,
+        1436,
+        304
+      ],
+      "size": [
+        93,
+        96
+      ],
+      "opaque_pixels": 4744
+    },
+    {
+      "file": "sprite_034.png",
+      "source_bounds": [
+        1445,
+        210,
+        1526,
+        298
+      ],
+      "size": [
+        81,
+        88
+      ],
+      "opaque_pixels": 4089
+    },
+    {
+      "file": "sprite_035.png",
+      "source_bounds": [
+        14,
+        343,
+        119,
+        435
+      ],
+      "size": [
+        105,
+        92
+      ],
+      "opaque_pixels": 5962
+    },
+    {
+      "file": "sprite_036.png",
+      "source_bounds": [
+        127,
+        343,
+        231,
+        435
+      ],
+      "size": [
+        104,
+        92
+      ],
+      "opaque_pixels": 5764
+    },
+    {
+      "file": "sprite_037.png",
+      "source_bounds": [
+        238,
+        336,
+        329,
+        435
+      ],
+      "size": [
+        91,
+        99
+      ],
+      "opaque_pixels": 5892
+    },
+    {
+      "file": "sprite_038.png",
+      "source_bounds": [
+        337,
+        328,
+        428,
+        434
+      ],
+      "size": [
+        91,
+        106
+      ],
+      "opaque_pixels": 6339
+    },
+    {
+      "file": "sprite_039.png",
+      "source_bounds": [
+        437,
+        324,
+        538,
+        434
+      ],
+      "size": [
+        101,
+        110
+      ],
+      "opaque_pixels": 7190
+    },
+    {
+      "file": "sprite_040.png",
+      "source_bounds": [
+        547,
+        337,
+        642,
+        433
+      ],
+      "size": [
+        95,
+        96
+      ],
+      "opaque_pixels": 5537
+    },
+    {
+      "file": "sprite_041.png",
+      "source_bounds": [
+        655,
+        333,
+        760,
+        432
+      ],
+      "size": [
+        105,
+        99
+      ],
+      "opaque_pixels": 6100
+    },
+    {
+      "file": "sprite_042.png",
+      "source_bounds": [
+        768,
+        331,
+        862,
+        427
+      ],
+      "size": [
+        94,
+        96
+      ],
+      "opaque_pixels": 5119
+    },
+    {
+      "file": "sprite_043.png",
+      "source_bounds": [
+        870,
+        338,
+        991,
+        468
+      ],
+      "size": [
+        121,
+        130
+      ],
+      "opaque_pixels": 9255
+    },
+    {
+      "file": "sprite_044.png",
+      "source_bounds": [
+        985,
+        336,
+        1137,
+        531
+      ],
+      "size": [
+        152,
+        195
+      ],
+      "opaque_pixels": 17579
+    },
+    {
+      "file": "sprite_045.png",
+      "source_bounds": [
+        1138,
+        316,
+        1247,
+        568
+      ],
+      "size": [
+        109,
+        252
+      ],
+      "opaque_pixels": 17023
+    },
+    {
+      "file": "sprite_046.png",
+      "source_bounds": [
+        1243,
+        310,
+        1334,
+        439
+      ],
+      "size": [
+        91,
+        129
+      ],
+      "opaque_pixels": 6572
+    },
+    {
+      "file": "sprite_047.png",
+      "source_bounds": [
+        1346,
+        321,
+        1442,
+        451
+      ],
+      "size": [
+        96,
+        130
+      ],
+      "opaque_pixels": 7446
+    },
+    {
+      "file": "sprite_048.png",
+      "source_bounds": [
+        1446,
+        310,
+        1532,
+        451
+      ],
+      "size": [
+        86,
+        141
+      ],
+      "opaque_pixels": 6992
+    },
+    {
+      "file": "sprite_049.png",
+      "source_bounds": [
+        10,
+        440,
+        120,
+        524
+      ],
+      "size": [
+        110,
+        84
+      ],
+      "opaque_pixels": 5587
+    },
+    {
+      "file": "sprite_050.png",
+      "source_bounds": [
+        121,
+        441,
+        230,
+        524
+      ],
+      "size": [
+        109,
+        83
+      ],
+      "opaque_pixels": 5484
+    },
+    {
+      "file": "sprite_051.png",
+      "source_bounds": [
+        234,
+        441,
+        342,
+        524
+      ],
+      "size": [
+        108,
+        83
+      ],
+      "opaque_pixels": 5529
+    },
+    {
+      "file": "sprite_052.png",
+      "source_bounds": [
+        344,
+        440,
+        445,
+        530
+      ],
+      "size": [
+        101,
+        90
+      ],
+      "opaque_pixels": 5774
+    },
+    {
+      "file": "sprite_053.png",
+      "source_bounds": [
+        451,
+        445,
+        554,
+        525
+      ],
+      "size": [
+        103,
+        80
+      ],
+      "opaque_pixels": 5315
+    },
+    {
+      "file": "sprite_054.png",
+      "source_bounds": [
+        559,
+        444,
+        665,
+        528
+      ],
+      "size": [
+        106,
+        84
+      ],
+      "opaque_pixels": 5956
+    },
+    {
+      "file": "sprite_055.png",
+      "source_bounds": [
+        669,
+        446,
+        760,
+        533
+      ],
+      "size": [
+        91,
+        87
+      ],
+      "opaque_pixels": 6086
+    },
+    {
+      "file": "sprite_056.png",
+      "source_bounds": [
+        765,
+        451,
+        861,
+        534
+      ],
+      "size": [
+        96,
+        83
+      ],
+      "opaque_pixels": 6436
+    },
+    {
+      "file": "sprite_057.png",
+      "source_bounds": [
+        1250,
+        438,
+        1372,
+        582
+      ],
+      "size": [
+        122,
+        144
+      ],
+      "opaque_pixels": 10138
+    },
+    {
+      "file": "sprite_058.png",
+      "source_bounds": [
+        1376,
+        456,
+        1458,
+        577
+      ],
+      "size": [
+        82,
+        121
+      ],
+      "opaque_pixels": 6402
+    },
+    {
+      "file": "sprite_059.png",
+      "source_bounds": [
+        1467,
+        459,
+        1527,
+        578
+      ],
+      "size": [
+        60,
+        119
+      ],
+      "opaque_pixels": 4520
+    },
+    {
+      "file": "sprite_060.png",
+      "source_bounds": [
+        7,
+        531,
+        176,
+        710
+      ],
+      "size": [
+        169,
+        179
+      ],
+      "opaque_pixels": 17873
+    },
+    {
+      "file": "sprite_061.png",
+      "source_bounds": [
+        178,
+        535,
+        317,
+        706
+      ],
+      "size": [
+        139,
+        171
+      ],
+      "opaque_pixels": 14773
+    },
+    {
+      "file": "sprite_062.png",
+      "source_bounds": [
+        454,
+        532,
+        519,
+        705
+      ],
+      "size": [
+        65,
+        173
+      ],
+      "opaque_pixels": 7347
+    },
+    {
+      "file": "sprite_063.png",
+      "source_bounds": [
+        870,
+        477,
+        978,
+        535
+      ],
+      "size": [
+        108,
+        58
+      ],
+      "opaque_pixels": 4233
+    },
+    {
+      "file": "sprite_064.png",
+      "source_bounds": [
+        320,
+        537,
+        452,
+        704
+      ],
+      "size": [
+        132,
+        167
+      ],
+      "opaque_pixels": 13852
+    },
+    {
+      "file": "sprite_065.png",
+      "source_bounds": [
+        535,
+        540,
+        615,
+        706
+      ],
+      "size": [
+        80,
+        166
+      ],
+      "opaque_pixels": 8839
+    },
+    {
+      "file": "sprite_066.png",
+      "source_bounds": [
+        625,
+        537,
+        703,
+        701
+      ],
+      "size": [
+        78,
+        164
+      ],
+      "opaque_pixels": 8656
+    },
+    {
+      "file": "sprite_067.png",
+      "source_bounds": [
+        714,
+        538,
+        789,
+        705
+      ],
+      "size": [
+        75,
+        167
+      ],
+      "opaque_pixels": 7785
+    },
+    {
+      "file": "sprite_068.png",
+      "source_bounds": [
+        803,
+        545,
+        859,
+        700
+      ],
+      "size": [
+        56,
+        155
+      ],
+      "opaque_pixels": 5464
+    },
+    {
+      "file": "sprite_069.png",
+      "source_bounds": [
+        861,
+        550,
+        1318,
+        702
+      ],
+      "size": [
+        457,
+        152
+      ],
+      "opaque_pixels": 41336
+    },
+    {
+      "file": "sprite_070.png",
+      "source_bounds": [
+        1323,
+        571,
+        1397,
+        713
+      ],
+      "size": [
+        74,
+        142
+      ],
+      "opaque_pixels": 5106
+    },
+    {
+      "file": "sprite_071.png",
+      "source_bounds": [
+        1401,
+        584,
+        1436,
+        714
+      ],
+      "size": [
+        35,
+        130
+      ],
+      "opaque_pixels": 1889
+    },
+    {
+      "file": "sprite_072.png",
+      "source_bounds": [
+        1447,
+        581,
+        1485,
+        714
+      ],
+      "size": [
+        38,
+        133
+      ],
+      "opaque_pixels": 2271
+    },
+    {
+      "file": "sprite_073.png",
+      "source_bounds": [
+        1491,
+        580,
+        1530,
+        714
+      ],
+      "size": [
+        39,
+        134
+      ],
+      "opaque_pixels": 2281
+    },
+    {
+      "file": "sprite_074.png",
+      "source_bounds": [
+        6,
+        705,
+        177,
+        881
+      ],
+      "size": [
+        171,
+        176
+      ],
+      "opaque_pixels": 16569
+    },
+    {
+      "file": "sprite_075.png",
+      "source_bounds": [
+        181,
+        705,
+        322,
+        877
+      ],
+      "size": [
+        141,
+        172
+      ],
+      "opaque_pixels": 13511
+    },
+    {
+      "file": "sprite_076.png",
+      "source_bounds": [
+        327,
+        701,
+        488,
+        874
+      ],
+      "size": [
+        161,
+        173
+      ],
+      "opaque_pixels": 17329
+    },
+    {
+      "file": "sprite_077.png",
+      "source_bounds": [
+        489,
+        704,
+        644,
+        877
+      ],
+      "size": [
+        155,
+        173
+      ],
+      "opaque_pixels": 14668
+    },
+    {
+      "file": "sprite_078.png",
+      "source_bounds": [
+        651,
+        701,
+        719,
+        875
+      ],
+      "size": [
+        68,
+        174
+      ],
+      "opaque_pixels": 7120
+    },
+    {
+      "file": "sprite_079.png",
+      "source_bounds": [
+        725,
+        707,
+        785,
+        874
+      ],
+      "size": [
+        60,
+        167
+      ],
+      "opaque_pixels": 5824
+    },
+    {
+      "file": "sprite_080.png",
+      "source_bounds": [
+        881,
+        716,
+        998,
+        801
+      ],
+      "size": [
+        117,
+        85
+      ],
+      "opaque_pixels": 6355
+    },
+    {
+      "file": "sprite_081.png",
+      "source_bounds": [
+        1304,
+        711,
+        1408,
+        803
+      ],
+      "size": [
+        104,
+        92
+      ],
+      "opaque_pixels": 5650
+    },
+    {
+      "file": "sprite_082.png",
+      "source_bounds": [
+        790,
+        736,
+        834,
+        874
+      ],
+      "size": [
+        44,
+        138
+      ],
+      "opaque_pixels": 3342
+    },
+    {
+      "file": "sprite_083.png",
+      "source_bounds": [
+        835,
+        752,
+        874,
+        874
+      ],
+      "size": [
+        39,
+        122
+      ],
+      "opaque_pixels": 2506
+    },
+    {
+      "file": "sprite_084.png",
+      "source_bounds": [
+        1004,
+        723,
+        1097,
+        802
+      ],
+      "size": [
+        93,
+        79
+      ],
+      "opaque_pixels": 4760
+    },
+    {
+      "file": "sprite_085.png",
+      "source_bounds": [
+        1101,
+        724,
+        1191,
+        801
+      ],
+      "size": [
+        90,
+        77
+      ],
+      "opaque_pixels": 4526
+    },
+    {
+      "file": "sprite_086.png",
+      "source_bounds": [
+        1194,
+        720,
+        1300,
+        802
+      ],
+      "size": [
+        106,
+        82
+      ],
+      "opaque_pixels": 5503
+    },
+    {
+      "file": "sprite_087.png",
+      "source_bounds": [
+        1412,
+        720,
+        1525,
+        805
+      ],
+      "size": [
+        113,
+        85
+      ],
+      "opaque_pixels": 5838
+    },
+    {
+      "file": "sprite_088.png",
+      "source_bounds": [
+        886,
+        797,
+        1040,
+        874
+      ],
+      "size": [
+        154,
+        77
+      ],
+      "opaque_pixels": 6844
+    },
+    {
+      "file": "sprite_089.png",
+      "source_bounds": [
+        1044,
+        809,
+        1145,
+        873
+      ],
+      "size": [
+        101,
+        64
+      ],
+      "opaque_pixels": 3825
+    },
+    {
+      "file": "sprite_090.png",
+      "source_bounds": [
+        1151,
+        803,
+        1265,
+        877
+      ],
+      "size": [
+        114,
+        74
+      ],
+      "opaque_pixels": 5095
+    },
+    {
+      "file": "sprite_091.png",
+      "source_bounds": [
+        1266,
+        809,
+        1350,
+        881
+      ],
+      "size": [
+        84,
+        72
+      ],
+      "opaque_pixels": 3833
+    },
+    {
+      "file": "sprite_092.png",
+      "source_bounds": [
+        1352,
+        809,
+        1434,
+        877
+      ],
+      "size": [
+        82,
+        68
+      ],
+      "opaque_pixels": 3451
+    },
+    {
+      "file": "sprite_093.png",
+      "source_bounds": [
+        1437,
+        808,
+        1533,
+        883
+      ],
+      "size": [
+        96,
+        75
+      ],
+      "opaque_pixels": 4662
+    },
+    {
+      "file": "sprite_094.png",
+      "source_bounds": [
+        9,
+        871,
+        189,
+        974
+      ],
+      "size": [
+        180,
+        103
+      ],
+      "opaque_pixels": 11582
+    },
+    {
+      "file": "sprite_095.png",
+      "source_bounds": [
+        191,
+        867,
+        374,
+        976
+      ],
+      "size": [
+        183,
+        109
+      ],
+      "opaque_pixels": 11920
+    },
+    {
+      "file": "sprite_096.png",
+      "source_bounds": [
+        386,
+        850,
+        607,
+        987
+      ],
+      "size": [
+        221,
+        137
+      ],
+      "opaque_pixels": 18797
+    },
+    {
+      "file": "sprite_097.png",
+      "source_bounds": [
+        611,
+        873,
+        699,
+        981
+      ],
+      "size": [
+        88,
+        108
+      ],
+      "opaque_pixels": 5333
+    },
+    {
+      "file": "sprite_098.png",
+      "source_bounds": [
+        706,
+        867,
+        869,
+        978
+      ],
+      "size": [
+        163,
+        111
+      ],
+      "opaque_pixels": 11839
+    },
+    {
+      "file": "sprite_099.png",
+      "source_bounds": [
+        874,
+        876,
+        1041,
+        981
+      ],
+      "size": [
+        167,
+        105
+      ],
+      "opaque_pixels": 11554
+    },
+    {
+      "file": "sprite_100.png",
+      "source_bounds": [
+        1047,
+        887,
+        1129,
+        987
+      ],
+      "size": [
+        82,
+        100
+      ],
+      "opaque_pixels": 4642
+    },
+    {
+      "file": "sprite_101.png",
+      "source_bounds": [
+        1136,
+        887,
+        1224,
+        987
+      ],
+      "size": [
+        88,
+        100
+      ],
+      "opaque_pixels": 4895
+    },
+    {
+      "file": "sprite_102.png",
+      "source_bounds": [
+        1235,
+        893,
+        1304,
+        989
+      ],
+      "size": [
+        69,
+        96
+      ],
+      "opaque_pixels": 3644
+    },
+    {
+      "file": "sprite_103.png",
+      "source_bounds": [
+        1309,
+        891,
+        1382,
+        984
+      ],
+      "size": [
+        73,
+        93
+      ],
+      "opaque_pixels": 4449
+    },
+    {
+      "file": "sprite_104.png",
+      "source_bounds": [
+        1388,
+        885,
+        1458,
+        984
+      ],
+      "size": [
+        70,
+        99
+      ],
+      "opaque_pixels": 4598
+    },
+    {
+      "file": "sprite_105.png",
+      "source_bounds": [
+        1462,
+        886,
+        1532,
+        984
+      ],
+      "size": [
+        70,
+        98
+      ],
+      "opaque_pixels": 4596
+    },
+    {
+      "file": "sprite_106.png",
+      "source_bounds": [
+        8,
+        973,
+        74,
+        1020
+      ],
+      "size": [
+        66,
+        47
+      ],
+      "opaque_pixels": 1741
+    },
+    {
+      "file": "sprite_107.png",
+      "source_bounds": [
+        83,
+        974,
+        158,
+        1020
+      ],
+      "size": [
+        75,
+        46
+      ],
+      "opaque_pixels": 1991
+    },
+    {
+      "file": "sprite_108.png",
+      "source_bounds": [
+        171,
+        974,
+        297,
+        1022
+      ],
+      "size": [
+        126,
+        48
+      ],
+      "opaque_pixels": 4337
+    },
+    {
+      "file": "sprite_109.png",
+      "source_bounds": [
+        305,
+        973,
+        400,
+        1021
+      ],
+      "size": [
+        95,
+        48
+      ],
+      "opaque_pixels": 3108
+    },
+    {
+      "file": "sprite_110.png",
+      "source_bounds": [
+        409,
+        979,
+        489,
+        1022
+      ],
+      "size": [
+        80,
+        43
+      ],
+      "opaque_pixels": 2271
+    },
+    {
+      "file": "sprite_111.png",
+      "source_bounds": [
+        498,
+        980,
+        573,
+        1019
+      ],
+      "size": [
+        75,
+        39
+      ],
+      "opaque_pixels": 1642
+    },
+    {
+      "file": "sprite_112.png",
+      "source_bounds": [
+        581,
+        983,
+        645,
+        1018
+      ],
+      "size": [
+        64,
+        35
+      ],
+      "opaque_pixels": 1266
+    },
+    {
+      "file": "sprite_113.png",
+      "source_bounds": [
+        652,
+        982,
+        720,
+        1018
+      ],
+      "size": [
+        68,
+        36
+      ],
+      "opaque_pixels": 1421
+    },
+    {
+      "file": "sprite_114.png",
+      "source_bounds": [
+        728,
+        974,
+        791,
+        1021
+      ],
+      "size": [
+        63,
+        47
+      ],
+      "opaque_pixels": 1686
+    },
+    {
+      "file": "sprite_115.png",
+      "source_bounds": [
+        799,
+        974,
+        864,
+        1021
+      ],
+      "size": [
+        65,
+        47
+      ],
+      "opaque_pixels": 1678
+    },
+    {
+      "file": "sprite_116.png",
+      "source_bounds": [
+        875,
+        983,
+        905,
+        1014
+      ],
+      "size": [
+        30,
+        31
+      ],
+      "opaque_pixels": 371
+    },
+    {
+      "file": "sprite_117.png",
+      "source_bounds": [
+        902,
+        991,
+        927,
+        1013
+      ],
+      "size": [
+        25,
+        22
+      ],
+      "opaque_pixels": 221
+    },
+    {
+      "file": "sprite_118.png",
+      "source_bounds": [
+        923,
+        983,
+        954,
+        1014
+      ],
+      "size": [
+        31,
+        31
+      ],
+      "opaque_pixels": 357
+    },
+    {
+      "file": "sprite_119.png",
+      "source_bounds": [
+        950,
+        987,
+        974,
+        1007
+      ],
+      "size": [
+        24,
+        20
+      ],
+      "opaque_pixels": 170
+    },
+    {
+      "file": "sprite_120.png",
+      "source_bounds": [
+        972,
+        992,
+        997,
+        1014
+      ],
+      "size": [
+        25,
+        22
+      ],
+      "opaque_pixels": 218
+    },
+    {
+      "file": "sprite_121.png",
+      "source_bounds": [
+        1010,
+        988,
+        1051,
+        1013
+      ],
+      "size": [
+        41,
+        25
+      ],
+      "opaque_pixels": 405
+    },
+    {
+      "file": "sprite_122.png",
+      "source_bounds": [
+        1052,
+        990,
+        1085,
+        1012
+      ],
+      "size": [
+        33,
+        22
+      ],
+      "opaque_pixels": 306
+    },
+    {
+      "file": "sprite_123.png",
+      "source_bounds": [
+        1089,
+        991,
+        1116,
+        1011
+      ],
+      "size": [
+        27,
+        20
+      ],
+      "opaque_pixels": 176
+    },
+    {
+      "file": "sprite_124.png",
+      "source_bounds": [
+        1124,
+        989,
+        1157,
+        1013
+      ],
+      "size": [
+        33,
+        24
+      ],
+      "opaque_pixels": 295
+    },
+    {
+      "file": "sprite_125.png",
+      "source_bounds": [
+        1164,
+        991,
+        1198,
+        1013
+      ],
+      "size": [
+        34,
+        22
+      ],
+      "opaque_pixels": 220
+    }
+  ]
+}

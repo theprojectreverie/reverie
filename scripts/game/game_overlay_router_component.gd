@@ -49,12 +49,9 @@ func open_pause_menu() -> bool:
 	var menu := PAUSE_MENU_SCENE.instantiate() as PauseMenu
 	if menu == null:
 		return false
-	menu.main_menu_requested.connect(func() -> void: main_menu_requested.emit())
-	menu.reset_requested.connect(func() -> void: reset_requested.emit())
-	menu.navigate_requested.connect(func(screen_id: String) -> void:
-		menu.close_screen()
-		navigate_requested.emit(screen_id)
-	)
+	menu.main_menu_requested.connect(_on_pause_main_menu_requested)
+	menu.reset_requested.connect(_on_pause_reset_requested)
+	menu.navigate_requested.connect(_on_pause_navigate_requested)
 	return _attach_overlay(menu, "PauseMenu")
 
 
@@ -80,3 +77,18 @@ func _on_overlay_closed() -> void:
 func close_active() -> void:
 	if active_overlay != null and is_instance_valid(active_overlay):
 		active_overlay.close_screen()
+
+
+
+func _on_pause_main_menu_requested() -> void:
+	main_menu_requested.emit()
+
+
+func _on_pause_reset_requested() -> void:
+	reset_requested.emit()
+
+
+func _on_pause_navigate_requested(screen_id: String) -> void:
+	if active_overlay != null and is_instance_valid(active_overlay):
+		active_overlay.close_screen()
+	navigate_requested.emit(screen_id)

@@ -64,6 +64,15 @@ func update_water_visual(in_water: bool) -> void:
 	var surface := actor.get_node_or_null("WaterSurface") as Sprite2D
 	if surface != null:
 		surface.visible = in_water
+		var ripple_player := surface.get_node_or_null("AnimationPlayer") as AnimationPlayer
+		if ripple_player != null and ripple_player.has_animation(&"ripple"):
+			if in_water:
+				if ripple_player.current_animation != &"ripple" or not ripple_player.is_playing():
+					ripple_player.play(&"ripple")
+			else:
+				ripple_player.stop()
+				surface.scale = Vector2(46.0, 5.0)
+				surface.modulate = Color(0.35, 0.68, 0.86, 0.58)
 
 
 func restore_facing(facing: Vector2) -> Vector2:

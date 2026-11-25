@@ -45,7 +45,7 @@ CREATE TABLE accounts (
     last_login_at   timestamptz
 );
 
-CREATE UNIQUE INDEX accounts_email_lower_uq ON accounts (lower(email));
+CREATE INDEX accounts_email_lower_idx ON accounts (lower(email));
 CREATE INDEX accounts_status_idx ON accounts (status);
 
 CREATE TRIGGER accounts_set_updated_at
@@ -239,6 +239,14 @@ CREATE TABLE character_equipment (
     slot            text NOT NULL CHECK (slot IN ('weapon', 'armor', 'accessory')),
     item_id         text NOT NULL REFERENCES items (id),
     equipped_at     timestamptz NOT NULL DEFAULT now(),
+    enhancement_level smallint NOT NULL DEFAULT 0 CHECK (enhancement_level BETWEEN 0 AND 5),
+    reroll_stat     text,
+    reroll_value    numeric(12,4),
+    CHECK (
+        (reroll_stat IS NULL AND reroll_value IS NULL)
+        OR (reroll_stat IN ('hp', 'atk', 'def', 'spd', 'crit', 'crit_dmg')
+            AND reroll_value IS NOT NULL AND reroll_value BETWEEN 0 AND 10000)
+    ),
     PRIMARY KEY (character_id, slot),
     FOREIGN KEY (player_id, character_id)
         REFERENCES owned_characters (player_id, id) ON DELETE CASCADE

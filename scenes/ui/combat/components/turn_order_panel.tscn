@@ -1,11 +1,26 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/battle/icons/sliced/turn_order_track.png" id="1_turn_track"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_turn_track"]
+texture = ExtResource("1_turn_track")
+texture_margin_left = 54.0
+texture_margin_right = 54.0
+texture_margin_top = 0.0
+texture_margin_bottom = 0.0
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
 
 [node name="TurnOrderPanel" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxTexture_turn_track")
 
 [node name="TurnRow" type="HBoxContainer" parent="."]
 theme_override_constants/separation = 6
 
 [node name="Caption" type="Label" parent="TurnRow"]
+theme_override_font_sizes/font_size = 10
 text = "TURN"
 
 [node name="TurnItems" type="HBoxContainer" parent="TurnRow"]

@@ -1,28 +1,69 @@
-[gd_scene format=3]
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/battle_status_panel.png" id="1_header_frame"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_header"]
+texture = ExtResource("1_header_frame")
+texture_margin_left = 32.0
+texture_margin_right = 32.0
+texture_margin_top = 18.0
+texture_margin_bottom = 18.0
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_header_pressed"]
+texture = ExtResource("1_header_frame")
+texture_margin_left = 32.0
+texture_margin_right = 32.0
+texture_margin_top = 18.0
+texture_margin_bottom = 18.0
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+modulate_color = Color(0.78, 0.72, 0.58, 1)
 
 [node name="CombatHeader" type="HBoxContainer"]
 theme_override_constants/separation = 10
 
 [node name="TitleLabel" type="Label" parent="."]
+theme_override_colors/font_color = Color(1, 0.86, 0.56, 1)
+theme_override_font_sizes/font_size = 22
 text = "Battle"
 
 [node name="RoundLabel" type="Label" parent="."]
+theme_override_colors/font_color = Color(0.70, 0.73, 0.79, 1)
+theme_override_font_sizes/font_size = 12
 text = "Round 1"
 
 [node name="Spacer" type="Control" parent="."]
 size_flags_horizontal = 3
 
 [node name="AutoButton" type="Button" parent="."]
-text = "AUTO  OFF"
+text = "OFF"
 toggle_mode = true
-custom_minimum_size = Vector2(92, 30)
-tooltip_text = "Automatically choose skills and targets for your party"
+custom_minimum_size = Vector2(108, 36)
+tooltip_text = "Auto battle: automatically choose skills and targets"
+theme_override_styles/normal = SubResource("StyleBoxTexture_header")
+theme_override_styles/hover = SubResource("StyleBoxTexture_header")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_header_pressed")
+theme_override_styles/focus = SubResource("StyleBoxTexture_header")
 
 [node name="SpeedButton" type="Button" parent="."]
 text = "1x"
-custom_minimum_size = Vector2(60, 30)
+custom_minimum_size = Vector2(76, 36)
 tooltip_text = "Cycle battle speed"
+theme_override_styles/normal = SubResource("StyleBoxTexture_header")
+theme_override_styles/hover = SubResource("StyleBoxTexture_header")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_header_pressed")
+theme_override_styles/focus = SubResource("StyleBoxTexture_header")
 
 [node name="RetreatButton" type="Button" parent="."]
 text = "Retreat"
 custom_minimum_size = Vector2(80, 28)
+theme_override_styles/normal = SubResource("StyleBoxTexture_header")
+theme_override_styles/hover = SubResource("StyleBoxTexture_header")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_header_pressed")
+theme_override_styles/focus = SubResource("StyleBoxTexture_header")

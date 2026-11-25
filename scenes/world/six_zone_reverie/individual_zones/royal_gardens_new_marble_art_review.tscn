@@ -1,0 +1,112 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_01.png" id="art_01"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_02.png" id="art_02"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_03.png" id="art_03"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_04.png" id="art_04"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_05.png" id="art_05"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_06.png" id="art_06"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_07.png" id="art_07"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_08.png" id="art_08"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_09.png" id="art_09"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_10.png" id="art_10"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_11.png" id="art_11"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_12.png" id="art_12"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_13.png" id="art_13"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_14.png" id="art_14"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_15.png" id="art_15"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_16.png" id="art_16"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_17.png" id="art_17"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/extracted_20261123_review/asset_18.png" id="art_18"]
+
+[node name="RoyalGardensNewMarbleArtReview" type="Node2D"]
+
+[node name="MarbleArt_01" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+texture = ExtResource("art_01")
+texture_filter = 1
+
+[node name="MarbleArt_02" type="Sprite2D" parent="."]
+position = Vector2(360, 0)
+texture = ExtResource("art_02")
+texture_filter = 1
+
+[node name="MarbleArt_03" type="Sprite2D" parent="."]
+position = Vector2(720, 0)
+texture = ExtResource("art_03")
+texture_filter = 1
+
+[node name="MarbleArt_04" type="Sprite2D" parent="."]
+position = Vector2(1080, 0)
+texture = ExtResource("art_04")
+texture_filter = 1
+
+[node name="MarbleArt_05" type="Sprite2D" parent="."]
+position = Vector2(1440, 0)
+texture = ExtResource("art_05")
+texture_filter = 1
+
+[node name="MarbleArt_06" type="Sprite2D" parent="."]
+position = Vector2(1800, 0)
+texture = ExtResource("art_06")
+texture_filter = 1
+
+[node name="MarbleArt_07" type="Sprite2D" parent="."]
+position = Vector2(0, 270)
+texture = ExtResource("art_07")
+texture_filter = 1
+
+[node name="MarbleArt_08" type="Sprite2D" parent="."]
+position = Vector2(360, 270)
+texture = ExtResource("art_08")
+texture_filter = 1
+
+[node name="MarbleArt_09" type="Sprite2D" parent="."]
+position = Vector2(720, 270)
+texture = ExtResource("art_09")
+texture_filter = 1
+
+[node name="MarbleArt_10" type="Sprite2D" parent="."]
+position = Vector2(1080, 270)
+texture = ExtResource("art_10")
+texture_filter = 1
+
+[node name="MarbleArt_11" type="Sprite2D" parent="."]
+position = Vector2(1440, 270)
+texture = ExtResource("art_11")
+texture_filter = 1
+
+[node name="MarbleArt_12" type="Sprite2D" parent="."]
+position = Vector2(1800, 270)
+texture = ExtResource("art_12")
+texture_filter = 1
+
+[node name="MarbleArt_13" type="Sprite2D" parent="."]
+position = Vector2(0, 540)
+texture = ExtResource("art_13")
+texture_filter = 1
+
+[node name="MarbleArt_14" type="Sprite2D" parent="."]
+position = Vector2(360, 540)
+texture = ExtResource("art_14")
+texture_filter = 1
+
+[node name="MarbleArt_15" type="Sprite2D" parent="."]
+position = Vector2(720, 540)
+texture = ExtResource("art_15")
+texture_filter = 1
+
+[node name="MarbleArt_16" type="Sprite2D" parent="."]
+position = Vector2(1080, 540)
+texture = ExtResource("art_16")
+texture_filter = 1
+
+[node name="MarbleArt_17" type="Sprite2D" parent="."]
+position = Vector2(1440, 540)
+texture = ExtResource("art_17")
+texture_filter = 1
+
+[node name="MarbleArt_18" type="Sprite2D" parent="."]
+position = Vector2(1800, 540)
+texture = ExtResource("art_18")
+texture_filter = 1

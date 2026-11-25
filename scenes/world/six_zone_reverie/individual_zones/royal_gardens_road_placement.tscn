@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_garden_marble_road_6x10.tscn" id="road"]
+
+[node name="RoyalGardensStoneRoadPlacement" type="Node2D"]
+
+[node name="CastleApproach01" parent="." instance=ExtResource("road")]
+position = Vector2(-1400, 1390)
+
+[node name="CastleApproach02" parent="." instance=ExtResource("road")]
+position = Vector2(-1190, 1570)
+
+[node name="CastleApproach03" parent="." instance=ExtResource("road")]
+position = Vector2(-980, 1750)
+
+[node name="GazeboBranch01" parent="." instance=ExtResource("road")]
+position = Vector2(-500, 1970)
+scale = Vector2(1, -1)
+
+[node name="GazeboBranch02" parent="." instance=ExtResource("road")]
+position = Vector2(-240, 1850)
+scale = Vector2(1, -1)
+
+[node name="GazeboBranch03" parent="." instance=ExtResource("road")]
+position = Vector2(20, 1730)
+scale = Vector2(1, -1)
+
+[node name="GazeboBranch04" parent="." instance=ExtResource("road")]
+position = Vector2(280, 1610)
+scale = Vector2(1, -1)
+
+[node name="GazeboBranch05" parent="." instance=ExtResource("road")]
+position = Vector2(540, 1490)
+scale = Vector2(1, -1)
+
+[node name="ExitBranch01" parent="." instance=ExtResource("road")]
+position = Vector2(-520, 1980)
+
+[node name="ExitBranch02" parent="." instance=ExtResource("road")]
+position = Vector2(-250, 2040)
+
+[node name="ExitBranch03" parent="." instance=ExtResource("road")]
+position = Vector2(20, 2100)
+
+[node name="ExitBranch04" parent="." instance=ExtResource("road")]
+position = Vector2(290, 2160)
+
+[node name="ExitBranch05" parent="." instance=ExtResource("road")]
+position = Vector2(560, 2220)

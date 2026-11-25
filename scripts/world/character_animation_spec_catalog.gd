@@ -39,13 +39,18 @@ const DIRECTION_NAMES: Dictionary = {
 	7: "down_left",
 }
 
-# Playback timing. Targets come from documentation/ART_PIPELINE.md section 3:
-#   Idle     4-6 frames @ 8-10 fps
-#   Walk/Run 6-8 frames @ 12 / 14 fps
-#   Attack   5-8 frames @ 15 fps, Cast 6-8 @ 12 fps, Hurt 2 @ 12 fps,
-#   Death    5-8 frames, non-looping.
-# The five non-movement states are ONE-SHOTS. The counts/fps below are the
-# single source of truth shared with ActorFrameSource and the sprite sheets.
+# Playback timing. These runtime values are the authoritative contract used
+# by CharacterAnimator, ActorFrameSource, art QA and the SpriteFrames importer.
+# Current production targets:
+#   Idle       5 frames @ 9 fps, looping
+#   Walk/Run  16 frames @ 12 / 16 fps, looping
+#   Interact   6 frames @ 12 fps, one-shot
+#   Attack     6 frames @ 15 fps, one-shot
+#   Damage     2 frames @ 12 fps, one-shot
+#   Victory    8 frames @ 12 fps, one-shot
+#   Defeat     6 frames @ 10 fps, one-shot
+# CAST is additive: 7 frames @ 12 fps, one-shot.
+# Keep these core dictionaries frozen; additive states use *_for() helpers.
 const STATE_FPS: Dictionary = {
 	0: 9.0,
 	1: 12.0,

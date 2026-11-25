@@ -1,0 +1,97 @@
+[gd_scene load_steps=24 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_cliff_corner_01.tscn" id="asset_01"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_cliff_corner_02.tscn" id="asset_02"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_cliff_corner_03.tscn" id="asset_03"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_cliff_edge_01.tscn" id="asset_04"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_cliff_edge_02.tscn" id="asset_05"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_cliff_edge_03.tscn" id="asset_06"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_corner_01.tscn" id="asset_07"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_corner_03.tscn" id="asset_08"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_dense_pink_01.tscn" id="asset_09"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_mixed_flower_01.tscn" id="asset_10"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_pink_flower_01.tscn" id="asset_11"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_flower_mix_02.tscn" id="asset_12"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_white_flower_01.tscn" id="asset_13"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_plain_01.tscn" id="asset_14"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/grass_plain_02.tscn" id="asset_15"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_cream_moss_01.tscn" id="asset_16"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_cream_moss_02.tscn" id="asset_17"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_cream_plain_01.tscn" id="asset_18"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_gold_diamond_01.tscn" id="asset_19"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_gold_diamond_02.tscn" id="asset_20"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_gold_medallion_01.tscn" id="asset_21"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_gold_square_01.tscn" id="asset_22"]
+[ext_resource type="PackedScene" path="res://scenes/environment/royal_gardens/paving_gold_square_02.tscn" id="asset_23"]
+
+[node name="RoyalGardensAssetGallery" type="Node2D"]
+y_sort_enabled = true
+
+[node name="grass_cliff_corner_01" parent="." instance=ExtResource("asset_01")]
+position = Vector2(0, 0)
+
+[node name="grass_cliff_corner_02" parent="." instance=ExtResource("asset_02")]
+position = Vector2(240, 0)
+
+[node name="grass_cliff_corner_03" parent="." instance=ExtResource("asset_03")]
+position = Vector2(480, 0)
+
+[node name="grass_cliff_edge_01" parent="." instance=ExtResource("asset_04")]
+position = Vector2(720, 0)
+
+[node name="grass_cliff_edge_02" parent="." instance=ExtResource("asset_05")]
+position = Vector2(960, 0)
+
+[node name="grass_cliff_edge_03" parent="." instance=ExtResource("asset_06")]
+position = Vector2(0, 220)
+
+[node name="paving_corner_01" parent="." instance=ExtResource("asset_07")]
+position = Vector2(240, 220)
+
+[node name="paving_corner_03" parent="." instance=ExtResource("asset_08")]
+position = Vector2(480, 220)
+
+[node name="grass_dense_pink_01" parent="." instance=ExtResource("asset_09")]
+position = Vector2(720, 220)
+
+[node name="grass_mixed_flower_01" parent="." instance=ExtResource("asset_10")]
+position = Vector2(960, 220)
+
+[node name="grass_pink_flower_01" parent="." instance=ExtResource("asset_11")]
+position = Vector2(0, 440)
+
+[node name="grass_flower_mix_02" parent="." instance=ExtResource("asset_12")]
+position = Vector2(240, 440)
+
+[node name="grass_white_flower_01" parent="." instance=ExtResource("asset_13")]
+position = Vector2(480, 440)
+
+[node name="grass_plain_01" parent="." instance=ExtResource("asset_14")]
+position = Vector2(720, 440)
+
+[node name="grass_plain_02" parent="." instance=ExtResource("asset_15")]
+position = Vector2(960, 440)
+
+[node name="paving_cream_moss_01" parent="." instance=ExtResource("asset_16")]
+position = Vector2(0, 660)
+
+[node name="paving_cream_moss_02" parent="." instance=ExtResource("asset_17")]
+position = Vector2(240, 660)
+
+[node name="paving_cream_plain_01" parent="." instance=ExtResource("asset_18")]
+position = Vector2(480, 660)
+
+[node name="paving_gold_diamond_01" parent="." instance=ExtResource("asset_19")]
+position = Vector2(720, 660)
+
+[node name="paving_gold_diamond_02" parent="." instance=ExtResource("asset_20")]
+position = Vector2(960, 660)
+
+[node name="paving_gold_medallion_01" parent="." instance=ExtResource("asset_21")]
+position = Vector2(0, 880)
+
+[node name="paving_gold_square_01" parent="." instance=ExtResource("asset_22")]
+position = Vector2(240, 880)
+
+[node name="paving_gold_square_02" parent="." instance=ExtResource("asset_23")]
+position = Vector2(480, 880)

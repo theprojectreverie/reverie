@@ -30,7 +30,8 @@ func _process(delta: float) -> void:
 		minimap._player_grid = IsoMath.world_to_grid(player.global_position)
 		if "velocity" in player and player.velocity.length_squared() > 1.0:
 			minimap._player_facing = player.velocity.angle()
-	minimap._update_markers()
+	if not is_instance_valid(minimap._six_zone):
+		minimap._update_markers()
 	if minimap._canvas != null:
 		minimap._canvas.queue_redraw()
 

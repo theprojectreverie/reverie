@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_01_royal_gardens.png" id="art"]
+
+[node name="ZoneBackgroundReference" type="Node2D"]
+visible = false
+
+[node name="PreparedZoneArtwork" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("art")
+z_index = -100

@@ -35,12 +35,20 @@ func _validate() -> void:
 	var expected_cells := 0
 	var expected_paths := 0
 	var expected_water := 0
+	var expected_variations := 0
 	for gy in range(min_grid.y, max_grid.y + 1):
 		for gx in range(min_grid.x, max_grid.x + 1):
 			if not CastleLayout.covers_screen_rect(gx, gy):
 				continue
 			expected_cells += 1
 			var cell := Vector2i(gx, gy)
+			var diff := gx - gy
+			var total := gx + gy
+			var is_path: bool = (abs(diff - 20) <= 1 and total >= -10 and total <= 50) or (total == 33 and diff >= 13 and diff <= 27) or (gx >= 13 and gx <= 20 and gy >= -7 and gy <= -2) or (diff >= 18 and diff <= 22 and total >= 19 and total <= 26)
+			if not CastleLayout.is_pond(gx, gy) and not is_path and (gx <= 6 or gx >= 50 or gy >= 27):
+				var seed_value: int = absi(gx * 73856093 ^ gy * 19349663)
+				if seed_value % 23 == 0:
+					expected_variations += 1
 			if ground.get_cell_source_id(cell) != 0:
 				push_error("Missing ground cell at %s" % cell)
 				quit(1)
@@ -57,7 +65,7 @@ func _validate() -> void:
 					push_error("Missing path cell at %s" % cell)
 					quit(1)
 					return
-	if ground.get_used_cells().size() != expected_cells or variation.get_used_cells().size() != 44 or flowers.get_used_cells().size() != 6:
+	if ground.get_used_cells().size() != expected_cells or variation.get_used_cells().size() != expected_variations or flowers.get_used_cells().size() != 6:
 		push_error("Unexpected baked ground/variation/flower counts.")
 		quit(1)
 		return

@@ -15,6 +15,7 @@ size = Vector2(1200, 900)
 
 [node name="GreenwardVillage" instance=ExtResource("1_env")]
 layout_config = ExtResource("6_layout")
+generate_tree_groups = false
 [node name="EntranceDistrict" parent="PathNetwork" instance=ExtResource("11_district_scene")]
 groups = ["village_district"]
 district_id = &"entrance"

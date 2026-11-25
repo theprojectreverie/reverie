@@ -1,0 +1,302 @@
+[
+  {
+    "file": "01_rose_arch.png",
+    "source": "royal_garden_01.png",
+    "size_px": [
+      364,
+      364
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 63522,
+    "opaque_pixels": 65650,
+    "sha256": "0b693fcd61ba1f9fbae9d25e349237e8132454f78d17af3f34dc9a23ccc11677"
+  },
+  {
+    "file": "02_royal_banner_arch.png",
+    "source": "royal_garden_02.png",
+    "size_px": [
+      426,
+      367
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 65980,
+    "opaque_pixels": 86310,
+    "sha256": "dc3d926ec90903cebaf18840b638aadc2ee93bd7f1182bc106f2ab0a3ce029e8"
+  },
+  {
+    "file": "03_banner_pillar.png",
+    "source": "royal_garden_03.png",
+    "size_px": [
+      137,
+      360
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 23199,
+    "opaque_pixels": 25479,
+    "sha256": "a75c2c16f487d961a123524787262aeac335ac2964c9e3f62b45619e09e6b634"
+  },
+  {
+    "file": "04_royal_lantern_post.png",
+    "source": "royal_garden_04.png",
+    "size_px": [
+      183,
+      361
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 45166,
+    "opaque_pixels": 19655,
+    "sha256": "cc187beb73c6f4ccf5e72b2c2bbd40a5fb2b25699a5c17fb226283a30389210a"
+  },
+  {
+    "file": "05_rose_statue.png",
+    "source": "royal_garden_05.png",
+    "size_px": [
+      190,
+      368
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 29621,
+    "opaque_pixels": 38564,
+    "sha256": "6751a9f94168e75ea956cc1ea3ba80da8f9cfa5cea9338007063cd1edf29e7bc"
+  },
+  {
+    "file": "06_wisteria_gazebo.png",
+    "source": "royal_garden_06.png",
+    "size_px": [
+      352,
+      414
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 55722,
+    "opaque_pixels": 87159,
+    "sha256": "a2f0ffa5e4ea51f9bee11212b1524871e4a2cbb271c36f98a90c38666fac1501"
+  },
+  {
+    "file": "07_tiered_fountain.png",
+    "source": "royal_garden_07.png",
+    "size_px": [
+      458,
+      351
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 76330,
+    "opaque_pixels": 82220,
+    "sha256": "6307f72756a3bcef777f43212f701f017130c62097ec04ba92676697740bf990"
+  },
+  {
+    "file": "08_cherry_blossom_tree.png",
+    "source": "royal_garden_08.png",
+    "size_px": [
+      371,
+      346
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 61175,
+    "opaque_pixels": 65143,
+    "sha256": "a1bbad72f0f53b4b48048d684505d423fb68edb1f3d6d560b207c7a8229cfa74"
+  },
+  {
+    "file": "09_wisteria_tree.png",
+    "source": "royal_garden_09.png",
+    "size_px": [
+      389,
+      327
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 55426,
+    "opaque_pixels": 69672,
+    "sha256": "7d6dd5b5b406ab3bf0033d553639576a8547e5c5a88c2d52fbc2c804f2647fd0"
+  },
+  {
+    "file": "10_topiary.png",
+    "source": "royal_garden_10.png",
+    "size_px": [
+      134,
+      295
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 19726,
+    "opaque_pixels": 18944,
+    "sha256": "b4f9f0bfe653dad3065546b651b815901249bd129f4cc3c3c05235b697a4bb83"
+  },
+  {
+    "file": "11_ornate_bench.png",
+    "source": "royal_garden_11.png",
+    "size_px": [
+      325,
+      213
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 34585,
+    "opaque_pixels": 33873,
+    "sha256": "e0589bde20430b360e4edd034fac9ad15243fe6924676c5f376d85a9d0fa6085"
+  },
+  {
+    "file": "12_rose_planter.png",
+    "source": "royal_garden_12.png",
+    "size_px": [
+      290,
+      145
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 16527,
+    "opaque_pixels": 24203,
+    "sha256": "1e8c2f7359bcb29d75c164fb986cd2db6778ef2a1a9db4c0b138fdc9f8d06f3f"
+  },
+  {
+    "file": "13_white_lily_planter.png",
+    "source": "royal_garden_13.png",
+    "size_px": [
+      244,
+      155
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 15143,
+    "opaque_pixels": 21651,
+    "sha256": "dd7986a962e8233c94bc8d54064cc11d06f8f015b71d3e08ec027f18fd1fa4a8"
+  },
+  {
+    "file": "14_violet_planter.png",
+    "source": "royal_garden_14.png",
+    "size_px": [
+      267,
+      148
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 14593,
+    "opaque_pixels": 23987,
+    "sha256": "c0ee16dd6e9cb0a476c664899f9a81e88d0a240baf3ef92e0a9084b6073ad3a8"
+  },
+  {
+    "file": "15_flower_hedge.png",
+    "source": "royal_garden_15.png",
+    "size_px": [
+      283,
+      132
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 11919,
+    "opaque_pixels": 24840,
+    "sha256": "d96a5f3a01432a7996ef457f4c350ab7fdb23e61ac4e16624515aa8f945daf10"
+  },
+  {
+    "file": "16_royal_banner_rail.png",
+    "source": "royal_garden_16.png",
+    "size_px": [
+      419,
+      168
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 27136,
+    "opaque_pixels": 41954,
+    "sha256": "f292b319e51e1bdd805de49c8e7a2c19225617a400c13b1bc5f03a910677d154"
+  },
+  {
+    "file": "17_flowering_rock_cluster.png",
+    "source": "royal_garden_17.png",
+    "size_px": [
+      247,
+      306
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 26612,
+    "opaque_pixels": 47504,
+    "sha256": "7e13030d9a9d061f00f6015fec50d6c2a8f959b32d2373cc59ee69ee5dd0298a"
+  },
+  {
+    "file": "18_stone_tile_block.png",
+    "source": "royal_garden_18.png",
+    "size_px": [
+      148,
+      145
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 6775,
+    "opaque_pixels": 14539,
+    "sha256": "e65c8ae39db95329e00013036cb0cd3e63699557886c48661fa2f44323a08856"
+  },
+  {
+    "file": "19_curved_path_corner_a.png",
+    "source": "royal_garden_19.png",
+    "size_px": [
+      135,
+      143
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 8441,
+    "opaque_pixels": 10438,
+    "sha256": "9f80c7a0fde7032b714476f6d6ddd19857ae8bea032a6aee0f377c717b75ba77"
+  },
+  {
+    "file": "20_curved_path_corner_b.png",
+    "source": "royal_garden_20.png",
+    "size_px": [
+      127,
+      143
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 7977,
+    "opaque_pixels": 9897,
+    "sha256": "e6b44af89b0cb1bf2f5e3a85eea11d3b1741a9ad3fef363850ad453700f1d2d1"
+  },
+  {
+    "file": "21_diamond_medallion_tile.png",
+    "source": "royal_garden_21.png",
+    "size_px": [
+      149,
+      153
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 14111,
+    "opaque_pixels": 8449,
+    "sha256": "07570b7af0cbe69930e71e3fefe48628d49cfc4e98d76566a26802f8221bfb7e"
+  },
+  {
+    "file": "22_long_stone_wall_strip.png",
+    "source": "royal_garden_22.png",
+    "size_px": [
+      236,
+      92
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 7553,
+    "opaque_pixels": 13575,
+    "sha256": "d9e5ca15189af505febdd2c1a796500e45c3533e9c564a26b2fa0c6519b79590"
+  },
+  {
+    "file": "23_short_stone_wall_strip.png",
+    "source": "royal_garden_23.png",
+    "size_px": [
+      159,
+      102
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 6073,
+    "opaque_pixels": 9780,
+    "sha256": "3e62064b1f969909290c2fea6ac666bf31c733166e4176f3122559dfdfdf22ce"
+  },
+  {
+    "file": "24_grass_flower_patch_a.png",
+    "source": "royal_garden_24.png",
+    "size_px": [
+      256,
+      143
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 10449,
+    "opaque_pixels": 25890,
+    "sha256": "7af693262fa6c328b1dfd412449e898fd92a34246c2b88cbaf8bcd8f32b4cf36"
+  },
+  {
+    "file": "25_grass_flower_patch_b.png",
+    "source": "royal_garden_25.png",
+    "size_px": [
+      236,
+      143
+    ],
+    "padding_px": 12,
+    "transparent_pixels": 10377,
+    "opaque_pixels": 23060,
+    "sha256": "ca7307f2700b2c81f9e95f6d16d34f40120f3fd1433792e90297ba7a2ee7a609"
+  }
+]

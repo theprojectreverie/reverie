@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bff3slmiydtcq"
+
+[deps]
+
+files=["res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.Name.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.Path.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.Width.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.Height.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.TransparentSamples.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.PartialSamples.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.OpaqueSamples.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.SampledPixels.translation"]
+
+source_file="res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.csv"
+dest_files=["res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.Name.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.Path.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.Width.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.Height.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.TransparentSamples.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.PartialSamples.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.OpaqueSamples.translation", "res://assets/incoming_assets/royal_gardens_design_crops_20261118/asset_alpha_dimension_audit.SampledPixels.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

@@ -1,0 +1,560 @@
+[gd_scene load_steps=51 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_01.png" id="t1"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_02.png" id="t2"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_03.png" id="t3"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_04.png" id="t4"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_05.png" id="t5"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_06.png" id="t6"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_07.png" id="t7"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_08.png" id="t8"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_09.png" id="t9"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_10.png" id="t10"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_11.png" id="t11"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_12.png" id="t12"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_13.png" id="t13"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_14.png" id="t14"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_15.png" id="t15"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_16.png" id="t16"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_17.png" id="t17"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_18.png" id="t18"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_19.png" id="t19"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_20.png" id="t20"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_21.png" id="t21"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_22.png" id="t22"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_23.png" id="t23"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_24.png" id="t24"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_25.png" id="t25"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_26.png" id="t26"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_27.png" id="t27"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_28.png" id="t28"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_29.png" id="t29"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_30.png" id="t30"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_31.png" id="t31"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_32.png" id="t32"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_33.png" id="t33"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_34.png" id="t34"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_35.png" id="t35"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_36.png" id="t36"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_37.png" id="t37"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_38.png" id="t38"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_39.png" id="t39"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_40.png" id="t40"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_41.png" id="t41"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_42.png" id="t42"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_43.png" id="t43"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_44.png" id="t44"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_45.png" id="t45"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_46.png" id="t46"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_47.png" id="t47"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_48.png" id="t48"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_49.png" id="t49"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_extracted_terrain/tile_50.png" id="t50"]
+
+[node name="WillowExtractedTerrainGallery" type="Node2D"]
+
+[node name="InspectionCamera" type="Camera2D" parent="."]
+position = Vector2(450, 440)
+zoom = Vector2(0.8, 0.8)
+process_callback = 0
+
+[node name="Tile1" type="Sprite2D" parent="."]
+position = Vector2(65, 55)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t1")
+
+[node name="Label1" type="Label" parent="."]
+position = Vector2(50, 98)
+text = "1"
+
+[node name="Tile2" type="Sprite2D" parent="."]
+position = Vector2(200, 55)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label2" type="Label" parent="."]
+position = Vector2(185, 98)
+text = "2"
+
+[node name="Tile3" type="Sprite2D" parent="."]
+position = Vector2(335, 55)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t3")
+
+[node name="Label3" type="Label" parent="."]
+position = Vector2(320, 98)
+text = "3"
+
+[node name="Tile4" type="Sprite2D" parent="."]
+position = Vector2(470, 55)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t4")
+
+[node name="Label4" type="Label" parent="."]
+position = Vector2(455, 98)
+text = "4"
+
+[node name="Tile5" type="Sprite2D" parent="."]
+position = Vector2(605, 55)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t5")
+
+[node name="Label5" type="Label" parent="."]
+position = Vector2(590, 98)
+text = "5"
+
+[node name="Tile6" type="Sprite2D" parent="."]
+position = Vector2(740, 55)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t6")
+
+[node name="Label6" type="Label" parent="."]
+position = Vector2(725, 98)
+text = "6"
+
+[node name="Tile7" type="Sprite2D" parent="."]
+position = Vector2(875, 55)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t7")
+
+[node name="Label7" type="Label" parent="."]
+position = Vector2(860, 98)
+text = "7"
+
+[node name="Tile8" type="Sprite2D" parent="."]
+position = Vector2(65, 170)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t8")
+
+[node name="Label8" type="Label" parent="."]
+position = Vector2(50, 213)
+text = "8"
+
+[node name="Tile9" type="Sprite2D" parent="."]
+position = Vector2(200, 170)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t9")
+
+[node name="Label9" type="Label" parent="."]
+position = Vector2(185, 213)
+text = "9"
+
+[node name="Tile10" type="Sprite2D" parent="."]
+position = Vector2(335, 170)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t10")
+
+[node name="Label10" type="Label" parent="."]
+position = Vector2(320, 213)
+text = "10"
+
+[node name="Tile11" type="Sprite2D" parent="."]
+position = Vector2(470, 170)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t11")
+
+[node name="Label11" type="Label" parent="."]
+position = Vector2(455, 213)
+text = "11"
+
+[node name="Tile12" type="Sprite2D" parent="."]
+position = Vector2(605, 170)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t12")
+
+[node name="Label12" type="Label" parent="."]
+position = Vector2(590, 213)
+text = "12"
+
+[node name="Tile13" type="Sprite2D" parent="."]
+position = Vector2(740, 170)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t13")
+
+[node name="Label13" type="Label" parent="."]
+position = Vector2(725, 213)
+text = "13"
+
+[node name="Tile14" type="Sprite2D" parent="."]
+position = Vector2(875, 170)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t14")
+
+[node name="Label14" type="Label" parent="."]
+position = Vector2(860, 213)
+text = "14"
+
+[node name="Tile15" type="Sprite2D" parent="."]
+position = Vector2(65, 285)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t15")
+
+[node name="Label15" type="Label" parent="."]
+position = Vector2(50, 328)
+text = "15"
+
+[node name="Tile16" type="Sprite2D" parent="."]
+position = Vector2(200, 285)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t16")
+
+[node name="Label16" type="Label" parent="."]
+position = Vector2(185, 328)
+text = "16"
+
+[node name="Tile17" type="Sprite2D" parent="."]
+position = Vector2(335, 285)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t17")
+
+[node name="Label17" type="Label" parent="."]
+position = Vector2(320, 328)
+text = "17"
+
+[node name="Tile18" type="Sprite2D" parent="."]
+position = Vector2(470, 285)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t18")
+
+[node name="Label18" type="Label" parent="."]
+position = Vector2(455, 328)
+text = "18"
+
+[node name="Tile19" type="Sprite2D" parent="."]
+position = Vector2(605, 285)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t19")
+
+[node name="Label19" type="Label" parent="."]
+position = Vector2(590, 328)
+text = "19"
+
+[node name="Tile20" type="Sprite2D" parent="."]
+position = Vector2(740, 285)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t20")
+
+[node name="Label20" type="Label" parent="."]
+position = Vector2(725, 328)
+text = "20"
+
+[node name="Tile21" type="Sprite2D" parent="."]
+position = Vector2(875, 285)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t21")
+
+[node name="Label21" type="Label" parent="."]
+position = Vector2(860, 328)
+text = "21"
+
+[node name="Tile22" type="Sprite2D" parent="."]
+position = Vector2(65, 400)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t22")
+
+[node name="Label22" type="Label" parent="."]
+position = Vector2(50, 443)
+text = "22"
+
+[node name="Tile23" type="Sprite2D" parent="."]
+position = Vector2(200, 400)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t23")
+
+[node name="Label23" type="Label" parent="."]
+position = Vector2(185, 443)
+text = "23"
+
+[node name="Tile24" type="Sprite2D" parent="."]
+position = Vector2(335, 400)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t24")
+
+[node name="Label24" type="Label" parent="."]
+position = Vector2(320, 443)
+text = "24"
+
+[node name="Tile25" type="Sprite2D" parent="."]
+position = Vector2(470, 400)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t25")
+
+[node name="Label25" type="Label" parent="."]
+position = Vector2(455, 443)
+text = "25"
+
+[node name="Tile26" type="Sprite2D" parent="."]
+position = Vector2(605, 400)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t26")
+
+[node name="Label26" type="Label" parent="."]
+position = Vector2(590, 443)
+text = "26"
+
+[node name="Tile27" type="Sprite2D" parent="."]
+position = Vector2(740, 400)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t27")
+
+[node name="Label27" type="Label" parent="."]
+position = Vector2(725, 443)
+text = "27"
+
+[node name="Tile28" type="Sprite2D" parent="."]
+position = Vector2(875, 400)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t28")
+
+[node name="Label28" type="Label" parent="."]
+position = Vector2(860, 443)
+text = "28"
+
+[node name="Tile29" type="Sprite2D" parent="."]
+position = Vector2(65, 515)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t29")
+
+[node name="Label29" type="Label" parent="."]
+position = Vector2(50, 558)
+text = "29"
+
+[node name="Tile30" type="Sprite2D" parent="."]
+position = Vector2(200, 515)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t30")
+
+[node name="Label30" type="Label" parent="."]
+position = Vector2(185, 558)
+text = "30"
+
+[node name="Tile31" type="Sprite2D" parent="."]
+position = Vector2(335, 515)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t31")
+
+[node name="Label31" type="Label" parent="."]
+position = Vector2(320, 558)
+text = "31"
+
+[node name="Tile32" type="Sprite2D" parent="."]
+position = Vector2(470, 515)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t32")
+
+[node name="Label32" type="Label" parent="."]
+position = Vector2(455, 558)
+text = "32"
+
+[node name="Tile33" type="Sprite2D" parent="."]
+position = Vector2(605, 515)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t33")
+
+[node name="Label33" type="Label" parent="."]
+position = Vector2(590, 558)
+text = "33"
+
+[node name="Tile34" type="Sprite2D" parent="."]
+position = Vector2(740, 515)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t34")
+
+[node name="Label34" type="Label" parent="."]
+position = Vector2(725, 558)
+text = "34"
+
+[node name="Tile35" type="Sprite2D" parent="."]
+position = Vector2(875, 515)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t35")
+
+[node name="Label35" type="Label" parent="."]
+position = Vector2(860, 558)
+text = "35"
+
+[node name="Tile36" type="Sprite2D" parent="."]
+position = Vector2(65, 630)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t36")
+
+[node name="Label36" type="Label" parent="."]
+position = Vector2(50, 673)
+text = "36"
+
+[node name="Tile37" type="Sprite2D" parent="."]
+position = Vector2(200, 630)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t37")
+
+[node name="Label37" type="Label" parent="."]
+position = Vector2(185, 673)
+text = "37"
+
+[node name="Tile38" type="Sprite2D" parent="."]
+position = Vector2(335, 630)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t38")
+
+[node name="Label38" type="Label" parent="."]
+position = Vector2(320, 673)
+text = "38"
+
+[node name="Tile39" type="Sprite2D" parent="."]
+position = Vector2(470, 630)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t39")
+
+[node name="Label39" type="Label" parent="."]
+position = Vector2(455, 673)
+text = "39"
+
+[node name="Tile40" type="Sprite2D" parent="."]
+position = Vector2(605, 630)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t40")
+
+[node name="Label40" type="Label" parent="."]
+position = Vector2(590, 673)
+text = "40"
+
+[node name="Tile41" type="Sprite2D" parent="."]
+position = Vector2(740, 630)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t41")
+
+[node name="Label41" type="Label" parent="."]
+position = Vector2(725, 673)
+text = "41"
+
+[node name="Tile42" type="Sprite2D" parent="."]
+position = Vector2(875, 630)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t42")
+
+[node name="Label42" type="Label" parent="."]
+position = Vector2(860, 673)
+text = "42"
+
+[node name="Tile43" type="Sprite2D" parent="."]
+position = Vector2(65, 745)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t43")
+
+[node name="Label43" type="Label" parent="."]
+position = Vector2(50, 788)
+text = "43"
+
+[node name="Tile44" type="Sprite2D" parent="."]
+position = Vector2(200, 745)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t44")
+
+[node name="Label44" type="Label" parent="."]
+position = Vector2(185, 788)
+text = "44"
+
+[node name="Tile45" type="Sprite2D" parent="."]
+position = Vector2(335, 745)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t45")
+
+[node name="Label45" type="Label" parent="."]
+position = Vector2(320, 788)
+text = "45"
+
+[node name="Tile46" type="Sprite2D" parent="."]
+position = Vector2(470, 745)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t46")
+
+[node name="Label46" type="Label" parent="."]
+position = Vector2(455, 788)
+text = "46"
+
+[node name="Tile47" type="Sprite2D" parent="."]
+position = Vector2(605, 745)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t47")
+
+[node name="Label47" type="Label" parent="."]
+position = Vector2(590, 788)
+text = "47"
+
+[node name="Tile48" type="Sprite2D" parent="."]
+position = Vector2(740, 745)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t48")
+
+[node name="Label48" type="Label" parent="."]
+position = Vector2(725, 788)
+text = "48"
+
+[node name="Tile49" type="Sprite2D" parent="."]
+position = Vector2(875, 745)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t49")
+
+[node name="Label49" type="Label" parent="."]
+position = Vector2(860, 788)
+text = "49"
+
+[node name="Tile50" type="Sprite2D" parent="."]
+position = Vector2(65, 860)
+scale = Vector2(0.5, 0.5)
+texture_filter = 1
+texture = ExtResource("t50")
+
+[node name="Label50" type="Label" parent="."]
+position = Vector2(50, 903)
+text = "50"
+

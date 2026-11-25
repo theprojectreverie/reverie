@@ -203,6 +203,7 @@ func complete_quest(quest_id: String) -> bool:
 				flags["tracked_quest"] = str(next_id)
 				break
 	EventBus.quest_updated.emit(quest_id)
+	AudioDirector.play_variant("quest_complete")
 	EventBus.toast_requested.emit("Quest complete: %s" % definition.get("name", quest_id))
 	GameState.queue_save()
 	return true

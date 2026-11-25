@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/edgar_npc.gd" id="1_edgar"]
 [ext_resource type="PackedScene" path="res://scenes/characters/actor_visual.tscn" id="2_visual"]
 [ext_resource type="Texture2D" path="res://assets/characters/edgar/edgar_world_idle.png" id="3_edgar_art"]
 [ext_resource type="PackedScene" path="res://scenes/world/components/npc_interaction_ring.tscn" id="4_ring"]
 [ext_resource type="PackedScene" path="res://scenes/world/components/npc_quest_marker.tscn" id="5_marker"]
+[ext_resource type="AnimationLibrary" path="res://resources/characters/animations/edgar_presentation.tres" id="6_edgar_animation"]
 
 [node name="Edgar" type="Node2D"]
 script = ExtResource("1_edgar")
@@ -25,6 +26,12 @@ position = Vector2(-48, -128)
 scale = Vector2(2, 2)
 texture_filter = 1
 centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("6_edgar_animation")
+}
+autoplay = "edgar_idle_breath"
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -70.0

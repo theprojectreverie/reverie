@@ -1,0 +1,11 @@
+﻿[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/qa/royal_gardens_full_gold_paving_trial.tscn" id="zone"]
+
+[node name="GoldPavingReview" type="Node2D"]
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="OverviewCamera" type="Camera2D" parent="."]
+position = Vector2(-350, 1850)
+zoom = Vector2(0.38, 0.38)

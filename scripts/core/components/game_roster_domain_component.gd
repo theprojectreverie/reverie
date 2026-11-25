@@ -143,6 +143,8 @@ func add_xp_to_character(instance: CharacterInstance, amount: int) -> Dictionary
 		instance.xp = 0
 	EventBus.roster_changed.emit()
 	GameState.queue_save()
+	if levels_gained > 0:
+		AudioDirector.play_variant("level_up")
 	return { "levels": levels_gained }
 
 

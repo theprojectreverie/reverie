@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_03_willow_fields.tscn" id="zone"]
+
+[node name="WillowWaterfallPreview" type="Node2D"]
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(20, 690)
+zoom = Vector2(1, 1)
+enabled = true

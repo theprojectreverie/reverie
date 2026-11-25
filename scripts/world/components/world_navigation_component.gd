@@ -23,11 +23,21 @@ func add_bridge_position(grid_position: Vector2) -> void:
 
 
 func is_water_world(world_pos: Vector2) -> bool:
-	if elevation == null:
-		return false
+	# Water must be authored as an explicit zone. Noise-based classification
+	# belonged to the retired procedural terrain generator and would otherwise
+	# create invisible impassable patches after its water visuals were removed.
 	var grid := IsoMath.world_to_grid(world_pos)
-	var elevation_value := elevation.get_noise_2d(grid.x, grid.y)
-	return elevation_value < get_water_level()
+	var zones := get_node_or_null("WaterZones") as Node2D
+	if zones == null:
+		return false
+	for marker in zones.get_children():
+		if not (marker is Marker2D):
+			continue
+		var grid_value: Variant = marker.get_meta("grid_position", null)
+		var radius := float(marker.get_meta("radius", 0.0))
+		if grid_value is Vector2 and radius > 0.0 and grid.distance_to(grid_value) < radius:
+			return true
+	return false
 
 
 func is_walkable(world_pos: Vector2) -> bool:

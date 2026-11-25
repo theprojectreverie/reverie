@@ -10,10 +10,13 @@ extends Node
 const PARTY_MAX := 4
 ## The starting trio. Order is the initial party order shown in the UI.
 const STARTING_CHARACTERS := ["gerald", "lilith", "kael"]
-## Former starters. Their definitions stay in content data (art specs and
-## banner validation reference them), but new_game() never grants them and
-## legacy saves are migrated to the new trio.
-const REMOVED_CHARACTERS := ["mira_sol", "bramble"]
+## Retired characters remain in the authoring archive for migration and art
+## references, but are never registered in the live roster or granted by new_game().
+## Existing saves containing any retired unit are migrated and equipped items refunded.
+const REMOVED_CHARACTERS := [
+	"lyra_vey", "bramble", "seraphine", "coralyn", "ignis",
+	"mira_sol", "thistle", "vespera", "scarlet_requiem", "arachnia", "terra"
+]
 const MAX_PROFILE_LEVEL := 60
 
 var profile: Dictionary:

@@ -52,6 +52,7 @@ func _ready() -> void:
 
 	_build_content()
 	_refresh()
+	AudioDirector.play_ui_panel_open()
 
 
 func _build_content() -> void:
@@ -72,5 +73,6 @@ func close_screen() -> void:
 	if _closing or not is_inside_tree():
 		return
 	_closing = true
+	AudioDirector.play_ui_panel_close()
 	closed.emit()
 	queue_free()

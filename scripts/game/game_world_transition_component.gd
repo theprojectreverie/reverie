@@ -35,11 +35,11 @@ func transition_to(target_region_id: String, entry_point: String) -> Dictionary:
 	GameState.session_domain.set_region_position(session.current_region_id, player_position)
 	GameState.session_domain.set_player_region(destination_id)
 	GameState.save_now()
-	var previous_world := session.world
-	session.world = null
-	previous_world.queue_free()
+
+	# GameWorldSessionComponent.build_world() is the single owner of WorldHost
+	# replacement: it detaches and queues the old world exactly once before
+	# mounting the destination. Do not queue_free() the old world here as well.
 	session.build_world(destination_id, entry_point)
-	GameState.save_now()
 	_changing_region = false
 	session.region_arrived.emit(destination_id, destination_name)
 	return {"ok": true, "region_id": destination_id, "display_name": destination_name, "world": session.world}

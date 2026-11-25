@@ -1,20 +1,20 @@
 class_name CastleExpansionCacheComponent
 extends Node
-## Spawns the authored collectible described by the expansion placement marker.
+## Optional legacy cache spawner. Retired placement markers remain dormant.
 
 const GATHER_SCENE: PackedScene = preload("res://scenes/world/interactive_prop.tscn")
+const CACHE_VISUAL: PackedScene = preload("res://scenes/world/castle_gardens/components/castle_seal_cache_visual.tscn")
 
 
 func _ready() -> void:
 	var root := get_parent() as Node2D
 	var placements := root.get_node_or_null("ApproachPlacements") as Node2D if root != null else null
-	var props := root.get_node_or_null("ExpansionProps") as Node2D if root != null else null
-	if placements == null or props == null:
-		push_error("Castle expansion cache requires authored placements and ExpansionProps.")
+	var interactables := root.get_node_or_null("ExpansionInteractables") as Node2D if root != null else null
+	if placements == null or interactables == null:
+		push_error("Castle expansion cache requires authored placements and ExpansionInteractables.")
 		return
 	var marker := placements.get_node_or_null("GardenerSealCache") as Marker2D
-	if marker == null:
-		push_error("Castle expansion is missing the GardenerSealCache marker.")
+	if marker == null or str(marker.get_meta("placement_type", "disabled")) != "collectible":
 		return
 	var grid_value: Variant = marker.get_meta("grid_position", null)
 	var rewards_value: Variant = marker.get_meta("rewards", {})
@@ -33,4 +33,10 @@ func _ready() -> void:
 		return
 	prop.setup(item_id, IsoMath.grid_to_world(grid_value.x, grid_value.y), display_name, description, quantity)
 	prop.configure_collectible(collectible_id, rewards, display_name)
-	props.add_child(prop)
+	var visual := CACHE_VISUAL.instantiate() as Node2D
+	if visual == null:
+		push_error("Castle expansion cache could not instantiate its authored visual scene.")
+		return
+	visual.name = "AuthoredVisual"
+	prop.add_child(visual)
+	interactables.add_child(prop)

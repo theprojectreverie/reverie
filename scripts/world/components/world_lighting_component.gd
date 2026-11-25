@@ -8,15 +8,17 @@ var light_root: Node2D
 var max_lights: int = 20
 var lights: Array = []
 var enabled: bool = true
+var procedural_light_textures_enabled: bool = true
 
 
-func configure(root: Node2D, light_cap: int = 20) -> void:
+func configure(root: Node2D, light_cap: int = 20, enable_procedural_light_textures: bool = true) -> void:
 	light_root = root
 	max_lights = maxi(0, light_cap)
+	procedural_light_textures_enabled = enable_procedural_light_textures
 
 
 func add_light(grid_position: Vector2, color: Color, energy: float, light_scale: float) -> bool:
-	if light_root == null or lights.size() >= max_lights:
+	if light_root == null or lights.size() >= max_lights or not procedural_light_textures_enabled:
 		return false
 	var light := WORLD_POINT_LIGHT_SCENE.instantiate() as PointLight2D
 	if light == null:

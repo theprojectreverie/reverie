@@ -46,6 +46,16 @@ static func shared() -> QuestNavigationResolver:
 	return _shared
 
 
+## Release the process-wide resolver during deterministic application/test shutdown.
+## Normal scene transitions must not call this; consumers share the same instance.
+static func release_shared() -> void:
+	if _shared != null:
+		_shared.clear_registry()
+		_shared._cache.clear()
+		_shared._cache_valid = false
+		_shared = null
+
+
 # ---------------------------------------------------------------- registration
 
 ## Register (or replace) a live/anchored navigation target provider.
@@ -311,6 +321,9 @@ func _select_live_target(quest_id: String, step: Dictionary, player_region: Stri
 		if p_region != player_region:
 			continue
 		var p_pos := _provider_pos(p)
+		var provider_node: Variant = p.get("node", null)
+		if provider_node is Node2D:
+			p_pos = _global_to_region_local(p_pos, provider_node as Node2D)
 		var d := player_pos.distance_to(p_pos)
 		if d < best_distance:
 			best_distance = d
@@ -331,11 +344,21 @@ func _select_live_target(quest_id: String, step: Dictionary, player_region: Stri
 				var visual_id := str(monster.visual_definition.get("id", ""))
 				if monster.group_id != target_id and visual_id != target_id:
 					continue
-				var d := player_pos.distance_to(monster.global_position)
+				var monster_local_pos := _global_to_region_local(monster.global_position, monster)
+				var d := player_pos.distance_to(monster_local_pos)
 				if d < best_distance:
 					best_distance = d
-					best = { "id": "live:" + str(monster.get_instance_id()), "local_pos": monster.global_position, "region_id": player_region }
+					best = { "id": "live:" + str(monster.get_instance_id()), "local_pos": monster_local_pos, "region_id": player_region }
 	return best
+
+
+static func _global_to_region_local(global_pos: Vector2, source: Node2D) -> Vector2:
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree != null:
+		var world := tree.get_first_node_in_group("world") as Node2D
+		if world != null and world.is_ancestor_of(source):
+			return world.to_local(global_pos)
+	return global_pos
 
 
 static func _provider_valid(provider: Dictionary) -> bool:

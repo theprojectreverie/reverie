@@ -1,0 +1,121 @@
+[gd_resource type="AnimationLibrary" format=3 uid="uid://ds8pbvs254efv"]
+
+[sub_resource type="Animation" id="Animation_kael_basic"]
+resource_name = "kael_basic"
+length = 0.56
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.3, 0.4, 0.56),
+"transitions": PackedFloat32Array(1, 0.55, 0.8, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.88, 1.12), Vector2(1.16, 0.88), Vector2(0.96, 1.04), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.3, 0.56),
+"transitions": PackedFloat32Array(1, 0.7, 0.8, 1),
+"update": 0,
+"values": [0.0, -0.1, 0.12, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kael_cast"]
+resource_name = "kael_cast"
+length = 0.62
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.22, 0.38, 0.62),
+"transitions": PackedFloat32Array(1, 0.6, 0.8, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.86, 1.16), Vector2(1.1, 0.94), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.22, 0.62),
+"transitions": PackedFloat32Array(1, 0.7, 1),
+"update": 0,
+"values": [0.0, -0.06, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kael_recover"]
+resource_name = "kael_recover"
+length = 0.12
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12),
+"transitions": PackedFloat32Array(0.7, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12),
+"transitions": PackedFloat32Array(0.7, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kael_ultimate"]
+resource_name = "kael_ultimate"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorVisual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.72, 0.88, 1.2),
+"transitions": PackedFloat32Array(1, 0.55, 0.8, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.78, 1.22), Vector2(1.22, 0.84), Vector2(1.1, 0.94), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorVisual:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.72, 1.2),
+"transitions": PackedFloat32Array(1, 0.6, 0.8, 1),
+"update": 0,
+"values": [0.0, -0.14, 0.08, 0.0]
+}
+
+[resource]
+_data = {
+&"kael_basic": SubResource("Animation_kael_basic"),
+&"kael_cast": SubResource("Animation_kael_cast"),
+&"kael_recover": SubResource("Animation_kael_recover"),
+&"kael_ultimate": SubResource("Animation_kael_ultimate")
+}

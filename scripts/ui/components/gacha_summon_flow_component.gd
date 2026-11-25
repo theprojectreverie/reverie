@@ -10,6 +10,7 @@ func bind(owner_screen: GachaScreen) -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
+
 func pull(count: int) -> void:
 	if not is_instance_valid(screen) or screen._summon_busy == false:
 		return
@@ -24,32 +25,21 @@ func pull(count: int) -> void:
 	show_results(rolls)
 
 
-
 func play_summon_reveal(results: Array) -> void:
 	if screen._results_layer != null and is_instance_valid(screen._results_layer):
 		screen._results_layer.queue_free()
 	screen._results_layer = GachaScreen.SUMMON_REVEAL_SCENE.instantiate() as Control
 	screen.add_child(screen._results_layer)
-	var reveal_close := screen._results_layer.get_node_or_null("CloseSummonButton") as Button
-	if reveal_close != null:
-		reveal_close.pressed.connect(screen.close_screen)
-	var sigil := screen._results_layer.get_node("SigilCenter/SummonSigil") as SummonSigil
-	var best_rank := 0
-	for roll in results:
-		best_rank = maxi(best_rank, int(GachaService.RARITY_RANK.get(str(roll.get("rarity", "common")), 0)))
-	if best_rank >= int(GachaService.RARITY_RANK.get("legendary", 4)):
-		sigil.glow = Color("#ffd47a")
-	elif best_rank >= int(GachaService.RARITY_RANK.get("epic", 2)):
-		sigil.glow = Color("#c18cff")
-	else:
-		sigil.glow = Color("#78c9e8")
-	await screen.get_tree().create_timer(2.15).timeout
+	var reveal := screen._results_layer as SummonRevealOverlay
+	AudioDirector.play_summon_ritual_ambience()
+	await reveal.play_batch(results)
 	if not is_instance_valid(screen) or not screen.is_inside_tree():
 		return
+	AudioDirector.stop_summon_ritual_ambience()
 	if is_instance_valid(screen._results_layer):
+		screen._results_layer.hide()
 		screen._results_layer.queue_free()
 	screen._results_layer = null
-
 
 
 func show_results(results: Array) -> void:
@@ -59,6 +49,7 @@ func show_results(results: Array) -> void:
 		screen._results_layer.queue_free()
 	screen._results_layer = GachaScreen.SUMMON_RESULTS_SCENE.instantiate() as Control
 	screen.add_child(screen._results_layer)
+	screen._results_layer.z_index = 80
 
 	var panel := screen._results_layer.get_node("Center/Panel") as PanelContainer
 	var viewport_width := screen.get_viewport_rect().size.x
@@ -82,7 +73,7 @@ func show_results(results: Array) -> void:
 		var best_glow: Color = best_effect.get("glow", UITheme.GOLD_BRIGHT)
 		header_chip_slot.add_child(UIFactory.label("✦ " + UITheme.rarity_tier_label(best_name.to_lower()) + " ✦", 13, best_glow))
 
-	var grid := screen._results_layer.get_node("Center/Panel/Content/ResultGrid") as GridContainer
+	var grid := screen._results_layer.get_node("Center/Panel/Content/ResultsScroll/ResultGrid") as GridContainer
 	var column_limit := 5
 	if panel_width < 520.0:
 		column_limit = 2
@@ -91,14 +82,35 @@ func show_results(results: Array) -> void:
 	elif panel_width < 960.0:
 		column_limit = 4
 	grid.columns = mini(column_limit, maxi(1, results.size()))
-	var card_width := clampf((panel_width - 40.0 - float(grid.columns - 1) * 10.0) / float(grid.columns), 118.0, 172.0)
-	for index in results.size():
-		var roll: Dictionary = results[index]
+	grid.add_theme_constant_override("h_separation", 12)
+	grid.add_theme_constant_override("v_separation", 12)
+	var scroll := grid.get_parent() as ScrollContainer
+	scroll.custom_minimum_size.y = minf(screen.get_viewport_rect().size.y * 0.70, 590.0 if results.size() > grid.columns else 310.0)
+	var card_width := clampf((panel_width - 40.0 - float(grid.columns - 1) * 12.0) / float(grid.columns), 118.0, 200.0)
+	# Sort the presentation from highest rarity to lowest. The roll results and
+	# ownership are untouched; this only makes the reveal easier to scan.
+	var ordered_results: Array = results.duplicate()
+	ordered_results.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		var rank_a := int(GachaService.RARITY_RANK.get(str(a.get("rarity", "common")).to_lower(), 0))
+		var rank_b := int(GachaService.RARITY_RANK.get(str(b.get("rarity", "common")).to_lower(), 0))
+		if rank_a != rank_b:
+			return rank_a > rank_b
+		if bool(a.get("featured", false)) != bool(b.get("featured", false)):
+			return bool(a.get("featured", false))
+		if bool(a.get("is_new", false)) != bool(b.get("is_new", false)):
+			return bool(a.get("is_new", false))
+		return str(a.get("character_id", "")) < str(b.get("character_id", ""))
+	)
+	for index in ordered_results.size():
+		var roll: Dictionary = ordered_results[index]
 		var card := GachaScreen.SUMMON_RESULT_CARD_SCENE.instantiate() as SummonResultCard
-		card.custom_minimum_size = Vector2(card_width, 238.0)
+		card.custom_minimum_size = Vector2(card_width, 286.0)
 		var portrait := card.get_node("Content/Portrait") as PortraitView
-		portrait.custom_minimum_size = Vector2(minf(150.0, card_width - 16.0), minf(150.0, card_width - 16.0))
+		var portrait_width := minf(132.0, card_width - 16.0)
+		portrait.custom_minimum_size = Vector2(portrait_width, portrait_width * 1.5)
 		card.setup(roll)
+		portrait.show_frame = false
+		portrait.show_rarity_effect = false
 		grid.add_child(card)
 		card.modulate = Color(1, 1, 1, 0)
 		var is_premium := card.premium
@@ -141,7 +153,6 @@ func show_results(results: Array) -> void:
 	)
 	var exit_summon := footer.get_node("ExitSummonButton") as Button
 	exit_summon.pressed.connect(screen.close_screen)
-
 
 
 ## Additive presentation report (Phase 5). ZERO final portraits exist; featured

@@ -20,6 +20,8 @@ signal entrance_used(target_scene: String, spawn_point: StringName)
 
 func _ready() -> void:
 	super._ready()
+	if is_open and animation_player != null and animation_player.has_animation("opened"):
+		animation_player.play("opened")
 	_update_prompt()
 
 

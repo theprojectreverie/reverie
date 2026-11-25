@@ -1,15 +1,14 @@
 class_name ModularForestFirefly
 extends Node2D
-## Ambient actor whose activity is driven by the forest's shared day/night state.
+## Ambient firefly. Silhouette and hover motion are authored in its reusable scene.
 
-@onready var sprite: Sprite2D = $Sprite
+@onready var sprite: Node2D = $Sprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var activity: float = 1.0
 
 
 func _ready() -> void:
-	sprite.texture = ProceduralArt.prop_texture("firefly_sprite")
 	if animation_player.has_animation("hover"):
 		animation_player.play("hover")
 	set_activity(activity)

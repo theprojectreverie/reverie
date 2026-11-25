@@ -12,6 +12,10 @@ var _collapse_button: Button
 var _canvas: Control
 var _overlay: Control
 var _world: Node = null
+var _six_zone: Node2D
+var _zone_art: Array[Dictionary] = []
+var _zone_bounds := Rect2()
+var _overview := false
 @onready var marker_component: MinimapMarkerComponent = get_node("MarkerData") as MinimapMarkerComponent
 ## Shared resolver injected by GameScreen through HUD; keeps compass, map and beacon aligned.
 var quest_resolver: QuestNavigationResolver = null
@@ -43,14 +47,26 @@ func _ready() -> void:
 	_canvas.draw.connect(_on_draw)
 	_expand_button.pressed.connect(_request_full_map)
 	_collapse_button.pressed.connect(_toggle_collapse)
+	_canvas.clip_contents = true
 	_find_world()
 	if marker_component != null:
 		marker_component.bind(self)
 
 
 func _find_world() -> void:
-	if is_inside_tree():
-		_world = get_tree().get_first_node_in_group("world")
+	if not is_inside_tree():
+		return
+	var ancestor := get_parent()
+	while ancestor != null:
+		if ancestor is Node2D and str(ancestor.name).begins_with("StandaloneZone"):
+			_world = ancestor
+			if _six_zone != ancestor:
+				_six_zone = ancestor
+				_cache_zone_art()
+			return
+		ancestor = ancestor.get_parent()
+	_six_zone = null
+	_world = get_tree().get_first_node_in_group("world")
 
 
 func _update_markers() -> void:
@@ -61,6 +77,9 @@ func _update_markers() -> void:
 
 func _on_draw() -> void:
 	if _collapsed:
+		return
+	if is_instance_valid(_six_zone):
+		_draw_six_zone()
 		return
 	var center := Vector2(MAP_SIZE * 0.5, MAP_SIZE * 0.5)
 	var player_pos := _player_grid
@@ -213,6 +232,8 @@ func _toggle_collapse() -> void:
 	_collapsed = not _collapsed
 	if _collapsed:
 		custom_minimum_size = Vector2(60, 28)
+		offset_left = offset_right - 60.0
+		offset_bottom = offset_top + 28.0
 		size = Vector2(60, 28)
 		_canvas.visible = false
 		if _overlay:
@@ -227,6 +248,8 @@ func _toggle_collapse() -> void:
 	else:
 		custom_minimum_size = Vector2(MAP_SIZE, MAP_SIZE)
 		size = Vector2(MAP_SIZE, MAP_SIZE)
+		offset_left = offset_right - MAP_SIZE
+		offset_bottom = offset_top + MAP_SIZE
 		_canvas.visible = true
 		if _overlay:
 			_overlay.visible = true
@@ -238,8 +261,100 @@ func _toggle_collapse() -> void:
 
 
 func _request_full_map() -> void:
+	if is_instance_valid(_six_zone):
+		_overview = not _overview
+		_expand_button.text = "Near" if _overview else "Map"
+		_canvas.queue_redraw()
+		return
 	var tree := get_tree()
 	if tree:
 		var game_screen = tree.get_first_node_in_group("game_screen")
 		if game_screen and game_screen.has_method("open_screen"):
 			game_screen.open_screen("map")
+
+
+func _cache_zone_art() -> void:
+	_canvas.offset_left = 4.0
+	_canvas.offset_top = 25.0
+	_canvas.offset_right = -4.0
+	_canvas.offset_bottom = -22.0
+	_zone_art.clear()
+	_zone_bounds = Rect2()
+	var roots: Array[Node] = []
+	var terrain := _six_zone.get_node_or_null("Zone")
+	if terrain != null:
+		roots.append(terrain)
+	for child in _six_zone.get_children():
+		if child is Node2D and ("Road" in str(child.name) or "Connector" in str(child.name)):
+			roots.append(child)
+	for root in roots:
+		for item in root.find_children("*", "Sprite2D", true, false):
+			var sprite := item as Sprite2D
+			if sprite.texture == null or not sprite.is_visible_in_tree():
+				continue
+			if sprite.is_in_group("world_minimap_npcs"):
+				continue
+			var bounds: Rect2 = sprite.global_transform * sprite.get_rect()
+			if bounds.size.x <= 0.0 or bounds.size.y <= 0.0:
+				continue
+			_zone_art.append({"texture": sprite.texture, "rect": bounds, "z": sprite.z_index, "region": sprite.region_rect if sprite.region_enabled else Rect2()})
+			_zone_bounds = bounds if _zone_bounds.size == Vector2.ZERO else _zone_bounds.merge(bounds)
+	_zone_art.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		if a.z != b.z:
+			return a.z < b.z
+		return a.rect.end.y < b.rect.end.y)
+	_expand_button.text = "Map"
+	$Overlay/NpcDot.color = Color("#f1cd79")
+	$Overlay/BossDot.color = Color("#e5b8ff")
+	$Overlay/BossLabel.text = "Exit"
+	$Overlay/PoiDot.hide()
+	$Overlay/PoiLabel.hide()
+	$Overlay/YouDot.color = Color.WHITE
+
+func _draw_six_zone() -> void:
+	var player := get_tree().get_first_node_in_group("player") as Node2D
+	if player == null:
+		return
+	var viewport_rect := Rect2(Vector2.ZERO, _canvas.size)
+	if viewport_rect.size.x <= 0 or viewport_rect.size.y <= 0:
+		return
+	var center := viewport_rect.get_center()
+	var focus := player.global_position
+	var factor := viewport_rect.size.x / 2400.0
+	if _overview and _zone_bounds.size.x > 0 and _zone_bounds.size.y > 0:
+		focus = _zone_bounds.get_center()
+		factor = minf(viewport_rect.size.x / _zone_bounds.size.x, viewport_rect.size.y / _zone_bounds.size.y) * 0.96
+	_canvas.draw_rect(Rect2(Vector2.ZERO, _canvas.size), Color("#161321"))
+	var visible_world := Rect2(focus - viewport_rect.size / (2.0 * factor), viewport_rect.size / factor)
+	for art in _zone_art:
+		var r: Rect2 = art.rect
+		if not visible_world.intersects(r):
+			continue
+		var dest := Rect2(center + (r.position - focus) * factor, r.size * factor)
+		if art.region.size != Vector2.ZERO:
+			_canvas.draw_texture_rect_region(art.texture, dest, art.region)
+		else:
+			_canvas.draw_texture_rect(art.texture, dest, false)
+	for npc in get_tree().get_nodes_in_group("world_minimap_npcs"):
+		if npc is Node2D and _six_zone.is_ancestor_of(npc):
+			var point: Vector2 = center + (npc.global_position - focus) * factor
+			if viewport_rect.has_point(point):
+				_canvas.draw_circle(point, 5.0, Color("#17101c"))
+				_canvas.draw_circle(point, 3.5, Color("#f1cd79"))
+	var transfers := _six_zone.get_node_or_null("TransferPoints")
+	if transfers != null:
+		for marker in transfers.get_children():
+			if marker is Marker2D and str(marker.name).begins_with("To"):
+				var transfer_position: Vector2 = marker.global_position
+				for child in marker.get_children():
+					if child is Area2D:
+						transfer_position = child.global_position
+						break
+				var point: Vector2 = center + (transfer_position - focus) * factor
+				if viewport_rect.has_point(point):
+					_canvas.draw_circle(point, 5.0, Color("#21162b"))
+					_canvas.draw_arc(point, 4.0, 0, TAU, 16, Color("#e5b8ff"), 2.0)
+	var point := center + (player.global_position - focus) * factor
+	var direction := Vector2.from_angle(_player_facing)
+	_canvas.draw_circle(point, 6.0, Color("#17101c"))
+	_canvas.draw_colored_polygon(PackedVector2Array([point + direction * 7.0, point - direction * 4.0 + direction.orthogonal() * 4.0, point - direction * 4.0 - direction.orthogonal() * 4.0]), Color.WHITE)

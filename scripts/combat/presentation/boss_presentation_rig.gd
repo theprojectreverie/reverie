@@ -10,6 +10,7 @@ signal multi_target_sequence_finished(boss_id: String, target_count: int)
 
 const TELEGRAPH_SCENE: PackedScene = preload("res://scenes/combat/presentation/boss_telegraph.tscn")
 const IMPACT_SCENE: PackedScene = preload("res://scenes/combat/presentation/boss_impact.tscn")
+const TELEGRAPH_SCRIPT: Script = preload("res://scripts/combat/presentation/boss_telegraph.gd")
 
 @export var default_profile: Resource
 @export var elder_hollow_profile: Resource
@@ -28,6 +29,9 @@ const IMPACT_SCENE: PackedScene = preload("res://scenes/combat/presentation/boss
 @onready var boss_transition_effects: Node = get_node_or_null("BossTransitionEffects")
 
 var _sequence_token: int = 0
+var _phase_queue_token: int = 0
+var _phase_cue_busy: bool = false
+var _phase_queue: Array[Dictionary] = []
 var active_boss_id: String = ""
 
 
@@ -128,19 +132,90 @@ func play_multi_target_strike(target_positions: Array, boss_id: String, windup_s
 		multi_target_sequence_finished.emit(boss_id, positions.size())
 
 
-func show_phase_transition(boss_id: String, phase_number: int, message: String = "") -> void:
+func show_phase_transition(boss_id: String, phase_number: int, message: String = "", boss_name: String = "") -> void:
 	var profile := _profile_for_boss(boss_id)
 	var title: String = str(profile.get("phase_title")) if profile != null else "THE ENCOUNTER CHANGES"
 	var accent: Color = profile.get("phase_color") if profile != null else Color.WHITE
+	var visual_style := str(profile.get("visual_style")) if profile != null else "roots"
 	var cue_message := message.strip_edges()
 	if cue_message.is_empty():
-		cue_message = "PHASE %d — %s" % [phase_number, title]
-	phase_change_started.emit(boss_id, phase_number, cue_message)
-	_phase_cue.call("play_cue", cue_message, accent, 1.35)
+		cue_message = "The encounter changes."
+	var resolved_name := boss_name.strip_edges()
+	if resolved_name.is_empty():
+		match boss_id:
+			"fallen_matron":
+				resolved_name = "The Fallen Matron"
+			"elder_hollow":
+				resolved_name = "The Elder Hollow"
+			"corrupted_treant":
+				resolved_name = "The Hollowed Guardian"
+			_:
+				resolved_name = boss_id.replace("_", " ").capitalize()
+	var phase_label := _phase_label_for_boss(boss_id, phase_number)
+	_phase_queue.append({
+		"boss_id": boss_id,
+		"boss_name": resolved_name,
+		"phase_number": phase_number,
+		"message": cue_message,
+		"title": title,
+		"phase_label": phase_label,
+		"accent": accent,
+		"visual_style": visual_style,
+	})
+	_start_next_phase_cue()
+
+
+func _start_next_phase_cue() -> void:
+	if _phase_cue_busy or _phase_queue.is_empty() or not is_inside_tree():
+		return
+	_phase_cue_busy = true
+	var request: Dictionary = _phase_queue.pop_front()
+	var token := _phase_queue_token
+	var boss_id := str(request.get("boss_id", ""))
+	var phase_number := int(request.get("phase_number", 2))
+	var accent_color: Color = request.get("accent", Color.WHITE)
+	phase_change_started.emit(boss_id, phase_number, str(request.get("message", "")))
+	_phase_cue.call(
+		"play_cue",
+		str(request.get("message", "")),
+		str(request.get("title", "")),
+		str(request.get("boss_name", "")),
+		phase_number,
+		str(request.get("phase_label", "")),
+		accent_color,
+		str(request.get("visual_style", "roots")),
+		1.55
+	)
+	await _phase_cue.finished
+	if not is_inside_tree() or token != _phase_queue_token:
+		return
+	_phase_cue_busy = false
+	_start_next_phase_cue()
+
+
+func _phase_label_for_boss(boss_id: String, phase_number: int) -> String:
+	match boss_id:
+		"elder_hollow":
+			return "Awakening" if phase_number <= 2 else "Fury"
+		"corrupted_treant":
+			return "Heartwood Break" if phase_number <= 2 else "Roots Unbound"
+		"fallen_matron":
+			return "Corruption" if phase_number <= 2 else "Descent"
+	return "Phase %d" % phase_number
+
+
+## Cancel only pending warning markers; keep already-fired impacts alive.
+func clear_target_telegraphs() -> void:
+	for child in _world_effects.get_children():
+		if child.get_script() == TELEGRAPH_SCRIPT:
+			child.queue_free()
 
 
 func clear_transients() -> void:
 	_sequence_token += 1
+	_phase_queue_token += 1
+	_phase_queue.clear()
+	_phase_cue_busy = false
 	for child in _world_effects.get_children():
 		child.queue_free()
 	_phase_cue.call("cancel_cue")

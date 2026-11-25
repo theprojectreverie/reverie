@@ -1,0 +1,1 @@
+BEGIN; CREATE INDEX IF NOT EXISTS accounts_email_lower_idx ON accounts (lower(email)); DROP INDEX IF EXISTS accounts_email_lower_uq; COMMIT;

@@ -1,7 +1,16 @@
 class_name VillageProp
 extends Node2D
-## Reusable village prop with an authored sprite and optional physical footprint.
-## The node origin remains the ground-contact/Y-sort point.
+## Reusable village prop using only explicitly mapped authored environment artwork.
+
+const AUTHORED_PROP_ART := {
+	"fern": "res://assets/environment/greenward/fern.svg",
+	"flower_cluster": "res://assets/environment/greenward/wildflower_patch.svg",
+	"bush": "res://assets/environment/greenward/forest_shrub.svg",
+	"berry_bush": "res://assets/environment/greenward/forest_shrub.svg",
+	"moss_rock": "res://assets/environment/greenward/moss_rock.svg",
+	"spirit_bloom": "res://assets/environment/moonpetal/spirit_bloom.svg",
+	"moon_lantern": "res://assets/environment/moonpetal/moon_lantern.svg",
+}
 
 @export var prop_kind: String = ""
 @export var variant: int = 0
@@ -19,29 +28,41 @@ extends Node2D
 @onready var _solid_body: StaticBody2D = $Collision/StaticBody2D
 @onready var _solid_shape: CollisionShape2D = $Collision/StaticBody2D/CollisionShape
 
+
 func _ready() -> void:
 	_apply()
 	_update_collision()
 
+
 func _apply() -> void:
 	if _sprite == null:
 		_sprite = get_node_or_null("Sprite2D") as Sprite2D
-	if _sprite == null or prop_kind.is_empty():
+	if _sprite == null:
 		return
-	var tex := ProceduralArt.prop_texture(prop_kind, variant)
-	if tex == null:
+	var art_path: String = str(AUTHORED_PROP_ART.get(prop_kind, ""))
+	if art_path.is_empty():
+		_sprite.texture = null
+		_sprite.visible = false
 		return
-	_sprite.texture = tex
+	var texture := load(art_path) as Texture2D
+	if texture == null:
+		_sprite.texture = null
+		_sprite.visible = false
+		push_warning("VillageProp has no loadable authored art for kind: " + prop_kind)
+		return
+	_sprite.texture = texture
+	_sprite.visible = true
 	_sprite.centered = false
 	_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	_sprite.offset = Vector2(-float(tex.get_width()) * 0.5, -float(tex.get_height()) + 6.0)
+	_sprite.offset = Vector2(-float(texture.get_width()) * 0.5, -float(texture.get_height()) + 6.0)
 	_sprite.scale = Vector2.ONE * prop_scale
 	_sprite.flip_h = flip_h
 	_sprite.material = null
-	if apply_wind and prop_kind in ["glade_tree", "ancient_tree", "bush", "flower_cluster", "fern", "birch_tree", "willow_tree", "pine_tree", "blossom_tree", "berry_bush", "reeds"]:
+	if apply_wind and prop_kind in ["bush", "flower_cluster", "fern", "berry_bush"]:
 		var world := get_tree().get_first_node_in_group("world") if is_inside_tree() else null
 		if world != null and world.get("wind_material") != null:
 			_sprite.material = world.get("wind_material")
+
 
 func _update_collision() -> void:
 	var body := get_node_or_null("Collision/StaticBody2D") as StaticBody2D

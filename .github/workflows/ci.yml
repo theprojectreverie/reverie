@@ -38,6 +38,12 @@ jobs:
       - name: Validate content JSON
         run: godot --headless --path . --script res://tools/validate_content.gd
 
+      - name: Run battle visual assets smoke test
+        run: godot --headless --path . res://tests/battle_visual_assets_smoke.tscn
+
+      - name: Run audio integration smoke test
+        run: godot --headless --path . res://tests/audio_integration_smoke.tscn
+
       - name: Run automated test suite
         run: godot --headless --path . res://tests/test_runner.tscn
 

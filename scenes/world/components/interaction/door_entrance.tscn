@@ -1,9 +1,49 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/components/interaction/door_entrance.gd" id="1_script"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
 size = Vector2(32, 40)
+
+[sub_resource type="Animation" id="Animation_open"]
+resource_name = "open"
+length = 0.28
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/DoorSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.28), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [0.0, -1.5707963]}
+
+[sub_resource type="Animation" id="Animation_close"]
+resource_name = "close"
+length = 0.28
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/DoorSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.28), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [-1.5707963, 0.0]}
+
+[sub_resource type="Animation" id="Animation_opened"]
+resource_name = "opened"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/DoorSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0), "transitions": PackedFloat32Array(1), "update": 0, "values": [-1.5707963]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_door"]
+_data = {
+&"close": SubResource("Animation_close"),
+&"open": SubResource("Animation_open"),
+&"opened": SubResource("Animation_opened")
+}
 
 [node name="DoorEntrance" type="Node2D"]
 script = ExtResource("1_script")
@@ -28,3 +68,6 @@ monitorable = false
 shape = SubResource("RectangleShape2D_door")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_door")
+}

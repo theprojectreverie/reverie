@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://cbf30eufxb75f"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_01_royal_gardens.tscn" id="1_gardens"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_02_royal_gate.tscn" id="2_gate"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_03_willow_fields.tscn" id="3_fields"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_04_elderwood_grove.tscn" id="4_grove"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_05_forsaken_ruins.tscn" id="5_ruins"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_06_ruined_tower.tscn" id="6_tower"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/stone_road_connector.tscn" id="7_road"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/transitions/01_gardens_to_gate.png" id="transition_1"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/transitions/02_gate_to_willow.png" id="transition_2"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/transitions/03_willow_to_elderwood.png" id="transition_3"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/transitions/04_elderwood_to_ruins.png" id="transition_4"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/transitions/05_ruins_to_tower.png" id="transition_5"]
+
+[node name="SixZoneReverie" type="Node2D" unique_id=478553732]
+y_sort_enabled = true
+
+[node name="RoyalGardens" parent="." unique_id=268062725 instance=ExtResource("1_gardens")]
+position = Vector2(521, -100)
+
+[node name="StoneRoad_1" parent="." unique_id=2052671608 instance=ExtResource("7_road")]
+position = Vector2(600, 100)
+
+[node name="RoyalGate" parent="." unique_id=266074091 instance=ExtResource("2_gate")]
+position = Vector2(4920, 2260)
+
+[node name="StoneRoad_2" parent="." unique_id=879386216 instance=ExtResource("7_road")]
+position = Vector2(4920, 2260)
+
+[node name="WillowFields" parent="." unique_id=1397890619 instance=ExtResource("3_fields")]
+position = Vector2(9240, 4420)
+
+[node name="StoneRoad_3" parent="." unique_id=1262355290 instance=ExtResource("7_road")]
+position = Vector2(9240, 4420)
+
+[node name="ElderwoodGrove" parent="." unique_id=1969992369 instance=ExtResource("4_grove")]
+position = Vector2(13560, 6580)
+
+[node name="StoneRoad_4" parent="." unique_id=1068609236 instance=ExtResource("7_road")]
+position = Vector2(13560, 6580)
+
+[node name="ForsakenRuins" parent="." unique_id=1720827087 instance=ExtResource("5_ruins")]
+position = Vector2(17880, 8740)
+
+[node name="StoneRoad_5" parent="." unique_id=1750294985 instance=ExtResource("7_road")]
+position = Vector2(17880, 8740)
+
+[node name="RuinedTower" parent="." unique_id=1521385106 instance=ExtResource("6_tower")]
+position = Vector2(22200, 10900)
+
+[node name="MapCamera" type="Camera2D" parent="." unique_id=1689490763]
+position = Vector2(11400, 7084)
+zoom = Vector2(0.033, 0.033)
+
+[node name="BiomeTransition_1" type="Sprite2D" parent="."]
+z_index = -21
+texture_filter = 1
+position = Vector2(2750, 1180)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("transition_1")
+
+[node name="BiomeTransition_2" type="Sprite2D" parent="."]
+z_index = -21
+texture_filter = 1
+position = Vector2(7090, 3340)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("transition_2")
+
+[node name="BiomeTransition_3" type="Sprite2D" parent="."]
+z_index = -21
+texture_filter = 1
+position = Vector2(11410, 5500)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("transition_3")
+
+[node name="BiomeTransition_4" type="Sprite2D" parent="."]
+z_index = -21
+texture_filter = 1
+position = Vector2(15730, 7660)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("transition_4")
+
+[node name="BiomeTransition_5" type="Sprite2D" parent="."]
+z_index = -21
+texture_filter = 1
+position = Vector2(20050, 9820)
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("transition_5")
+

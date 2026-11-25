@@ -1,0 +1,560 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_02.png" id="t2"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_03.png" id="t3"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_26.png" id="t26"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_29.png" id="t29"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_30.png" id="t30"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_31.png" id="t31"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_32.png" id="t32"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_33.png" id="t33"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_34.png" id="t34"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_35.png" id="t35"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_36.png" id="t36"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_37.png" id="t37"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_repaired_terrain/tile_50.png" id="t50"]
+
+[node name="WillowSeamCandidates" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(480, 340)
+zoom = Vector2(1, 1)
+
+[node name="P0R0C0" type="Sprite2D" parent="."]
+position = Vector2(120, 45)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P0R0C1" type="Sprite2D" parent="."]
+position = Vector2(152, 61)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P0R0C2" type="Sprite2D" parent="."]
+position = Vector2(184, 77)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P0R1C0" type="Sprite2D" parent="."]
+position = Vector2(88, 61)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P0R1C1" type="Sprite2D" parent="."]
+position = Vector2(120, 77)
+texture_filter = 1
+texture = ExtResource("t26")
+
+[node name="P0R1C2" type="Sprite2D" parent="."]
+position = Vector2(152, 93)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P0R2C0" type="Sprite2D" parent="."]
+position = Vector2(56, 77)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P0R2C1" type="Sprite2D" parent="."]
+position = Vector2(88, 93)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P0R2C2" type="Sprite2D" parent="."]
+position = Vector2(120, 109)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label0" type="Label" parent="."]
+position = Vector2(95, 140)
+text = "Tile 26"
+
+[node name="P1R0C0" type="Sprite2D" parent="."]
+position = Vector2(360, 45)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P1R0C1" type="Sprite2D" parent="."]
+position = Vector2(392, 61)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P1R0C2" type="Sprite2D" parent="."]
+position = Vector2(424, 77)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P1R1C0" type="Sprite2D" parent="."]
+position = Vector2(328, 61)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P1R1C1" type="Sprite2D" parent="."]
+position = Vector2(360, 77)
+texture_filter = 1
+texture = ExtResource("t29")
+
+[node name="P1R1C2" type="Sprite2D" parent="."]
+position = Vector2(392, 93)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P1R2C0" type="Sprite2D" parent="."]
+position = Vector2(296, 77)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P1R2C1" type="Sprite2D" parent="."]
+position = Vector2(328, 93)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P1R2C2" type="Sprite2D" parent="."]
+position = Vector2(360, 109)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label1" type="Label" parent="."]
+position = Vector2(335, 140)
+text = "Tile 29"
+
+[node name="P2R0C0" type="Sprite2D" parent="."]
+position = Vector2(600, 45)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P2R0C1" type="Sprite2D" parent="."]
+position = Vector2(632, 61)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P2R0C2" type="Sprite2D" parent="."]
+position = Vector2(664, 77)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P2R1C0" type="Sprite2D" parent="."]
+position = Vector2(568, 61)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P2R1C1" type="Sprite2D" parent="."]
+position = Vector2(600, 77)
+texture_filter = 1
+texture = ExtResource("t30")
+
+[node name="P2R1C2" type="Sprite2D" parent="."]
+position = Vector2(632, 93)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P2R2C0" type="Sprite2D" parent="."]
+position = Vector2(536, 77)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P2R2C1" type="Sprite2D" parent="."]
+position = Vector2(568, 93)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P2R2C2" type="Sprite2D" parent="."]
+position = Vector2(600, 109)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label2" type="Label" parent="."]
+position = Vector2(575, 140)
+text = "Tile 30"
+
+[node name="P3R0C0" type="Sprite2D" parent="."]
+position = Vector2(840, 45)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P3R0C1" type="Sprite2D" parent="."]
+position = Vector2(872, 61)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P3R0C2" type="Sprite2D" parent="."]
+position = Vector2(904, 77)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P3R1C0" type="Sprite2D" parent="."]
+position = Vector2(808, 61)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P3R1C1" type="Sprite2D" parent="."]
+position = Vector2(840, 77)
+texture_filter = 1
+texture = ExtResource("t31")
+
+[node name="P3R1C2" type="Sprite2D" parent="."]
+position = Vector2(872, 93)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P3R2C0" type="Sprite2D" parent="."]
+position = Vector2(776, 77)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P3R2C1" type="Sprite2D" parent="."]
+position = Vector2(808, 93)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P3R2C2" type="Sprite2D" parent="."]
+position = Vector2(840, 109)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label3" type="Label" parent="."]
+position = Vector2(815, 140)
+text = "Tile 31"
+
+[node name="P4R0C0" type="Sprite2D" parent="."]
+position = Vector2(120, 255)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P4R0C1" type="Sprite2D" parent="."]
+position = Vector2(152, 271)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P4R0C2" type="Sprite2D" parent="."]
+position = Vector2(184, 287)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P4R1C0" type="Sprite2D" parent="."]
+position = Vector2(88, 271)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P4R1C1" type="Sprite2D" parent="."]
+position = Vector2(120, 287)
+texture_filter = 1
+texture = ExtResource("t32")
+
+[node name="P4R1C2" type="Sprite2D" parent="."]
+position = Vector2(152, 303)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P4R2C0" type="Sprite2D" parent="."]
+position = Vector2(56, 287)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P4R2C1" type="Sprite2D" parent="."]
+position = Vector2(88, 303)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P4R2C2" type="Sprite2D" parent="."]
+position = Vector2(120, 319)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label4" type="Label" parent="."]
+position = Vector2(95, 350)
+text = "Tile 32"
+
+[node name="P5R0C0" type="Sprite2D" parent="."]
+position = Vector2(360, 255)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P5R0C1" type="Sprite2D" parent="."]
+position = Vector2(392, 271)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P5R0C2" type="Sprite2D" parent="."]
+position = Vector2(424, 287)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P5R1C0" type="Sprite2D" parent="."]
+position = Vector2(328, 271)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P5R1C1" type="Sprite2D" parent="."]
+position = Vector2(360, 287)
+texture_filter = 1
+texture = ExtResource("t33")
+
+[node name="P5R1C2" type="Sprite2D" parent="."]
+position = Vector2(392, 303)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P5R2C0" type="Sprite2D" parent="."]
+position = Vector2(296, 287)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P5R2C1" type="Sprite2D" parent="."]
+position = Vector2(328, 303)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P5R2C2" type="Sprite2D" parent="."]
+position = Vector2(360, 319)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label5" type="Label" parent="."]
+position = Vector2(335, 350)
+text = "Tile 33"
+
+[node name="P6R0C0" type="Sprite2D" parent="."]
+position = Vector2(600, 255)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P6R0C1" type="Sprite2D" parent="."]
+position = Vector2(632, 271)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P6R0C2" type="Sprite2D" parent="."]
+position = Vector2(664, 287)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P6R1C0" type="Sprite2D" parent="."]
+position = Vector2(568, 271)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P6R1C1" type="Sprite2D" parent="."]
+position = Vector2(600, 287)
+texture_filter = 1
+texture = ExtResource("t34")
+
+[node name="P6R1C2" type="Sprite2D" parent="."]
+position = Vector2(632, 303)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P6R2C0" type="Sprite2D" parent="."]
+position = Vector2(536, 287)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P6R2C1" type="Sprite2D" parent="."]
+position = Vector2(568, 303)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P6R2C2" type="Sprite2D" parent="."]
+position = Vector2(600, 319)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label6" type="Label" parent="."]
+position = Vector2(575, 350)
+text = "Tile 34"
+
+[node name="P7R0C0" type="Sprite2D" parent="."]
+position = Vector2(840, 255)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P7R0C1" type="Sprite2D" parent="."]
+position = Vector2(872, 271)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P7R0C2" type="Sprite2D" parent="."]
+position = Vector2(904, 287)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P7R1C0" type="Sprite2D" parent="."]
+position = Vector2(808, 271)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P7R1C1" type="Sprite2D" parent="."]
+position = Vector2(840, 287)
+texture_filter = 1
+texture = ExtResource("t35")
+
+[node name="P7R1C2" type="Sprite2D" parent="."]
+position = Vector2(872, 303)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P7R2C0" type="Sprite2D" parent="."]
+position = Vector2(776, 287)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P7R2C1" type="Sprite2D" parent="."]
+position = Vector2(808, 303)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P7R2C2" type="Sprite2D" parent="."]
+position = Vector2(840, 319)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label7" type="Label" parent="."]
+position = Vector2(815, 350)
+text = "Tile 35"
+
+[node name="P8R0C0" type="Sprite2D" parent="."]
+position = Vector2(120, 465)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P8R0C1" type="Sprite2D" parent="."]
+position = Vector2(152, 481)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P8R0C2" type="Sprite2D" parent="."]
+position = Vector2(184, 497)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P8R1C0" type="Sprite2D" parent="."]
+position = Vector2(88, 481)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P8R1C1" type="Sprite2D" parent="."]
+position = Vector2(120, 497)
+texture_filter = 1
+texture = ExtResource("t36")
+
+[node name="P8R1C2" type="Sprite2D" parent="."]
+position = Vector2(152, 513)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P8R2C0" type="Sprite2D" parent="."]
+position = Vector2(56, 497)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P8R2C1" type="Sprite2D" parent="."]
+position = Vector2(88, 513)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P8R2C2" type="Sprite2D" parent="."]
+position = Vector2(120, 529)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label8" type="Label" parent="."]
+position = Vector2(95, 560)
+text = "Tile 36"
+
+[node name="P9R0C0" type="Sprite2D" parent="."]
+position = Vector2(360, 465)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P9R0C1" type="Sprite2D" parent="."]
+position = Vector2(392, 481)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P9R0C2" type="Sprite2D" parent="."]
+position = Vector2(424, 497)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P9R1C0" type="Sprite2D" parent="."]
+position = Vector2(328, 481)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P9R1C1" type="Sprite2D" parent="."]
+position = Vector2(360, 497)
+texture_filter = 1
+texture = ExtResource("t37")
+
+[node name="P9R1C2" type="Sprite2D" parent="."]
+position = Vector2(392, 513)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P9R2C0" type="Sprite2D" parent="."]
+position = Vector2(296, 497)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P9R2C1" type="Sprite2D" parent="."]
+position = Vector2(328, 513)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P9R2C2" type="Sprite2D" parent="."]
+position = Vector2(360, 529)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label9" type="Label" parent="."]
+position = Vector2(335, 560)
+text = "Tile 37"
+
+[node name="P10R0C0" type="Sprite2D" parent="."]
+position = Vector2(600, 465)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P10R0C1" type="Sprite2D" parent="."]
+position = Vector2(632, 481)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P10R0C2" type="Sprite2D" parent="."]
+position = Vector2(664, 497)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P10R1C0" type="Sprite2D" parent="."]
+position = Vector2(568, 481)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P10R1C1" type="Sprite2D" parent="."]
+position = Vector2(600, 497)
+texture_filter = 1
+texture = ExtResource("t50")
+
+[node name="P10R1C2" type="Sprite2D" parent="."]
+position = Vector2(632, 513)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P10R2C0" type="Sprite2D" parent="."]
+position = Vector2(536, 497)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P10R2C1" type="Sprite2D" parent="."]
+position = Vector2(568, 513)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="P10R2C2" type="Sprite2D" parent="."]
+position = Vector2(600, 529)
+texture_filter = 1
+texture = ExtResource("t2")
+
+[node name="Label10" type="Label" parent="."]
+position = Vector2(575, 560)
+text = "Tile 50"

@@ -4,3 +4,8 @@
 
 [node name="CharacterInteractionComponent" type="Node"]
 script = ExtResource("1_script")
+
+[node name="ScanTimer" type="Timer" parent="."]
+wait_time = 0.12
+one_shot = false
+autostart = false

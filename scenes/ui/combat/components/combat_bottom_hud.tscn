@@ -1,35 +1,127 @@
-[gd_scene format=3]
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/battle/buttons/attack_button.png" id="6_attack"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/buttons/skill_button.png" id="7_skill"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/buttons/ultimate_button.png" id="8_ultimate"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/buttons/defend_button.png" id="9_defend"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/buttons/item_button.png" id="10_item"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/buttons/end_turn_button.png" id="11_end_turn"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/character_status_panel.png" id="12_active_panel"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/compact_info_panel.png" id="13_roster_panel"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/battle_status_panel.png" id="14_skills_panel"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/battle_log_panel.png" id="15_log_panel"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/meters/sliced/meter_empty_track.png" id="16_meter_track"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/meters/sliced/hp_red_fill.png" id="17_hp_fill"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/meters/sliced/energy_violet_fill.png" id="18_energy_fill"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_active_panel"]
+texture = ExtResource("12_active_panel")
+texture_margin_left = 30.0
+texture_margin_right = 30.0
+texture_margin_top = 24.0
+texture_margin_bottom = 24.0
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_roster_panel"]
+texture = ExtResource("13_roster_panel")
+texture_margin_left = 30.0
+texture_margin_right = 30.0
+texture_margin_top = 24.0
+texture_margin_bottom = 24.0
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_skills_panel"]
+texture = ExtResource("14_skills_panel")
+texture_margin_left = 30.0
+texture_margin_right = 30.0
+texture_margin_top = 24.0
+texture_margin_bottom = 24.0
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_log_panel"]
+texture = ExtResource("15_log_panel")
+texture_margin_left = 30.0
+texture_margin_right = 30.0
+texture_margin_top = 24.0
+texture_margin_bottom = 24.0
+content_margin_left = 24.0
+content_margin_right = 24.0
+content_margin_top = 24.0
+content_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_meter_track"]
+texture = ExtResource("16_meter_track")
+texture_margin_left = 24.0
+texture_margin_right = 18.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hp_fill"]
+texture = ExtResource("17_hp_fill")
+texture_margin_left = 28.0
+texture_margin_right = 18.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_energy_fill"]
+texture = ExtResource("18_energy_fill")
+texture_margin_left = 24.0
+texture_margin_right = 18.0
 
 [node name="CombatBottomHUD" type="HBoxContainer"]
 theme_override_constants/separation = 10
 custom_minimum_size = Vector2(0, 180)
 
 [node name="ActiveInfoPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(280, 0)
+custom_minimum_size = Vector2(235, 0)
+theme_override_styles/panel = SubResource("StyleBoxTexture_active_panel")
 
 [node name="InfoContent" type="VBoxContainer" parent="ActiveInfoPanel"]
 theme_override_constants/separation = 4
 
 [node name="ActorLabel" type="Label" parent="ActiveInfoPanel/InfoContent"]
+theme_override_colors/font_color = Color(0.91, 0.89, 0.84, 1)
+theme_override_font_sizes/font_size = 16
 text = "Preparing..."
+text_overrun_behavior = 3
 
 [node name="HPBar" type="ProgressBar" parent="ActiveInfoPanel/InfoContent"]
-custom_minimum_size = Vector2(0, 12)
+custom_minimum_size = Vector2(0, 14)
+theme_override_styles/background = SubResource("StyleBoxTexture_meter_track")
+theme_override_styles/fill = SubResource("StyleBoxTexture_hp_fill")
 show_percentage = false
 
 [node name="EnergyBar" type="ProgressBar" parent="ActiveInfoPanel/InfoContent"]
-custom_minimum_size = Vector2(0, 8)
+custom_minimum_size = Vector2(0, 11)
+theme_override_styles/background = SubResource("StyleBoxTexture_meter_track")
+theme_override_styles/fill = SubResource("StyleBoxTexture_energy_fill")
 show_percentage = false
 
 [node name="StatusLabel" type="Label" parent="ActiveInfoPanel/InfoContent"]
+theme_override_colors/font_color = Color(0.48, 0.82, 0.78, 1)
+theme_override_font_sizes/font_size = 11
+text_overrun_behavior = 3
+
+[node name="StatusIcons" type="HBoxContainer" parent="ActiveInfoPanel/InfoContent"]
+custom_minimum_size = Vector2(0, 18)
+theme_override_constants/separation = 3
+mouse_filter = 2
 
 [node name="RosterPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(210, 0)
+custom_minimum_size = Vector2(190, 0)
+theme_override_styles/panel = SubResource("StyleBoxTexture_roster_panel")
 
 [node name="RosterContent" type="VBoxContainer" parent="RosterPanel"]
 theme_override_constants/separation = 3
 
 [node name="RosterCaption" type="Label" parent="RosterPanel/RosterContent"]
+theme_override_colors/font_color = Color(0.62, 0.65, 0.72, 1)
+theme_override_font_sizes/font_size = 10
 text = "PARTY"
 
 [node name="RosterItems" type="VBoxContainer" parent="RosterPanel/RosterContent"]
@@ -37,9 +129,63 @@ theme_override_constants/separation = 2
 
 [node name="SkillsPanel" type="PanelContainer" parent="."]
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_skills_panel")
 
 [node name="SkillsContent" type="VBoxContainer" parent="SkillsPanel"]
 theme_override_constants/separation = 5
+
+[node name="ActionCategories" type="GridContainer" parent="SkillsPanel/SkillsContent"]
+columns = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 5
+
+[node name="AttackButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
+custom_minimum_size = Vector2(148, 40)
+ignore_texture_size = true
+stretch_mode = 5
+size_flags_horizontal = 3
+texture_normal = ExtResource("6_attack")
+tooltip_text = "Show attack abilities"
+
+[node name="SkillButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
+custom_minimum_size = Vector2(148, 40)
+ignore_texture_size = true
+stretch_mode = 5
+size_flags_horizontal = 3
+texture_normal = ExtResource("7_skill")
+tooltip_text = "Show support and utility skills"
+
+[node name="UltimateButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
+custom_minimum_size = Vector2(148, 40)
+ignore_texture_size = true
+stretch_mode = 5
+size_flags_horizontal = 3
+texture_normal = ExtResource("8_ultimate")
+tooltip_text = "Show ultimate ability"
+
+[node name="DefendButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
+custom_minimum_size = Vector2(148, 40)
+ignore_texture_size = true
+stretch_mode = 5
+size_flags_horizontal = 3
+texture_normal = ExtResource("9_defend")
+tooltip_text = "Reduce incoming damage until your next turn"
+
+[node name="ItemButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
+custom_minimum_size = Vector2(148, 40)
+ignore_texture_size = true
+stretch_mode = 5
+size_flags_horizontal = 3
+texture_normal = ExtResource("10_item")
+tooltip_text = "Battle items"
+
+[node name="EndTurnButton" type="TextureButton" parent="SkillsPanel/SkillsContent/ActionCategories"]
+custom_minimum_size = Vector2(148, 40)
+ignore_texture_size = true
+stretch_mode = 5
+size_flags_horizontal = 3
+texture_normal = ExtResource("11_end_turn")
+tooltip_text = "End this character's turn"
 
 [node name="SkillItems" type="HFlowContainer" parent="SkillsPanel/SkillsContent"]
 theme_override_constants/h_separation = 6
@@ -47,17 +193,24 @@ theme_override_constants/v_separation = 4
 size_flags_vertical = 3
 
 [node name="HintLabel" type="Label" parent="SkillsPanel/SkillsContent"]
+theme_override_colors/font_color = Color(0.70, 0.73, 0.79, 1)
+theme_override_font_sizes/font_size = 11
+text_overrun_behavior = 3
 
 [node name="LogPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(260, 0)
+custom_minimum_size = Vector2(235, 0)
+theme_override_styles/panel = SubResource("StyleBoxTexture_log_panel")
 
 [node name="LogContent" type="VBoxContainer" parent="LogPanel"]
 theme_override_constants/separation = 4
 
 [node name="LogCaption" type="Label" parent="LogPanel/LogContent"]
+theme_override_colors/font_color = Color(0.62, 0.65, 0.72, 1)
+theme_override_font_sizes/font_size = 10
 text = "BATTLE LOG"
 
 [node name="LogText" type="RichTextLabel" parent="LogPanel/LogContent"]
+bbcode_enabled = true
 fit_content = false
 scroll_active = true
 scroll_following = true

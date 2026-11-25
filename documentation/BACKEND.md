@@ -1,6 +1,6 @@
 # Backend and Database Recommendations
 
-> **Current state:** there is **no backend** in this repository. The vertical slice is offline and client-authoritative. This document is the recommended design for Phase 12+, not a description of running code. The SQL file at `backend/schemas/schema.sql` is a proposed schema, not a deployed migration.
+> **Current state (2026-11-19):** the offline vertical slice remains client-authoritative, but Phase 12 foundation work has begun. `backend/api/` now contains a Fastify/TypeScript service with Argon2id registration, email-verification token handling, login, rotating refresh sessions, logout and a PostgreSQL health check. `backend/migrations/002_online_multiplayer.sql` adds co-op lobby/presence/event and PvP match tables; `003_auth_lifecycle.sql` adds email-verification tokens. PostgreSQL 17 is installed locally as a Windows service; database `reverie` and application role `reverie_app` are provisioned, and the base schema plus migrations 002–011 are applied (41 public tables). The API health endpoint has returned HTTP 200 with `database: ok`; the backend suite currently reports 67 passing tests, and typecheck/build pass. This remains a local development foundation: no public backend is deployed, production email delivery is absent, and live two-account registration/co-op/PvP integration is still unverified. The Godot `AuthGateway` autoload provides the initial HTTP client adapter.
 
 The non-negotiable rule for the online game:
 
@@ -454,8 +454,10 @@ Do not open trading, PvP or premium purchases before steps 1–7 are proven unde
 
 ## 10. What this document does not claim
 
-- No backend service is implemented in this repository.
-- No database is deployed.
-- No authentication, payment, anti-cheat or moderation system exists yet.
+- PostgreSQL 17, the local `reverie` database, the `reverie_app` role and migrations 002–011 are installed locally. The API health check reports database connectivity, but live registration/login, refresh/logout, two-account co-op/WebSocket and two-client PvP flows still need end-to-end integration tests.
+- Email verification uses a development-only token response; production email delivery/provider integration and password recovery are still required.
+- No player bootstrap/cloud-save migration, friend-request/block-management API, obstacle-level map collision/navigation validation, ranked matchmaking, trading/marketplace, guilds, or server-owned gacha/economy/reward claims are implemented yet. PvP combat resolution is implemented server-side for friendly duels, but it has not been validated through a live two-client database-backed battle.
+- Movement validation currently enforces lobby-region identity, world coordinate safety, speed plausibility and authored rectangular bounds for the two maps; it does not yet validate individual walls, water, prop footprints or navigation connectivity.
+- No production payment, anti-cheat or moderation system exists yet.
 - The SQL schema is a starting point and must be reviewed by an experienced backend/security engineer before production use.
 - The client’s local save is editable and must never be treated as authoritative once online features exist.

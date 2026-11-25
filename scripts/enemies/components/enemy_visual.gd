@@ -50,10 +50,11 @@ func configure_enemy(root: Node2D, definition: Dictionary, boss: bool, spawn_see
 	actor_visual.setup(palette, kind, enemy_id, "Monster", str(definition.get("element", "neutral")))
 	actor_visual.is_boss = boss
 	actor_visual.visual_scale = (1.35 if boss else 1.0) * (0.85 + float(spawn_seed % 30) * 0.01)
-	if not boss and enemy_id != "moonpetal_sprite":
-		var silhouettes := ["mossling", "thornhound", "fae_marauder", "glade_wisp", "corrupted_treant"]
-		actor_visual.def_id = str(silhouettes[(spawn_seed >> 3) % silhouettes.size()])
-	actor_visual.configure_character(enemy_id)
+	# Preserve the definition's species id for the procedural fallback painter.
+	# Randomly substituting another enemy silhouette made the visual contradict
+	# its name, palette, combat definition and dedicated art lookup.
+	actor_visual.def_id = enemy_id
+	actor_visual.configure_enemy_art(enemy_id)
 	_configure_accent(root, boss, spawn_seed)
 	_configure_name(root, str(definition.get("name", "Monster")), boss)
 	emit_setup_completed()

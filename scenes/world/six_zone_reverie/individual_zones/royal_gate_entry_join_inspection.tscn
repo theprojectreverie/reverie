@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_transfer_joins_visual_review.tscn" id="review"]
+
+[node name="RoyalGateEntryJoinInspection" instance=ExtResource("review")]
+
+[node name="Camera2D" parent="." index="4"]
+position = Vector2(0, 550)
+zoom = Vector2(1.35, 1.35)

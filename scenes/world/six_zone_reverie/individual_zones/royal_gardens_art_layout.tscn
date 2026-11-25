@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://b506ka2d16qav"]
+
+[ext_resource type="Texture2D" uid="uid://dw5tfreh46mlv" path="res://assets/environment/six_zone_reverie/royal_gardens_candidates/gates/royal_banner.png" id="banner"]
+[ext_resource type="Texture2D" uid="uid://d3qy6dfbvsg0" path="res://assets/environment/six_zone_reverie/royal_gardens_candidates/benches/stone_bench.png" id="bench"]
+[ext_resource type="Texture2D" uid="uid://60tb6wkbagt1" path="res://assets/environment/six_zone_reverie/royal_gardens_candidates/trees/pink_blossom_tree.png" id="cherry"]
+[ext_resource type="Texture2D" uid="uid://b5p6wo27f8god" path="res://assets/environment/six_zone_reverie/royal_gardens_candidates/trees/royal_cypress_tree.png" id="cypress"]
+[ext_resource type="Texture2D" uid="uid://70fxjeq842h0" path="res://assets/environment/six_zone_reverie/royal_gardens_candidates/vegetation/white_flower_shrub.png" id="whiteflowers"]
+[ext_resource type="Texture2D" uid="uid://bmxw5qpo3w5rh" path="res://assets/environment/six_zone_reverie/royal_gardens_candidates/trees/purple_wisteria_tree.png" id="wisteria"]
+
+[node name="RoyalGardensArtLayout" type="Node2D" unique_id=1154361906]
+y_sort_enabled = true
+
+[node name="CherryWest" type="Sprite2D" parent="." unique_id=2077061716]
+texture_filter = 1
+position = Vector2(-2440, 1740)
+scale = Vector2(3, 3)
+texture = ExtResource("cherry")
+
+[node name="WisteriaNearCastle" type="Sprite2D" parent="." unique_id=1886369226]
+texture_filter = 1
+position = Vector2(-1980, 940)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("wisteria")
+
+[node name="CypressNorth" type="Sprite2D" parent="." unique_id=549262564]
+texture_filter = 1
+position = Vector2(-150, 180)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("cypress")
+
+[node name="NorthGardenBench" type="Sprite2D" parent="." unique_id=2116320537]
+texture_filter = 1
+position = Vector2(450, 1190)
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("bench")
+
+[node name="WhiteFlowersNorth" type="Sprite2D" parent="." unique_id=576097930]
+texture_filter = 1
+position = Vector2(1050, 900)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("whiteflowers")
+
+[node name="EastRoadBanner" type="Sprite2D" parent="." unique_id=1293589424]
+texture_filter = 1
+position = Vector2(2200, 2580)
+scale = Vector2(2, 2)
+texture = ExtResource("banner")

@@ -28,6 +28,8 @@ const ANIM_RUN := 2
 const GLOW_INTERVAL := 0.25
 
 var input_enabled: bool = true
+## Network recovery pauses movement without overriding menu/combat input ownership.
+var network_recovery_paused: bool = false
 var visual: ActorVisual
 var camera: Camera2D
 var nearby_interactable: Interactable = null
@@ -40,6 +42,10 @@ var presentation_component: PlayerPresentationComponent
 var avatar_id: String = ""
 
 var facing_direction: Vector2 = Vector2(0.0, 1.0)
+
+
+func set_network_recovery_paused(paused: bool) -> void:
+	network_recovery_paused = paused
 
 
 func _ready() -> void:

@@ -1,4 +1,4 @@
-class_name CastleLayout
+﻿class_name CastleLayout
 extends RefCounted
 ## Shared layout data for the Castle & Royal Gardens (Castle Asset Pack v0.2).
 ##
@@ -13,8 +13,9 @@ extends RefCounted
 ## down to the player spawn; the two cross axes are the garden avenues.
 
 ## Screen-space rect the ground covers (matches regions.json "map_bounds").
-const SCREEN_MIN := Vector2(-480, -360)
-const SCREEN_MAX := Vector2(1920, 1440)
+const SCREEN_MIN := Vector2(-544, -714)
+const SCREEN_MAX := Vector2(3800, 7200)
+const CAMERA_EDGE_PADDING := Vector2(64.0, 64.0)
 
 ## The screen-vertical spine: constant (gx - gy). Castle gate -> spawn.
 const SPINE_DIFF := 20
@@ -49,8 +50,8 @@ const WEST_POND_BYPASS: Array[Vector2i] = [
 ]
 
 ## Grid bounds that can contain the authored screen rect.
-const GRID_MIN := Vector2i(-14, -35)
-const GRID_MAX := Vector2i(65, 45)
+const GRID_MIN := Vector2i(-35, -80)
+const GRID_MAX := Vector2i(300, 240)
 
 
 ## True when the grid cell is one of the two reflecting ponds.
@@ -123,3 +124,4 @@ static func covers_screen_rect(gx: int, gy: int) -> bool:
 	var pos := IsoMath.grid_to_world(float(gx), float(gy))
 	return pos.x + 32.0 >= SCREEN_MIN.x and pos.x - 32.0 <= SCREEN_MAX.x \
 		and pos.y + 16.0 >= SCREEN_MIN.y and pos.y - 16.0 <= SCREEN_MAX.y
+

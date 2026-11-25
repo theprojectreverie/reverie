@@ -48,15 +48,18 @@ func load_from_dict(data: Dictionary) -> void:
 		if typeof(entry) != TYPE_DICTIONARY:
 			continue
 		var instance: CharacterInstance = CharacterInstance.from_dict(entry)
-		if ContentDB.get_character(instance.char_id) == null or instance.uid.is_empty():
+		if instance.uid.is_empty():
 			continue
 		if state.REMOVED_CHARACTERS.has(instance.char_id):
-			# Retire removed starter characters while refunding all equipped items.
+			# Retire archived characters before definition lookup, so their gear
+			# is still refunded even though they are excluded from ContentDB.
 			removed_uids[instance.uid] = true
 			for slot in instance.equipment.keys():
 				var item_id: String = str(instance.equipment[slot])
 				if not item_id.is_empty():
 					refunded_items[item_id] = int(refunded_items.get(item_id, 0)) + 1
+			continue
+		if ContentDB.get_character(instance.char_id) == null:
 			continue
 		state.roster.append(instance)
 
@@ -84,6 +87,9 @@ func load_from_dict(data: Dictionary) -> void:
 	var saved_daily_rewards: Variant = data.get("daily_rewards", {})
 	state.daily_rewards = saved_daily_rewards.duplicate(true) if typeof(saved_daily_rewards) == TYPE_DICTIONARY else {}
 	state.flags = data.get("flags", {})
+	var checkpoint: Variant = state.flags.get("six_zone_checkpoint", {})
+	if checkpoint is Dictionary and str(checkpoint.get("zone", "")) in ["StandaloneZone01", "StandaloneZone02", "StandaloneZone03", "StandaloneZone04", "StandaloneZone05", "StandaloneZone06"]:
+		state.flags["tutorial_complete"] = true
 	var saved_gear_levels: Variant = data.get("gear_levels", {})
 	state.gear_levels = saved_gear_levels.duplicate(true) if typeof(saved_gear_levels) == TYPE_DICTIONARY else {}
 	var saved_gear_rerolls: Variant = data.get("gear_rerolls", {})

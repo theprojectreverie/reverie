@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://decg4mhgu0vl6"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Boss_Arena/Flooring/arena_floor_dark_01.tscn" id="tile_interior"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/gothic_architecture.tscn" id="gothic_arch"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/revienna.tscn" id="revienna_boss"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Ground/path_corrupted_stone.tscn" id="tile_c"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/grass_dark_01.tscn" id="tile_g"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Ground/gothic_courtyard_floor_01.tscn" id="tile_hall"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/mossy_stone_01.tscn" id="tile_m"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Ground/gothic_courtyard_floor_02.tscn" id="tile_trim"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_06_ground_locked.tscn" id="locked_ground"]
+
+[node name="RuinedTower" type="Node2D" unique_id=703380797]
+y_sort_enabled = true
+
+[node name="GroundTiles" parent="." instance=ExtResource("locked_ground")]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Revienna" parent="." unique_id=112670322 instance=ExtResource("revienna_boss")]
+position = Vector2(0, 1050)
+
+[node name="GothicArchitecture" parent="." unique_id=537425873 instance=ExtResource("gothic_arch")]
+position = Vector2(0, 0)
+
+[editable path="GothicArchitecture"]

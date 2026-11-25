@@ -1,53 +1,51 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/reverie_royal_wall_x.tscn" id="1_wx"]
-[ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/reverie_royal_wall_y.tscn" id="2_wy"]
-[ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/reverie_royal_tower.tscn" id="3_tower"]
-[ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/reverie_royal_gatehouse.tscn" id="4_gate"]
-[ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/reverie_royal_keep.tscn" id="5_keep"]
-[ext_resource type="PackedScene" path="res://scenes/world/castle_gardens/components/reverie_royal_corner.tscn" id="6_corner"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/grand_royal_palace.png" id="1_palace"]
+[sub_resource type="RectangleShape2D" id="RearKeepBlockerShape"]
+size = Vector2(110, 80)
+
+[sub_resource type="RectangleShape2D" id="WestWingCollision"]
+size = Vector2(140, 90)
+
+[sub_resource type="RectangleShape2D" id="EastWingCollision"]
+size = Vector2(140, 90)
+
+[sub_resource type="RectangleShape2D" id="FrontFacadeCollision"]
+size = Vector2(150, 90)
 
 [node name="ReverieRoyalGardensCastleCollection" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(-416, -196)
-scale = Vector2(1.65, 1.65)
 
-[node name="CastleKeep" parent="." instance=ExtResource("5_keep")]
+[node name="CastleKeep" type="Node2D" parent="."]
 position = Vector2(640, 252)
 scale = Vector2(1.42, 1.42)
+y_sort_enabled = true
 
-[node name="WestFlankTower" parent="." instance=ExtResource("3_tower")]
-position = Vector2(349, 266)
-scale = Vector2(0.78, 0.78)
+[node name="KeepArtwork" type="Sprite2D" parent="CastleKeep"]
+texture = ExtResource("1_palace")
+position = Vector2(0, -104)
+scale = Vector2(0.82, 0.82)
 
-[node name="EastFlankTower" parent="." instance=ExtResource("3_tower")]
-position = Vector2(931, 266)
-scale = Vector2(0.78, 0.78)
+[node name="CollisionBody" type="StaticBody2D" parent="CastleKeep"]
+collision_layer = 1
+collision_mask = 0
 
-[node name="WestCorner" parent="." instance=ExtResource("6_corner")]
-position = Vector2(400, 370)
-scale = Vector2(0.88, 0.88)
+[node name="KeepWallSolid" type="StaticBody2D" parent="CastleKeep"]
+position = Vector2(0, -82)
+collision_layer = 1
+collision_mask = 0
 
-[node name="EastCorner" parent="." instance=ExtResource("6_corner")]
-position = Vector2(880, 370)
-scale = Vector2(-0.88, 0.88)
+[node name="KeepWallShape" type="CollisionShape2D" parent="CastleKeep/KeepWallSolid"]
+shape = SubResource("RearKeepBlockerShape")
 
-[node name="NorthWestWall" parent="." instance=ExtResource("1_wx")]
-position = Vector2(505, 345)
-scale = Vector2(0.88, 0.88)
+[node name="WestWing" type="CollisionShape2D" parent="CastleKeep/CollisionBody"]
+position = Vector2(-145, -40)
+shape = SubResource("WestWingCollision")
 
-[node name="NorthEastWall" parent="." instance=ExtResource("1_wx")]
-position = Vector2(775, 345)
-scale = Vector2(0.88, 0.88)
+[node name="EastWing" type="CollisionShape2D" parent="CastleKeep/CollisionBody"]
+position = Vector2(145, -40)
+shape = SubResource("EastWingCollision")
 
-[node name="WestSideWall" parent="." instance=ExtResource("2_wy")]
-position = Vector2(450, 398)
-scale = Vector2(0.88, 0.88)
-
-[node name="EastSideWall" parent="." instance=ExtResource("2_wy")]
-position = Vector2(830, 398)
-scale = Vector2(0.88, 0.88)
-
-[node name="GrandGatehouse" parent="." instance=ExtResource("4_gate")]
-position = Vector2(640, 433)
-scale = Vector2(1.06, 1.06)
+[node name="FrontFacade" type="CollisionShape2D" parent="CastleKeep/CollisionBody"]
+position = Vector2(0, -40)
+shape = SubResource("FrontFacadeCollision")

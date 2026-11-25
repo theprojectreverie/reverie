@@ -184,6 +184,10 @@ the expected malformed-save recovery warning appears. Full log:
 `artifacts/qa/chunk_region_layout_regression_2026-11-17.log`.
 
 Focused scene verifiers (run individually after editor import):
+- `castle_pond_locomotion_smoke.tscn` — physically walks the authored west/east Royal Gardens pond bypasses in both directions using the real player locomotion and collision world; asserts all four cardinal directions, dry-foot shoreline traversal, water slowdown and dry-ground recovery, and confirms diagonal touch input has the same speed budget as cardinal input (226.7 px/s in the current run). Run with `godot --headless --path . res://tests/castle_pond_locomotion_smoke.tscn`.
+- `online_coop_game_scene_smoke.tscn` — 19 checks against the actual playable `GameScreen`: remote party visuals, interpolation, duplicate/stale snapshot handling, recovery lock/unlock, authoritative position restore and absent-member cleanup. It explicitly drains the global `AudioDirector` at shutdown; the verbose run exits without leaked audio playback instances or resources.
+- `player_environment_collision_smoke.gd` — checks that palace walls, wing walls and perimeter fences block the real player while the grand gate approach stays open.
+- `royal_gate_collision_smoke.tscn` — checks both gate piers, the central opening and the side fountain collider using real CharacterBody2D movement.
 - `verify_boss_actors.tscn` — boss visuals, Matron phase thresholds, Verdict
   impact pillars, signal timing and temporary VFX cleanup.
 - `verify_character_avatars.tscn` — Gerald, Lilith and Kael, 72 animations

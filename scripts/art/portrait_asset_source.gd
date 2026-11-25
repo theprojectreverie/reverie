@@ -1,18 +1,15 @@
-class_name PortraitAssetSource
+﻿class_name PortraitAssetSource
 extends RefCounted
-## PORTRAIT ASSET SOURCE — Part 6 of PROJECT FANTASY Phase 5 (FOUNDATION).
+## PORTRAIT ASSET SOURCE — defensive loader for authored portrait exports.
 ##
-## ZERO final assets exist. Every shipped portrait is a RUNTIME PROCEDURAL
-## PLACEHOLDER drawn by scripts/ui/portrait_view.gd (PortraitView). This file is
-## a pure CONTRACT / loader seam, NOT art. When a real painted portrait is
-## dropped at the expected path, texture_for() returns it; otherwise it returns
-## null SAFELY (never crashes) and the caller keeps the procedural fallback.
-## This phase creates NO image/binary file at any expected path.
+## The project now includes painted collection portraits and separate
+## protagonist/HUD exports. The canonical HUD class is validated strictly;
+## collection exports are loaded at their authored dimensions without being
+## mislabeled as HUD cut-outs. Missing or invalid files return null safely so
+## PortraitView can use its procedural fallback.
 ##
 ## PURE / headless: plain data + defensive FileAccess / ResourceLoader / load
-## checks. NO nodes, NO SceneTree, NO autoloads, NO generated textures. The
-## LATER round will edit PortraitView to call texture_for() and fall back to
-## procedural art when it returns null.
+## checks. NO nodes, NO SceneTree, NO autoloads, NO generated textures.
 
 # 12 first characters (explicit copy of CharacterArtSpec.CHARACTER_IDS).
 const CHARACTER_IDS: Array[String] = [
@@ -141,7 +138,7 @@ static func report() -> Dictionary:
 		per_character[cid] = {
 			"status": st,
 			"hud_path": expected_path(cid, "hud"),
-			"procedural_fallback": "scripts/ui/portrait_view.gd (PortraitView)",
+			"procedural_fallback": "PortraitView collection export when present; otherwise scripts/ui/portrait_view.gd procedural art",
 		}
 		if st == "final":
 			present.append(cid)
@@ -164,7 +161,7 @@ static func report() -> Dictionary:
 		},
 		"per_character": per_character,
 		"replacement_seam": replacement_seam(),
-		"note": "ZERO final portraits. Missing assets return null -> procedural PortraitView fallback. No image/binary art file was created in this phase.",
+		"note": "No validated transparent HUD cut-outs yet. Collection portraits are loaded through the collection size class when present; otherwise PortraitView uses its procedural fallback.",
 	}
 
 

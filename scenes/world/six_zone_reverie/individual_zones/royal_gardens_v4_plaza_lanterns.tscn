@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/cleaned_20261124/art_42.png" id="lantern"]
+
+[node name="RoyalGardenPlazaLanternsV4" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CastleApproachLantern" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1100, 1330)
+scale = Vector2(0.8120, 0.8120)
+texture = ExtResource("lantern")
+
+[node name="PlazaWestLantern" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1350, 1870)
+scale = Vector2(0.8241, 0.8241)
+texture = ExtResource("lantern")
+
+[node name="PlazaNortheastLantern" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-240, 1760)
+scale = Vector2(0.8241, 0.8241)
+texture = ExtResource("lantern")
+
+[node name="PlazaSouthwestLantern" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-864, 2352)
+scale = Vector2(0.7877, 0.7877)
+texture = ExtResource("lantern")

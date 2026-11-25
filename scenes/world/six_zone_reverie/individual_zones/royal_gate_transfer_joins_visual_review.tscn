@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_02_royal_gate.tscn" id="zone"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_transfer_road_connectors.tscn" id="connectors"]
+
+[node name="RoyalGateTransferJoinsVisualReview" type="Node2D"]
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+position = Vector2(130, -82)
+
+[node name="EntryRoad" parent="." instance=ExtResource("road")]
+position = Vector2(-430, 124)
+
+[node name="ExitRoad" parent="." instance=ExtResource("road")]
+position = Vector2(1554, 2364)
+
+[node name="TransferConnectors" parent="." instance=ExtResource("connectors")]
+
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(70, 1570)
+enabled = true
+zoom = Vector2(0.23, 0.23)

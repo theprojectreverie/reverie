@@ -26,7 +26,7 @@ func _run() -> void:
 		"Road z-order contract changed unexpectedly")
 
 	var ribbons := road_assembly.get_children()
-	assert(ribbons.size() == 9, "Expected nine authored garden road ribbons")
+	assert(ribbons.size() == 10, "Expected ten authored garden road ribbons")
 	assert(road_assembly.has_node("NorthCastleThresholdApron"), "North castle threshold apron is missing")
 	assert(road_assembly.has_node("WestLowerGateWalk") and road_assembly.has_node("EastLowerGateWalk"), "Lower side-gate walks are missing")
 	for ribbon in ribbons:

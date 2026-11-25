@@ -39,59 +39,46 @@ func rebuild_main() -> void:
 	var featured_rarity := featured_def.rarity if featured_def != null else "legendary"
 	screen._featured_id = featured_id
 	screen._featured_premium = UITheme.is_premium_rarity(featured_rarity)
-	# Use Nyx's supplied bespoke banner artwork when she is featured.
-	# Scarlet Requiem is an independent featured character and banner.
 	var featured_effect := UITheme.rarity_effect(featured_rarity)
 	var featured_glow: Color = featured_effect.get("glow", UITheme.GOLD_BRIGHT)
 	var featured_aura := clampf(float(featured_effect.get("aura", 0.0)), 0.0, 1.0)
-	var nyx_banner_path := "res://assets/characters/nyx/Nyx_Vaelora_Hollow_Moon_Overture.png"
-	var has_nyx_banner_art := featured_id == "nyx" and ResourceLoader.exists(nyx_banner_path)
-	var is_scarlet_requiem := str(screen._selected_banner) == "scarlet_requiem" and featured_id == "scarlet_requiem"
-	if has_nyx_banner_art:
-		var banner_art := GachaScreen.FEATURED_BANNER_ARTWORK_SCENE.instantiate() as TextureRect
-		banner_art.name = "NyxFeaturedBannerArtwork"
-		banner_art.texture = load(nyx_banner_path) as Texture2D
-		art.add_child(banner_art)
-	elif is_scarlet_requiem:
-		add_scarlet_requiem_banner_template(art, banner, featured_def, featured_glow)
-	else:
-		var portrait_backdrop := GachaScreen.FEATURED_BANNER_ART_FRAME_SCENE.instantiate() as PanelContainer
-		portrait_backdrop.add_theme_stylebox_override(
-			"panel",
-			UITheme.style(
-				Color("#090d1a").lerp(Color(featured_glow.r, featured_glow.g, featured_glow.b, 1.0), 0.06 + featured_aura * 0.12),
-				Color(featured_glow.r, featured_glow.g, featured_glow.b, 0.42 + featured_aura * 0.38),
-				14,
-				2 if screen._featured_premium else 1,
-				8
-			)
+	var portrait_backdrop := GachaScreen.FEATURED_BANNER_ART_FRAME_SCENE.instantiate() as PanelContainer
+	portrait_backdrop.add_theme_stylebox_override(
+		"panel",
+		UITheme.style(
+			Color(0.0, 0.0, 0.0, 0.0),
+			Color(featured_glow.r, featured_glow.g, featured_glow.b, 0.42 + featured_aura * 0.38),
+			14,
+			2 if screen._featured_premium else 1,
+			8
 		)
-		var stage := portrait_backdrop.get_node("FrameContent/StageLayer/Stage") as FeaturedSummonStage
-		stage.accent = featured_glow
-		var portrait_center := portrait_backdrop.get_node("FrameContent/PortraitCenter") as CenterContainer
-		var portrait := GachaScreen.PORTRAIT_VIEW_SCENE.instantiate() as PortraitView
-		portrait.custom_minimum_size = Vector2(252, 292)
-		portrait.show_frame = false
-		if featured_def != null:
-			portrait.setup_character(featured_def)
-			var featured_portrait_path := "res://assets/portraits/summon/%s.png" % featured_def.id
-			if ResourceLoader.exists(featured_portrait_path):
-				var featured_texture := load(featured_portrait_path) as Texture2D
-				if featured_texture != null:
-					portrait.set_portrait_texture(featured_texture)
-		else:
-			portrait.setup({}, "Human", "neutral", "legendary", 0)
-		portrait_center.add_child(portrait)
-		art.add_child(portrait_backdrop)
+	)
+	var portrait_center := portrait_backdrop.get_node("FrameContent/PortraitCenter") as CenterContainer
+	var portrait := GachaScreen.PORTRAIT_VIEW_SCENE.instantiate() as PortraitView
+	# Use the complete 2:3 painted portrait as the card itself. Keep its native
+	# aspect ratio so no generic ritual backdrop is exposed around the artwork.
+	portrait.custom_minimum_size = Vector2(320, 480)
+	portrait.show_frame = false
+	portrait.show_rarity_effect = false
+	if featured_def != null:
+		portrait.setup_character(featured_def)
+		var featured_portrait_path := "res://assets/portraits/summon/%s.png" % featured_def.id
+		if ResourceLoader.exists(featured_portrait_path):
+			var featured_texture := load(featured_portrait_path) as Texture2D
+			if featured_texture != null:
+				portrait.set_portrait_texture(featured_texture)
+	else:
+		portrait.setup({}, "Human", "neutral", "legendary", 0)
+	portrait_center.add_child(portrait)
+	art.add_child(portrait_backdrop)
 
-	if not has_nyx_banner_art and not is_scarlet_requiem:
-		var banner_name := UIFactory.heading(str(banner.get("name", screen._selected_banner)), 24, UITheme.GOLD_BRIGHT)
-		banner_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		art.add_child(banner_name)
-		var subtitle := UIFactory.label(str(banner.get("subtitle", "")), 12, UITheme.TEXT_DIM)
-		subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		art.add_child(subtitle)
+	var banner_name := UIFactory.heading(str(banner.get("name", screen._selected_banner)), 24, UITheme.GOLD_BRIGHT)
+	banner_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	art.add_child(banner_name)
+	var subtitle := UIFactory.label(str(banner.get("subtitle", "")), 12, UITheme.TEXT_DIM)
+	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	art.add_child(subtitle)
 	var chips := UIFactory.hbox(6)
 	chips.alignment = BoxContainer.ALIGNMENT_CENTER
 	chips.add_child(UIFactory.chip(str(banner.get("type", "standard")).capitalize(), UITheme.VIOLET))
@@ -117,11 +104,11 @@ func rebuild_main() -> void:
 	info_scroll.add_child(info)
 
 	var wallet := UIFactory.hbox(8)
-	wallet.add_child(UIFactory.chip("Crystals  " + UIFactory.number(GameState.inventory_domain.currency("crystals")), UITheme.TEAL))
-	wallet.add_child(UIFactory.chip("Gold  " + UIFactory.number(GameState.inventory_domain.currency("gold")), UITheme.GOLD))
+	wallet.add_child(_currency_icon_chip("crystals", GameState.inventory_domain.currency("crystals"), UITheme.TEAL))
+	wallet.add_child(_currency_icon_chip("gold", GameState.inventory_domain.currency("gold"), UITheme.GOLD))
 	info.add_child(wallet)
 
-	var scarlet_palette := is_scarlet_requiem
+	var scarlet_palette := false
 	var rates_panel := UIFactory.panel(
 		Color("#180b16") if scarlet_palette else Color("#0e1628"),
 		Color("#8f3b59") if scarlet_palette else UITheme.BORDER_SOFT,
@@ -135,9 +122,9 @@ func rebuild_main() -> void:
 		var row := GachaScreen.RARITY_RATE_ROW_SCENE.instantiate() as RarityRateRow
 		row.setup(rarity, UIFactory.percent(float(rates.get(rarity, 0.0))), color)
 		rates_box.add_child(row)
+	var guarantee_text := "10-pull guarantees at least one Epic or better." if bool(banner.get("ten_pull_epic_guarantee", false)) else "No Epic-or-better ten-pull guarantee is configured for this banner."
 	var guarantee := UIFactory.wrapped(
-		"10-pull guarantees at least one Epic or better. Featured rate-up: %s. "
-		% UIFactory.percent(float(banner.get("featured_rate", 0.5)), 0)
+		guarantee_text + " Featured rate-up: %s. " % UIFactory.percent(float(banner.get("featured_rate", 0.5)), 0)
 		+ "Hard pity: %d pulls. Featured guarantee: %d pulls." % [
 			int(banner.get("hard_pity", 70)), int(banner.get("featured_pity", 140))
 		],
@@ -180,11 +167,11 @@ func rebuild_main() -> void:
 	info.add_child(UIFactory.spacer(true))
 	var cost: Dictionary = banner.get("cost", {})
 	var currency_id := str(cost.get("currency", "crystals"))
-	var currency_name := str(ContentDB.get_item(currency_id).get("name", currency_id))
 	var single_cost := int(cost.get("single", 0))
 	var ten_cost := int(cost.get("ten", 0))
 	var buttons := UIFactory.hbox(10)
-	var single := UIFactory.button("Summon ×1 — %s %s" % [UIFactory.number(single_cost), currency_name])
+	var single := UIFactory.button("Summon ×1 — %s" % UIFactory.number(single_cost))
+	_apply_currency_button_icon(single, currency_id)
 	single.custom_minimum_size = Vector2(0, 48)
 	single.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	if scarlet_palette:
@@ -192,7 +179,8 @@ func rebuild_main() -> void:
 	single.disabled = GameState.inventory_domain.currency(currency_id) < single_cost
 	single.pressed.connect(func() -> void: screen._pull(1))
 	buttons.add_child(single)
-	var ten := UIFactory.button("Summon ×10 — %s %s" % [UIFactory.number(ten_cost), currency_name], true)
+	var ten := UIFactory.button("Summon ×10 — %s" % UIFactory.number(ten_cost), true)
+	_apply_currency_button_icon(ten, currency_id)
 	ten.custom_minimum_size = Vector2(0, 48)
 	ten.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	if scarlet_palette:
@@ -202,6 +190,39 @@ func rebuild_main() -> void:
 	buttons.add_child(ten)
 	info.add_child(buttons)
 
+
+
+const CURRENCY_ICON_PATHS := {
+	"gold": "res://assets/ui/currencies/gold.png",
+	"crystals": "res://assets/ui/currencies/summoning_crystals.png",
+	"ancient_coins": "res://assets/ui/currencies/ancient_coins.png",
+	"gems": "res://assets/ui/currencies/gems.png",
+	"guild_tokens": "res://assets/ui/currencies/guild_tokens.png",
+	"event_tokens": "res://assets/ui/currencies/event_tokens.png",
+}
+
+
+func _currency_icon_chip(currency_id: String, amount: int, tint: Color) -> Control:
+	var chip := load("res://scenes/ui/components/currency_chip.tscn").instantiate() as PanelContainer
+	var icon := chip.get_node("Content/Dot") as TextureRect
+	var texture_path := str(CURRENCY_ICON_PATHS.get(currency_id, ""))
+	if not texture_path.is_empty() and ResourceLoader.exists(texture_path):
+		icon.texture = load(texture_path) as Texture2D
+		icon.custom_minimum_size = Vector2(26, 26)
+		icon.modulate = Color.WHITE
+	var label := chip.get_node("Content/ValueLabel") as Label
+	label.text = UIFactory.number(amount)
+	label.add_theme_color_override("font_color", tint)
+	return chip
+
+
+func _apply_currency_button_icon(button: Button, currency_id: String) -> void:
+	var texture_path := str(CURRENCY_ICON_PATHS.get(currency_id, ""))
+	if texture_path.is_empty() or not ResourceLoader.exists(texture_path):
+		return
+	button.icon = load(texture_path) as Texture2D
+	button.add_theme_constant_override("icon_max_width", 22)
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
 
 func style_scarlet_pull_button(button: Button, primary: bool) -> void:

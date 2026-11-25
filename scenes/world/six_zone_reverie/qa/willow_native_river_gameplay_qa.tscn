@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_03_willow_fields.tscn" id="zone"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_tile_candidates_v2/river_bank_left.png" id="newart"]
+
+[node name="WillowNativeRiverQA" type="Node2D"]
+
+[node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(700, 1280)
+zoom = Vector2(1.0, 1.0)
+enabled = true
+
+[node name="HandcraftedTerrainTransitions" type="Node2D" parent="."]
+z_index = -9
+
+[node name="Candidate_00" type="Sprite2D" parent="HandcraftedTerrainTransitions"]
+texture = ExtResource("newart")
+texture_filter = 1
+position = Vector2(448, 1216)
+
+[node name="Candidate_01" type="Sprite2D" parent="HandcraftedTerrainTransitions"]
+texture = ExtResource("newart")
+texture_filter = 1
+position = Vector2(512, 1280)
+
+[node name="Candidate_02" type="Sprite2D" parent="HandcraftedTerrainTransitions"]
+texture = ExtResource("newart")
+texture_filter = 1
+position = Vector2(576, 1344)
+
+[node name="Candidate_03" type="Sprite2D" parent="HandcraftedTerrainTransitions"]
+texture = ExtResource("newart")
+texture_filter = 1
+position = Vector2(672, 1424)

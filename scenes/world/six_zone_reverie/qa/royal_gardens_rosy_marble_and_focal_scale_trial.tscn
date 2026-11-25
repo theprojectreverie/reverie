@@ -1,0 +1,4221 @@
+﻿[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://pael0jwmw6it" path="res://assets/environment/six_zone_reverie/royal_gardens_castle.png" id="castle_tex"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_grass_plain.tscn" id="tile_g"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_grass_flowers.tscn" id="tile_m"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_rosy_stone_64x32.tscn" id="tile_p"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/06_wisteria_gazebo.png" id="garden_v3_1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/07_tiered_fountain.png" id="garden_v3_2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/08_cherry_blossom_tree.png" id="garden_v3_3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/09_wisteria_tree.png" id="garden_v3_4"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/10_topiary.png" id="garden_v3_5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/11_ornate_bench.png" id="garden_v3_6"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/01_rose_arch.png" id="garden_v3_7"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/15_flower_hedge.png" id="garden_v3_8"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/04_royal_lantern_post.png" id="garden_v3_extra_1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/12_rose_planter.png" id="garden_v3_extra_2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/13_white_lily_planter.png" id="garden_v3_extra_3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/14_violet_planter.png" id="garden_v3_extra_4"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/24_grass_flower_patch_a.png" id="garden_v3_extra_5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/25_grass_flower_patch_b.png" id="garden_v3_extra_6"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/17_flowering_rock_cluster.png" id="garden_v3_extra_7"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_48.png" id="ref_waterfallpond"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_35.png" id="ref_waterfallcliff"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_25.png" id="ref_whiteblossomtreenortheast"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_28.png" id="ref_cypresssouth"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_28.png" id="ref_cypresswest"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_07.png" id="ref_benchnorth"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_16.png" id="ref_lampeastroad"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_18.png" id="ref_royalbannerexit"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_29.png" id="ref_pinkflowerswest"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_31.png" id="ref_blueflowerseast"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_v4_sparse_placement.tscn" id="v4_sparse_placement"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/grass_ground.png" id="seamless_grass_tex"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_v4_flowerbeds.tscn" id="v4_flowerbeds"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_v4_exit_banners.tscn" id="exit_banners"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_v4_plaza_lanterns.tscn" id="plaza_lanterns"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_v4_plaza_planters.tscn" id="v4_plaza_planters"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_lawn_paving_inlays.tscn" id="lawn_inlays"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_lower_edge_garden.tscn" id="edge_garden"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_waterfall_landscaping_v4.tscn" id="pond_landscaping"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_marble_crest_inlays.tscn" id="gold_crest_inlays"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_formal_hedge_islands.tscn" id="formal_hedges"]
+[node name="RoyalGardens" type="Node2D" unique_id=1410458711]
+y_sort_enabled = true
+
+[node name="GroundTiles" type="Node2D" parent="." unique_id=144561267]
+z_index = -20
+y_sort_enabled = true
+
+[node name="Tile_007_072" parent="GroundTiles" unique_id=1018286772 instance=ExtResource("tile_p")]
+position = Vector2(2080, 1264)
+
+[node name="Tile_007_073" parent="GroundTiles" unique_id=689753009 instance=ExtResource("tile_p")]
+position = Vector2(2112, 1280)
+
+[node name="Tile_007_074" parent="GroundTiles" unique_id=1913930721 instance=ExtResource("tile_p")]
+position = Vector2(2144, 1296)
+
+[node name="Tile_008_071" parent="GroundTiles" unique_id=1213846166 instance=ExtResource("tile_p")]
+position = Vector2(2016, 1264)
+
+[node name="Tile_008_072" parent="GroundTiles" unique_id=479358530 instance=ExtResource("tile_p")]
+position = Vector2(2048, 1280)
+
+[node name="Tile_008_073" parent="GroundTiles" unique_id=1187249570 instance=ExtResource("tile_p")]
+position = Vector2(2080, 1296)
+
+[node name="Tile_008_074" parent="GroundTiles" unique_id=1180412203 instance=ExtResource("tile_p")]
+position = Vector2(2112, 1312)
+
+[node name="Tile_008_075" parent="GroundTiles" unique_id=1039574480 instance=ExtResource("tile_p")]
+position = Vector2(2144, 1328)
+
+[node name="Tile_009_071" parent="GroundTiles" unique_id=1869349560 instance=ExtResource("tile_p")]
+position = Vector2(1984, 1280)
+
+[node name="Tile_009_072" parent="GroundTiles" unique_id=1961046160 instance=ExtResource("tile_p")]
+position = Vector2(2016, 1296)
+
+[node name="Tile_009_073" parent="GroundTiles" unique_id=1436196192 instance=ExtResource("tile_p")]
+position = Vector2(2048, 1312)
+
+[node name="Tile_009_074" parent="GroundTiles" unique_id=2036328871 instance=ExtResource("tile_p")]
+position = Vector2(2080, 1328)
+
+[node name="Tile_009_075" parent="GroundTiles" unique_id=1285027136 instance=ExtResource("tile_p")]
+position = Vector2(2112, 1344)
+
+[node name="Tile_010_071" parent="GroundTiles" unique_id=1411207566 instance=ExtResource("tile_p")]
+position = Vector2(1952, 1296)
+
+[node name="Tile_010_072" parent="GroundTiles" unique_id=382810541 instance=ExtResource("tile_p")]
+position = Vector2(1984, 1312)
+
+[node name="Tile_010_073" parent="GroundTiles" unique_id=358526718 instance=ExtResource("tile_p")]
+position = Vector2(2016, 1328)
+
+[node name="Tile_010_074" parent="GroundTiles" unique_id=422327733 instance=ExtResource("tile_p")]
+position = Vector2(2048, 1344)
+
+[node name="Tile_010_075" parent="GroundTiles" unique_id=530116426 instance=ExtResource("tile_p")]
+position = Vector2(2080, 1360)
+
+[node name="Tile_011_070" parent="GroundTiles" unique_id=1243927082 instance=ExtResource("tile_p")]
+position = Vector2(1888, 1296)
+
+[node name="Tile_011_071" parent="GroundTiles" unique_id=149519342 instance=ExtResource("tile_p")]
+position = Vector2(1920, 1312)
+
+[node name="Tile_011_072" parent="GroundTiles" unique_id=700319603 instance=ExtResource("tile_p")]
+position = Vector2(1952, 1328)
+
+[node name="Tile_011_073" parent="GroundTiles" unique_id=1052899618 instance=ExtResource("tile_p")]
+position = Vector2(1984, 1344)
+
+[node name="Tile_011_074" parent="GroundTiles" unique_id=1477407238 instance=ExtResource("tile_p")]
+position = Vector2(2016, 1360)
+
+[node name="Tile_011_075" parent="GroundTiles" unique_id=1193693021 instance=ExtResource("tile_p")]
+position = Vector2(2048, 1376)
+
+[node name="Tile_012_070" parent="GroundTiles" unique_id=629913753 instance=ExtResource("tile_p")]
+position = Vector2(1856, 1312)
+
+[node name="Tile_012_071" parent="GroundTiles" unique_id=360832945 instance=ExtResource("tile_p")]
+position = Vector2(1888, 1328)
+
+[node name="Tile_012_072" parent="GroundTiles" unique_id=1085205572 instance=ExtResource("tile_p")]
+position = Vector2(1920, 1344)
+
+[node name="Tile_012_073" parent="GroundTiles" unique_id=473839582 instance=ExtResource("tile_p")]
+position = Vector2(1952, 1360)
+
+[node name="Tile_012_074" parent="GroundTiles" unique_id=1771376843 instance=ExtResource("tile_p")]
+position = Vector2(1984, 1376)
+
+[node name="Tile_012_075" parent="GroundTiles" unique_id=665217468 instance=ExtResource("tile_p")]
+position = Vector2(2016, 1392)
+
+[node name="Tile_013_070" parent="GroundTiles" unique_id=1946318376 instance=ExtResource("tile_p")]
+position = Vector2(1824, 1328)
+
+[node name="Tile_013_071" parent="GroundTiles" unique_id=376777090 instance=ExtResource("tile_p")]
+position = Vector2(1856, 1344)
+
+[node name="Tile_013_072" parent="GroundTiles" unique_id=1419540388 instance=ExtResource("tile_p")]
+position = Vector2(1888, 1360)
+
+[node name="Tile_013_073" parent="GroundTiles" unique_id=1866996779 instance=ExtResource("tile_p")]
+position = Vector2(1920, 1376)
+
+[node name="Tile_013_074" parent="GroundTiles" unique_id=1541580104 instance=ExtResource("tile_p")]
+position = Vector2(1952, 1392)
+
+[node name="Tile_013_075" parent="GroundTiles" unique_id=1498175917 instance=ExtResource("tile_p")]
+position = Vector2(1984, 1408)
+
+[node name="Tile_014_070" parent="GroundTiles" unique_id=2113750638 instance=ExtResource("tile_p")]
+position = Vector2(1792, 1344)
+
+[node name="Tile_014_071" parent="GroundTiles" unique_id=1792621289 instance=ExtResource("tile_p")]
+position = Vector2(1824, 1360)
+
+[node name="Tile_014_072" parent="GroundTiles" unique_id=1976941545 instance=ExtResource("tile_p")]
+position = Vector2(1856, 1376)
+
+[node name="Tile_014_073" parent="GroundTiles" unique_id=624712026 instance=ExtResource("tile_p")]
+position = Vector2(1888, 1392)
+
+[node name="Tile_014_074" parent="GroundTiles" unique_id=1227947778 instance=ExtResource("tile_p")]
+position = Vector2(1920, 1408)
+
+[node name="Tile_015_069" parent="GroundTiles" unique_id=1161479995 instance=ExtResource("tile_p")]
+position = Vector2(1728, 1344)
+
+[node name="Tile_015_070" parent="GroundTiles" unique_id=2498817 instance=ExtResource("tile_p")]
+position = Vector2(1760, 1360)
+
+[node name="Tile_015_071" parent="GroundTiles" unique_id=200404439 instance=ExtResource("tile_p")]
+position = Vector2(1792, 1376)
+
+[node name="Tile_015_072" parent="GroundTiles" unique_id=1007777501 instance=ExtResource("tile_p")]
+position = Vector2(1824, 1392)
+
+[node name="Tile_015_073" parent="GroundTiles" unique_id=954914129 instance=ExtResource("tile_p")]
+position = Vector2(1856, 1408)
+
+[node name="Tile_015_074" parent="GroundTiles" unique_id=403846273 instance=ExtResource("tile_p")]
+position = Vector2(1888, 1424)
+
+[node name="Tile_016_068" parent="GroundTiles" unique_id=928232880 instance=ExtResource("tile_p")]
+position = Vector2(1664, 1344)
+
+[node name="Tile_016_069" parent="GroundTiles" unique_id=1771667479 instance=ExtResource("tile_p")]
+position = Vector2(1696, 1360)
+
+[node name="Tile_016_070" parent="GroundTiles" unique_id=461657931 instance=ExtResource("tile_p")]
+position = Vector2(1728, 1376)
+
+[node name="Tile_016_071" parent="GroundTiles" unique_id=1158901286 instance=ExtResource("tile_p")]
+position = Vector2(1760, 1392)
+
+[node name="Tile_016_072" parent="GroundTiles" unique_id=740539877 instance=ExtResource("tile_p")]
+position = Vector2(1792, 1408)
+
+[node name="Tile_016_073" parent="GroundTiles" unique_id=1074459879 instance=ExtResource("tile_p")]
+position = Vector2(1824, 1424)
+
+[node name="Tile_016_074" parent="GroundTiles" unique_id=1265380788 instance=ExtResource("tile_p")]
+position = Vector2(1856, 1440)
+
+[node name="Tile_017_068" parent="GroundTiles" unique_id=302420305 instance=ExtResource("tile_p")]
+position = Vector2(1632, 1360)
+
+[node name="Tile_017_069" parent="GroundTiles" unique_id=1952461167 instance=ExtResource("tile_p")]
+position = Vector2(1664, 1376)
+
+[node name="Tile_017_070" parent="GroundTiles" unique_id=561556659 instance=ExtResource("tile_p")]
+position = Vector2(1696, 1392)
+
+[node name="Tile_017_071" parent="GroundTiles" unique_id=1399462376 instance=ExtResource("tile_p")]
+position = Vector2(1728, 1408)
+
+[node name="Tile_017_072" parent="GroundTiles" unique_id=520543851 instance=ExtResource("tile_p")]
+position = Vector2(1760, 1424)
+
+[node name="Tile_017_073" parent="GroundTiles" unique_id=1643031133 instance=ExtResource("tile_p")]
+position = Vector2(1792, 1440)
+
+[node name="Tile_017_074" parent="GroundTiles" unique_id=1304156767 instance=ExtResource("tile_p")]
+position = Vector2(1824, 1456)
+
+[node name="Tile_018_068" parent="GroundTiles" unique_id=1279127665 instance=ExtResource("tile_p")]
+position = Vector2(1600, 1376)
+
+[node name="Tile_018_069" parent="GroundTiles" unique_id=1878096042 instance=ExtResource("tile_p")]
+position = Vector2(1632, 1392)
+
+[node name="Tile_018_070" parent="GroundTiles" unique_id=1854514158 instance=ExtResource("tile_p")]
+position = Vector2(1664, 1408)
+
+[node name="Tile_018_071" parent="GroundTiles" unique_id=464122729 instance=ExtResource("tile_p")]
+position = Vector2(1696, 1424)
+
+[node name="Tile_018_072" parent="GroundTiles" unique_id=1323026369 instance=ExtResource("tile_p")]
+position = Vector2(1728, 1440)
+
+[node name="Tile_018_073" parent="GroundTiles" unique_id=1939906224 instance=ExtResource("tile_p")]
+position = Vector2(1760, 1456)
+
+[node name="Tile_018_074" parent="GroundTiles" unique_id=1559103500 instance=ExtResource("tile_p")]
+position = Vector2(1792, 1472)
+
+[node name="Tile_019_068" parent="GroundTiles" unique_id=330318592 instance=ExtResource("tile_p")]
+position = Vector2(1568, 1392)
+
+[node name="Tile_019_069" parent="GroundTiles" unique_id=639681968 instance=ExtResource("tile_p")]
+position = Vector2(1600, 1408)
+
+[node name="Tile_019_070" parent="GroundTiles" unique_id=479282028 instance=ExtResource("tile_p")]
+position = Vector2(1632, 1424)
+
+[node name="Tile_019_071" parent="GroundTiles" unique_id=1015512133 instance=ExtResource("tile_p")]
+position = Vector2(1664, 1440)
+
+[node name="Tile_019_072" parent="GroundTiles" unique_id=266919013 instance=ExtResource("tile_p")]
+position = Vector2(1696, 1456)
+
+[node name="Tile_019_073" parent="GroundTiles" unique_id=598619970 instance=ExtResource("tile_p")]
+position = Vector2(1728, 1472)
+
+[node name="Tile_019_074" parent="GroundTiles" unique_id=1564494991 instance=ExtResource("tile_p")]
+position = Vector2(1760, 1488)
+
+[node name="Tile_020_069" parent="GroundTiles" unique_id=928496350 instance=ExtResource("tile_p")]
+position = Vector2(1568, 1424)
+
+[node name="Tile_020_070" parent="GroundTiles" unique_id=449273603 instance=ExtResource("tile_p")]
+position = Vector2(1600, 1440)
+
+[node name="Tile_020_071" parent="GroundTiles" unique_id=1247033871 instance=ExtResource("tile_p")]
+position = Vector2(1632, 1456)
+
+[node name="Tile_020_072" parent="GroundTiles" unique_id=156321159 instance=ExtResource("tile_p")]
+position = Vector2(1664, 1472)
+
+[node name="Tile_020_073" parent="GroundTiles" unique_id=1635773303 instance=ExtResource("tile_p")]
+position = Vector2(1696, 1488)
+
+[node name="Tile_020_074" parent="GroundTiles" unique_id=2060142942 instance=ExtResource("tile_p")]
+position = Vector2(1728, 1504)
+
+[node name="Tile_021_070" parent="GroundTiles" unique_id=649082930 instance=ExtResource("tile_p")]
+position = Vector2(1568, 1456)
+
+[node name="Tile_021_071" parent="GroundTiles" unique_id=1629450506 instance=ExtResource("tile_p")]
+position = Vector2(1600, 1472)
+
+[node name="Tile_021_072" parent="GroundTiles" unique_id=321262000 instance=ExtResource("tile_p")]
+position = Vector2(1632, 1488)
+
+[node name="Tile_021_073" parent="GroundTiles" unique_id=1679374801 instance=ExtResource("tile_p")]
+position = Vector2(1664, 1504)
+
+[node name="Tile_021_074" parent="GroundTiles" unique_id=1919199527 instance=ExtResource("tile_p")]
+position = Vector2(1696, 1520)
+
+[node name="Tile_021_075" parent="GroundTiles" unique_id=714085422 instance=ExtResource("tile_p")]
+position = Vector2(1728, 1536)
+
+[node name="Tile_022_070" parent="GroundTiles" unique_id=1883476321 instance=ExtResource("tile_p")]
+position = Vector2(1536, 1472)
+
+[node name="Tile_022_071" parent="GroundTiles" unique_id=338899605 instance=ExtResource("tile_p")]
+position = Vector2(1568, 1488)
+
+[node name="Tile_022_072" parent="GroundTiles" unique_id=802320768 instance=ExtResource("tile_p")]
+position = Vector2(1600, 1504)
+
+[node name="Tile_022_073" parent="GroundTiles" unique_id=699484747 instance=ExtResource("tile_p")]
+position = Vector2(1632, 1520)
+
+[node name="Tile_022_074" parent="GroundTiles" unique_id=2033219131 instance=ExtResource("tile_p")]
+position = Vector2(1664, 1536)
+
+[node name="Tile_022_075" parent="GroundTiles" unique_id=213659604 instance=ExtResource("tile_p")]
+position = Vector2(1696, 1552)
+
+[node name="Tile_023_070" parent="GroundTiles" unique_id=342142253 instance=ExtResource("tile_p")]
+position = Vector2(1504, 1488)
+
+[node name="Tile_023_071" parent="GroundTiles" unique_id=1813611687 instance=ExtResource("tile_p")]
+position = Vector2(1536, 1504)
+
+[node name="Tile_023_072" parent="GroundTiles" unique_id=376302559 instance=ExtResource("tile_p")]
+position = Vector2(1568, 1520)
+
+[node name="Tile_023_073" parent="GroundTiles" unique_id=1543303139 instance=ExtResource("tile_p")]
+position = Vector2(1600, 1536)
+
+[node name="Tile_023_074" parent="GroundTiles" unique_id=929998379 instance=ExtResource("tile_p")]
+position = Vector2(1632, 1552)
+
+[node name="Tile_023_075" parent="GroundTiles" unique_id=407025798 instance=ExtResource("tile_p")]
+position = Vector2(1664, 1568)
+
+[node name="Tile_024_070" parent="GroundTiles" unique_id=753518263 instance=ExtResource("tile_p")]
+position = Vector2(1472, 1504)
+
+[node name="Tile_024_071" parent="GroundTiles" unique_id=1641691104 instance=ExtResource("tile_p")]
+position = Vector2(1504, 1520)
+
+[node name="Tile_024_072" parent="GroundTiles" unique_id=963496576 instance=ExtResource("tile_p")]
+position = Vector2(1536, 1536)
+
+[node name="Tile_024_073" parent="GroundTiles" unique_id=26053094 instance=ExtResource("tile_p")]
+position = Vector2(1568, 1552)
+
+[node name="Tile_024_074" parent="GroundTiles" unique_id=1299539335 instance=ExtResource("tile_p")]
+position = Vector2(1600, 1568)
+
+[node name="Tile_024_075" parent="GroundTiles" unique_id=131406061 instance=ExtResource("tile_p")]
+position = Vector2(1632, 1584)
+
+[node name="Tile_025_070" parent="GroundTiles" unique_id=654487578 instance=ExtResource("tile_p")]
+position = Vector2(1440, 1520)
+
+[node name="Tile_025_071" parent="GroundTiles" unique_id=414087367 instance=ExtResource("tile_p")]
+position = Vector2(1472, 1536)
+
+[node name="Tile_025_072" parent="GroundTiles" unique_id=416096055 instance=ExtResource("tile_p")]
+position = Vector2(1504, 1552)
+
+[node name="Tile_025_073" parent="GroundTiles" unique_id=1093319431 instance=ExtResource("tile_p")]
+position = Vector2(1536, 1568)
+
+[node name="Tile_025_074" parent="GroundTiles" unique_id=547032316 instance=ExtResource("tile_p")]
+position = Vector2(1568, 1584)
+
+[node name="Tile_025_075" parent="GroundTiles" unique_id=1373818362 instance=ExtResource("tile_p")]
+position = Vector2(1600, 1600)
+
+[node name="Tile_026_069" parent="GroundTiles" unique_id=1852008840 instance=ExtResource("tile_p")]
+position = Vector2(1376, 1520)
+
+[node name="Tile_026_070" parent="GroundTiles" unique_id=1171172312 instance=ExtResource("tile_p")]
+position = Vector2(1408, 1536)
+
+[node name="Tile_026_071" parent="GroundTiles" unique_id=27281218 instance=ExtResource("tile_p")]
+position = Vector2(1440, 1552)
+
+[node name="Tile_026_072" parent="GroundTiles" unique_id=739456845 instance=ExtResource("tile_p")]
+position = Vector2(1472, 1568)
+
+[node name="Tile_026_073" parent="GroundTiles" unique_id=928940057 instance=ExtResource("tile_p")]
+position = Vector2(1504, 1584)
+
+[node name="Tile_026_074" parent="GroundTiles" unique_id=460035568 instance=ExtResource("tile_p")]
+position = Vector2(1536, 1600)
+
+[node name="Tile_027_069" parent="GroundTiles" unique_id=1147522155 instance=ExtResource("tile_p")]
+position = Vector2(1344, 1536)
+
+[node name="Tile_027_070" parent="GroundTiles" unique_id=579598465 instance=ExtResource("tile_p")]
+position = Vector2(1376, 1552)
+
+[node name="Tile_027_071" parent="GroundTiles" unique_id=1098101356 instance=ExtResource("tile_p")]
+position = Vector2(1408, 1568)
+
+[node name="Tile_027_072" parent="GroundTiles" unique_id=1930658407 instance=ExtResource("tile_p")]
+position = Vector2(1440, 1584)
+
+[node name="Tile_027_073" parent="GroundTiles" unique_id=1561875137 instance=ExtResource("tile_p")]
+position = Vector2(1472, 1600)
+
+[node name="Tile_027_074" parent="GroundTiles" unique_id=1335064190 instance=ExtResource("tile_p")]
+position = Vector2(1504, 1616)
+
+[node name="Tile_028_069" parent="GroundTiles" unique_id=684185478 instance=ExtResource("tile_p")]
+position = Vector2(1312, 1552)
+
+[node name="Tile_028_070" parent="GroundTiles" unique_id=1744548724 instance=ExtResource("tile_p")]
+position = Vector2(1344, 1568)
+
+[node name="Tile_028_071" parent="GroundTiles" unique_id=456565858 instance=ExtResource("tile_p")]
+position = Vector2(1376, 1584)
+
+[node name="Tile_028_072" parent="GroundTiles" unique_id=2025505168 instance=ExtResource("tile_p")]
+position = Vector2(1408, 1600)
+
+[node name="Tile_028_073" parent="GroundTiles" unique_id=706047657 instance=ExtResource("tile_p")]
+position = Vector2(1440, 1616)
+
+[node name="Tile_029_068" parent="GroundTiles" unique_id=2001641363 instance=ExtResource("tile_p")]
+position = Vector2(1248, 1552)
+
+[node name="Tile_029_069" parent="GroundTiles" unique_id=712154061 instance=ExtResource("tile_p")]
+position = Vector2(1280, 1568)
+
+[node name="Tile_029_070" parent="GroundTiles" unique_id=2073763423 instance=ExtResource("tile_p")]
+position = Vector2(1312, 1584)
+
+[node name="Tile_029_071" parent="GroundTiles" unique_id=2118200166 instance=ExtResource("tile_p")]
+position = Vector2(1344, 1600)
+
+[node name="Tile_029_072" parent="GroundTiles" unique_id=535718906 instance=ExtResource("tile_p")]
+position = Vector2(1376, 1616)
+
+[node name="Tile_029_073" parent="GroundTiles" unique_id=1084139667 instance=ExtResource("tile_p")]
+position = Vector2(1408, 1632)
+
+[node name="Tile_030_068" parent="GroundTiles" unique_id=1458865041 instance=ExtResource("tile_p")]
+position = Vector2(1216, 1568)
+
+[node name="Tile_030_069" parent="GroundTiles" unique_id=1563696178 instance=ExtResource("tile_p")]
+position = Vector2(1248, 1584)
+
+[node name="Tile_030_070" parent="GroundTiles" unique_id=411101150 instance=ExtResource("tile_p")]
+position = Vector2(1280, 1600)
+
+[node name="Tile_030_071" parent="GroundTiles" unique_id=659517668 instance=ExtResource("tile_p")]
+position = Vector2(1312, 1616)
+
+[node name="Tile_030_072" parent="GroundTiles" unique_id=705822671 instance=ExtResource("tile_p")]
+position = Vector2(1344, 1632)
+
+[node name="Tile_030_073" parent="GroundTiles" unique_id=574580833 instance=ExtResource("tile_p")]
+position = Vector2(1376, 1648)
+
+[node name="Tile_031_068" parent="GroundTiles" unique_id=423380218 instance=ExtResource("tile_p")]
+position = Vector2(1184, 1584)
+
+[node name="Tile_031_069" parent="GroundTiles" unique_id=792789014 instance=ExtResource("tile_p")]
+position = Vector2(1216, 1600)
+
+[node name="Tile_031_070" parent="GroundTiles" unique_id=1195014634 instance=ExtResource("tile_p")]
+position = Vector2(1248, 1616)
+
+[node name="Tile_031_071" parent="GroundTiles" unique_id=496293682 instance=ExtResource("tile_p")]
+position = Vector2(1280, 1632)
+
+[node name="Tile_031_072" parent="GroundTiles" unique_id=1798606603 instance=ExtResource("tile_p")]
+position = Vector2(1312, 1648)
+
+[node name="Tile_032_067" parent="GroundTiles" unique_id=557958119 instance=ExtResource("tile_p")]
+position = Vector2(1120, 1584)
+
+[node name="Tile_032_068" parent="GroundTiles" unique_id=1911645835 instance=ExtResource("tile_p")]
+position = Vector2(1152, 1600)
+
+[node name="Tile_032_069" parent="GroundTiles" unique_id=1696266519 instance=ExtResource("tile_p")]
+position = Vector2(1184, 1616)
+
+[node name="Tile_032_070" parent="GroundTiles" unique_id=414248038 instance=ExtResource("tile_p")]
+position = Vector2(1216, 1632)
+
+[node name="Tile_032_071" parent="GroundTiles" unique_id=1759809896 instance=ExtResource("tile_p")]
+position = Vector2(1248, 1648)
+
+[node name="Tile_032_072" parent="GroundTiles" unique_id=1258167949 instance=ExtResource("tile_p")]
+position = Vector2(1280, 1664)
+
+[node name="Tile_033_067" parent="GroundTiles" unique_id=530646286 instance=ExtResource("tile_p")]
+position = Vector2(1088, 1600)
+
+[node name="Tile_033_068" parent="GroundTiles" unique_id=51044100 instance=ExtResource("tile_p")]
+position = Vector2(1120, 1616)
+
+[node name="Tile_033_069" parent="GroundTiles" unique_id=1515020852 instance=ExtResource("tile_p")]
+position = Vector2(1152, 1632)
+
+[node name="Tile_033_070" parent="GroundTiles" unique_id=1562774013 instance=ExtResource("tile_p")]
+position = Vector2(1184, 1648)
+
+[node name="Tile_033_071" parent="GroundTiles" unique_id=773743274 instance=ExtResource("tile_p")]
+position = Vector2(1216, 1664)
+
+[node name="Tile_033_072" parent="GroundTiles" unique_id=784786038 instance=ExtResource("tile_p")]
+position = Vector2(1248, 1680)
+
+[node name="Tile_034_067" parent="GroundTiles" unique_id=1695874357 instance=ExtResource("tile_p")]
+position = Vector2(1056, 1616)
+
+[node name="Tile_034_068" parent="GroundTiles" unique_id=1233828424 instance=ExtResource("tile_p")]
+position = Vector2(1088, 1632)
+
+[node name="Tile_034_069" parent="GroundTiles" unique_id=1164889649 instance=ExtResource("tile_p")]
+position = Vector2(1120, 1648)
+
+[node name="Tile_034_070" parent="GroundTiles" unique_id=1438202195 instance=ExtResource("tile_p")]
+position = Vector2(1152, 1664)
+
+[node name="Tile_034_071" parent="GroundTiles" unique_id=242479045 instance=ExtResource("tile_p")]
+position = Vector2(1184, 1680)
+
+[node name="Tile_035_066" parent="GroundTiles" unique_id=429451320 instance=ExtResource("tile_p")]
+position = Vector2(992, 1616)
+
+[node name="Tile_035_067" parent="GroundTiles" unique_id=1044862106 instance=ExtResource("tile_p")]
+position = Vector2(1024, 1632)
+
+[node name="Tile_035_068" parent="GroundTiles" unique_id=1139376620 instance=ExtResource("tile_p")]
+position = Vector2(1056, 1648)
+
+[node name="Tile_035_069" parent="GroundTiles" unique_id=1278078189 instance=ExtResource("tile_p")]
+position = Vector2(1088, 1664)
+
+[node name="Tile_035_070" parent="GroundTiles" unique_id=407798287 instance=ExtResource("tile_p")]
+position = Vector2(1120, 1680)
+
+[node name="Tile_035_071" parent="GroundTiles" unique_id=227195727 instance=ExtResource("tile_p")]
+position = Vector2(1152, 1696)
+
+[node name="Tile_036_066" parent="GroundTiles" unique_id=1639141318 instance=ExtResource("tile_p")]
+position = Vector2(960, 1632)
+
+[node name="Tile_036_067" parent="GroundTiles" unique_id=2072383575 instance=ExtResource("tile_p")]
+position = Vector2(992, 1648)
+
+[node name="Tile_036_068" parent="GroundTiles" unique_id=539323939 instance=ExtResource("tile_p")]
+position = Vector2(1024, 1664)
+
+[node name="Tile_036_069" parent="GroundTiles" unique_id=1840241393 instance=ExtResource("tile_p")]
+position = Vector2(1056, 1680)
+
+[node name="Tile_036_070" parent="GroundTiles" unique_id=1008599221 instance=ExtResource("tile_p")]
+position = Vector2(1088, 1696)
+
+[node name="Tile_036_071" parent="GroundTiles" unique_id=1469118604 instance=ExtResource("tile_p")]
+position = Vector2(1120, 1712)
+
+[node name="Tile_037_066" parent="GroundTiles" unique_id=2138690605 instance=ExtResource("tile_p")]
+position = Vector2(928, 1648)
+
+[node name="Tile_037_067" parent="GroundTiles" unique_id=107448160 instance=ExtResource("tile_p")]
+position = Vector2(960, 1664)
+
+[node name="Tile_037_068" parent="GroundTiles" unique_id=1590711886 instance=ExtResource("tile_p")]
+position = Vector2(992, 1680)
+
+[node name="Tile_037_069" parent="GroundTiles" unique_id=720589742 instance=ExtResource("tile_p")]
+position = Vector2(1024, 1696)
+
+[node name="Tile_037_070" parent="GroundTiles" unique_id=1345798914 instance=ExtResource("tile_p")]
+position = Vector2(1056, 1712)
+
+[node name="Tile_037_071" parent="GroundTiles" unique_id=890625583 instance=ExtResource("tile_p")]
+position = Vector2(1088, 1728)
+
+[node name="Tile_038_065" parent="GroundTiles" unique_id=910174499 instance=ExtResource("tile_p")]
+position = Vector2(864, 1648)
+
+[node name="Tile_038_066" parent="GroundTiles" unique_id=923687146 instance=ExtResource("tile_p")]
+position = Vector2(896, 1664)
+
+[node name="Tile_038_067" parent="GroundTiles" unique_id=397562286 instance=ExtResource("tile_p")]
+position = Vector2(928, 1680)
+
+[node name="Tile_038_068" parent="GroundTiles" unique_id=1456139582 instance=ExtResource("tile_p")]
+position = Vector2(960, 1696)
+
+[node name="Tile_038_069" parent="GroundTiles" unique_id=1534772952 instance=ExtResource("tile_p")]
+position = Vector2(992, 1712)
+
+[node name="Tile_038_070" parent="GroundTiles" unique_id=1003420252 instance=ExtResource("tile_p")]
+position = Vector2(1024, 1728)
+
+[node name="Tile_039_065" parent="GroundTiles" unique_id=1970868276 instance=ExtResource("tile_p")]
+position = Vector2(832, 1664)
+
+[node name="Tile_039_066" parent="GroundTiles" unique_id=160395259 instance=ExtResource("tile_p")]
+position = Vector2(864, 1680)
+
+[node name="Tile_039_067" parent="GroundTiles" unique_id=1480565766 instance=ExtResource("tile_p")]
+position = Vector2(896, 1696)
+
+[node name="Tile_039_068" parent="GroundTiles" unique_id=1302674021 instance=ExtResource("tile_p")]
+position = Vector2(928, 1712)
+
+[node name="Tile_039_069" parent="GroundTiles" unique_id=649312629 instance=ExtResource("tile_p")]
+position = Vector2(960, 1728)
+
+[node name="Tile_039_070" parent="GroundTiles" unique_id=238804382 instance=ExtResource("tile_p")]
+position = Vector2(992, 1744)
+
+[node name="Tile_040_065" parent="GroundTiles" unique_id=773672002 instance=ExtResource("tile_p")]
+position = Vector2(800, 1680)
+
+[node name="Tile_040_066" parent="GroundTiles" unique_id=2024879079 instance=ExtResource("tile_p")]
+position = Vector2(832, 1696)
+
+[node name="Tile_040_067" parent="GroundTiles" unique_id=272262239 instance=ExtResource("tile_p")]
+position = Vector2(864, 1712)
+
+[node name="Tile_040_068" parent="GroundTiles" unique_id=1114048855 instance=ExtResource("tile_p")]
+position = Vector2(896, 1728)
+
+[node name="Tile_040_069" parent="GroundTiles" unique_id=284858610 instance=ExtResource("tile_p")]
+position = Vector2(928, 1744)
+
+[node name="Tile_040_070" parent="GroundTiles" unique_id=1068948424 instance=ExtResource("tile_p")]
+position = Vector2(960, 1760)
+
+[node name="Tile_041_065" parent="GroundTiles" unique_id=1494342426 instance=ExtResource("tile_p")]
+position = Vector2(768, 1696)
+
+[node name="Tile_041_066" parent="GroundTiles" unique_id=1952043867 instance=ExtResource("tile_p")]
+position = Vector2(800, 1712)
+
+[node name="Tile_041_067" parent="GroundTiles" unique_id=1215404807 instance=ExtResource("tile_p")]
+position = Vector2(832, 1728)
+
+[node name="Tile_041_068" parent="GroundTiles" unique_id=990396629 instance=ExtResource("tile_p")]
+position = Vector2(864, 1744)
+
+[node name="Tile_041_069" parent="GroundTiles" unique_id=1353750100 instance=ExtResource("tile_p")]
+position = Vector2(896, 1760)
+
+[node name="Tile_042_018" parent="GroundTiles" unique_id=797700634 instance=ExtResource("tile_p")]
+position = Vector2(-768, 960)
+
+[node name="Tile_042_019" parent="GroundTiles" unique_id=269262993 instance=ExtResource("tile_p")]
+position = Vector2(-736, 976)
+
+[node name="Tile_042_064" parent="GroundTiles" unique_id=1607787480 instance=ExtResource("tile_p")]
+position = Vector2(704, 1696)
+
+[node name="Tile_042_065" parent="GroundTiles" unique_id=986911674 instance=ExtResource("tile_p")]
+position = Vector2(736, 1712)
+
+[node name="Tile_042_066" parent="GroundTiles" unique_id=747744864 instance=ExtResource("tile_p")]
+position = Vector2(768, 1728)
+
+[node name="Tile_042_067" parent="GroundTiles" unique_id=361780634 instance=ExtResource("tile_p")]
+position = Vector2(800, 1744)
+
+[node name="Tile_042_068" parent="GroundTiles" unique_id=570245874 instance=ExtResource("tile_p")]
+position = Vector2(832, 1760)
+
+[node name="Tile_042_069" parent="GroundTiles" unique_id=626414255 instance=ExtResource("tile_p")]
+position = Vector2(864, 1776)
+
+[node name="Tile_043_017" parent="GroundTiles" unique_id=1111349379 instance=ExtResource("tile_p")]
+position = Vector2(-832, 960)
+
+[node name="Tile_043_018" parent="GroundTiles" unique_id=713503317 instance=ExtResource("tile_p")]
+position = Vector2(-800, 976)
+
+[node name="Tile_043_019" parent="GroundTiles" unique_id=1505384757 instance=ExtResource("tile_p")]
+position = Vector2(-768, 992)
+
+[node name="Tile_043_020" parent="GroundTiles" unique_id=1152646322 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1008)
+
+[node name="Tile_043_064" parent="GroundTiles" unique_id=234603319 instance=ExtResource("tile_p")]
+position = Vector2(672, 1712)
+
+[node name="Tile_043_065" parent="GroundTiles" unique_id=1646591160 instance=ExtResource("tile_p")]
+position = Vector2(704, 1728)
+
+[node name="Tile_043_066" parent="GroundTiles" unique_id=208318700 instance=ExtResource("tile_p")]
+position = Vector2(736, 1744)
+
+[node name="Tile_043_067" parent="GroundTiles" unique_id=1157128676 instance=ExtResource("tile_p")]
+position = Vector2(768, 1760)
+
+[node name="Tile_043_068" parent="GroundTiles" unique_id=757057096 instance=ExtResource("tile_p")]
+position = Vector2(800, 1776)
+
+[node name="Tile_043_069" parent="GroundTiles" unique_id=662117822 instance=ExtResource("tile_p")]
+position = Vector2(832, 1792)
+
+[node name="Tile_044_016" parent="GroundTiles" unique_id=794096146 instance=ExtResource("tile_p")]
+position = Vector2(-896, 960)
+
+[node name="Tile_044_017" parent="GroundTiles" unique_id=527621460 instance=ExtResource("tile_p")]
+position = Vector2(-864, 976)
+
+[node name="Tile_044_018" parent="GroundTiles" unique_id=2051337187 instance=ExtResource("tile_p")]
+position = Vector2(-832, 992)
+
+[node name="Tile_044_019" parent="GroundTiles" unique_id=884990574 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1008)
+
+[node name="Tile_044_020" parent="GroundTiles" unique_id=519251772 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1024)
+
+[node name="Tile_044_021" parent="GroundTiles" unique_id=1258964612 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1040)
+
+[node name="Tile_044_064" parent="GroundTiles" unique_id=1967072939 instance=ExtResource("tile_p")]
+position = Vector2(640, 1728)
+
+[node name="Tile_044_065" parent="GroundTiles" unique_id=1329245313 instance=ExtResource("tile_p")]
+position = Vector2(672, 1744)
+
+[node name="Tile_044_066" parent="GroundTiles" unique_id=617980395 instance=ExtResource("tile_p")]
+position = Vector2(704, 1760)
+
+[node name="Tile_044_067" parent="GroundTiles" unique_id=915071670 instance=ExtResource("tile_p")]
+position = Vector2(736, 1776)
+
+[node name="Tile_044_068" parent="GroundTiles" unique_id=1146025147 instance=ExtResource("tile_p")]
+position = Vector2(768, 1792)
+
+[node name="Tile_044_069" parent="GroundTiles" unique_id=1649553702 instance=ExtResource("tile_p")]
+position = Vector2(800, 1808)
+
+[node name="Tile_045_016" parent="GroundTiles" unique_id=123104753 instance=ExtResource("tile_p")]
+position = Vector2(-928, 976)
+
+[node name="Tile_045_017" parent="GroundTiles" unique_id=1808369824 instance=ExtResource("tile_p")]
+position = Vector2(-896, 992)
+
+[node name="Tile_045_018" parent="GroundTiles" unique_id=1449454406 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1008)
+
+[node name="Tile_045_019" parent="GroundTiles" unique_id=121935506 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1024)
+
+[node name="Tile_045_020" parent="GroundTiles" unique_id=71466999 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1040)
+
+[node name="Tile_045_021" parent="GroundTiles" unique_id=1767559773 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1056)
+
+[node name="Tile_045_022" parent="GroundTiles" unique_id=263752851 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1072)
+
+[node name="Tile_045_063" parent="GroundTiles" unique_id=1327523363 instance=ExtResource("tile_p")]
+position = Vector2(576, 1728)
+
+[node name="Tile_045_064" parent="GroundTiles" unique_id=2135645436 instance=ExtResource("tile_p")]
+position = Vector2(608, 1744)
+
+[node name="Tile_045_065" parent="GroundTiles" unique_id=1930841625 instance=ExtResource("tile_p")]
+position = Vector2(640, 1760)
+
+[node name="Tile_045_066" parent="GroundTiles" unique_id=562807684 instance=ExtResource("tile_p")]
+position = Vector2(672, 1776)
+
+[node name="Tile_045_067" parent="GroundTiles" unique_id=571673306 instance=ExtResource("tile_p")]
+position = Vector2(704, 1792)
+
+[node name="Tile_045_068" parent="GroundTiles" unique_id=1230842869 instance=ExtResource("tile_p")]
+position = Vector2(736, 1808)
+
+[node name="Tile_046_016" parent="GroundTiles" unique_id=190821735 instance=ExtResource("tile_p")]
+position = Vector2(-960, 992)
+
+[node name="Tile_046_017" parent="GroundTiles" unique_id=1422942278 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1008)
+
+[node name="Tile_046_018" parent="GroundTiles" unique_id=1194171251 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1024)
+
+[node name="Tile_046_019" parent="GroundTiles" unique_id=630707503 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1040)
+
+[node name="Tile_046_020" parent="GroundTiles" unique_id=1760855991 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1056)
+
+[node name="Tile_046_021" parent="GroundTiles" unique_id=983203475 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1072)
+
+[node name="Tile_046_022" parent="GroundTiles" unique_id=1634215049 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1088)
+
+[node name="Tile_046_023" parent="GroundTiles" unique_id=1307924167 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1104)
+
+[node name="Tile_046_063" parent="GroundTiles" unique_id=303823755 instance=ExtResource("tile_p")]
+position = Vector2(544, 1744)
+
+[node name="Tile_046_064" parent="GroundTiles" unique_id=317535936 instance=ExtResource("tile_p")]
+position = Vector2(576, 1760)
+
+[node name="Tile_046_065" parent="GroundTiles" unique_id=1558082369 instance=ExtResource("tile_p")]
+position = Vector2(608, 1776)
+
+[node name="Tile_046_066" parent="GroundTiles" unique_id=82258182 instance=ExtResource("tile_p")]
+position = Vector2(640, 1792)
+
+[node name="Tile_046_067" parent="GroundTiles" unique_id=1793041519 instance=ExtResource("tile_p")]
+position = Vector2(672, 1808)
+
+[node name="Tile_046_068" parent="GroundTiles" unique_id=1419227796 instance=ExtResource("tile_p")]
+position = Vector2(704, 1824)
+
+[node name="Tile_047_017" parent="GroundTiles" unique_id=986387343 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1024)
+
+[node name="Tile_047_018" parent="GroundTiles" unique_id=317408183 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1040)
+
+[node name="Tile_047_019" parent="GroundTiles" unique_id=699475286 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1056)
+
+[node name="Tile_047_020" parent="GroundTiles" unique_id=1067486440 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1072)
+
+[node name="Tile_047_021" parent="GroundTiles" unique_id=976189345 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1088)
+
+[node name="Tile_047_022" parent="GroundTiles" unique_id=1491116128 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1104)
+
+[node name="Tile_047_023" parent="GroundTiles" unique_id=2084162510 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1120)
+
+[node name="Tile_047_024" parent="GroundTiles" unique_id=766612293 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1136)
+
+[node name="Tile_047_063" parent="GroundTiles" unique_id=1586896400 instance=ExtResource("tile_p")]
+position = Vector2(512, 1760)
+
+[node name="Tile_047_064" parent="GroundTiles" unique_id=123903074 instance=ExtResource("tile_p")]
+position = Vector2(544, 1776)
+
+[node name="Tile_047_065" parent="GroundTiles" unique_id=1224855352 instance=ExtResource("tile_p")]
+position = Vector2(576, 1792)
+
+[node name="Tile_047_066" parent="GroundTiles" unique_id=540194689 instance=ExtResource("tile_p")]
+position = Vector2(608, 1808)
+
+[node name="Tile_047_067" parent="GroundTiles" unique_id=521737926 instance=ExtResource("tile_p")]
+position = Vector2(640, 1824)
+
+[node name="Tile_047_068" parent="GroundTiles" unique_id=501826151 instance=ExtResource("tile_p")]
+position = Vector2(672, 1840)
+
+[node name="Tile_047_095" parent="GroundTiles" unique_id=897097916 instance=ExtResource("tile_p")]
+position = Vector2(1536, 2272)
+
+[node name="Tile_047_096" parent="GroundTiles" unique_id=1065660651 instance=ExtResource("tile_p")]
+position = Vector2(1568, 2288)
+
+[node name="Tile_047_097" parent="GroundTiles" unique_id=671003084 instance=ExtResource("tile_p")]
+position = Vector2(1600, 2304)
+
+[node name="Tile_047_098" parent="GroundTiles" unique_id=9355647 instance=ExtResource("tile_p")]
+position = Vector2(1632, 2320)
+
+[node name="Tile_048_018" parent="GroundTiles" unique_id=1842846416 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1056)
+
+[node name="Tile_048_019" parent="GroundTiles" unique_id=459677209 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1072)
+
+[node name="Tile_048_020" parent="GroundTiles" unique_id=462918790 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1088)
+
+[node name="Tile_048_021" parent="GroundTiles" unique_id=1580691401 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1104)
+
+[node name="Tile_048_022" parent="GroundTiles" unique_id=535898723 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1120)
+
+[node name="Tile_048_023" parent="GroundTiles" unique_id=31148647 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1136)
+
+[node name="Tile_048_024" parent="GroundTiles" unique_id=395923368 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1152)
+
+[node name="Tile_048_025" parent="GroundTiles" unique_id=1998899503 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1168)
+
+[node name="Tile_048_062" parent="GroundTiles" unique_id=1713926876 instance=ExtResource("tile_p")]
+position = Vector2(448, 1760)
+
+[node name="Tile_048_063" parent="GroundTiles" unique_id=949969834 instance=ExtResource("tile_p")]
+position = Vector2(480, 1776)
+
+[node name="Tile_048_064" parent="GroundTiles" unique_id=2102995867 instance=ExtResource("tile_p")]
+position = Vector2(512, 1792)
+
+[node name="Tile_048_065" parent="GroundTiles" unique_id=1090352592 instance=ExtResource("tile_p")]
+position = Vector2(544, 1808)
+
+[node name="Tile_048_066" parent="GroundTiles" unique_id=1245720876 instance=ExtResource("tile_p")]
+position = Vector2(576, 1824)
+
+[node name="Tile_048_067" parent="GroundTiles" unique_id=1987526462 instance=ExtResource("tile_p")]
+position = Vector2(608, 1840)
+
+[node name="Tile_048_093" parent="GroundTiles" unique_id=1540111863 instance=ExtResource("tile_p")]
+position = Vector2(1440, 2256)
+
+[node name="Tile_048_094" parent="GroundTiles" unique_id=1167862546 instance=ExtResource("tile_p")]
+position = Vector2(1472, 2272)
+
+[node name="Tile_048_095" parent="GroundTiles" unique_id=1405021833 instance=ExtResource("tile_p")]
+position = Vector2(1504, 2288)
+
+[node name="Tile_048_096" parent="GroundTiles" unique_id=1857141794 instance=ExtResource("tile_p")]
+position = Vector2(1536, 2304)
+
+[node name="Tile_048_097" parent="GroundTiles" unique_id=1929649811 instance=ExtResource("tile_p")]
+position = Vector2(1568, 2320)
+
+[node name="Tile_048_098" parent="GroundTiles" unique_id=336696840 instance=ExtResource("tile_p")]
+position = Vector2(1600, 2336)
+
+[node name="Tile_049_019" parent="GroundTiles" unique_id=1144732900 instance=ExtResource("tile_p")]
+position = Vector2(-961, 1089)
+
+[node name="Tile_049_020" parent="GroundTiles" unique_id=1806032626 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1104)
+
+[node name="Tile_049_021" parent="GroundTiles" unique_id=1930343068 instance=ExtResource("tile_p")]
+position = Vector2(-895, 1120)
+
+[node name="Tile_049_022" parent="GroundTiles" unique_id=1514197333 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1136)
+
+[node name="Tile_049_023" parent="GroundTiles" unique_id=23294477 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1152)
+
+[node name="Tile_049_024" parent="GroundTiles" unique_id=582076987 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1168)
+
+[node name="Tile_049_025" parent="GroundTiles" unique_id=1930373573 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1184)
+
+[node name="Tile_049_026" parent="GroundTiles" unique_id=1913548010 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1200)
+
+[node name="Tile_049_062" parent="GroundTiles" unique_id=373392263 instance=ExtResource("tile_p")]
+position = Vector2(416, 1776)
+
+[node name="Tile_049_063" parent="GroundTiles" unique_id=119046692 instance=ExtResource("tile_p")]
+position = Vector2(448, 1792)
+
+[node name="Tile_049_064" parent="GroundTiles" unique_id=932381407 instance=ExtResource("tile_p")]
+position = Vector2(480, 1808)
+
+[node name="Tile_049_065" parent="GroundTiles" unique_id=153236007 instance=ExtResource("tile_p")]
+position = Vector2(512, 1824)
+
+[node name="Tile_049_066" parent="GroundTiles" unique_id=857766221 instance=ExtResource("tile_p")]
+position = Vector2(544, 1840)
+
+[node name="Tile_049_067" parent="GroundTiles" unique_id=1994838799 instance=ExtResource("tile_p")]
+position = Vector2(576, 1856)
+
+[node name="Tile_049_091" parent="GroundTiles" unique_id=571663843 instance=ExtResource("tile_p")]
+position = Vector2(1344, 2240)
+
+[node name="Tile_049_092" parent="GroundTiles" unique_id=721764266 instance=ExtResource("tile_p")]
+position = Vector2(1376, 2256)
+
+[node name="Tile_049_093" parent="GroundTiles" unique_id=1448663566 instance=ExtResource("tile_p")]
+position = Vector2(1408, 2272)
+
+[node name="Tile_049_094" parent="GroundTiles" unique_id=1260744152 instance=ExtResource("tile_p")]
+position = Vector2(1440, 2288)
+
+[node name="Tile_049_095" parent="GroundTiles" unique_id=1553561615 instance=ExtResource("tile_p")]
+position = Vector2(1472, 2304)
+
+[node name="Tile_049_096" parent="GroundTiles" unique_id=1828212151 instance=ExtResource("tile_p")]
+position = Vector2(1504, 2320)
+
+[node name="Tile_049_097" parent="GroundTiles" unique_id=712592553 instance=ExtResource("tile_p")]
+position = Vector2(1536, 2336)
+
+[node name="Tile_049_098" parent="GroundTiles" unique_id=630212795 instance=ExtResource("tile_p")]
+position = Vector2(1568, 2352)
+
+[node name="Tile_050_020" parent="GroundTiles" unique_id=7758619 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1120)
+
+[node name="Tile_050_021" parent="GroundTiles" unique_id=478719474 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1136)
+
+[node name="Tile_050_022" parent="GroundTiles" unique_id=548014103 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1152)
+
+[node name="Tile_050_023" parent="GroundTiles" unique_id=1257806097 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1168)
+
+[node name="Tile_050_024" parent="GroundTiles" unique_id=573311147 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1184)
+
+[node name="Tile_050_025" parent="GroundTiles" unique_id=2080418565 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1200)
+
+[node name="Tile_050_026" parent="GroundTiles" unique_id=1731582928 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1216)
+
+[node name="Tile_050_027" parent="GroundTiles" unique_id=1067001578 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1232)
+
+[node name="Tile_050_061" parent="GroundTiles" unique_id=125833658 instance=ExtResource("tile_p")]
+position = Vector2(352, 1776)
+
+[node name="Tile_050_062" parent="GroundTiles" unique_id=451794180 instance=ExtResource("tile_p")]
+position = Vector2(384, 1792)
+
+[node name="Tile_050_063" parent="GroundTiles" unique_id=879023735 instance=ExtResource("tile_p")]
+position = Vector2(416, 1808)
+
+[node name="Tile_050_064" parent="GroundTiles" unique_id=1377095435 instance=ExtResource("tile_p")]
+position = Vector2(448, 1824)
+
+[node name="Tile_050_065" parent="GroundTiles" unique_id=1862681556 instance=ExtResource("tile_p")]
+position = Vector2(480, 1840)
+
+[node name="Tile_050_066" parent="GroundTiles" unique_id=862339397 instance=ExtResource("tile_p")]
+position = Vector2(512, 1856)
+
+[node name="Tile_050_067" parent="GroundTiles" unique_id=1770188912 instance=ExtResource("tile_p")]
+position = Vector2(544, 1872)
+
+[node name="Tile_050_089" parent="GroundTiles" unique_id=1482660047 instance=ExtResource("tile_p")]
+position = Vector2(1248, 2224)
+
+[node name="Tile_050_090" parent="GroundTiles" unique_id=1981061007 instance=ExtResource("tile_p")]
+position = Vector2(1280, 2240)
+
+[node name="Tile_050_091" parent="GroundTiles" unique_id=135373269 instance=ExtResource("tile_p")]
+position = Vector2(1312, 2256)
+
+[node name="Tile_050_092" parent="GroundTiles" unique_id=1442281991 instance=ExtResource("tile_p")]
+position = Vector2(1344, 2272)
+
+[node name="Tile_050_093" parent="GroundTiles" unique_id=1432249801 instance=ExtResource("tile_p")]
+position = Vector2(1376, 2288)
+
+[node name="Tile_050_094" parent="GroundTiles" unique_id=704744346 instance=ExtResource("tile_p")]
+position = Vector2(1408, 2304)
+
+[node name="Tile_050_095" parent="GroundTiles" unique_id=734189743 instance=ExtResource("tile_p")]
+position = Vector2(1440, 2320)
+
+[node name="Tile_050_096" parent="GroundTiles" unique_id=1392122853 instance=ExtResource("tile_p")]
+position = Vector2(1472, 2336)
+
+[node name="Tile_050_097" parent="GroundTiles" unique_id=441434959 instance=ExtResource("tile_p")]
+position = Vector2(1504, 2352)
+
+[node name="Tile_050_098" parent="GroundTiles" unique_id=1413674302 instance=ExtResource("tile_p")]
+position = Vector2(1536, 2368)
+
+[node name="Tile_051_021" parent="GroundTiles" unique_id=335292583 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1152)
+
+[node name="Tile_051_022" parent="GroundTiles" unique_id=1778926695 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1168)
+
+[node name="Tile_051_023" parent="GroundTiles" unique_id=1599382722 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1184)
+
+[node name="Tile_051_024" parent="GroundTiles" unique_id=188272238 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1200)
+
+[node name="Tile_051_025" parent="GroundTiles" unique_id=229627187 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1216)
+
+[node name="Tile_051_026" parent="GroundTiles" unique_id=2085650109 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1232)
+
+[node name="Tile_051_027" parent="GroundTiles" unique_id=1476534088 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1248)
+
+[node name="Tile_051_028" parent="GroundTiles" unique_id=250417292 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1264)
+
+[node name="Tile_051_061" parent="GroundTiles" unique_id=395034371 instance=ExtResource("tile_p")]
+position = Vector2(320, 1792)
+
+[node name="Tile_051_062" parent="GroundTiles" unique_id=646008167 instance=ExtResource("tile_p")]
+position = Vector2(352, 1808)
+
+[node name="Tile_051_063" parent="GroundTiles" unique_id=1678610847 instance=ExtResource("tile_p")]
+position = Vector2(384, 1824)
+
+[node name="Tile_051_064" parent="GroundTiles" unique_id=1461459093 instance=ExtResource("tile_p")]
+position = Vector2(416, 1840)
+
+[node name="Tile_051_065" parent="GroundTiles" unique_id=955044917 instance=ExtResource("tile_p")]
+position = Vector2(448, 1856)
+
+[node name="Tile_051_066" parent="GroundTiles" unique_id=1062469650 instance=ExtResource("tile_p")]
+position = Vector2(480, 1872)
+
+[node name="Tile_051_087" parent="GroundTiles" unique_id=1425452097 instance=ExtResource("tile_p")]
+position = Vector2(1152, 2208)
+
+[node name="Tile_051_088" parent="GroundTiles" unique_id=1906597871 instance=ExtResource("tile_p")]
+position = Vector2(1184, 2224)
+
+[node name="Tile_051_089" parent="GroundTiles" unique_id=370461967 instance=ExtResource("tile_p")]
+position = Vector2(1216, 2240)
+
+[node name="Tile_051_090" parent="GroundTiles" unique_id=1575025455 instance=ExtResource("tile_p")]
+position = Vector2(1248, 2256)
+
+[node name="Tile_051_091" parent="GroundTiles" unique_id=1299667847 instance=ExtResource("tile_p")]
+position = Vector2(1280, 2272)
+
+[node name="Tile_051_092" parent="GroundTiles" unique_id=180987904 instance=ExtResource("tile_p")]
+position = Vector2(1312, 2288)
+
+[node name="Tile_051_093" parent="GroundTiles" unique_id=885553914 instance=ExtResource("tile_p")]
+position = Vector2(1344, 2304)
+
+[node name="Tile_051_094" parent="GroundTiles" unique_id=1378811296 instance=ExtResource("tile_p")]
+position = Vector2(1376, 2320)
+
+[node name="Tile_051_095" parent="GroundTiles" unique_id=1822947331 instance=ExtResource("tile_p")]
+position = Vector2(1408, 2336)
+
+[node name="Tile_051_096" parent="GroundTiles" unique_id=70959501 instance=ExtResource("tile_p")]
+position = Vector2(1440, 2352)
+
+[node name="Tile_051_097" parent="GroundTiles" unique_id=1587698488 instance=ExtResource("tile_p")]
+position = Vector2(1472, 2368)
+
+[node name="Tile_051_098" parent="GroundTiles" unique_id=39755440 instance=ExtResource("tile_p")]
+position = Vector2(1504, 2384)
+
+[node name="Tile_052_022" parent="GroundTiles" unique_id=523500339 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1184)
+
+[node name="Tile_052_023" parent="GroundTiles" unique_id=1662940569 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1200)
+
+[node name="Tile_052_024" parent="GroundTiles" unique_id=1385174569 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1216)
+
+[node name="Tile_052_025" parent="GroundTiles" unique_id=557525979 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1232)
+
+[node name="Tile_052_026" parent="GroundTiles" unique_id=8097708 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1248)
+
+[node name="Tile_052_027" parent="GroundTiles" unique_id=842516602 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1264)
+
+[node name="Tile_052_028" parent="GroundTiles" unique_id=456230546 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1280)
+
+[node name="Tile_052_029" parent="GroundTiles" unique_id=655377491 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1296)
+
+[node name="Tile_052_061" parent="GroundTiles" unique_id=303394320 instance=ExtResource("tile_p")]
+position = Vector2(288, 1808)
+
+[node name="Tile_052_062" parent="GroundTiles" unique_id=50547343 instance=ExtResource("tile_p")]
+position = Vector2(320, 1824)
+
+[node name="Tile_052_063" parent="GroundTiles" unique_id=514343067 instance=ExtResource("tile_p")]
+position = Vector2(352, 1840)
+
+[node name="Tile_052_064" parent="GroundTiles" unique_id=156376168 instance=ExtResource("tile_p")]
+position = Vector2(384, 1856)
+
+[node name="Tile_052_065" parent="GroundTiles" unique_id=2136559684 instance=ExtResource("tile_p")]
+position = Vector2(416, 1872)
+
+[node name="Tile_052_066" parent="GroundTiles" unique_id=390745918 instance=ExtResource("tile_p")]
+position = Vector2(448, 1888)
+
+[node name="Tile_052_085" parent="GroundTiles" unique_id=229128082 instance=ExtResource("tile_p")]
+position = Vector2(1056, 2192)
+
+[node name="Tile_052_086" parent="GroundTiles" unique_id=1650983437 instance=ExtResource("tile_p")]
+position = Vector2(1088, 2208)
+
+[node name="Tile_052_087" parent="GroundTiles" unique_id=1569305286 instance=ExtResource("tile_p")]
+position = Vector2(1120, 2224)
+
+[node name="Tile_052_088" parent="GroundTiles" unique_id=1747329808 instance=ExtResource("tile_p")]
+position = Vector2(1152, 2240)
+
+[node name="Tile_052_089" parent="GroundTiles" unique_id=465994775 instance=ExtResource("tile_p")]
+position = Vector2(1184, 2256)
+
+[node name="Tile_052_090" parent="GroundTiles" unique_id=1500277649 instance=ExtResource("tile_p")]
+position = Vector2(1216, 2272)
+
+[node name="Tile_052_091" parent="GroundTiles" unique_id=139275694 instance=ExtResource("tile_p")]
+position = Vector2(1248, 2288)
+
+[node name="Tile_052_092" parent="GroundTiles" unique_id=565925492 instance=ExtResource("tile_p")]
+position = Vector2(1280, 2304)
+
+[node name="Tile_052_093" parent="GroundTiles" unique_id=57358982 instance=ExtResource("tile_p")]
+position = Vector2(1312, 2320)
+
+[node name="Tile_052_094" parent="GroundTiles" unique_id=1430182426 instance=ExtResource("tile_p")]
+position = Vector2(1344, 2336)
+
+[node name="Tile_052_095" parent="GroundTiles" unique_id=310769916 instance=ExtResource("tile_p")]
+position = Vector2(1376, 2352)
+
+[node name="Tile_052_096" parent="GroundTiles" unique_id=1523671083 instance=ExtResource("tile_p")]
+position = Vector2(1408, 2368)
+
+[node name="Tile_052_097" parent="GroundTiles" unique_id=1486232817 instance=ExtResource("tile_p")]
+position = Vector2(1440, 2384)
+
+[node name="Tile_053_022" parent="GroundTiles" unique_id=254951757 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1200)
+
+[node name="Tile_053_023" parent="GroundTiles" unique_id=1871517175 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1216)
+
+[node name="Tile_053_024" parent="GroundTiles" unique_id=668540845 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1232)
+
+[node name="Tile_053_025" parent="GroundTiles" unique_id=1841900804 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1248)
+
+[node name="Tile_053_026" parent="GroundTiles" unique_id=1932276858 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1264)
+
+[node name="Tile_053_027" parent="GroundTiles" unique_id=64038607 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1280)
+
+[node name="Tile_053_028" parent="GroundTiles" unique_id=911111427 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1296)
+
+[node name="Tile_053_029" parent="GroundTiles" unique_id=395703659 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1312)
+
+[node name="Tile_053_030" parent="GroundTiles" unique_id=1572898172 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1328)
+
+[node name="Tile_053_060" parent="GroundTiles" unique_id=2123687006 instance=ExtResource("tile_p")]
+position = Vector2(224, 1808)
+
+[node name="Tile_053_061" parent="GroundTiles" unique_id=755946685 instance=ExtResource("tile_p")]
+position = Vector2(256, 1824)
+
+[node name="Tile_053_062" parent="GroundTiles" unique_id=1391206706 instance=ExtResource("tile_p")]
+position = Vector2(288, 1840)
+
+[node name="Tile_053_063" parent="GroundTiles" unique_id=809854459 instance=ExtResource("tile_p")]
+position = Vector2(320, 1856)
+
+[node name="Tile_053_064" parent="GroundTiles" unique_id=411609660 instance=ExtResource("tile_p")]
+position = Vector2(352, 1872)
+
+[node name="Tile_053_065" parent="GroundTiles" unique_id=1931199032 instance=ExtResource("tile_p")]
+position = Vector2(384, 1888)
+
+[node name="Tile_053_083" parent="GroundTiles" unique_id=374415228 instance=ExtResource("tile_p")]
+position = Vector2(960, 2176)
+
+[node name="Tile_053_084" parent="GroundTiles" unique_id=182683087 instance=ExtResource("tile_p")]
+position = Vector2(992, 2192)
+
+[node name="Tile_053_085" parent="GroundTiles" unique_id=1236521339 instance=ExtResource("tile_p")]
+position = Vector2(1024, 2208)
+
+[node name="Tile_053_086" parent="GroundTiles" unique_id=1417278994 instance=ExtResource("tile_p")]
+position = Vector2(1056, 2224)
+
+[node name="Tile_053_087" parent="GroundTiles" unique_id=398348226 instance=ExtResource("tile_p")]
+position = Vector2(1088, 2240)
+
+[node name="Tile_053_088" parent="GroundTiles" unique_id=486718311 instance=ExtResource("tile_p")]
+position = Vector2(1120, 2256)
+
+[node name="Tile_053_089" parent="GroundTiles" unique_id=566148304 instance=ExtResource("tile_p")]
+position = Vector2(1152, 2272)
+
+[node name="Tile_053_090" parent="GroundTiles" unique_id=827649875 instance=ExtResource("tile_p")]
+position = Vector2(1184, 2288)
+
+[node name="Tile_053_091" parent="GroundTiles" unique_id=561283137 instance=ExtResource("tile_p")]
+position = Vector2(1216, 2304)
+
+[node name="Tile_053_092" parent="GroundTiles" unique_id=759084044 instance=ExtResource("tile_p")]
+position = Vector2(1248, 2320)
+
+[node name="Tile_053_093" parent="GroundTiles" unique_id=1593888902 instance=ExtResource("tile_p")]
+position = Vector2(1280, 2336)
+
+[node name="Tile_053_094" parent="GroundTiles" unique_id=1641151021 instance=ExtResource("tile_p")]
+position = Vector2(1312, 2352)
+
+[node name="Tile_053_095" parent="GroundTiles" unique_id=1142065055 instance=ExtResource("tile_p")]
+position = Vector2(1344, 2368)
+
+[node name="Tile_054_023" parent="GroundTiles" unique_id=247984949 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1232)
+
+[node name="Tile_054_024" parent="GroundTiles" unique_id=1839136053 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1248)
+
+[node name="Tile_054_025" parent="GroundTiles" unique_id=582748927 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1264)
+
+[node name="Tile_054_026" parent="GroundTiles" unique_id=1077702649 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1280)
+
+[node name="Tile_054_027" parent="GroundTiles" unique_id=1673867410 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1296)
+
+[node name="Tile_054_028" parent="GroundTiles" unique_id=1616638483 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1312)
+
+[node name="Tile_054_029" parent="GroundTiles" unique_id=1888837918 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1328)
+
+[node name="Tile_054_030" parent="GroundTiles" unique_id=1687404703 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1344)
+
+[node name="Tile_054_031" parent="GroundTiles" unique_id=850203570 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1360)
+
+[node name="Tile_054_060" parent="GroundTiles" unique_id=922881464 instance=ExtResource("tile_p")]
+position = Vector2(192, 1824)
+
+[node name="Tile_054_061" parent="GroundTiles" unique_id=75261662 instance=ExtResource("tile_p")]
+position = Vector2(224, 1840)
+
+[node name="Tile_054_062" parent="GroundTiles" unique_id=102013676 instance=ExtResource("tile_p")]
+position = Vector2(256, 1856)
+
+[node name="Tile_054_063" parent="GroundTiles" unique_id=1980761384 instance=ExtResource("tile_p")]
+position = Vector2(288, 1872)
+
+[node name="Tile_054_064" parent="GroundTiles" unique_id=2130825492 instance=ExtResource("tile_p")]
+position = Vector2(320, 1888)
+
+[node name="Tile_054_065" parent="GroundTiles" unique_id=514145218 instance=ExtResource("tile_p")]
+position = Vector2(352, 1904)
+
+[node name="Tile_054_082" parent="GroundTiles" unique_id=1294176234 instance=ExtResource("tile_p")]
+position = Vector2(896, 2176)
+
+[node name="Tile_054_083" parent="GroundTiles" unique_id=201716288 instance=ExtResource("tile_p")]
+position = Vector2(928, 2192)
+
+[node name="Tile_054_084" parent="GroundTiles" unique_id=2029216627 instance=ExtResource("tile_p")]
+position = Vector2(960, 2208)
+
+[node name="Tile_054_085" parent="GroundTiles" unique_id=2111154663 instance=ExtResource("tile_p")]
+position = Vector2(992, 2224)
+
+[node name="Tile_054_086" parent="GroundTiles" unique_id=18407890 instance=ExtResource("tile_p")]
+position = Vector2(1024, 2240)
+
+[node name="Tile_054_087" parent="GroundTiles" unique_id=754439269 instance=ExtResource("tile_p")]
+position = Vector2(1056, 2256)
+
+[node name="Tile_054_088" parent="GroundTiles" unique_id=929052400 instance=ExtResource("tile_p")]
+position = Vector2(1088, 2272)
+
+[node name="Tile_054_089" parent="GroundTiles" unique_id=1485673707 instance=ExtResource("tile_p")]
+position = Vector2(1120, 2288)
+
+[node name="Tile_054_090" parent="GroundTiles" unique_id=878960888 instance=ExtResource("tile_p")]
+position = Vector2(1152, 2304)
+
+[node name="Tile_054_091" parent="GroundTiles" unique_id=526194959 instance=ExtResource("tile_p")]
+position = Vector2(1184, 2320)
+
+[node name="Tile_054_092" parent="GroundTiles" unique_id=561882568 instance=ExtResource("tile_p")]
+position = Vector2(1216, 2336)
+
+[node name="Tile_054_093" parent="GroundTiles" unique_id=407453704 instance=ExtResource("tile_p")]
+position = Vector2(1248, 2352)
+
+[node name="Tile_055_024" parent="GroundTiles" unique_id=820523046 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1264)
+
+[node name="Tile_055_025" parent="GroundTiles" unique_id=249647013 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1280)
+
+[node name="Tile_055_026" parent="GroundTiles" unique_id=1775567915 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1296)
+
+[node name="Tile_055_027" parent="GroundTiles" unique_id=747894167 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1312)
+
+[node name="Tile_055_028" parent="GroundTiles" unique_id=346285678 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1328)
+
+[node name="Tile_055_029" parent="GroundTiles" unique_id=953691448 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1344)
+
+[node name="Tile_055_030" parent="GroundTiles" unique_id=1968891398 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1360)
+
+[node name="Tile_055_031" parent="GroundTiles" unique_id=1741911439 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1376)
+
+[node name="Tile_055_032" parent="GroundTiles" unique_id=678936815 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1392)
+
+[node name="Tile_055_059" parent="GroundTiles" unique_id=707812552 instance=ExtResource("tile_p")]
+position = Vector2(128, 1824)
+
+[node name="Tile_055_060" parent="GroundTiles" unique_id=919367739 instance=ExtResource("tile_p")]
+position = Vector2(160, 1840)
+
+[node name="Tile_055_061" parent="GroundTiles" unique_id=1545192924 instance=ExtResource("tile_p")]
+position = Vector2(192, 1856)
+
+[node name="Tile_055_062" parent="GroundTiles" unique_id=1734431214 instance=ExtResource("tile_p")]
+position = Vector2(224, 1872)
+
+[node name="Tile_055_063" parent="GroundTiles" unique_id=1281622342 instance=ExtResource("tile_p")]
+position = Vector2(256, 1888)
+
+[node name="Tile_055_064" parent="GroundTiles" unique_id=243279503 instance=ExtResource("tile_p")]
+position = Vector2(288, 1904)
+
+[node name="Tile_055_080" parent="GroundTiles" unique_id=1049559958 instance=ExtResource("tile_p")]
+position = Vector2(800, 2160)
+
+[node name="Tile_055_081" parent="GroundTiles" unique_id=1269739907 instance=ExtResource("tile_p")]
+position = Vector2(832, 2176)
+
+[node name="Tile_055_082" parent="GroundTiles" unique_id=573502198 instance=ExtResource("tile_p")]
+position = Vector2(864, 2192)
+
+[node name="Tile_055_083" parent="GroundTiles" unique_id=1503456773 instance=ExtResource("tile_p")]
+position = Vector2(896, 2208)
+
+[node name="Tile_055_084" parent="GroundTiles" unique_id=524761426 instance=ExtResource("tile_p")]
+position = Vector2(928, 2224)
+
+[node name="Tile_055_085" parent="GroundTiles" unique_id=914683902 instance=ExtResource("tile_p")]
+position = Vector2(960, 2240)
+
+[node name="Tile_055_086" parent="GroundTiles" unique_id=203596318 instance=ExtResource("tile_p")]
+position = Vector2(992, 2256)
+
+[node name="Tile_055_087" parent="GroundTiles" unique_id=931432673 instance=ExtResource("tile_p")]
+position = Vector2(1024, 2272)
+
+[node name="Tile_055_088" parent="GroundTiles" unique_id=349521777 instance=ExtResource("tile_p")]
+position = Vector2(1056, 2288)
+
+[node name="Tile_055_089" parent="GroundTiles" unique_id=136267871 instance=ExtResource("tile_p")]
+position = Vector2(1088, 2304)
+
+[node name="Tile_055_090" parent="GroundTiles" unique_id=1057068325 instance=ExtResource("tile_p")]
+position = Vector2(1120, 2320)
+
+[node name="Tile_055_091" parent="GroundTiles" unique_id=308908758 instance=ExtResource("tile_p")]
+position = Vector2(1152, 2336)
+
+[node name="Tile_056_025" parent="GroundTiles" unique_id=1201408815 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1296)
+
+[node name="Tile_056_026" parent="GroundTiles" unique_id=1559719133 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1312)
+
+[node name="Tile_056_027" parent="GroundTiles" unique_id=484520674 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1328)
+
+[node name="Tile_056_028" parent="GroundTiles" unique_id=1435790690 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1344)
+
+[node name="Tile_056_029" parent="GroundTiles" unique_id=311014370 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1360)
+
+[node name="Tile_056_030" parent="GroundTiles" unique_id=1763480076 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1376)
+
+[node name="Tile_056_031" parent="GroundTiles" unique_id=1344921414 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1392)
+
+[node name="Tile_056_032" parent="GroundTiles" unique_id=1022222145 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1408)
+
+[node name="Tile_056_033" parent="GroundTiles" unique_id=525844406 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1424)
+
+[node name="Tile_056_059" parent="GroundTiles" unique_id=275426659 instance=ExtResource("tile_p")]
+position = Vector2(96, 1840)
+
+[node name="Tile_056_060" parent="GroundTiles" unique_id=2005245687 instance=ExtResource("tile_p")]
+position = Vector2(128, 1856)
+
+[node name="Tile_056_061" parent="GroundTiles" unique_id=672150452 instance=ExtResource("tile_p")]
+position = Vector2(160, 1872)
+
+[node name="Tile_056_062" parent="GroundTiles" unique_id=873206360 instance=ExtResource("tile_p")]
+position = Vector2(192, 1888)
+
+[node name="Tile_056_063" parent="GroundTiles" unique_id=473367337 instance=ExtResource("tile_p")]
+position = Vector2(224, 1904)
+
+[node name="Tile_056_064" parent="GroundTiles" unique_id=633138795 instance=ExtResource("tile_p")]
+position = Vector2(256, 1920)
+
+[node name="Tile_056_079" parent="GroundTiles" unique_id=682813204 instance=ExtResource("tile_p")]
+position = Vector2(736, 2160)
+
+[node name="Tile_056_080" parent="GroundTiles" unique_id=139065733 instance=ExtResource("tile_p")]
+position = Vector2(768, 2176)
+
+[node name="Tile_056_081" parent="GroundTiles" unique_id=83265680 instance=ExtResource("tile_p")]
+position = Vector2(800, 2192)
+
+[node name="Tile_056_082" parent="GroundTiles" unique_id=29513967 instance=ExtResource("tile_p")]
+position = Vector2(832, 2208)
+
+[node name="Tile_056_083" parent="GroundTiles" unique_id=281239223 instance=ExtResource("tile_p")]
+position = Vector2(864, 2224)
+
+[node name="Tile_056_084" parent="GroundTiles" unique_id=326591279 instance=ExtResource("tile_p")]
+position = Vector2(896, 2240)
+
+[node name="Tile_056_085" parent="GroundTiles" unique_id=1703092939 instance=ExtResource("tile_p")]
+position = Vector2(928, 2256)
+
+[node name="Tile_056_086" parent="GroundTiles" unique_id=443362115 instance=ExtResource("tile_p")]
+position = Vector2(960, 2272)
+
+[node name="Tile_056_087" parent="GroundTiles" unique_id=401223572 instance=ExtResource("tile_p")]
+position = Vector2(992, 2288)
+
+[node name="Tile_056_088" parent="GroundTiles" unique_id=372338397 instance=ExtResource("tile_p")]
+position = Vector2(1024, 2304)
+
+[node name="Tile_056_089" parent="GroundTiles" unique_id=648713088 instance=ExtResource("tile_p")]
+position = Vector2(1056, 2320)
+
+[node name="Tile_057_026" parent="GroundTiles" unique_id=1212068553 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1328)
+
+[node name="Tile_057_027" parent="GroundTiles" unique_id=1100728627 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1344)
+
+[node name="Tile_057_028" parent="GroundTiles" unique_id=2015348454 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1360)
+
+[node name="Tile_057_029" parent="GroundTiles" unique_id=2016064998 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1376)
+
+[node name="Tile_057_030" parent="GroundTiles" unique_id=403133766 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1392)
+
+[node name="Tile_057_031" parent="GroundTiles" unique_id=1313673727 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1408)
+
+[node name="Tile_057_032" parent="GroundTiles" unique_id=710145120 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1424)
+
+[node name="Tile_057_033" parent="GroundTiles" unique_id=1697884842 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1440)
+
+[node name="Tile_057_034" parent="GroundTiles" unique_id=227286642 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1456)
+
+[node name="Tile_057_058" parent="GroundTiles" unique_id=940221684 instance=ExtResource("tile_p")]
+position = Vector2(32, 1840)
+
+[node name="Tile_057_059" parent="GroundTiles" unique_id=471933885 instance=ExtResource("tile_p")]
+position = Vector2(64, 1856)
+
+[node name="Tile_057_060" parent="GroundTiles" unique_id=1311163516 instance=ExtResource("tile_p")]
+position = Vector2(96, 1872)
+
+[node name="Tile_057_061" parent="GroundTiles" unique_id=664723930 instance=ExtResource("tile_p")]
+position = Vector2(128, 1888)
+
+[node name="Tile_057_062" parent="GroundTiles" unique_id=240101097 instance=ExtResource("tile_p")]
+position = Vector2(160, 1904)
+
+[node name="Tile_057_063" parent="GroundTiles" unique_id=1968292337 instance=ExtResource("tile_p")]
+position = Vector2(192, 1920)
+
+[node name="Tile_057_077" parent="GroundTiles" unique_id=244007645 instance=ExtResource("tile_p")]
+position = Vector2(640, 2144)
+
+[node name="Tile_057_078" parent="GroundTiles" unique_id=146332028 instance=ExtResource("tile_p")]
+position = Vector2(672, 2160)
+
+[node name="Tile_057_079" parent="GroundTiles" unique_id=1311658268 instance=ExtResource("tile_p")]
+position = Vector2(704, 2176)
+
+[node name="Tile_057_080" parent="GroundTiles" unique_id=1913527959 instance=ExtResource("tile_p")]
+position = Vector2(736, 2192)
+
+[node name="Tile_057_081" parent="GroundTiles" unique_id=1249534299 instance=ExtResource("tile_p")]
+position = Vector2(768, 2208)
+
+[node name="Tile_057_082" parent="GroundTiles" unique_id=2013675278 instance=ExtResource("tile_p")]
+position = Vector2(800, 2224)
+
+[node name="Tile_057_083" parent="GroundTiles" unique_id=1258474922 instance=ExtResource("tile_p")]
+position = Vector2(832, 2240)
+
+[node name="Tile_057_084" parent="GroundTiles" unique_id=133218963 instance=ExtResource("tile_p")]
+position = Vector2(864, 2256)
+
+[node name="Tile_057_085" parent="GroundTiles" unique_id=941148849 instance=ExtResource("tile_p")]
+position = Vector2(896, 2272)
+
+[node name="Tile_057_086" parent="GroundTiles" unique_id=1234024924 instance=ExtResource("tile_p")]
+position = Vector2(928, 2288)
+
+[node name="Tile_057_087" parent="GroundTiles" unique_id=1968618449 instance=ExtResource("tile_p")]
+position = Vector2(960, 2304)
+
+[node name="Tile_058_027" parent="GroundTiles" unique_id=706255384 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1360)
+
+[node name="Tile_058_028" parent="GroundTiles" unique_id=845516246 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1376)
+
+[node name="Tile_058_029" parent="GroundTiles" unique_id=319071136 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1392)
+
+[node name="Tile_058_030" parent="GroundTiles" unique_id=984168727 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1408)
+
+[node name="Tile_058_031" parent="GroundTiles" unique_id=1327842547 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1424)
+
+[node name="Tile_058_032" parent="GroundTiles" unique_id=582458644 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1440)
+
+[node name="Tile_058_033" parent="GroundTiles" unique_id=1463561481 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1456)
+
+[node name="Tile_058_034" parent="GroundTiles" unique_id=2119667800 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1472)
+
+[node name="Tile_058_035" parent="GroundTiles" unique_id=1802367768 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1488)
+
+[node name="Tile_058_058" parent="GroundTiles" unique_id=1459932110 instance=ExtResource("tile_p")]
+position = Vector2(0, 1856)
+
+[node name="Tile_058_059" parent="GroundTiles" unique_id=543190600 instance=ExtResource("tile_p")]
+position = Vector2(32, 1872)
+
+[node name="Tile_058_060" parent="GroundTiles" unique_id=878900825 instance=ExtResource("tile_p")]
+position = Vector2(64, 1888)
+
+[node name="Tile_058_061" parent="GroundTiles" unique_id=936445795 instance=ExtResource("tile_p")]
+position = Vector2(96, 1904)
+
+[node name="Tile_058_062" parent="GroundTiles" unique_id=366586522 instance=ExtResource("tile_p")]
+position = Vector2(128, 1920)
+
+[node name="Tile_058_063" parent="GroundTiles" unique_id=675917570 instance=ExtResource("tile_p")]
+position = Vector2(160, 1936)
+
+[node name="Tile_058_076" parent="GroundTiles" unique_id=2104518110 instance=ExtResource("tile_p")]
+position = Vector2(576, 2144)
+
+[node name="Tile_058_077" parent="GroundTiles" unique_id=604927230 instance=ExtResource("tile_p")]
+position = Vector2(608, 2160)
+
+[node name="Tile_058_078" parent="GroundTiles" unique_id=119381961 instance=ExtResource("tile_p")]
+position = Vector2(640, 2176)
+
+[node name="Tile_058_079" parent="GroundTiles" unique_id=293704003 instance=ExtResource("tile_p")]
+position = Vector2(672, 2192)
+
+[node name="Tile_058_080" parent="GroundTiles" unique_id=1396516735 instance=ExtResource("tile_p")]
+position = Vector2(704, 2208)
+
+[node name="Tile_058_081" parent="GroundTiles" unique_id=1429123293 instance=ExtResource("tile_p")]
+position = Vector2(736, 2224)
+
+[node name="Tile_058_082" parent="GroundTiles" unique_id=1379423635 instance=ExtResource("tile_p")]
+position = Vector2(768, 2240)
+
+[node name="Tile_058_083" parent="GroundTiles" unique_id=1410620953 instance=ExtResource("tile_p")]
+position = Vector2(800, 2256)
+
+[node name="Tile_058_084" parent="GroundTiles" unique_id=207224072 instance=ExtResource("tile_p")]
+position = Vector2(832, 2272)
+
+[node name="Tile_058_085" parent="GroundTiles" unique_id=1873633208 instance=ExtResource("tile_p")]
+position = Vector2(864, 2288)
+
+[node name="Tile_059_028" parent="GroundTiles" unique_id=1241445355 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1392)
+
+[node name="Tile_059_029" parent="GroundTiles" unique_id=1949158032 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1408)
+
+[node name="Tile_059_030" parent="GroundTiles" unique_id=981299341 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1424)
+
+[node name="Tile_059_031" parent="GroundTiles" unique_id=1093567435 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1440)
+
+[node name="Tile_059_032" parent="GroundTiles" unique_id=371733278 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1456)
+
+[node name="Tile_059_033" parent="GroundTiles" unique_id=1736496496 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1472)
+
+[node name="Tile_059_034" parent="GroundTiles" unique_id=1414155427 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1488)
+
+[node name="Tile_059_035" parent="GroundTiles" unique_id=28794623 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1504)
+
+[node name="Tile_059_036" parent="GroundTiles" unique_id=859730137 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1520)
+
+[node name="Tile_059_057" parent="GroundTiles" unique_id=702463594 instance=ExtResource("tile_p")]
+position = Vector2(-64, 1856)
+
+[node name="Tile_059_058" parent="GroundTiles" unique_id=1419161908 instance=ExtResource("tile_p")]
+position = Vector2(-32, 1872)
+
+[node name="Tile_059_059" parent="GroundTiles" unique_id=73462776 instance=ExtResource("tile_p")]
+position = Vector2(0, 1888)
+
+[node name="Tile_059_060" parent="GroundTiles" unique_id=52347883 instance=ExtResource("tile_p")]
+position = Vector2(32, 1904)
+
+[node name="Tile_059_061" parent="GroundTiles" unique_id=1945625089 instance=ExtResource("tile_p")]
+position = Vector2(64, 1920)
+
+[node name="Tile_059_062" parent="GroundTiles" unique_id=905130947 instance=ExtResource("tile_p")]
+position = Vector2(96, 1936)
+
+[node name="Tile_059_063" parent="GroundTiles" unique_id=357503901 instance=ExtResource("tile_p")]
+position = Vector2(128, 1952)
+
+[node name="Tile_059_074" parent="GroundTiles" unique_id=2013971519 instance=ExtResource("tile_p")]
+position = Vector2(480, 2128)
+
+[node name="Tile_059_075" parent="GroundTiles" unique_id=105836979 instance=ExtResource("tile_p")]
+position = Vector2(512, 2144)
+
+[node name="Tile_059_076" parent="GroundTiles" unique_id=363001352 instance=ExtResource("tile_p")]
+position = Vector2(544, 2160)
+
+[node name="Tile_059_077" parent="GroundTiles" unique_id=1224772877 instance=ExtResource("tile_p")]
+position = Vector2(576, 2176)
+
+[node name="Tile_059_078" parent="GroundTiles" unique_id=625312009 instance=ExtResource("tile_p")]
+position = Vector2(608, 2192)
+
+[node name="Tile_059_079" parent="GroundTiles" unique_id=373651241 instance=ExtResource("tile_p")]
+position = Vector2(640, 2208)
+
+[node name="Tile_059_080" parent="GroundTiles" unique_id=1197145184 instance=ExtResource("tile_p")]
+position = Vector2(672, 2224)
+
+[node name="Tile_059_081" parent="GroundTiles" unique_id=644129118 instance=ExtResource("tile_p")]
+position = Vector2(704, 2240)
+
+[node name="Tile_059_082" parent="GroundTiles" unique_id=1940302306 instance=ExtResource("tile_p")]
+position = Vector2(736, 2256)
+
+[node name="Tile_059_083" parent="GroundTiles" unique_id=1438339886 instance=ExtResource("tile_p")]
+position = Vector2(768, 2272)
+
+[node name="Tile_060_029" parent="GroundTiles" unique_id=1535146843 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1424)
+
+[node name="Tile_060_030" parent="GroundTiles" unique_id=756477561 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1440)
+
+[node name="Tile_060_031" parent="GroundTiles" unique_id=1083883708 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1456)
+
+[node name="Tile_060_032" parent="GroundTiles" unique_id=1481527892 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1472)
+
+[node name="Tile_060_033" parent="GroundTiles" unique_id=1085720624 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1488)
+
+[node name="Tile_060_034" parent="GroundTiles" unique_id=1146033788 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1504)
+
+[node name="Tile_060_035" parent="GroundTiles" unique_id=1268592342 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1520)
+
+[node name="Tile_060_036" parent="GroundTiles" unique_id=257512565 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1536)
+
+[node name="Tile_060_037" parent="GroundTiles" unique_id=772422923 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1552)
+
+[node name="Tile_060_057" parent="GroundTiles" unique_id=1491219965 instance=ExtResource("tile_p")]
+position = Vector2(-96, 1872)
+
+[node name="Tile_060_058" parent="GroundTiles" unique_id=955021861 instance=ExtResource("tile_p")]
+position = Vector2(-64, 1888)
+
+[node name="Tile_060_059" parent="GroundTiles" unique_id=1580857067 instance=ExtResource("tile_p")]
+position = Vector2(-32, 1904)
+
+[node name="Tile_060_060" parent="GroundTiles" unique_id=916494287 instance=ExtResource("tile_p")]
+position = Vector2(0, 1920)
+
+[node name="Tile_060_061" parent="GroundTiles" unique_id=1038835296 instance=ExtResource("tile_p")]
+position = Vector2(32, 1936)
+
+[node name="Tile_060_062" parent="GroundTiles" unique_id=1537091179 instance=ExtResource("tile_p")]
+position = Vector2(64, 1952)
+
+[node name="Tile_060_073" parent="GroundTiles" unique_id=375979838 instance=ExtResource("tile_p")]
+position = Vector2(416, 2128)
+
+[node name="Tile_060_074" parent="GroundTiles" unique_id=643110890 instance=ExtResource("tile_p")]
+position = Vector2(448, 2144)
+
+[node name="Tile_060_075" parent="GroundTiles" unique_id=1533348062 instance=ExtResource("tile_p")]
+position = Vector2(480, 2160)
+
+[node name="Tile_060_076" parent="GroundTiles" unique_id=1999797333 instance=ExtResource("tile_p")]
+position = Vector2(512, 2176)
+
+[node name="Tile_060_077" parent="GroundTiles" unique_id=604126693 instance=ExtResource("tile_p")]
+position = Vector2(544, 2192)
+
+[node name="Tile_060_078" parent="GroundTiles" unique_id=760153955 instance=ExtResource("tile_p")]
+position = Vector2(576, 2208)
+
+[node name="Tile_060_079" parent="GroundTiles" unique_id=1603169510 instance=ExtResource("tile_p")]
+position = Vector2(608, 2224)
+
+[node name="Tile_060_080" parent="GroundTiles" unique_id=1328435950 instance=ExtResource("tile_p")]
+position = Vector2(640, 2240)
+
+[node name="Tile_060_081" parent="GroundTiles" unique_id=761269995 instance=ExtResource("tile_p")]
+position = Vector2(672, 2256)
+
+[node name="Tile_060_082" parent="GroundTiles" unique_id=1929506500 instance=ExtResource("tile_p")]
+position = Vector2(704, 2272)
+
+[node name="Tile_061_030" parent="GroundTiles" unique_id=464451960 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1456)
+
+[node name="Tile_061_031" parent="GroundTiles" unique_id=520539572 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1472)
+
+[node name="Tile_061_032" parent="GroundTiles" unique_id=935601899 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1488)
+
+[node name="Tile_061_033" parent="GroundTiles" unique_id=1853930034 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1504)
+
+[node name="Tile_061_034" parent="GroundTiles" unique_id=210377275 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1520)
+
+[node name="Tile_061_035" parent="GroundTiles" unique_id=986855846 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1536)
+
+[node name="Tile_061_036" parent="GroundTiles" unique_id=1443733725 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1552)
+
+[node name="Tile_061_037" parent="GroundTiles" unique_id=295552074 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1568)
+
+[node name="Tile_061_038" parent="GroundTiles" unique_id=1427295610 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1584)
+
+[node name="Tile_061_056" parent="GroundTiles" unique_id=1869508335 instance=ExtResource("tile_p")]
+position = Vector2(-160, 1872)
+
+[node name="Tile_061_057" parent="GroundTiles" unique_id=1565995065 instance=ExtResource("tile_p")]
+position = Vector2(-128, 1888)
+
+[node name="Tile_061_058" parent="GroundTiles" unique_id=2086070561 instance=ExtResource("tile_p")]
+position = Vector2(-96, 1904)
+
+[node name="Tile_061_059" parent="GroundTiles" unique_id=1581619859 instance=ExtResource("tile_p")]
+position = Vector2(-64, 1920)
+
+[node name="Tile_061_060" parent="GroundTiles" unique_id=1872587930 instance=ExtResource("tile_p")]
+position = Vector2(-32, 1936)
+
+[node name="Tile_061_061" parent="GroundTiles" unique_id=1369210404 instance=ExtResource("tile_p")]
+position = Vector2(0, 1952)
+
+[node name="Tile_061_062" parent="GroundTiles" unique_id=1945141961 instance=ExtResource("tile_p")]
+position = Vector2(32, 1968)
+
+[node name="Tile_061_071" parent="GroundTiles" unique_id=111756448 instance=ExtResource("tile_p")]
+position = Vector2(320, 2112)
+
+[node name="Tile_061_072" parent="GroundTiles" unique_id=1454583069 instance=ExtResource("tile_p")]
+position = Vector2(352, 2128)
+
+[node name="Tile_061_073" parent="GroundTiles" unique_id=1795727371 instance=ExtResource("tile_p")]
+position = Vector2(384, 2144)
+
+[node name="Tile_061_074" parent="GroundTiles" unique_id=1293247850 instance=ExtResource("tile_p")]
+position = Vector2(416, 2160)
+
+[node name="Tile_061_075" parent="GroundTiles" unique_id=1065074565 instance=ExtResource("tile_p")]
+position = Vector2(448, 2176)
+
+[node name="Tile_061_076" parent="GroundTiles" unique_id=367159372 instance=ExtResource("tile_p")]
+position = Vector2(480, 2192)
+
+[node name="Tile_061_077" parent="GroundTiles" unique_id=1746761504 instance=ExtResource("tile_p")]
+position = Vector2(512, 2208)
+
+[node name="Tile_061_078" parent="GroundTiles" unique_id=774618933 instance=ExtResource("tile_p")]
+position = Vector2(544, 2224)
+
+[node name="Tile_061_079" parent="GroundTiles" unique_id=1672740152 instance=ExtResource("tile_p")]
+position = Vector2(576, 2240)
+
+[node name="Tile_061_080" parent="GroundTiles" unique_id=1272790142 instance=ExtResource("tile_p")]
+position = Vector2(608, 2256)
+
+[node name="Tile_062_031" parent="GroundTiles" unique_id=606312587 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1488)
+
+[node name="Tile_062_032" parent="GroundTiles" unique_id=1215984260 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1504)
+
+[node name="Tile_062_033" parent="GroundTiles" unique_id=1704850083 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1520)
+
+[node name="Tile_062_034" parent="GroundTiles" unique_id=202160257 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1536)
+
+[node name="Tile_062_035" parent="GroundTiles" unique_id=1160712408 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1552)
+
+[node name="Tile_062_036" parent="GroundTiles" unique_id=2075331541 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1568)
+
+[node name="Tile_062_037" parent="GroundTiles" unique_id=789756207 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1584)
+
+[node name="Tile_062_038" parent="GroundTiles" unique_id=910082311 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1600)
+
+[node name="Tile_062_039" parent="GroundTiles" unique_id=1827869098 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1616)
+
+[node name="Tile_062_043" parent="GroundTiles" unique_id=355027880 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1680)
+
+[node name="Tile_062_044" parent="GroundTiles" unique_id=1308852026 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1696)
+
+[node name="Tile_062_045" parent="GroundTiles" unique_id=1211464128 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1712)
+
+[node name="Tile_062_046" parent="GroundTiles" unique_id=475872187 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1728)
+
+[node name="Tile_062_047" parent="GroundTiles" unique_id=772884128 instance=ExtResource("tile_p")]
+position = Vector2(-480, 1744)
+
+[node name="Tile_062_048" parent="GroundTiles" unique_id=593579036 instance=ExtResource("tile_p")]
+position = Vector2(-448, 1760)
+
+[node name="Tile_062_049" parent="GroundTiles" unique_id=1519923913 instance=ExtResource("tile_p")]
+position = Vector2(-416, 1776)
+
+[node name="Tile_062_050" parent="GroundTiles" unique_id=1466565708 instance=ExtResource("tile_p")]
+position = Vector2(-384, 1792)
+
+[node name="Tile_062_051" parent="GroundTiles" unique_id=1945613374 instance=ExtResource("tile_p")]
+position = Vector2(-352, 1808)
+
+[node name="Tile_062_052" parent="GroundTiles" unique_id=211911068 instance=ExtResource("tile_p")]
+position = Vector2(-320, 1824)
+
+[node name="Tile_062_053" parent="GroundTiles" unique_id=605671453 instance=ExtResource("tile_p")]
+position = Vector2(-288, 1840)
+
+[node name="Tile_062_054" parent="GroundTiles" unique_id=493115535 instance=ExtResource("tile_p")]
+position = Vector2(-256, 1856)
+
+[node name="Tile_062_055" parent="GroundTiles" unique_id=1129632065 instance=ExtResource("tile_p")]
+position = Vector2(-224, 1872)
+
+[node name="Tile_062_056" parent="GroundTiles" unique_id=1651942365 instance=ExtResource("tile_p")]
+position = Vector2(-192, 1888)
+
+[node name="Tile_062_057" parent="GroundTiles" unique_id=1227752454 instance=ExtResource("tile_p")]
+position = Vector2(-160, 1904)
+
+[node name="Tile_062_058" parent="GroundTiles" unique_id=346486061 instance=ExtResource("tile_p")]
+position = Vector2(-128, 1920)
+
+[node name="Tile_062_059" parent="GroundTiles" unique_id=1883590001 instance=ExtResource("tile_p")]
+position = Vector2(-96, 1936)
+
+[node name="Tile_062_060" parent="GroundTiles" unique_id=372307555 instance=ExtResource("tile_p")]
+position = Vector2(-64, 1952)
+
+[node name="Tile_062_061" parent="GroundTiles" unique_id=660993614 instance=ExtResource("tile_p")]
+position = Vector2(-32, 1968)
+
+[node name="Tile_062_070" parent="GroundTiles" unique_id=1128361698 instance=ExtResource("tile_p")]
+position = Vector2(256, 2112)
+
+[node name="Tile_062_071" parent="GroundTiles" unique_id=1670051348 instance=ExtResource("tile_p")]
+position = Vector2(288, 2128)
+
+[node name="Tile_062_072" parent="GroundTiles" unique_id=23008559 instance=ExtResource("tile_p")]
+position = Vector2(320, 2144)
+
+[node name="Tile_062_073" parent="GroundTiles" unique_id=2128720112 instance=ExtResource("tile_p")]
+position = Vector2(352, 2160)
+
+[node name="Tile_062_074" parent="GroundTiles" unique_id=434207731 instance=ExtResource("tile_p")]
+position = Vector2(384, 2176)
+
+[node name="Tile_062_075" parent="GroundTiles" unique_id=1944108315 instance=ExtResource("tile_p")]
+position = Vector2(416, 2192)
+
+[node name="Tile_062_076" parent="GroundTiles" unique_id=334591398 instance=ExtResource("tile_p")]
+position = Vector2(448, 2208)
+
+[node name="Tile_062_077" parent="GroundTiles" unique_id=903826141 instance=ExtResource("tile_p")]
+position = Vector2(480, 2224)
+
+[node name="Tile_062_078" parent="GroundTiles" unique_id=661491560 instance=ExtResource("tile_p")]
+position = Vector2(512, 2240)
+
+[node name="Tile_062_079" parent="GroundTiles" unique_id=413206438 instance=ExtResource("tile_p")]
+position = Vector2(544, 2256)
+
+[node name="Tile_063_032" parent="GroundTiles" unique_id=898823362 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1520)
+
+[node name="Tile_063_033" parent="GroundTiles" unique_id=2071440904 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1536)
+
+[node name="Tile_063_034" parent="GroundTiles" unique_id=740592515 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1552)
+
+[node name="Tile_063_035" parent="GroundTiles" unique_id=1093563136 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1568)
+
+[node name="Tile_063_036" parent="GroundTiles" unique_id=1477601232 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1584)
+
+[node name="Tile_063_037" parent="GroundTiles" unique_id=581070698 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1600)
+
+[node name="Tile_063_038" parent="GroundTiles" unique_id=622301113 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1616)
+
+[node name="Tile_063_039" parent="GroundTiles" unique_id=430677045 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1632)
+
+[node name="Tile_063_040" parent="GroundTiles" unique_id=1420424417 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1648)
+
+[node name="Tile_063_042" parent="GroundTiles" unique_id=1443306094 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1680)
+
+[node name="Tile_063_043" parent="GroundTiles" unique_id=1275832132 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1696)
+
+[node name="Tile_063_044" parent="GroundTiles" unique_id=574289112 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1712)
+
+[node name="Tile_063_045" parent="GroundTiles" unique_id=2127231245 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1728)
+
+[node name="Tile_063_046" parent="GroundTiles" unique_id=534494952 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1744)
+
+[node name="Tile_063_047" parent="GroundTiles" unique_id=1591685606 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1760)
+
+[node name="Tile_063_048" parent="GroundTiles" unique_id=889799096 instance=ExtResource("tile_p")]
+position = Vector2(-480, 1776)
+
+[node name="Tile_063_049" parent="GroundTiles" unique_id=1216698861 instance=ExtResource("tile_p")]
+position = Vector2(-448, 1792)
+
+[node name="Tile_063_050" parent="GroundTiles" unique_id=885577297 instance=ExtResource("tile_p")]
+position = Vector2(-416, 1808)
+
+[node name="Tile_063_051" parent="GroundTiles" unique_id=2144129961 instance=ExtResource("tile_p")]
+position = Vector2(-384, 1824)
+
+[node name="Tile_063_052" parent="GroundTiles" unique_id=168034203 instance=ExtResource("tile_p")]
+position = Vector2(-352, 1840)
+
+[node name="Tile_063_053" parent="GroundTiles" unique_id=2076885309 instance=ExtResource("tile_p")]
+position = Vector2(-320, 1856)
+
+[node name="Tile_063_054" parent="GroundTiles" unique_id=191482464 instance=ExtResource("tile_p")]
+position = Vector2(-288, 1872)
+
+[node name="Tile_063_055" parent="GroundTiles" unique_id=877542742 instance=ExtResource("tile_p")]
+position = Vector2(-256, 1888)
+
+[node name="Tile_063_056" parent="GroundTiles" unique_id=1605521291 instance=ExtResource("tile_p")]
+position = Vector2(-224, 1904)
+
+[node name="Tile_063_057" parent="GroundTiles" unique_id=800439812 instance=ExtResource("tile_p")]
+position = Vector2(-192, 1920)
+
+[node name="Tile_063_058" parent="GroundTiles" unique_id=278465863 instance=ExtResource("tile_p")]
+position = Vector2(-160, 1936)
+
+[node name="Tile_063_059" parent="GroundTiles" unique_id=979537276 instance=ExtResource("tile_p")]
+position = Vector2(-128, 1952)
+
+[node name="Tile_063_060" parent="GroundTiles" unique_id=786563789 instance=ExtResource("tile_p")]
+position = Vector2(-96, 1968)
+
+[node name="Tile_063_061" parent="GroundTiles" unique_id=1966074540 instance=ExtResource("tile_p")]
+position = Vector2(-64, 1984)
+
+[node name="Tile_063_069" parent="GroundTiles" unique_id=186984049 instance=ExtResource("tile_p")]
+position = Vector2(192, 2112)
+
+[node name="Tile_063_070" parent="GroundTiles" unique_id=2074394271 instance=ExtResource("tile_p")]
+position = Vector2(224, 2128)
+
+[node name="Tile_063_071" parent="GroundTiles" unique_id=612520273 instance=ExtResource("tile_p")]
+position = Vector2(256, 2144)
+
+[node name="Tile_063_072" parent="GroundTiles" unique_id=381481255 instance=ExtResource("tile_p")]
+position = Vector2(288, 2160)
+
+[node name="Tile_063_073" parent="GroundTiles" unique_id=1709704 instance=ExtResource("tile_p")]
+position = Vector2(320, 2176)
+
+[node name="Tile_063_074" parent="GroundTiles" unique_id=439546420 instance=ExtResource("tile_p")]
+position = Vector2(352, 2192)
+
+[node name="Tile_063_075" parent="GroundTiles" unique_id=1099925616 instance=ExtResource("tile_p")]
+position = Vector2(384, 2208)
+
+[node name="Tile_063_076" parent="GroundTiles" unique_id=624291039 instance=ExtResource("tile_p")]
+position = Vector2(416, 2224)
+
+[node name="Tile_063_077" parent="GroundTiles" unique_id=369929185 instance=ExtResource("tile_p")]
+position = Vector2(448, 2240)
+
+[node name="Tile_064_033" parent="GroundTiles" unique_id=1888878154 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1552)
+
+[node name="Tile_064_034" parent="GroundTiles" unique_id=1727751528 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1568)
+
+[node name="Tile_064_035" parent="GroundTiles" unique_id=177441869 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1584)
+
+[node name="Tile_064_036" parent="GroundTiles" unique_id=1894059071 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1600)
+
+[node name="Tile_064_037" parent="GroundTiles" unique_id=776262701 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1616)
+
+[node name="Tile_064_038" parent="GroundTiles" unique_id=1371331754 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1632)
+
+[node name="Tile_064_039" parent="GroundTiles" unique_id=1790362642 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1648)
+
+[node name="Tile_064_040" parent="GroundTiles" unique_id=444998689 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1664)
+
+[node name="Tile_064_041" parent="GroundTiles" unique_id=1214374885 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1680)
+
+[node name="Tile_064_042" parent="GroundTiles" unique_id=1399731240 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1696)
+
+[node name="Tile_064_043" parent="GroundTiles" unique_id=1698235873 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1712)
+
+[node name="Tile_064_044" parent="GroundTiles" unique_id=589649324 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1728)
+
+[node name="Tile_064_045" parent="GroundTiles" unique_id=1620137554 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1744)
+
+[node name="Tile_064_046" parent="GroundTiles" unique_id=212554871 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1760)
+
+[node name="Tile_064_047" parent="GroundTiles" unique_id=2081324180 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1776)
+
+[node name="Tile_064_048" parent="GroundTiles" unique_id=406849669 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1792)
+
+[node name="Tile_064_049" parent="GroundTiles" unique_id=1751301065 instance=ExtResource("tile_p")]
+position = Vector2(-480, 1808)
+
+[node name="Tile_064_050" parent="GroundTiles" unique_id=670247884 instance=ExtResource("tile_p")]
+position = Vector2(-448, 1824)
+
+[node name="Tile_064_051" parent="GroundTiles" unique_id=1089641671 instance=ExtResource("tile_p")]
+position = Vector2(-416, 1840)
+
+[node name="Tile_064_052" parent="GroundTiles" unique_id=105776641 instance=ExtResource("tile_p")]
+position = Vector2(-384, 1856)
+
+[node name="Tile_064_053" parent="GroundTiles" unique_id=724754333 instance=ExtResource("tile_p")]
+position = Vector2(-352, 1872)
+
+[node name="Tile_064_054" parent="GroundTiles" unique_id=578259278 instance=ExtResource("tile_p")]
+position = Vector2(-320, 1888)
+
+[node name="Tile_064_055" parent="GroundTiles" unique_id=1041980903 instance=ExtResource("tile_p")]
+position = Vector2(-288, 1904)
+
+[node name="Tile_064_056" parent="GroundTiles" unique_id=1666670635 instance=ExtResource("tile_p")]
+position = Vector2(-256, 1920)
+
+[node name="Tile_064_057" parent="GroundTiles" unique_id=655426846 instance=ExtResource("tile_p")]
+position = Vector2(-224, 1936)
+
+[node name="Tile_064_058" parent="GroundTiles" unique_id=1388990637 instance=ExtResource("tile_p")]
+position = Vector2(-192, 1952)
+
+[node name="Tile_064_059" parent="GroundTiles" unique_id=1397147429 instance=ExtResource("tile_p")]
+position = Vector2(-160, 1968)
+
+[node name="Tile_064_060" parent="GroundTiles" unique_id=1121373323 instance=ExtResource("tile_p")]
+position = Vector2(-128, 1984)
+
+[node name="Tile_064_061" parent="GroundTiles" unique_id=1247980514 instance=ExtResource("tile_p")]
+position = Vector2(-96, 2000)
+
+[node name="Tile_064_068" parent="GroundTiles" unique_id=44947078 instance=ExtResource("tile_p")]
+position = Vector2(128, 2112)
+
+[node name="Tile_064_069" parent="GroundTiles" unique_id=300627357 instance=ExtResource("tile_p")]
+position = Vector2(160, 2128)
+
+[node name="Tile_064_070" parent="GroundTiles" unique_id=1944179883 instance=ExtResource("tile_p")]
+position = Vector2(192, 2144)
+
+[node name="Tile_064_071" parent="GroundTiles" unique_id=1957487444 instance=ExtResource("tile_p")]
+position = Vector2(224, 2160)
+
+[node name="Tile_064_072" parent="GroundTiles" unique_id=781590643 instance=ExtResource("tile_p")]
+position = Vector2(256, 2176)
+
+[node name="Tile_064_073" parent="GroundTiles" unique_id=1513304898 instance=ExtResource("tile_p")]
+position = Vector2(288, 2192)
+
+[node name="Tile_064_074" parent="GroundTiles" unique_id=524978517 instance=ExtResource("tile_p")]
+position = Vector2(320, 2208)
+
+[node name="Tile_064_075" parent="GroundTiles" unique_id=1558192516 instance=ExtResource("tile_p")]
+position = Vector2(352, 2224)
+
+[node name="Tile_064_076" parent="GroundTiles" unique_id=272145266 instance=ExtResource("tile_p")]
+position = Vector2(384, 2240)
+
+[node name="Tile_065_034" parent="GroundTiles" unique_id=1735982983 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1584)
+
+[node name="Tile_065_035" parent="GroundTiles" unique_id=2025157987 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1600)
+
+[node name="Tile_065_036" parent="GroundTiles" unique_id=12891349 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1616)
+
+[node name="Tile_065_037" parent="GroundTiles" unique_id=750843706 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1632)
+
+[node name="Tile_065_038" parent="GroundTiles" unique_id=97459168 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1648)
+
+[node name="Tile_065_039" parent="GroundTiles" unique_id=2097744805 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1664)
+
+[node name="Tile_065_040" parent="GroundTiles" unique_id=1322246814 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1680)
+
+[node name="Tile_065_041" parent="GroundTiles" unique_id=2023826588 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1696)
+
+[node name="Tile_065_042" parent="GroundTiles" unique_id=838808516 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1712)
+
+[node name="Tile_065_043" parent="GroundTiles" unique_id=196498824 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1728)
+
+[node name="Tile_065_044" parent="GroundTiles" unique_id=1374931992 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1744)
+
+[node name="Tile_065_045" parent="GroundTiles" unique_id=1477824935 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1760)
+
+[node name="Tile_065_046" parent="GroundTiles" unique_id=1198199488 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1776)
+
+[node name="Tile_065_047" parent="GroundTiles" unique_id=221145010 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1792)
+
+[node name="Tile_065_048" parent="GroundTiles" unique_id=89779162 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1808)
+
+[node name="Tile_065_049" parent="GroundTiles" unique_id=1289255052 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1824)
+
+[node name="Tile_065_050" parent="GroundTiles" unique_id=1161668060 instance=ExtResource("tile_p")]
+position = Vector2(-480, 1840)
+
+[node name="Tile_065_051" parent="GroundTiles" unique_id=674824038 instance=ExtResource("tile_p")]
+position = Vector2(-448, 1856)
+
+[node name="Tile_065_052" parent="GroundTiles" unique_id=637898171 instance=ExtResource("tile_p")]
+position = Vector2(-416, 1872)
+
+[node name="Tile_065_053" parent="GroundTiles" unique_id=10166117 instance=ExtResource("tile_p")]
+position = Vector2(-384, 1888)
+
+[node name="Tile_065_054" parent="GroundTiles" unique_id=398904297 instance=ExtResource("tile_p")]
+position = Vector2(-352, 1904)
+
+[node name="Tile_065_055" parent="GroundTiles" unique_id=157784743 instance=ExtResource("tile_p")]
+position = Vector2(-320, 1920)
+
+[node name="Tile_065_056" parent="GroundTiles" unique_id=19549410 instance=ExtResource("tile_p")]
+position = Vector2(-288, 1936)
+
+[node name="Tile_065_057" parent="GroundTiles" unique_id=871846275 instance=ExtResource("tile_p")]
+position = Vector2(-256, 1952)
+
+[node name="Tile_065_058" parent="GroundTiles" unique_id=179362147 instance=ExtResource("tile_p")]
+position = Vector2(-224, 1968)
+
+[node name="Tile_065_059" parent="GroundTiles" unique_id=65733167 instance=ExtResource("tile_p")]
+position = Vector2(-192, 1984)
+
+[node name="Tile_065_060" parent="GroundTiles" unique_id=1482462503 instance=ExtResource("tile_p")]
+position = Vector2(-160, 2000)
+
+[node name="Tile_065_061" parent="GroundTiles" unique_id=1253831378 instance=ExtResource("tile_p")]
+position = Vector2(-128, 2016)
+
+[node name="Tile_065_062" parent="GroundTiles" unique_id=1287898605 instance=ExtResource("tile_p")]
+position = Vector2(-96, 2032)
+
+[node name="Tile_065_066" parent="GroundTiles" unique_id=2024237941 instance=ExtResource("tile_p")]
+position = Vector2(32, 2096)
+
+[node name="Tile_065_067" parent="GroundTiles" unique_id=1493645589 instance=ExtResource("tile_p")]
+position = Vector2(64, 2112)
+
+[node name="Tile_065_068" parent="GroundTiles" unique_id=1708754487 instance=ExtResource("tile_p")]
+position = Vector2(96, 2128)
+
+[node name="Tile_065_069" parent="GroundTiles" unique_id=22095541 instance=ExtResource("tile_p")]
+position = Vector2(128, 2144)
+
+[node name="Tile_065_070" parent="GroundTiles" unique_id=2014859754 instance=ExtResource("tile_p")]
+position = Vector2(160, 2160)
+
+[node name="Tile_065_071" parent="GroundTiles" unique_id=649404093 instance=ExtResource("tile_p")]
+position = Vector2(192, 2176)
+
+[node name="Tile_065_072" parent="GroundTiles" unique_id=1307092287 instance=ExtResource("tile_p")]
+position = Vector2(224, 2192)
+
+[node name="Tile_065_073" parent="GroundTiles" unique_id=56561703 instance=ExtResource("tile_p")]
+position = Vector2(256, 2208)
+
+[node name="Tile_065_074" parent="GroundTiles" unique_id=1995252308 instance=ExtResource("tile_p")]
+position = Vector2(288, 2224)
+
+[node name="Tile_066_035" parent="GroundTiles" unique_id=981778914 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1616)
+
+[node name="Tile_066_036" parent="GroundTiles" unique_id=1335969427 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1632)
+
+[node name="Tile_066_037" parent="GroundTiles" unique_id=1779442945 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1648)
+
+[node name="Tile_066_038" parent="GroundTiles" unique_id=867602019 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1664)
+
+[node name="Tile_066_039" parent="GroundTiles" unique_id=1342950148 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1680)
+
+[node name="Tile_066_040" parent="GroundTiles" unique_id=611358446 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1696)
+
+[node name="Tile_066_041" parent="GroundTiles" unique_id=1552529705 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1712)
+
+[node name="Tile_066_042" parent="GroundTiles" unique_id=841980853 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1728)
+
+[node name="Tile_066_043" parent="GroundTiles" unique_id=1140427731 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1744)
+
+[node name="Tile_066_044" parent="GroundTiles" unique_id=5303047 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1760)
+
+[node name="Tile_066_045" parent="GroundTiles" unique_id=1657816534 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1776)
+
+[node name="Tile_066_046" parent="GroundTiles" unique_id=919695648 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1792)
+
+[node name="Tile_066_047" parent="GroundTiles" unique_id=889250687 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1808)
+
+[node name="Tile_066_048" parent="GroundTiles" unique_id=1185211364 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1824)
+
+[node name="Tile_066_049" parent="GroundTiles" unique_id=379301953 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1840)
+
+[node name="Tile_066_050" parent="GroundTiles" unique_id=57536405 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1856)
+
+[node name="Tile_066_051" parent="GroundTiles" unique_id=461771564 instance=ExtResource("tile_p")]
+position = Vector2(-480, 1872)
+
+[node name="Tile_066_052" parent="GroundTiles" unique_id=1004552645 instance=ExtResource("tile_p")]
+position = Vector2(-448, 1888)
+
+[node name="Tile_066_053" parent="GroundTiles" unique_id=1360584517 instance=ExtResource("tile_p")]
+position = Vector2(-416, 1904)
+
+[node name="Tile_066_054" parent="GroundTiles" unique_id=1770404408 instance=ExtResource("tile_p")]
+position = Vector2(-384, 1920)
+
+[node name="Tile_066_055" parent="GroundTiles" unique_id=1884179284 instance=ExtResource("tile_p")]
+position = Vector2(-352, 1936)
+
+[node name="Tile_066_056" parent="GroundTiles" unique_id=542623159 instance=ExtResource("tile_p")]
+position = Vector2(-320, 1952)
+
+[node name="Tile_066_057" parent="GroundTiles" unique_id=839786762 instance=ExtResource("tile_p")]
+position = Vector2(-288, 1968)
+
+[node name="Tile_066_058" parent="GroundTiles" unique_id=2075757408 instance=ExtResource("tile_p")]
+position = Vector2(-256, 1984)
+
+[node name="Tile_066_059" parent="GroundTiles" unique_id=1708138057 instance=ExtResource("tile_p")]
+position = Vector2(-224, 2000)
+
+[node name="Tile_066_060" parent="GroundTiles" unique_id=569430836 instance=ExtResource("tile_p")]
+position = Vector2(-192, 2016)
+
+[node name="Tile_066_061" parent="GroundTiles" unique_id=986338269 instance=ExtResource("tile_p")]
+position = Vector2(-160, 2032)
+
+[node name="Tile_066_062" parent="GroundTiles" unique_id=1580340107 instance=ExtResource("tile_p")]
+position = Vector2(-128, 2048)
+
+[node name="Tile_066_065" parent="GroundTiles" unique_id=1618526290 instance=ExtResource("tile_p")]
+position = Vector2(-32, 2096)
+
+[node name="Tile_066_066" parent="GroundTiles" unique_id=120917053 instance=ExtResource("tile_p")]
+position = Vector2(0, 2112)
+
+[node name="Tile_066_067" parent="GroundTiles" unique_id=1172210426 instance=ExtResource("tile_p")]
+position = Vector2(32, 2128)
+
+[node name="Tile_066_068" parent="GroundTiles" unique_id=1711000045 instance=ExtResource("tile_p")]
+position = Vector2(64, 2144)
+
+[node name="Tile_066_069" parent="GroundTiles" unique_id=1178607748 instance=ExtResource("tile_p")]
+position = Vector2(96, 2160)
+
+[node name="Tile_066_070" parent="GroundTiles" unique_id=45723587 instance=ExtResource("tile_p")]
+position = Vector2(128, 2176)
+
+[node name="Tile_066_071" parent="GroundTiles" unique_id=1955280190 instance=ExtResource("tile_p")]
+position = Vector2(160, 2192)
+
+[node name="Tile_066_072" parent="GroundTiles" unique_id=160218670 instance=ExtResource("tile_p")]
+position = Vector2(192, 2208)
+
+[node name="Tile_066_073" parent="GroundTiles" unique_id=1207965799 instance=ExtResource("tile_p")]
+position = Vector2(224, 2224)
+
+[node name="Tile_067_036" parent="GroundTiles" unique_id=565835511 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1648)
+
+[node name="Tile_067_037" parent="GroundTiles" unique_id=2052099439 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1664)
+
+[node name="Tile_067_038" parent="GroundTiles" unique_id=1373233460 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1680)
+
+[node name="Tile_067_039" parent="GroundTiles" unique_id=53472998 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1696)
+
+[node name="Tile_067_040" parent="GroundTiles" unique_id=2133810559 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1712)
+
+[node name="Tile_067_041" parent="GroundTiles" unique_id=23972710 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1728)
+
+[node name="Tile_067_042" parent="GroundTiles" unique_id=303676192 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1744)
+
+[node name="Tile_067_043" parent="GroundTiles" unique_id=760348826 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1760)
+
+[node name="Tile_067_044" parent="GroundTiles" unique_id=1069806202 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1776)
+
+[node name="Tile_067_045" parent="GroundTiles" unique_id=1202851700 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1792)
+
+[node name="Tile_067_046" parent="GroundTiles" unique_id=967060462 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1808)
+
+[node name="Tile_067_047" parent="GroundTiles" unique_id=1872556631 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1824)
+
+[node name="Tile_067_048" parent="GroundTiles" unique_id=848261475 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1840)
+
+[node name="Tile_067_049" parent="GroundTiles" unique_id=1398870118 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1856)
+
+[node name="Tile_067_050" parent="GroundTiles" unique_id=97212089 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1872)
+
+[node name="Tile_067_051" parent="GroundTiles" unique_id=1407413265 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1888)
+
+[node name="Tile_067_052" parent="GroundTiles" unique_id=2040193914 instance=ExtResource("tile_p")]
+position = Vector2(-480, 1904)
+
+[node name="Tile_067_053" parent="GroundTiles" unique_id=1255571394 instance=ExtResource("tile_p")]
+position = Vector2(-448, 1920)
+
+[node name="Tile_067_054" parent="GroundTiles" unique_id=1924845608 instance=ExtResource("tile_p")]
+position = Vector2(-416, 1936)
+
+[node name="Tile_067_055" parent="GroundTiles" unique_id=990590645 instance=ExtResource("tile_p")]
+position = Vector2(-384, 1952)
+
+[node name="Tile_067_056" parent="GroundTiles" unique_id=1334436362 instance=ExtResource("tile_p")]
+position = Vector2(-352, 1968)
+
+[node name="Tile_067_057" parent="GroundTiles" unique_id=49236219 instance=ExtResource("tile_p")]
+position = Vector2(-320, 1984)
+
+[node name="Tile_067_058" parent="GroundTiles" unique_id=1125877415 instance=ExtResource("tile_p")]
+position = Vector2(-288, 2000)
+
+[node name="Tile_067_059" parent="GroundTiles" unique_id=2083222398 instance=ExtResource("tile_p")]
+position = Vector2(-256, 2016)
+
+[node name="Tile_067_060" parent="GroundTiles" unique_id=846696728 instance=ExtResource("tile_p")]
+position = Vector2(-224, 2032)
+
+[node name="Tile_067_061" parent="GroundTiles" unique_id=376778873 instance=ExtResource("tile_p")]
+position = Vector2(-192, 2048)
+
+[node name="Tile_067_062" parent="GroundTiles" unique_id=910380683 instance=ExtResource("tile_p")]
+position = Vector2(-160, 2064)
+
+[node name="Tile_067_064" parent="GroundTiles" unique_id=1463723887 instance=ExtResource("tile_p")]
+position = Vector2(-96, 2096)
+
+[node name="Tile_067_065" parent="GroundTiles" unique_id=1411063352 instance=ExtResource("tile_p")]
+position = Vector2(-64, 2112)
+
+[node name="Tile_067_066" parent="GroundTiles" unique_id=2073189804 instance=ExtResource("tile_p")]
+position = Vector2(-32, 2128)
+
+[node name="Tile_067_067" parent="GroundTiles" unique_id=928132754 instance=ExtResource("tile_p")]
+position = Vector2(0, 2144)
+
+[node name="Tile_067_068" parent="GroundTiles" unique_id=1976664988 instance=ExtResource("tile_p")]
+position = Vector2(32, 2160)
+
+[node name="Tile_067_069" parent="GroundTiles" unique_id=1734782111 instance=ExtResource("tile_p")]
+position = Vector2(64, 2176)
+
+[node name="Tile_067_070" parent="GroundTiles" unique_id=263699730 instance=ExtResource("tile_p")]
+position = Vector2(96, 2192)
+
+[node name="Tile_067_071" parent="GroundTiles" unique_id=1711618700 instance=ExtResource("tile_p")]
+position = Vector2(128, 2208)
+
+[node name="Tile_067_072" parent="GroundTiles" unique_id=1376261004 instance=ExtResource("tile_p")]
+position = Vector2(160, 2224)
+
+[node name="Tile_068_037" parent="GroundTiles" unique_id=2013658671 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1680)
+
+[node name="Tile_068_038" parent="GroundTiles" unique_id=619122937 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1696)
+
+[node name="Tile_068_039" parent="GroundTiles" unique_id=1565492458 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1712)
+
+[node name="Tile_068_040" parent="GroundTiles" unique_id=1043788916 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1728)
+
+[node name="Tile_068_041" parent="GroundTiles" unique_id=1156620707 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1744)
+
+[node name="Tile_068_042" parent="GroundTiles" unique_id=873369375 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1760)
+
+[node name="Tile_068_043" parent="GroundTiles" unique_id=1008476953 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1776)
+
+[node name="Tile_068_044" parent="GroundTiles" unique_id=1422600868 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1792)
+
+[node name="Tile_068_045" parent="GroundTiles" unique_id=238609044 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1808)
+
+[node name="Tile_068_046" parent="GroundTiles" unique_id=1634574918 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1824)
+
+[node name="Tile_068_047" parent="GroundTiles" unique_id=1920914755 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1840)
+
+[node name="Tile_068_048" parent="GroundTiles" unique_id=634232784 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1856)
+
+[node name="Tile_068_049" parent="GroundTiles" unique_id=1403675323 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1872)
+
+[node name="Tile_068_050" parent="GroundTiles" unique_id=1104877915 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1888)
+
+[node name="Tile_068_051" parent="GroundTiles" unique_id=1210506196 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1904)
+
+[node name="Tile_068_052" parent="GroundTiles" unique_id=1745375917 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1920)
+
+[node name="Tile_068_053" parent="GroundTiles" unique_id=206490859 instance=ExtResource("tile_p")]
+position = Vector2(-480, 1936)
+
+[node name="Tile_068_054" parent="GroundTiles" unique_id=1850999632 instance=ExtResource("tile_p")]
+position = Vector2(-448, 1952)
+
+[node name="Tile_068_055" parent="GroundTiles" unique_id=1355996024 instance=ExtResource("tile_p")]
+position = Vector2(-416, 1968)
+
+[node name="Tile_068_056" parent="GroundTiles" unique_id=358973654 instance=ExtResource("tile_p")]
+position = Vector2(-384, 1984)
+
+[node name="Tile_068_057" parent="GroundTiles" unique_id=1235129110 instance=ExtResource("tile_p")]
+position = Vector2(-352, 2000)
+
+[node name="Tile_068_058" parent="GroundTiles" unique_id=1791976869 instance=ExtResource("tile_p")]
+position = Vector2(-320, 2016)
+
+[node name="Tile_068_059" parent="GroundTiles" unique_id=255136570 instance=ExtResource("tile_p")]
+position = Vector2(-288, 2032)
+
+[node name="Tile_068_060" parent="GroundTiles" unique_id=899560162 instance=ExtResource("tile_p")]
+position = Vector2(-256, 2048)
+
+[node name="Tile_068_061" parent="GroundTiles" unique_id=559432675 instance=ExtResource("tile_p")]
+position = Vector2(-224, 2064)
+
+[node name="Tile_068_062" parent="GroundTiles" unique_id=134224296 instance=ExtResource("tile_p")]
+position = Vector2(-192, 2080)
+
+[node name="Tile_068_063" parent="GroundTiles" unique_id=63716902 instance=ExtResource("tile_p")]
+position = Vector2(-160, 2096)
+
+[node name="Tile_068_064" parent="GroundTiles" unique_id=1144795480 instance=ExtResource("tile_p")]
+position = Vector2(-128, 2112)
+
+[node name="Tile_068_065" parent="GroundTiles" unique_id=416665700 instance=ExtResource("tile_p")]
+position = Vector2(-96, 2128)
+
+[node name="Tile_068_066" parent="GroundTiles" unique_id=511333487 instance=ExtResource("tile_p")]
+position = Vector2(-64, 2144)
+
+[node name="Tile_068_067" parent="GroundTiles" unique_id=1990299072 instance=ExtResource("tile_p")]
+position = Vector2(-32, 2160)
+
+[node name="Tile_068_068" parent="GroundTiles" unique_id=992288968 instance=ExtResource("tile_p")]
+position = Vector2(0, 2176)
+
+[node name="Tile_068_069" parent="GroundTiles" unique_id=441546526 instance=ExtResource("tile_p")]
+position = Vector2(32, 2192)
+
+[node name="Tile_068_070" parent="GroundTiles" unique_id=997831016 instance=ExtResource("tile_p")]
+position = Vector2(64, 2208)
+
+[node name="Tile_069_038" parent="GroundTiles" unique_id=2100894373 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1712)
+
+[node name="Tile_069_039" parent="GroundTiles" unique_id=33391563 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1728)
+
+[node name="Tile_069_040" parent="GroundTiles" unique_id=1445783342 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1744)
+
+[node name="Tile_069_041" parent="GroundTiles" unique_id=1024780671 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1760)
+
+[node name="Tile_069_042" parent="GroundTiles" unique_id=1272267365 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1776)
+
+[node name="Tile_069_043" parent="GroundTiles" unique_id=969922020 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1792)
+
+[node name="Tile_069_044" parent="GroundTiles" unique_id=208925363 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1808)
+
+[node name="Tile_069_045" parent="GroundTiles" unique_id=2052741569 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1824)
+
+[node name="Tile_069_046" parent="GroundTiles" unique_id=975098724 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1840)
+
+[node name="Tile_069_047" parent="GroundTiles" unique_id=412934286 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1856)
+
+[node name="Tile_069_048" parent="GroundTiles" unique_id=1388862295 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1872)
+
+[node name="Tile_069_049" parent="GroundTiles" unique_id=315878939 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1888)
+
+[node name="Tile_069_050" parent="GroundTiles" unique_id=1707472252 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1904)
+
+[node name="Tile_069_051" parent="GroundTiles" unique_id=1932729601 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1920)
+
+[node name="Tile_069_052" parent="GroundTiles" unique_id=154792320 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1936)
+
+[node name="Tile_069_053" parent="GroundTiles" unique_id=420738302 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1952)
+
+[node name="Tile_069_054" parent="GroundTiles" unique_id=1089376736 instance=ExtResource("tile_p")]
+position = Vector2(-480, 1968)
+
+[node name="Tile_069_055" parent="GroundTiles" unique_id=454097996 instance=ExtResource("tile_p")]
+position = Vector2(-448, 1984)
+
+[node name="Tile_069_056" parent="GroundTiles" unique_id=1566365647 instance=ExtResource("tile_p")]
+position = Vector2(-416, 2000)
+
+[node name="Tile_069_057" parent="GroundTiles" unique_id=149991242 instance=ExtResource("tile_p")]
+position = Vector2(-384, 2016)
+
+[node name="Tile_069_058" parent="GroundTiles" unique_id=1405686096 instance=ExtResource("tile_p")]
+position = Vector2(-352, 2032)
+
+[node name="Tile_069_059" parent="GroundTiles" unique_id=649854346 instance=ExtResource("tile_p")]
+position = Vector2(-320, 2048)
+
+[node name="Tile_069_060" parent="GroundTiles" unique_id=1737871520 instance=ExtResource("tile_p")]
+position = Vector2(-288, 2064)
+
+[node name="Tile_069_061" parent="GroundTiles" unique_id=160221719 instance=ExtResource("tile_p")]
+position = Vector2(-256, 2080)
+
+[node name="Tile_069_062" parent="GroundTiles" unique_id=769596261 instance=ExtResource("tile_p")]
+position = Vector2(-224, 2096)
+
+[node name="Tile_069_063" parent="GroundTiles" unique_id=281600663 instance=ExtResource("tile_p")]
+position = Vector2(-192, 2112)
+
+[node name="Tile_069_064" parent="GroundTiles" unique_id=1726110344 instance=ExtResource("tile_p")]
+position = Vector2(-160, 2128)
+
+[node name="Tile_069_065" parent="GroundTiles" unique_id=1379560189 instance=ExtResource("tile_p")]
+position = Vector2(-128, 2144)
+
+[node name="Tile_069_066" parent="GroundTiles" unique_id=793362722 instance=ExtResource("tile_p")]
+position = Vector2(-96, 2160)
+
+[node name="Tile_069_067" parent="GroundTiles" unique_id=453686086 instance=ExtResource("tile_p")]
+position = Vector2(-64, 2176)
+
+[node name="Tile_069_068" parent="GroundTiles" unique_id=1143675883 instance=ExtResource("tile_p")]
+position = Vector2(-32, 2192)
+
+[node name="Tile_069_069" parent="GroundTiles" unique_id=354633367 instance=ExtResource("tile_p")]
+position = Vector2(0, 2208)
+
+[node name="Tile_070_039" parent="GroundTiles" unique_id=629389008 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1744)
+
+[node name="Tile_070_040" parent="GroundTiles" unique_id=643802466 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1760)
+
+[node name="Tile_070_041" parent="GroundTiles" unique_id=1381889633 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1776)
+
+[node name="Tile_070_042" parent="GroundTiles" unique_id=928643546 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1792)
+
+[node name="Tile_070_043" parent="GroundTiles" unique_id=1744089974 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1808)
+
+[node name="Tile_070_044" parent="GroundTiles" unique_id=203768198 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1824)
+
+[node name="Tile_070_045" parent="GroundTiles" unique_id=1075882429 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1840)
+
+[node name="Tile_070_046" parent="GroundTiles" unique_id=62777156 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1856)
+
+[node name="Tile_070_047" parent="GroundTiles" unique_id=1169851790 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1872)
+
+[node name="Tile_070_048" parent="GroundTiles" unique_id=245301028 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1888)
+
+[node name="Tile_070_049" parent="GroundTiles" unique_id=269369022 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1904)
+
+[node name="Tile_070_050" parent="GroundTiles" unique_id=1252116781 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1920)
+
+[node name="Tile_070_051" parent="GroundTiles" unique_id=1772885344 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1936)
+
+[node name="Tile_070_052" parent="GroundTiles" unique_id=343167734 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1952)
+
+[node name="Tile_070_053" parent="GroundTiles" unique_id=903603105 instance=ExtResource("tile_p")]
+position = Vector2(-544, 1968)
+
+[node name="Tile_070_054" parent="GroundTiles" unique_id=1506822945 instance=ExtResource("tile_p")]
+position = Vector2(-512, 1984)
+
+[node name="Tile_070_055" parent="GroundTiles" unique_id=364845906 instance=ExtResource("tile_p")]
+position = Vector2(-480, 2000)
+
+[node name="Tile_070_056" parent="GroundTiles" unique_id=1517025612 instance=ExtResource("tile_p")]
+position = Vector2(-448, 2016)
+
+[node name="Tile_070_057" parent="GroundTiles" unique_id=1148895293 instance=ExtResource("tile_p")]
+position = Vector2(-416, 2032)
+
+[node name="Tile_070_058" parent="GroundTiles" unique_id=1171967934 instance=ExtResource("tile_p")]
+position = Vector2(-384, 2048)
+
+[node name="Tile_070_059" parent="GroundTiles" unique_id=1877985841 instance=ExtResource("tile_p")]
+position = Vector2(-352, 2064)
+
+[node name="Tile_070_060" parent="GroundTiles" unique_id=1939908926 instance=ExtResource("tile_p")]
+position = Vector2(-320, 2080)
+
+[node name="Tile_070_061" parent="GroundTiles" unique_id=1390269781 instance=ExtResource("tile_p")]
+position = Vector2(-288, 2096)
+
+[node name="Tile_070_062" parent="GroundTiles" unique_id=1983589707 instance=ExtResource("tile_p")]
+position = Vector2(-256, 2112)
+
+[node name="Tile_070_063" parent="GroundTiles" unique_id=1786618958 instance=ExtResource("tile_p")]
+position = Vector2(-224, 2128)
+
+[node name="Tile_070_064" parent="GroundTiles" unique_id=786269540 instance=ExtResource("tile_p")]
+position = Vector2(-192, 2144)
+
+[node name="Tile_070_065" parent="GroundTiles" unique_id=1271184264 instance=ExtResource("tile_p")]
+position = Vector2(-160, 2160)
+
+[node name="Tile_070_066" parent="GroundTiles" unique_id=2067484709 instance=ExtResource("tile_p")]
+position = Vector2(-128, 2176)
+
+[node name="Tile_070_067" parent="GroundTiles" unique_id=2090061135 instance=ExtResource("tile_p")]
+position = Vector2(-96, 2192)
+
+[node name="Tile_070_068" parent="GroundTiles" unique_id=1120930617 instance=ExtResource("tile_p")]
+position = Vector2(-64, 2208)
+
+[node name="Tile_071_040" parent="GroundTiles" unique_id=1514692123 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1776)
+
+[node name="Tile_071_041" parent="GroundTiles" unique_id=406345894 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1792)
+
+[node name="Tile_071_042" parent="GroundTiles" unique_id=270498570 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1808)
+
+[node name="Tile_071_043" parent="GroundTiles" unique_id=226938442 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1824)
+
+[node name="Tile_071_044" parent="GroundTiles" unique_id=1658455957 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1840)
+
+[node name="Tile_071_045" parent="GroundTiles" unique_id=1868442007 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1856)
+
+[node name="Tile_071_046" parent="GroundTiles" unique_id=1371757288 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1872)
+
+[node name="Tile_071_047" parent="GroundTiles" unique_id=68639302 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1888)
+
+[node name="Tile_071_048" parent="GroundTiles" unique_id=1469876817 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1904)
+
+[node name="Tile_071_049" parent="GroundTiles" unique_id=860926337 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1920)
+
+[node name="Tile_071_050" parent="GroundTiles" unique_id=1752020207 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1936)
+
+[node name="Tile_071_051" parent="GroundTiles" unique_id=313326503 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1952)
+
+[node name="Tile_071_052" parent="GroundTiles" unique_id=832188301 instance=ExtResource("tile_p")]
+position = Vector2(-608, 1968)
+
+[node name="Tile_071_053" parent="GroundTiles" unique_id=1585866224 instance=ExtResource("tile_p")]
+position = Vector2(-576, 1984)
+
+[node name="Tile_071_054" parent="GroundTiles" unique_id=661957240 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2000)
+
+[node name="Tile_071_055" parent="GroundTiles" unique_id=1951438071 instance=ExtResource("tile_p")]
+position = Vector2(-512, 2016)
+
+[node name="Tile_071_056" parent="GroundTiles" unique_id=722241208 instance=ExtResource("tile_p")]
+position = Vector2(-480, 2032)
+
+[node name="Tile_071_057" parent="GroundTiles" unique_id=1289791849 instance=ExtResource("tile_p")]
+position = Vector2(-448, 2048)
+
+[node name="Tile_071_058" parent="GroundTiles" unique_id=432773986 instance=ExtResource("tile_p")]
+position = Vector2(-416, 2064)
+
+[node name="Tile_071_059" parent="GroundTiles" unique_id=950615476 instance=ExtResource("tile_p")]
+position = Vector2(-384, 2080)
+
+[node name="Tile_071_060" parent="GroundTiles" unique_id=1406901183 instance=ExtResource("tile_p")]
+position = Vector2(-352, 2096)
+
+[node name="Tile_071_061" parent="GroundTiles" unique_id=1125482726 instance=ExtResource("tile_p")]
+position = Vector2(-320, 2112)
+
+[node name="Tile_071_062" parent="GroundTiles" unique_id=124370818 instance=ExtResource("tile_p")]
+position = Vector2(-288, 2128)
+
+[node name="Tile_071_063" parent="GroundTiles" unique_id=1586256692 instance=ExtResource("tile_p")]
+position = Vector2(-256, 2144)
+
+[node name="Tile_071_064" parent="GroundTiles" unique_id=2112648315 instance=ExtResource("tile_p")]
+position = Vector2(-224, 2160)
+
+[node name="Tile_071_065" parent="GroundTiles" unique_id=88381786 instance=ExtResource("tile_p")]
+position = Vector2(-192, 2176)
+
+[node name="Tile_071_066" parent="GroundTiles" unique_id=1575964635 instance=ExtResource("tile_p")]
+position = Vector2(-160, 2192)
+
+[node name="Tile_071_067" parent="GroundTiles" unique_id=583906066 instance=ExtResource("tile_p")]
+position = Vector2(-128, 2208)
+
+[node name="Tile_072_040" parent="GroundTiles" unique_id=1420292879 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 1792)
+
+[node name="Tile_072_041" parent="GroundTiles" unique_id=1413507283 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1808)
+
+[node name="Tile_072_042" parent="GroundTiles" unique_id=1824513566 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1824)
+
+[node name="Tile_072_043" parent="GroundTiles" unique_id=971035514 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1840)
+
+[node name="Tile_072_044" parent="GroundTiles" unique_id=1575221840 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1856)
+
+[node name="Tile_072_045" parent="GroundTiles" unique_id=762403305 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1872)
+
+[node name="Tile_072_046" parent="GroundTiles" unique_id=1874004763 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1888)
+
+[node name="Tile_072_047" parent="GroundTiles" unique_id=1637342601 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1904)
+
+[node name="Tile_072_048" parent="GroundTiles" unique_id=1876074604 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1920)
+
+[node name="Tile_072_049" parent="GroundTiles" unique_id=369332128 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1936)
+
+[node name="Tile_072_050" parent="GroundTiles" unique_id=228032909 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1952)
+
+[node name="Tile_072_051" parent="GroundTiles" unique_id=698566450 instance=ExtResource("tile_p")]
+position = Vector2(-672, 1968)
+
+[node name="Tile_072_052" parent="GroundTiles" unique_id=261040678 instance=ExtResource("tile_p")]
+position = Vector2(-640, 1984)
+
+[node name="Tile_072_053" parent="GroundTiles" unique_id=1067789106 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2000)
+
+[node name="Tile_072_054" parent="GroundTiles" unique_id=1402715133 instance=ExtResource("tile_p")]
+position = Vector2(-576, 2016)
+
+[node name="Tile_072_055" parent="GroundTiles" unique_id=1685068483 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2032)
+
+[node name="Tile_072_056" parent="GroundTiles" unique_id=1814646329 instance=ExtResource("tile_p")]
+position = Vector2(-512, 2048)
+
+[node name="Tile_072_057" parent="GroundTiles" unique_id=270448045 instance=ExtResource("tile_p")]
+position = Vector2(-480, 2064)
+
+[node name="Tile_072_058" parent="GroundTiles" unique_id=990436336 instance=ExtResource("tile_p")]
+position = Vector2(-448, 2080)
+
+[node name="Tile_072_059" parent="GroundTiles" unique_id=1777481169 instance=ExtResource("tile_p")]
+position = Vector2(-416, 2096)
+
+[node name="Tile_072_060" parent="GroundTiles" unique_id=1588233610 instance=ExtResource("tile_p")]
+position = Vector2(-384, 2112)
+
+[node name="Tile_072_061" parent="GroundTiles" unique_id=674233482 instance=ExtResource("tile_p")]
+position = Vector2(-352, 2128)
+
+[node name="Tile_072_062" parent="GroundTiles" unique_id=1252696115 instance=ExtResource("tile_p")]
+position = Vector2(-320, 2144)
+
+[node name="Tile_072_063" parent="GroundTiles" unique_id=475246911 instance=ExtResource("tile_p")]
+position = Vector2(-288, 2160)
+
+[node name="Tile_072_064" parent="GroundTiles" unique_id=1831678456 instance=ExtResource("tile_p")]
+position = Vector2(-256, 2176)
+
+[node name="Tile_072_065" parent="GroundTiles" unique_id=2041040903 instance=ExtResource("tile_p")]
+position = Vector2(-224, 2192)
+
+[node name="Tile_073_040" parent="GroundTiles" unique_id=657559260 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 1808)
+
+[node name="Tile_073_041" parent="GroundTiles" unique_id=2054147334 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 1824)
+
+[node name="Tile_073_042" parent="GroundTiles" unique_id=105405248 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1840)
+
+[node name="Tile_073_043" parent="GroundTiles" unique_id=147459839 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1856)
+
+[node name="Tile_073_044" parent="GroundTiles" unique_id=131143016 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1872)
+
+[node name="Tile_073_045" parent="GroundTiles" unique_id=474004008 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1888)
+
+[node name="Tile_073_046" parent="GroundTiles" unique_id=1024599304 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1904)
+
+[node name="Tile_073_047" parent="GroundTiles" unique_id=151146713 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1920)
+
+[node name="Tile_073_048" parent="GroundTiles" unique_id=1440293474 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1936)
+
+[node name="Tile_073_049" parent="GroundTiles" unique_id=646875595 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1952)
+
+[node name="Tile_073_050" parent="GroundTiles" unique_id=153051306 instance=ExtResource("tile_p")]
+position = Vector2(-736, 1968)
+
+[node name="Tile_073_051" parent="GroundTiles" unique_id=1745157217 instance=ExtResource("tile_p")]
+position = Vector2(-704, 1984)
+
+[node name="Tile_073_052" parent="GroundTiles" unique_id=1966956320 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2000)
+
+[node name="Tile_073_053" parent="GroundTiles" unique_id=487547234 instance=ExtResource("tile_p")]
+position = Vector2(-640, 2016)
+
+[node name="Tile_073_054" parent="GroundTiles" unique_id=1897497016 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2032)
+
+[node name="Tile_073_055" parent="GroundTiles" unique_id=1661911172 instance=ExtResource("tile_p")]
+position = Vector2(-576, 2048)
+
+[node name="Tile_073_056" parent="GroundTiles" unique_id=1848063084 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2064)
+
+[node name="Tile_073_057" parent="GroundTiles" unique_id=208821964 instance=ExtResource("tile_p")]
+position = Vector2(-512, 2080)
+
+[node name="Tile_073_058" parent="GroundTiles" unique_id=330359459 instance=ExtResource("tile_p")]
+position = Vector2(-480, 2096)
+
+[node name="Tile_073_059" parent="GroundTiles" unique_id=983742838 instance=ExtResource("tile_p")]
+position = Vector2(-448, 2112)
+
+[node name="Tile_073_060" parent="GroundTiles" unique_id=390921450 instance=ExtResource("tile_p")]
+position = Vector2(-416, 2128)
+
+[node name="Tile_073_061" parent="GroundTiles" unique_id=1634657178 instance=ExtResource("tile_p")]
+position = Vector2(-384, 2144)
+
+[node name="Tile_073_062" parent="GroundTiles" unique_id=1593739887 instance=ExtResource("tile_p")]
+position = Vector2(-352, 2160)
+
+[node name="Tile_073_063" parent="GroundTiles" unique_id=1303845402 instance=ExtResource("tile_p")]
+position = Vector2(-320, 2176)
+
+[node name="Tile_073_064" parent="GroundTiles" unique_id=984139500 instance=ExtResource("tile_p")]
+position = Vector2(-288, 2192)
+
+[node name="Tile_074_040" parent="GroundTiles" unique_id=165468251 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 1824)
+
+[node name="Tile_074_041" parent="GroundTiles" unique_id=218887604 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 1840)
+
+[node name="Tile_074_042" parent="GroundTiles" unique_id=996963204 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 1856)
+
+[node name="Tile_074_043" parent="GroundTiles" unique_id=1879345422 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1872)
+
+[node name="Tile_074_044" parent="GroundTiles" unique_id=1028095075 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1888)
+
+[node name="Tile_074_045" parent="GroundTiles" unique_id=1491440088 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1904)
+
+[node name="Tile_074_046" parent="GroundTiles" unique_id=999036466 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1920)
+
+[node name="Tile_074_047" parent="GroundTiles" unique_id=1917716069 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1936)
+
+[node name="Tile_074_048" parent="GroundTiles" unique_id=1332224190 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1952)
+
+[node name="Tile_074_049" parent="GroundTiles" unique_id=2098320258 instance=ExtResource("tile_p")]
+position = Vector2(-800, 1968)
+
+[node name="Tile_074_050" parent="GroundTiles" unique_id=435119963 instance=ExtResource("tile_p")]
+position = Vector2(-768, 1984)
+
+[node name="Tile_074_051" parent="GroundTiles" unique_id=1102170287 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2000)
+
+[node name="Tile_074_052" parent="GroundTiles" unique_id=1482564651 instance=ExtResource("tile_p")]
+position = Vector2(-704, 2016)
+
+[node name="Tile_074_053" parent="GroundTiles" unique_id=1838861759 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2032)
+
+[node name="Tile_074_054" parent="GroundTiles" unique_id=1041540308 instance=ExtResource("tile_p")]
+position = Vector2(-640, 2048)
+
+[node name="Tile_074_055" parent="GroundTiles" unique_id=745722423 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2064)
+
+[node name="Tile_074_056" parent="GroundTiles" unique_id=1610527893 instance=ExtResource("tile_p")]
+position = Vector2(-576, 2080)
+
+[node name="Tile_074_057" parent="GroundTiles" unique_id=468185085 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2096)
+
+[node name="Tile_074_058" parent="GroundTiles" unique_id=1865996335 instance=ExtResource("tile_p")]
+position = Vector2(-512, 2112)
+
+[node name="Tile_074_059" parent="GroundTiles" unique_id=143258630 instance=ExtResource("tile_p")]
+position = Vector2(-480, 2128)
+
+[node name="Tile_074_060" parent="GroundTiles" unique_id=232173469 instance=ExtResource("tile_p")]
+position = Vector2(-448, 2144)
+
+[node name="Tile_074_061" parent="GroundTiles" unique_id=1243997926 instance=ExtResource("tile_p")]
+position = Vector2(-416, 2160)
+
+[node name="Tile_074_062" parent="GroundTiles" unique_id=978136014 instance=ExtResource("tile_p")]
+position = Vector2(-384, 2176)
+
+[node name="Tile_075_040" parent="GroundTiles" unique_id=1672919678 instance=ExtResource("tile_p")]
+position = Vector2(-1120, 1840)
+
+[node name="Tile_075_041" parent="GroundTiles" unique_id=910338966 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 1856)
+
+[node name="Tile_075_042" parent="GroundTiles" unique_id=794542281 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 1872)
+
+[node name="Tile_075_043" parent="GroundTiles" unique_id=970656515 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 1888)
+
+[node name="Tile_075_044" parent="GroundTiles" unique_id=1007143631 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1904)
+
+[node name="Tile_075_045" parent="GroundTiles" unique_id=1592387852 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1920)
+
+[node name="Tile_075_046" parent="GroundTiles" unique_id=1603473876 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1936)
+
+[node name="Tile_075_047" parent="GroundTiles" unique_id=203474041 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1952)
+
+[node name="Tile_075_048" parent="GroundTiles" unique_id=703564160 instance=ExtResource("tile_p")]
+position = Vector2(-864, 1968)
+
+[node name="Tile_075_049" parent="GroundTiles" unique_id=1373210627 instance=ExtResource("tile_p")]
+position = Vector2(-832, 1984)
+
+[node name="Tile_075_050" parent="GroundTiles" unique_id=1932048617 instance=ExtResource("tile_p")]
+position = Vector2(-800, 2000)
+
+[node name="Tile_075_051" parent="GroundTiles" unique_id=2004529476 instance=ExtResource("tile_p")]
+position = Vector2(-768, 2016)
+
+[node name="Tile_075_052" parent="GroundTiles" unique_id=741701773 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2032)
+
+[node name="Tile_075_053" parent="GroundTiles" unique_id=2052580591 instance=ExtResource("tile_p")]
+position = Vector2(-704, 2048)
+
+[node name="Tile_075_054" parent="GroundTiles" unique_id=651874498 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2064)
+
+[node name="Tile_075_055" parent="GroundTiles" unique_id=251690969 instance=ExtResource("tile_p")]
+position = Vector2(-640, 2080)
+
+[node name="Tile_075_056" parent="GroundTiles" unique_id=182338954 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2096)
+
+[node name="Tile_075_057" parent="GroundTiles" unique_id=1231099283 instance=ExtResource("tile_p")]
+position = Vector2(-576, 2112)
+
+[node name="Tile_075_058" parent="GroundTiles" unique_id=1981593914 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2128)
+
+[node name="Tile_075_059" parent="GroundTiles" unique_id=1949173420 instance=ExtResource("tile_p")]
+position = Vector2(-512, 2144)
+
+[node name="Tile_075_060" parent="GroundTiles" unique_id=1888586625 instance=ExtResource("tile_p")]
+position = Vector2(-480, 2160)
+
+[node name="Tile_075_061" parent="GroundTiles" unique_id=2045544766 instance=ExtResource("tile_p")]
+position = Vector2(-448, 2176)
+
+[node name="Tile_075_062" parent="GroundTiles" unique_id=1108503643 instance=ExtResource("tile_p")]
+position = Vector2(-416, 2192)
+
+[node name="Tile_076_040" parent="GroundTiles" unique_id=1963880057 instance=ExtResource("tile_p")]
+position = Vector2(-1152, 1856)
+
+[node name="Tile_076_041" parent="GroundTiles" unique_id=1533631432 instance=ExtResource("tile_p")]
+position = Vector2(-1120, 1872)
+
+[node name="Tile_076_042" parent="GroundTiles" unique_id=8525419 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 1888)
+
+[node name="Tile_076_043" parent="GroundTiles" unique_id=1222240586 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 1904)
+
+[node name="Tile_076_044" parent="GroundTiles" unique_id=261129372 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 1920)
+
+[node name="Tile_076_045" parent="GroundTiles" unique_id=2094239771 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1936)
+
+[node name="Tile_076_046" parent="GroundTiles" unique_id=440861576 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1952)
+
+[node name="Tile_076_047" parent="GroundTiles" unique_id=2088720944 instance=ExtResource("tile_p")]
+position = Vector2(-928, 1968)
+
+[node name="Tile_076_048" parent="GroundTiles" unique_id=1584640503 instance=ExtResource("tile_p")]
+position = Vector2(-896, 1984)
+
+[node name="Tile_076_049" parent="GroundTiles" unique_id=1607595984 instance=ExtResource("tile_p")]
+position = Vector2(-864, 2000)
+
+[node name="Tile_076_050" parent="GroundTiles" unique_id=236502951 instance=ExtResource("tile_p")]
+position = Vector2(-832, 2016)
+
+[node name="Tile_076_051" parent="GroundTiles" unique_id=100738518 instance=ExtResource("tile_p")]
+position = Vector2(-800, 2032)
+
+[node name="Tile_076_052" parent="GroundTiles" unique_id=2082544826 instance=ExtResource("tile_p")]
+position = Vector2(-768, 2048)
+
+[node name="Tile_076_053" parent="GroundTiles" unique_id=1586900038 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2064)
+
+[node name="Tile_076_054" parent="GroundTiles" unique_id=495198872 instance=ExtResource("tile_p")]
+position = Vector2(-704, 2080)
+
+[node name="Tile_076_055" parent="GroundTiles" unique_id=25107730 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2096)
+
+[node name="Tile_076_056" parent="GroundTiles" unique_id=1716461111 instance=ExtResource("tile_p")]
+position = Vector2(-640, 2112)
+
+[node name="Tile_076_057" parent="GroundTiles" unique_id=537021142 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2128)
+
+[node name="Tile_076_058" parent="GroundTiles" unique_id=606808211 instance=ExtResource("tile_p")]
+position = Vector2(-576, 2144)
+
+[node name="Tile_076_059" parent="GroundTiles" unique_id=1876662308 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2160)
+
+[node name="Tile_076_060" parent="GroundTiles" unique_id=609417678 instance=ExtResource("tile_p")]
+position = Vector2(-512, 2176)
+
+[node name="Tile_076_061" parent="GroundTiles" unique_id=320012565 instance=ExtResource("tile_p")]
+position = Vector2(-480, 2192)
+
+[node name="Tile_076_062" parent="GroundTiles" unique_id=307357013 instance=ExtResource("tile_p")]
+position = Vector2(-448, 2208)
+
+[node name="Tile_077_040" parent="GroundTiles" unique_id=352962312 instance=ExtResource("tile_p")]
+position = Vector2(-1184, 1872)
+
+[node name="Tile_077_041" parent="GroundTiles" unique_id=1411875905 instance=ExtResource("tile_p")]
+position = Vector2(-1152, 1888)
+
+[node name="Tile_077_042" parent="GroundTiles" unique_id=1507926381 instance=ExtResource("tile_p")]
+position = Vector2(-1120, 1904)
+
+[node name="Tile_077_043" parent="GroundTiles" unique_id=231109895 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 1920)
+
+[node name="Tile_077_044" parent="GroundTiles" unique_id=1663581987 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 1936)
+
+[node name="Tile_077_045" parent="GroundTiles" unique_id=765108349 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 1952)
+
+[node name="Tile_077_046" parent="GroundTiles" unique_id=314619281 instance=ExtResource("tile_p")]
+position = Vector2(-992, 1968)
+
+[node name="Tile_077_047" parent="GroundTiles" unique_id=1744265982 instance=ExtResource("tile_p")]
+position = Vector2(-960, 1984)
+
+[node name="Tile_077_048" parent="GroundTiles" unique_id=1045163100 instance=ExtResource("tile_p")]
+position = Vector2(-928, 2000)
+
+[node name="Tile_077_049" parent="GroundTiles" unique_id=473618629 instance=ExtResource("tile_p")]
+position = Vector2(-896, 2016)
+
+[node name="Tile_077_050" parent="GroundTiles" unique_id=1819918961 instance=ExtResource("tile_p")]
+position = Vector2(-864, 2032)
+
+[node name="Tile_077_051" parent="GroundTiles" unique_id=770326004 instance=ExtResource("tile_p")]
+position = Vector2(-832, 2048)
+
+[node name="Tile_077_052" parent="GroundTiles" unique_id=399953848 instance=ExtResource("tile_p")]
+position = Vector2(-800, 2064)
+
+[node name="Tile_077_053" parent="GroundTiles" unique_id=1812900487 instance=ExtResource("tile_p")]
+position = Vector2(-768, 2080)
+
+[node name="Tile_077_054" parent="GroundTiles" unique_id=2022279442 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2096)
+
+[node name="Tile_077_055" parent="GroundTiles" unique_id=871091006 instance=ExtResource("tile_p")]
+position = Vector2(-704, 2112)
+
+[node name="Tile_077_056" parent="GroundTiles" unique_id=1229102836 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2128)
+
+[node name="Tile_077_057" parent="GroundTiles" unique_id=2036185907 instance=ExtResource("tile_p")]
+position = Vector2(-640, 2144)
+
+[node name="Tile_077_058" parent="GroundTiles" unique_id=566850922 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2160)
+
+[node name="Tile_077_059" parent="GroundTiles" unique_id=2125336042 instance=ExtResource("tile_p")]
+position = Vector2(-576, 2176)
+
+[node name="Tile_077_060" parent="GroundTiles" unique_id=72785179 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2192)
+
+[node name="Tile_077_061" parent="GroundTiles" unique_id=576348680 instance=ExtResource("tile_p")]
+position = Vector2(-512, 2208)
+
+[node name="Tile_077_062" parent="GroundTiles" unique_id=1423822104 instance=ExtResource("tile_p")]
+position = Vector2(-480, 2224)
+
+[node name="Tile_078_040" parent="GroundTiles" unique_id=827774605 instance=ExtResource("tile_p")]
+position = Vector2(-1216, 1888)
+
+[node name="Tile_078_041" parent="GroundTiles" unique_id=1569394184 instance=ExtResource("tile_p")]
+position = Vector2(-1184, 1904)
+
+[node name="Tile_078_042" parent="GroundTiles" unique_id=806140533 instance=ExtResource("tile_p")]
+position = Vector2(-1152, 1920)
+
+[node name="Tile_078_043" parent="GroundTiles" unique_id=1235587037 instance=ExtResource("tile_p")]
+position = Vector2(-1120, 1936)
+
+[node name="Tile_078_044" parent="GroundTiles" unique_id=1876798431 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 1952)
+
+[node name="Tile_078_045" parent="GroundTiles" unique_id=158782308 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 1968)
+
+[node name="Tile_078_046" parent="GroundTiles" unique_id=1654217139 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 1984)
+
+[node name="Tile_078_047" parent="GroundTiles" unique_id=729035930 instance=ExtResource("tile_p")]
+position = Vector2(-992, 2000)
+
+[node name="Tile_078_048" parent="GroundTiles" unique_id=1559812644 instance=ExtResource("tile_p")]
+position = Vector2(-960, 2016)
+
+[node name="Tile_078_049" parent="GroundTiles" unique_id=1972795667 instance=ExtResource("tile_p")]
+position = Vector2(-928, 2032)
+
+[node name="Tile_078_050" parent="GroundTiles" unique_id=1366743384 instance=ExtResource("tile_p")]
+position = Vector2(-896, 2048)
+
+[node name="Tile_078_051" parent="GroundTiles" unique_id=183486653 instance=ExtResource("tile_p")]
+position = Vector2(-864, 2064)
+
+[node name="Tile_078_052" parent="GroundTiles" unique_id=1017964970 instance=ExtResource("tile_p")]
+position = Vector2(-832, 2080)
+
+[node name="Tile_078_053" parent="GroundTiles" unique_id=318607433 instance=ExtResource("tile_p")]
+position = Vector2(-800, 2096)
+
+[node name="Tile_078_054" parent="GroundTiles" unique_id=1463796162 instance=ExtResource("tile_p")]
+position = Vector2(-768, 2112)
+
+[node name="Tile_078_055" parent="GroundTiles" unique_id=2067665896 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2128)
+
+[node name="Tile_078_056" parent="GroundTiles" unique_id=854778882 instance=ExtResource("tile_p")]
+position = Vector2(-704, 2144)
+
+[node name="Tile_078_057" parent="GroundTiles" unique_id=163080254 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2160)
+
+[node name="Tile_078_058" parent="GroundTiles" unique_id=1554959859 instance=ExtResource("tile_p")]
+position = Vector2(-640, 2176)
+
+[node name="Tile_078_059" parent="GroundTiles" unique_id=685881546 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2192)
+
+[node name="Tile_078_060" parent="GroundTiles" unique_id=1667207492 instance=ExtResource("tile_p")]
+position = Vector2(-576, 2208)
+
+[node name="Tile_078_061" parent="GroundTiles" unique_id=498861511 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2224)
+
+[node name="Tile_078_062" parent="GroundTiles" unique_id=312501307 instance=ExtResource("tile_p")]
+position = Vector2(-512, 2240)
+
+[node name="Tile_079_040" parent="GroundTiles" unique_id=584394940 instance=ExtResource("tile_p")]
+position = Vector2(-1248, 1904)
+
+[node name="Tile_079_041" parent="GroundTiles" unique_id=854299053 instance=ExtResource("tile_p")]
+position = Vector2(-1216, 1920)
+
+[node name="Tile_079_042" parent="GroundTiles" unique_id=882335085 instance=ExtResource("tile_p")]
+position = Vector2(-1184, 1936)
+
+[node name="Tile_079_043" parent="GroundTiles" unique_id=453702483 instance=ExtResource("tile_p")]
+position = Vector2(-1152, 1952)
+
+[node name="Tile_079_044" parent="GroundTiles" unique_id=1582227272 instance=ExtResource("tile_p")]
+position = Vector2(-1120, 1968)
+
+[node name="Tile_079_045" parent="GroundTiles" unique_id=205739349 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 1984)
+
+[node name="Tile_079_046" parent="GroundTiles" unique_id=1708516327 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2000)
+
+[node name="Tile_079_047" parent="GroundTiles" unique_id=2041835556 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 2016)
+
+[node name="Tile_079_048" parent="GroundTiles" unique_id=1179183197 instance=ExtResource("tile_p")]
+position = Vector2(-992, 2032)
+
+[node name="Tile_079_049" parent="GroundTiles" unique_id=838870238 instance=ExtResource("tile_p")]
+position = Vector2(-960, 2048)
+
+[node name="Tile_079_050" parent="GroundTiles" unique_id=1513665990 instance=ExtResource("tile_p")]
+position = Vector2(-928, 2064)
+
+[node name="Tile_079_051" parent="GroundTiles" unique_id=945544236 instance=ExtResource("tile_p")]
+position = Vector2(-896, 2080)
+
+[node name="Tile_079_052" parent="GroundTiles" unique_id=332249591 instance=ExtResource("tile_p")]
+position = Vector2(-864, 2096)
+
+[node name="Tile_079_053" parent="GroundTiles" unique_id=519296165 instance=ExtResource("tile_p")]
+position = Vector2(-832, 2112)
+
+[node name="Tile_079_054" parent="GroundTiles" unique_id=1360465710 instance=ExtResource("tile_p")]
+position = Vector2(-800, 2128)
+
+[node name="Tile_079_055" parent="GroundTiles" unique_id=1103475182 instance=ExtResource("tile_p")]
+position = Vector2(-768, 2144)
+
+[node name="Tile_079_056" parent="GroundTiles" unique_id=2013796422 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2160)
+
+[node name="Tile_079_057" parent="GroundTiles" unique_id=944040374 instance=ExtResource("tile_p")]
+position = Vector2(-704, 2176)
+
+[node name="Tile_079_058" parent="GroundTiles" unique_id=158174389 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2192)
+
+[node name="Tile_079_059" parent="GroundTiles" unique_id=595069920 instance=ExtResource("tile_p")]
+position = Vector2(-640, 2208)
+
+[node name="Tile_079_060" parent="GroundTiles" unique_id=1813449143 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2224)
+
+[node name="Tile_079_061" parent="GroundTiles" unique_id=1969752585 instance=ExtResource("tile_p")]
+position = Vector2(-576, 2240)
+
+[node name="Tile_079_062" parent="GroundTiles" unique_id=1378533771 instance=ExtResource("tile_p")]
+position = Vector2(-544, 2256)
+
+[node name="Tile_080_041" parent="GroundTiles" unique_id=1868624185 instance=ExtResource("tile_p")]
+position = Vector2(-1248, 1936)
+
+[node name="Tile_080_042" parent="GroundTiles" unique_id=872656166 instance=ExtResource("tile_p")]
+position = Vector2(-1216, 1952)
+
+[node name="Tile_080_043" parent="GroundTiles" unique_id=1747556943 instance=ExtResource("tile_p")]
+position = Vector2(-1184, 1968)
+
+[node name="Tile_080_044" parent="GroundTiles" unique_id=1623296116 instance=ExtResource("tile_p")]
+position = Vector2(-1152, 1984)
+
+[node name="Tile_080_045" parent="GroundTiles" unique_id=266593249 instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2000)
+
+[node name="Tile_080_046" parent="GroundTiles" unique_id=6471015 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2016)
+
+[node name="Tile_080_047" parent="GroundTiles" unique_id=977547044 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2032)
+
+[node name="Tile_080_048" parent="GroundTiles" unique_id=1313550902 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 2048)
+
+[node name="Tile_080_049" parent="GroundTiles" unique_id=1768752936 instance=ExtResource("tile_p")]
+position = Vector2(-992, 2064)
+
+[node name="Tile_080_050" parent="GroundTiles" unique_id=260622279 instance=ExtResource("tile_p")]
+position = Vector2(-960, 2080)
+
+[node name="Tile_080_051" parent="GroundTiles" unique_id=706834492 instance=ExtResource("tile_p")]
+position = Vector2(-928, 2096)
+
+[node name="Tile_080_052" parent="GroundTiles" unique_id=1338463673 instance=ExtResource("tile_p")]
+position = Vector2(-896, 2112)
+
+[node name="Tile_080_053" parent="GroundTiles" unique_id=711706780 instance=ExtResource("tile_p")]
+position = Vector2(-864, 2128)
+
+[node name="Tile_080_054" parent="GroundTiles" unique_id=1186164276 instance=ExtResource("tile_p")]
+position = Vector2(-832, 2144)
+
+[node name="Tile_080_055" parent="GroundTiles" unique_id=58814150 instance=ExtResource("tile_p")]
+position = Vector2(-800, 2160)
+
+[node name="Tile_080_056" parent="GroundTiles" unique_id=1422272070 instance=ExtResource("tile_p")]
+position = Vector2(-768, 2176)
+
+[node name="Tile_080_057" parent="GroundTiles" unique_id=328218437 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2192)
+
+[node name="Tile_080_058" parent="GroundTiles" unique_id=445419834 instance=ExtResource("tile_p")]
+position = Vector2(-704, 2208)
+
+[node name="Tile_080_059" parent="GroundTiles" unique_id=1073338981 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2224)
+
+[node name="Tile_080_060" parent="GroundTiles" unique_id=23173656 instance=ExtResource("tile_p")]
+position = Vector2(-640, 2240)
+
+[node name="Tile_080_061" parent="GroundTiles" unique_id=904517774 instance=ExtResource("tile_p")]
+position = Vector2(-608, 2256)
+
+[node name="Tile_081_042" parent="GroundTiles" unique_id=1030276041 instance=ExtResource("tile_p")]
+position = Vector2(-1248, 1968)
+
+[node name="Tile_081_043" parent="GroundTiles" unique_id=1831572026 instance=ExtResource("tile_p")]
+position = Vector2(-1216, 1984)
+
+[node name="Tile_081_044" parent="GroundTiles" unique_id=1016132941 instance=ExtResource("tile_p")]
+position = Vector2(-1184, 2000)
+
+[node name="Tile_081_045" parent="GroundTiles" unique_id=227349272 instance=ExtResource("tile_p")]
+position = Vector2(-1152, 2016)
+
+[node name="Tile_081_046" parent="GroundTiles" unique_id=57326284 instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2032)
+
+[node name="Tile_081_047" parent="GroundTiles" unique_id=1194720451 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2048)
+
+[node name="Tile_081_048" parent="GroundTiles" unique_id=973205075 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2064)
+
+[node name="Tile_081_049" parent="GroundTiles" unique_id=757242962 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 2080)
+
+[node name="Tile_081_050" parent="GroundTiles" unique_id=956118491 instance=ExtResource("tile_p")]
+position = Vector2(-992, 2096)
+
+[node name="Tile_081_051" parent="GroundTiles" unique_id=1371234388 instance=ExtResource("tile_p")]
+position = Vector2(-960, 2112)
+
+[node name="Tile_081_052" parent="GroundTiles" unique_id=190935560 instance=ExtResource("tile_p")]
+position = Vector2(-928, 2128)
+
+[node name="Tile_081_053" parent="GroundTiles" unique_id=1239096695 instance=ExtResource("tile_p")]
+position = Vector2(-896, 2144)
+
+[node name="Tile_081_054" parent="GroundTiles" unique_id=13459170 instance=ExtResource("tile_p")]
+position = Vector2(-864, 2160)
+
+[node name="Tile_081_055" parent="GroundTiles" unique_id=772067937 instance=ExtResource("tile_p")]
+position = Vector2(-832, 2176)
+
+[node name="Tile_081_056" parent="GroundTiles" unique_id=1162193991 instance=ExtResource("tile_p")]
+position = Vector2(-800, 2192)
+
+[node name="Tile_081_057" parent="GroundTiles" unique_id=2085386181 instance=ExtResource("tile_p")]
+position = Vector2(-768, 2208)
+
+[node name="Tile_081_058" parent="GroundTiles" unique_id=277551318 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2224)
+
+[node name="Tile_081_059" parent="GroundTiles" unique_id=1381283767 instance=ExtResource("tile_p")]
+position = Vector2(-704, 2240)
+
+[node name="Tile_081_060" parent="GroundTiles" unique_id=278407665 instance=ExtResource("tile_p")]
+position = Vector2(-672, 2256)
+
+[node name="Tile_082_043" parent="GroundTiles" unique_id=937370424 instance=ExtResource("tile_p")]
+position = Vector2(-1248, 2000)
+
+[node name="Tile_082_044" parent="GroundTiles" unique_id=734527852 instance=ExtResource("tile_p")]
+position = Vector2(-1216, 2016)
+
+[node name="Tile_082_045" parent="GroundTiles" unique_id=974158784 instance=ExtResource("tile_p")]
+position = Vector2(-1184, 2032)
+
+[node name="Tile_082_046" parent="GroundTiles" unique_id=747687474 instance=ExtResource("tile_p")]
+position = Vector2(-1152, 2048)
+
+[node name="Tile_082_047" parent="GroundTiles" unique_id=259348825 instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2064)
+
+[node name="Tile_082_048" parent="GroundTiles" unique_id=1191222957 instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2080)
+
+[node name="Tile_082_049" parent="GroundTiles" unique_id=2007204601 instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2096)
+
+[node name="Tile_082_050" parent="GroundTiles" unique_id=1742219122 instance=ExtResource("tile_p")]
+position = Vector2(-1024, 2112)
+
+[node name="Tile_082_051" parent="GroundTiles" unique_id=582168435 instance=ExtResource("tile_p")]
+position = Vector2(-992, 2128)
+
+[node name="Tile_082_052" parent="GroundTiles" unique_id=488131513 instance=ExtResource("tile_p")]
+position = Vector2(-960, 2144)
+
+[node name="Tile_082_053" parent="GroundTiles" unique_id=254212692 instance=ExtResource("tile_p")]
+position = Vector2(-928, 2160)
+
+[node name="Tile_082_054" parent="GroundTiles" unique_id=1588001892 instance=ExtResource("tile_p")]
+position = Vector2(-896, 2176)
+
+[node name="Tile_082_055" parent="GroundTiles" unique_id=1198896817 instance=ExtResource("tile_p")]
+position = Vector2(-864, 2192)
+
+[node name="Tile_082_056" parent="GroundTiles" unique_id=2122188383 instance=ExtResource("tile_p")]
+position = Vector2(-832, 2208)
+
+[node name="Tile_082_057" parent="GroundTiles" unique_id=1170396547 instance=ExtResource("tile_p")]
+position = Vector2(-800, 2224)
+
+[node name="Tile_082_058" parent="GroundTiles" unique_id=1442742735 instance=ExtResource("tile_p")]
+position = Vector2(-768, 2240)
+
+[node name="Tile_082_059" parent="GroundTiles" unique_id=334502079 instance=ExtResource("tile_p")]
+position = Vector2(-736, 2256)
+
+[node name="RoyalGardensCastle" type="Node2D" parent="." unique_id=2147098215]
+z_index = 5
+position = Vector2(0, 1520)
+
+[node name="CastleSprite" type="Sprite2D" parent="RoyalGardensCastle" unique_id=1436647388]
+texture_filter = 1
+position = Vector2(-1062, -845)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("castle_tex")
+
+[node name="CastleCollision" type="StaticBody2D" parent="RoyalGardensCastle" unique_id=485131515]
+position = Vector2(-985, -815)
+scale = Vector2(0.9, 0.9)
+collision_mask = 0
+
+[node name="CastleGroundFootprint" type="CollisionPolygon2D" parent="RoyalGardensCastle/CastleCollision" unique_id=2133023378]
+position = Vector2(-60, 103.333336)
+polygon = PackedVector2Array(-698.8889, 53.333313, -682.2223, -57.77777, -562.2223, -76.666626, -154.44446, -404.44443, -20, -482.22223, 320, -224.44446, 452.22223, -124.44446, 552.2222, -67.77777, 644.44446, -67.77777, 648.8889, 45.555542, 378.88885, 196.66663, 35.555542, 336.66663, -17.777832, 306.66663, -128.88892, 360, -273.33337, 282.2223)
+
+[node name="RoyalGardenV3Decorations" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="WisteriaGazebo" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+texture = ExtResource("garden_v3_1")
+position = Vector2(2185, 1242)
+scale = Vector2(1.34, 1.34)
+
+[node name="CentralFountain" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+texture = ExtResource("garden_v3_2")
+position = Vector2(-680, 1980)
+scale = Vector2(1.53, 1.53)
+
+[node name="PinkBlossomTreeWest" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+texture = ExtResource("garden_v3_3")
+position = Vector2(-2086, 1724)
+scale = Vector2(1.65, 1.65)
+
+[node name="WisteriaTreeNearCastle" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+texture = ExtResource("garden_v3_4")
+position = Vector2(-1790, 990)
+scale = Vector2(1.75, 1.75)
+
+[node name="TopiaryNorth" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+texture = ExtResource("garden_v3_5")
+position = Vector2(-300, 290)
+scale = Vector2(1.7, 1.7)
+
+[node name="TopiaryEast" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+texture = ExtResource("garden_v3_5")
+position = Vector2(1530, 940)
+scale = Vector2(1.7, 1.7)
+
+[node name="BenchNearFountain" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_6")
+position = Vector2(-1200, 2050)
+scale = Vector2(0.65, 0.65)
+
+[node name="RoseArchEast" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_7")
+position = Vector2(1330, 1650)
+scale = Vector2(0.7, 0.7)
+
+[node name="HedgeWest" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+texture = ExtResource("garden_v3_8")
+position = Vector2(-1760, 1980)
+scale = Vector2(0.85, 0.85)
+
+[node name="HedgeEast" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_8")
+position = Vector2(1230, 1880)
+scale = Vector2(0.85, 0.85)
+
+
+[node name="RoyalLanternWest" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_extra_1")
+position = Vector2(-1420, 1850)
+scale = Vector2(2.2, 2.2)
+
+[node name="RoyalLanternEast" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_extra_1")
+position = Vector2(-200, 1850)
+scale = Vector2(2.2, 2.2)
+
+[node name="RosePlanterWest" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_extra_2")
+position = Vector2(-1250, 2200)
+scale = Vector2(2.1, 2.1)
+
+[node name="LilyPlanterNorth" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_extra_3")
+position = Vector2(1150, 1020)
+scale = Vector2(2.0, 2.0)
+
+[node name="VioletPlanterEast" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_extra_4")
+position = Vector2(1600, 1950)
+scale = Vector2(2.0, 2.0)
+
+[node name="FlowerPatchWest" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_extra_5")
+position = Vector2(-2500, 2300)
+scale = Vector2(2.0, 2.0)
+
+[node name="FlowerPatchSouth" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_extra_6")
+position = Vector2(520, 2580)
+scale = Vector2(2.0, 2.0)
+
+[node name="FloweringRockCluster" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+texture = ExtResource("garden_v3_extra_7")
+position = Vector2(1850, 2050)
+scale = Vector2(1.8, 1.8)
+
+
+[node name="WaterfallPond" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+position = Vector2(420, 700)
+scale = Vector2(3.3, 3.3)
+texture = ExtResource("ref_waterfallpond")
+
+[node name="WaterfallCliff" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+position = Vector2(360, 450)
+scale = Vector2(1.73, 1.73)
+texture = ExtResource("ref_waterfallcliff")
+
+[node name="PinkBlossomTreeNorthEast" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+position = Vector2(1160, 650)
+scale = Vector2(1.64, 1.64)
+texture = ExtResource("garden_v3_3")
+
+[node name="CypressWest" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+position = Vector2(-1850, 1510)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("ref_cypresswest")
+
+[node name="CypressSouth" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+texture_filter = 1
+position = Vector2(520, 2580)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("ref_cypresssouth")
+
+[node name="BenchNorth" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+position = Vector2(-7.899979, 1480.8)
+scale = Vector2(1.5214576, 1.4487809)
+texture = ExtResource("ref_benchnorth")
+
+[node name="LampEastRoad" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+position = Vector2(1270, 2100)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("ref_lampeastroad")
+
+[node name="RoyalBannerExit" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+position = Vector2(557, 1485.0002)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("ref_royalbannerexit")
+
+[node name="PinkFlowersWest" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+position = Vector2(-1670, 2010)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("ref_pinkflowerswest")
+
+[node name="BlueFlowersEast" type="Sprite2D" parent="RoyalGardenV3Decorations"]
+visible = false
+texture_filter = 1
+position = Vector2(1920, 1790)
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("ref_blueflowerseast")
+
+[node name="V4SparseDecorations" parent="." instance=ExtResource("v4_sparse_placement")]
+
+
+[node name="SeamlessGrassUnderlay" type="Polygon2D" parent="."]
+z_index = -21
+texture_filter = 1
+texture_repeat = 2
+modulate = Color(1.1, 1.04, 0.8, 1)
+texture = ExtResource("seamless_grass_tex")
+polygon = PackedVector2Array(32, 0, 3200, 1584, 32, 3200, -3136, 1584)
+uv = PackedVector2Array(32, 0, 3200, 1584, 32, 3200, -3136, 1584)
+
+[node name="PlannedFlowerbedsV4" parent="." instance=ExtResource("v4_flowerbeds")]
+
+[node name="ExitBannersV4" parent="." instance=ExtResource("exit_banners")]
+
+[node name="PlazaLanternsV4" parent="." instance=ExtResource("plaza_lanterns")]
+
+[node name="PlazaPlantersV4" parent="." instance=ExtResource("v4_plaza_planters")]
+
+[node name="LawnPavingInlays" parent="." instance=ExtResource("lawn_inlays")]
+
+[node name="LowerEdgeGarden" parent="." instance=ExtResource("edge_garden")]
+
+[node name="WaterfallLandscapingV4" parent="." instance=ExtResource("pond_landscaping")]
+
+[node name="GoldCrestInlays" parent="." instance=ExtResource("gold_crest_inlays")]
+
+[node name="Tile_083_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2112)
+
+[node name="Tile_083_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2128)
+
+[node name="Tile_083_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1024, 2144)
+
+[node name="Tile_083_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-992, 2160)
+
+[node name="Tile_083_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-960, 2176)
+
+[node name="Tile_083_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-928, 2192)
+
+[node name="Tile_084_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2128)
+
+[node name="Tile_084_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2144)
+
+[node name="Tile_084_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2160)
+
+[node name="Tile_084_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1024, 2176)
+
+[node name="Tile_084_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-992, 2192)
+
+[node name="Tile_084_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-960, 2208)
+
+[node name="Tile_085_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1152, 2144)
+
+[node name="Tile_085_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2160)
+
+[node name="Tile_085_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2176)
+
+[node name="Tile_085_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2192)
+
+[node name="Tile_085_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1024, 2208)
+
+[node name="Tile_085_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-992, 2224)
+
+[node name="Tile_086_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1184, 2160)
+
+[node name="Tile_086_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1152, 2176)
+
+[node name="Tile_086_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2192)
+
+[node name="Tile_086_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2208)
+
+[node name="Tile_086_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2224)
+
+[node name="Tile_086_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1024, 2240)
+
+[node name="Tile_087_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1216, 2176)
+
+[node name="Tile_087_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1184, 2192)
+
+[node name="Tile_087_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1152, 2208)
+
+[node name="Tile_087_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2224)
+
+[node name="Tile_087_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2240)
+
+[node name="Tile_087_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1056, 2256)
+
+[node name="Tile_088_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1248, 2192)
+
+[node name="Tile_088_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1216, 2208)
+
+[node name="Tile_088_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1184, 2224)
+
+[node name="Tile_088_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1152, 2240)
+
+[node name="Tile_088_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2256)
+
+[node name="Tile_088_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1088, 2272)
+
+[node name="Tile_089_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1280, 2208)
+
+[node name="Tile_089_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1248, 2224)
+
+[node name="Tile_089_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1216, 2240)
+
+[node name="Tile_089_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1184, 2256)
+
+[node name="Tile_089_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1152, 2272)
+
+[node name="Tile_089_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1120, 2288)
+
+[node name="Tile_090_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1312, 2224)
+
+[node name="Tile_090_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1280, 2240)
+
+[node name="Tile_090_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1248, 2256)
+
+[node name="Tile_090_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1216, 2272)
+
+[node name="Tile_090_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1184, 2288)
+
+[node name="Tile_090_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1152, 2304)
+
+[node name="Tile_091_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1344, 2240)
+
+[node name="Tile_091_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1312, 2256)
+
+[node name="Tile_091_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1280, 2272)
+
+[node name="Tile_091_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1248, 2288)
+
+[node name="Tile_091_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1216, 2304)
+
+[node name="Tile_091_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1184, 2320)
+
+[node name="Tile_092_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1376, 2256)
+
+[node name="Tile_092_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1344, 2272)
+
+[node name="Tile_092_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1312, 2288)
+
+[node name="Tile_092_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1280, 2304)
+
+[node name="Tile_092_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1248, 2320)
+
+[node name="Tile_092_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1216, 2336)
+
+[node name="Tile_093_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1408, 2272)
+
+[node name="Tile_093_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1376, 2288)
+
+[node name="Tile_093_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1344, 2304)
+
+[node name="Tile_093_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1312, 2320)
+
+[node name="Tile_093_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1280, 2336)
+
+[node name="Tile_093_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1248, 2352)
+
+[node name="Tile_094_049" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1440, 2288)
+
+[node name="Tile_094_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1408, 2304)
+
+[node name="Tile_094_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1376, 2320)
+
+[node name="Tile_094_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1344, 2336)
+
+[node name="Tile_094_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1312, 2352)
+
+[node name="Tile_094_054" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1280, 2368)
+
+[node name="Tile_095_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1440, 2320)
+
+[node name="Tile_095_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1408, 2336)
+
+[node name="Tile_095_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1376, 2352)
+
+[node name="Tile_095_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1344, 2368)
+
+[node name="Tile_096_050" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1472, 2336)
+
+[node name="Tile_096_051" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1440, 2352)
+
+[node name="Tile_096_052" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1408, 2368)
+
+[node name="Tile_096_053" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-1376, 2384)
+
+
+[node name="FormalHedgeIslands" parent="." instance=ExtResource("formal_hedges")]
+
+[node name="Tile_063_041" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-704, 1664)
+
+[node name="Tile_067_063" parent="GroundTiles" instance=ExtResource("tile_p")]
+position = Vector2(-128, 2080)

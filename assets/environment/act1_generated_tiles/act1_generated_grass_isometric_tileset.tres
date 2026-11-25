@@ -1,0 +1,15 @@
+[gd_resource type="TileSet" format=3 uid="uid://cufv8dl4b6ik0"]
+
+[ext_resource type="Texture2D" uid="uid://d1cdjr3xb5apj" path="res://assets/environment/act1_generated_tiles/generated_grass_32.png" id="1_grass"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_generated_grass"]
+texture = ExtResource("1_grass")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(16, 0)
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetAtlasSource_generated_grass")

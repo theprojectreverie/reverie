@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/components/royal_gate_architecture.tscn" id="1_gate"]
+
+[node name="RoyalGateArchitecturePreview" type="Node2D"]
+
+[node name="PreviewBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Backdrop" type="ColorRect" parent="PreviewBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13, 0.19, 0.15, 1)
+
+[node name="GateComposition" parent="." instance=ExtResource("1_gate")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -60)
+zoom = Vector2(1.5, 1.5)
+enabled = true

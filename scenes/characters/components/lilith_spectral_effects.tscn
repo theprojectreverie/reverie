@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://scripts/world/lilith_spectral_effects.gd" id="1"]
+[sub_resource type="Animation" id="idle"]
+resource_name = "idle"
+length = 1.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpectralHalo:visible")
+tracks/0/keys = {"times": PackedFloat32Array(0.0), "transitions": PackedFloat32Array(1.0), "update": 1, "values": [true]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpectralHalo:scale")
+tracks/1/keys = {"times": PackedFloat32Array(0.0, 0.5, 1.0), "transitions": PackedFloat32Array(1.0, 1.0, 1.0), "update": 0, "values": [Vector2(0.92, 0.92), Vector2(1.08, 1.08), Vector2(0.92, 0.92)]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpectralHalo:rotation")
+tracks/2/keys = {"times": PackedFloat32Array(0.0, 1.0), "transitions": PackedFloat32Array(1.0, 1.0), "update": 0, "values": [0.0, 6.283185]}
+[sub_resource type="Animation" id="walk"]
+resource_name = "walk"
+length = 0.65
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpectralHalo:visible")
+tracks/0/keys = {"times": PackedFloat32Array(0.0), "transitions": PackedFloat32Array(1.0), "update": 1, "values": [true]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpectralHalo:rotation")
+tracks/1/keys = {"times": PackedFloat32Array(0.0, 0.65), "transitions": PackedFloat32Array(1.0, 1.0), "update": 0, "values": [0.0, 6.283185]}
+[sub_resource type="Animation" id="action"]
+resource_name = "action"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpectralHalo:visible")
+tracks/0/keys = {"times": PackedFloat32Array(0.0, 0.8), "transitions": PackedFloat32Array(1.0, 1.0), "update": 1, "values": [true, false]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpectralHalo:scale")
+tracks/1/keys = {"times": PackedFloat32Array(0.0, 0.35, 0.8), "transitions": PackedFloat32Array(1.0, 1.0, 1.0), "update": 0, "values": [Vector2(0.45, 0.45), Vector2(1.35, 1.35), Vector2(1.7, 1.7)]}
+[sub_resource type="AnimationLibrary" id="lib"]
+_data = {"idle": SubResource("idle"), "walk": SubResource("walk"), "run": SubResource("walk"), "attack": SubResource("action"), "cast": SubResource("action"), "damage": SubResource("action"), "victory": SubResource("idle"), "interact": SubResource("idle"), "defeat": SubResource("action")}
+[node name="LilithSpectralEffects" type="Node2D"]
+script = ExtResource("1")
+[node name="SpectralHalo" type="Node2D" parent="."]
+visible = false
+[node name="OuterArc" type="Line2D" parent="SpectralHalo"]
+points = PackedVector2Array(0, -29, 20, -20, 29, 0, 20, 20, 0, 29, -20, 20, -29, 0, -20, -20, 0, -29)
+width = 1.8
+default_color = Color(0.35, 0.72, 1, 0.8)
+closed = true
+[node name="InnerArc" type="Line2D" parent="SpectralHalo"]
+points = PackedVector2Array(0, -20, 14, -14, 20, 0, 14, 14, 0, 20, -14, 14, -20, 0, -14, -14, 0, -20)
+width = 1.0
+default_color = Color(0.82, 0.96, 1, 0.68)
+closed = true
+[node name="WispParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 12
+lifetime = 1.4
+direction = Vector2(0, -1)
+spread = 42.0
+gravity = Vector2(0, -8)
+initial_velocity_min = 8.0
+initial_velocity_max = 20.0
+scale_amount_min = 0.7
+scale_amount_max = 1.5
+color = Color(0.65, 0.9, 1, 0.75)
+[node name="AttackSparks" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.42
+one_shot = true
+explosiveness = 0.92
+direction = Vector2(1, 0)
+spread = 180.0
+gravity = Vector2(0, 12)
+initial_velocity_min = 30.0
+initial_velocity_max = 75.0
+scale_amount_min = 0.6
+scale_amount_max = 1.4
+color = Color(0.82, 0.96, 1, 0.95)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {"": SubResource("lib")}

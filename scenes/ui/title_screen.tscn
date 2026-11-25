@@ -59,6 +59,11 @@ mouse_filter = 0
 focus_mode = 2
 text = ""
 
+[node name="OnlineButton" type="Button" parent="."]
+mouse_filter = 0
+focus_mode = 2
+text = "ONLINE"
+
 [node name="Layout" type="Node" parent="."]
 script = ExtResource("3_layout")
 

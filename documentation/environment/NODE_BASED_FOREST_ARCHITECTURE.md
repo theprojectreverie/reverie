@@ -23,7 +23,7 @@ ForestEnvironment (Node2D)
 │   ├── ForestObstacle / rocks / fallen logs / stumps / roots
 │   └── Interactable / landmark instances
 └── Ambient
-    └── Fireflies and other lightweight animated effects
+	└── Fireflies and other lightweight animated effects
 ```
 
 All depth-sensitive objects are siblings under WorldObjects. Category

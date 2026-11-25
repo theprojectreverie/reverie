@@ -1,0 +1,187 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/elathra.gd" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/components/npc_quest_marker.tscn" id="marker"]
+[ext_resource type="Texture2D" path="res://assets/characters/elathra/elathra_idle_128x128.png" id="idle"]
+[ext_resource type="Texture2D" path="res://assets/characters/elathra/elathra_walk_east_128x128.png" id="east"]
+[ext_resource type="Texture2D" path="res://assets/characters/elathra/elathra_walk_west_128x128.png" id="west"]
+[ext_resource type="Texture2D" path="res://assets/characters/elathra/elathra_walk_south_128x128.png" id="south"]
+[ext_resource type="Texture2D" path="res://assets/characters/elathra/elathra_walk_north_128x128.png" id="north"]
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("idle")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("idle")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("idle")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("idle")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_4"]
+atlas = ExtResource("idle")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="east_0"]
+atlas = ExtResource("east")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="east_1"]
+atlas = ExtResource("east")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="east_2"]
+atlas = ExtResource("east")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="east_3"]
+atlas = ExtResource("east")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="east_4"]
+atlas = ExtResource("east")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="east_5"]
+atlas = ExtResource("east")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="east_6"]
+atlas = ExtResource("east")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="east_7"]
+atlas = ExtResource("east")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="west_0"]
+atlas = ExtResource("west")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="west_1"]
+atlas = ExtResource("west")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="west_2"]
+atlas = ExtResource("west")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="west_3"]
+atlas = ExtResource("west")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="west_4"]
+atlas = ExtResource("west")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="west_5"]
+atlas = ExtResource("west")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="west_6"]
+atlas = ExtResource("west")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="west_7"]
+atlas = ExtResource("west")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="south_0"]
+atlas = ExtResource("south")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="south_1"]
+atlas = ExtResource("south")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="south_2"]
+atlas = ExtResource("south")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="south_3"]
+atlas = ExtResource("south")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="south_4"]
+atlas = ExtResource("south")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="south_5"]
+atlas = ExtResource("south")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="south_6"]
+atlas = ExtResource("south")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="south_7"]
+atlas = ExtResource("south")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="north_0"]
+atlas = ExtResource("north")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="north_1"]
+atlas = ExtResource("north")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="north_2"]
+atlas = ExtResource("north")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="north_3"]
+atlas = ExtResource("north")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="north_4"]
+atlas = ExtResource("north")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="north_5"]
+atlas = ExtResource("north")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="north_6"]
+atlas = ExtResource("north")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="north_7"]
+atlas = ExtResource("north")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("idle_0")}, {"duration": 1.0, "texture": SubResource("idle_1")}, {"duration": 1.0, "texture": SubResource("idle_2")}, {"duration": 1.0, "texture": SubResource("idle_3")}, {"duration": 1.0, "texture": SubResource("idle_4")}], "loop": true, "name": &"idle", "speed": 4.0}, {"frames": [{"duration": 1.0, "texture": SubResource("east_0")}, {"duration": 1.0, "texture": SubResource("east_1")}, {"duration": 1.0, "texture": SubResource("east_2")}, {"duration": 1.0, "texture": SubResource("east_3")}, {"duration": 1.0, "texture": SubResource("east_4")}, {"duration": 1.0, "texture": SubResource("east_5")}, {"duration": 1.0, "texture": SubResource("east_6")}, {"duration": 1.0, "texture": SubResource("east_7")}], "loop": true, "name": &"walk_east", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": SubResource("west_0")}, {"duration": 1.0, "texture": SubResource("west_1")}, {"duration": 1.0, "texture": SubResource("west_2")}, {"duration": 1.0, "texture": SubResource("west_3")}, {"duration": 1.0, "texture": SubResource("west_4")}, {"duration": 1.0, "texture": SubResource("west_5")}, {"duration": 1.0, "texture": SubResource("west_6")}, {"duration": 1.0, "texture": SubResource("west_7")}], "loop": true, "name": &"walk_west", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": SubResource("south_0")}, {"duration": 1.0, "texture": SubResource("south_1")}, {"duration": 1.0, "texture": SubResource("south_2")}, {"duration": 1.0, "texture": SubResource("south_3")}, {"duration": 1.0, "texture": SubResource("south_4")}, {"duration": 1.0, "texture": SubResource("south_5")}, {"duration": 1.0, "texture": SubResource("south_6")}, {"duration": 1.0, "texture": SubResource("south_7")}], "loop": true, "name": &"walk_south", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": SubResource("north_0")}, {"duration": 1.0, "texture": SubResource("north_1")}, {"duration": 1.0, "texture": SubResource("north_2")}, {"duration": 1.0, "texture": SubResource("north_3")}, {"duration": 1.0, "texture": SubResource("north_4")}, {"duration": 1.0, "texture": SubResource("north_5")}, {"duration": 1.0, "texture": SubResource("north_6")}, {"duration": 1.0, "texture": SubResource("north_7")}], "loop": true, "name": &"walk_north", "speed": 8.0}]
+
+[sub_resource type="CapsuleShape2D" id="ElathraFootprint"]
+radius = 15.0
+height = 34.0
+
+[node name="Elathra" type="Node2D"]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("npc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -64)
+sprite_frames = SubResource("frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="QuestMarker" parent="." instance=ExtResource("marker")]
+position = Vector2(0, -145)
+
+[node name="FootprintBody" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FootprintBody"]
+position = Vector2(0, -12)
+shape = SubResource("ElathraFootprint")
+

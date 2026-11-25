@@ -1,0 +1,86 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/world/tutorial_prologue/companion_npc.gd" id="logic"]
+[ext_resource type="Texture2D" path="res://assets/characters/companion_normal/companion_idle_front_128x128.png" id="front"]
+[ext_resource type="Texture2D" path="res://assets/characters/companion_normal/companion_idle_left_128x128.png" id="left"]
+[ext_resource type="Texture2D" path="res://assets/characters/companion_normal/companion_idle_right_128x128.png" id="right"]
+[sub_resource type="AtlasTexture" id="front_0"]
+atlas = ExtResource("front")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="front_1"]
+atlas = ExtResource("front")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="front_2"]
+atlas = ExtResource("front")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="front_3"]
+atlas = ExtResource("front")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="front_4"]
+atlas = ExtResource("front")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="left_0"]
+atlas = ExtResource("left")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="left_1"]
+atlas = ExtResource("left")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="left_2"]
+atlas = ExtResource("left")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="left_3"]
+atlas = ExtResource("left")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="left_4"]
+atlas = ExtResource("left")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="right_0"]
+atlas = ExtResource("right")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="right_1"]
+atlas = ExtResource("right")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="right_2"]
+atlas = ExtResource("right")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="right_3"]
+atlas = ExtResource("right")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+[sub_resource type="AtlasTexture" id="right_4"]
+atlas = ExtResource("right")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("front_0")}, {"duration": 1.0, "texture": SubResource("front_1")}, {"duration": 1.0, "texture": SubResource("front_2")}, {"duration": 1.0, "texture": SubResource("front_3")}, {"duration": 1.0, "texture": SubResource("front_4")}], "loop": true, "name": &"front", "speed": 5.0}, {"frames": [{"duration": 1.0, "texture": SubResource("left_0")}, {"duration": 1.0, "texture": SubResource("left_1")}, {"duration": 1.0, "texture": SubResource("left_2")}, {"duration": 1.0, "texture": SubResource("left_3")}, {"duration": 1.0, "texture": SubResource("left_4")}], "loop": true, "name": &"left", "speed": 5.0}, {"frames": [{"duration": 1.0, "texture": SubResource("right_0")}, {"duration": 1.0, "texture": SubResource("right_1")}, {"duration": 1.0, "texture": SubResource("right_2")}, {"duration": 1.0, "texture": SubResource("right_3")}, {"duration": 1.0, "texture": SubResource("right_4")}], "loop": true, "name": &"right", "speed": 5.0}]
+[node name="CompanionNPC" type="Node2D"]
+script = ExtResource("logic")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -36)
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("frames")
+animation = &"front"
+autoplay = "front"
+[node name="Marker" type="Label" parent="."]
+offset_left = -12.0
+offset_right = 12.0
+offset_top = -100.0
+offset_bottom = -75.0
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 0.8, 0.4, 1)
+theme_override_constants/outline_size = 4
+text = "!"
+visible = false

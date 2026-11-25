@@ -1,0 +1,199 @@
+[gd_scene format=3 uid="uid://bl5xmqdbiihyt"]
+
+[ext_resource type="Texture2D" uid="uid://c358y5ffrlh0v" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_48.png" id="a1"]
+[ext_resource type="Texture2D" uid="uid://322ot1xew7pr" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_35.png" id="a2"]
+[ext_resource type="Texture2D" uid="uid://cqbnt318cpcs1" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_02.png" id="a3"]
+[ext_resource type="Texture2D" uid="uid://dypkrwsee2icq" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_04.png" id="a4"]
+[ext_resource type="Texture2D" uid="uid://cyiibrkatd3bh" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_25.png" id="a6"]
+[ext_resource type="Texture2D" uid="uid://u07ktqpa6lce" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_26.png" id="a7"]
+[ext_resource type="Texture2D" uid="uid://b8yxmcc1v3r0g" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_28.png" id="a11"]
+[ext_resource type="Texture2D" uid="uid://b3rmlg4i2wvim" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_07.png" id="a13"]
+[ext_resource type="Texture2D" uid="uid://dww1g00m01u6" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_11.png" id="a14"]
+[ext_resource type="Texture2D" uid="uid://dj8c31reu3m3w" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_12.png" id="a15"]
+[ext_resource type="Texture2D" uid="uid://btifqtwy2cqvw" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_29.png" id="a16"]
+[ext_resource type="Texture2D" uid="uid://db6g5klurqpgr" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_32.png" id="a17"]
+[ext_resource type="Texture2D" uid="uid://b2bbymumwsxjt" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_31.png" id="a18"]
+[ext_resource type="Texture2D" uid="uid://cuyiem3d6tt4" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_16.png" id="a21"]
+[ext_resource type="Texture2D" uid="uid://5sqqd41iwo0h" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_18.png" id="a22"]
+[ext_resource type="Texture2D" uid="uid://du1a1nggtrcg3" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_10.png" id="a23"]
+[ext_resource type="Texture2D" uid="uid://drvbnklosk1y0" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_19.png" id="a24"]
+[ext_resource type="Texture2D" uid="uid://bdk2lyj2l274w" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_33.png" id="a25"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_reviewed/royal_garden_pink_tree_clean_candidate.png" id="pinktree"]
+
+[node name="RoyalGardensReferenceLayout" type="Node2D" unique_id=1519340102]
+y_sort_enabled = true
+
+[node name="WaterfallPond" type="Sprite2D" parent="." unique_id=1514285373]
+texture_filter = 1
+position = Vector2(420, 700)
+scale = Vector2(3.2, 3.2)
+texture = ExtResource("a1")
+
+[node name="WaterfallCliff" type="Sprite2D" parent="." unique_id=456006076]
+texture_filter = 1
+position = Vector2(160.3, 133.8)
+scale = Vector2(2.4186237, 2.3648353)
+texture = ExtResource("a2")
+
+[node name="Gazebo" type="Sprite2D" parent="." unique_id=996153570]
+texture_filter = 1
+position = Vector2(2185, 1241.9999)
+scale = Vector2(2.498305, 2.0225809)
+texture = ExtResource("a3")
+
+[node name="CentralFountain" type="Sprite2D" parent="." unique_id=397407483]
+texture_filter = 1
+position = Vector2(-680, 1980)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("a4")
+
+[node name="WhiteBlossomTreeNorthEast" type="Sprite2D" parent="." unique_id=610112518]
+texture_filter = 1
+position = Vector2(990.325, 702.025)
+scale = Vector2(2.9767513, 2.5552354)
+texture = ExtResource("a6")
+
+[node name="PinkBlossomTreeWest" type="Sprite2D" parent="." unique_id=39499124]
+texture_filter = 1
+position = Vector2(-2086.75, 1723.75)
+scale = Vector2(2.2770705, 2.1230369)
+texture = ExtResource("pinktree")
+
+[node name="WisteriaNearCastle" type="Sprite2D" parent="." unique_id=303617164]
+texture_filter = 1
+position = Vector2(-1790, 990)
+scale = Vector2(3, 3)
+texture = ExtResource("a7")
+
+[node name="CypressNorth" type="Sprite2D" parent="." unique_id=1116569379]
+texture_filter = 1
+position = Vector2(-300, 290)
+scale = Vector2(3.2, 3.2)
+texture = ExtResource("a11")
+
+[node name="CypressWest" type="Sprite2D" parent="." unique_id=826887697]
+texture_filter = 1
+position = Vector2(-1850, 1510)
+scale = Vector2(3, 3)
+texture = ExtResource("a11")
+
+[node name="CypressEast" type="Sprite2D" parent="." unique_id=349485026]
+texture_filter = 1
+position = Vector2(1530, 940)
+scale = Vector2(3, 3)
+texture = ExtResource("a11")
+
+[node name="CypressSouth" type="Sprite2D" parent="." unique_id=1503912057]
+texture_filter = 1
+position = Vector2(520, 2580)
+scale = Vector2(3.1, 3.1)
+texture = ExtResource("a11")
+
+[node name="BenchNearFountain" type="Sprite2D" parent="." unique_id=1976412978]
+texture_filter = 1
+position = Vector2(-1200, 2050)
+scale = Vector2(2.8, 2.8)
+texture = ExtResource("a13")
+
+[node name="BenchNorth" type="Sprite2D" parent="." unique_id=834780378]
+texture_filter = 1
+position = Vector2(-7.899979, 1480.8)
+scale = Vector2(1.5214576, 1.4487809)
+texture = ExtResource("a13")
+
+[node name="HedgeWest" type="Sprite2D" parent="." unique_id=1997443455]
+texture_filter = 1
+position = Vector2(-1760, 1980)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("a14")
+
+[node name="HedgeEast" type="Sprite2D" parent="." unique_id=2024509152]
+texture_filter = 1
+position = Vector2(1230, 1880)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("a15")
+
+[node name="PinkFlowersWest" type="Sprite2D" parent="." unique_id=1657571672]
+texture_filter = 1
+position = Vector2(-1670, 2010)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("a16")
+
+[node name="WhiteFlowersNorth" type="Sprite2D" parent="." unique_id=1770124474]
+texture_filter = 1
+position = Vector2(1150, 1020)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("a17")
+
+[node name="BlueFlowersEast" type="Sprite2D" parent="." unique_id=1168139434]
+texture_filter = 1
+position = Vector2(1920, 1790)
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("a18")
+
+[node name="LampFountainLeft" type="Sprite2D" parent="." unique_id=730978015]
+texture_filter = 1
+position = Vector2(-1420, 1850)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("a21")
+
+[node name="LampFountainRight" type="Sprite2D" parent="." unique_id=994718202]
+texture_filter = 1
+position = Vector2(-200, 1850)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("a21")
+
+[node name="LampEastRoad" type="Sprite2D" parent="." unique_id=214581142]
+texture_filter = 1
+position = Vector2(1270, 2100)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("a21")
+
+[node name="RoyalBannerExit" type="Sprite2D" parent="." unique_id=1376170588]
+texture_filter = 1
+position = Vector2(557, 1485.0002)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("a22")
+
+[node name="FlowerPlanterWest" type="Sprite2D" parent="." unique_id=2018295049]
+texture_filter = 1
+position = Vector2(-1250, 2200)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("a23")
+
+[node name="FlowerPlanterEast" type="Sprite2D" parent="." unique_id=401919806]
+texture_filter = 1
+position = Vector2(1600, 1950)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("a24")
+
+[node name="RoseArch" type="Sprite2D" parent="." unique_id=675901159]
+texture_filter = 1
+position = Vector2(1330, 1650)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("a25")
+
+[node name="RoadAlignmentGuides" type="Node2D" parent="." unique_id=1888716626]
+visible = false
+
+[node name="CastleRoadStart" type="Marker2D" parent="RoadAlignmentGuides" unique_id=624195178]
+position = Vector2(-1250, 1350)
+
+[node name="CastleRoadMiddle" type="Marker2D" parent="RoadAlignmentGuides" unique_id=156551653]
+position = Vector2(-1050, 1690)
+
+[node name="FountainRoadHub" type="Marker2D" parent="RoadAlignmentGuides" unique_id=1477159232]
+position = Vector2(-680, 1980)
+
+[node name="GazeboRoadMiddle" type="Marker2D" parent="RoadAlignmentGuides" unique_id=6333543]
+position = Vector2(350, 1840)
+
+[node name="GazeboRoadEnd" type="Marker2D" parent="RoadAlignmentGuides" unique_id=1585977112]
+position = Vector2(1690, 1500)
+
+[node name="ExitRoadMiddle" type="Marker2D" parent="RoadAlignmentGuides" unique_id=1475212437]
+position = Vector2(500, 2200)
+
+[node name="ExitRoadEnd" type="Marker2D" parent="RoadAlignmentGuides" unique_id=1938429056]
+position = Vector2(1568, 2352)

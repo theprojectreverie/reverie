@@ -1,32 +1,59 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Script" path="res://scripts/combat/presentation/boss_phase_cue.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/combat/presentation/boss_phase_cue.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/battle_dialogue_panel.png" id="2_frame"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/sliced/boss_emblem_crest.png" id="4_matron_crest"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/boss/elder_hollow_root_crest.png" id="5_root_crest"]
 
 [sub_resource type="Animation" id="Animation_phase_change"]
 resource_name = "phase_change"
-length = 1.35
+length = 1.55
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Veil:color")
+tracks/0/path = NodePath("Veil:modulate:a")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = {"times": PackedFloat32Array(0, 0.2, 0.92, 1.35), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 0, "values": [Color(0.012, 0.004, 0.024, 0), Color(0.012, 0.004, 0.024, 0.68), Color(0.012, 0.004, 0.024, 0.68), Color(0.012, 0.004, 0.024, 0)]}
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.22, 1.05, 1.55), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 0, "values": [0.0, 0.74, 0.74, 0.0]}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PhaseTitle:modulate")
+tracks/1/path = NodePath("PhasePanel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/keys = {"times": PackedFloat32Array(0, 0.2, 1.02, 1.35), "transitions": PackedFloat32Array(1, 1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.22, 1.12, 1.55), "transitions": PackedFloat32Array(0.55, 1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PhasePanel:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {"times": PackedFloat32Array(0, 0.22, 1.12, 1.55), "transitions": PackedFloat32Array(0.55, 1, 1, 1), "update": 0, "values": [Vector2(0.965, 0.965), Vector2(1, 1), Vector2(1, 1), Vector2(0.985, 0.985)]}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_phase"]
 _data = {"phase_change": SubResource("Animation_phase_change")}
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_phase_frame"]
+texture = ExtResource("2_frame")
+texture_margin_left = 34.0
+texture_margin_top = 38.0
+texture_margin_right = 34.0
+texture_margin_bottom = 38.0
+content_margin_left = 38.0
+content_margin_top = 22.0
+content_margin_right = 38.0
+content_margin_bottom = 22.0
+
 [node name="BossPhaseCue" type="Control"]
 visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1")
+z_index = 80
+script = ExtResource("1_script")
 
 [node name="Veil" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -35,24 +62,84 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.012, 0.004, 0.024, 0)
+color = Color(0.012, 0.03, 0.018, 1)
+modulate = Color(1, 1, 1, 0)
 
-[node name="PhaseTitle" type="Label" parent="."]
-anchor_left = 0.08
-anchor_top = 0.12
-anchor_right = 0.92
-anchor_bottom = 0.25
+[node name="PhasePanel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -112.0
+offset_right = 440.0
+offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.94, 0.76, 1, 1)
-theme_override_colors/font_outline_color = Color(0.08, 0.015, 0.12, 1)
-theme_override_constants/outline_size = 7
-theme_override_font_sizes/font_size = 27
-text = "PHASE SHIFT"
+custom_minimum_size = Vector2(880, 224)
+mouse_filter = 2
+pivot_offset = Vector2(440, 112)
+theme_override_styles/panel = SubResource("StyleBoxTexture_phase_frame")
+modulate = Color(1, 1, 1, 0)
+
+[node name="Content" type="HBoxContainer" parent="PhasePanel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+mouse_filter = 2
+
+[node name="RootCrest" type="TextureRect" parent="PhasePanel/Content"]
+custom_minimum_size = Vector2(220, 152)
+layout_mode = 2
+texture = ExtResource("5_root_crest")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+
+[node name="MatronCrest" type="TextureRect" parent="PhasePanel/Content"]
+visible = false
+custom_minimum_size = Vector2(220, 152)
+layout_mode = 2
+texture = ExtResource("4_matron_crest")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="TextStack" type="VBoxContainer" parent="PhasePanel/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/separation = 7
+alignment = 1
+mouse_filter = 2
+
+[node name="BossLine" type="Label" parent="PhasePanel/Content/TextStack"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "THE ELDER HOLLOW  •  PHASE 2 — AWAKENING"
+horizontal_alignment = 1
+autowrap_mode = 3
+mouse_filter = 2
+
+[node name="PhaseTitle" type="Label" parent="PhasePanel/Content/TextStack"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 29
+text = "THE ROOTS AWAKEN"
+horizontal_alignment = 1
+autowrap_mode = 3
+mouse_filter = 2
+
+[node name="PhaseMessage" type="Label" parent="PhasePanel/Content/TextStack"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 14
+text = "The roots stir beneath the old wood."
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 mouse_filter = 2
-modulate = Color(1, 1, 1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {"": SubResource("AnimationLibrary_phase")}

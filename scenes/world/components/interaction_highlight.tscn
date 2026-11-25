@@ -1,4 +1,19 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="Animation" id="Animation_pulse"]
+resource_name = "pulse"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0.0, 0.8, 1.6), "transitions": PackedFloat32Array(1.0, 0.8, 1.0), "update": 0, "values": [Vector2(0.96, 0.96), Vector2(1.045, 1.045), Vector2(0.96, 0.96)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_highlight"]
+_data = {
+&"pulse": SubResource("Animation_pulse")
+}
 
 [node name="InteractionHighlight" type="Node2D"]
 visible = false
@@ -16,3 +31,9 @@ default_color = Color(0.35, 0.9, 0.82, 0.62)
 points = PackedVector2Array(30, 0, 27.72, 11.48, 21.21, 21.21, 11.48, 27.72, 0, 30, -11.48, 27.72, -21.21, 21.21, -27.72, 11.48, -30, 0, -27.72, -11.48, -21.21, -21.21, -11.48, -27.72, 0, -30, 11.48, -27.72, 21.21, -21.21, 27.72, -11.48, 30, 0)
 width = 1.5
 default_color = Color(0.35, 0.9, 0.82, 0.3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("..")
+libraries = {
+&"": SubResource("AnimationLibrary_highlight")
+}

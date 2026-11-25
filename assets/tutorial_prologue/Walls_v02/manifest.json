@@ -1,0 +1,396 @@
+{
+  "status": "draft extracted art; manual edge QA required",
+  "grid_px": 32,
+  "assets": [
+    {
+      "name": "interior_wall_a",
+      "path": "Walls/interior_wall_a.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        32,
+        104,
+        119,
+        226
+      ]
+    },
+    {
+      "name": "interior_wall_b",
+      "path": "Walls/interior_wall_b.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        135,
+        104,
+        207,
+        226
+      ]
+    },
+    {
+      "name": "interior_wall_c",
+      "path": "Walls/interior_wall_c.png",
+      "size": [
+        64,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        218,
+        104,
+        257,
+        226
+      ]
+    },
+    {
+      "name": "interior_wall_d",
+      "path": "Walls/interior_wall_d.png",
+      "size": [
+        64,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        269,
+        104,
+        313,
+        226
+      ]
+    },
+    {
+      "name": "interior_wall_lower_a",
+      "path": "Walls/interior_wall_lower_a.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        30,
+        231,
+        121,
+        350
+      ]
+    },
+    {
+      "name": "interior_wall_lower_b",
+      "path": "Walls/interior_wall_lower_b.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        133,
+        231,
+        208,
+        350
+      ]
+    },
+    {
+      "name": "interior_wall_banner",
+      "path": "Walls/interior_wall_banner.png",
+      "size": [
+        64,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        264,
+        231,
+        317,
+        350
+      ]
+    },
+    {
+      "name": "exterior_wall_a",
+      "path": "Walls/exterior_wall_a.png",
+      "size": [
+        96,
+        96
+      ],
+      "grid": "32px",
+      "source_crop": [
+        25,
+        396,
+        124,
+        479
+      ]
+    },
+    {
+      "name": "exterior_wall_b",
+      "path": "Walls/exterior_wall_b.png",
+      "size": [
+        96,
+        96
+      ],
+      "grid": "32px",
+      "source_crop": [
+        132,
+        396,
+        209,
+        479
+      ]
+    },
+    {
+      "name": "exterior_wall_c",
+      "path": "Walls/exterior_wall_c.png",
+      "size": [
+        64,
+        96
+      ],
+      "grid": "32px",
+      "source_crop": [
+        219,
+        396,
+        264,
+        479
+      ]
+    },
+    {
+      "name": "exterior_wall_d",
+      "path": "Walls/exterior_wall_d.png",
+      "size": [
+        64,
+        96
+      ],
+      "grid": "32px",
+      "source_crop": [
+        274,
+        396,
+        318,
+        479
+      ]
+    },
+    {
+      "name": "exterior_wall_moss_a",
+      "path": "Walls/exterior_wall_moss_a.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        24,
+        482,
+        125,
+        608
+      ]
+    },
+    {
+      "name": "exterior_wall_moss_b",
+      "path": "Walls/exterior_wall_moss_b.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        132,
+        482,
+        209,
+        608
+      ]
+    },
+    {
+      "name": "exterior_wall_moss_c",
+      "path": "Walls/exterior_wall_moss_c.png",
+      "size": [
+        64,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        219,
+        482,
+        264,
+        608
+      ]
+    },
+    {
+      "name": "exterior_wall_moss_d",
+      "path": "Walls/exterior_wall_moss_d.png",
+      "size": [
+        64,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        274,
+        482,
+        318,
+        608
+      ]
+    },
+    {
+      "name": "top_edge_straight",
+      "path": "Walls/top_edge_straight.png",
+      "size": [
+        96,
+        64
+      ],
+      "grid": "32px",
+      "source_crop": [
+        26,
+        642,
+        121,
+        691
+      ]
+    },
+    {
+      "name": "top_edge_corner_left",
+      "path": "Walls/top_edge_corner_left.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": "32px",
+      "source_crop": [
+        142,
+        641,
+        191,
+        701
+      ]
+    },
+    {
+      "name": "top_edge_corner_right",
+      "path": "Walls/top_edge_corner_right.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": "32px",
+      "source_crop": [
+        219,
+        641,
+        270,
+        701
+      ]
+    },
+    {
+      "name": "stone_corner_tl",
+      "path": "Walls/stone_corner_tl.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": "32px",
+      "source_crop": [
+        340,
+        109,
+        398,
+        168
+      ]
+    },
+    {
+      "name": "stone_corner_tr",
+      "path": "Walls/stone_corner_tr.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": "32px",
+      "source_crop": [
+        410,
+        109,
+        470,
+        168
+      ]
+    },
+    {
+      "name": "stone_corner_bl",
+      "path": "Walls/stone_corner_bl.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": "32px",
+      "source_crop": [
+        340,
+        186,
+        399,
+        249
+      ]
+    },
+    {
+      "name": "stone_corner_br",
+      "path": "Walls/stone_corner_br.png",
+      "size": [
+        64,
+        64
+      ],
+      "grid": "32px",
+      "source_crop": [
+        410,
+        186,
+        470,
+        249
+      ]
+    },
+    {
+      "name": "stone_arch",
+      "path": "Walls/stone_arch.png",
+      "size": [
+        128,
+        160
+      ],
+      "grid": "32px",
+      "source_crop": [
+        346,
+        404,
+        459,
+        545
+      ]
+    },
+    {
+      "name": "stone_pillar",
+      "path": "Walls/stone_pillar.png",
+      "size": [
+        64,
+        160
+      ],
+      "grid": "32px",
+      "source_crop": [
+        472,
+        405,
+        512,
+        545
+      ]
+    },
+    {
+      "name": "wooden_door",
+      "path": "Walls/wooden_door.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        578,
+        454,
+        652,
+        556
+      ]
+    },
+    {
+      "name": "window",
+      "path": "Walls/window.png",
+      "size": [
+        96,
+        128
+      ],
+      "grid": "32px",
+      "source_crop": [
+        577,
+        606,
+        654,
+        703
+      ]
+    }
+  ]
+}

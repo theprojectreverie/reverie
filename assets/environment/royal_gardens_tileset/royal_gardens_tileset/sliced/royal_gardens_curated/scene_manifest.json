@@ -1,0 +1,209 @@
+[
+  {
+    "name": "grass_cliff_corner_01",
+    "scene": "scenes/environment/royal_gardens/grass_cliff_corner_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/garden_edges/grass_cliff_corner_01.png",
+    "size": [
+      92,
+      88
+    ]
+  },
+  {
+    "name": "grass_cliff_corner_02",
+    "scene": "scenes/environment/royal_gardens/grass_cliff_corner_02.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/garden_edges/grass_cliff_corner_02.png",
+    "size": [
+      92,
+      104
+    ]
+  },
+  {
+    "name": "grass_cliff_corner_03",
+    "scene": "scenes/environment/royal_gardens/grass_cliff_corner_03.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/garden_edges/grass_cliff_corner_03.png",
+    "size": [
+      84,
+      96
+    ]
+  },
+  {
+    "name": "grass_cliff_edge_01",
+    "scene": "scenes/environment/royal_gardens/grass_cliff_edge_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/garden_edges/grass_cliff_edge_01.png",
+    "size": [
+      86,
+      98
+    ]
+  },
+  {
+    "name": "grass_cliff_edge_02",
+    "scene": "scenes/environment/royal_gardens/grass_cliff_edge_02.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/garden_edges/grass_cliff_edge_02.png",
+    "size": [
+      100,
+      116
+    ]
+  },
+  {
+    "name": "grass_cliff_edge_03",
+    "scene": "scenes/environment/royal_gardens/grass_cliff_edge_03.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/garden_edges/grass_cliff_edge_03.png",
+    "size": [
+      102,
+      122
+    ]
+  },
+  {
+    "name": "paving_corner_01",
+    "scene": "scenes/environment/royal_gardens/paving_corner_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/garden_edges/paving_corner_01.png",
+    "size": [
+      76,
+      116
+    ]
+  },
+  {
+    "name": "paving_corner_03",
+    "scene": "scenes/environment/royal_gardens/paving_corner_03.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/garden_edges/paving_corner_03.png",
+    "size": [
+      84,
+      92
+    ]
+  },
+  {
+    "name": "grass_dense_pink_01",
+    "scene": "scenes/environment/royal_gardens/grass_dense_pink_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_flower_pink/grass_dense_pink_01.png",
+    "size": [
+      110,
+      118
+    ]
+  },
+  {
+    "name": "grass_mixed_flower_01",
+    "scene": "scenes/environment/royal_gardens/grass_mixed_flower_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_flower_pink/grass_mixed_flower_01.png",
+    "size": [
+      114,
+      118
+    ]
+  },
+  {
+    "name": "grass_pink_flower_01",
+    "scene": "scenes/environment/royal_gardens/grass_pink_flower_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_flower_pink/grass_pink_flower_01.png",
+    "size": [
+      116,
+      118
+    ]
+  },
+  {
+    "name": "grass_flower_mix_02",
+    "scene": "scenes/environment/royal_gardens/grass_flower_mix_02.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_flower_white/grass_flower_mix_02.png",
+    "size": [
+      106,
+      118
+    ]
+  },
+  {
+    "name": "grass_white_flower_01",
+    "scene": "scenes/environment/royal_gardens/grass_white_flower_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_flower_white/grass_white_flower_01.png",
+    "size": [
+      108,
+      118
+    ]
+  },
+  {
+    "name": "grass_plain_01",
+    "scene": "scenes/environment/royal_gardens/grass_plain_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_grass_plain/grass_plain_01.png",
+    "size": [
+      112,
+      118
+    ]
+  },
+  {
+    "name": "grass_plain_02",
+    "scene": "scenes/environment/royal_gardens/grass_plain_02.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_grass_plain/grass_plain_02.png",
+    "size": [
+      114,
+      120
+    ]
+  },
+  {
+    "name": "paving_cream_moss_01",
+    "scene": "scenes/environment/royal_gardens/paving_cream_moss_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_paving/paving_cream_moss_01.png",
+    "size": [
+      96,
+      114
+    ]
+  },
+  {
+    "name": "paving_cream_moss_02",
+    "scene": "scenes/environment/royal_gardens/paving_cream_moss_02.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_paving/paving_cream_moss_02.png",
+    "size": [
+      102,
+      114
+    ]
+  },
+  {
+    "name": "paving_cream_plain_01",
+    "scene": "scenes/environment/royal_gardens/paving_cream_plain_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_paving/paving_cream_plain_01.png",
+    "size": [
+      110,
+      114
+    ]
+  },
+  {
+    "name": "paving_gold_diamond_01",
+    "scene": "scenes/environment/royal_gardens/paving_gold_diamond_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_paving/paving_gold_diamond_01.png",
+    "size": [
+      110,
+      114
+    ]
+  },
+  {
+    "name": "paving_gold_diamond_02",
+    "scene": "scenes/environment/royal_gardens/paving_gold_diamond_02.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_paving/paving_gold_diamond_02.png",
+    "size": [
+      114,
+      118
+    ]
+  },
+  {
+    "name": "paving_gold_medallion_01",
+    "scene": "scenes/environment/royal_gardens/paving_gold_medallion_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_paving/paving_gold_medallion_01.png",
+    "size": [
+      120,
+      118
+    ]
+  },
+  {
+    "name": "paving_gold_square_01",
+    "scene": "scenes/environment/royal_gardens/paving_gold_square_01.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_paving/paving_gold_square_01.png",
+    "size": [
+      116,
+      116
+    ]
+  },
+  {
+    "name": "paving_gold_square_02",
+    "scene": "scenes/environment/royal_gardens/paving_gold_square_02.tscn",
+    "texture": "assets/environment/royal_gardens_tileset/royal_gardens_tileset/sliced/royal_gardens_curated/ground_paving/paving_gold_square_02.png",
+    "size": [
+      92,
+      110
+    ]
+  }
+]

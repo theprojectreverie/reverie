@@ -1,0 +1,1 @@
+Four cardinal directions; five 64x64 RGBA frames per strip (320x64). Loop at 6 FPS. Rows in preview: south, east, north, west. Use nearest texture filtering.

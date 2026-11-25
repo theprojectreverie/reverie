@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhoee8c7nfaur"]
+
+[ext_resource type="Texture2D" path="res://assets/pixelpen_act1/elderwood_ancient_tree.png" id="1"]
+
+[node name="elderwood_grove_landmark" type="Node2D" unique_id=1793758126]
+y_sort_enabled = true
+position = Vector2(256, 704)
+
+[node name="LandmarkSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1")
+scale = Vector2(4.0, 4.0)
+texture_filter = 0
+z_index = 5

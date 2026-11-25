@@ -1,0 +1,1 @@
+Kael idle only. Four cardinal directions, five 128x128 frames per horizontal 640x128 RGBA strip. Suggested 6 FPS looping. Row preview order south east north west. Existing movement and combat not included.

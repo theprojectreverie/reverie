@@ -1,0 +1,430 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Ground/path_cobble_01.tscn" id="road_tile"]
+
+[node name="StoneRoadConnector" type="Node2D"]
+y_sort_enabled = true
+
+[node name="GroundTiles" type="Node2D" parent="."]
+y_sort_enabled = true
+z_index = -20
+
+[node name="RoadTile_048_100" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1664, 2368)
+
+[node name="RoadTile_048_101" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1696, 2384)
+
+[node name="RoadTile_048_102" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1728, 2400)
+
+[node name="RoadTile_048_103" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1760, 2416)
+
+[node name="RoadTile_048_104" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1792, 2432)
+
+[node name="RoadTile_048_105" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1824, 2448)
+
+[node name="RoadTile_048_106" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1856, 2464)
+
+[node name="RoadTile_048_107" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1888, 2480)
+
+[node name="RoadTile_048_108" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1920, 2496)
+
+[node name="RoadTile_048_109" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1952, 2512)
+
+[node name="RoadTile_048_110" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1984, 2528)
+
+[node name="RoadTile_048_111" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2016, 2544)
+
+[node name="RoadTile_048_112" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2048, 2560)
+
+[node name="RoadTile_048_113" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2080, 2576)
+
+[node name="RoadTile_048_114" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2112, 2592)
+
+[node name="RoadTile_048_115" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2144, 2608)
+
+[node name="RoadTile_048_116" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2176, 2624)
+
+[node name="RoadTile_048_117" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2208, 2640)
+
+[node name="RoadTile_048_118" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2240, 2656)
+
+[node name="RoadTile_048_119" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2272, 2672)
+
+[node name="RoadTile_048_120" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2304, 2688)
+
+[node name="RoadTile_048_121" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2336, 2704)
+
+[node name="RoadTile_048_122" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2368, 2720)
+
+[node name="RoadTile_048_123" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2400, 2736)
+
+[node name="RoadTile_048_124" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2432, 2752)
+
+[node name="RoadTile_048_125" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2464, 2768)
+
+[node name="RoadTile_048_126" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2496, 2784)
+
+[node name="RoadTile_048_127" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2528, 2800)
+
+[node name="RoadTile_048_128" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2560, 2816)
+
+[node name="RoadTile_048_129" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2592, 2832)
+
+[node name="RoadTile_048_130" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2624, 2848)
+
+[node name="RoadTile_048_131" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2656, 2864)
+
+[node name="RoadTile_048_132" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2688, 2880)
+
+[node name="RoadTile_048_133" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2720, 2896)
+
+[node name="RoadTile_048_134" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2752, 2912)
+
+[node name="RoadTile_049_100" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1632, 2384)
+
+[node name="RoadTile_049_101" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1664, 2400)
+
+[node name="RoadTile_049_102" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1696, 2416)
+
+[node name="RoadTile_049_103" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1728, 2432)
+
+[node name="RoadTile_049_104" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1760, 2448)
+
+[node name="RoadTile_049_105" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1792, 2464)
+
+[node name="RoadTile_049_106" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1824, 2480)
+
+[node name="RoadTile_049_107" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1856, 2496)
+
+[node name="RoadTile_049_108" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1888, 2512)
+
+[node name="RoadTile_049_109" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1920, 2528)
+
+[node name="RoadTile_049_110" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1952, 2544)
+
+[node name="RoadTile_049_111" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1984, 2560)
+
+[node name="RoadTile_049_112" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2016, 2576)
+
+[node name="RoadTile_049_113" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2048, 2592)
+
+[node name="RoadTile_049_114" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2080, 2608)
+
+[node name="RoadTile_049_115" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2112, 2624)
+
+[node name="RoadTile_049_116" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2144, 2640)
+
+[node name="RoadTile_049_117" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2176, 2656)
+
+[node name="RoadTile_049_118" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2208, 2672)
+
+[node name="RoadTile_049_119" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2240, 2688)
+
+[node name="RoadTile_049_120" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2272, 2704)
+
+[node name="RoadTile_049_121" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2304, 2720)
+
+[node name="RoadTile_049_122" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2336, 2736)
+
+[node name="RoadTile_049_123" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2368, 2752)
+
+[node name="RoadTile_049_124" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2400, 2768)
+
+[node name="RoadTile_049_125" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2432, 2784)
+
+[node name="RoadTile_049_126" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2464, 2800)
+
+[node name="RoadTile_049_127" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2496, 2816)
+
+[node name="RoadTile_049_128" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2528, 2832)
+
+[node name="RoadTile_049_129" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2560, 2848)
+
+[node name="RoadTile_049_130" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2592, 2864)
+
+[node name="RoadTile_049_131" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2624, 2880)
+
+[node name="RoadTile_049_132" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2656, 2896)
+
+[node name="RoadTile_049_133" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2688, 2912)
+
+[node name="RoadTile_049_134" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2720, 2928)
+
+[node name="RoadTile_050_100" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1600, 2400)
+
+[node name="RoadTile_050_101" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1632, 2416)
+
+[node name="RoadTile_050_102" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1664, 2432)
+
+[node name="RoadTile_050_103" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1696, 2448)
+
+[node name="RoadTile_050_104" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1728, 2464)
+
+[node name="RoadTile_050_105" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1760, 2480)
+
+[node name="RoadTile_050_106" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1792, 2496)
+
+[node name="RoadTile_050_107" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1824, 2512)
+
+[node name="RoadTile_050_108" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1856, 2528)
+
+[node name="RoadTile_050_109" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1888, 2544)
+
+[node name="RoadTile_050_110" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1920, 2560)
+
+[node name="RoadTile_050_111" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1952, 2576)
+
+[node name="RoadTile_050_112" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1984, 2592)
+
+[node name="RoadTile_050_113" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2016, 2608)
+
+[node name="RoadTile_050_114" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2048, 2624)
+
+[node name="RoadTile_050_115" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2080, 2640)
+
+[node name="RoadTile_050_116" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2112, 2656)
+
+[node name="RoadTile_050_117" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2144, 2672)
+
+[node name="RoadTile_050_118" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2176, 2688)
+
+[node name="RoadTile_050_119" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2208, 2704)
+
+[node name="RoadTile_050_120" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2240, 2720)
+
+[node name="RoadTile_050_121" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2272, 2736)
+
+[node name="RoadTile_050_122" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2304, 2752)
+
+[node name="RoadTile_050_123" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2336, 2768)
+
+[node name="RoadTile_050_124" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2368, 2784)
+
+[node name="RoadTile_050_125" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2400, 2800)
+
+[node name="RoadTile_050_126" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2432, 2816)
+
+[node name="RoadTile_050_127" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2464, 2832)
+
+[node name="RoadTile_050_128" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2496, 2848)
+
+[node name="RoadTile_050_129" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2528, 2864)
+
+[node name="RoadTile_050_130" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2560, 2880)
+
+[node name="RoadTile_050_131" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2592, 2896)
+
+[node name="RoadTile_050_132" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2624, 2912)
+
+[node name="RoadTile_050_133" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2656, 2928)
+
+[node name="RoadTile_050_134" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2688, 2944)
+
+[node name="RoadTile_051_100" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1568, 2416)
+
+[node name="RoadTile_051_101" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1600, 2432)
+
+[node name="RoadTile_051_102" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1632, 2448)
+
+[node name="RoadTile_051_103" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1664, 2464)
+
+[node name="RoadTile_051_104" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1696, 2480)
+
+[node name="RoadTile_051_105" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1728, 2496)
+
+[node name="RoadTile_051_106" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1760, 2512)
+
+[node name="RoadTile_051_107" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1792, 2528)
+
+[node name="RoadTile_051_108" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1824, 2544)
+
+[node name="RoadTile_051_109" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1856, 2560)
+
+[node name="RoadTile_051_110" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1888, 2576)
+
+[node name="RoadTile_051_111" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1920, 2592)
+
+[node name="RoadTile_051_112" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1952, 2608)
+
+[node name="RoadTile_051_113" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(1984, 2624)
+
+[node name="RoadTile_051_114" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2016, 2640)
+
+[node name="RoadTile_051_115" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2048, 2656)
+
+[node name="RoadTile_051_116" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2080, 2672)
+
+[node name="RoadTile_051_117" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2112, 2688)
+
+[node name="RoadTile_051_118" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2144, 2704)
+
+[node name="RoadTile_051_119" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2176, 2720)
+
+[node name="RoadTile_051_120" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2208, 2736)
+
+[node name="RoadTile_051_121" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2240, 2752)
+
+[node name="RoadTile_051_122" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2272, 2768)
+
+[node name="RoadTile_051_123" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2304, 2784)
+
+[node name="RoadTile_051_124" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2336, 2800)
+
+[node name="RoadTile_051_125" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2368, 2816)
+
+[node name="RoadTile_051_126" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2400, 2832)
+
+[node name="RoadTile_051_127" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2432, 2848)
+
+[node name="RoadTile_051_128" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2464, 2864)
+
+[node name="RoadTile_051_129" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2496, 2880)
+
+[node name="RoadTile_051_130" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2528, 2896)
+
+[node name="RoadTile_051_131" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2560, 2912)
+
+[node name="RoadTile_051_132" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2592, 2928)
+
+[node name="RoadTile_051_133" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2624, 2944)
+
+[node name="RoadTile_051_134" parent="GroundTiles" instance=ExtResource("road_tile")]
+position = Vector2(2656, 2960)

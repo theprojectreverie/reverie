@@ -56,19 +56,24 @@ static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionar
 			"index": index,
 		})
 
-	# Ten-pull floor: at least one Epic or better. The replacement is a real
-	# pull for pity accounting too: if it lands on the featured unit, reset the
-	# featured counter exactly as for an ordinary roll.
-	if count >= 10 and bool(banner.get("ten_pull_epic_guarantee", false)) and best_rank < RARITY_RANK["epic"]:
-		var guaranteed := _pick_character(banner, "epic", featured, featured_rate, state, featured_pity, rng)
+	# Ten-pull floor: at least one Epic or better. If the banner has no Epic
+	# unit, use its lowest available higher rarity (normally Legendary) rather
+	# than relabeling a Rare fallback as Epic.
+	var floor_rarity := _epic_floor_rarity(banner)
+	if count >= 10 and bool(banner.get("ten_pull_epic_guarantee", false)) and best_rank < RARITY_RANK["epic"] and not floor_rarity.is_empty():
+		var guaranteed := _pick_character(banner, floor_rarity, featured, featured_rate, state, featured_pity, rng)
+		var floor_rank := int(RARITY_RANK.get(floor_rarity, 0))
 		results[results.size() - 1] = {
 			"character_id": guaranteed.character_id,
-			"rarity": "epic",
+			"rarity": floor_rarity,
 			"featured": guaranteed.featured,
 			"index": results.size() - 1,
 			"guaranteed": true,
 		}
-		state.epic_streak = 0
+		if floor_rank >= RARITY_RANK["legendary"]:
+			state.legendary = 0
+		if floor_rank >= RARITY_RANK["epic"]:
+			state.epic_streak = 0
 		if bool(guaranteed.featured):
 			state.featured = 0
 
@@ -130,6 +135,17 @@ static func _pick_character(
 		"character_id": str(off_banner_candidates[rng.randi_range(0, off_banner_candidates.size() - 1)]),
 		"featured": false,
 	}
+
+
+static func _epic_floor_rarity(banner: Dictionary) -> String:
+	var pool: Dictionary = banner.get("pool", {})
+	for rarity in ["epic", "legendary", "mythic"]:
+		var candidates: Array = pool.get(rarity, [])
+		for raw_id in candidates:
+			var definition: CharacterDef = ContentDB.get_character(str(raw_id))
+			if definition != null and definition.rarity == rarity:
+				return rarity
+	return ""
 
 
 static func _fallback_pool(pool: Dictionary) -> Array:

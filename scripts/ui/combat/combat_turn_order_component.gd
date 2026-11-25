@@ -1,6 +1,8 @@
-class_name CombatTurnOrderComponent
+﻿class_name CombatTurnOrderComponent
 extends Node
 ## Renders the initiative strip from the combat engine's live turn queue.
+
+const TURN_SLOT_SCENE: PackedScene = preload("res://scenes/ui/combat/components/turn_order_slot.tscn")
 
 var screen: CombatScreen
 
@@ -42,15 +44,34 @@ func refresh() -> void:
 			if not seen_indices.has(next_index):
 				sequence.append(next_index)
 				seen_indices[next_index] = true
+
 	if sequence.is_empty():
-		screen._turn_box.add_child(UIFactory.label("—", 10, UITheme.TEXT_FAINT))
+		_add_turn_slot(Control.new(), "PreviousTurnSlot")
+		var empty_label := UIFactory.label("â€”", 10, UITheme.TEXT_FAINT)
+		empty_label.custom_minimum_size = Vector2(44, 42)
+		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		empty_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		_add_turn_slot(empty_label, "ActiveTurnSlot")
+		for slot_index in range(2, 6):
+			_add_turn_slot(null, "TurnSlot_%d" % (slot_index + 1))
 		return
-	for index in sequence.size():
+
+	# The authored strip has six diamond slots. Its second slot is the fixed
+	# illuminated marker, so reserve slot one for the previous-turn spacer.
+	_add_turn_slot(Control.new(), "PreviousTurnSlot")
+	var display_count := mini(sequence.size(), 5)
+	var overflow_count := 0
+	if sequence.size() > 5:
+		display_count = 4
+		overflow_count = sequence.size() - display_count
+
+	for index in range(display_count):
 		var unit: Combatant = engine.combatants[sequence[index]]
 		if unit == null:
 			continue
 		var portrait := CombatScreen.PORTRAIT_VIEW_SCENE.instantiate() as PortraitView
 		portrait.show_frame = true
+		portrait.battle_frame_style = "round"
 		portrait.show_rarity_effect = false
 		portrait.selected = index == 0
 		portrait.dim = not unit.is_alive()
@@ -72,10 +93,26 @@ func refresh() -> void:
 					matron_portrait.region = Rect2(62, 0, 296, 250)
 					portrait.set_portrait_texture(matron_portrait)
 		portrait.tooltip_text = unit.display_name
-		screen._turn_box.add_child(portrait)
-		portrait.custom_minimum_size = Vector2(38, 42)
-		portrait.size = Vector2(38, 42)
-		if index < sequence.size() - 1:
-			var arrow := UIFactory.label("›", 13, UITheme.GOLD if index == 0 else UITheme.TEXT_FAINT)
-			arrow.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-			screen._turn_box.add_child(arrow)
+		portrait.custom_minimum_size = Vector2(44, 44)
+		portrait.size = Vector2(44, 44)
+		var slot_name := "ActiveTurnSlot" if index == 0 else "TurnSlot_%d" % (index + 2)
+		_add_turn_slot(portrait, slot_name)
+
+	if overflow_count > 0:
+		var overflow_label := UIFactory.label("+%d" % overflow_count, 12, UITheme.GOLD_BRIGHT)
+		overflow_label.custom_minimum_size = Vector2(44, 44)
+		overflow_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		overflow_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		overflow_label.tooltip_text = "%d additional turns queued" % overflow_count
+		_add_turn_slot(overflow_label, "TurnSlot_6")
+	else:
+		for slot_index in range(display_count + 1, 6):
+			_add_turn_slot(null, "TurnSlot_%d" % (slot_index + 1))
+
+
+func _add_turn_slot(content: Control, slot_name: String) -> void:
+	var slot := TURN_SLOT_SCENE.instantiate() as CenterContainer
+	slot.name = slot_name
+	if content != null:
+		slot.add_child(content)
+	screen._turn_box.add_child(slot)

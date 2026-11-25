@@ -21,6 +21,6 @@ texture = ExtResource("3_shadow")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 centered = false
-offset = Vector2(49, 41)
+offset = Vector2(48, 96)
 texture = ExtResource("2_tex")
 

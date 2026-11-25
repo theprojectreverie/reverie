@@ -11,24 +11,30 @@ func _run() -> void:
     root.add_child(world)
     for i in range(5):
         await process_frame
-    var paths := world.get_node_or_null("PathwayTiles/Tiles") as TileMapLayer
+    var paths := world.get_node_or_null("PathwayTiles/HandDesignedRoadSurfaces") as Node2D
     var beds := world.get_node_or_null("Flora/FountainFlowerbeds") as Node2D
     var lighting := world.get_node_or_null("Lighting") as Node2D
     var effects := world.get_node_or_null("EnvironmentEffects") as Node2D
     if paths == null or beds == null or lighting == null or effects == null:
         push_error("Playable world is missing shared garden systems")
+        world.queue_free()
         quit(1)
         return
+    var road_count := 0
+    for child in paths.get_children():
+        if child is Polygon2D:
+            road_count += 1
     var light_count := 0
     for child in lighting.get_children():
         if child is PointLight2D:
             light_count += 1
-    print("PLAYABLE_GARDEN_PATH_CELLS=", paths.get_used_cells().size())
+    print("PLAYABLE_GARDEN_ROAD_POLYGONS=", road_count)
     print("PLAYABLE_GARDEN_FLOWERBED_SPRITES=", beds.get_child_count())
     print("PLAYABLE_GARDEN_LIGHTS=", light_count)
     print("PLAYABLE_GARDEN_AMBIENT_EFFECTS=", effects.get_child_count())
-    if paths.get_used_cells().size() < 70 or beds.get_child_count() < 38 or light_count < 10 or effects.get_child_count() < 1:
+    if road_count != 10 or beds.get_child_count() < 38 or light_count < 10 or effects.get_child_count() < 1:
         push_error("Playable garden did not receive the enriched presentation")
+        world.queue_free()
         quit(1)
         return
     print("PLAYABLE_ROYAL_GARDEN_SMOKE_OK")
