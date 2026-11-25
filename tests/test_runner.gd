@@ -290,7 +290,7 @@ func _snapshot() -> void:
 	_save_timer_was_running = not GameState._save_timer.is_stopped()
 	_autosave_timer_was_running = not GameState._autosave_timer.is_stopped()
 	_aux_file_snapshots.clear()
-	for path in [SaveService.BACKUP_PATH, SaveService.SAVE_PATH + ".tmp", SaveService.SAVE_PATH + ".previous.tmp"]:
+	for path in [SaveService.BACKUP_PATH, SaveService.SAVE_PATH + ".tmp", SaveService.SAVE_PATH + ".previous.tmp", SaveService.SAVE_PATH + ".last_good"]:
 		var exists := FileAccess.file_exists(path)
 		_aux_file_snapshots[path] = {
 			"exists": exists,
@@ -351,7 +351,7 @@ func _test_player_node_composition() -> void:
 	check(player.get_node_or_null("PresentationComponent") is PlayerPresentationComponent, "Player scene owns a presentation component")
 	check(player.presentation_component != null and EventBus.battle_finished.is_connected(player.presentation_component._on_battle_finished), "Player presentation component owns battle-result event binding")
 	check(player.get_node_or_null("PersonalGlow") is PlayerPersonalLightComponent, "Player scene owns a personal-light component")
-	check(player.get_child_count() == 12, "Player binds its authored 12-node hierarchy without runtime child construction", str(player.get_child_count()))
+	check(player.get_child_count() == 13 and player.has_node("WorldCombatComponent"), "Player binds its authored 13-node hierarchy without runtime child construction", str(player.get_child_count()))
 	check(player.camera is PlayerCameraRig, "Player camera is a dedicated camera rig node")
 	var camera_rig := player.camera as PlayerCameraRig
 	camera_rig.update_follow_offset(1.0, Vector2(100.0, 0.0), 1.0)
@@ -3843,7 +3843,11 @@ func _test_new_journey_castle_continue() -> void:
 
 	# Continue is the actual title-screen handler and must reload from disk rather
 	# than relying on the state left in memory by the outgoing world.
+	# Exercise Continue with a synthetic authenticated session; never contact the API.
+	var original_token: String = AuthGateway._access_token
+	AuthGateway._access_token = "local-test-session"
 	startup._on_title_action("continue")
+	AuthGateway._access_token = original_token
 	check(GameState.loaded_from_save, "Continue marks state as loaded from save")
 	check(GameState.active_world_id == "castle_royal_gardens", "Continue restores Castle world ID from disk", GameState.active_world_id)
 	check(GameState.player_region == "castle_royal_gardens", "Continue restores Castle region from disk", GameState.player_region)

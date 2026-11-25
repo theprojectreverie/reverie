@@ -28,6 +28,9 @@ func load_save() -> Dictionary:
 		var data := _read_valid(path)
 		if not data.is_empty():
 			return data
+	# An invalid primary with no valid fallback must be preserved for recovery.
+	if FileAccess.file_exists(SAVE_PATH) and _read_valid(SAVE_PATH).is_empty():
+		_backup_corrupt_file()
 	return {}
 
 

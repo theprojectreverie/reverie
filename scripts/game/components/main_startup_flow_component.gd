@@ -31,7 +31,7 @@ func _on_title_action(action: String) -> void:
 		if AuthGateway.restoring_session:
 			return
 		pending_account_action = action
-		if title.has_node("RequiredAccountOverlay"):
+		if not is_instance_valid(title) or title.has_node("RequiredAccountOverlay"):
 			return
 		var overlay := preload("res://scenes/online/account_screen.tscn").instantiate()
 		overlay.name = "RequiredAccountOverlay"
