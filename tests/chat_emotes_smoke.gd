@@ -52,15 +52,16 @@ func _ready() -> void:
 	if screen._last_messages.size()!=1:errors.append("wrong channel acknowledgment")
 	screen._identity=""
 	screen._identity="fixture-emotes"
-	screen._set_pin_mode(true)
+	# Exercise local pin/order logic without the real authenticated UI gate.
+	screen._set_pin_mode(true, false)
 	screen._sticker_pressed("gerald_chibi")
 	if not screen._favorite_stickers.has("gerald_chibi") or not screen._operation.is_empty():errors.append("pin sticker without sending")
-	screen._set_pin_mode(false)
+	screen._set_pin_mode(false, false)
 	var stickers: HBoxContainer=layout.get_node("EmotePicker/StickerScroll/StickerGrid")
 	if stickers.get_child(0).get_meta("sticker_id")!="gerald_chibi":errors.append("pinned ordering")
-	screen._set_pin_mode(true)
+	screen._set_pin_mode(true, false)
 	screen._sticker_pressed("gerald_chibi")
-	screen._set_pin_mode(false)
+	screen._set_pin_mode(false, false)
 	if not screen._favorite_stickers.is_empty():errors.append("unpin")
 	field.editable=true
 	field.text=""
@@ -75,13 +76,13 @@ func _ready() -> void:
 	screen._identity="fixture-sticker-owner"
 	screen._apply_sticker_unlocks([])
 	if screen._sticker_unlocked("ravienna_mythic") or not screen._sticker_unlocked("gerald_chibi"):errors.append("initial unlock rules")
-	screen._set_pin_mode(true)
+	screen._set_pin_mode(true, false)
 	screen._sticker_pressed("ravienna_mythic")
 	if screen._favorite_stickers.has("ravienna_mythic"):errors.append("locked sticker pinned")
 	screen._apply_sticker_unlocks(["ravienna_mythic","fake","ravienna_mythic"])
 	if screen._unlocked_stickers!=["ravienna_mythic"]:errors.append("unlock allowlist")
 	screen._sticker_pressed("ravienna_mythic")
-	screen._set_pin_mode(false)
+	screen._set_pin_mode(false, false)
 	if not screen._favorite_stickers.has("ravienna_mythic"):errors.append("unlocked favorite")
 	if layout.get_node("EmotePicker/StickerScroll/StickerGrid").get_child(0).get_meta("sticker_id")!="ravienna_mythic":errors.append("unlocked favorite ordering")
 	screen._apply_sticker_unlocks([])

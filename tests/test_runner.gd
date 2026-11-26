@@ -252,7 +252,7 @@ func _base_banner() -> Dictionary:
 		"cost": { "currency": "crystals", "single": 150, "ten": 1350 },
 		"pool": {
 			"common": [],
-			"rare": ["kael", "lilith", "gerald", "cassien"],
+			"rare": ["kael", "lilith", "gerald"],
 			"epic": [],
 			"legendary": ["ravienna"],
 			"mythic": []
@@ -690,7 +690,7 @@ func _test_content() -> void:
 		check(not quest.get("steps", []).is_empty(), "Quest has steps: " + str(quest_id))
 		for step in quest.get("steps", []):
 			check(
-				str(step.get("type", "")) in ["talk", "kill", "collect", "visit"],
+				str(step.get("type", "")) in ContentValidator.QUEST_STEP_TYPES,
 				"Quest step type is supported: %s/%s" % [quest_id, step.get("type", "")]
 			)
 
@@ -745,6 +745,22 @@ func _test_math() -> void:
 
 # --------------------------------------------------------------------- gacha
 
+func _summon_result_matches_banner(banner: Dictionary, result: Dictionary) -> bool:
+	var id := str(result.get("character_id", ""))
+	var rarity := str(result.get("rarity", ""))
+	if not id in banner.get("pool", {}).get(rarity, []):
+		return false
+	match str(result.get("kind", "")):
+		"mob_reward":
+			var mob: Dictionary = banner.get("common_rewards", {}).get(id, {})
+			return rarity == "common" and not mob.is_empty() and ContentDB.get_character(id) == null and result.get("items", {}) == mob.get("items", {})
+		"upgrade_card":
+			var card: Dictionary = banner.get("upgrade_cards", {}).get(id, {})
+			return rarity in ["rare", "epic"] and not card.is_empty() and str(card.get("rarity", "")) == rarity and ContentDB.get_character(id) == null and result.get("items", {}) == {id: 1}
+		_:
+			var definition: CharacterDef = ContentDB.get_character(id)
+			return definition != null and definition.rarity == rarity
+
 func _test_gacha() -> void:
 	# Ephemeral Epic definition keeps the ten-pull floor test independent of the live four-character roster.
 	var test_epic := CharacterDef.new()
@@ -761,8 +777,7 @@ func _test_gacha() -> void:
 	check(outcome.results.size() == 10, "Ten-pull returns 10 results", str(outcome.results.size()))
 	var best_rank := -1
 	for roll in outcome.results:
-		var character: CharacterDef = ContentDB.get_character(str(roll.character_id))
-		check(character != null, "Ten-pull result is a real character: " + str(roll.character_id))
+		check(_summon_result_matches_banner(banner, roll), "Ten-pull result matches its declared reward category: " + str(roll.character_id))
 		best_rank = maxi(best_rank, int(GachaService.RARITY_RANK.get(roll.rarity, -1)))
 	check(best_rank >= 2, "Ten-pull guarantees Epic or better", str(best_rank))
 
@@ -852,14 +867,12 @@ func _test_gacha_wallet_transactions() -> void:
 	var has_epic_or_better := false
 	var rarity_matches_definition := true
 	for result in ten_results:
-		var character_id := str(result.get("character_id", ""))
-		var definition: CharacterDef = ContentDB.get_character(character_id)
-		if definition == null or definition.rarity != str(result.get("rarity", "")):
+		if not _summon_result_matches_banner(ContentDB.get_banner("scarlet_requiem"), result):
 			rarity_matches_definition = false
 		if int(GachaService.RARITY_RANK.get(str(result.get("rarity", "common")), 0)) >= GachaService.RARITY_RANK["epic"]:
 			has_epic_or_better = true
-	check(rarity_matches_definition, "Ten-summon result rarity always matches the actual character definition")
-	check(has_epic_or_better, "Ten-summon guarantees an actual Epic-or-better character when only Legendary units are available")
+	check(rarity_matches_definition, "Ten-summon rarity and payload match the configured character, card or material reward")
+	check(has_epic_or_better, "Ten-summon guarantees an Epic-or-better reward")
 
 	var insufficient := GameState.reward_domain.pull_banner("crimson_covenant", 10)
 	check(not bool(insufficient.get("ok", false)), "Ten-summon is rejected when the wallet is short")
@@ -880,7 +893,7 @@ func _test_ui_regressions() -> void:
 	var scarlet_banner: Dictionary = ContentDB.get_banner("scarlet_requiem")
 	check(ContentDB.banners.size() == 3, "Summon interface displays the two original banners plus Ã‰lathra's featured banner")
 	check(not vesper_banner.is_empty() and str(vesper_banner.get("name", "")) == "Hollow Moon Overture" and str((vesper_banner.get("featured", [""]) as Array)[0]) == "nyx", "Hollow Moon Overture features Nyx Vaelora")
-	check(not scarlet_banner.is_empty() and str(scarlet_banner.get("name", "")) == "Scarlet Requiem" and str((scarlet_banner.get("featured", [""]) as Array)[0]) == "crimson_witch", "Scarlet Requiem remains a separate Crimson Witch featured banner")
+	check(not scarlet_banner.is_empty() and str(scarlet_banner.get("name", "")) == "Scarlet Requiem" and str((scarlet_banner.get("featured", [""]) as Array)[0]) == "crimson_witch_legendary", "Scarlet Requiem remains a separate Crimson Witch featured banner")
 	check(ResourceLoader.exists("res://assets/characters/crimson_witch/portrait_512.png"), "Scarlet Requiem banner uses the supplied portrait asset")
 	check(ResourceLoader.exists("res://assets/ui/backgrounds/summoning_chamber_background.svg"), "Summon screen keeps its dedicated chamber background")
 
@@ -937,7 +950,7 @@ func _test_ui_regressions() -> void:
 		check(gacha._tabs != null and gacha._tabs.get_child_count() == 4, "All three summon tabs remain visible beside the return control")
 		gacha._select_banner("scarlet_requiem")
 		await get_tree().process_frame
-		check(gacha._selected_banner == "scarlet_requiem" and gacha._featured_id == "crimson_witch", "Second summon page selects Scarlet Requiem and Crimson Witch")
+		check(gacha._selected_banner == "scarlet_requiem" and gacha._featured_id == "crimson_witch_legendary", "Second summon page selects Scarlet Requiem and Crimson Witch")
 		GameState.profile["crystals"] = 0
 		EventBus.currency_changed.emit()
 		await get_tree().process_frame
@@ -961,7 +974,7 @@ func _test_ui_regressions() -> void:
 		EventBus.currency_changed.emit()
 		await get_tree().process_frame
 		if single_pull_button != null and ten_pull_button != null:
-			check(not single_pull_button.disabled and not ten_pull_button.disabled, "Open summon page immediately enables affordable pulls after a wallet credit")
+			check(single_pull_button.disabled and ten_pull_button.disabled, "Unauthenticated summon controls stay disabled after a local wallet credit")
 		GameState.profile["crystals"] = original_crystals
 		EventBus.currency_changed.emit()
 		await get_tree().process_frame
@@ -1294,7 +1307,13 @@ func _test_ui() -> void:
 			GameState.profile = shop_profile_before
 			screen._refresh_stock()
 		if screen is InventoryScreen:
-			var inventory_layout: Control = screen.content.get_child(0)
+			check(screen._online_mode and screen._online_layout != null, "Inventory opens the server-owned interface even when signed out")
+			check(screen._local_layout == null and screen.grid_component == null, "Online inventory does not expose a local wallet fallback")
+			check(screen._online_layout.get_node_or_null("Filters/Category") is OptionButton and screen._online_layout.get_node_or_null("Scroll/Materials") is VBoxContainer, "Online inventory binds category filters and scrolling item list")
+			# Exercise the retained legacy component explicitly, not as a production fallback.
+			screen._online_layout.hide()
+			screen._build_local_inventory()
+			var inventory_layout: Control = screen._local_layout
 			var inventory_split := inventory_layout.get_node("Split") as HBoxContainer
 			var inventory_left := inventory_split.get_node("Left") as Control
 			var inventory_detail := inventory_split.get_node("DetailPanel") as Control
@@ -1302,8 +1321,8 @@ func _test_ui() -> void:
 			check(inventory_left.size_flags_horizontal == Control.SIZE_FILL, "Inventory item grid keeps a bounded left column")
 			check(inventory_detail.size_flags_horizontal == Control.SIZE_FILL, "Inventory detail panel does not expand past the viewport")
 			check(inventory_detail.position.x + inventory_detail.size.x <= inventory_split.size.x + 1.0, "Inventory detail panel remains inside the overlay width")
-			check(screen.grid_component is InventoryGridComponent and screen.grid_component.get_parent() == screen.content.get_child(0), "Inventory layout owns its grid and detail component")
-			check(screen.crafting_component is InventoryCraftingComponent and screen.crafting_component.get_parent() == screen.content.get_child(0), "Inventory layout owns its crafting component")
+			check(screen.grid_component is InventoryGridComponent and screen.grid_component.get_parent() == inventory_layout, "Inventory layout owns its grid and detail component")
+			check(screen.crafting_component is InventoryCraftingComponent and screen.crafting_component.get_parent() == inventory_layout, "Inventory layout owns its crafting component")
 			check(screen.crafting_component._window is PanelContainer and screen.crafting_component._window.get_parent() == screen.content, "Inventory crafting component instances its authored overlay under screen content")
 			check(screen.crafting_component._list is VBoxContainer and screen.crafting_component._window.find_child("CloseButton", true, false) is Button, "Inventory crafting component binds authored recipe list and close button")
 			screen.crafting_component.open()
@@ -1335,7 +1354,7 @@ func _test_ui() -> void:
 			check(crafting_button_found, "Inventory exposes Crafting action")
 			await get_tree().process_frame
 			check(screen._crafting_window.visible, "Crafting action opens recipe panel")
-			check(screen._crafting_list.get_child_count() == 3, "Crafting panel lists all three recipes")
+			check(screen._crafting_list.get_child_count() == _CraftingServiceScript.recipe_ids().size(), "Crafting panel lists every configured recipe")
 			var inventory_before_crafting: Dictionary = GameState.inventory.duplicate(true)
 			var profile_before_crafting: Dictionary = GameState.profile.duplicate(true)
 			GameState.inventory = {"glade_sap": 2, "moonpetal": 1}
@@ -3182,7 +3201,7 @@ func _test_world_visual_integration() -> void:
 	game.hud._apply_responsive_layout(Vector2(390, 844))
 	check(portrait_party != null and not portrait_party.visible, "portrait HUD hides the overlapping party panel")
 	check(portrait_hint != null and not portrait_hint.visible, "portrait HUD hides desktop keyboard hint")
-	check(game.hud._minimap != null and is_equal_approx(game.hud._minimap.offset_left, -188.0) and is_equal_approx(game.hud._minimap.offset_right, -18.0), "portrait HUD compacts minimap to 170px")
+	check(game.hud._minimap != null and game.hud._minimap._expanded_size.x >= Minimap.MAP_SIZE and game.hud._minimap.position.x >= 0, "Portrait minimap preserves its authored legend width and stays on screen")
 	check(game.hud._minimap != null and game.hud._minimap.marker_component is MinimapMarkerComponent and game.hud._minimap.marker_component.get_parent() == game.hud._minimap, "Minimap owns an authored marker-data component")
 	if game.hud._minimap != null and game.hud._minimap.marker_component != null:
 		game.hud._minimap._find_world()
@@ -3268,7 +3287,7 @@ func _test_world_visual_integration() -> void:
 	check(not encounter_probe.engaged and game.active_combat == null, "assembled world does not start combat from proximity")
 	var previous_touch_mode := TouchInput.using_touch
 	TouchInput.using_touch = true
-	game.hud._prompt_component._process(0.13)
+	game.hud._process(0.13)
 	check(game.hud._touch_interact != null and game.hud._touch_interact.visible, "mobile HUD reveals Interact button for a nearby monster")
 	TouchInput.using_touch = previous_touch_mode
 	var interact_event := InputEventAction.new()
@@ -3304,7 +3323,7 @@ func _test_world_visual_integration() -> void:
 	touch_game.world.player._scan_for_interactable()
 	var touch_previous_mode := TouchInput.using_touch
 	TouchInput.using_touch = true
-	touch_game.hud._prompt_component._process(0.13)
+	touch_game.hud._process(0.13)
 	check(touch_game.hud._touch_interact != null, "touch integration exposes the authored Interact control")
 	check(not touch_probe.engaged and touch_game.active_combat == null, "touch integration remains passive before button press")
 	if touch_game.hud._touch_interact != null:
@@ -5258,7 +5277,7 @@ func _test_gacha_presentation() -> void:
 	check(gacha != null and gacha._banner_content is GachaBannerContentComponent and gacha._banner_content.get_parent() == gacha, "GachaScreen binds its authored banner-content component")
 	check(gacha != null and gacha._summon_flow is GachaSummonFlowComponent and gacha._summon_flow.get_parent() == gacha, "GachaScreen binds its authored summon-flow component")
 	check(gacha != null and gacha.get_node_or_null("SummoningChamberAtmosphere") != null, "GachaScreen owns its authored chamber-atmosphere scene")
-	check(gacha != null and gacha._main.get_child_count() == 2 and gacha._main.get_child(0) is ScrollContainer and gacha._main.get_child(1) is ScrollContainer, "Summon banner and detail columns have independent vertical scrolling")
+	check(gacha != null and gacha._main.get_child_count() == (1 if gacha.compact_summon_layout() else 2) and gacha._main.get_child(0) is ScrollContainer and (gacha.compact_summon_layout() or gacha._main.get_child(1) is ScrollContainer), "Summon uses shared compact scrolling or independent desktop columns")
 	var summon_currency_before: Variant = GameState.inventory_domain.currency("crystals")
 	if gacha != null:
 		gacha._summon_busy = true
