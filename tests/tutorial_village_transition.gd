@@ -26,6 +26,16 @@ func _ready() -> void:
 		scene._accept_challenge()
 		await tree.process_frame
 	await tree.create_timer(2.0).timeout
+	if not AuthGateway.access_token_ready_for_connection():
+		assert(scene.get_node("TutorialHUD/SparringRoot").get_child_count() == 0)
+		assert(not GameState.quest_domain.flags.get("tutorial_complete", false))
+		print("TUTORIAL_AUTH_GATE_PASS: unauthenticated sparring closes without local combat or rewards")
+		scene.queue_free()
+		await tree.process_frame
+		tree.root.get_node("AudioDirector").stop_all_audio_immediately()
+		await tree.create_timer(0.5).timeout
+		tree.quit()
+		return
 	var combat = scene.get_node("TutorialHUD/SparringRoot").get_child(0)
 	assert(combat.engine.combatants.size() == 2)
 	var gold: int = GameState.inventory_domain.currency("gold")

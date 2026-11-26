@@ -233,6 +233,15 @@ func _start_online_spar() -> void:
 	_spar_id = ""
 	_spar_sequence = 0
 	_needs_story_recovery = false
+	if not AuthGateway.access_token_ready_for_connection():
+		EventBus.toast_requested.emit("Sign in to connect to the tutorial battle server.")
+		# No server battle exists yet, so do not route through the authoritative
+		# abandon path (which correctly requires a server-owned battle ID).
+		# Close without rewards and leave the tutorial state unchanged.
+		screen._claimed = true
+		screen.closed.emit()
+		screen.queue_free()
+		return
 	_spar_owner = str(AuthGateway.current_player().get("id","")) if AuthGateway.is_authenticated() else ""
 	_spar_verified = false
 	_server_rewards = {}

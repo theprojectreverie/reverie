@@ -37,12 +37,15 @@ const MAX_INPUT_PACKETS_PER_FRAME := 16
 const MAX_INPUT_BACKLOG := 64
 const MAX_INPUT_BYTES := 4096
 const MAX_MESSAGES_PER_SECOND := 60
+const MAX_LEASE_RENEWALS_IN_FLIGHT := 32
 var _outbound_budget_bytes := 512 * 1024
 var _event_queue_budget := 1024
 var _last_pressure_log: Dictionary = {}
 # At most one not-yet-admitted, validated movement proposal per live peer.
 # Never modify already queued event IDs or retry batches.
 var _deferred_positions: Dictionary = {}
+var _lease_renew_queue: Array[int] = []
+var _lease_renew_inflight := 0
 var _coalesced_positions := 0
 
 var _tcp_server := TCPServer.new()
@@ -311,7 +314,18 @@ func _on_world_recovery_completed(result: int, response_code: int, _headers: Pac
 	_start_transport()
 
 func _renew_connection_leases() -> void:
+	if _lease_renew_inflight > 0 or not _lease_renew_queue.is_empty():
+		return
+	_lease_renew_queue.clear()
 	for peer_id in _sessions.keys():
+		_lease_renew_queue.append(int(peer_id))
+	_start_lease_renewals()
+
+func _start_lease_renewals() -> void:
+	while _lease_renew_inflight < MAX_LEASE_RENEWALS_IN_FLIGHT and not _lease_renew_queue.is_empty():
+		var peer_id: int = int(_lease_renew_queue.pop_front())
+		if not _sessions.has(peer_id):
+			continue
 		var session: Dictionary = _sessions[peer_id]
 		var connection_id := str(session.get("connection_id", ""))
 		if connection_id.is_empty():
@@ -321,15 +335,19 @@ func _renew_connection_leases() -> void:
 		add_child(request)
 		request.request_completed.connect(_on_connection_lease_renewed.bind(int(peer_id), request), CONNECT_ONE_SHOT)
 		var url := api_base_url + "/v1/game-servers/" + _server_id + "/connections/" + connection_id
+		_lease_renew_inflight += 1
 		var err := request.request(url, _server_headers(), HTTPClient.METHOD_PUT, "{}")
 		if err != OK:
+			_lease_renew_inflight = maxi(0, _lease_renew_inflight - 1)
 			request.queue_free()
 			_close_peer(int(peer_id), 1011, "connection_lease_unavailable")
 
 func _on_connection_lease_renewed(result: int, response_code: int, _headers: PackedStringArray, _bytes: PackedByteArray, peer_id: int, request: HTTPRequest) -> void:
+	_lease_renew_inflight = maxi(0, _lease_renew_inflight - 1)
 	request.queue_free()
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
 		_close_peer(peer_id, 1011, "connection_lease_lost")
+	_start_lease_renewals()
 
 func _start_transport() -> void:
 	var err := _tcp_server.listen(listen_port, bind_address)
