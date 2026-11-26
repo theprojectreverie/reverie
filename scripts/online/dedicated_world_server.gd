@@ -615,6 +615,10 @@ func _handle_peer_message(peer_id: int, message: Variant) -> void:
 		session["last_position_at"] = now_ms
 		_sessions[peer_id] = session
 		var proposal := {"type":"position","playerId":player_id,"x":x,"y":y}
+		if _interest_radius > 0.0:
+			# Visibility follows the latest validated authoritative proposal,
+			# even when durable checkpoint admission is deferred.
+			_committed_interest_positions[player_id] = Vector2(x, y)
 		if _persistence_busy() or _deferred_positions.has(peer_id):
 			if _deferred_positions.has(peer_id):
 				_coalesced_positions += 1

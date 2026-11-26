@@ -65,6 +65,7 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
   const storageBefore=await eventStorage();
 
   let bytes=0,packets=0,clientSentBytes=0,memberRecords=0,rejected=0,foreign=0,sequenceGaps=0;
+  const foreignExamples=[];
   let emoteDeliveries=0,pingSent=0,pongReceived=0,syncHints=0,mixedBytes=0,invalidEmotes=0;
   const expectedEmotes=new Uint16Array(n),seenEmotes=new Uint16Array(n*n),expectedPings=new Uint16Array(n),seenPongs=new Uint16Array(n);
   const closes=[],rejections={};
@@ -123,8 +124,8 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
       for(const member of members){
         const i=index.get(member.playerId);if(i===undefined||i===receiver)continue;
         const same=Math.floor(i/size)===Math.floor(receiver/size);
-        if(interested&&!same){foreign++;continue;}
-        if(!same)continue;
+        if(interested&&!same){foreign++;if(foreignExamples.length<12)foreignExamples.push({receiver,member:i,receiverGroup:Math.floor(receiver/size),memberGroup:Math.floor(i/size),memberX:member.x,memberY:member.y});continue;}
+         if(!same){if(foreignExamples.length<12)foreignExamples.push({receiver,member:i,receiverGroup:Math.floor(receiver/size),memberGroup:Math.floor(i/size),memberX:member.x,memberY:member.y});continue;}
         const r=member.x-point(i,0).x;
         if(r<1||r>rounds||member.y!==point(i,0).y)continue;
         const key=r*n+i;
@@ -236,7 +237,7 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
      const requiredCommitted=checkpointMode?n:n*rounds;
      const finalCommits=checkpointMode?ids.filter((_,i)=>committed.has(rounds*n+i)).length:committed.size;
      const deliveryComplete=checkpointMode?finalDeliveries===finalExpected:receivedCount+missing.verifiedSupersededDeliveries===expected;
-     console.log("CLUSTER_LOAD_RESULT "+JSON.stringify({mode,players:n,rounds,groupSize:size,batchSize,checkpointMs,proposals:n*rounds,packets,payloadBytes:bytes,clientSentBytes,memberRecords,nearbyDeliveries:receivedCount,expectedNearby:checkpointMode?null:expected,requiredCommitted,finalCommits,verifiedSupersededDeliveries:missing.verifiedSupersededDeliveries,finalDeliveries,finalExpected,p50Ms:pct(measured,.5),p95Ms:pct(measured,.95),p99Ms:pct(measured,.99),maxMs:pct(measured,1),harnessEventLoopMs,serverCpuPercent,foreign,sequenceGaps,rejected,unexpectedCloses:closes.length}));
+     console.log("CLUSTER_LOAD_RESULT "+JSON.stringify({mode,players:n,rounds,groupSize:size,batchSize,checkpointMs,proposals:n*rounds,packets,payloadBytes:bytes,clientSentBytes,memberRecords,nearbyDeliveries:receivedCount,expectedNearby:checkpointMode?null:expected,requiredCommitted,finalCommits,finalDeliveries,finalExpected,p50Ms:pct(measured,.5),p95Ms:pct(measured,.95),p99Ms:pct(measured,.99),maxMs:pct(measured,1),harnessEventLoopMs,serverCpuPercent,foreign,foreignExamples,sequenceGaps,rejected,unexpectedCloses:closes.length}));
      if(finalCommits!==requiredCommitted||!deliveryComplete||missing.uncommittedProposals||missing.unexplainedCommittedDeliveries||missing.missingFinalDeliveries||finalDeliveries!==finalExpected||!finalCursorMatch||!mixedMatch||foreign||sequenceGaps||rejected||closes.length)throw new Error("cluster delivery invariant failed");
   }finally{clearInterval(memoryTimer);loopDelay.disable();clients.forEach((c,i)=>{c.socket.off("message",listeners[i]);c.socket.off("close",closeListeners[i]);});}
 }
