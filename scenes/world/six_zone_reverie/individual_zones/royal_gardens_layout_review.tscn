@@ -1,4 +1,4 @@
-﻿[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_01_royal_gardens.tscn" id="zone"]
 

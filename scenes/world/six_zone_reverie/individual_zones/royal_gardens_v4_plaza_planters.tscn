@@ -1,4 +1,4 @@
-﻿[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/cleaned_20261124/art_36.png" id="roseplanter"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_26_prop.png" id="bench"]

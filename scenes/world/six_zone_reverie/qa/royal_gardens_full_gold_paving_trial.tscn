@@ -1,4 +1,4 @@
-﻿[gd_scene format=3]
+[gd_scene format=3]
 
 [ext_resource type="Texture2D" uid="uid://pael0jwmw6it" path="res://assets/environment/six_zone_reverie/royal_gardens_castle.png" id="castle_tex"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_grass_plain.tscn" id="tile_g"]

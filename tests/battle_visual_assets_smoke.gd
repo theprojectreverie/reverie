@@ -902,6 +902,13 @@ func _check_character_effect_interruption(actor: BattlefieldActor) -> void:
 	for child in actor.visual.get_children():
 		if child.has_method("_clear_transient_particles"):
 			effect_components.append(child)
+	if actor.visual.character_id == "gerald":
+		var shared_fx := actor.visual.get_node_or_null("SharedCharacterEffects") as Node2D
+		check(shared_fx != null and not shared_fx.visible, "Gerald does not display generic shared attack overlays")
+		var gerald_fx := actor.visual.get_node_or_null("Effects/GeraldCombatFX")
+		check(gerald_fx != null, "Gerald retains his dedicated authored combat effect component")
+		if gerald_fx != null:
+			effect_components.append(gerald_fx)
 	if effect_components.is_empty():
 		return
 	var particles_started := false
