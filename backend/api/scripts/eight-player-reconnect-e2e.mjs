@@ -16,7 +16,7 @@ import { runMovementLoadProbe } from "./movement-load-probe.mjs";
 import { runClusterProbe } from "./cluster-load-probe.mjs";
 
 const N=Number(process.env.REVERIE_E2E_PLAYERS??8);
-if(!Number.isInteger(N)||N<2||N>100)throw new RangeError("REVERIE_E2E_PLAYERS must be an integer from 2 to 100");
+if(!Number.isInteger(N)||N<2||N>500)throw new RangeError("REVERIE_E2E_PLAYERS must be an integer from 2 to 500");
 if(!["localhost","127.0.0.1","[::1]"].includes(new URL(config.DATABASE_URL).hostname))throw new Error("World load test requires a local database");
 const assert = (ok, label, detail = "") => {
   if(N!==8)label=label.replace(/eight/gi,String(N));
@@ -77,6 +77,23 @@ let finished = false;
 async function requestJson(url, options = {}) {
   const response = await fetch(url, options);
   return { status: response.status, body: await response.json().catch(() => ({})) };
+}
+const requestConcurrency = Number(process.env.REVERIE_E2E_REQUEST_CONCURRENCY ?? (N > 100 ? 25 : 100));
+if (!Number.isInteger(requestConcurrency) || requestConcurrency < 1 || requestConcurrency > 250) {
+  throw new RangeError("REVERIE_E2E_REQUEST_CONCURRENCY must be an integer from 1 to 250");
+}
+async function mapConcurrent(items, worker) {
+  const results = new Array(items.length);
+  let next = 0;
+  async function consume() {
+    while (true) {
+      const index = next++;
+      if (index >= items.length) return;
+      results[index] = await worker(items[index], index);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(requestConcurrency, items.length) }, consume));
+  return results;
 }
 const authHeaders = token => ({ "content-type": "application/json", authorization: "Bearer " + token });
 async function allocatePort() {
@@ -280,9 +297,9 @@ try {
   }
   assert(online, "headless Godot dedicated server registers an eight-slot world and becomes live", godot.getOutput().slice(-1000));
 
-  const joinTickets = await Promise.all(tokens.map(token => requestJson(base + "/v1/game-servers/" + serverId + "/join", {
+  const joinTickets = await mapConcurrent(tokens, token => requestJson(base + "/v1/game-servers/" + serverId + "/join", {
     method: "POST", headers: authHeaders(token), body: "{}"
-  })));
+  }));
   assert(joinTickets.every(result => result.status === 200 && result.body.joinTicket), "all eight players receive unique join tickets");
   assert(new Set(joinTickets.map(result => result.body.joinTicket)).size === N, "eight player tickets are unique");
   clients = await connectWave(endpoint, tokens, joinTickets, serverId);
@@ -411,9 +428,9 @@ try {
   await waitForLeaseCount(0);
   assert(true, "simultaneous eight-client disconnect releases every connection lease");
 
-  const reconnectTickets = await Promise.all(tokens.map(token => requestJson(base + "/v1/game-servers/" + serverId + "/reconnect", {
+  const reconnectTickets = await mapConcurrent(tokens, token => requestJson(base + "/v1/game-servers/" + serverId + "/reconnect", {
     method: "POST", headers: authHeaders(token), body: "{}"
-  })));
+  }));
   assert(reconnectTickets.every(result => result.status === 200 && result.body.joinTicket), "all eight clients obtain fresh reconnect tickets during the grace window");
   const reconnectClients = await connectWave(endpoint, tokens, reconnectTickets, serverId);
   clients = reconnectClients;
@@ -437,9 +454,9 @@ try {
   godot = startGodot(base, bootstrap, serverKey, port);
   await waitForServerReady(serverId, port);
   assert(true, "replacement Godot process reclaimed the same regional server identity");
-  const restartTickets = await Promise.all(tokens.map(token => requestJson(base + "/v1/game-servers/" + serverId + "/reconnect", {
+  const restartTickets = await mapConcurrent(tokens, token => requestJson(base + "/v1/game-servers/" + serverId + "/reconnect", {
     method: "POST", headers: authHeaders(token), body: "{}"
-  })));
+  }));
   assert(restartTickets.every(result => result.status === 200 && result.body.joinTicket), "all eight players receive reconnect tickets after the regional restart");
   const restartClients = await connectWave(endpoint, tokens, restartTickets, serverId);
   clients = restartClients;
