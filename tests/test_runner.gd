@@ -891,7 +891,7 @@ func _test_ui_regressions() -> void:
 	# Preserve both requested featured banners and their independent artwork paths.
 	var vesper_banner: Dictionary = ContentDB.get_banner("crimson_covenant")
 	var scarlet_banner: Dictionary = ContentDB.get_banner("scarlet_requiem")
-	check(ContentDB.banners.size() == 3, "Summon interface displays the two original banners plus Ã‰lathra's featured banner")
+	check(ContentDB.banners.size() == 5 and ContentDB.banners.has_all(["crimson_covenant", "scarlet_requiem", "lily_of_shadows", "crimson_oath", "eclipse_sovereign"]), "All five configured summon banners are present")
 	check(not vesper_banner.is_empty() and str(vesper_banner.get("name", "")) == "Hollow Moon Overture" and str((vesper_banner.get("featured", [""]) as Array)[0]) == "nyx", "Hollow Moon Overture features Nyx Vaelora")
 	check(not scarlet_banner.is_empty() and str(scarlet_banner.get("name", "")) == "Scarlet Requiem" and str((scarlet_banner.get("featured", [""]) as Array)[0]) == "crimson_witch_legendary", "Scarlet Requiem remains a separate Crimson Witch featured banner")
 	check(ResourceLoader.exists("res://assets/characters/crimson_witch/portrait_512.png"), "Scarlet Requiem banner uses the supplied portrait asset")
@@ -947,10 +947,18 @@ func _test_ui_regressions() -> void:
 	if gacha != null:
 		add_child(gacha)
 		await get_tree().process_frame
-		check(gacha._tabs != null and gacha._tabs.get_child_count() == 4, "All three summon tabs remain visible beside the return control")
+		check(gacha._tabs != null and gacha._tabs.get_child_count() == ContentDB.banners.size() + 1, "All five summon tabs remain available beside the return control")
 		gacha._select_banner("scarlet_requiem")
 		await get_tree().process_frame
 		check(gacha._selected_banner == "scarlet_requiem" and gacha._featured_id == "crimson_witch_legendary", "Second summon page selects Scarlet Requiem and Crimson Witch")
+		gacha._select_banner("crimson_oath")
+		await get_tree().process_frame
+		check(gacha._selected_banner == "crimson_oath" and gacha._featured_id == "cassien_legendary", "Crimson Oath selects Legendary Cassien")
+		gacha._select_banner("eclipse_sovereign")
+		await get_tree().process_frame
+		check(gacha._selected_banner == "eclipse_sovereign" and gacha._featured_id == "ravienna", "Eclipse Sovereign selects Legendary Ravienna")
+		gacha._select_banner("scarlet_requiem")
+		await get_tree().process_frame
 		GameState.profile["crystals"] = 0
 		EventBus.currency_changed.emit()
 		await get_tree().process_frame
