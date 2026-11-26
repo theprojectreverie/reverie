@@ -880,7 +880,13 @@ func _publish_committed_events(entries: Array[Dictionary]) -> void:
 			if first == 0:
 				first = sequence
 			last = sequence
-			_committed_interest_positions[str(event["playerId"])] = Vector2(float(event["x"]), float(event["y"]))
+			var event_player_id := str(event["playerId"])
+			var checkpoint_position := Vector2(float(event["x"]), float(event["y"]))
+			# A durable checkpoint can arrive after newer transient proposals
+			# have already been validated. Never regress spatial visibility to
+			# that older checkpoint; the durable cursor remains unchanged.
+			if not _player_positions.has(event_player_id) or _player_positions[event_player_id] == checkpoint_position:
+				_committed_interest_positions[event_player_id] = checkpoint_position
 			if has_legacy:
 				_broadcast(event, int(entry["except_peer_id"]), true)
 		else:
