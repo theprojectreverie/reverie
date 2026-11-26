@@ -24,6 +24,8 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
   const interested=mode==="interest";
   if(!clients.every(c=>Boolean(c.admission.interestWindows)===interested))throw new Error("wrong negotiated mode");
   const n=clients.length, rounds=Number(process.env.REVERIE_E2E_CLUSTER_ROUNDS??60), size=Number(process.env.REVERIE_E2E_CLUSTER_SIZE??8), spacing=400;
+  const checkpointMs=Number(process.env.REVERIE_SERVER_POSITION_CHECKPOINT_MS??0);
+  const checkpointMode=Number.isFinite(checkpointMs)&&checkpointMs>0;
   if(!Number.isInteger(rounds)||rounds<1||rounds>1500||!Number.isInteger(size)||size<1||size>100)throw new Error("invalid cluster probe rounds or size");
   const mixed=process.env.REVERIE_E2E_CLUSTER_MIXED==="1";
   if(mixed&&(!interested||rounds>300))throw new Error("mixed load requires negotiated interest mode and at most 300 rounds");
@@ -53,7 +55,7 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
     const committed=(await pool.query("select count(*)::int AS n from game_server_world_events where server_id=$1 AND event_type='position'",[serverId])).rows[0].n;
     throw new Error("cluster positions not committed: "+JSON.stringify({round:r,matchingPlayers:matches,totalPlayers:n,openSockets:open,committedPositionEvents:committed}));
   };
-  await waitState(0);await sleep(300);
+   if(!checkpointMode){await waitState(0);await sleep(300);}
   // Isolated fixture only: count actual row bytes, not a production table-wide scan.
   const eventStorage=async()=>{
     const q=await pool.query("select count(*)::int as events,coalesce(sum(pg_column_size(e)),0)::bigint as row_bytes,max(sequence)::text as last_sequence from game_server_world_events e where server_id=$1",[serverId]);
@@ -66,13 +68,14 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
   let emoteDeliveries=0,pingSent=0,pongReceived=0,syncHints=0,mixedBytes=0,invalidEmotes=0;
   const expectedEmotes=new Uint16Array(n),seenEmotes=new Uint16Array(n*n),expectedPings=new Uint16Array(n),seenPongs=new Uint16Array(n);
   const closes=[],rejections={};
-  const expected=ids.reduce((sum,_,i)=>sum+Math.min(size,n-Math.floor(i/size)*size)-1,0)*rounds;
+   const expectedPerRound=ids.reduce((sum,_,i)=>sum+Math.min(size,n-Math.floor(i/size)*size)-1,0);
+   const expected=expectedPerRound*rounds;
   // Fixed-size arrays remain bounded even for 100 players for five minutes.
   if((rounds+1)*n*n>15010000)throw new Error("cluster probe memory budget exceeded");
   // Compact fixed-size accounting: the test harness must not accumulate millions of strings.
   const receipts=new Uint8Array((rounds+1)*n*n),sent=new Float64Array((rounds+1)*n),latency=new Float32Array(expected),lastCursor=Array(n).fill(null);
   let receivedCount=0, finalDeliveries=0;
-  const finalExpected=expected/rounds;
+   const finalExpected=expectedPerRound;
   // Store the actual window endpoint for each observed sample. This allows
   // checking intentional supersession against the exact transmitted range.
   const receiptWindowEnd=new Uint32Array((rounds+1)*n*n);
@@ -166,8 +169,17 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
         console.log("CLUSTER_PROGRESS "+JSON.stringify({round:r,rounds,elapsedSeconds:Math.round((performance.now()-start)/1000),openSockets:clients.filter(c=>c.socket.readyState===1).length,nearbyDeliveries:receivedCount,deliveriesSinceLastSample:receivedCount-previousProgressCount,sequenceGaps,rejected}));
         previousProgressCount=receivedCount;
       }
-    }
-    try{await waitState(rounds);}catch(error){
+     }
+     if(checkpointMode){
+       await sleep(checkpointMs+50);
+       for(let i=0;i<n;i++){
+         if(clients[i].socket.readyState!==1)throw new Error("cluster checkpoint socket closed");
+         const finalPayload=JSON.stringify({type:"position",...point(i,rounds)});
+         sent[rounds*n+i]=performance.now();clientSentBytes+=Buffer.byteLength(finalPayload);clients[i].socket.send(finalPayload);
+       }
+       await sleep(checkpointMs+100);
+     }
+     try{await waitState(rounds);}catch(error){
       console.log("CLUSTER_LOAD_DIAGNOSTIC "+JSON.stringify({mode,players:n,rounds,groupSize:size,packets,payloadBytes:bytes,nearbyDeliveries:receivedCount,expectedNearby:expected,rejected,rejections,closes,sequenceGaps}));
       throw error;
     }
@@ -195,9 +207,10 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
       committed.set(r*n+i,sample);bySender[i].push(sample);
     }
     const windowFor=(receiver,sequence)=>findSequenceWindow(windows[receiver],sequence);
-    const missing={uncommittedProposals:0,verifiedSupersededDeliveries:0,unexplainedCommittedDeliveries:0,missingFinalDeliveries:0,examples:[]};
-    for(let r=1;r<=rounds;r++)for(let i=0;i<n;i++){
-      const key=r*n+i,e=committed.get(key);
+     const missing={uncommittedProposals:0,verifiedSupersededDeliveries:0,unexplainedCommittedDeliveries:0,missingFinalDeliveries:0,examples:[]};
+     for(let r=1;r<=rounds;r++)for(let i=0;i<n;i++){
+       const key=r*n+i,e=committed.get(key);
+       if(checkpointMode&&r<rounds)continue;
       for(let receiver=Math.floor(i/size)*size;receiver<Math.min(n,(Math.floor(i/size)+1)*size);receiver++){
         if(receiver===i||receipts[key*n+receiver])continue;
         const window=e&&interested?windowFor(receiver,e.sequence):null;
@@ -220,7 +233,10 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
     const storageAfter=await eventStorage();
     console.log("WORLD_EVENT_STORAGE "+JSON.stringify({before:storageBefore,after:storageAfter,addedRows:storageAfter.events-storageBefore.events,addedRowBytes:storageAfter.rowBytes-storageBefore.rowBytes}));
 
-     console.log("CLUSTER_LOAD_RESULT "+JSON.stringify({mode,players:n,rounds,groupSize:size,batchSize,proposals:n*rounds,packets,payloadBytes:bytes,clientSentBytes,memberRecords,nearbyDeliveries:receivedCount,expectedNearby:expected,verifiedSupersededDeliveries:missing.verifiedSupersededDeliveries,finalDeliveries,finalExpected,p50Ms:pct(measured,.5),p95Ms:pct(measured,.95),p99Ms:pct(measured,.99),maxMs:pct(measured,1),harnessEventLoopMs,serverCpuPercent,foreign,sequenceGaps,rejected,unexpectedCloses:closes.length}));
-    if(committed.size!==n*rounds||receivedCount+missing.verifiedSupersededDeliveries!==expected||missing.uncommittedProposals||missing.unexplainedCommittedDeliveries||missing.missingFinalDeliveries||finalDeliveries!==finalExpected||!finalCursorMatch||!mixedMatch||foreign||sequenceGaps||rejected||closes.length)throw new Error("cluster delivery invariant failed");
+     const requiredCommitted=checkpointMode?n:n*rounds;
+     const finalCommits=checkpointMode?ids.filter((_,i)=>committed.has(rounds*n+i)).length:committed.size;
+     const deliveryComplete=checkpointMode?finalDeliveries===finalExpected:receivedCount+missing.verifiedSupersededDeliveries===expected;
+     console.log("CLUSTER_LOAD_RESULT "+JSON.stringify({mode,players:n,rounds,groupSize:size,batchSize,checkpointMs,proposals:n*rounds,packets,payloadBytes:bytes,clientSentBytes,memberRecords,nearbyDeliveries:receivedCount,expectedNearby:checkpointMode?null:expected,requiredCommitted,finalCommits,verifiedSupersededDeliveries:missing.verifiedSupersededDeliveries,finalDeliveries,finalExpected,p50Ms:pct(measured,.5),p95Ms:pct(measured,.95),p99Ms:pct(measured,.99),maxMs:pct(measured,1),harnessEventLoopMs,serverCpuPercent,foreign,sequenceGaps,rejected,unexpectedCloses:closes.length}));
+     if(finalCommits!==requiredCommitted||!deliveryComplete||missing.uncommittedProposals||missing.unexplainedCommittedDeliveries||missing.missingFinalDeliveries||finalDeliveries!==finalExpected||!finalCursorMatch||!mixedMatch||foreign||sequenceGaps||rejected||closes.length)throw new Error("cluster delivery invariant failed");
   }finally{clearInterval(memoryTimer);loopDelay.disable();clients.forEach((c,i)=>{c.socket.off("message",listeners[i]);c.socket.off("close",closeListeners[i]);});}
 }

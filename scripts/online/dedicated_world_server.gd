@@ -47,6 +47,8 @@ var _deferred_positions: Dictionary = {}
 var _lease_renew_queue: Array[int] = []
 var _lease_renew_inflight := 0
 var _coalesced_positions := 0
+var _position_checkpoint_ms := 0
+var _last_position_checkpoint_at: Dictionary = {}
 var _metrics_enabled := false
 var _metrics_timer: Timer
 var _metrics_process_count := 0
@@ -86,6 +88,9 @@ func _ready() -> void:
 	var configured_interest := OS.get_environment("REVERIE_SERVER_INTEREST_RADIUS")
 	if configured_interest.is_valid_float():
 		_interest_radius = clampf(float(configured_interest), 0.0, 10000.0)
+	var configured_checkpoint := OS.get_environment("REVERIE_SERVER_POSITION_CHECKPOINT_MS")
+	if configured_checkpoint.is_valid_int():
+		_position_checkpoint_ms = clampi(int(configured_checkpoint), 0, 5000)
 	var configured_api := OS.get_environment("REVERIE_API_BASE_URL")
 	var configured_key := OS.get_environment("REVERIE_SERVER_KEY")
 	var configured_name := OS.get_environment("REVERIE_SERVER_NAME")
@@ -531,8 +536,25 @@ func _flush_deferred_positions() -> void:
 
 func _admit_position(peer_id: int, proposal: Dictionary) -> void:
 	var player_id := str(proposal["playerId"])
-	_player_positions[player_id] = Vector2(float(proposal["x"]), float(proposal["y"]))
-	_emit_world_event(proposal, peer_id)
+	var current_position := Vector2(float(proposal["x"]), float(proposal["y"]))
+	_player_positions[player_id] = current_position
+	if _interest_radius > 0.0:
+		# Interest management follows authoritative transient positions even
+		# while the durable checkpoint cursor intentionally lags.
+		_committed_interest_positions[player_id] = current_position
+	var now := Time.get_ticks_msec()
+	var last_checkpoint := int(_last_position_checkpoint_at.get(player_id, 0))
+	var checkpoint := _position_checkpoint_ms <= 0 or now - last_checkpoint >= _position_checkpoint_ms
+	if checkpoint:
+		_last_position_checkpoint_at[player_id] = now
+		_emit_world_event(proposal, peer_id)
+	elif not transport_test_mode:
+		# Transient movement is still delivered to legacy peers, but is not
+		# assigned a durable sequence and cannot inflate the replay log.
+		var transient := proposal.duplicate(true)
+		transient["transient"] = true
+		_broadcast(transient, peer_id, true)
+		_coalesced_positions += 1
 
 func _handle_peer_message(peer_id: int, message: Variant) -> void:
 	if not _sessions.has(peer_id):
@@ -600,9 +622,10 @@ func _handle_peer_message(peer_id: int, message: Variant) -> void:
 		else:
 			_admit_position(peer_id, proposal)
 	elif message_type == "emote":
-		# Cosmetic requests are not accepted while persistence is saturated.
-		if _persistence_busy():
-			return
+		# Emotes are non-movement, sequenced events. They are allowed to enter
+		# the bounded retry queue even when movement checkpointing is saturated;
+		# dropping them here would let transient movement starve other durable
+		# world events.
 		var emote_id := str(message.get("emoteId", ""))
 		if emote_id not in ["wave","cheer","sad","dance"]:
 			return
@@ -1008,6 +1031,7 @@ func _expire_player_session(player_id: String, timer: SceneTreeTimer) -> void:
 func _request_player_disconnect(player_id: String) -> void:
 	if _find_player_peer(player_id) >= 0:
 		return
+	_checkpoint_player_position(player_id)
 	# Do not remove the database assignment while its accepted events still
 	# await commit; that would turn retries into permanent assignment errors.
 	for queued in _event_queue:
@@ -1023,6 +1047,20 @@ func _request_player_disconnect(player_id: String) -> void:
 	if err != OK:
 		request.queue_free()
 		_schedule_player_disconnect_retry(player_id)
+
+func _checkpoint_player_position(player_id: String) -> void:
+	if _position_checkpoint_ms <= 0 or not _player_positions.has(player_id):
+		return
+	for queued in _event_queue:
+		if str(queued.get("payload", {}).get("playerId", "")) == player_id and str(queued.get("payload", {}).get("type", "")) == "position":
+			return
+	var now := Time.get_ticks_msec()
+	var last_checkpoint := int(_last_position_checkpoint_at.get(player_id, 0))
+	if now - last_checkpoint < 1:
+		return
+	var position: Vector2 = _player_positions[player_id]
+	_last_position_checkpoint_at[player_id] = now
+	_emit_world_event({"type":"position","playerId":player_id,"x":position.x,"y":position.y}, -1)
 
 func _on_player_disconnect_completed(result: int, response_code: int, _headers: PackedStringArray, bytes: PackedByteArray, player_id: String, request: HTTPRequest) -> void:
 	request.queue_free()
