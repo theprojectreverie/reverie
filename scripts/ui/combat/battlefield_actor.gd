@@ -236,7 +236,7 @@ func _sync_kael_boss_art() -> void:
 	visual.visible = not show_art
 	kael_boss_art.flip_h = visual.facing < 0.0
 	var attack := kael_boss_art.animation == &"attack"
-	kael_boss_art.scale = Vector2.ONE * visual.visual_scale * (1.075 if attack else 1.0)
+	kael_boss_art.scale = Vector2.ONE * visual.visual_scale * (108.0 / 110.0)
 	kael_boss_art.offset = Vector2(10.0 * (-1.0 if kael_boss_art.flip_h else 1.0) if attack else 0.0, -55.0 if attack else -56.0)
 
 func refresh() -> void:

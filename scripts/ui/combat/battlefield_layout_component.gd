@@ -12,6 +12,8 @@ const GERALD_HEIGHT_CM := 400.0
 const CASSIEN_HEIGHT_CM := 190.0
 const RAVIENNA_HEIGHT_CM := 170.0
 const LILITH_HEIGHT_CM := 140.0
+const KAEL_HEIGHT_CM := 177.0
+const KAEL_IDLE_PX := 108.0
 const GERALD_PLAYER_IDLE_PX := 110.0
 const GERALD_BOSS_IDLE_PX := 111.0
 const CASSIEN_IDLE_PX := 105.0
@@ -143,6 +145,7 @@ func layout() -> void:
 	var boss_titan_scale := queen_scale * (GERALD_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / GERALD_BOSS_IDLE_PX
 	var knight_scale := queen_scale * (CASSIEN_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / CASSIEN_IDLE_PX
 	var lilith_scale := queen_scale * (LILITH_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / LILITH_IDLE_PX
+	var kael_scale := queen_scale * (KAEL_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / KAEL_IDLE_PX
 	var party_slot := 0
 	var front_titan := actors.any(func(a):return is_playable_gerald(a))
 	var titan_placed := false
@@ -150,7 +153,7 @@ func layout() -> void:
 	for entry in actors:
 		var actor: BattlefieldActor = entry
 		if actor.is_player and battlefield.arena_id == "gerald_boss_encounter" and actor.unit != null and actor.unit.def_id == "kael":
-			actor.visual.visual_scale = minf(1.08, height / 220.0)
+			_apply_kael_scale(actor, kael_scale)
 			actor.set_home(Vector2(width * 0.28, height * 0.82))
 			party_slot += 1
 		elif is_instance_valid(actor.gerald_art):
@@ -194,9 +197,8 @@ func layout() -> void:
 				var hitbox := actor.get_node("Hitbox") as Control
 				hitbox.position = Vector2(-36.0, -105.0) * art_scale
 				hitbox.size = Vector2(72.0, 115.0) * art_scale
-			if battlefield.arena_id == "cassien_encounter" and actor.unit.def_id == "kael":
-				actor.visual.visual_scale = minf(1.17, height / 220.0)
-				actor._base_scale = actor.visual.visual_scale
+			if actor.unit != null and (actor.unit.def_id == "kael" or actor.unit.def_id.begins_with("kael_")):
+				_apply_kael_scale(actor, kael_scale)
 			var slot := party_slot
 			if front_titan:
 				if is_playable_gerald(actor) and not titan_placed:
@@ -262,3 +264,12 @@ func set_target_team(team: int, enabled: bool) -> void:
 		if actor.unit == null:
 			continue
 		actor.set_targetable(enabled and actor.unit.team == team and actor.unit.is_alive())
+
+
+func _apply_kael_scale(actor: BattlefieldActor, body_scale: float) -> void:
+	actor._base_scale = body_scale
+	actor.visual.set_body_scale(body_scale)
+	actor._sync_kael_boss_art()
+	var hitbox := actor.get_node("Hitbox") as Control
+	hitbox.position = Vector2(-38.0, -108.0) * body_scale
+	hitbox.size = Vector2(76.0, 116.0) * body_scale

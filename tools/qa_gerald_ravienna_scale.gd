@@ -15,7 +15,10 @@ func extent(t: Texture2D) -> Rect2i:
 func body_height(a: BattlefieldActor) -> float:
 	var t: Texture2D
 	var body_scale: float
-	if is_instance_valid(a.gerald_art):
+	if a.kael_boss_art_enabled and a.kael_boss_art.visible:
+		t = a.kael_boss_art.sprite_frames.get_frame_texture("idle",0)
+		body_scale = a.kael_boss_art.scale.y
+	elif is_instance_valid(a.gerald_art):
 		t = a.gerald_art.sprite_frames.get_frame_texture("idle",0)
 		body_scale = a.gerald_art.scale.y
 	elif is_instance_valid(a.cassien_art):
@@ -33,10 +36,11 @@ func body_height(a: BattlefieldActor) -> float:
 func run() -> void:
 	var field: Battlefield = load("res://scenes/ui/battlefield.tscn").instantiate()
 	add_child(field)
-	for encounter in ["revienna_encounter","cassien_encounter","gerald_boss_encounter"]:
+	for case_index in range(6):
+		var encounter: String = ["revienna_encounter","cassien_encounter","gerald_boss_encounter"][case_index % 3]
 		field.arena_id = encounter
 		var players: Array[Combatant] = []
-		for id in ["gerald_mythic","cassien_legendary","ravienna_mythic","lilith_mythic"]:
+		for id in (["gerald_mythic","cassien_legendary","ravienna_mythic","lilith_mythic"] if case_index < 3 else ["gerald_mythic","kael","ravienna_mythic","lilith_mythic"]):
 			var c := CharacterInstance.new()
 			c.char_id = id
 			var u := CombatFactory.build_from_character(c)
@@ -56,9 +60,9 @@ func run() -> void:
 			field._layout()
 			var queen := field.actor_for_uid("ravienna_mythic")
 			var reference := body_height(queen)
-			for id in ["gerald_mythic","cassien_legendary","lilith_mythic",enemies[0].uid]:
+			for id in ["gerald_mythic", ("cassien_legendary" if case_index < 3 else "kael"), "lilith_mythic", enemies[0].uid]:
 				var actor := field.actor_for_uid(id)
-				var expected: float = 400.0/170.0 if actor.unit.def_id.begins_with("gerald") else (190.0/170.0 if actor.unit.def_id.begins_with("cassien") else (140.0/170.0 if actor.unit.def_id.begins_with("lilith") else 1.0))
+				var expected: float = 400.0/170.0 if actor.unit.def_id.begins_with("gerald") else (190.0/170.0 if actor.unit.def_id.begins_with("cassien") else (140.0/170.0 if actor.unit.def_id.begins_with("lilith") else (177.0/170.0 if actor.unit.def_id.begins_with("kael") else 1.0)))
 				var actual := body_height(actor)/reference
 				print("HEIGHT ",encounter," ",dims," ",actor.unit.def_id," ",actual," expected ",expected)
 				if absf(actual-expected)>0.035:
