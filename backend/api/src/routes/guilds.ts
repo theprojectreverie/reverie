@@ -10,6 +10,7 @@ import {raidOverview,startGuildRaid,actGuildRaid,abandonGuildRaid,claimGuildRaid
 import {storyTransactionAdmission} from "../world/story-combat-service.js";
 import {guildShop,grantGuildTokens,buyGuildOffer} from "../world/guild-shop.js";
 import {guildCompetition} from "../world/guild-competition.js";
+import {guildLeagueHistory,claimGuildLeagueReward} from "../world/guild-league-rewards.js";
 const CAP=BASE_GUILD_CAPACITY;
 const clean=(min:number,max:number)=>z.string().trim().min(min).max(max).refine(s=>!/\p{Cc}|\p{Cf}/u.test(s));
 const emblem=z.enum(["moon","star","shield","flame","rose","crown"]);
@@ -82,8 +83,12 @@ export const guildRoutes:FastifyPluginAsync=async app=>{
  });
  app.get("/competition",async(req,reply)=>{
   const id=await identity(req,reply);if(!id)return;
-  return guildCompetition(pool,id);
+  return {...await guildCompetition(pool,id),history:await guildLeagueHistory(pool,id)};
  });
+ app.post("/competition/claim",mutation(z.object({season:z.string().regex(/^\d{4}-\d{2}-\d{2}$/)}).strict(),async(db,id,d)=>{
+  const result=await claimGuildLeagueReward(db,id,d.season);
+  return result?ok(result):error(409,"guild_league_reward_unavailable");
+ }));
  app.get("/search",async(req,reply)=>{
   const id=await identity(req,reply);if(!id)return;
   const p=z.object({q:clean(0,24).default(""),page:z.coerce.number().int().min(0).max(1000).default(0)}).strict().safeParse(req.query);

@@ -13,6 +13,7 @@ test("chat sticker and emoji delivery respects channel access, blocks and rate l
   const b = "22222222-2222-4222-8222-222222222222";
   const c = "33333333-3333-4333-8333-333333333333";
   let blocked = false;
+  let muted = false;
   let ownsMythic = false;
   let friends = true;
   let now = 1800000000000;
@@ -25,6 +26,7 @@ test("chat sticker and emoji delivery respects channel access, blocks and rate l
   Date.now = () => now;
   const query = async (sql: string, args: any[] = []) => {
     if (sql.includes("a.token_version=$3")) return {rows: args[2] === 1 && [a,b,c].includes(args[0]) ? [{id:args[0],name:args[0]===a?"Alice":"Bob",avatar:"kael_avatar",title_id:""}] : []};
+    if(sql.includes("SELECT 1 FROM reverie_chat_mutes")) return {rows:muted&&args[0]===a?[{ok:1}]:[],rowCount:muted&&args[0]===a?1:0};
     if(sql.includes("INSERT INTO chat_send_limits")){
       const times=(budgets.get(args[0])??[]).filter(t=>now-t<10000);
       if(times.length>=5||now-(times.at(-1)??0)<1000)return {rows:[],rowCount:0};
@@ -60,6 +62,9 @@ test("chat sticker and emoji delivery respects channel access, blocks and rate l
   const send = (id:string,text:string,channel="world",recipientId?:string) => app.inject({method:"POST",url:"/v1/chat/messages",headers:headers(id),payload:{channel,text,...(recipientId?{recipientId}:{})}});
   const read = (id:string,channel="world",recipientId?:string)=>app.inject({method:"GET",url:"/v1/chat/messages?channel="+channel+(recipientId?"&recipientId="+recipientId:""),headers:headers(id)});
   const sticker = "[sticker:lilith_ghost_plush]";
+  muted=true;
+  assert.equal((await send(a,sticker)).json().error,"chat_muted");
+  muted=false;
   const sent = await send(a,sticker);
   assert.equal(sent.statusCode,201,sent.body);
   assert.equal(sent.json().message.text,sticker);

@@ -16,6 +16,7 @@ import {shopRoutes} from "./routes/shop.js";
 import {paymentReviewRoutes} from "./routes/payment-review.js";
 import {dailyQuestRoutes,playerTitles} from "./routes/daily-quests.js";
 import {finalizeDueSeasons,startSeasonFinalizer} from "./world/season-rewards.js";
+import {finalizeDueGuildSeasons} from "./world/guild-league-rewards.js";
 import {pvpQueueRoutes} from "./routes/pvp-queue.js";
 import {pvpMatchRoutes} from "./routes/pvp-match.js";
 import {realtimeRoutes} from "./routes/realtime.js";
@@ -25,11 +26,13 @@ import {moderationRoutes} from "./routes/moderation.js";
 import {staffRoutes} from "./routes/staff.js";
 import {developerRoutes} from "./routes/developer.js";
 import {scanServerIncidents,startServerIncidentMonitor} from "./world/server-incidents.js";
+import {attachOperationalMetrics,startOperationalSampling} from "./world/operational-metrics.js";
 import {compensationRoutes} from "./routes/compensation.js";
 import {tutorialSparRoutes} from "./routes/tutorial-spar.js";
 import {geraldStoryPilotRoutes} from "./routes/gerald-story-pilot.js";
 import {storyProgressionRoutes} from "./routes/story-progression.js";
 const app=Fastify({logger:true,trustProxy:config.NODE_ENV==="production",bodyLimit:16384});
+attachOperationalMetrics(app);
 await app.register(helmet);
 await app.register(rateLimit,{max:100,timeWindow:"1 minute"});
 await app.register(jwt,{secret:config.JWT_SECRET,sign:{expiresIn:config.ACCESS_TOKEN_TTL_SECONDS}});
@@ -57,10 +60,13 @@ await app.register(moderationRoutes,{prefix:"/v1/developer/moderation"});
 await app.register(compensationRoutes,{prefix:"/v1/developer/compensation"});
 app.get("/health",async(_req,reply)=>{try{await pool.query("SELECT 1");return{status:"ok",service:"reverie-online-api",database:"ok"};}catch{return reply.code(503).send({status:"degraded",database:"unavailable"});}});
 let stopSeasonFinalizer:(()=>Promise<void>)|undefined;
+let stopGuildLeagueFinalizer:(()=>Promise<void>)|undefined;
 let stopWorldEventRetention:(()=>Promise<void>)|undefined;
 let stopServerIncidents:(()=>Promise<void>)|undefined;
-app.addHook("onClose",async()=>{await stopSeasonFinalizer?.();await stopWorldEventRetention?.();await stopServerIncidents?.();await pool.end();});
+let stopOperationalSampling:(()=>Promise<void>)|undefined;
+app.addHook("onClose",async()=>{await stopSeasonFinalizer?.();await stopGuildLeagueFinalizer?.();await stopWorldEventRetention?.();await stopServerIncidents?.();await stopOperationalSampling?.();await pool.end();});
 app.addHook("onReady",async()=>{
+ stopOperationalSampling=startOperationalSampling(pool);
  if(config.SERVER_INCIDENT_MONITOR_ENABLED==="1"){
   stopServerIncidents=startServerIncidentMonitor(()=>scanServerIncidents(pool),result=>{
    for(const incident of result.opened)app.log.warn({incident},"Regional server incident opened");
@@ -76,6 +82,7 @@ app.addHook("onReady",async()=>{
    rows=>app.log.info({rows},"Expired persistent world events removed"),
    error=>app.log.warn({err:error},"World event retention failed; will retry"));
  }
+ stopGuildLeagueFinalizer=startSeasonFinalizer(finalizeDueGuildSeasons,seasons=>app.log.info({seasons},"Guild league finalized"),error=>app.log.error({err:error},"Guild league finalization failed; will retry"));
  stopSeasonFinalizer=startSeasonFinalizer(()=>finalizeDueSeasons(playerTitles.map(t=>t.id)),seasons=>app.log.info({seasons},"Season standings finalized"),error=>app.log.error({err:error},"Season finalization failed; will retry"));
 });
 try{await app.listen({host:config.HOST,port:config.PORT});}catch(e){app.log.error(e);process.exit(1);}

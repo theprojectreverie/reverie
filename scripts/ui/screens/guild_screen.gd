@@ -194,6 +194,9 @@ func _completed(result:int,code:int,_headers:PackedStringArray,bytes:PackedByteA
 			AuthGateway.refresh_online_wallet()
 			_layout.get_node("Status").text="Guild purchase confirmed."
 			_load()
+		"competition_claim":
+			AuthGateway.refresh_online_wallet()
+			_begin("competition","/competition")
 		"competition":
 			_render_competition(data)
 			_layout.get_node("Status").text="Guild league updated."
@@ -214,7 +217,7 @@ func _render(data:Dictionary):
 		_raid_notice=""
 		_clear_competition()
 	_guild=next_guild
-	_body.get_node("Competition").visible=not _guild.is_empty()
+	_body.get_node("Competition").visible=_loaded
 	_render_raid(data.get("raid"))
 	_render_progression(data)
 	_render_treasury(data.get("treasury",{}))
@@ -308,6 +311,9 @@ func _controls():
 	_raid_controls(ready)
 	_shop_controls(ready)
 	_body.get_node("Competition/Open").disabled=not ready
+	for league_row in _body.get_node("Competition/Rows").get_children():
+		for child in league_row.get_children():
+			if child is Button:child.disabled=not ready or bool(child.get_meta("unavailable",false))
 	_layout.get_node("Toolbar/Refresh").disabled=not ready
 	_layout.get_node("Toolbar/Find").disabled=not ready
 	_body.get_node("Editor/Save").disabled=not ready or not _loaded
@@ -626,3 +632,17 @@ func _render_competition(data:Dictionary):
 		rows.add_child(UIFactory.wrapped("#%d  %s | %s points\n%d contributors | Guild Lv %d" % [int(entry.rank),str(entry.name),str(entry.points),int(entry.contributors),int(entry.level)]))
 	if rows.get_child_count()==0:rows.add_child(UIFactory.wrapped("No guild has scored yet."))
 	section.get_node("Open").text="Refresh leaderboard"
+	var history:Dictionary=data.get("history",{})
+	rows.add_child(UIFactory.heading("Season results and rewards",16))
+	rows.add_child(UIFactory.wrapped("Prize seasons begin "+str(history.get("firstRewardSeason","2026-12-21"))+". Top 30 contributors with at least 200 points qualify for podium rewards."))
+	for entry in history.get("titles",[]):
+		rows.add_child(UIFactory.wrapped("%s | %s | %s" % [entry.title,entry.name,entry.season]))
+	for entry in history.get("champions",[]):
+		rows.add_child(UIFactory.wrapped("%s | #%d %s | %s points" % [entry.season,int(entry.rank),entry.name,entry.points]))
+	for entry in history.get("rewards",[]):
+		var season:=str(entry.season)
+		var row:=_row(rows,"%s | #%d %s | %d tokens" % [season,int(entry.rank),entry.name,int(entry.tokens)])
+		_button(row,"Claimed" if bool(entry.claimed) else "Claim",func():_begin("competition_claim","/competition/claim",HTTPClient.METHOD_POST,{"season":season}))
+		var button:Button=row.get_child(row.get_child_count()-1)
+		button.set_meta("unavailable",bool(entry.claimed))
+		button.disabled=bool(entry.claimed)
