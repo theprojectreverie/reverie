@@ -169,3 +169,5 @@ func _open_online_collection() -> void:
 	overlay.z_index = 21
 	overlay.closed.connect(close_screen)
 	add_child(overlay)
+	# The account collection owns its own shell; never render the launch shell underneath.
+	_shell.hide()

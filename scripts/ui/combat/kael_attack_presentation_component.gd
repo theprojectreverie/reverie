@@ -129,29 +129,36 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 
 func _play_boss_combo(attacker: BattlefieldActor, target: BattlefieldActor) -> void:
 	attacker.cancel_attack_motion()
+	var target_ref: WeakRef = weakref(target) if is_instance_valid(target) else null
+	attacker.play_kael_boss_clip(&"approach")
+	var motion := attacker.create_tween()
+	attacker.track_attack_motion(motion)
+	motion.tween_method(_place_boss_combo.bind(attacker, target_ref), 0.0, 1.0, BOSS_APPROACH_TIME)
+	motion.tween_callback(func() -> void:
+		attacker.play_kael_boss_clip(&"attack")
+	)
+	motion.tween_method(func(_elapsed: float): _place_boss_combo(1.0, attacker, target_ref), 0.0, 1.0, BOSS_ATTACK_TIME)
+	motion.tween_callback(func() -> void:
+		attacker.play_kael_boss_clip(&"retreat")
+	)
+	motion.tween_method(_place_boss_combo.bind(attacker, target_ref), 1.0, 0.0, BOSS_RETREAT_TIME).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	motion.tween_callback(func() -> void:
+		attacker.position = attacker.home_position
+		attacker.play_kael_boss_clip(&"idle")
+	)
+
+func _place_boss_combo(progress: float, attacker: BattlefieldActor, target_ref: WeakRef) -> void:
+	if not is_instance_valid(attacker) or attacker.dead:return
+	var target := target_ref.get_ref() as BattlefieldActor if target_ref != null else null
 	var origin := attacker.home_position
 	var target_home := target.home_position if is_instance_valid(target) else origin + Vector2(180, 0)
 	var direction := (target_home - origin).normalized()
 	attacker.face(direction)
-	var distance := origin.distance_to(target_home)
-	var reach := origin + direction * maxf(0.0, distance - (95.0 if is_instance_valid(target) and target.unit.is_boss else 52.0))
-	attacker.play_kael_boss_clip(&"approach")
-	var motion := attacker.create_tween()
-	attacker.track_attack_motion(motion)
-	motion.tween_property(attacker, "position", reach, BOSS_APPROACH_TIME)
-	motion.tween_callback(func() -> void:
-		attacker.play_kael_boss_clip(&"attack")
-	)
-	motion.tween_interval(BOSS_ATTACK_TIME)
-	motion.tween_callback(func() -> void:
-		attacker.play_kael_boss_clip(&"retreat")
-	)
-	motion.tween_property(attacker, "position", origin, BOSS_RETREAT_TIME).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	motion.tween_callback(func() -> void:
-		attacker.position = origin
-		attacker.play_kael_boss_clip(&"idle")
-	)
-
+	var stop_distance := 95.0 if is_instance_valid(target) and target.unit != null and target.unit.is_boss else 52.0
+	if is_instance_valid(target) and is_instance_valid(target.gerald_art):
+		stop_distance = maxf(stop_distance, 35.0 * target.gerald_art.scale.x + 42.0 * attacker.visual.visual_scale)
+	var reach := origin + direction * maxf(0.0, origin.distance_to(target_home) - stop_distance)
+	attacker.position = origin.lerp(reach, progress)
 
 func _play_kael_pose(attacker: BattlefieldActor, animation_name: String) -> void:
 	if attacker == null or not is_instance_valid(attacker):

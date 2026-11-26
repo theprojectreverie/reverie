@@ -23,13 +23,15 @@ func refresh_quest() -> void:
 	if zone != null:
 		var result := CHAPTER_NAV.resolve(zone)
 		zone.set_meta("chapter_navigation",result)
-		hud._quest_label.visible = not result.is_empty()
 		if not result.is_empty():
+			hud._quest_label.visible = true
 			var suffix := ""
 			if bool(result.get("valid",false)) and float(result.get("distance",0.0))>1.0:
 				suffix = " (%s %.0f tiles)" % [quest_arrow(result.direction),float(result.distance)/IsoMath.TILE_W]
 			hud._quest_label.text = "%s - %s%s" % [result.title,result.text,suffix]
-		return
+			return
+		# ChapterNavigation only resolves authored six-zone objectives. If no
+		# chapter objective is available, keep the ordinary quest tracker alive.
 	if not MultiplayerGateway.standalone_expedition_id.is_empty():
 		hud._quest_label.visible = false
 		return

@@ -29,3 +29,10 @@ test("garden solo region mirrors the authored diamond and entrance",()=>{
  assert.deepEqual(region.outline,points);assert.ok(openingContains("story_royal_gardens",{x:-1320,y:2325}));assert.ok(!openingContains("story_royal_gardens",{x:3000,y:3000}));
  assert.equal(openingRegion("story_village")?.nextRegion,"story_royal_gardens");assert.equal(openingRegion("six_zone_royal_gardens"),undefined);
 });
+
+test("Royal Gate story outline follows every authored perimeter segment",()=>{
+ const gate=scene("six_zone_reverie/individual_zones/zone_02_royal_gate_standalone.tscn");const region=openingRegion("story_royal_gate")!;
+ const points=Array.from(gate.matchAll(/\[sub_resource type="SegmentShape2D" id="edge_[^"]+"\]\s+a = Vector2\(([-\d.]+), ([-\d.]+)\)/g),m=>[Number(m[1]),Number(m[2])]);
+ assert.deepEqual(region.outline,points);assert.deepEqual(region.spawn,nodePosition(gate,"SafeSpawnFromPreviousZone"));assert.deepEqual(region.encounter.position,nodePosition(gate,"Crownling01"));
+ assert.ok(openingContains("story_royal_gate",{x:0,y:900}));assert.ok(openingContains("story_royal_gate",{x:1600,y:2510}));assert.ok(!openingContains("story_royal_gate",{x:3200,y:3000}));
+});

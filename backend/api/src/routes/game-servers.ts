@@ -7,9 +7,14 @@ import {readVerifiedOpeningProgress,eligibleOpeningRegions,openingRegionAllowed}
 import {openingRegion} from "../world/story-opening-geometry.js";
 import type {PoolClient} from "pg";
 const gardensPilotEnabled=()=>config.NODE_ENV!=="production"&&process.env.REVERIE_GARDENS_STORY_PILOT==="1";
+async function directoryProgress(db:PoolClient,id:string){
+ const opening=await readVerifiedOpeningProgress(db,id);
+ const royalGateUnlocked=gardensPilotEnabled()&&opening.geraldDefeated&&!!(await db.query("SELECT 1 FROM story_elathra_audience WHERE player_id=$1 AND completed_at IS NOT NULL",[id])).rowCount;
+ return {...opening,royalGateUnlocked};
+}
 async function canEnterOpeningRegion(db:PoolClient,id:string,region:string):Promise<boolean>{
- if(region!=="story_village"&&region!=="story_royal_gardens")return true;
- return openingRegionAllowed(region,await readVerifiedOpeningProgress(db,id),gardensPilotEnabled());
+ if(!["story_village","story_royal_gardens","story_royal_gate"].includes(region))return true;
+ return openingRegionAllowed(region,await directoryProgress(db,id),gardensPilotEnabled());
 }
 import {config} from "../config.js";
 import {hasContiguousEventSequences} from "../world/persistent-replay-window.js";
@@ -166,7 +171,7 @@ export const gameServerRoutes:FastifyPluginAsync=async app=>{
   reply.header("Cache-Control","no-store");
   const playerId=await playerFromRequest(req,reply);if(!playerId)return;
   const db=await pool.connect();try{
-   const progress=await readVerifiedOpeningProgress(db,playerId);
+   const progress=await directoryProgress(db,playerId);
    const regions=eligibleOpeningRegions(progress,gardensPilotEnabled());
    const servers=(await db.query("SELECT id,region_id,display_name,endpoint_url FROM game_servers WHERE region_id=ANY($1::text[]) AND status='online' AND heartbeat_at>now()-interval '60 seconds' ORDER BY region_id,display_name",[regions])).rows;
    const assignment=(await db.query("SELECT p.server_id,s.region_id FROM game_server_players p JOIN game_servers s ON s.id=p.server_id WHERE p.player_id=$1",[playerId])).rows[0]??null;

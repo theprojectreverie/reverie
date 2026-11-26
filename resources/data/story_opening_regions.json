@@ -16,5 +16,11 @@
     "outline": [[3,12],[3150,1584],[3,3185],[-3138,1584]],
     "encounter": {"groupId":"rose_slime_garden_1","position":[-1100,2200],"radius":113},
     "nextRegion":"story_royal_gate"
+  },
+  "story_royal_gate": {
+    "spawn": [0,900],
+    "outline": [[130,-70],[3280,1502],[1828,2230],[1940,2290],[1810,2510],[1600,2590],[1300,2494],[130,3080],[-3020,1502],[-640,316],[-740,205],[-520,85],[-358,162]],
+    "encounter": {"groupId":"royal_gate_patrol_1","position":[-65,1200],"radius":113},
+    "nextRegion":"story_willow_fields"
   }
 }

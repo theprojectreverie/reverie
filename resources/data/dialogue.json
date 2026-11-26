@@ -1797,7 +1797,7 @@
     "start": "greet",
     "nodes": {
       "greet": {
-        "speaker": "Revienna",
+        "speaker": "Ravienna",
         "text": "Do not come any closer. I can still hear them... even here.",
         "portrait_asset": "res://assets/portraits/summon/ravienna.png",
         "next": "reply"
@@ -1805,15 +1805,16 @@
       "reply": {
         "speaker": "Kael",
         "text": "Ravienna, Cassien and I brought you back. We are not your enemies.",
+        "portrait_asset": "res://assets/portraits/summon/kael.png",
         "next": "warning"
       },
       "warning": {
-        "speaker": "Revienna",
+        "speaker": "Ravienna",
         "text": "Stop saying his name. I cannot bear another voice!",
         "portrait_asset": "res://assets/portraits/summon/ravienna.png",
         "choices": [
           {
-            "text": "Challenge Revienna",
+            "text": "Challenge Ravienna",
             "next": ""
           },
           {

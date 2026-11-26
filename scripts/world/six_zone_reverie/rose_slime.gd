@@ -242,7 +242,7 @@ func _story_garden_zone() -> Node:
         return null
     var node := get_parent()
     while node != null:
-        if node.name == &"StandaloneZone01": return node
+        if node.name in [&"StandaloneZone01", &"StandaloneZone02"]: return node
         node = node.get_parent()
     return null
 

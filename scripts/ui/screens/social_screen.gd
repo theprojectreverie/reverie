@@ -17,6 +17,9 @@ var _friends: Array = []
 var _party_invites: Array = []
 var _profile_loaded := false
 var _queued_refresh := false
+var _queued_friend_action: Dictionary = {}
+var _mobile_profile_open := false
+var _mobile_profile_button: Button
 var _queued_picture := ""
 var _unlocked_portraits: Array = []
 var _roster_refresh := false
@@ -54,6 +57,11 @@ func _build_content():
 	guild_button.pressed.connect(_open_guilds)
 	_layout=LAYOUT.instantiate()
 	content.add_child(_layout)
+	if TouchInput.using_touch:
+		_mobile_profile_button=UIFactory.button("Profile")
+		header_actions.add_child(_mobile_profile_button)
+		_mobile_profile_button.pressed.connect(_toggle_mobile_profile)
+		_layout.get_node("Scroll").custom_minimum_size.y=140
 	_layout.get_node("Profile/Browse").pressed.connect(_toggle_gallery)
 	_layout.get_node("PortraitGallery/Toolbar/Done").pressed.connect(func(): _set_gallery_visible(false))
 	_layout.get_node("PortraitGallery/Toolbar/Search").text_changed.connect(func(_value): _render_gallery())
@@ -65,7 +73,7 @@ func _build_content():
 	_layout.get_node("Search/Find").pressed.connect(_search)
 	_layout.get_node("Search/Name").text_submitted.connect(func(_s):_search())
 	_layout.get_node("Search/Name").text_changed.connect(func(_s):_clear_result(); _update_controls())
-	_layout.get_node("Result/Add").pressed.connect(func():_friend_action(_found,"request"))
+	_layout.get_node("Result/Add").pressed.connect(func():_friend_action(_found,"accept" if _found_relationship()=="Incoming request" else "request"))
 	_layout.get_node("Profile/Save").pressed.connect(_save_picture)
 	_layout.get_node("Titles/Equip").pressed.connect(_equip_title)
 	_layout.get_node("FriendProfile/Toolbar/Back").pressed.connect(_close_friend_profile)
@@ -166,6 +174,7 @@ func _auth_changed(authenticated: bool, player: Dictionary):
 	_layout.get_node("Titles/Showcase").text="Achievement titles"
 	_retry_at=0
 	_queued_refresh=false
+	_queued_friend_action.clear()
 	_queued_picture=""
 	_unlocked_portraits.clear()
 	_roster_refresh=false
@@ -181,8 +190,25 @@ func _auth_changed(authenticated: bool, player: Dictionary):
 	_layout.get_node("Result/Name").text="Search for a friend"
 	_render_friends()
 	_update_controls()
+func _toggle_mobile_profile() -> void:
+	if _ranking_open or not _inspected_id.is_empty():return
+	_mobile_profile_open=not _mobile_profile_open
+	_apply_mobile_friends_layout()
+
+func _apply_mobile_friends_layout() -> void:
+	if not is_instance_valid(_mobile_profile_button):return
+	var ordinary:bool=not _ranking_open and _inspected_id.is_empty() and not _layout.get_node("PortraitGallery").visible and not _layout.get_node("BadgeGallery").visible
+	_mobile_profile_button.visible=ordinary
+	if not ordinary:return
+	_mobile_profile_button.text="Friends" if _mobile_profile_open else "Profile"
+	for item in ["ProfileHeading","Profile","Stats","Titles","AchievementShowcase","Divider"]:
+		_layout.get_node(item).visible=_mobile_profile_open
+	for item in ["SearchHeading","Search","Result","Heading","Scroll","Rankings"]:
+		_layout.get_node(item).visible=not _mobile_profile_open
+
 func _process(delta):
 	if _layout==null:return
+	_apply_mobile_friends_layout()
 	if not AuthGateway.is_authenticated():
 		_layout.get_node("Status").text="Sign in to use friends and profile pictures."
 		return
@@ -194,6 +220,13 @@ func _process(delta):
 	if _challenges_open:_update_challenge_countdown()
 	if _ranking_open and _ranking_period=="monthly":_update_season_countdown()
 	if _operation.is_empty():
+		if not _queued_friend_action.is_empty():
+			if AuthGateway.access_token_ready_for_connection():
+				var pending:=_queued_friend_action.duplicate()
+				_queued_friend_action.clear()
+				if not _begin("action","/friends",pending):
+					_queued_friend_action=pending
+			return
 		if _ranking_open:
 			if _challenges_open:
 				if _elapsed>=15.0 or (_challenge_deadline>0 and Time.get_ticks_msec()>=_challenge_deadline):_request_challenges()
@@ -251,7 +284,12 @@ func _found_relationship()->String:
 			return "Already friends" if friend.status=="accepted" else ("Incoming request" if friend.direction=="incoming" else "Request sent")
 	return ""
 func _friend_action(id: String,action: String):
-	if not id.is_empty():_begin("action","/friends",{"playerId":id,"action":action})
+	if id.is_empty() or not AuthGateway.is_authenticated() or not _queued_friend_action.is_empty() or _operation=="action":return
+	var payload:Dictionary={"playerId":id,"action":action}
+	if not _begin("action","/friends",payload):
+		_queued_friend_action=payload
+		_layout.get_node("Status").text="Sending friend action after connection refresh..."
+		_update_controls()
 func _save_picture():
 	var options: OptionButton=_layout.get_node("Profile/Pictures")
 	if options.selected<0:return
@@ -391,11 +429,13 @@ func _update_controls():
 	_layout.get_node("Profile/Save").disabled=not portrait_ready or not changed
 	_layout.get_node("Profile/Save").text="Saving..." if _operation=="picture" or not _queued_picture.is_empty() else "Save picture"
 	var relationship:=_found_relationship()
-	_layout.get_node("Result/Add").text="Send request" if relationship.is_empty() else relationship
-	_layout.get_node("Result/Add").disabled=not ready or _found.is_empty() or not relationship.is_empty()
+	var friend_ready:bool=AuthGateway.is_authenticated() and (_operation.is_empty() or _operation=="friends") and _queued_friend_action.is_empty()
+	_layout.get_node("Result/Add").text="Accept request" if relationship=="Incoming request" else ("Send request" if relationship.is_empty() else relationship)
+	_layout.get_node("Result/Add").disabled=not friend_ready or _found.is_empty() or (not relationship.is_empty() and relationship!="Incoming request")
 	for node in _layout.get_node("Scroll/Rows").get_children():
 		for child in node.get_children():
-			if child is Button:child.disabled=not ready
+			if child is Button:
+				child.disabled=not friend_ready if child.has_meta("friend_action") else not ready
 func _completed(result: int,code: int,_headers: PackedStringArray,bytes: PackedByteArray):
 	var operation:=_operation
 	_operation=""
@@ -850,7 +890,10 @@ func _render_friends():
 		elif friend.direction=="incoming":incoming+=1
 	_layout.get_node("Heading").text="FRIENDS (%d)  |  INCOMING (%d)" % [accepted,incoming]
 	if _friends.is_empty():rows.add_child(UIFactory.label("No friends or pending requests.",14,UITheme.TEXT_DIM))
-	for friend in _friends:
+	var display_friends:=_friends.duplicate()
+	if TouchInput.using_touch:
+		display_friends.sort_custom(func(a,b):return int(a.status=="pending" and a.direction=="incoming")>int(b.status=="pending" and b.direction=="incoming"))
+	for friend in display_friends:
 		var row:=HBoxContainer.new()
 		var portrait:=TextureRect.new()
 		portrait.custom_minimum_size=Vector2(48,48)
@@ -860,6 +903,7 @@ func _render_friends():
 		row.add_child(portrait)
 		var label:=UIFactory.label(str(friend.name)+" — "+(("Online" if friend.get("online",false) else "Offline") if friend.status=="accepted" else str(friend.direction).capitalize()+" request"),14,UITheme.TEXT)
 		label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 		var title:=str(friend.get("title",""))
 		if not title.is_empty():
 			label.text+="\n"+title
@@ -882,6 +926,8 @@ func _render_friends():
 		var actions=["remove"] if friend.status=="accepted" else (["accept","decline"] if friend.direction=="incoming" else ["cancel"])
 		for action in actions:
 			var button:=UIFactory.button(action.capitalize(),action=="accept")
+			button.set_meta("friend_action",true)
+			if TouchInput.using_touch:button.custom_minimum_size=Vector2(90,52)
 			button.pressed.connect(_friend_action.bind(str(friend.id),action))
 			row.add_child(button)
 		rows.add_child(row)

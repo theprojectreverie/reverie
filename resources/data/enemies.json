@@ -464,7 +464,7 @@
     }
   },
   "revienna_boss": {
-    "name": "Revienna, the Eclipse Sovereign",
+    "name": "Ravienna, the Eclipse Sovereign",
     "element": "dark",
     "rarity": "mythic",
     "role": "Boss",
@@ -486,7 +486,7 @@
     "phases": [
       {
         "hp_below": 0.66,
-        "message": "Violet light gathers around Revienna.",
+        "message": "Violet light gathers around Ravienna.",
         "status": {
           "id": "atk_up",
           "turns": 99,
@@ -503,7 +503,7 @@
         }
       }
     ],
-    "lore": "Revienna, the Eclipse Sovereign.",
+    "lore": "Ravienna, the Eclipse Sovereign.",
     "palette": {
       "hair": "#e5d8f2",
       "skin": "#e4cce8",

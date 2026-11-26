@@ -92,7 +92,7 @@ func _ready() -> void:
 	if not configured_region.is_empty():
 		region_id = configured_region
 	_opening_geometry = OPENING_GEOMETRY.load_region(region_id)
-	if region_id in ["story_training_ground", "story_village", "story_royal_gardens"] and _opening_geometry.is_empty():
+	if region_id in ["story_training_ground", "story_village", "story_royal_gardens", "story_royal_gate"] and _opening_geometry.is_empty():
 		push_error("Missing opening-region geometry")
 		return
 	if configured_port.is_valid_int():

@@ -1,0 +1,1 @@
+Six unique pixel-art environment backgrounds for Six Zone Reverie. Extract to project-fantasy project root. Each is a 512x512 PNG. These are background art only; existing ground tiles, collisions, and gameplay must remain in front. Import into Godot and position/scale individually for each zone.

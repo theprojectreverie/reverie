@@ -10,3 +10,11 @@ test("isolated gardens require both verified victories and explicit pilot enable
   assert.equal(openingRegionAllowed("six_zone_royal_gardens",progress,enabled),true);
  }
 });
+
+test("Royal Gate requires both verified victories and completed Elathra audience",()=>{
+ for(const tutorialComplete of [false,true])for(const geraldDefeated of [false,true])for(const royalGateUnlocked of [false,true])for(const enabled of [false,true]){
+  const progress={tutorialComplete,geraldDefeated,royalGateUnlocked};
+  assert.equal(openingRegionAllowed("story_royal_gate",progress,enabled),tutorialComplete&&geraldDefeated&&royalGateUnlocked&&enabled);
+  assert.equal(openingRegionAllowed("six_zone_royal_gate",progress,enabled),true);
+ }
+});

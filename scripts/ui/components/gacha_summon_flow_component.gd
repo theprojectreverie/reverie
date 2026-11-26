@@ -227,6 +227,7 @@ func show_results(results: Array, currency_id: String = "crystals", banner_id: S
 
 # Online summons use a separate server wallet/roster. Local progress is never imported.
 var online_state: Dictionary = {}
+var online_state_fresh := false
 var pending_online: Dictionary = {}
 var _online_http: HTTPRequest
 var _online_identity := ""
@@ -243,6 +244,7 @@ func online_bind() -> void:
 func _online_identity_changed(_authenticated: bool, _player: Dictionary) -> void:
 	var current := str(AuthGateway.current_player().get("id", ""))
 	session_generation += 1
+	online_state_fresh = false
 	online_state = {}
 	pending_online.clear()
 	_online_identity = current
@@ -314,6 +316,9 @@ func _online_call(path: String, body: Dictionary = {}) -> Dictionary:
 
 func refresh_online_state() -> bool:
 	if online_loading or online_request_busy: return false
+	if not AuthGateway.access_token_ready_for_connection():
+		online_state_fresh = false
+		return false
 	online_loading = true
 	var generation := session_generation
 	var identity := str(AuthGateway.current_player().get("id", ""))
@@ -326,11 +331,19 @@ func refresh_online_state() -> bool:
 	var response := await _online_call("/state")
 	online_loading = false
 	if generation != session_generation or identity != _online_identity or identity != str(AuthGateway.current_player().get("id", "")): return false
-	if int(response.get("code", 0)) != 200 or str(response.get("playerId", "")) != identity:
-		online_state = {}
-		if is_instance_valid(screen): screen._invalidate_account_view(false)
+	return _apply_online_snapshot(response, identity)
+
+func _apply_online_snapshot(response: Dictionary, identity: String) -> bool:
+	var code := int(response.get("code", 0))
+	if code != 200 or str(response.get("playerId", "")) != identity or not response.get("roster") is Array or not response.get("party") is Array or not response.get("currencies") is Dictionary:
+		online_state_fresh = false
+		# Only retain a snapshot belonging to this authenticated account. Never authorize writes from it.
+		if identity.is_empty() or str(online_state.get("playerId", "")) != identity or code in [401,403] or (code == 200 and str(response.get("playerId", "")) != identity):
+			online_state = {}
+			if is_instance_valid(screen): screen._invalidate_account_view(false)
 		return false
 	online_state = response
+	online_state_fresh = true
 	AuthGateway.refresh_account_roster()
 	return true
 
@@ -367,6 +380,14 @@ func pull_online(banner: String, count: int, currency: String = "crystals") -> D
 		_store_pending()
 		await refresh_online_state()
 		return {"ok": false, "error": "Paid progress changed in another session. Review the refreshed counter before summoning."}
+	if code == 403 and result.get("error") == "paid_summons_disabled_in_alpha":
+		# The public gateway rejects before forwarding, so this request was not charged.
+		var rejected_request := pending_online.duplicate(true)
+		pending_online.clear()
+		if not _store_pending():
+			pending_online = rejected_request
+			return {"ok": false, "error": "Paid summons are unavailable in public alpha. Could not clear the rejected request; retry recovery."}
+		return {"ok": false, "error": "Paid summons are unavailable in public alpha. No charge for this rejected request. Use ordinary crystals."}
 	if code == 400 or (code == 409 and result.get("error") == "insufficient_currency"):
 		pending_online.clear()
 		_store_pending()

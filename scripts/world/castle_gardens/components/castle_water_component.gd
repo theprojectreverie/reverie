@@ -13,7 +13,10 @@ func is_water_world(world_position: Vector2) -> bool:
 		if not (marker is Marker2D):
 			continue
 		var grid_value: Variant = marker.get_meta("grid_position", null)
-		var radius := float(marker.get_meta("radius", 0.0))
+		var grid_rect: Variant = marker.get_meta("grid_rect") if marker.has_meta("grid_rect") else null
+		var radius := float(marker.get_meta("radius")) if marker.has_meta("radius") else 0.0
+		if grid_rect is Rect2 and (grid_rect as Rect2).has_point(grid_position):
+			return true
 		if grid_value is Vector2 and radius > 0.0 and grid_position.distance_to(grid_value) < radius:
 			return true
 	return false

@@ -1034,5 +1034,695 @@
         "multiplier": 1.1
       }
     ]
+  },
+  "crimson_oath": {
+    "name": "Crimson Oath",
+    "subtitle": "Limited summon — Cassien",
+    "type": "limited",
+    "featured": [
+      "cassien_legendary"
+    ],
+    "featured_rate": 0.5,
+    "rates": {
+      "common": 0.5,
+      "legendary": 0.035,
+      "mythic": 0.005,
+      "rare": 0.3,
+      "epic": 0.16
+    },
+    "hard_pity": 80,
+    "featured_pity": 160,
+    "ten_pull_epic_guarantee": true,
+    "cost": {
+      "currency": "crystals",
+      "single": 120,
+      "ten": 1200
+    },
+    "pool": {
+      "legendary": [
+        "kael_legendary",
+        "lilith_legendary",
+        "gerald_legendary",
+        "ravienna",
+        "cassien_legendary",
+        "nyx",
+        "crimson_witch_legendary",
+        "mirene_legendary",
+        "caelith_legendary"
+      ],
+      "mythic": [
+        "kael_mythic",
+        "lilith_mythic",
+        "gerald_mythic",
+        "ravienna_mythic",
+        "cassien_mythic",
+        "nyx_mythic",
+        "crimson_witch_mythic",
+        "mirene_mythic",
+        "caelith_mythic"
+      ],
+      "epic": [
+        "upgrade_kael_epic_v1",
+        "upgrade_lilith_epic_v1",
+        "upgrade_gerald_epic_v1",
+        "upgrade_ravienna_epic_v1",
+        "upgrade_cassien_epic_v1",
+        "upgrade_nyx_epic_v1",
+        "upgrade_crimson_witch_epic_v1",
+        "upgrade_mirene_epic_v1",
+        "upgrade_caelith_epic_v1"
+      ],
+      "rare": [
+        "upgrade_kael_rare_v1",
+        "upgrade_lilith_rare_v1",
+        "upgrade_gerald_rare_v1",
+        "upgrade_ravienna_rare_v1",
+        "upgrade_cassien_rare_v1",
+        "upgrade_nyx_rare_v1",
+        "upgrade_crimson_witch_rare_v1",
+        "upgrade_mirene_rare_v1",
+        "upgrade_caelith_rare_v1"
+      ],
+      "common": [
+        "mob_rose_slime_v1",
+        "mob_mossling_v1",
+        "mob_crownling_v1"
+      ]
+    },
+    "common_rewards": {
+      "mob_rose_slime_v1": {
+        "name": "Rose Slime",
+        "art": "res://assets/monsters/rose_slime/rose_slime_idle_64x64.png",
+        "cell": [
+          64,
+          64
+        ],
+        "items": {
+          "moonpetal": 3
+        }
+      },
+      "mob_mossling_v1": {
+        "name": "Mossling",
+        "art": "res://assets/enemies/mossling/idle_pass_02/mossling_idle_8dir_4f_96x128.png",
+        "cell": [
+          96,
+          128
+        ],
+        "items": {
+          "dew_of_awakening": 1
+        }
+      },
+      "mob_crownling_v1": {
+        "name": "Crownling",
+        "art": "res://assets/monsters/crownling/crownling_idle_64x64.png",
+        "cell": [
+          64,
+          64
+        ],
+        "items": {
+          "gothic_shard": 2
+        }
+      }
+    },
+    "upgrade_cards": {
+      "upgrade_kael_rare_v1": {
+        "name": "Kael Ashford",
+        "rarity": "rare",
+        "portrait_id": "kael",
+        "target": "upgrade_kael_epic_v1",
+        "cost": 20
+      },
+      "upgrade_lilith_rare_v1": {
+        "name": "Lilith",
+        "rarity": "rare",
+        "portrait_id": "lilith",
+        "target": "upgrade_lilith_epic_v1",
+        "cost": 20
+      },
+      "upgrade_gerald_rare_v1": {
+        "name": "Gerald",
+        "rarity": "rare",
+        "portrait_id": "gerald",
+        "target": "upgrade_gerald_epic_v1",
+        "cost": 20
+      },
+      "upgrade_ravienna_rare_v1": {
+        "name": "Queen Ravienna",
+        "rarity": "rare",
+        "portrait_id": "ravienna_rare",
+        "target": "upgrade_ravienna_epic_v1",
+        "cost": 20
+      },
+      "upgrade_cassien_rare_v1": {
+        "name": "Cassien",
+        "rarity": "rare",
+        "portrait_id": "cassien",
+        "target": "upgrade_cassien_epic_v1",
+        "cost": 20
+      },
+      "upgrade_nyx_rare_v1": {
+        "name": "Nyx Vaelora",
+        "rarity": "rare",
+        "portrait_id": "nyx_rare",
+        "target": "upgrade_nyx_epic_v1",
+        "cost": 20
+      },
+      "upgrade_crimson_witch_rare_v1": {
+        "name": "Crimson Witch",
+        "rarity": "rare",
+        "portrait_id": "crimson_witch",
+        "target": "upgrade_crimson_witch_epic_v1",
+        "cost": 20
+      },
+      "upgrade_mirene_rare_v1": {
+        "name": "MirÃ©ne",
+        "rarity": "rare",
+        "portrait_id": "mirene",
+        "target": "upgrade_mirene_epic_v1",
+        "cost": 20
+      },
+      "upgrade_caelith_rare_v1": {
+        "name": "Caelith",
+        "rarity": "rare",
+        "portrait_id": "caelith",
+        "target": "upgrade_caelith_epic_v1",
+        "cost": 20
+      },
+      "upgrade_kael_epic_v1": {
+        "name": "Kael Ashford",
+        "rarity": "epic",
+        "portrait_id": "kael_epic",
+        "target": "kael_legendary",
+        "cost": 10
+      },
+      "upgrade_lilith_epic_v1": {
+        "name": "Lilith",
+        "rarity": "epic",
+        "portrait_id": "lilith_epic",
+        "target": "lilith_legendary",
+        "cost": 10
+      },
+      "upgrade_gerald_epic_v1": {
+        "name": "Gerald",
+        "rarity": "epic",
+        "portrait_id": "gerald_epic",
+        "target": "gerald_legendary",
+        "cost": 10
+      },
+      "upgrade_ravienna_epic_v1": {
+        "name": "Queen Ravienna",
+        "rarity": "epic",
+        "portrait_id": "ravienna_epic",
+        "target": "ravienna",
+        "cost": 10
+      },
+      "upgrade_cassien_epic_v1": {
+        "name": "Cassien",
+        "rarity": "epic",
+        "portrait_id": "cassien_epic",
+        "target": "cassien_legendary",
+        "cost": 10
+      },
+      "upgrade_nyx_epic_v1": {
+        "name": "Nyx Vaelora",
+        "rarity": "epic",
+        "portrait_id": "nyx_epic",
+        "target": "nyx",
+        "cost": 10
+      },
+      "upgrade_crimson_witch_epic_v1": {
+        "name": "Crimson Witch",
+        "rarity": "epic",
+        "portrait_id": "crimson_witch_epic",
+        "target": "crimson_witch_legendary",
+        "cost": 10
+      },
+      "upgrade_mirene_epic_v1": {
+        "name": "MirÃ©ne",
+        "rarity": "epic",
+        "portrait_id": "mirene_epic",
+        "target": "mirene_legendary",
+        "cost": 10
+      },
+      "upgrade_caelith_epic_v1": {
+        "name": "Caelith",
+        "rarity": "epic",
+        "portrait_id": "caelith_epic",
+        "target": "caelith_legendary",
+        "cost": 10
+      }
+    },
+    "mythic_fusion": {
+      "ravienna": {
+        "target": "ravienna_mythic",
+        "cost": 7,
+        "item": "legendary_progress_ravienna"
+      },
+      "nyx": {
+        "target": "nyx_mythic",
+        "cost": 7,
+        "item": "legendary_progress_nyx"
+      },
+      "kael_legendary": {
+        "target": "kael_mythic",
+        "cost": 7,
+        "item": "legendary_progress_kael_legendary"
+      },
+      "lilith_legendary": {
+        "target": "lilith_mythic",
+        "cost": 7,
+        "item": "legendary_progress_lilith_legendary"
+      },
+      "gerald_legendary": {
+        "target": "gerald_mythic",
+        "cost": 7,
+        "item": "legendary_progress_gerald_legendary"
+      },
+      "cassien_legendary": {
+        "target": "cassien_mythic",
+        "cost": 7,
+        "item": "legendary_progress_cassien_legendary"
+      },
+      "crimson_witch_legendary": {
+        "target": "crimson_witch_mythic",
+        "cost": 7,
+        "item": "legendary_progress_crimson_witch_legendary"
+      },
+      "mirene_legendary": {
+        "target": "mirene_mythic",
+        "cost": 7,
+        "item": "legendary_progress_mirene_legendary"
+      },
+      "caelith_legendary": {
+        "target": "caelith_mythic",
+        "cost": 7,
+        "item": "legendary_progress_caelith_legendary"
+      }
+    },
+    "mythic_ascension": {
+      "kael_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_kael_mythic"
+      },
+      "lilith_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_lilith_mythic"
+      },
+      "gerald_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_gerald_mythic"
+      },
+      "ravienna_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_ravienna_mythic"
+      },
+      "cassien_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_cassien_mythic"
+      },
+      "nyx_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_nyx_mythic"
+      },
+      "crimson_witch_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_crimson_witch_mythic"
+      },
+      "mirene_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_mirene_mythic"
+      },
+      "caelith_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_caelith_mythic"
+      }
+    },
+    "ascended_bonds": [
+      {
+        "id": "siblings_guard",
+        "name": "Unbroken Sibling Bond",
+        "members": [
+          "gerald_mythic",
+          "lilith_mythic"
+        ],
+        "stat": "def",
+        "multiplier": 1.1
+      },
+      {
+        "id": "eclipse_vow",
+        "name": "Eclipse Vow",
+        "members": [
+          "ravienna_mythic",
+          "cassien_mythic"
+        ],
+        "stat": "atk",
+        "multiplier": 1.1
+      }
+    ]
+  },
+  "eclipse_sovereign": {
+    "name": "Eclipse Sovereign",
+    "subtitle": "Limited summon — Queen Ravienna",
+    "type": "limited",
+    "featured": [
+      "ravienna"
+    ],
+    "featured_rate": 0.5,
+    "rates": {
+      "common": 0.5,
+      "legendary": 0.035,
+      "mythic": 0.005,
+      "rare": 0.3,
+      "epic": 0.16
+    },
+    "hard_pity": 80,
+    "featured_pity": 160,
+    "ten_pull_epic_guarantee": true,
+    "cost": {
+      "currency": "crystals",
+      "single": 120,
+      "ten": 1200
+    },
+    "pool": {
+      "legendary": [
+        "kael_legendary",
+        "lilith_legendary",
+        "gerald_legendary",
+        "ravienna",
+        "cassien_legendary",
+        "nyx",
+        "crimson_witch_legendary",
+        "mirene_legendary",
+        "caelith_legendary"
+      ],
+      "mythic": [
+        "kael_mythic",
+        "lilith_mythic",
+        "gerald_mythic",
+        "ravienna_mythic",
+        "cassien_mythic",
+        "nyx_mythic",
+        "crimson_witch_mythic",
+        "mirene_mythic",
+        "caelith_mythic"
+      ],
+      "epic": [
+        "upgrade_kael_epic_v1",
+        "upgrade_lilith_epic_v1",
+        "upgrade_gerald_epic_v1",
+        "upgrade_ravienna_epic_v1",
+        "upgrade_cassien_epic_v1",
+        "upgrade_nyx_epic_v1",
+        "upgrade_crimson_witch_epic_v1",
+        "upgrade_mirene_epic_v1",
+        "upgrade_caelith_epic_v1"
+      ],
+      "rare": [
+        "upgrade_kael_rare_v1",
+        "upgrade_lilith_rare_v1",
+        "upgrade_gerald_rare_v1",
+        "upgrade_ravienna_rare_v1",
+        "upgrade_cassien_rare_v1",
+        "upgrade_nyx_rare_v1",
+        "upgrade_crimson_witch_rare_v1",
+        "upgrade_mirene_rare_v1",
+        "upgrade_caelith_rare_v1"
+      ],
+      "common": [
+        "mob_rose_slime_v1",
+        "mob_mossling_v1",
+        "mob_crownling_v1"
+      ]
+    },
+    "common_rewards": {
+      "mob_rose_slime_v1": {
+        "name": "Rose Slime",
+        "art": "res://assets/monsters/rose_slime/rose_slime_idle_64x64.png",
+        "cell": [
+          64,
+          64
+        ],
+        "items": {
+          "moonpetal": 3
+        }
+      },
+      "mob_mossling_v1": {
+        "name": "Mossling",
+        "art": "res://assets/enemies/mossling/idle_pass_02/mossling_idle_8dir_4f_96x128.png",
+        "cell": [
+          96,
+          128
+        ],
+        "items": {
+          "dew_of_awakening": 1
+        }
+      },
+      "mob_crownling_v1": {
+        "name": "Crownling",
+        "art": "res://assets/monsters/crownling/crownling_idle_64x64.png",
+        "cell": [
+          64,
+          64
+        ],
+        "items": {
+          "gothic_shard": 2
+        }
+      }
+    },
+    "upgrade_cards": {
+      "upgrade_kael_rare_v1": {
+        "name": "Kael Ashford",
+        "rarity": "rare",
+        "portrait_id": "kael",
+        "target": "upgrade_kael_epic_v1",
+        "cost": 20
+      },
+      "upgrade_lilith_rare_v1": {
+        "name": "Lilith",
+        "rarity": "rare",
+        "portrait_id": "lilith",
+        "target": "upgrade_lilith_epic_v1",
+        "cost": 20
+      },
+      "upgrade_gerald_rare_v1": {
+        "name": "Gerald",
+        "rarity": "rare",
+        "portrait_id": "gerald",
+        "target": "upgrade_gerald_epic_v1",
+        "cost": 20
+      },
+      "upgrade_ravienna_rare_v1": {
+        "name": "Queen Ravienna",
+        "rarity": "rare",
+        "portrait_id": "ravienna_rare",
+        "target": "upgrade_ravienna_epic_v1",
+        "cost": 20
+      },
+      "upgrade_cassien_rare_v1": {
+        "name": "Cassien",
+        "rarity": "rare",
+        "portrait_id": "cassien",
+        "target": "upgrade_cassien_epic_v1",
+        "cost": 20
+      },
+      "upgrade_nyx_rare_v1": {
+        "name": "Nyx Vaelora",
+        "rarity": "rare",
+        "portrait_id": "nyx_rare",
+        "target": "upgrade_nyx_epic_v1",
+        "cost": 20
+      },
+      "upgrade_crimson_witch_rare_v1": {
+        "name": "Crimson Witch",
+        "rarity": "rare",
+        "portrait_id": "crimson_witch",
+        "target": "upgrade_crimson_witch_epic_v1",
+        "cost": 20
+      },
+      "upgrade_mirene_rare_v1": {
+        "name": "MirÃ©ne",
+        "rarity": "rare",
+        "portrait_id": "mirene",
+        "target": "upgrade_mirene_epic_v1",
+        "cost": 20
+      },
+      "upgrade_caelith_rare_v1": {
+        "name": "Caelith",
+        "rarity": "rare",
+        "portrait_id": "caelith",
+        "target": "upgrade_caelith_epic_v1",
+        "cost": 20
+      },
+      "upgrade_kael_epic_v1": {
+        "name": "Kael Ashford",
+        "rarity": "epic",
+        "portrait_id": "kael_epic",
+        "target": "kael_legendary",
+        "cost": 10
+      },
+      "upgrade_lilith_epic_v1": {
+        "name": "Lilith",
+        "rarity": "epic",
+        "portrait_id": "lilith_epic",
+        "target": "lilith_legendary",
+        "cost": 10
+      },
+      "upgrade_gerald_epic_v1": {
+        "name": "Gerald",
+        "rarity": "epic",
+        "portrait_id": "gerald_epic",
+        "target": "gerald_legendary",
+        "cost": 10
+      },
+      "upgrade_ravienna_epic_v1": {
+        "name": "Queen Ravienna",
+        "rarity": "epic",
+        "portrait_id": "ravienna_epic",
+        "target": "ravienna",
+        "cost": 10
+      },
+      "upgrade_cassien_epic_v1": {
+        "name": "Cassien",
+        "rarity": "epic",
+        "portrait_id": "cassien_epic",
+        "target": "cassien_legendary",
+        "cost": 10
+      },
+      "upgrade_nyx_epic_v1": {
+        "name": "Nyx Vaelora",
+        "rarity": "epic",
+        "portrait_id": "nyx_epic",
+        "target": "nyx",
+        "cost": 10
+      },
+      "upgrade_crimson_witch_epic_v1": {
+        "name": "Crimson Witch",
+        "rarity": "epic",
+        "portrait_id": "crimson_witch_epic",
+        "target": "crimson_witch_legendary",
+        "cost": 10
+      },
+      "upgrade_mirene_epic_v1": {
+        "name": "MirÃ©ne",
+        "rarity": "epic",
+        "portrait_id": "mirene_epic",
+        "target": "mirene_legendary",
+        "cost": 10
+      },
+      "upgrade_caelith_epic_v1": {
+        "name": "Caelith",
+        "rarity": "epic",
+        "portrait_id": "caelith_epic",
+        "target": "caelith_legendary",
+        "cost": 10
+      }
+    },
+    "mythic_fusion": {
+      "ravienna": {
+        "target": "ravienna_mythic",
+        "cost": 7,
+        "item": "legendary_progress_ravienna"
+      },
+      "nyx": {
+        "target": "nyx_mythic",
+        "cost": 7,
+        "item": "legendary_progress_nyx"
+      },
+      "kael_legendary": {
+        "target": "kael_mythic",
+        "cost": 7,
+        "item": "legendary_progress_kael_legendary"
+      },
+      "lilith_legendary": {
+        "target": "lilith_mythic",
+        "cost": 7,
+        "item": "legendary_progress_lilith_legendary"
+      },
+      "gerald_legendary": {
+        "target": "gerald_mythic",
+        "cost": 7,
+        "item": "legendary_progress_gerald_legendary"
+      },
+      "cassien_legendary": {
+        "target": "cassien_mythic",
+        "cost": 7,
+        "item": "legendary_progress_cassien_legendary"
+      },
+      "crimson_witch_legendary": {
+        "target": "crimson_witch_mythic",
+        "cost": 7,
+        "item": "legendary_progress_crimson_witch_legendary"
+      },
+      "mirene_legendary": {
+        "target": "mirene_mythic",
+        "cost": 7,
+        "item": "legendary_progress_mirene_legendary"
+      },
+      "caelith_legendary": {
+        "target": "caelith_mythic",
+        "cost": 7,
+        "item": "legendary_progress_caelith_legendary"
+      }
+    },
+    "mythic_ascension": {
+      "kael_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_kael_mythic"
+      },
+      "lilith_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_lilith_mythic"
+      },
+      "gerald_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_gerald_mythic"
+      },
+      "ravienna_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_ravienna_mythic"
+      },
+      "cassien_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_cassien_mythic"
+      },
+      "nyx_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_nyx_mythic"
+      },
+      "crimson_witch_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_crimson_witch_mythic"
+      },
+      "mirene_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_mirene_mythic"
+      },
+      "caelith_mythic": {
+        "cost": 7,
+        "item": "mythic_ascension_caelith_mythic"
+      }
+    },
+    "ascended_bonds": [
+      {
+        "id": "siblings_guard",
+        "name": "Unbroken Sibling Bond",
+        "members": [
+          "gerald_mythic",
+          "lilith_mythic"
+        ],
+        "stat": "def",
+        "multiplier": 1.1
+      },
+      {
+        "id": "eclipse_vow",
+        "name": "Eclipse Vow",
+        "members": [
+          "ravienna_mythic",
+          "cassien_mythic"
+        ],
+        "stat": "atk",
+        "multiplier": 1.1
+      }
+    ]
   }
 }

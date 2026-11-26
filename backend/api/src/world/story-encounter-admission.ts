@@ -7,14 +7,18 @@ type EncounterRule={region:string;x:number;y:number;radius:number;requires:reado
 // combines the NPC interaction radius (85) and authored roaming radius (28).
 // No shared co-op encounter or story boss is enabled by this policy.
 const rule=(x:number,y:number):EncounterRule=>({region:"story_royal_gardens",x,y,radius:113,requires:[TUTORIAL_GROUP,VILLAGE_GROUP],cooldownSeconds:15});
+const gateRule=(x:number,y:number):EncounterRule=>({...rule(x,y),region:"story_royal_gate"});
 const rules:Readonly<Record<string,EncounterRule>>=Object.freeze({
  rose_slime_garden_1:rule(-1100,2200),rose_slime_garden_2:rule(-800,1850),rose_slime_garden_3:rule(-1450,1500),
  rose_slime_garden_4:rule(700,2250),rose_slime_garden_5:rule(1200,1750),rose_slime_garden_6:rule(950,1000),
  crownling_garden_1:rule(-900,2100),crownling_garden_2:rule(550,2100),crownling_garden_3:rule(1100,1500),
+ royal_gate_patrol_1:gateRule(-65,1200),royal_gate_patrol_2:gateRule(75,1840),
 });
-export const gardenEncounterIds=Object.freeze(Object.keys(rules));
-export function isGardenEncounter(groupId:string):boolean{return Object.hasOwn(rules,groupId);}
-type Proof={region:string;x:number;y:number;fresh:boolean;live:boolean;victories:readonly string[];coolingDown:boolean};
+export const gardenEncounterIds=Object.freeze(Object.keys(rules).filter(id=>rules[id]!.region==="story_royal_gardens"));
+export function isGardenEncounter(groupId:string):boolean{return gardenEncounterIds.includes(groupId);}
+export const gateEncounterIds=Object.freeze(Object.keys(rules).filter(id=>rules[id]!.region==="story_royal_gate"));
+export function isGateEncounter(id:string):boolean{return gateEncounterIds.includes(id);}
+type Proof={audienceComplete?:boolean;region:string;x:number;y:number;fresh:boolean;live:boolean;victories:readonly string[];coolingDown:boolean};
 type Decision={ok:true}|{ok:false;reason:string};
 export function evaluateStoryEncounter(groupId:string,proof:Proof|null):Decision{
  if(!Object.hasOwn(rules,groupId))return {ok:false,reason:"encounter_not_enabled"};
@@ -23,6 +27,7 @@ export function evaluateStoryEncounter(groupId:string,proof:Proof|null):Decision
  if(proof.region!==r.region)return {ok:false,reason:"wrong_encounter_region"};
  if(!Number.isFinite(proof.x)||!Number.isFinite(proof.y)||Math.hypot(proof.x-r.x,proof.y-r.y)>r.radius)return {ok:false,reason:"encounter_out_of_range"};
  if(!r.requires.every(id=>proof.victories.includes(id)))return {ok:false,reason:"encounter_progression_required"};
+ if(r.region==="story_royal_gate"&&proof.audienceComplete!==true)return {ok:false,reason:"encounter_progression_required"};
  if(proof.coolingDown)return {ok:false,reason:"encounter_respawning"};
  return {ok:true};
 }
@@ -45,7 +50,8 @@ export async function verifyStoryEncounter(db:PoolClient,playerId:string,groupId
  if(!position)return evaluateStoryEncounter(groupId,null);
  const victories=await verifiedStoryVictories(db,playerId,r.requires);
  const coolingDown=!!(await db.query("SELECT 1 FROM story_battle_sessions WHERE player_id=$1 AND group_id=$2 AND status='victory' AND settled_at>now()-($3::int * interval '1 second') LIMIT 1",[playerId,groupId,r.cooldownSeconds])).rowCount;
- return evaluateStoryEncounter(groupId,{...position,victories,coolingDown});
+ const audienceComplete=r.region==="story_royal_gate"&&!!(await db.query("SELECT 1 FROM story_elathra_audience WHERE player_id=$1 AND completed_at IS NOT NULL",[playerId])).rowCount;
+ return evaluateStoryEncounter(groupId,{...position,victories,coolingDown,audienceComplete});
 }
 // Internal pilot boundary; no public registration. A separate trusted solo-world
 // entry chain must also exclude shared-combat reward paths before enabling it.

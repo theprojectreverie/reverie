@@ -6,6 +6,8 @@
 
 [ext_resource type="Texture2D" path="res://assets/tutorial_prologue/DiamondBedroom/castle_interior_background.png" id="castle_bg"]
 
+[ext_resource type="PackedScene" path="res://scenes/ui/components/tutorial_touch_controls.tscn" id="tutorial_touch"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(110, 56)
 
@@ -102,3 +104,5 @@ polygon = PackedVector2Array(-126.662674, -185, -89.662674, -185, -89.662674, -5
 
 [node name="Camera2D" parent="Kael" index="0"]
 scene_min_zoom = 1.05
+
+[node name="TutorialTouchControls" parent="." instance=ExtResource("tutorial_touch")]

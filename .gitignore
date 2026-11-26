@@ -35,3 +35,14 @@ __pycache__/
 backend/api/node_modules/
 backend/api/dist/
 !backend/api/.env.example
+
+# Local QA output and signing material
+*.err
+*.idsig
+*.jks
+*.keystore
+*.p12
+*.dpapi
+/outputs/
+/tests/artifacts/
+/failure.json

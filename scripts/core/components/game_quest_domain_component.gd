@@ -5,12 +5,34 @@ extends Node
 var quests: Dictionary = {}
 var flags: Dictionary = {}
 
+func _story_audience_sync(quest_id: String) -> Node:
+	if quest_id != "elathra_first_audience" or get_tree()==null or get_tree().current_scene==null:return null
+	return get_tree().current_scene.get_node_or_null("StoryGardenCombatSync")
+
+func _story_patrol_sync(quest_id: String) -> Node:
+	if quest_id != "royal_gate_patrol" or get_tree()==null or get_tree().current_scene==null:return null
+	var sync := get_tree().current_scene.get_node_or_null("StoryGardenCombatSync")
+	return sync if sync != null and bool(sync.get("_gate")) else null
+
+func quest_progress(quest_id: String) -> int:
+	var patrol := _story_patrol_sync(quest_id)
+	if patrol != null:return patrol.patrol_progress()
+	return int(quests.get(quest_id,{}).get("progress",0))
+
 func quest_state(quest_id: String) -> String:
+	var patrol := _story_patrol_sync(quest_id)
+	if patrol != null:return patrol.patrol_state()
+	var sync := _story_audience_sync(quest_id)
+	if sync != null:return sync.audience_state()
 	var entry: Dictionary = quests.get(quest_id, {})
 	return str(entry.get("state", "not_started"))
 
 
 func quest_step_index(quest_id: String) -> int:
+	var patrol := _story_patrol_sync(quest_id)
+	if patrol != null:return 1 if patrol.patrol_state()=="complete" else 0
+	var sync := _story_audience_sync(quest_id)
+	if sync != null:return {"not_started":0,"active":1,"complete":2}.get(sync.audience_state(),0)
 	var entry: Dictionary = quests.get(quest_id, {})
 	return int(entry.get("step", 0))
 
@@ -131,6 +153,7 @@ func _find_player_position() -> Vector2:
 
 
 func start_quest(quest_id: String, giver_id: String = "") -> bool:
+	if _story_audience_sync(quest_id) != null or _story_patrol_sync(quest_id) != null:return false
 	var definition: Dictionary = ContentDB.get_quest(quest_id)
 	if definition.is_empty() or quest_state(quest_id) != "not_started":
 		return false
@@ -161,6 +184,7 @@ func quest_ready(quest_id: String) -> bool:
 func record_kill(enemy_id: String, count: int = 1) -> void:
 	var changed := false
 	for quest_id in quests.keys():
+		if _story_patrol_sync(str(quest_id)) != null or _story_audience_sync(str(quest_id)) != null:continue
 		if quest_state(str(quest_id)) != "active":
 			continue
 		var step := quest_step(str(quest_id))
@@ -182,6 +206,7 @@ func record_kill(enemy_id: String, count: int = 1) -> void:
 
 
 func advance_quest(quest_id: String) -> void:
+	if _story_patrol_sync(quest_id) != null or _story_audience_sync(quest_id) != null:return
 	if quest_state(quest_id) != "active":
 		return
 	var entry: Dictionary = quests[quest_id]
@@ -193,6 +218,7 @@ func advance_quest(quest_id: String) -> void:
 
 
 func complete_quest(quest_id: String) -> bool:
+	if _story_audience_sync(quest_id) != null or _story_patrol_sync(quest_id) != null:return false
 	if not quest_ready(quest_id):
 		return false
 	var definition: Dictionary = ContentDB.get_quest(quest_id)
@@ -251,6 +277,7 @@ func quest_marker_for_npc(npc_id: String) -> String:
 func active_quests() -> Array:
 	var result: Array = []
 	for quest_id in quests.keys():
+		if _story_patrol_sync(str(quest_id)) != null or _story_audience_sync(str(quest_id)) != null:continue
 		if quest_state(str(quest_id)) == "active":
 			result.append(quest_id)
 	return result

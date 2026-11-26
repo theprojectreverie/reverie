@@ -173,4 +173,6 @@ func _run() -> void:
 	touch_input.set("move_vector", Vector2.ZERO)
 	world.queue_free()
 	await get_tree().process_frame
+	await AudioDirector.drain_for_shutdown()
+	await get_tree().process_frame
 	get_tree().quit(0)

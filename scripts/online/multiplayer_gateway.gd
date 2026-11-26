@@ -58,6 +58,9 @@ var _world_reconnect_request_generation := -1
 var _world_reconnect_request: HTTPRequest
 
 func _ready() -> void:
+	if OS.has_feature("reverie_public_alpha"):
+		websocket_url=preload("res://scripts/online/connection_profile.gd").realtime_url(true)
+		persistent_world_websocket_url=preload("res://scripts/online/connection_profile.gd").persistent_world_url(true)
 	_world_reconnect_request = HTTPRequest.new()
 	_world_reconnect_request.name = "WorldReconnectTicketRequest"
 	_world_reconnect_request.timeout = 12.0
@@ -85,6 +88,8 @@ func is_persistent_world_reconnect_enabled() -> bool:
 	return _world_reconnect_enabled and not _world_server_id.is_empty()
 
 func connect_to_persistent_world(server_id: String, join_ticket: String, endpoint_url: String = "") -> Error:
+	if not preload("res://scripts/online/connection_profile.gd").persistent_world_enabled(OS.has_feature("reverie_public_alpha")):
+		return ERR_UNAVAILABLE
 	if not AuthGateway.is_authenticated():
 		return ERR_UNAUTHORIZED
 	if not _is_uuid(server_id) or join_ticket.length() < 40 or join_ticket.length() > 200:

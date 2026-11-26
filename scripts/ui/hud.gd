@@ -87,6 +87,11 @@ func _process(delta: float) -> void:
 		return
 	var player := get_tree().get_first_node_in_group("player") as Player
 	var active := is_instance_valid(player) and player.input_enabled and not player.network_recovery_paused and is_visible_in_tree()
+	var toggle := get_node_or_null("MobileMenuToggle") as Button
+	if toggle != null:
+		toggle.visible = active
+	if not active and _navigation_component != null:
+		_navigation_component.set_mobile_menu_open(false)
 	if joystick != null:
 		joystick.visible = active
 	if _touch_combat != null:

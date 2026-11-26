@@ -137,6 +137,14 @@ layout_mode = 2
 placeholder_text = "Password (at least 12 characters)"
 secret = true
 
+[node name="InviteCode" type="LineEdit" parent="Center/Panel/Margins/Content/Tabs/CreateAccount"]
+visible = false
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+placeholder_text = "Private alpha invitation code"
+max_length = 100
+secret = true
+
 [node name="RegisterButton" type="Button" parent="Center/Panel/Margins/Content/Tabs/CreateAccount"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2

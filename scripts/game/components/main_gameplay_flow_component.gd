@@ -57,10 +57,15 @@ func _start_game() -> void:
 		return
 	GameState.session_domain.set_player_region("castle_royal_gardens")
 	GameState.session_domain.set_active_world("castle_royal_gardens")
-	if GameState.session_domain.loaded_from_save:
+	if not needs_opening_cinematic(GameState.quest_domain.flags):
 		_load_tutorial()
 		return
 	_show_story_intro()
+
+static func needs_opening_cinematic(flags: Dictionary) -> bool:
+	# A save may have been created by account login before the dream played.
+	# Never replay automatically after the tutorial is complete.
+	return not bool(flags.get("tutorial_complete",false)) and not bool(flags.get("kael_opening_seen",false))
 
 func _show_story_intro() -> void:
 	if host.has_node("OpeningCinematic") or loading != null:
@@ -70,8 +75,13 @@ func _show_story_intro() -> void:
 		menu.set_process_unhandled_input(false)
 	intro = INTRO_SCENE.instantiate()
 	intro.name = "OpeningCinematic"
-	host.add_child(intro)
+	var intro_owner := str(AuthGateway.current_player().get("id",""))
 	intro.finished.connect(func() -> void:
+		if not AuthGateway.is_authenticated() or str(AuthGateway.current_player().get("id","")) != intro_owner:
+			get_tree().change_scene_to_file("res://scenes/main.tscn")
+			return
+		GameState.quest_domain.flags["kael_opening_seen"] = true
+		GameState.save_now()
 		if menu != null and is_instance_valid(menu):
 			menu.queue_free()
 			menu = null
@@ -80,6 +90,7 @@ func _show_story_intro() -> void:
 		intro = null
 		_load_tutorial()
 	)
+	host.add_child(intro)
 
 func _load_tutorial() -> void:
 	var error := get_tree().change_scene_to_file("res://scenes/world/tutorial_prologue/kael_diamond_bedroom.tscn")

@@ -35,13 +35,13 @@ func run():
  var collection=load("res://scenes/ui/collection_screen.tscn").instantiate()
  add_child(collection)
  for i in range(200):
-  if collection.has_node("OnlineCollectionOverlay") and collection.get_node("OnlineCollectionOverlay/OnlineRosterDialog").visible:break
+  if collection.has_node("OnlineCollectionOverlay") and collection.get_node("OnlineCollectionOverlay")._collection_visible():break
   await get_tree().create_timer(0.05).timeout
  assert(collection._grid==null)
  var account=collection.get_node("OnlineCollectionOverlay")
- assert(account.collection_only and account.get_node("OnlineRosterDialog").visible)
+ assert(account.collection_only and account._collection_visible() and not account.get_node("OnlineRosterDialog").visible and not collection._shell.visible)
  assert(account._summon_flow.online_state.roster.any(func(row):return row.char_id=="ravienna_mythic"))
- assert(not account.get_node("OnlineRosterDialog/BodyScroll/Collection/CompareProgress").visible)
+ assert(not account._collection_body().get_node("Collection/CompareProgress").visible)
  collection.queue_free()
  await get_tree().process_frame
  var inventory=load("res://scenes/ui/inventory_screen.tscn").instantiate()

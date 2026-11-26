@@ -14,6 +14,8 @@ var pending_join_ticket_expires_at := ""
 var pending_world_endpoint := ""
 
 func _ready() -> void:
+	if OS.has_feature("reverie_public_alpha"):
+		api_base_url=preload("res://scripts/online/connection_profile.gd").api_origin(true)
 	request.request_completed.connect(_on_request_completed)
 	request.timeout = 12.0
 

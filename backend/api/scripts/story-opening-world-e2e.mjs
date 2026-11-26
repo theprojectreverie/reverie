@@ -16,7 +16,7 @@ import { runClusterProbe } from "./cluster-load-probe.mjs";
 
 const N=2;
 const openingRegion=process.env.REVERIE_E2E_OPENING_REGION;
-if(!["story_training_ground","story_village","story_royal_gardens"].includes(openingRegion)||config.NODE_ENV==="production")throw new Error("Opening test requires local nonproduction region");
+if(!["story_training_ground","story_village","story_royal_gardens","story_royal_gate"].includes(openingRegion)||config.NODE_ENV==="production")throw new Error("Opening test requires local nonproduction region");
 if(!Number.isInteger(N)||N<2||N>100)throw new RangeError("REVERIE_E2E_PLAYERS must be an integer from 2 to 100");
 if(!["localhost","127.0.0.1","[::1]"].includes(new URL(config.DATABASE_URL).hostname))throw new Error("World load test requires a local database");
 const assert = (ok, label, detail = "") => {
@@ -283,14 +283,27 @@ try {
     for(const player of playerRows)await pool.query("INSERT INTO story_battle_sessions(player_id,group_id,party_ids,status,finished_at,state) VALUES($1,'tutorial_fairy_spar',ARRAY['kael'],'victory',now(),$2::jsonb)",[player.id,JSON.stringify({view:{status:"victory"},actions:[{kind:"skill"}]})]);
     const unlocked=await requestJson(progressPath,{headers:authHeaders(tokens[0])});assert(unlocked.body.progress.tutorialComplete&&unlocked.body.servers.some(s=>s.id===serverId),"verified tutorial unlocks village directory");
   }
-  if(openingRegion==="story_royal_gardens"){
+  if(["story_royal_gardens","story_royal_gate"].includes(openingRegion)){
     const join=()=>requestJson(base+"/v1/game-servers/"+serverId+"/join",{method:"POST",headers:authHeaders(tokens[0]),body:"{}"});
     assert((await join()).status===403,"garden entry requires verified opening progression");
     for(const player of playerRows)await pool.query("INSERT INTO story_battle_sessions(player_id,group_id,party_ids,status,finished_at,state) VALUES($1,'tutorial_fairy_spar',ARRAY['kael'],'victory',now(),$2::jsonb)",[player.id,JSON.stringify({view:{status:"victory"},actions:[{kind:"skill"}]})]);
     assert((await join()).status===403,"tutorial victory alone does not unlock gardens");
     // Test-only proof records, not actual boss victories; settlement is covered separately.
     for(const player of playerRows)await pool.query("INSERT INTO story_battle_sessions(player_id,group_id,party_ids,status,finished_at,settled_at,rewards,state) VALUES($1,'gerald_boss_encounter',ARRAY['kael'],'victory',now(),now(),'{}'::jsonb,$2::jsonb)",[player.id,JSON.stringify({view:{status:"victory"},actions:[{kind:"skill"}]})]);
-    assert((await requestJson(progressPath,{headers:authHeaders(tokens[0])})).body.servers.some(s=>s.id===serverId),"both verified victories unlock isolated garden directory");
+    if(openingRegion==="story_royal_gate"){
+      assert((await join()).status===403,"both opening victories alone do not unlock the Royal Gate");
+      await pool.query("INSERT INTO story_milestone_reaches(player_id,milestone_id) VALUES($1,'royal_gate') ON CONFLICT DO NOTHING",[playerRows[0].id]);
+      assert((await join()).status===403,"client telemetry cannot unlock the Royal Gate");
+      for(const player of playerRows)await pool.query("INSERT INTO story_elathra_audience(player_id) VALUES($1)",[player.id]);
+      assert((await join()).status===403,"hearing Elathra alone does not unlock the Royal Gate");
+      assert(!(await requestJson(progressPath,{headers:authHeaders(tokens[0])})).body.servers.some(s=>s.id===serverId),"locked Royal Gate excluded from directory");
+      // Disposable fixture represents prior completed audience; its actual quest transaction has a separate E2E.
+      for(const player of playerRows)await pool.query("UPDATE story_elathra_audience SET completed_at=now() WHERE player_id=$1",[player.id]);
+      const unlocked=await requestJson(progressPath,{headers:authHeaders(tokens[0])});
+      assert(unlocked.body.progress.royalGateUnlocked&&unlocked.body.servers.some(s=>s.id===serverId),"verified audience unlocks Royal Gate directory");
+    }else{
+      assert((await requestJson(progressPath,{headers:authHeaders(tokens[0])})).body.servers.some(s=>s.id===serverId),"both verified victories unlock isolated garden directory");
+    }
   }
   const joinTickets = await Promise.all(tokens.map(token => requestJson(base + "/v1/game-servers/" + serverId + "/join", {
     method: "POST", headers: authHeaders(token), body: "{}"

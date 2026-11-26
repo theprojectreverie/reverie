@@ -7,6 +7,20 @@ var actors: Array = []
 var by_uid: Dictionary = {}
 var stage: Node2D
 var embers: CPUParticles2D
+# Canonical body heights in cm; authored idle silhouettes measured without transparent padding.
+const GERALD_HEIGHT_CM := 400.0
+const CASSIEN_HEIGHT_CM := 190.0
+const RAVIENNA_HEIGHT_CM := 170.0
+const LILITH_HEIGHT_CM := 140.0
+const GERALD_PLAYER_IDLE_PX := 110.0
+const GERALD_BOSS_IDLE_PX := 111.0
+const CASSIEN_IDLE_PX := 105.0
+const RAVIENNA_IDLE_PX := 115.0
+const LILITH_IDLE_PX := 100.0
+const GERALD_TO_RAVIENNA_SCALE := (GERALD_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / GERALD_PLAYER_IDLE_PX
+
+static func is_playable_gerald(actor: BattlefieldActor) -> bool:
+	return actor.is_player and actor.unit != null and (actor.unit.def_id=="gerald" or actor.unit.def_id.begins_with("gerald_"))
 
 
 func bind(owner: Battlefield) -> void:
@@ -79,7 +93,7 @@ func setup(party: Array, enemies: Array) -> void:
 		_add_actor(unit, true)
 	for unit in enemies:
 		_add_actor(unit, false)
-	if enemies.any(func(enemy): return enemy != null and enemy.is_boss):
+	if battlefield.arena_id in ["gerald_boss_encounter", "cassien_encounter", "revienna_encounter"] or enemies.any(func(enemy): return enemy != null and enemy.is_boss):
 		for actor in actors:
 			if actor.is_player and actor.unit.def_id == "kael":
 				actor.enable_kael_boss_art()
@@ -118,7 +132,20 @@ func layout() -> void:
 	var height := battlefield.size.y
 	if width <= 0.0 or height <= 0.0:
 		return
+	# A shared size baseline keeps the two characters proportional on every screen.
+	# Fit Gerald's tall silhouette within the stage and his boss ultimate within its width.
+	var has_titan := actors.any(func(a):return is_playable_gerald(a) or is_instance_valid(a.gerald_art))
+	var has_boss_titan := actors.any(func(a):return is_instance_valid(a.gerald_art))
+	var queen_scale := minf(1.15, minf(height / 340.0, width / 650.0)) if has_titan else minf(1.15, height / 230.0)
+	if has_boss_titan:
+		queen_scale = minf(queen_scale, minf(2.12, width / 460.0) / GERALD_TO_RAVIENNA_SCALE)
+	var titan_scale := queen_scale * GERALD_TO_RAVIENNA_SCALE
+	var boss_titan_scale := queen_scale * (GERALD_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / GERALD_BOSS_IDLE_PX
+	var knight_scale := queen_scale * (CASSIEN_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / CASSIEN_IDLE_PX
+	var lilith_scale := queen_scale * (LILITH_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / LILITH_IDLE_PX
 	var party_slot := 0
+	var front_titan := actors.any(func(a):return is_playable_gerald(a))
+	var titan_placed := false
 	var enemy_slot := 0
 	for entry in actors:
 		var actor: BattlefieldActor = entry
@@ -128,16 +155,15 @@ func layout() -> void:
 			party_slot += 1
 		elif is_instance_valid(actor.gerald_art):
 			# Leave space for the full 384px authored earthquake cell.
-			var titan_scale := minf(2.12, minf(height / 145.0, width / 460.0))
-			actor.gerald_art.scale = Vector2.ONE * titan_scale
-			actor.gerald_art.position.y = (-50.0 if actor.gerald_art.animation == &"earthquake" else -57.0) * titan_scale
-			var right_margin := 192.0 * titan_scale + 16.0
+			actor._base_scale = boss_titan_scale
+			actor.gerald_art.scale = Vector2.ONE * boss_titan_scale
+			actor.gerald_art.position.y = (-50.0 if actor.gerald_art.animation == &"earthquake" else -57.0) * boss_titan_scale
+			var right_margin := 192.0 * boss_titan_scale + 16.0
 			actor.set_home(Vector2(minf(width * 0.74, width - right_margin), height * 0.84))
 			var hitbox := actor.get_node("Hitbox") as Control
-			hitbox.position = Vector2(-35.0, -109.0) * titan_scale
-			hitbox.size = Vector2(70.0, 116.0) * titan_scale
+			hitbox.position = Vector2(-35.0, -109.0) * boss_titan_scale
+			hitbox.size = Vector2(70.0, 116.0) * boss_titan_scale
 		elif is_instance_valid(actor.cassien_art) and not actor.is_player:
-			var knight_scale := minf(1.45, height / 210.0)
 			actor.cassien_art.scale = Vector2.ONE * knight_scale
 			actor._base_scale = knight_scale
 			actor.set_home(Vector2(width * 0.77, height * 0.80))
@@ -148,8 +174,20 @@ func layout() -> void:
 			name_label.position = Vector2(-105.0, 22.0)
 			name_label.size = Vector2(210.0, 16.0)
 		elif actor.is_player:
+			if is_playable_gerald(actor):
+				actor._base_scale = titan_scale
+				actor.visual.set_body_scale(titan_scale)
+				var hitbox := actor.get_node("Hitbox") as Control
+				hitbox.position = Vector2(-35.0,-110.0)*titan_scale
+				hitbox.size = Vector2(70.0,116.0)*titan_scale
+			if actor.unit != null and (actor.unit.def_id == "lilith" or actor.unit.def_id.begins_with("lilith_")):
+				actor._base_scale = lilith_scale
+				actor.visual.set_body_scale(lilith_scale)
+				var hitbox := actor.get_node("Hitbox") as Control
+				hitbox.position = Vector2(-36.0, -100.0) * lilith_scale
+				hitbox.size = Vector2(72.0, 106.0) * lilith_scale
 			if is_instance_valid(actor.elathra_art) or is_instance_valid(actor.cassien_art) or is_instance_valid(actor.ravienna_art):
-				var art_scale := minf(1.15, height / 230.0)
+				var art_scale := queen_scale if is_instance_valid(actor.ravienna_art) else (knight_scale if is_instance_valid(actor.cassien_art) else minf(1.15, height / 230.0))
 				var art: Node2D = actor.elathra_art if is_instance_valid(actor.elathra_art) else (actor.cassien_art if is_instance_valid(actor.cassien_art) else actor.ravienna_art)
 				art.scale = Vector2.ONE * art_scale
 				actor._base_scale = art_scale
@@ -159,20 +197,34 @@ func layout() -> void:
 			if battlefield.arena_id == "cassien_encounter" and actor.unit.def_id == "kael":
 				actor.visual.visual_scale = minf(1.17, height / 220.0)
 				actor._base_scale = actor.visual.visual_scale
+			var slot := party_slot
+			if front_titan:
+				if is_playable_gerald(actor) and not titan_placed:
+					slot = 0
+					titan_placed = true
+				else:
+					slot = party_slot + (0 if titan_placed else 1)
 			actor.set_home(Vector2(
-				width * (Battlefield.PARTY_X + Battlefield.PARTY_DX * float(party_slot)),
-				height * (Battlefield.PARTY_Y + Battlefield.PARTY_DY * float(party_slot))))
+				width * (Battlefield.PARTY_X + Battlefield.PARTY_DX * float(slot)),
+				height * (Battlefield.PARTY_Y + Battlefield.PARTY_DY * float(slot))))
 			party_slot += 1
 		elif actor.unit != null and actor.unit.is_boss:
+			if is_instance_valid(actor.ravienna_art):
+				actor.ravienna_art.scale = Vector2.ONE * queen_scale
+				actor._base_scale = queen_scale
+				var hitbox := actor.get_node("Hitbox") as Control
+				hitbox.position = Vector2(-36.0,-105.0)*queen_scale
+				hitbox.size = Vector2(72.0,115.0)*queen_scale
 			actor.set_home(Vector2(width * Battlefield.BOSS_X, height * Battlefield.BOSS_Y))
 		else:
 			actor.set_home(Vector2(
 				width * (Battlefield.ENEMY_X + Battlefield.ENEMY_DX * float(enemy_slot)),
 				height * (Battlefield.ENEMY_Y + Battlefield.ENEMY_DY * float(enemy_slot))))
 			enemy_slot += 1
+		actor.scale = Vector2.ONE
 		if battlefield.arena_id == "revienna_encounter" and battlefield.get_window().size.x < 1000 and battlefield.get_window().size.x > battlefield.get_window().size.y:
 			actor.scale = Vector2.ONE * minf(1.0, height / 270.0)
-		if is_instance_valid(actor.ravienna_art) or (not actor.dead and not actor.gerald_walk_sequence_active):
+		if is_instance_valid(actor.ravienna_art) or (not actor.dead and not actor.gerald_walk_sequence_active and not actor.kael_boss_sequence_active):
 			actor.position = actor.home_position
 	# Recompute paths only after every combatant has its new formation slot.
 	for entry in actors:

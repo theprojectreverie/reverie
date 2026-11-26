@@ -27,6 +27,11 @@ func show_registration() -> void:
 func _ready() -> void:
 	UIFactory.set_full_rect(self)
 	password_register.placeholder_text = "Password (at least %d characters)" % AuthGateway.minimum_registration_password_length()
+	if OS.has_feature("reverie_public_alpha"):
+		$Center/Panel/Margins/Content/Tabs/CreateAccount/InviteCode.show()
+		verification_token.hide()
+		$Center/Panel/Margins/Content/Tabs/CreateAccount/VerifyButton.hide()
+		register_status.text="Invite-only alpha. Use a different username for each account; the same email is allowed. Each account needs its own invitation."
 	if OS.is_debug_build() and AuthGateway.api_base_url.begins_with("http://127.0.0.1:"):
 		verification_token.hide()
 		$Center/Panel/Margins/Content/Tabs/CreateAccount/VerifyButton.hide()
@@ -123,7 +128,11 @@ func _login() -> void:
 
 func _register() -> void:
 	register_status.text = "Creating your account…"
-	var result: Error = AuthGateway.register_account(email_register.text,password_register.text,player_name.text)
+	var invite_code: String=$Center/Panel/Margins/Content/Tabs/CreateAccount/InviteCode.text.strip_edges()
+	if OS.has_feature("reverie_public_alpha") and invite_code.length()<32:
+		register_status.text="Enter your private alpha invitation code."
+		return
+	var result: Error = AuthGateway.register_account(email_register.text,password_register.text,player_name.text,invite_code)
 	if result != OK:
 		register_status.text = _request_error_text(result, "Registration")
 
@@ -138,6 +147,7 @@ func _on_auth_result(operation: String,success: bool,payload: Dictionary) -> voi
 	match operation:
 		"register":
 			if success:
+				$Center/Panel/Margins/Content/Tabs/CreateAccount/InviteCode.clear()
 				register_status.text = message if not message.is_empty() else "Account created."
 				if str(payload.get("status", "")) == "verification_required":
 					verification_token.show()
@@ -146,7 +156,7 @@ func _on_auth_result(operation: String,success: bool,payload: Dictionary) -> voi
 					verification_token.text = str(payload["developmentVerificationToken"])
 					register_status.text += "\nDevelopment verification token inserted below."
 			else:
-				register_status.text = message if not message.is_empty() else "Registration failed. Check your details."
+				register_status.text = {"invalid_alpha_invite":"This invitation is used or expired. Each account requires a new invitation.","alpha_invite_required":"Enter a valid private alpha invitation.","password_length_invalid":"Use at least 8 characters (not necessarily digits).","player_name_unavailable":"Choose a different username. You can reuse your email."}.get(message,message if not message.is_empty() else "Registration failed. Check your details.")
 		"verify_email":
 			register_status.text = "Email verified. You can now sign in." if success else (message if not message.is_empty() else "Verification failed.")
 		"login":

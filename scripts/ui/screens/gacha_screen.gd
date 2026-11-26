@@ -24,11 +24,21 @@ var _summon_busy: bool = false
 var _previous_music := ""
 var _online_mode := true
 var collection_only := false
+var _embedded_collection_body: ScrollContainer
+var _collection_open := false
+
+func _collection_body() -> ScrollContainer:
+	if is_instance_valid(_embedded_collection_body):return _embedded_collection_body
+	return get_node("OnlineRosterDialog/BodyScroll") as ScrollContainer
+
+func _collection_visible() -> bool:
+	return _collection_open and _collection_body().is_visible_in_tree() if collection_only else get_node("OnlineRosterDialog").visible
 var _online_notice: Label
 var _online_switch: CheckButton
 var _online_roster: Button
 var _history_button: Button
 var _pending_recovery: Button
+var _collection_retry: Button
 var _online_selected: Dictionary = {}
 var _upgrade_busy := false
 var _live_refresh_pending := false
@@ -57,6 +67,10 @@ func _ready() -> void:
 	_summon_flow.bind(self)
 	_online_mode = true
 	super._ready()
+	var roster_dialog: AcceptDialog = get_node("OnlineRosterDialog")
+	roster_dialog.theme = theme
+	roster_dialog.add_theme_stylebox_override("panel",UITheme.style(UITheme.PANEL_DEEP,UITheme.VIOLET,12,1,14))
+	roster_dialog.add_theme_stylebox_override("embedded_border",UITheme.style(UITheme.PANEL_DEEP,UITheme.VIOLET,12,1,14))
 	var atmosphere := get_node_or_null("SummoningChamberAtmosphere") as Control
 	if atmosphere == null:
 		push_error("GachaScreen requires its authored SummoningChamberAtmosphere scene.")
@@ -76,7 +90,7 @@ func _ready() -> void:
 	var shell_panel := get_node_or_null("OverlayShell/Margin/Panel") as PanelContainer
 	if shell_panel != null:
 		var glass := StyleBoxFlat.new()
-		glass.bg_color = Color(0.025, 0.018, 0.055, 0.58)
+		glass.bg_color = Color(0.025, 0.018, 0.055, 0.94 if collection_only else 0.58)
 		glass.border_color = Color(0.72, 0.56, 0.91, 0.52)
 		glass.set_border_width_all(1)
 		glass.set_corner_radius_all(16)
@@ -167,11 +181,14 @@ func _process(_delta: float) -> void:
 
 func _refresh_live_collection() -> void:
 	var before: Dictionary = _summon_flow.online_state
+	var was_fresh := _summon_flow.online_state_fresh
 	if not await _summon_flow.refresh_online_state():
-		if is_inside_tree(): _refresh()
+		if is_inside_tree():
+			_refresh()
+			_refresh_collection_connection_controls()
 		return
 	if not is_inside_tree() or not _online_mode: return
-	if before == _summon_flow.online_state: return
+	if before == _summon_flow.online_state and was_fresh: return
 	var selected := str(_online_selected.get("char_id",""))
 	var next: Dictionary = _summon_flow.online_state
 	if collection_only or before.get("currencies") != next.get("currencies") or before.get("pity") != next.get("pity") or before.get("paidProgress") != next.get("paidProgress") or before.get("paidMilestone") != next.get("paidMilestone") or before.get("paidGuaranteePolicy") != next.get("paidGuaranteePolicy") or before.get("paidTotal") != next.get("paidTotal"):
@@ -179,9 +196,12 @@ func _refresh_live_collection() -> void:
 	else:
 		_update_online_notice()
 	var dialog: AcceptDialog = get_node("OnlineRosterDialog")
-	if not dialog.visible: return
-	if _roster_card_signature(before) != _roster_card_signature(next):
-		_filter_online_roster(dialog.get_node("BodyScroll/Collection/Search").text)
+	if collection_only and not _collection_visible():
+		_show_online_roster()
+		return
+	if not _collection_visible(): return
+	if not was_fresh or _roster_card_signature(before) != _roster_card_signature(next):
+		_filter_online_roster(_collection_body().get_node("Collection/Search").text)
 	else:
 		_update_online_party()
 	for row in _summon_flow.online_state.get("roster",[]):
@@ -232,7 +252,7 @@ func _build_content() -> void:
 	var layout := GACHA_LAYOUT_SCENE.instantiate() as VBoxContainer
 	layout.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	content.add_child(layout)
-	if OS.get_name() not in ["Android","iOS","Web"]:
+	if not collection_only and OS.get_name() not in ["Android","iOS","Web"]:
 		var shop_button := UIFactory.button("+ BUY MOONSTONES", true)
 		shop_button.name = "HeaderMoonstoneShop"
 		shop_button.custom_minimum_size = Vector2(185,40)
@@ -250,6 +270,15 @@ func _build_content() -> void:
 	_online_roster.pressed.connect(_show_online_roster)
 	_pending_recovery = layout.get_node("PendingRecovery")
 	_pending_recovery.pressed.connect(_recover_pending_summon)
+	if collection_only:
+		layout.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		_embedded_collection_body = get_node("OnlineRosterDialog/BodyScroll") as ScrollContainer
+		_embedded_collection_body.reparent(content,false)
+		_embedded_collection_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_embedded_collection_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		_embedded_collection_body.hide()
+	_collection_retry = layout.get_node("RetryAccountState") as Button
+	_collection_retry.pressed.connect(_retry_account_state)
 	_history_button = layout.get_node("OfflineNotice/ModeRow/History")
 	_history_button.pressed.connect(func():
 		if not _summon_busy:
@@ -379,7 +408,7 @@ func _toggle_online(_value: bool = true) -> void:
 	if _summon_flow.online_loading:
 		while _summon_flow.online_loading and is_inside_tree():
 			await get_tree().process_frame
-		ready = not _summon_flow.online_state.is_empty()
+		ready = _summon_flow.online_state_fresh
 	else:
 		ready = await _summon_flow.refresh_online_state()
 	if not is_inside_tree():
@@ -387,8 +416,9 @@ func _toggle_online(_value: bool = true) -> void:
 	if not ready:
 		EventBus.toast_requested.emit("Account connection unavailable. Reconnect to summon.")
 	_refresh()
-	if collection_only and ready and not get_node("OnlineRosterDialog").visible:
+	if collection_only and not _collection_visible():
 		_show_online_roster()
+	_refresh_collection_connection_controls()
 
 
 func summon_currency(kind: String) -> int:
@@ -405,7 +435,7 @@ func _open_moonstone_shop() -> void:
 	add_child(shop)
 
 func paid_guarantee_verified() -> bool:
-	return _summon_flow != null and AuthGateway.is_authenticated() and str(_summon_flow.online_state.get("playerId","")) == str(AuthGateway.current_player().get("id","")) and int(_summon_flow.online_state.get("paidMilestone",0)) == 100 and str(_summon_flow.online_state.get("paidGuaranteePolicy","")) == "featured_character_v1" and _summon_flow.online_state.has("paidProgress") and str(_summon_flow.online_state.get("paidTotal","")).is_valid_int()
+	return _summon_flow != null and _summon_flow.online_state_fresh and AuthGateway.is_authenticated() and str(_summon_flow.online_state.get("playerId","")) == str(AuthGateway.current_player().get("id","")) and int(_summon_flow.online_state.get("paidMilestone",0)) == 100 and str(_summon_flow.online_state.get("paidGuaranteePolicy","")) == "featured_character_v1" and _summon_flow.online_state.has("paidProgress") and str(_summon_flow.online_state.get("paidTotal","")).is_valid_int()
 
 func paid_summon_progress() -> int:
 	return clampi(int(_summon_flow.online_state.get("paidProgress",0)),0,99)
@@ -416,6 +446,7 @@ func summon_available(count: int, cost: int, currency: String) -> bool:
 	if not _account_state_ready(): return false
 	if currency == "paid_moonstones" and not paid_guarantee_verified(): return false
 	var pending: Dictionary = _summon_flow.pending_online
+	if currency == "paid_moonstones" and OS.has_feature("reverie_public_alpha") and pending.is_empty(): return false
 	if not pending.is_empty(): return pending.get("bannerId") == _selected_banner and int(pending.get("count", 0)) == count and str(pending.get("currency","crystals")) == currency
 	return summon_currency(currency) >= cost
 
@@ -434,41 +465,60 @@ func _update_online_notice() -> void:
 	if _history_button != null:
 		_history_button.visible = not collection_only
 		_history_button.disabled = _summon_busy or not AuthGateway.is_authenticated()
-	_online_roster.disabled = not AuthGateway.is_authenticated() or _summon_flow.online_state.is_empty()
+	_online_roster.disabled = not AuthGateway.is_authenticated()
+	if is_instance_valid(_collection_retry):
+		_collection_retry.visible = AuthGateway.is_authenticated() and not _summon_flow.online_state_fresh
+		_collection_retry.disabled = _upgrade_busy or _summon_busy or _summon_flow.online_loading or _summon_flow.online_request_busy
 	if not AuthGateway.is_authenticated():
 		_online_notice.text = "Sign in to access your account collection and summon."
-	elif _summon_flow.online_state.is_empty():
-		_online_notice.text = "Online wallet unavailable. No local currency will be spent."
+	elif not _summon_flow.online_state_fresh:
+		_online_notice.text = "Reconnecting to your account. Last verified data is read-only; no upgrades or summons until refreshed." if not _summon_flow.online_state.is_empty() else "Account data unavailable. Retry connection; no local currency will be spent."
 	else:
 		_online_notice.text = "ONLINE: server wallet and collection (%d characters). Mythic summons appear in World Chat." % _summon_flow.online_state.get("roster", []).size()
 		if not _summon_flow.pending_online.is_empty():
 			_online_notice.text += " Retry pending %d-pull on %s." % [int(_summon_flow.pending_online.get("count", 0)), str(_summon_flow.pending_online.get("bannerId", ""))]
 
+func _retry_account_state() -> void:
+	if _upgrade_busy or _summon_busy: return
+	await _refresh_live_collection()
+
+func _refresh_collection_connection_controls() -> void:
+	if not _collection_visible(): return
+	_update_upgrade_controls(_online_selected)
+	_refresh_skill_controls()
+	_refresh_gear_buttons()
+	_update_online_party()
+	if not _summon_flow.online_state_fresh:
+		_set_upgrade_status("Connection interrupted. Reconnecting; progress shown may be out of date.")
+	elif _collection_body().get_node("Collection/UpgradeStatus").text.begins_with("Connection interrupted."):
+		_set_upgrade_status("")
+
 func _show_online_roster() -> void:
 	var dialog: AcceptDialog = get_node("OnlineRosterDialog")
 	_bind_collection_sections()
-	var compare_button: Button = dialog.get_node("BodyScroll/Collection/CompareProgress")
+	var compare_button: Button = _collection_body().get_node("Collection/CompareProgress")
 	compare_button.hide()
-	var search: LineEdit = dialog.get_node("BodyScroll/Collection/Search")
+	var search: LineEdit = _collection_body().get_node("Collection/Search")
 	if not search.text_changed.is_connected(_filter_online_roster):
 		search.text_changed.connect(_filter_online_roster)
-	var buttons := dialog.get_node("BodyScroll/Collection/UpgradeRow")
+	var buttons := _collection_body().get_node("Collection/UpgradeRow")
 	if not buttons.get_node("Ascend").pressed.is_connected(_ascend_selected):
+		buttons.get_node("Train").pressed.connect(_train_selected)
 		buttons.get_node("Ascend").pressed.connect(_ascend_selected)
 		buttons.get_node("Awaken").pressed.connect(_awaken_selected)
-	var skill_picker: OptionButton = dialog.get_node("BodyScroll/Collection/SkillRow/Skill")
+	var skill_picker: OptionButton = _collection_body().get_node("Collection/SkillRow/Skill")
 	if not skill_picker.item_selected.is_connected(_refresh_skill_controls):
 		skill_picker.item_selected.connect(_refresh_skill_controls)
-		dialog.get_node("BodyScroll/Collection/SkillRow/Upgrade").pressed.connect(_upgrade_online_skill)
-	var party_bar := dialog.get_node("BodyScroll/Collection/PartyRow")
+		_collection_body().get_node("Collection/SkillRow/Upgrade").pressed.connect(_upgrade_online_skill)
+	var party_bar := _collection_body().get_node("Collection/PartyRow")
 	if not party_bar.get_node("PartyToggle").pressed.is_connected(_toggle_online_party_member):
 		party_bar.get_node("PartyToggle").pressed.connect(_toggle_online_party_member)
 		party_bar.get_node("SaveParty").pressed.connect(_confirm_online_party)
+	# Keep team controls above the scrollable cards on small screens.
+	var collection := _collection_body().get_node("Collection")
+	if party_bar.get_index()>collection.get_node("Search").get_index():collection.move_child(party_bar,collection.get_node("Search").get_index())
 	search.clear()
 	_filter_online_roster("")
-	if collection_only:
-		if not dialog.confirmed.is_connected(close_screen): dialog.confirmed.connect(close_screen)
-		if not dialog.canceled.is_connected(close_screen): dialog.canceled.connect(close_screen)
 	_set_collection_section("Roster")
 	_open_collection_fitted()
 	_live_poll_at = Time.get_ticks_msec() + 5000
@@ -476,7 +526,7 @@ func _show_online_roster() -> void:
 
 func _filter_online_roster(query: String) -> void:
 	var dialog: AcceptDialog = get_node("OnlineRosterDialog")
-	var grid: GridContainer = dialog.get_node("BodyScroll/Collection/Scroll/Grid")
+	var grid: GridContainer = _collection_body().get_node("Collection/Scroll/Grid")
 	for child in grid.get_children():
 		grid.remove_child(child)
 		child.queue_free()
@@ -485,6 +535,7 @@ func _filter_online_roster(query: String) -> void:
 	var filter := query.strip_edges().to_lower()
 	var shown := 0
 	_online_selected.clear()
+	_update_upgrade_picker()
 	_update_upgrade_controls({})
 	_populate_online_skills({})
 	_refresh_online_gear()
@@ -500,23 +551,55 @@ func _filter_online_roster(query: String) -> void:
 		card.selected.connect(_select_current_online_character)
 		grid.add_child(card)
 		shown += 1
-	dialog.get_node("BodyScroll/Collection/Summary").text = "%d owned characters  |  %d shown" % [rows.size(), shown]
-	dialog.get_node("BodyScroll/Collection/Detail").text = "Select a character for details. Owned portraits unlock automatically." if shown > 0 else "No characters match your search."
+	_collection_body().get_node("Collection/Summary").text = "%d owned characters  |  %d shown" % [rows.size(), shown]
+	_collection_body().get_node("Collection/Detail").text = "Select a character for details. Owned portraits unlock automatically." if shown > 0 else "No characters match your search."
+
+func _update_upgrade_picker() -> void:
+	var picker: OptionButton = _collection_body().get_node("Collection/UpgradeCharacter")
+	picker.clear()
+	picker.add_item("Select owned character")
+	picker.set_item_metadata(0,"")
+	for row in _summon_flow.online_state.get("roster",[]):
+		var id := str(row.get("char_id",""))
+		var definition: CharacterDef = ContentDB.get_character(id)
+		if definition == null:continue
+		picker.add_item("%s | %s | Lv %d" % [definition.display_name,definition.rarity.capitalize(),int(row.get("level",1))])
+		picker.set_item_metadata(picker.item_count-1,id)
+	picker.disabled = _upgrade_busy or picker.item_count<=1
+
+func _select_upgrade_character(index: int) -> void:
+	if _upgrade_busy:return
+	var picker: OptionButton = _collection_body().get_node("Collection/UpgradeCharacter")
+	var id := str(picker.get_item_metadata(index))
+	if id.is_empty():
+		_online_selected.clear()
+		_update_upgrade_controls({})
+		_populate_online_skills({})
+		_refresh_online_gear()
+		_collection_body().get_node("Collection/Detail").text="Select an owned character."
+		return
+	for row in _summon_flow.online_state.get("roster",[]):
+		if str(row.get("char_id",""))==id:
+			var definition: CharacterDef=ContentDB.get_character(id)
+			if definition!=null:_online_character_details(row,definition)
+			return
 
 func _select_current_online_character(id: String) -> void:
+	if _upgrade_busy:return
 	for row in _summon_flow.online_state.get("roster",[]):
 		if str(row.get("char_id","")) == id:
 			var definition: CharacterDef = ContentDB.get_character(id)
 			if definition != null:
 				_online_character_details(row,definition)
-				_set_collection_section("Progression")
+				if _collection_section != "Party": _set_collection_section("Progression")
 			return
 
 func _account_state_ready() -> bool:
-	return AuthGateway.is_authenticated() and not _summon_flow.online_state.is_empty() and str(_summon_flow.online_state.get("playerId","")) == str(AuthGateway.current_player().get("id","")) and not _summon_flow.online_request_busy and not _summon_flow.online_loading
+	return AuthGateway.is_authenticated() and _summon_flow.online_state_fresh and not _summon_flow.online_state.is_empty() and str(_summon_flow.online_state.get("playerId","")) == str(AuthGateway.current_player().get("id","")) and not _summon_flow.online_request_busy and not _summon_flow.online_loading
 
 func _invalidate_account_view(identity_changed: bool = true) -> void:
 	_online_selected.clear()
+	_set_upgrade_status("")
 	if identity_changed:
 		_live_refresh_pending = AuthGateway.is_authenticated()
 		_live_refresh_at = Time.get_ticks_msec()
@@ -528,14 +611,17 @@ func _invalidate_account_view(identity_changed: bool = true) -> void:
 				_results_layer = null
 		AudioDirector.stop_summon_ritual_ambience()
 	var dialog: AcceptDialog = get_node("OnlineRosterDialog")
-	if dialog.visible:
-		_filter_online_roster(dialog.get_node("BodyScroll/Collection/Search").text)
-		dialog.get_node("BodyScroll/Collection/Detail").text = "Account data unavailable. Reconnecting..." if AuthGateway.is_authenticated() else "Sign in to view your collection."
+	if _collection_visible():
+		_filter_online_roster(_collection_body().get_node("Collection/Search").text)
+		_collection_body().get_node("Collection/Detail").text = "Account data unavailable. Reconnecting..." if AuthGateway.is_authenticated() else "Sign in to view your collection."
 	_refresh()
 
 func _online_character_details(row: Dictionary, definition: CharacterDef) -> void:
 	_online_selected = row.duplicate(true)
-	get_node("OnlineRosterDialog/BodyScroll/Collection/Detail").text = "%s  |  %s  |  Level %d  |  Ascension %d  |  Awakening %d  |  Duplicates %d" % [definition.display_name, definition.rarity.capitalize(), int(row.get("level",1)), int(row.get("ascension",0)), int(row.get("awakening",0)), int(row.get("dupes",0))]
+	var picker: OptionButton = _collection_body().get_node("Collection/UpgradeCharacter")
+	for i in picker.item_count:
+		if str(picker.get_item_metadata(i))==str(row.get("char_id","")):picker.select(i);break
+	_collection_body().get_node("Collection/Detail").text = "%s  |  %s  |  Level %d  |  Ascension %d  |  Awakening %d  |  Duplicates %d" % [definition.display_name, definition.rarity.capitalize(), int(row.get("level",1)), int(row.get("ascension",0)), int(row.get("awakening",0)), int(row.get("dupes",0))]
 	_update_upgrade_controls(row)
 	_populate_online_skills(row)
 	_refresh_online_gear()
@@ -543,14 +629,14 @@ func _online_character_details(row: Dictionary, definition: CharacterDef) -> voi
 	var level := int(row.get("level",1))
 	var cap := 20*(int(row.get("ascension",0))+1)
 	var progress_text := "Level cap reached" if level >= cap else "%d / %d XP" % [int(str(row.get("xp","0"))),100+(level-1)*85]
-	get_node("OnlineRosterDialog/BodyScroll/Collection/Detail").text += " | " + progress_text
+	_collection_body().get_node("Collection/Detail").text += " | " + progress_text
 
 func close_screen() -> void:
 	if _summon_busy or _upgrade_busy or (_summon_flow != null and _summon_flow.online_loading): return
 	super.close_screen()
 
 func _update_upgrade_controls(row: Dictionary) -> void:
-	var buttons := get_node("OnlineRosterDialog/BodyScroll/Collection/UpgradeRow")
+	var buttons := _collection_body().get_node("Collection/UpgradeRow")
 	var ascend: Button = buttons.get_node("Ascend")
 	var awaken: Button = buttons.get_node("Awaken")
 	var tier := int(row.get("ascension", 0))
@@ -564,26 +650,86 @@ func _update_upgrade_controls(row: Dictionary) -> void:
 	ascend.text = "Ascend: %d gold + %d dew" % [gold, dew] if tier < 3 else "Max ascension"
 	ascend.disabled = row.is_empty() or _upgrade_busy or tier >= 3 or int(row.get("level", 0)) != cap or not gold_ready or not dew_ready
 	ascend.tooltip_text = "Requires level %d and the displayed materials." % cap
+	var root := _collection_body().get_node("Collection")
+	root.get_node("UpgradeCharacter").disabled = _upgrade_busy or root.get_node("UpgradeCharacter").item_count<=1
+	var hint: Label = root.get_node("UpgradeHint")
+	if row.is_empty():
+		hint.text = "Select an owned character above."
+	else:
+		hint.text = "Level %d / %d | Ascension %d/3 | Awakening %d/5" % [int(row.get("level",1)),cap,tier,awakening]
+		if tier<3:
+			hint.text += "\nAscend: reach Lv %d; gold %d/%d; Dew of Awakening %d/%d." % [cap,summon_currency("gold"),gold,int(str(inventory.get("dew_of_awakening","0"))),dew]
+			if int(row.get("level",1))<cap:hint.text += " Earn XP in battles."
+		else:hint.text += "\nMaximum ascension reached."
+		hint.text += "\nAwakening: %d/2 duplicates." % int(row.get("dupes",0))
+		var fusion=preload("res://scripts/gacha/character_upgrade_card.gd")
+		var recipe: Dictionary=fusion.ascension_recipe(str(row.get("char_id","")))
+		if not recipe.is_empty():
+			hint.text += "\nMythic acquisitions: %d/%d (automatically fully ascends)." % [int(str(inventory.get(str(recipe.item),"0"))),int(recipe.cost)]
+		var mythic: Dictionary=fusion.mythic_recipe(str(row.get("char_id","")))
+		if not mythic.is_empty():
+			var mythic_target := ContentDB.get_character(str(mythic.target))
+			var mythic_name := mythic_target.display_name if mythic_target != null else str(mythic.target)
+			hint.text += "\nLegendary copies: %d/%d toward %s. Fuses automatically; your Legendary stays playable and keeps its upgrades." % [int(str(inventory.get(str(mythic.item),"0"))),int(mythic.cost),mythic_name]
+	var ready := _account_state_ready()
+	ascend.disabled = ascend.disabled or not ready
+	var train: Button = buttons.get_node("Train")
+	var level := int(row.get("level",1))
+	var cost := maxi(1,100+(level-1)*85-int(str(row.get("xp","0"))))
+	train.text = "Level up: %d gold" % cost if level<cap else ("Maximum level reached" if tier>=3 else "Level cap - ascend first")
+	train.disabled = row.is_empty() or _upgrade_busy or not ready or level>=cap or summon_currency("gold")<cost
+	if not row.is_empty():
+		hint.text += "\nTraining: %d/%d gold for next level. Battle XP reduces the cost." % [summon_currency("gold"),cost] if level<cap else ("\nMaximum level reached (80)." if tier>=3 else "\nAscend to unlock more levels.")
 	awaken.text = "Awaken: 2 duplicates" if awakening < 5 else "Max awakening"
-	awaken.disabled = row.is_empty() or _upgrade_busy or awakening >= 5 or int(row.get("dupes",0)) < 2
+	awaken.disabled = row.is_empty() or _upgrade_busy or awakening >= 5 or int(row.get("dupes",0)) < 2 or not ready
 	_refresh_skill_controls()
 
+func _set_upgrade_status(message: String) -> void:
+	_collection_body().get_node("Collection/UpgradeStatus").text=message
+
+func _wait_upgrade_connection(owner: String,generation: int) -> bool:
+	var deadline:=Time.get_ticks_msec()+15000
+	while true:
+		if not is_inside_tree() or owner!=str(AuthGateway.current_player().get("id","")) or generation!=_summon_flow.session_generation:return false
+		if _account_state_ready() and AuthGateway.access_token_ready_for_connection():return true
+		if not _summon_flow.online_loading and not _summon_flow.online_request_busy and AuthGateway.access_token_ready_for_connection():
+			await _summon_flow.refresh_online_state()
+			if owner!=str(AuthGateway.current_player().get("id","")) or generation!=_summon_flow.session_generation:return false
+			if _account_state_ready():return true
+			await get_tree().create_timer(0.5).timeout
+		if Time.get_ticks_msec()>deadline:return false
+		await get_tree().process_frame
+	return false
+
+func _upgrade_connection_failed(row: Dictionary,owner: String,generation: int) -> void:
+	_upgrade_busy=false
+	if owner!=str(AuthGateway.current_player().get("id","")) or generation!=_summon_flow.session_generation:return
+	_update_upgrade_controls(_online_selected)
+	_set_upgrade_status("Connection unavailable. Reopen collection or retry.")
+	EventBus.toast_requested.emit("Upgrade connection unavailable.")
+
 func _upgrade_online_character(action: String) -> void:
-	if _upgrade_busy or not _online_mode or not _account_state_ready() or _online_selected.is_empty(): return
+	if _upgrade_busy or not _online_mode or _online_selected.is_empty(): return
+	var button: Button = _collection_body().get_node("Collection/UpgradeRow/"+("Ascend" if action=="ascend" else "Awaken"))
+	if button.disabled:return
 	var row: Dictionary = _online_selected.duplicate(true)
 	_upgrade_busy = true
 	_update_upgrade_controls(row)
 	var identity := str(AuthGateway.current_player().get("id", ""))
 	var generation := _summon_flow.session_generation
 	var tier := int(row.get("ascension" if action == "ascend" else "awakening",0))
+	_set_upgrade_status("Saving upgrade to server...")
+	if not await _wait_upgrade_connection(identity,generation):
+		_upgrade_connection_failed(row,identity,generation)
+		return
 	var result := await _summon_flow._online_call("/upgrade", {"characterId": str(row.char_id), "action":action, "expectedTier":tier})
 	if generation != _summon_flow.session_generation or identity != str(AuthGateway.current_player().get("id","")):
 		_upgrade_busy = false
 		return
-	await _summon_flow.refresh_online_state()
+	var refreshed := await _summon_flow.refresh_online_state()
 	AuthGateway.refresh_online_wallet()
 	_upgrade_busy = false
-	var query: String = get_node("OnlineRosterDialog/BodyScroll/Collection/Search").text
+	var query: String = _collection_body().get_node("Collection/Search").text
 	_filter_online_roster(query)
 	for updated in _summon_flow.online_state.get("roster", []):
 		if str(updated.char_id) == str(row.char_id):
@@ -591,10 +737,41 @@ func _upgrade_online_character(action: String) -> void:
 			if definition != null: _online_character_details(updated, definition)
 			break
 	_refresh()
+	_set_upgrade_status(("Saved to your account." if refreshed else "Server confirmed. Reconnect to refresh balances.") if bool(result.get("ok",false)) else str(result.get("error","Upgrade interrupted. Retry after refreshing.")).replace("_"," "))
 	if bool(result.get("ok",false)):
 		EventBus.toast_requested.emit("Character upgraded.")
 	else:
 		EventBus.toast_requested.emit(str(result.get("error","Upgrade interrupted. Refresh collection.")).replace("_"," "))
+
+func _train_selected() -> void:
+	if _upgrade_busy or _online_selected.is_empty() or _collection_body().get_node("Collection/UpgradeRow/Train").disabled:return
+	var row := _online_selected.duplicate(true)
+	var owner := str(AuthGateway.current_player().get("id",""))
+	var generation := _summon_flow.session_generation
+	_upgrade_busy=true
+	_update_upgrade_controls(row)
+	_set_upgrade_status("Training character...")
+	if not await _wait_upgrade_connection(owner,generation):
+		_upgrade_connection_failed(row,owner,generation)
+		return
+	var result := await _summon_flow._online_call("/train",{"characterId":str(row.char_id),"expectedLevel":int(row.level),"expectedXp":int(str(row.get("xp","0")))})
+	if generation!=_summon_flow.session_generation or owner!=str(AuthGateway.current_player().get("id","")):
+		_upgrade_busy=false
+		return
+	var refreshed := await _summon_flow.refresh_online_state()
+	AuthGateway.refresh_online_wallet()
+	_upgrade_busy=false
+	_filter_online_roster(_collection_body().get_node("Collection/Search").text)
+	_select_upgrade_character_by_id(str(row.char_id))
+	_refresh()
+	_set_upgrade_status(("Level increased. Saved to your account." if refreshed else "Training saved. Refresh to view the new level.") if bool(result.get("ok",false)) else str(result.get("error","Training interrupted. Refresh collection.")).replace("_"," "))
+
+func _select_upgrade_character_by_id(id: String) -> void:
+	for updated in _summon_flow.online_state.get("roster",[]):
+		if str(updated.char_id)==id:
+			var definition: CharacterDef=ContentDB.get_character(id)
+			if definition!=null:_online_character_details(updated,definition)
+			return
 
 func _ascend_selected() -> void:
 	await _upgrade_online_character("ascend")
@@ -603,7 +780,7 @@ func _awaken_selected() -> void:
 	await _upgrade_online_character("awaken")
 
 func _populate_online_skills(row: Dictionary) -> void:
-	var picker: OptionButton = get_node("OnlineRosterDialog/BodyScroll/Collection/SkillRow/Skill")
+	var picker: OptionButton = _collection_body().get_node("Collection/SkillRow/Skill")
 	var previous := str(picker.get_selected_metadata()) if picker.selected >= 0 else ""
 	picker.clear()
 	var definition: CharacterDef = ContentDB.get_character(str(row.get("char_id", "")))
@@ -621,9 +798,9 @@ func _populate_online_skills(row: Dictionary) -> void:
 	_refresh_skill_controls()
 
 func _refresh_skill_controls(_index: int = -1) -> void:
-	var picker: OptionButton = get_node("OnlineRosterDialog/BodyScroll/Collection/SkillRow/Skill")
-	var button: Button = get_node("OnlineRosterDialog/BodyScroll/Collection/SkillRow/Upgrade")
-	var hint: Label = get_node("OnlineRosterDialog/BodyScroll/Collection/SkillHint")
+	var picker: OptionButton = _collection_body().get_node("Collection/SkillRow/Skill")
+	var button: Button = _collection_body().get_node("Collection/SkillRow/Upgrade")
+	var hint: Label = _collection_body().get_node("Collection/SkillHint")
 	button.disabled = true
 	button.text = "Upgrade skill"
 	hint.text = "Select a character to see their skills."
@@ -639,12 +816,12 @@ func _refresh_skill_controls(_index: int = -1) -> void:
 	var petals := int(str(_summon_flow.online_state.get("inventory", {}).get("moonpetal", "0")))
 	button.text = "Upgrade to Lv. %d" % (lv+1)
 	hint.text = "Requires Lv. %d | %d gold | %d Moonpetal (owned: %d)" % [lv*5,gold,lv,petals]
-	button.disabled = _upgrade_busy or not _online_mode or int(_online_selected.get("level",0)) < lv*5 or summon_currency("gold") < gold or petals < lv
+	button.disabled = _upgrade_busy or not _online_mode or not _account_state_ready() or int(_online_selected.get("level",0)) < lv*5 or summon_currency("gold") < gold or petals < lv
 
 func _upgrade_online_skill() -> void:
-	if _upgrade_busy or not _online_mode or not _account_state_ready() or _online_selected.is_empty(): return
-	var picker: OptionButton = get_node("OnlineRosterDialog/BodyScroll/Collection/SkillRow/Skill")
-	if picker.selected < 0 or get_node("OnlineRosterDialog/BodyScroll/Collection/SkillRow/Upgrade").disabled: return
+	if _upgrade_busy or not _online_mode or _online_selected.is_empty(): return
+	var picker: OptionButton = _collection_body().get_node("Collection/SkillRow/Skill")
+	if picker.selected < 0 or _collection_body().get_node("Collection/SkillRow/Upgrade").disabled: return
 	var row := _online_selected.duplicate(true)
 	var id := str(picker.get_selected_metadata())
 	var lv := int(row.get("skill_levels", {}).get(id,1))
@@ -653,14 +830,18 @@ func _upgrade_online_skill() -> void:
 	_upgrade_busy = true
 	_update_upgrade_controls(row)
 	_refresh_skill_controls()
+	_set_upgrade_status("Saving upgrade to server...")
+	if not await _wait_upgrade_connection(owner,generation):
+		_upgrade_connection_failed(row,owner,generation)
+		return
 	var result := await _summon_flow._online_call("/skill-upgrade", {"characterId":str(row.char_id),"skillId":id,"expectedLevel":lv})
 	if generation != _summon_flow.session_generation or owner != str(AuthGateway.current_player().get("id","")):
 		_upgrade_busy = false
 		return
-	await _summon_flow.refresh_online_state()
+	var refreshed := await _summon_flow.refresh_online_state()
 	AuthGateway.refresh_online_wallet()
 	_upgrade_busy = false
-	_filter_online_roster(get_node("OnlineRosterDialog/BodyScroll/Collection/Search").text)
+	_filter_online_roster(_collection_body().get_node("Collection/Search").text)
 	for updated in _summon_flow.online_state.get("roster",[]):
 		if str(updated.char_id) == str(row.char_id):
 			var definition: CharacterDef = ContentDB.get_character(str(updated.char_id))
@@ -670,10 +851,11 @@ func _upgrade_online_skill() -> void:
 			_refresh_skill_controls()
 			break
 	_refresh()
+	_set_upgrade_status(("Saved to your account." if refreshed else "Server confirmed. Reconnect to refresh balances.") if bool(result.get("ok",false)) else str(result.get("error","Upgrade interrupted. Retry after refreshing.")).replace("_"," "))
 	EventBus.toast_requested.emit("Skill upgraded." if bool(result.get("ok",false)) else str(result.get("error","Upgrade interrupted. Refresh collection.")).replace("_"," "))
 
 func _bind_online_gear() -> void:
-	var bar := get_node("OnlineRosterDialog/BodyScroll/Collection/GearRow")
+	var bar := _collection_body().get_node("Collection/GearRow")
 	var slot: OptionButton = bar.get_node("Slot")
 	if slot.item_count != 0: return
 	for id in ["weapon","armor","accessory"]:
@@ -688,14 +870,14 @@ func _bind_online_gear() -> void:
 	bar.get_node("Reroll").pressed.connect(func(): await _online_gear_action("reroll"))
 
 func _current_online_gear() -> Dictionary:
-	var slot: OptionButton = get_node("OnlineRosterDialog/BodyScroll/Collection/GearRow/Slot")
+	var slot: OptionButton = _collection_body().get_node("Collection/GearRow/Slot")
 	for gear in _online_selected.get("equipment",[]):
 		if gear.slot == slot.get_selected_metadata(): return gear
 	return {}
 
 func _refresh_online_gear() -> void:
 	_bind_online_gear()
-	var bar := get_node("OnlineRosterDialog/BodyScroll/Collection/GearRow")
+	var bar := _collection_body().get_node("Collection/GearRow")
 	var slot: OptionButton = bar.get_node("Slot")
 	var picker: OptionButton = bar.get_node("Item")
 	var prev := str(picker.get_selected_metadata()) if picker.selected >= 0 else ""
@@ -714,10 +896,10 @@ func _refresh_online_gear() -> void:
 	_refresh_gear_buttons()
 
 func _refresh_gear_buttons() -> void:
-	var bar := get_node("OnlineRosterDialog/BodyScroll/Collection/GearRow")
+	var bar := _collection_body().get_node("Collection/GearRow")
 	var picker: OptionButton = bar.get_node("Item")
 	var current := _current_online_gear()
-	var locked := _upgrade_busy or not _online_mode or _online_selected.is_empty()
+	var locked := _upgrade_busy or not _online_mode or not _account_state_ready() or _online_selected.is_empty()
 	bar.get_node("Equip").disabled = locked or picker.selected < 0
 	bar.get_node("Remove").disabled = locked or current.is_empty()
 	var lv := int(current.get("enhancement_level",0))
@@ -734,7 +916,7 @@ func _refresh_gear_buttons() -> void:
 		if float(stats.get(stat,0)) > 0: can_roll = true
 	bar.get_node("Reroll").disabled = locked or current.is_empty() or not can_roll or summon_currency("gold") < 120 or int(str(inventory.get("gothic_shard","0"))) < 1
 	bar.get_node("Reroll").tooltip_text = "120 gold + 1 Gothic Shard; replaces the current bonus."
-	var hint: Label = get_node("OnlineRosterDialog/BodyScroll/Collection/GearHint")
+	var hint: Label = _collection_body().get_node("Collection/GearHint")
 	hint.text = "Equipped: %s +%d / +%d | Next: %d gold, %d sap, %d shards" % [def.get("name","None"),lv,cap,gold,sap,shards] if not current.is_empty() else "Empty slot. Select equipment from your online inventory."
 	if not current.is_empty():
 		var stat := str(current.get("reroll_stat","")) if current.get("reroll_stat") != null else ""
@@ -742,8 +924,8 @@ func _refresh_gear_buttons() -> void:
 		hint.text += "\nBonus: %s | Reroll: 120 gold + 1 Gothic Shard" % (("%s +%s" % [stat.to_upper(),str(value)]) if not stat.is_empty() else "None")
 
 func _online_gear_action(action: String) -> void:
-	if _upgrade_busy or not _online_mode or not _account_state_ready() or _online_selected.is_empty(): return
-	var bar := get_node("OnlineRosterDialog/BodyScroll/Collection/GearRow")
+	if _upgrade_busy or not _online_mode or _online_selected.is_empty(): return
+	var bar := _collection_body().get_node("Collection/GearRow")
 	var control: String = {"equip":"Equip","unequip":"Remove","enhance":"Enhance","reroll":"Reroll"}.get(action,"")
 	if control == "" or bar.get_node(control).disabled: return
 	var row := _online_selected.duplicate(true)
@@ -759,24 +941,29 @@ func _online_gear_action(action: String) -> void:
 	_upgrade_busy = true
 	_update_upgrade_controls(row)
 	_refresh_gear_buttons()
+	_set_upgrade_status("Saving upgrade to server...")
+	if not await _wait_upgrade_connection(owner,generation):
+		_upgrade_connection_failed(row,owner,generation)
+		return
 	var result := await _summon_flow._online_call("/equipment",body)
 	if generation != _summon_flow.session_generation or owner != str(AuthGateway.current_player().get("id","")):
 		_upgrade_busy = false
 		return
-	await _summon_flow.refresh_online_state()
+	var refreshed := await _summon_flow.refresh_online_state()
 	AuthGateway.refresh_online_wallet()
 	_upgrade_busy = false
-	_filter_online_roster(get_node("OnlineRosterDialog/BodyScroll/Collection/Search").text)
+	_filter_online_roster(_collection_body().get_node("Collection/Search").text)
 	for updated in _summon_flow.online_state.get("roster",[]):
 		if str(updated.char_id) == str(row.char_id):
 			var definition: CharacterDef = ContentDB.get_character(str(updated.char_id))
 			if definition != null: _online_character_details(updated,definition)
 			break
 	_refresh()
+	_set_upgrade_status(("Saved to your account." if refreshed else "Server confirmed. Reconnect to refresh balances.") if bool(result.get("ok",false)) else str(result.get("error","Upgrade interrupted. Retry after refreshing.")).replace("_"," "))
 	EventBus.toast_requested.emit("Equipment updated." if bool(result.get("ok",false)) else str(result.get("error","Equipment request interrupted. Refresh collection.")).replace("_"," "))
 
 func _update_online_party() -> void:
-	var bar := get_node("OnlineRosterDialog/BodyScroll/Collection/PartyRow")
+	var bar := _collection_body().get_node("Collection/PartyRow")
 	var members: Array = _summon_flow.online_state.get("party",[])
 	var labels: PackedStringArray = []
 	for id in members:
@@ -786,24 +973,69 @@ func _update_online_party() -> void:
 	var toggle: Button = bar.get_node("PartyToggle")
 	var selected := str(_online_selected.get("char_id",""))
 	var included := members.has(selected)
-	toggle.text = "Remove from party" if included else "Add to party"
+	var replacement: OptionButton = bar.get_node("ReplaceSlot")
+	var prior := str(replacement.get_selected_metadata()) if replacement.selected>=0 else ""
+	replacement.clear()
+	var full := not included and members.size()>=4 and not selected.is_empty()
+	replacement.visible = full
+	if full:
+		for id in members:
+			var def: CharacterDef = ContentDB.get_character(str(id))
+			replacement.add_item("Replace "+(def.display_name if def!=null else str(id)))
+			replacement.set_item_metadata(replacement.item_count-1,id)
+			if str(id)==prior:replacement.select(replacement.item_count-1)
+	toggle.text = "Remove from party" if included else ("Replace member" if full else "Deploy character")
 	var expedition_locked := bool(_summon_flow.online_state.get("partyLocked",false))
 	if expedition_locked: bar.get_node("PartySummary").text += " | Expedition locked"
-	toggle.disabled = expedition_locked or _upgrade_busy or selected.is_empty() or (included and members.size()<=1) or (not included and members.size()>=4) or not _online_mode
-	bar.get_node("SaveParty").disabled = expedition_locked or _upgrade_busy or members.is_empty() or not _online_mode
+	var ready := _account_state_ready()
+	toggle.disabled = expedition_locked or _upgrade_busy or selected.is_empty() or (included and members.size()<=1) or not _online_mode or not ready
+	replacement.disabled = toggle.disabled
+	if selected.is_empty():bar.get_node("PartySummary").text += " | Tap an owned character below"
+	if GameState.roster_domain.story_solo_active():bar.get_node("PartySummary").text += " | Kael-only story segment; saved team applies after it."
+	if expedition_locked:bar.get_node("PartySummary").text += " | Leave the current expedition or PvP match to edit"
+	bar.get_node("SaveParty").disabled = expedition_locked or _upgrade_busy or members.is_empty() or not _online_mode or not ready
 
 func _change_online_party(toggle: bool) -> void:
-	if _upgrade_busy or not _online_mode or not _account_state_ready() or bool(_summon_flow.online_state.get("partyLocked",false)): return
+	if _upgrade_busy or not _online_mode: return
+	var initial_owner := str(AuthGateway.current_player().get("id",""))
+	var initial_generation := _summon_flow.session_generation
+	var requested_character := str(_online_selected.get("char_id",""))
+	var replacement_picker: OptionButton = _collection_body().get_node("Collection/PartyRow/ReplaceSlot")
+	var requested_replacement := str(replacement_picker.get_selected_metadata()) if replacement_picker.selected>=0 else ""
+	if initial_owner.is_empty():return
+	_upgrade_busy=true
+	_update_online_party()
+	# Wait for an in-flight read or credential refresh, rather than losing a tap.
+	var deadline:=Time.get_ticks_msec()+15000
+	while not _account_state_ready() or not AuthGateway.access_token_ready_for_connection():
+		if not is_inside_tree() or initial_generation!=_summon_flow.session_generation or initial_owner!=str(AuthGateway.current_player().get("id","")) or Time.get_ticks_msec()>deadline:
+			_upgrade_busy=false
+			_update_online_party()
+			EventBus.toast_requested.emit("Team connection unavailable. Try again.")
+			return
+		await get_tree().process_frame
+	if bool(_summon_flow.online_state.get("partyLocked",false)):
+		_upgrade_busy=false
+		_update_online_party()
+		EventBus.toast_requested.emit("Leave your current expedition or PvP match to edit your team.")
+		return
+	_upgrade_busy=false
 	var ids: Array = _summon_flow.online_state.get("party",[]).duplicate()
-	var selected := str(_online_selected.get("char_id",""))
+	var selected := requested_character
 	if toggle:
 		if selected.is_empty(): return
 		if ids.has(selected):
 			if ids.size()<=1: return
 			ids.erase(selected)
 		else:
-			if ids.size()>=4: return
-			ids.append(selected)
+			if ids.size()>=4:
+				var slot:=ids.find(requested_replacement)
+				if slot<0:
+					_update_online_party()
+					EventBus.toast_requested.emit("The team changed. Select a replacement slot again.")
+					return
+				ids[slot]=selected
+			else:ids.append(selected)
 	if ids.is_empty(): return
 	var owner := str(AuthGateway.current_player().get("id",""))
 	var generation := _summon_flow.session_generation
@@ -814,8 +1046,10 @@ func _change_online_party(toggle: bool) -> void:
 		_upgrade_busy = false
 		return
 	await _summon_flow.refresh_online_state()
+	if bool(result.get("ok",false)):
+		await AuthGateway.refresh_account_roster()
 	_upgrade_busy = false
-	_filter_online_roster(get_node("OnlineRosterDialog/BodyScroll/Collection/Search").text)
+	_filter_online_roster(_collection_body().get_node("Collection/Search").text)
 	for updated in _summon_flow.online_state.get("roster",[]):
 		if str(updated.char_id) == selected:
 			var def: CharacterDef = ContentDB.get_character(selected)
@@ -857,36 +1091,41 @@ var _collection_section := "Roster"
 
 func _bind_collection_sections() -> void:
 	var dialog: AcceptDialog = get_node("OnlineRosterDialog")
-	var tabs := dialog.get_node("BodyScroll/Collection/SectionTabs")
+	var tabs := _collection_body().get_node("Collection/SectionTabs")
 	if not tabs.get_node("Roster").pressed.is_connected(_show_roster_section):
 		tabs.get_node("Roster").pressed.connect(_show_roster_section)
 		tabs.get_node("Progression").pressed.connect(func(): _set_collection_section("Progression"))
 		tabs.get_node("Equipment").pressed.connect(func(): _set_collection_section("Equipment"))
+		_collection_body().get_node("Collection/UpgradeCharacter").item_selected.connect(_select_upgrade_character)
 		tabs.get_node("Party").pressed.connect(func(): _set_collection_section("Party"))
 		dialog.size_changed.connect(_resize_collection_grid)
-		dialog.get_node("BodyScroll/Collection/Scroll").resized.connect(_resize_collection_grid)
+		_collection_body().resized.connect(_resize_collection_grid)
+		_collection_body().get_node("Collection/Scroll").resized.connect(_resize_collection_grid)
 
 func _show_roster_section() -> void:
 	_set_collection_section("Roster")
 
 func _set_collection_section(section: String) -> void:
-	var root := get_node("OnlineRosterDialog/BodyScroll/Collection")
+	var root := _collection_body().get_node("Collection")
 	_collection_section = section
-	get_node("OnlineRosterDialog/BodyScroll").scroll_vertical = 0
+	_collection_body().scroll_vertical = 0
 	for id in ["Roster","Progression","Equipment","Party"]:
 		root.get_node("SectionTabs/"+id).set_pressed_no_signal(id==section)
 	for id in ["Search","Scroll"]:
-		root.get_node(id).visible = section=="Roster"
-	for id in ["UpgradeRow","SkillRow","SkillHint"]:
+		root.get_node(id).visible = section=="Roster" or section=="Party"
+	for id in ["UpgradeRow","UpgradeHint","UpgradeStatus","SkillRow","SkillHint"]:
 		root.get_node(id).visible = section=="Progression"
+	root.get_node("UpgradeCharacter").visible=section=="Progression" or section=="Equipment"
 	for id in ["GearRow","GearHint"]:
 		root.get_node(id).visible = section=="Equipment"
 	root.get_node("PartyRow").visible = section=="Party"
+	if section=="Party":
+		_update_online_party()
 	_resize_collection_grid.call_deferred()
 
 func _resize_collection_grid() -> void:
 	var dialog: AcceptDialog = get_node("OnlineRosterDialog")
-	var scroll: ScrollContainer = dialog.get_node("BodyScroll/Collection/Scroll")
+	var scroll: ScrollContainer = _collection_body().get_node("Collection/Scroll")
 	var grid: GridContainer = scroll.get_node("Grid")
 	if scroll.size.x > 0:
 		grid.columns = clampi(int((scroll.size.x-16.0)/148.0),1,6)
@@ -895,5 +1134,9 @@ func _open_collection_fitted() -> void:
 	var dialog: AcceptDialog = get_node("OnlineRosterDialog")
 	var viewport_size := Vector2i(get_viewport_rect().size)
 	var target := Vector2i(clampi(viewport_size.x-32,280,960),clampi(viewport_size.y-48,200,620))
-	dialog.popup_centered(target)
+	if collection_only:
+		_collection_open = true
+		_collection_body().show()
+	else:
+		dialog.popup_centered(target)
 	_resize_collection_grid.call_deferred()

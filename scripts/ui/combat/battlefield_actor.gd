@@ -148,6 +148,10 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 		visual.hide()
 	if unit.def_id == "revienna_boss" or (is_player and (unit.def_id == "ravienna" or unit.def_id.begins_with("ravienna_"))):
 		ravienna_art = $ReviennaArt
+		if is_player:
+			var playable_sprite := ravienna_art.get_node("AnimatedSprite2D") as AnimatedSprite2D
+			playable_sprite.sprite_frames = preload("res://assets/characters/ravienna/playable_combat/combat_frames.tres")
+			playable_sprite.play(&"idle")
 		ravienna_art.show()
 		ravienna_art.get_node("AnimatedSprite2D").animation_finished.connect(_revienna_return_idle)
 		visual.hide()
@@ -181,7 +185,10 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 		element_color = Color("#c6cad6")
 	_ground_fx.configure(is_player, unit.is_boss, unit.def_id == "fallen_matron", element_color)
 	_sync_ground_fx()
-	face(Vector2(-1.0, 0.0) if is_player else Vector2(1.0, 0.0))
+	if is_instance_valid(cassien_art) or is_instance_valid(ravienna_art):
+		face(Vector2.RIGHT if is_player else Vector2.LEFT)
+	else:
+		face(Vector2(-1.0, 0.0) if is_player else Vector2(1.0, 0.0))
 	refresh()
 
 
@@ -433,6 +440,14 @@ func _recover_combat_pose() -> void:
 
 ## Damage reaction: white flash + a short shake + the damage animation.
 func take_hit() -> void:
+	if kael_boss_sequence_active and not dead:
+		# The server has already resolved damage; do not abort an active authored
+		# approach/strike/withdrawal because an earlier delayed visual lands.
+		_cancel_hit_flash()
+		kael_boss_art.modulate = Color(1.65, 0.75, 0.75)
+		_hit_flash_tween = create_tween()
+		_hit_flash_tween.tween_property(kael_boss_art, "modulate", Color.WHITE, 0.28)
+		return
 	if is_instance_valid(elathra_art):
 		if not dead:
 			elathra_art.get_node("PoseAnimation").play("hit")

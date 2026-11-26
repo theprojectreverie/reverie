@@ -129,6 +129,11 @@ func _recover_transfer(message: String) -> void:
         EventBus.toast_requested.emit(message)
 
 func _story_unlocked() -> bool:
+    var zone := get_tree().current_scene
+    if zone != null and zone.has_node("StoryGardenCombatSync") and required_quest == "elathra_first_audience":
+        return zone.get_node("StoryGardenCombatSync").audience_state() == "complete"
+    if zone != null and zone.has_node("StoryGardenCombatSync") and required_quest == "royal_gate_patrol":
+        return zone.get_node("StoryGardenCombatSync").patrol_state() == "complete"
     if not required_story_flag.is_empty() and not bool(GameState.quest_domain.flags.get(required_story_flag, false)):
         return false
     if required_quest.is_empty() or not MultiplayerGateway.standalone_expedition_id.is_empty():

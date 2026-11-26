@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://rbapkft63elc" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/royal_banner_stand.png" id="TutorialFlag"]
 [ext_resource type="Texture2D" uid="uid://lew6mnfxuknx" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/weapon_rack.png" id="WeaponRack"]
 
+[ext_resource type="PackedScene" path="res://scenes/ui/components/tutorial_touch_controls.tscn" id="tutorial_touch"]
+
 [sub_resource type="Shader" id="Shader_courtyard_matte"]
 code = "shader_type canvas_item;
 render_mode unshaded;
@@ -331,10 +333,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 83.0
-offset_top = 184.0
-offset_right = 83.0
-offset_bottom = 184.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -404,5 +402,8 @@ color = Color(0, 0, 0, 0)
 
 [node name="CompanionNPC" parent="." unique_id=1351025020 instance=ExtResource("companion")]
 position = Vector2(0, -82)
+
+[node name="TutorialTouchControls" parent="." instance=ExtResource("tutorial_touch")]
+training_actions = true
 
 [editable path="Kael"]

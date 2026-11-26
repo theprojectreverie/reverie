@@ -38,7 +38,7 @@ func bind(owner_screen: CombatScreen) -> void:
 	# Latch authority for the lifetime of the battle. Scene teardown must never
 	# turn an online encounter into a local reward or local damage path.
 	_gerald_authoritative = screen.group_id == "gerald_boss_encounter" and world != null and world.has_node("StoryOpeningWorldSync")
-	_garden_authoritative = world != null and world.has_node("StoryGardenCombatSync") and screen.group_id in ["rose_slime_garden_1", "rose_slime_garden_2", "rose_slime_garden_3", "rose_slime_garden_4", "rose_slime_garden_5", "rose_slime_garden_6", "crownling_garden_1", "crownling_garden_2", "crownling_garden_3"]
+	_garden_authoritative = world != null and world.has_node("StoryGardenCombatSync") and screen.group_id in ["rose_slime_garden_1", "rose_slime_garden_2", "rose_slime_garden_3", "rose_slime_garden_4", "rose_slime_garden_5", "rose_slime_garden_6", "crownling_garden_1", "crownling_garden_2", "crownling_garden_3", "royal_gate_patrol_1", "royal_gate_patrol_2"]
 
 func start_battle() -> void:
 	if screen == null or not is_instance_valid(screen):
@@ -213,7 +213,7 @@ func _spar_request(payload: Dictionary) -> Dictionary:
 	_spar_busy = true
 	var route := "/v1/gerald-story/" if is_online_gerald() else "/v1/tutorial-spar/"
 	if is_online_garden():
-		route = "/v1/gardens-story/"
+		route = "/v1/royal-gate-story/" if screen.group_id in ["royal_gate_patrol_1", "royal_gate_patrol_2"] else "/v1/gardens-story/"
 		payload = payload.duplicate(true)
 		payload["groupId"] = screen.group_id
 	var error := _spar_http.request(AuthGateway.api_base_url+route,PackedStringArray(["Authorization: Bearer "+AuthGateway.access_token_for_request(),"Content-Type: application/json"]),HTTPClient.METHOD_POST,JSON.stringify(payload))

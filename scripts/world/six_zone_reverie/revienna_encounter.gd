@@ -28,7 +28,7 @@ var previous_ending_camera: Camera2D
 
 func _ready() -> void:
 	super._ready()
-	prompt = "Speak to Revienna"
+	prompt = "Speak to Ravienna"
 	interaction_radius = 150.0
 	dialogue.choice_selected.connect(_choice)
 	dialogue.closed.connect(_dialogue_closed)
@@ -38,7 +38,7 @@ func _ready() -> void:
 
 func _refresh() -> void:
 	enabled = not defeated if _is_coop() else (not bool(GameState.quest_domain.flags.get(DEFEATED, false)) or _ending_pending()) and not engaged and not victory_pending
-	prompt = "Speak to Ravienna" if _ending_pending() and not _is_coop() else "Speak to Revienna"
+	prompt = "Speak to Ravienna" if _ending_pending() and not _is_coop() else "Speak to Ravienna"
 
 func _ending_pending() -> bool:
 	return bool(GameState.quest_domain.flags.get(ENDING_PENDING, false)) and not bool(GameState.quest_domain.flags.get(ENDING_SEEN, false))
@@ -62,7 +62,7 @@ func interact() -> void:
 
 func _choice(id: String, choice: Dictionary) -> void:
 	if owns_dialogue and id == "revienna_challenge":
-		challenge_selected = str(choice.get("text", "")) == "Challenge Revienna"
+		challenge_selected = str(choice.get("text", "")) == "Challenge Ravienna"
 	elif owns_dialogue and id == "revienna_victory":
 		ending_confirmed = str(choice.get("text", "")) == "Continue"
 

@@ -24,6 +24,91 @@
 [ext_resource type="Texture2D" path="res://assets/characters/kael/idle_new/kael_idle_south_128x128.png" id="idle_new_south"]
 [ext_resource type="Texture2D" path="res://assets/characters/kael/idle_new/kael_idle_west_128x128.png" id="idle_new_west"]
 
+[ext_resource type="Texture2D" path="res://assets/characters/kael/idle_new/kael_idle_south_east_128x128.png" id="idle_new_south_east"]
+[ext_resource type="Texture2D" path="res://assets/characters/kael/idle_new/kael_idle_north_east_128x128.png" id="idle_new_north_east"]
+[ext_resource type="Texture2D" path="res://assets/characters/kael/idle_new/kael_idle_north_west_128x128.png" id="idle_new_north_west"]
+[ext_resource type="Texture2D" path="res://assets/characters/kael/idle_new/kael_idle_south_west_128x128.png" id="idle_new_south_west"]
+
+[sub_resource type="AtlasTexture" id="idle_new_south_east_0"]
+atlas = ExtResource("idle_new_south_east")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_east_1"]
+atlas = ExtResource("idle_new_south_east")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_east_2"]
+atlas = ExtResource("idle_new_south_east")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_east_3"]
+atlas = ExtResource("idle_new_south_east")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_east_4"]
+atlas = ExtResource("idle_new_south_east")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_east_0"]
+atlas = ExtResource("idle_new_north_east")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_east_1"]
+atlas = ExtResource("idle_new_north_east")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_east_2"]
+atlas = ExtResource("idle_new_north_east")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_east_3"]
+atlas = ExtResource("idle_new_north_east")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_east_4"]
+atlas = ExtResource("idle_new_north_east")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_west_0"]
+atlas = ExtResource("idle_new_north_west")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_west_1"]
+atlas = ExtResource("idle_new_north_west")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_west_2"]
+atlas = ExtResource("idle_new_north_west")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_west_3"]
+atlas = ExtResource("idle_new_north_west")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_north_west_4"]
+atlas = ExtResource("idle_new_north_west")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_west_0"]
+atlas = ExtResource("idle_new_south_west")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_west_1"]
+atlas = ExtResource("idle_new_south_west")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_west_2"]
+atlas = ExtResource("idle_new_south_west")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_west_3"]
+atlas = ExtResource("idle_new_south_west")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="idle_new_south_west_4"]
+atlas = ExtResource("idle_new_south_west")
+region = Rect2(512, 0, 128, 128)
+
 [sub_resource type="AtlasTexture" id="idle_new_north_0"]
 atlas = ExtResource("idle_new_north")
 region = Rect2(0, 0, 128, 128)
@@ -2993,7 +3078,7 @@ animations = [{"frames": [{"duration": 1.0, "texture": SubResource("new_attack_s
 "loop": 0,
 "name": &"defeat_7",
 "speed": 10.0
-}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_south_0")}, {"duration": 1.0, "texture": SubResource("idle_new_south_1")}, {"duration": 1.0, "texture": SubResource("idle_new_south_2")}, {"duration": 1.0, "texture": SubResource("idle_new_south_3")}, {"duration": 1.0, "texture": SubResource("idle_new_south_4")}], "loop": true, "name": &"idle_0", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_south_0")}, {"duration": 1.0, "texture": SubResource("idle_new_south_1")}, {"duration": 1.0, "texture": SubResource("idle_new_south_2")}, {"duration": 1.0, "texture": SubResource("idle_new_south_3")}, {"duration": 1.0, "texture": SubResource("idle_new_south_4")}], "loop": true, "name": &"idle_1", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_east_0")}, {"duration": 1.0, "texture": SubResource("idle_new_east_1")}, {"duration": 1.0, "texture": SubResource("idle_new_east_2")}, {"duration": 1.0, "texture": SubResource("idle_new_east_3")}, {"duration": 1.0, "texture": SubResource("idle_new_east_4")}], "loop": true, "name": &"idle_2", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_east_0")}, {"duration": 1.0, "texture": SubResource("idle_new_east_1")}, {"duration": 1.0, "texture": SubResource("idle_new_east_2")}, {"duration": 1.0, "texture": SubResource("idle_new_east_3")}, {"duration": 1.0, "texture": SubResource("idle_new_east_4")}], "loop": true, "name": &"idle_3", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_north_0")}, {"duration": 1.0, "texture": SubResource("idle_new_north_1")}, {"duration": 1.0, "texture": SubResource("idle_new_north_2")}, {"duration": 1.0, "texture": SubResource("idle_new_north_3")}, {"duration": 1.0, "texture": SubResource("idle_new_north_4")}], "loop": true, "name": &"idle_4", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_north_0")}, {"duration": 1.0, "texture": SubResource("idle_new_north_1")}, {"duration": 1.0, "texture": SubResource("idle_new_north_2")}, {"duration": 1.0, "texture": SubResource("idle_new_north_3")}, {"duration": 1.0, "texture": SubResource("idle_new_north_4")}], "loop": true, "name": &"idle_5", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_west_0")}, {"duration": 1.0, "texture": SubResource("idle_new_west_1")}, {"duration": 1.0, "texture": SubResource("idle_new_west_2")}, {"duration": 1.0, "texture": SubResource("idle_new_west_3")}, {"duration": 1.0, "texture": SubResource("idle_new_west_4")}], "loop": true, "name": &"idle_6", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_west_0")}, {"duration": 1.0, "texture": SubResource("idle_new_west_1")}, {"duration": 1.0, "texture": SubResource("idle_new_west_2")}, {"duration": 1.0, "texture": SubResource("idle_new_west_3")}, {"duration": 1.0, "texture": SubResource("idle_new_west_4")}], "loop": true, "name": &"idle_7", "speed": 6.0}, {
+}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_south_0")}, {"duration": 1.0, "texture": SubResource("idle_new_south_1")}, {"duration": 1.0, "texture": SubResource("idle_new_south_2")}, {"duration": 1.0, "texture": SubResource("idle_new_south_3")}, {"duration": 1.0, "texture": SubResource("idle_new_south_4")}], "loop": true, "name": &"idle_0", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_south_east_0")}, {"duration": 1.0, "texture": SubResource("idle_new_south_east_1")}, {"duration": 1.0, "texture": SubResource("idle_new_south_east_2")}, {"duration": 1.0, "texture": SubResource("idle_new_south_east_3")}, {"duration": 1.0, "texture": SubResource("idle_new_south_east_4")}], "loop": true, "name": &"idle_1", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_east_0")}, {"duration": 1.0, "texture": SubResource("idle_new_east_1")}, {"duration": 1.0, "texture": SubResource("idle_new_east_2")}, {"duration": 1.0, "texture": SubResource("idle_new_east_3")}, {"duration": 1.0, "texture": SubResource("idle_new_east_4")}], "loop": true, "name": &"idle_2", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_north_east_0")}, {"duration": 1.0, "texture": SubResource("idle_new_north_east_1")}, {"duration": 1.0, "texture": SubResource("idle_new_north_east_2")}, {"duration": 1.0, "texture": SubResource("idle_new_north_east_3")}, {"duration": 1.0, "texture": SubResource("idle_new_north_east_4")}], "loop": true, "name": &"idle_3", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_north_0")}, {"duration": 1.0, "texture": SubResource("idle_new_north_1")}, {"duration": 1.0, "texture": SubResource("idle_new_north_2")}, {"duration": 1.0, "texture": SubResource("idle_new_north_3")}, {"duration": 1.0, "texture": SubResource("idle_new_north_4")}], "loop": true, "name": &"idle_4", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_north_west_0")}, {"duration": 1.0, "texture": SubResource("idle_new_north_west_1")}, {"duration": 1.0, "texture": SubResource("idle_new_north_west_2")}, {"duration": 1.0, "texture": SubResource("idle_new_north_west_3")}, {"duration": 1.0, "texture": SubResource("idle_new_north_west_4")}], "loop": true, "name": &"idle_5", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_west_0")}, {"duration": 1.0, "texture": SubResource("idle_new_west_1")}, {"duration": 1.0, "texture": SubResource("idle_new_west_2")}, {"duration": 1.0, "texture": SubResource("idle_new_west_3")}, {"duration": 1.0, "texture": SubResource("idle_new_west_4")}], "loop": true, "name": &"idle_6", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("idle_new_south_west_0")}, {"duration": 1.0, "texture": SubResource("idle_new_south_west_1")}, {"duration": 1.0, "texture": SubResource("idle_new_south_west_2")}, {"duration": 1.0, "texture": SubResource("idle_new_south_west_3")}, {"duration": 1.0, "texture": SubResource("idle_new_south_west_4")}], "loop": true, "name": &"idle_7", "speed": 6.0}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_460ao")

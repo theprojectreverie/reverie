@@ -25,6 +25,7 @@ import {persistentWorldRealtimeRoutes} from "./routes/persistent-world-realtime.
 import {moderationRoutes} from "./routes/moderation.js";
 import {staffRoutes} from "./routes/staff.js";
 import {developerRoutes} from "./routes/developer.js";
+import {ownerRewardRoutes} from "./routes/owner-rewards.js";
 import {scanServerIncidents,startServerIncidentMonitor} from "./world/server-incidents.js";
 import {attachOperationalMetrics,startOperationalSampling} from "./world/operational-metrics.js";
 import {createSharedRateLimitStore,startSharedRateLimitCleanup} from "./world/shared-rate-limit.js";
@@ -32,14 +33,18 @@ import {compensationRoutes} from "./routes/compensation.js";
 import {tutorialSparRoutes} from "./routes/tutorial-spar.js";
 import {geraldStoryPilotRoutes} from "./routes/gerald-story-pilot.js";
 import {gardensStoryPilotRoutes} from "./routes/gardens-story-pilot.js";
+import {royalGateStoryPilotRoutes} from "./routes/royal-gate-story-pilot.js";
 import {storyProgressionRoutes} from "./routes/story-progression.js";
-const app=Fastify({logger:true,trustProxy:config.NODE_ENV==="production",bodyLimit:16384});
+import {trustLocalProxy} from "./world/proxy-trust.js";
+import {alphaRateKey,installAlphaAccess} from "./world/alpha-access.js";
+const app=Fastify({logger:true,trustProxy:config.TRUST_LOCAL_REVERSE_PROXY==="1"?trustLocalProxy:false,bodyLimit:16384});
 attachOperationalMetrics(app);
 await app.register(helmet);
-await app.register(rateLimit,{max:100,timeWindow:"1 minute",skipOnError:false,
+await app.register(rateLimit,{max:100,timeWindow:"1 minute",skipOnError:false,keyGenerator:req=>alphaRateKey(app,req),
  ...(config.SHARED_RATE_LIMIT_NAMESPACE?{store:createSharedRateLimitStore(pool,config.SHARED_RATE_LIMIT_NAMESPACE,config.JWT_SECRET)}:{})});
 await app.register(jwt,{secret:config.JWT_SECRET,sign:{expiresIn:config.ACCESS_TOKEN_TTL_SECONDS}});
 await app.register(websocket);
+installAlphaAccess(app);
 await app.register(authRoutes,{prefix:"/v1/auth"});
 await app.register(coopRoutes,{prefix:"/v1/co-op"});
 await app.register(chatRoutes,{prefix:"/v1/chat"});
@@ -58,11 +63,22 @@ await app.register(storyProgressionRoutes,{prefix:"/v1/progression"});
 await app.register(tutorialSparRoutes,{prefix:"/v1/tutorial-spar"});
 if(config.NODE_ENV!=="production"&&process.env.REVERIE_GERALD_STORY_PILOT==="1")await app.register(geraldStoryPilotRoutes,{prefix:"/v1/gerald-story"});
 if(config.NODE_ENV!=="production"&&process.env.REVERIE_GARDENS_STORY_PILOT==="1")await app.register(gardensStoryPilotRoutes,{prefix:"/v1/gardens-story"});
+if(config.NODE_ENV!=="production"&&process.env.REVERIE_GARDENS_STORY_PILOT==="1")await app.register(royalGateStoryPilotRoutes,{prefix:"/v1/royal-gate-story"});
 await app.register(developerRoutes);
+await app.register(ownerRewardRoutes(),{prefix:"/v1/developer/rewards"});
 await app.register(staffRoutes,{prefix:"/v1/developer/staff"});
 await app.register(moderationRoutes,{prefix:"/v1/developer/moderation"});
 await app.register(compensationRoutes,{prefix:"/v1/developer/compensation"});
 app.get("/health",async(_req,reply)=>{try{await pool.query("SELECT 1");return{status:"ok",service:"reverie-online-api",database:"ok"};}catch{return reply.code(503).send({status:"degraded",database:"unavailable"});}});
+// Private readiness check: the proxy must not expose this path publicly.
+app.get("/ready",{config:{rateLimit:false}},async(req,reply)=>{
+ reply.header("Cache-Control","no-store");
+ if(!trustLocalProxy(req.raw.socket.remoteAddress??"",0)||req.headers["x-forwarded-for"]!==undefined)return reply.code(404).send({error:"not_found"});
+ try{
+  await pool.query(Object.assign({text:config.SHARED_RATE_LIMIT_NAMESPACE?"SELECT 1 FROM api_rate_limit_buckets LIMIT 0":"SELECT 1"},{query_timeout:3000}));
+  return {status:"ready"};
+ }catch{return reply.code(503).send({status:"not_ready"});}
+});
 let stopSeasonFinalizer:(()=>Promise<void>)|undefined;
 let stopGuildLeagueFinalizer:(()=>Promise<void>)|undefined;
 let stopWorldEventRetention:(()=>Promise<void>)|undefined;

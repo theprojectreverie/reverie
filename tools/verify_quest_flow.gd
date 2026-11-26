@@ -113,8 +113,10 @@ func _ready() -> void:
 	fake_boss.queue_free()
 	GameState.quests = {}
 	GameState.flags["tracked_quest"] = "glade_whisper"
-	var hud_test := HUD.new()
+	var hud_test := load("res://scenes/ui/hud.tscn").instantiate() as HUD
 	add_child(hud_test)
+	await get_tree().process_frame
+	hud_test.refresh_quest()
 	if hud_test._quest_label == null or not hud_test._quest_label.visible:
 		failures.append("HUD hides a manually tracked available quest.")
 	GameState.flags.erase("tracked_quest")
@@ -128,6 +130,8 @@ func _ready() -> void:
 	GameState.flags = old_flags
 	if GameState._save_timer != null:
 		GameState._save_timer.stop()
+	await AudioDirector.drain_for_shutdown()
+	await get_tree().process_frame
 
 	if failures.is_empty():
 		print("[quest-flow] OK — main boss chain + both side-quest kill paths.")

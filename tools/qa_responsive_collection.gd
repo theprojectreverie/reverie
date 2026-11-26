@@ -29,7 +29,7 @@ func run() -> void:
 				fail("%s height %d" % [tab,dialog.size.y]); return
 			if root.get_node("SectionTabs/"+tab).button_pressed != true:
 				fail("tab state"); return
-			if root.get_node("Scroll").visible != (tab=="Roster") or root.get_node("GearRow").visible != (tab=="Equipment"):
+			if root.get_node("Scroll").visible != (tab=="Roster" or tab=="Party") or root.get_node("GearRow").visible != (tab=="Equipment"):
 				fail("tab visibility"); return
 		screen._set_collection_section("Roster")
 		for i in range(4): await get_tree().process_frame

@@ -73,6 +73,10 @@ var restoring_session := false
 var _session_fingerprint := ""
 signal session_restore_finished
 const SESSION_FILE := "user://remembered_session_v2.dpapi"
+const ANDROID_SESSION_FILE := "user://remembered_session_v3.keystore"
+
+func _session_path() -> String:
+ return ANDROID_SESSION_FILE if OS.get_name()=="Android" else SESSION_FILE
 const ACCESS_TOKEN_REFRESH_LEAD_SECONDS := 60.0
 const REFRESH_RETRY_SECONDS := 15.0
 @onready var register_request: HTTPRequest = $RegisterRequest
@@ -83,6 +87,8 @@ const REFRESH_RETRY_SECONDS := 15.0
 @onready var logout_all_request: HTTPRequest = $LogoutAllRequest
 
 func _ready() -> void:
+ if OS.has_feature("reverie_public_alpha"):
+  api_base_url=preload("res://scripts/online/connection_profile.gd").api_origin(true)
  wallet_request.request_completed.connect(_on_wallet_completed)
  authentication_changed.connect(_roster_identity_changed)
  _social_request=HTTPRequest.new()
@@ -100,7 +106,7 @@ func _ready() -> void:
  logout_request.request_completed.connect(_on_logout_completed)
  logout_all_request.request_completed.connect(_on_logout_all_completed)
  authentication_changed.connect(GameState.lifecycle_component.switch_player)
- restoring_session = _session_storage_allowed() and FileAccess.file_exists(SESSION_FILE)
+ restoring_session = _session_storage_allowed() and FileAccess.file_exists(_session_path())
  call_deferred("_restore_remembered_session")
 
 func _roster_identity_changed(authenticated: bool, _identity: Dictionary) -> void:
@@ -286,6 +292,12 @@ func _process(_delta: float) -> void:
   refresh_account_roster()
  if is_authenticated() and Time.get_ticks_msec()>=_social_next_at:
   refresh_social_summary()
+ if not is_authenticated() and not restoring_session and not _refresh_token.is_empty() and _refresh_retry_at>0.0 and Time.get_unix_time_from_system()>=_refresh_retry_at:
+  restoring_session=true
+  if refresh_session()!=OK:
+   restoring_session=false
+   _refresh_retry_at=Time.get_unix_time_from_system()+REFRESH_RETRY_SECONDS
+  return
  if _signing_out_all or not is_authenticated() or _refresh_token.is_empty():
   return
  var now := Time.get_unix_time_from_system()
@@ -338,14 +350,16 @@ func access_token_for_request() -> String:
  return _access_token
 
 func minimum_registration_password_length() -> int:
- return 8 if OS.is_debug_build() and api_base_url.begins_with("http://127.0.0.1:") else 12
+ return 8 if OS.has_feature("reverie_public_alpha") or (OS.is_debug_build() and api_base_url.begins_with("http://127.0.0.1:")) else 12
 
-func register_account(email: String,password: String,player_name: String) -> Error:
+func register_account(email: String,password: String,player_name: String,invite_code: String="") -> Error:
  if not _valid_email(email) or password.length() < minimum_registration_password_length() or password.length() > 128 or not _valid_player_name(player_name):
   return ERR_INVALID_PARAMETER
  if register_request.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
   return ERR_BUSY
- var body := JSON.stringify({"email":email.strip_edges(),"password":password,"playerName":player_name.strip_edges()})
+ var registration: Dictionary={"email":email.strip_edges(),"password":password,"playerName":player_name.strip_edges()}
+ if not invite_code.strip_edges().is_empty():registration["inviteCode"]=invite_code.strip_edges()
+ var body := JSON.stringify(registration)
  return register_request.request(api_base_url+"/v1/auth/register",PackedStringArray(["Content-Type: application/json"]),HTTPClient.METHOD_POST,body)
 
 func verify_email(token: String) -> Error:
@@ -361,8 +375,10 @@ func login(player_name: String,password: String) -> Error:
   return ERR_BUSY
  if not _valid_player_name(player_name) or password.is_empty() or password.length() > 128:
   return ERR_INVALID_PARAMETER
+ # Explicit login supersedes any pending retry of the old saved identity.
  if login_request.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
   return ERR_BUSY
+ _refresh_retry_at=0.0
  return login_request.request(api_base_url+"/v1/auth/login",PackedStringArray(["Content-Type: application/json"]),HTTPClient.METHOD_POST,JSON.stringify({"playerName":player_name.strip_edges(),"password":password}))
 
 func refresh_session() -> Error:
@@ -386,7 +402,7 @@ func logout_all_sessions() -> Error:
   return ERR_BUSY
  var headers := PackedStringArray(["Content-Type: application/json", "Authorization: Bearer " + _access_token])
  _signing_out_all = true
- var request_error := logout_all_request.request(api_base_url+"/v1/auth/logout-all",headers,HTTPClient.METHOD_POST)
+ var request_error := logout_all_request.request(api_base_url+"/v1/auth/logout-all",headers,HTTPClient.METHOD_POST,"{}")
  if request_error != OK:
   _signing_out_all = false
  return request_error
@@ -440,7 +456,7 @@ func _on_refresh_completed(result: int,response_code: int,_headers: PackedString
  else:
   if response_code == 401:
    print("[Auth] Refresh rejected; checking saved session ownership.")
-   if restoring_session and _session_storage_allowed() and FileAccess.file_exists(SESSION_FILE) and FileAccess.get_sha256(SESSION_FILE) != _session_fingerprint:
+   if restoring_session and _session_storage_allowed() and FileAccess.file_exists(_session_path()) and FileAccess.get_sha256(_session_path()) != _session_fingerprint:
     _restore_remembered_session.call_deferred()
     return
    _clear_session()
@@ -507,7 +523,11 @@ func _parse_body(body: PackedByteArray) -> Dictionary:
 
 
 func _session_storage_allowed() -> bool:
- if OS.get_name() != "Windows" or OS.get_environment("REVERIE_E2E_DISABLE_LOCAL_SAVE") == "1":
+ if OS.get_environment("REVERIE_E2E_DISABLE_LOCAL_SAVE") == "1":
+  return false
+ if OS.get_name()=="Android":
+  return Engine.has_singleton("JavaClassWrapper")
+ if OS.get_name() != "Windows":
   return false
  if DisplayServer.get_name() == "headless":
   return OS.get_environment("REVERIE_ISOLATED_AUTH_TEST") == "1" and OS.get_user_data_dir().to_lower().contains("reverie_auth_test")
@@ -517,17 +537,19 @@ func _remember_session(explicit_login: bool = false) -> void:
  if not _session_storage_allowed() or _refresh_token.is_empty():
   return
  # A background refresh must not replace another game's more recent login.
- if not explicit_login and FileAccess.file_exists(SESSION_FILE) and FileAccess.get_sha256(SESSION_FILE) != _session_fingerprint:
+ if not explicit_login and FileAccess.file_exists(_session_path()) and FileAccess.get_sha256(_session_path()) != _session_fingerprint:
   print("[Auth] Newer session on disk; not overwriting.")
   return
- var path := ProjectSettings.globalize_path(SESSION_FILE)
+ var path := ProjectSettings.globalize_path(_session_path())
  if _write_protected_session(path, _refresh_token):
-  _session_fingerprint = FileAccess.get_sha256(SESSION_FILE)
+  _session_fingerprint = FileAccess.get_sha256(_session_path())
   print("[Auth] Encrypted session saved.")
  else:
   push_warning("[Auth] Could not persist encrypted session.")
 
 func _write_protected_session(path: String, token: String) -> bool:
+ if OS.get_name()=="Android":
+  return preload("res://scripts/online/android_session_storage.gd").write_token(path,token)
  # Pass the token only through a temporary inherited environment variable.
  var key := "REVERIE_DPAPI_SESSION_INPUT"
  var previous := OS.get_environment(key)
@@ -542,9 +564,9 @@ func _write_protected_session(path: String, token: String) -> bool:
  return code == 0 and FileAccess.file_exists(path)
 
 func _forget_remembered_session() -> void:
- if _session_storage_allowed() and FileAccess.file_exists(SESSION_FILE) and not _session_fingerprint.is_empty():
-  if FileAccess.get_sha256(SESSION_FILE) == _session_fingerprint:
-   DirAccess.remove_absolute(ProjectSettings.globalize_path(SESSION_FILE))
+ if _session_storage_allowed() and FileAccess.file_exists(_session_path()) and not _session_fingerprint.is_empty():
+  if FileAccess.get_sha256(_session_path()) == _session_fingerprint:
+   DirAccess.remove_absolute(ProjectSettings.globalize_path(_session_path()))
    print("[Auth] Own saved session cleared.")
   else:
    print("[Auth] Newer session preserved.")
@@ -555,15 +577,22 @@ func _restore_remembered_session() -> void:
   restoring_session = false
   session_restore_finished.emit()
   return
- if not FileAccess.file_exists(SESSION_FILE):
+ if not FileAccess.file_exists(_session_path()):
   print("[Auth] No remembered session; sign-in required.")
   restoring_session = false
   session_restore_finished.emit()
   return
  restoring_session = true
- _session_fingerprint = FileAccess.get_sha256(SESSION_FILE)
+ _session_fingerprint = FileAccess.get_sha256(_session_path())
  print("[Auth] Restoring encrypted session.")
- var path := ProjectSettings.globalize_path(SESSION_FILE).replace("'", "''")
+ if OS.get_name()=="Android":
+  _refresh_token=preload("res://scripts/online/android_session_storage.gd").read_token(ProjectSettings.globalize_path(_session_path()))
+  if not _refresh_token.is_empty() and refresh_session()==OK:
+   return
+  restoring_session=false
+  session_restore_finished.emit()
+  return
+ var path := ProjectSettings.globalize_path(_session_path()).replace("'", "''")
  var output: Array = []
  var command := "$ErrorActionPreference='Stop'; Add-Type -AssemblyName System.Security; $b=[IO.File]::ReadAllBytes('" + path + "'); [Console]::WriteLine([Text.Encoding]::UTF8.GetString([Security.Cryptography.ProtectedData]::Unprotect($b,$null,[Security.Cryptography.DataProtectionScope]::CurrentUser)))"
  var code := OS.execute("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command", command], output)

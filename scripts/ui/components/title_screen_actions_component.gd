@@ -128,11 +128,37 @@ func _open_settings() -> void:
 func _show_extras() -> void:
 	var dialog := AcceptDialog.new()
 	dialog.title = "Reverie — Extras"
-	dialog.dialog_text = "A story of two souls.\n\nCreated with love for dark fantasy, forgotten memories, and the bond between Gerald and Lilith.\n\nREVERIE  •  v0.2.1"
+	dialog.dialog_text = "A story of two souls.\n\nCreated with love for dark fantasy, forgotten memories, and the bond between Gerald and Lilith.\n\nReplay the opening dream without changing your progress."
+	dialog.add_button("Replay Kael's dream", true, "replay_dream")
 	screen.add_child(dialog)
+	dialog.custom_action.connect(func(action: StringName) -> void:
+		if action == &"replay_dream":
+			dialog.hide()
+			dialog.queue_free()
+			_replay_opening()
+	)
 	dialog.confirmed.connect(dialog.queue_free)
 	dialog.canceled.connect(dialog.queue_free)
 	dialog.popup_centered()
+
+func _replay_opening() -> void:
+	if not is_instance_valid(screen) or not screen.is_inside_tree():
+		return
+	var host := screen.get_parent()
+	if host.has_node("OpeningCinematicReplay"):
+		return
+	var packed: PackedScene = preload("res://scenes/ui/opening_cinematic.tscn")
+	var cinematic := packed.instantiate()
+	cinematic.name = "OpeningCinematicReplay"
+	screen.hide()
+	cinematic.finished.connect(func() -> void:
+		if is_instance_valid(cinematic):
+			cinematic.queue_free()
+		if is_instance_valid(screen):
+			screen.show()
+			AudioDirector.play_title_theme()
+	, CONNECT_ONE_SHOT)
+	host.add_child(cinematic)
 
 func _transparent_style() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()

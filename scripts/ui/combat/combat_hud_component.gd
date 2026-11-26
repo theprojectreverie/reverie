@@ -278,7 +278,7 @@ func add_skill_button(skill: SkillDef, actor: Combatant) -> void:
 	var cost := energy_text + cooldown_text
 	var card := SKILL_CARD_SCENE.instantiate() as Button
 	if _mobile_hud:
-		card.custom_minimum_size = Vector2(242, 94)
+		card.custom_minimum_size = Vector2(242, 76)
 		for name in ["SkillName", "SkillDetail", "SkillCost"]:
 			card.get_node("CardContent/TextStack/" + name).add_theme_font_size_override("font_size", 20 if name == "SkillName" else 16)
 	card.tooltip_text = skill.description
@@ -413,19 +413,19 @@ func refresh_boss_header(phase_override: int = 0) -> void:
 func _configure_mobile_hud() -> void:
 	var bottom := screen.get_node("CombatScreenLayout/Root/CombatBottomHUD") as HBoxContainer
 	var mobile_button := bottom.get_node("ActiveInfoPanel/InfoContent/MobileUtility") as Button
-	_mobile_hud = screen.get_window().size.x < 1000 and screen.get_window().size.x > screen.get_window().size.y
+	_mobile_hud = TouchInput.using_touch or OS.has_feature("mobile") or (screen.get_window().size.x < 1000 and screen.get_window().size.x > screen.get_window().size.y)
 	mobile_button.visible = _mobile_hud
 	if not _mobile_hud:
 		return
 	mobile_button.pressed.connect(_on_mobile_utility)
 	AudioDirector.set_button_feedback(mobile_button, "confirm")
-	bottom.custom_minimum_size.y = 280
+	bottom.custom_minimum_size.y = 240
 	bottom.get_node("RosterPanel").custom_minimum_size.x = 204
 	var info := bottom.get_node("ActiveInfoPanel/InfoContent")
 	for name in ["ActorLabel", "HPReadout", "EnergyReadout", "StatusLabel"]:
 		info.get_node(name).add_theme_font_size_override("font_size", 19 if name == "ActorLabel" else 17)
 	for button in _category_buttons.values():
-		button.custom_minimum_size = Vector2(140, 78)
+		button.custom_minimum_size = Vector2(140, 52)
 	_action_categories.add_theme_constant_override("v_separation", 4)
 	screen._hint_label.add_theme_font_size_override("font_size", 17)
 	screen._log_label.add_theme_font_size_override("normal_font_size", 22)

@@ -10,7 +10,7 @@ const progressionSkills=loadProgression("skills") as Record<string,{kind:string;
 import {pool} from "../db.js";
 import {summonAdmission} from "../world/summon-admission.js";
 import {auditPaidGuarantees} from "../world/paid-guarantee-audit.js";
-import {STARTER_PARTY} from "../world/character-xp.js";
+import {STARTER_PARTY,xpToNext} from "../world/character-xp.js";
 import {banners,contentHash,contentId,emptyPity,rollBanner,describeRoll,retiredPlayableIds,upgradeCard,mythicRecipe,ascensionRecipe,type Pity,type Roll,PAID_MILESTONE,PAID_CURRENCY,PAID_GUARANTEE_POLICY} from "../world/summon.js";
 const input=z.object({bannerId:z.string().min(1).max(80),count:z.union([z.literal(1),z.literal(10)]),requestId:z.string().uuid(),currency:z.enum(["crystals","paid_moonstones"]).optional(),expectedPaidTotal:z.string().regex(/^(0|[1-9][0-9]{0,18})$/).optional()}).strict();
 async function paidTotal(db: Pick<typeof pool,"query">,id:string):Promise<string>{
@@ -100,6 +100,33 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
   }catch(e){await db.query("ROLLBACK");throw e;}finally{db.release();}
  });
 
+ const trainingInput=z.object({characterId:z.string().regex(/^[a-z0-9_]{1,80}$/),expectedLevel:z.number().int().min(1).max(80),expectedXp:z.number().int().min(0).max(10000)}).strict();
+ app.post("/train",{config:{rateLimit:{max:30,timeWindow:"1 minute"}}},async(req,reply)=>{
+  try{await req.jwtVerify()}catch{return reply.code(401).send({error:"authentication_required"})}
+  const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};
+  if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
+  const parsed=trainingInput.safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:"invalid_training"});
+  const {characterId,expectedLevel,expectedXp}=parsed.data,db=await pool.connect();
+  try{
+   await db.query("BEGIN");
+   const reject=async(code:number,error:string)=>{await db.query("ROLLBACK");return reply.code(code).send({error})};
+   const account=await db.query("SELECT id FROM accounts WHERE id=$1 AND status='active' AND token_version=$2 FOR UPDATE",[c.sub,c.tokenVersion]);
+   const player=await db.query("SELECT id FROM players WHERE id=$1 AND account_id=$2 FOR UPDATE",[c.playerId,c.sub]);
+   if(!account.rowCount||!player.rowCount)return await reject(401,"authentication_required");
+   if(retiredPlayableIds.includes(characterId))return await reject(404,"character_not_owned");
+   if(STARTER_PARTY.includes(characterId))await db.query("INSERT INTO owned_characters(player_id,char_id) VALUES($1,$2) ON CONFLICT DO NOTHING",[c.playerId,characterId]);
+   const row=(await db.query("SELECT id,level,xp::text,ascension FROM owned_characters WHERE player_id=$1 AND char_id=$2 FOR UPDATE",[c.playerId,characterId])).rows[0];
+   if(!row)return await reject(404,"character_not_owned");
+   if(row.level!==expectedLevel||Number(row.xp)!==expectedXp)return await reject(409,"progression_changed_refresh");
+   if(row.level>=20*(row.ascension+1))return await reject(409,"level_cap_reached");
+   const cost=Math.max(1,xpToNext(row.level)-expectedXp);
+   const wallet=(await db.query("UPDATE player_currencies SET balance=balance-$2 WHERE player_id=$1 AND currency_id='gold' AND balance >= $2 RETURNING balance::text",[c.playerId,cost])).rows[0];
+   if(!wallet)return await reject(409,"insufficient_gold");
+   await db.query("INSERT INTO currency_ledger(player_id,currency_id,delta,balance_after,reason,ref_type,ref_id,idempotency_key) VALUES($1,'gold',$2,$3,'character_training','character',$4,$5)",[c.playerId,-cost,wallet.balance,row.id,"train:"+row.id+":"+row.level]);
+   await db.query("UPDATE owned_characters SET level=level+1,xp=0 WHERE id=$1",[row.id]);
+   await db.query("COMMIT");return {ok:true,characterId,level:row.level+1,goldSpent:cost,balance:wallet.balance};
+  }catch(e){await db.query("ROLLBACK");req.log.error(e);return reply.code(500).send({error:"training_unavailable"})}finally{db.release()}
+ });
  const upgradeInput=z.object({characterId:z.string().regex(/^[a-z0-9_]{1,80}$/),action:z.enum(["ascend","awaken"]),expectedTier:z.number().int().min(0).max(5)}).strict();
  app.post("/upgrade",{config:{rateLimit:{max:30,timeWindow:"1 minute"}}},async(req,reply)=>{
   try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}

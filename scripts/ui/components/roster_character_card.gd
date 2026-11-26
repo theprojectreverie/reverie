@@ -38,9 +38,14 @@ func setup(
 	_tier_label.add_theme_color_override("font_color", glow)
 	_party_badge.visible = in_party
 	custom_minimum_size = Vector2(126, 174)
+	_ignore_card_children(get_node("Content"))
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 
+
+func _ignore_card_children(node: Node) -> void:
+	if node is Control:node.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	for child in node.get_children():_ignore_card_children(child)
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:

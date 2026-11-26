@@ -58,14 +58,18 @@ func _ready() -> void:
         sync.name = "StoryOpeningWorldSync"
         add_child(sync)
         sync.bind_player(player, "story_village")
-    elif is_royal_gardens and story_sync.pilot_enabled() and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") == "1" and MultiplayerGateway.standalone_expedition_id.is_empty():
+    elif (is_royal_gardens or name == &"StandaloneZone02") and story_sync.pilot_enabled() and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") == "1" and MultiplayerGateway.standalone_expedition_id.is_empty():
         var sync = story_sync.new()
         sync.name = "StoryOpeningWorldSync"
         add_child(sync)
-        sync.bind_player(player, "story_royal_gardens")
+        sync.bind_player(player, "story_royal_gardens" if is_royal_gardens else "story_royal_gate")
         var monsters = preload("res://scripts/online/story_garden_combat_sync.gd").new()
         monsters.name = "StoryGardenCombatSync"
         add_child(monsters)
+        if not has_node("CombatRouter"):
+            var router := GameCombatRouterComponent.new()
+            router.name = "CombatRouter"
+            add_child(router)
         monsters.bind(self, sync, player)
     var expeditions: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://resources/data/six_zone_expeditions.json"))
     var coop_region: String = MultiplayerGateway.standalone_expedition_region
@@ -112,13 +116,21 @@ func _ready() -> void:
         player_camera.reset_smoothing()
 
 func _open_local_npc_dialogue(id: String) -> void:
-    if has_node("StoryGardenCombatSync"): return # Quest rewards are not part of this pilot.
     if id != "elathra":
         return
     var dialogue = get_node_or_null("NPCDialogueLayer/Dialogue")
     if dialogue == null or dialogue.visible:
         return
-    dialogue.open(id)
+    var story = get_node_or_null("StoryGardenCombatSync")
+    if story != null:
+        var npc = get_node_or_null("Zone/RoyalGardenV3Decorations/Elathra")
+        if not story.can_open_audience() or npc == null or checkpoint_player.global_position.distance_to(npc.global_position)>npc.interaction_radius:
+            EventBus.toast_requested.emit("Connect to the story server and approach Elathra.")
+            if npc != null:npc.talking = false
+            return
+        dialogue.open_story(story)
+    else:
+        dialogue.open(id)
     if dialogue.visible and is_instance_valid(checkpoint_player):
         checkpoint_player.set("input_enabled", false)
 
@@ -127,7 +139,6 @@ func _on_local_dialogue_finished(_id: String) -> void:
         checkpoint_player.set("input_enabled", true)
 
 func _input(event: InputEvent) -> void:
-    if has_node("StoryGardenCombatSync"): return
     var dialogue = get_node_or_null("NPCDialogueLayer/Dialogue")
     if dialogue == null or dialogue.visible or not is_instance_valid(checkpoint_player) or not checkpoint_player.input_enabled:
         return

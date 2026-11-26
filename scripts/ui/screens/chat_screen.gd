@@ -63,7 +63,7 @@ const CHARACTER_STICKER_IDS = ["kael_mythic","lilith_mythic","gerald_mythic","ra
 const STICKER_PICKER_IDS = FREE_STICKER_IDS + CHARACTER_STICKER_IDS
 const STICKER_LABELS = {
 	"lilith_ghost_plush": "Lilith - Ghost plush",
-	"revienna_fallen_matron": "Revienna - Fallen Matron",
+	"revienna_fallen_matron": "Ravienna - Fallen Matron",
 	"red_cloak_character": "Red cloak - Unimpressed",
 	"lilith_playful": "Lilith - Playful",
 	"gerald_chibi": "Gerald - Guardian",

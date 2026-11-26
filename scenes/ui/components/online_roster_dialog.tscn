@@ -64,6 +64,12 @@ columns = 3
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 
+[node name="UpgradeCharacter" type="OptionButton" parent="BodyScroll/Collection"]
+visible = false
+custom_minimum_size = Vector2(0, 44)
+fit_to_longest_item = false
+text_overrun_behavior = 3
+
 [node name="Detail" type="Label" parent="BodyScroll/Collection"]
 text = "Select a character for details."
 autowrap_mode = 2
@@ -71,6 +77,12 @@ autowrap_mode = 2
 [node name="UpgradeRow" type="HFlowContainer" parent="BodyScroll/Collection"]
 visible = false
 theme_override_constants/separation = 8
+
+[node name="Train" type="Button" parent="BodyScroll/Collection/UpgradeRow"]
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+disabled = true
+text = "Level up"
 
 [node name="Ascend" type="Button" parent="BodyScroll/Collection/UpgradeRow"]
 custom_minimum_size = Vector2(0, 44)
@@ -83,6 +95,15 @@ custom_minimum_size = Vector2(0, 44)
 size_flags_horizontal = 3
 disabled = true
 text = "Awaken"
+
+[node name="UpgradeHint" type="Label" parent="BodyScroll/Collection"]
+visible = false
+autowrap_mode = 2
+text = "Select an owned character."
+
+[node name="UpgradeStatus" type="Label" parent="BodyScroll/Collection"]
+visible = false
+autowrap_mode = 2
 
 [node name="SkillRow" type="HFlowContainer" parent="BodyScroll/Collection"]
 visible = false
@@ -156,6 +177,11 @@ custom_minimum_size = Vector2(180, 40)
 custom_minimum_size = Vector2(0, 44)
 text = "Add to party"
 disabled = true
+
+[node name="ReplaceSlot" type="OptionButton" parent="BodyScroll/Collection/PartyRow"]
+visible = false
+custom_minimum_size = Vector2(150, 44)
+fit_to_longest_item = false
 
 [node name="SaveParty" type="Button" parent="BodyScroll/Collection/PartyRow"]
 custom_minimum_size = Vector2(0, 44)

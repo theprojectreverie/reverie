@@ -63,6 +63,11 @@ func _ready() -> void:
   add_child(sync)
   sync.bind_player(player, "story_training_ground")
 
+func _touch_instruction(text: String) -> String:
+ if not TouchInput.using_touch:
+  return text
+ return text.replace("press E","tap INTERACT").replace("press F","tap ATTACK").replace("Press F","Tap ATTACK").replace("Press R","Tap SKILL").replace("(F)","(ATTACK)").replace("(R)","(SKILL)")
+
 func _show_dialogue(stage: String) -> void:
  name_entry.hide()
  dialogue_stage = stage
@@ -80,7 +85,7 @@ func _show_line() -> void:
  var entry: Array = lines[dialogue_index]
  dialogue_progress.text = "%d / %d" % [dialogue_index + 1, lines.size()]
  speaker.text = companion_name if str(entry[0])==COMPANION and not companion_name.is_empty() else str(entry[0])
- line.text = str(entry[1])
+ line.text = _touch_instruction(str(entry[1]))
  speaker.add_theme_color_override("font_color", Color("#b5dcff") if speaker.text == "Kael" else Color("#ffc1e0"))
  next_button.text = "Continue"
  if dialogue_index == lines.size()-1:
@@ -140,7 +145,7 @@ func _restore_player_camera() -> void:
 func _resume_movement(text: String) -> void:
  _restore_player_camera()
  player.input_enabled = true
- objective.text = text
+ objective.text = _touch_instruction(text)
  objective.show()
 
 func _on_practice_hit(heavy: bool) -> void:
@@ -150,12 +155,12 @@ func _on_practice_hit(heavy: bool) -> void:
   if light_hits >= REQUIRED_LIGHT_HITS:
    dummy_complete = true
    $CompanionNPC.unlock()
-   objective.text = "Return to your companion and press E to talk."
+   objective.text = _touch_instruction("Return to your companion and press E to talk.")
   else:
-   objective.text = "Face the dummy and press F twice for basic attacks."
+   objective.text = _touch_instruction("Face the dummy and press F twice for basic attacks.")
   return
  light_hits = mini(light_hits + 1, REQUIRED_LIGHT_HITS)
- objective.text = "Press R near the dummy to practice your skill." if light_hits >= REQUIRED_LIGHT_HITS else "Press F for another basic attack."
+ objective.text = _touch_instruction("Press R near the dummy to practice your skill." if light_hits >= REQUIRED_LIGHT_HITS else "Press F for another basic attack.")
 
 func _finish_training() -> void:
  if finishing or transformed:

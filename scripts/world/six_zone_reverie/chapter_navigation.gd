@@ -112,8 +112,7 @@ static func _quest_target(zone: Node2D, id: String) -> Dictionary:
 			if distance < nearest:
 				nearest = distance
 				node = candidate
-		var entry: Dictionary = domain.quests.get(id,{})
-		detail += " (%d/%d)" % [int(entry.get("progress",0)),int(step.get("count",1))]
+		detail += " (%d/%d)" % [domain.quest_progress(id),int(step.get("count",1))]
 	return _target(zone,node,title,detail,id)
 
 static func _local(zone: Node2D) -> Dictionary:

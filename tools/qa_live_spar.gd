@@ -11,6 +11,8 @@ func wait_until(check: Callable, seconds: float=35.0) -> bool:
 		await get_tree().process_frame
 	return true
 func run() -> void:
+	if OS.get_environment("QA_TABLET_BATTLE")=="1":
+		TouchInput.using_touch=true
 	AuthGateway.api_base_url=OS.get_environment("QA_API")
 	if AuthGateway.login(OS.get_environment("QA_NAME"),OS.get_environment("QA_PASSWORD"))!=OK:
 		fail("login");return
@@ -36,6 +38,22 @@ func run() -> void:
 	var battle := training.get_node("TutorialHUD/SparringRoot").get_child(0) as CombatScreen
 	if not await wait_until(func():return is_instance_valid(battle) and battle.engine!=null and not battle._animating):
 		fail("authoritative start");return
+	if OS.get_environment("QA_TABLET_BATTLE")=="1":
+		for frame in range(4):await get_tree().process_frame
+		var viewport_bounds:=battle.get_viewport_rect()
+		var root_bounds:Rect2=battle.get_global_rect()
+		if root_bounds.position.distance_to(viewport_bounds.position)>1.0 or root_bounds.size.distance_to(viewport_bounds.size)>1.0:
+			fail("battle not fullscreen "+str(root_bounds)+" viewport "+str(viewport_bounds));return
+		if not battle._hud_component._mobile_hud:
+			fail("tablet mode missing");return
+		for category in battle._hud_component._category_buttons:
+			var button:Control=battle._hud_component._category_buttons[category]
+			if not button.is_visible_in_tree() or not viewport_bounds.grow(1).encloses(button.get_global_rect()):
+				fail("clipped category "+str(category)+" "+str(button.get_global_rect()));return
+		for child in battle._skills_box.get_children():
+			if child is Control and not viewport_bounds.grow(1).encloses(child.get_global_rect()):
+				fail("clipped skill card "+str(child.get_global_rect()));return
+		print("PASS full-screen tablet battle, six visible action categories, skill card bounds ",viewport_bounds)
 	var session := battle._session_component
 	if session._spar_id.is_empty() or not session._spar_actor.begins_with("p_server:"):
 		fail("server battle identity");return

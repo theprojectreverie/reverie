@@ -21,7 +21,7 @@ func _run() -> void:
 	print("PASS disconnected attacks cannot damage slimes or crownlings")
 	var rows: Array = []
 	for group in sync.GROUPS:rows.append({"groupId":group,"remainingMs":1000 if group==slime.group_id or group==crown.group_id else 0})
-	var data := {"ok":true,"playerId":"qa","encounters":rows,"active":null}
+	var data := {"ok":true,"playerId":"qa","encounters":rows,"active":null,"audience":{"questId":"elathra_first_audience","state":"not_started","step":0,"royalGateUnlocked":false}}
 	assert(not sync.apply_status(data,"other"))
 	assert(sync.apply_status(data,"qa"))
 	assert(slime.defeated and slime.world_hp==0.0 and slime.sprite.animation==&"defeat")

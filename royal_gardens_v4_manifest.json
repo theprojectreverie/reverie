@@ -1,0 +1,656 @@
+{
+  "selected_count": 59,
+  "props": 38,
+  "terrain_candidates": 21,
+  "assets": [
+    {
+      "file": "royal_garden_01_prop.png",
+      "dimensions": [
+        208,
+        176
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "de5d7de504f495b7f763d267e21a5ed27152115fe8a3caef0c034d7b218e27a0",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_02_prop.png",
+      "dimensions": [
+        88,
+        208
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "2b46c69c6921a463d384419b4815b02a762e4fbbb82394595481ebd854265e2c",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_03_prop.png",
+      "dimensions": [
+        208,
+        207
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "03eb0af87bf8f9414384b5b716d69fdca4ad8cc4ef05b8332f6a16125562d83c",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_04_prop.png",
+      "dimensions": [
+        208,
+        208
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "d3cb1363dac0105b91859f68aca8db74a3d3dfd44ced1acf24aacbb50adb8524",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_05_prop.png",
+      "dimensions": [
+        182,
+        208
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "679b869ee87afdbf62d7889753e68d84cc7eaa9de556999b50af0cc39c2e47c3",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_06_prop.png",
+      "dimensions": [
+        88,
+        208
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "cf0b720f1436f826fe5877ec455ae0b244fa5f83a91dcd7f053ec0e52c8007f5",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_07_prop.png",
+      "dimensions": [
+        208,
+        193
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "c5b9ec1b3754a52c84e2fd7ccc68cc2b3ac39be04725b659cf94018a8b34d42b",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_08_prop.png",
+      "dimensions": [
+        208,
+        181
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "ccf17d1763e32cbb51690c2a63952eec5cdede7f944be2c7690ff266f456d2dd",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_09_prop.png",
+      "dimensions": [
+        181,
+        129
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "02b13c9522bf0864aa942ae8446f39782b2374b0a9d03b73d5a19fa500a170ce",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_10_prop.png",
+      "dimensions": [
+        194,
+        127
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "186c44e3c2f7f264696d56f402928354e06d7cd3c86ff1e3d6593784ffb8ffee",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_11_prop.png",
+      "dimensions": [
+        184,
+        123
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "e00240a6c7222550d8a591b5db2a6532f97b236ceadf098e73378de1f335aa9e",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_12_prop.png",
+      "dimensions": [
+        143,
+        121
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "afb8560c78fc1d475d68d683485d7daceec222436250dbc3460310a75da3b3c0",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_13_prop.png",
+      "dimensions": [
+        151,
+        114
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "fed6b4d3dbaa172d50fca02df16af04041743cf49ed14661b4fe536ce9b30908",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_14_prop.png",
+      "dimensions": [
+        147,
+        116
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "b8e0448d0bb4eab6cbf07f86db9a15ac37dab98af728c7e940df325e145aacee",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_15_prop.png",
+      "dimensions": [
+        158,
+        114
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "99e9fd85d5798eadaf921d448738914a42433a2fb9ac2178ccfd8b33ee50ade0",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_16_prop.png",
+      "dimensions": [
+        93,
+        97
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "ab8928d0ce754fe0bd20f978dcab43aebbc8b639275605016e7883f58816572e",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_17_prop.png",
+      "dimensions": [
+        105,
+        87
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "42fc7f3722b23d5674294b23d311446bc0efa51d06fc8bca680c8fc22ce2eaa0",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_18_prop.png",
+      "dimensions": [
+        134,
+        93
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "d903a16c79a3f9258366fe98de8179f99a405dfa68719f6f1b0079242987a2b1",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_19_prop.png",
+      "dimensions": [
+        93,
+        91
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "223ac980c2cd86a55b60f9f5978793f49dc2176e0bd57310d58a05862ab80bb8",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_20_prop.png",
+      "dimensions": [
+        126,
+        85
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "cfd658c70b4ec2ee25275609658fc2eb84a15ffdd7fbf89a0da4ee136f0c7a86",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_21_prop.png",
+      "dimensions": [
+        180,
+        208
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "03944ca9ef7a75565fb8371eabd117ddadf4910137a278e6ee8e550f66dd9228",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_22_prop.png",
+      "dimensions": [
+        208,
+        177
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "ed6a5c7b75df0aba17b4abe02fafe5b00768d642e81f65f584b483ac916f91cd",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_23_prop.png",
+      "dimensions": [
+        199,
+        208
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "cf4da93a08fa86bffca34a95cae6a04a0f60cd6ff77bee4f25375de13d611421",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_24_prop.png",
+      "dimensions": [
+        208,
+        158
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "0445033de6a60e2f1eb973147b6616058025b0f699b4c11158a700dfa0f15ae0",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_25_prop.png",
+      "dimensions": [
+        208,
+        184
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "9f74f20f256141b1a5995fe7990ae90daa5f0b5e12b143b066eeabf23e35be44",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_26_prop.png",
+      "dimensions": [
+        170,
+        147
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "ed7058400f1f93afef1296c60e4933e6f84824eeb201787b3f4ec7e8b1542a3a",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_27_prop.png",
+      "dimensions": [
+        131,
+        142
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "1fe895474ddc7d2fcf0bed413220f6783934f54daaf2de8f5f44e7dd6682e4ee",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_28_prop.png",
+      "dimensions": [
+        184,
+        128
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "b109d8f08c4777ce871744a9b6d0846816c4e2c7fbab53a6fdb34b591f55dfe7",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_29_prop.png",
+      "dimensions": [
+        75,
+        193
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "f28b43670f764a4a157fd8763ff02a9f1b579c9f4c90d1cedba75fc4a1b86356",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_30_prop.png",
+      "dimensions": [
+        101,
+        190
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "e6a188ff5442095992067e08fb7d9fd918b0d2aaf187c4ff2dbd854b13813f88",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_31_prop.png",
+      "dimensions": [
+        73,
+        183
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "e9988c1888977b68817ea3c8527a15c95238ab5bdaf493ef28728fdb1f2c2f66",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_32_prop.png",
+      "dimensions": [
+        119,
+        178
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "8edadee97ed1234dd8086f1a1790e1e578c51b40adfcd9234b1f570bbad299a2",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_33_prop.png",
+      "dimensions": [
+        99,
+        170
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "6fdb661caec8cc24e750b798ac51bb63b8da625dc6233b09c74554bd65c4a740",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_34_prop.png",
+      "dimensions": [
+        208,
+        113
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "f3cc652a62a4f083a014a3189853c1c32b2de278f40a9cb9c4d40de083214256",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_35_prop.png",
+      "dimensions": [
+        108,
+        167
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "991f84845dedd672119f7927e6994312438ea912deaa368d5edd51ac4f261a89",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_36_prop.png",
+      "dimensions": [
+        208,
+        122
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "eb66c0c7b9326be410cab293b004ef1ef220b9e78b119686245d2f97d3749c9a",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_37_prop.png",
+      "dimensions": [
+        208,
+        99
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "68c51697805dfa66c2f36968ba79f3cd3ff4b0fad7bb1654fadf18288cd9f040",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_38_prop.png",
+      "dimensions": [
+        208,
+        120
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "8762c5167390dad7a4db0bff43fbf7934bca5d8db9ce1d08b136a943586898e3",
+      "kind": "prop"
+    },
+    {
+      "file": "royal_garden_39_terrain.png",
+      "dimensions": [
+        112,
+        112
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "d8246e4bb863cad72e09b0d24e0f23af3f662625a911234c55549f21d891fbcf",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_40_terrain.png",
+      "dimensions": [
+        112,
+        108
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "ffcaed405d5a4a37e56044097e5f66bbda49b016b76152c70916c433a2faa6cb",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_41_terrain.png",
+      "dimensions": [
+        100,
+        112
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "d6dce4b7ac76322824e6eecf52d4121da850a181d3ece7e848473bab8d19f962",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_42_terrain.png",
+      "dimensions": [
+        107,
+        112
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "c98a18751e10e46746fe826aaf032719698ca1eb6e2dac556968cb907b24f2fe",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_43_terrain.png",
+      "dimensions": [
+        112,
+        105
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "1795d3bd6fd95f79cb0a175ac79b3f594495ce8a72debab1722abbc4c34c295c",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_44_terrain.png",
+      "dimensions": [
+        108,
+        112
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "f3ef07f8b7632f06d16d3b205b7699aaf272d0e2e6dd471489a201e33220c30d",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_45_terrain.png",
+      "dimensions": [
+        107,
+        112
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "07706b6663994c8a9a23b4edb6ed33080a24e1f6badc20a40dd21a11e40ade9c",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_46_terrain.png",
+      "dimensions": [
+        112,
+        111
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "a7cff609d49834a01673fce598a6c63617f5e69a5698a11ab79787ed3467bb10",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_47_terrain.png",
+      "dimensions": [
+        112,
+        105
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "531a374606fab370448bb8c5b84de1df2c2bfc252c68d4c474eef02a3b907adf",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_48_terrain.png",
+      "dimensions": [
+        112,
+        111
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "93b828baf7e3b52bf5dca5f124cd0ea099e8c33ed677b57dca566e7ca3226fa8",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_49_terrain.png",
+      "dimensions": [
+        112,
+        95
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "b5a12c294d37039657c2277099da6559fde4591922e15f26863b5f01a2ddc0fd",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_50_terrain.png",
+      "dimensions": [
+        112,
+        97
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "6fb762f796cc53945da9690813b70ed65a3624b08a0b859dd4e2150850d75cae",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_51_terrain.png",
+      "dimensions": [
+        112,
+        101
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "55144ccffc0245ccc61a2ed7b7f7b3a85a8d5cfe8a8d42a69098dbdd6b1dc77e",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_52_terrain.png",
+      "dimensions": [
+        112,
+        102
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "9f362954e219e5a09ee0ab322f5aeb79ff0bfb792391e8f29455d2b3175694b0",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_53_terrain.png",
+      "dimensions": [
+        108,
+        112
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "e52dc72a8ba01e38bb51151629350256607dc3fa075472da28a0e254a8eefd4b",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_54_terrain.png",
+      "dimensions": [
+        112,
+        94
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "ac8f0d2ef91171711a60a1ec724fd1d0ae19e0ee47350534aabd646e9a7820bd",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_55_terrain.png",
+      "dimensions": [
+        112,
+        99
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "c1892cc8c08cadcab4f8c040abde4f32469802365e38d45ce32b1bbfe357bd21",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_56_terrain.png",
+      "dimensions": [
+        110,
+        112
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "8519cda3b7626d18e5f70fba52b769f02499a23dc9410867eb90b4a1fea6927c",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_57_terrain.png",
+      "dimensions": [
+        112,
+        99
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "1f1c932d36733705d7beb55106f0931c51d0cf071e8ebac5bd1060293f5f7f24",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_58_terrain.png",
+      "dimensions": [
+        112,
+        98
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "9c94fc8a51328ebe6a0734356c333e96b7d51d2666d0c28c82388e69e381953c",
+      "kind": "terrain_candidate"
+    },
+    {
+      "file": "royal_garden_59_terrain.png",
+      "dimensions": [
+        112,
+        78
+      ],
+      "has_alpha": true,
+      "transparent_corners": true,
+      "sha256": "0b2c728899f031ad3c9bb3f36dd8ebc91f8688659c997dca178f3238c1c56c84",
+      "kind": "terrain_candidate"
+    }
+  ]
+}

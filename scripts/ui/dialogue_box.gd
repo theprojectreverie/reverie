@@ -8,6 +8,16 @@ signal node_shown(dialogue_id: String, node_id: String)
 signal choice_selected(dialogue_id: String, choice: Dictionary)
 
 const TYPE_SPEED := 52.0
+const STORY_PORTRAITS := {
+	"kael": preload("res://assets/portraits/summon/kael.png"),
+	"kael ashford": preload("res://assets/portraits/summon/kael.png"),
+	"gerald": preload("res://assets/portraits/summon/gerald.png"),
+	"lilith": preload("res://assets/portraits/summon/lilith.png"),
+	"cassien": preload("res://assets/portraits/summon/cassien.png"),
+	"ravienna": preload("res://assets/portraits/summon/ravienna.png"),
+	"revienna": preload("res://assets/portraits/summon/ravienna.png"),
+	"elathra": preload("res://assets/portraits/summon/elathra.png"),
+}
 
 var _dialogue_id: String = ""
 var _data: Dictionary = {}
@@ -113,16 +123,19 @@ func _show_node(node_id: String) -> void:
 	_node = nodes[node_id]
 	var speaker := str(_node.get("speaker", "???"))
 	_speaker_label.text = speaker
-	_name_label.text = str(_data.get("caption", _dialogue_id.replace("_", " "))).to_upper()
+	_name_label.text = str(_data.get("caption", _dialogue_id.replace("revienna", "ravienna").replace("_", " "))).to_upper()
 	var palette: Dictionary = _node.get("portrait", {})
 	_portrait.setup(palette, _race_for_speaker(speaker), "neutral", "legendary", _dialogue_id.hash())
-	# Named story NPCs may provide a real portrait asset per dialogue node.
-	# Missing/invalid paths safely retain the existing procedural portrait.
+	# Explicit authored node art wins (including human ritual forms).
+	# Named main characters must never inherit a generic procedural portrait.
 	var portrait_path := str(_node.get("portrait_asset", ""))
+	var portrait_resource: Texture2D
 	if not portrait_path.is_empty() and ResourceLoader.exists(portrait_path):
-		var portrait_resource: Resource = load(portrait_path)
-		if portrait_resource is Texture2D:
-			_portrait.set_portrait_texture(portrait_resource as Texture2D)
+		portrait_resource = load(portrait_path) as Texture2D
+	if portrait_resource == null:
+		portrait_resource = STORY_PORTRAITS.get(speaker.strip_edges().to_lower()) as Texture2D
+	if portrait_resource != null:
+		_portrait.set_portrait_texture(portrait_resource)
 	_target_text = str(_node.get("text", ""))
 	_text_label.text = _target_text
 	_text_label.visible_characters = 0

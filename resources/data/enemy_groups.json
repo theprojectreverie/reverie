@@ -542,7 +542,7 @@
   },
   "revienna_encounter": {
     "combat_profiles": {"story_tower": {"revienna_boss": {"hp": 1000, "atk": 13, "def": 11, "spd": 15, "crit": 0.08, "level": 10, "starting_energy": 65, "ultimate": "ravienna_eclipse"}}},
-    "name": "Revienna, the Eclipse Sovereign",
+    "name": "Ravienna, the Eclipse Sovereign",
     "region": "gothic_castle_boss_zone",
     "level": 10,
     "boss": true,

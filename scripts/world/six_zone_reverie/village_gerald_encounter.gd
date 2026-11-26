@@ -132,11 +132,13 @@ func _walk_toward_player(target: Vector2) -> void:
   return
  direction = (destination - global_position).normalized()
  var shape := CircleShape2D.new()
- shape.radius = 12.0
+ shape.radius = 26.0
  var query := PhysicsShapeQueryParameters2D.new()
  query.shape = shape
  query.collision_mask = 1
- query.transform = Transform2D(0.0, global_position)
+ # Ignore the moving Guardian's own solid footprint during the clearance sweep.
+ query.exclude = [$Footprint.get_rid()]
+ query.transform = Transform2D(0.0, $Footprint/CollisionShape2D.global_position)
  query.motion = destination - global_position
  var space := get_world_2d().direct_space_state
  if not space.intersect_shape(query, 1).is_empty():

@@ -29,7 +29,8 @@ func _process(delta: float) -> void:
 			var target := "target"
 			if player.nearby_interactable != null and "display_name" in player.nearby_interactable:
 				target = str(player.nearby_interactable.display_name)
-			prompt = "[E]  %s" % prompt_text if target == "target" or prompt_text.to_lower().contains(target.to_lower()) else "[E]  %s  %s" % [prompt_text, target]
+			var prefix := "" if TouchInput.using_touch else "[E]  "
+			prompt = prefix + prompt_text if target == "target" or prompt_text.to_lower().contains(target.to_lower()) else prefix + prompt_text + "  " + target
 	if prompt != _last_prompt:
 		_last_prompt = prompt
 		if hud._prompt_label != null:

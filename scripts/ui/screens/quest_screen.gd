@@ -232,8 +232,7 @@ func _show_detail(quest_id: String) -> void:
 		var color := UITheme.GREEN if done else (UITheme.GOLD if active else UITheme.TEXT_FAINT)
 		var objective_text := str(step.get("text", "Objective"))
 		if str(step.get("type", "")) == "kill":
-			var entry: Dictionary = GameState.quest_domain.quests.get(quest_id, {})
-			var progress := int(entry.get("progress", 0)) if active else (int(step.get("count", 1)) if done else 0)
+			var progress := GameState.quest_domain.quest_progress(quest_id) if active else (int(step.get("count", 1)) if done else 0)
 			objective_text += "  (%d/%d)" % [progress, int(step.get("count", 1))]
 		var row := QUEST_OBJECTIVE_ROW_SCENE.instantiate() as QuestObjectiveRow
 		row.setup(marker, objective_text, color if (done or active) else UITheme.TEXT_DIM)

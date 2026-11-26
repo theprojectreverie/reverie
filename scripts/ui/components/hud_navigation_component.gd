@@ -3,6 +3,7 @@ extends Node
 ## Owns HUD navigation button styling, intent wiring and return confirmation.
 
 var hud: HUD
+var _mobile_menu_open := false
 
 
 func bind(owner_hud: HUD) -> void:
@@ -36,6 +37,30 @@ func configure() -> void:
 		title_button.custom_minimum_size = Vector2(132, 42)
 		title_button.tooltip_text = "Save your journey and return to the title screen"
 		title_button.pressed.connect(_confirm_return_to_title)
+	var toggle := hud.get_node_or_null("MobileMenuToggle") as Button
+	if toggle != null:
+		_style_button(toggle, UITheme.GOLD_BRIGHT, true)
+		toggle.visible = TouchInput.using_touch
+		toggle.pressed.connect(func(): set_mobile_menu_open(not _mobile_menu_open))
+	if TouchInput.using_touch:
+		set_mobile_menu_open(false)
+		hud.screen_requested.connect(func(_id): set_mobile_menu_open(false))
+		hud.menu_requested.connect(func(): set_mobile_menu_open(false))
+		hud.return_to_title_requested.connect(func(): set_mobile_menu_open(false))
+
+func set_mobile_menu_open(open: bool) -> void:
+	if not is_instance_valid(hud) or not TouchInput.using_touch:return
+	_mobile_menu_open = open
+	hud.get_node("ActionStack").visible = open
+	if is_instance_valid(hud._minimap):hud._minimap.visible = not open
+	_update_mobile_menu_badge()
+
+func _update_mobile_menu_badge() -> void:
+	if not is_instance_valid(hud):return
+	var toggle := hud.get_node_or_null("MobileMenuToggle") as Button
+	if toggle == null:return
+	var count: int = AuthGateway.incoming_friend_requests + AuthGateway.unread_private_messages
+	toggle.text = "CLOSE" if _mobile_menu_open else ("MENU (%s)" % ("99+" if count > 99 else str(count)) if count > 0 else "MENU")
 
 
 func _update_chat_badge(unread: int) -> void:
@@ -44,6 +69,7 @@ func _update_chat_badge(unread: int) -> void:
 	if button==null:return
 	button.text="CHAT (%s)" % ("99+" if unread>99 else str(unread)) if unread>0 else "CHAT"
 	button.tooltip_text="%d unread private messages" % unread if unread>0 else "World, party and private chat"
+	_update_mobile_menu_badge()
 
 func _update_friend_badge(incoming: int) -> void:
 	if not is_instance_valid(hud):
@@ -52,6 +78,7 @@ func _update_friend_badge(incoming: int) -> void:
 	if button==null:return
 	button.text="FRIENDS (%d)" % incoming if incoming>0 else "FRIENDS"
 	button.tooltip_text="%d incoming friend requests" % incoming if incoming>0 else "Friends and profile"
+	_update_mobile_menu_badge()
 
 func _configure_action(path: String, label: String, accent: Color, screen_id: String, primary: bool = false) -> void:
 	var button := hud.get_node_or_null(path) as Button

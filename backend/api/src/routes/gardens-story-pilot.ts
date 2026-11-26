@@ -3,11 +3,13 @@ import {z} from "zod";
 import {actionSchema,startStoryBattle,actStoryBattle,resumeStoryBattle,abandonStoryBattle,storyTransactionAdmission} from "../world/story-combat-service.js";
 import {gardenEncounterIds,isGardenEncounter,verifyStoryEncounter} from "../world/story-encounter-admission.js";
 import {readVerifiedOpeningProgress} from "../world/story-progression-proof.js";
+import {readElathraAudience,advanceElathraAudience} from "../world/story-elathra.js";
 type Outcome={ok:true;[key:string]:unknown}|{ok:false;reason:string};
 type Claims={sub?:string;playerId?:string;tokenVersion?:number};
 const group=z.string().refine(isGardenEncounter);
 const schema=z.discriminatedUnion("operation",[
  z.object({operation:z.literal("status")}).strict(),
+ z.object({operation:z.literal("audience"),choice:z.enum(["hear","accept"])}).strict(),
  z.object({operation:z.literal("start"),groupId:group}).strict(),
  z.object({operation:z.literal("act"),groupId:group,battleId:z.string().uuid(),sequence:z.number().int().min(1).max(256),action:actionSchema}).strict(),
  z.object({operation:z.literal("resume"),groupId:group,battleId:z.string().uuid()}).strict(),
@@ -28,8 +30,9 @@ export const gardensStoryPilotRoutes:FastifyPluginAsync=async app=>{
     if(!(await readVerifiedOpeningProgress(db,id)).geraldDefeated)return {ok:false,reason:"story_progression_required"};
     const rows=(await db.query<{group_id:string;remaining_ms:number}>(`SELECT group_id,GREATEST(0,CEIL(EXTRACT(EPOCH FROM (MAX(settled_at)+interval '15 seconds'-clock_timestamp()))*1000))::int AS remaining_ms FROM story_battle_sessions WHERE player_id=$1 AND group_id=ANY($2::text[]) AND status='victory' AND settled_at>clock_timestamp()-interval '15 seconds' GROUP BY group_id`,[id,gardenEncounterIds])).rows;
     const active=(await db.query<{id:string;group_id:string}>("SELECT id,group_id FROM story_battle_sessions WHERE player_id=$1 AND status='active' AND group_id=ANY($2::text[]) LIMIT 1",[id,gardenEncounterIds])).rows[0];
-    return {ok:true,encounters:gardenEncounterIds.map(groupId=>({groupId,remainingMs:rows.find(r=>r.group_id===groupId)?.remaining_ms??0})),active:active?{battleId:active.id,groupId:active.group_id}:null};
+    return {ok:true,audience:await readElathraAudience(db,id),encounters:gardenEncounterIds.map(groupId=>({groupId,remainingMs:rows.find(r=>r.group_id===groupId)?.remaining_ms??0})),active:active?{battleId:active.id,groupId:active.group_id}:null};
    }
+   if(op.operation==="audience")return advanceElathraAudience(db,id,op.choice);
    if(op.operation==="start"){
     const active=(await db.query<{id:string}>("SELECT id FROM story_battle_sessions WHERE player_id=$1 AND group_id=$2 AND status='active' LIMIT 1",[id,op.groupId])).rows[0];
     if(active)return resumeStoryBattle(db,id,active.id);

@@ -44,14 +44,14 @@ func run():
 	add_child(collection)
 	collection._open_online_collection()
 	for i in range(100):
-		if collection.has_node("OnlineCollectionOverlay/OnlineRosterDialog") and collection.get_node("OnlineCollectionOverlay/OnlineRosterDialog").visible: break
+		if collection.has_node("OnlineCollectionOverlay/OnlineRosterDialog") and collection.get_node("OnlineCollectionOverlay")._collection_visible(): break
 		await get_tree().create_timer(0.05).timeout
 	var opened: GachaScreen = collection.get_node_or_null("OnlineCollectionOverlay")
-	if opened == null or not opened.get_node("OnlineRosterDialog").visible or opened.summon_currency("crystals") != 1200:
+	if opened == null or not opened._collection_visible() or opened.get_node("OnlineRosterDialog").visible or collection._shell.visible or opened.summon_currency("crystals") != 1200:
 		fail("party online shortcut"); return
 	if opened.get_node("SummoningChamberAtmosphere").is_processing() or opened._main.get_child_count() != 0:
 		fail("collection renders hidden summon banner"); return
-	opened.get_node("OnlineRosterDialog").hide()
+	opened._collection_body().hide()
 	collection.queue_free()
 	await get_tree().process_frame
 	print("PASS Party screen online collection shortcut")

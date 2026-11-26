@@ -1,4 +1,4 @@
-﻿import Fastify from 'fastify';
+import Fastify from 'fastify';
 import jwt from '@fastify/jwt';
 import assert from 'node:assert/strict';
 import {randomBytes} from 'node:crypto';
@@ -23,6 +23,7 @@ try {
   const login=(await app.inject({method:'POST',url:'/v1/auth/login',payload:{playerName:names[i],password}})).json();ids.push(login.player.id);tokens.push(login.accessToken);
  }
  await pool.query("UPDATE player_currencies SET balance=120 WHERE player_id=$1 AND currency_id='crystals'",[ids[0]]);
+ await pool.query("INSERT INTO owned_characters(player_id,char_id) VALUES($1,'cassien_mythic') ON CONFLICT DO NOTHING",[ids[0]]);
  banner.rates={common:0,rare:0,epic:0,legendary:0,mythic:1};banner.pool.mythic=['ravienna_mythic'];
  const root=fileURLToPath(new URL('../../../',import.meta.url));
  const code=await new Promise((resolve,reject)=>{

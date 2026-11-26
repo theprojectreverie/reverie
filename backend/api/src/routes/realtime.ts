@@ -14,6 +14,21 @@ type Socket=any;
 const querySchema=z.object({lobbyId:z.string().uuid()});
 const rooms=new Map<string,Set<Socket>>();
 const socketPlayers=new WeakMap<object,string>();
+const alphaSockets=new WeakSet<object>();
+// Only authenticated, admitted public co-op sockets in this API process.
+export function alphaRealtimeSnapshot(){
+ const players=new Set<string>();let connections=0,lobbies=0;
+ for(const peers of rooms.values()){
+  let occupied=false;
+  for(const peer of peers){
+   if(!alphaSockets.has(peer)||peer.readyState!==1)continue;
+   connections++;occupied=true;
+   const id=socketPlayers.get(peer);if(id)players.add(id);
+  }
+  if(occupied)lobbies++;
+ }
+ return {connections,players:players.size,lobbies};
+}
 // Explicit leave immediately revokes that member's subscriptions, even if idle.
 export function revokeLobbyMember(lobbyId:string,playerId:string):void{
  const peers=rooms.get(lobbyId);
@@ -219,6 +234,7 @@ export const realtimeRoutes:FastifyPluginAsync=async app=>{
    return;
   }
   socketPlayers.set(socket,playerId);
+  if(request.headers["x-reverie-alpha"]==="1")alphaSockets.add(socket);
   peers.add(socket);rooms.set(lobbyId,peers);
   send(socket,{type:"connected",lobbyId,playerId});
   void pool.query("UPDATE player_presence SET state='in_world',last_heartbeat_at=now(),updated_at=now() WHERE player_id=$1",[playerId]).catch(()=>{});

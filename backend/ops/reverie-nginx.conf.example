@@ -1,0 +1,66 @@
+# Same-host deployment example. Replace DOMAIN and certificate paths first.
+# Include inside nginx http {}. API ports must be loopback/firewalled.
+upstream reverie_http {
+    server 127.0.0.1:8787 max_fails=1 fail_timeout=10s;
+    server 127.0.0.1:8788 max_fails=1 fail_timeout=10s;
+    keepalive 32;
+}
+map $http_upgrade $reverie_connection {
+    default upgrade;
+    '' close;
+}
+server {
+    listen 443 ssl;
+    server_name DOMAIN;
+    ssl_certificate /path/to/fullchain.pem;
+    ssl_certificate_key /path/to/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    client_max_body_size 256k;
+    # Replace, never append, untrusted forwarded identity headers.
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header Forwarded "";
+    proxy_http_version 1.1;
+    proxy_connect_timeout 3s;
+    proxy_read_timeout 60s;
+    # Never retry a mutation on a second backend after an ambiguous response.
+    proxy_next_upstream off;
+    location = /ready { return 404; }
+    # Expedition timers and room state are process-local. Pin to one process.
+    # Fail closed if primary unavailable; do not create a split room.
+    location = /v1/realtime {
+        proxy_pass http://127.0.0.1:8787;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header Forwarded "";
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $reverie_connection;
+        proxy_read_timeout 90s;
+    }
+    # Persistent-world sockets also pinned conservatively until cross-process
+    # admission and connection-limit tests are complete.
+    location = /v1/world/realtime {
+        proxy_pass http://127.0.0.1:8787;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header Forwarded "";
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $reverie_connection;
+        proxy_read_timeout 90s;
+    }
+    location / {
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header Forwarded "";
+        proxy_pass http://reverie_http;
+    }
+}
