@@ -97,3 +97,8 @@ No artwork was generated or substituted. Existing approved resources and scene s
 
 - 2026-11-26: Audit completed; isolated test-environment fix and tracker committed as `61cbb10` (`Make backend test environment reproducible`).
 - Unrelated pre-existing modifications and untracked live-content work remain unstaged and untouched.
+- 2026-11-26 continuation: `C:\Users\quoth\Desktop\Godot_console.exe` verified as Godot 4.7.2; content validation passed and the full Godot suite passed **2,762/2,762**.
+- 2026-11-26 continuation: isolated auth/account-sync, card fusion, Mythic ascension/bonds, online upgrade/awakening, paid summon guarantee, daily/weekly/monthly claims, map collision and portal-transition checks passed. No production data or real funds were used.
+- 2026-11-26 continuation: live banner/content-manager/character-pack/new-character E2Es passed. Live client QA scenes now explicitly free transient screens/actors and stop audio before exit; prior shutdown ObjectDB/resource warnings were not reproduced.
+- 2026-11-26 continuation: Android SDK found at `C:\Users\quoth\AppData\Local\Android\Sdk\platform-tools\adb.exe`, but `adb devices -l` could not be run from PATH and no BlueStacks adb was found. Device verification remains blocked until an emulator/device is available.
+- 2026-11-26 continuation: `paid_summon_smoke.gd` is a stale unauthenticated local UI fixture that expects server-only paid progress; authoritative paid-summon Godot E2E passes and no production code was changed for the stale assertion. Tutorial transition fixture also requires its dedicated QA user-data profile and remains outstanding.
