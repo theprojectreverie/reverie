@@ -23,8 +23,12 @@ func run():
  gs.profile["paid_summon_progress"]=0;gs._load_from_dict(snapshot)
  assert(gs.profile.paid_summon_progress==90)
  var gacha=load("res://scenes/ui/gacha_screen.tscn").instantiate();root.add_child(gacha);await process_frame
- assert(gacha.paid_summon_progress()==90)
- var paid=gacha.find_child("PaidPull10",true,false);assert(paid!=null and not paid.disabled)
+ # Paid progress is server-owned. This local/unauthenticated fixture must not
+ # leak the local profile's paid counter into the summon UI or enable a paid
+ # pull. The authenticated guarantee path is covered by paid-summon-godot-e2e.
+ assert(gacha.paid_summon_progress()==0)
+ assert(not gacha.paid_guarantee_verified())
+ var paid=gacha.find_child("PaidPull10",true,false);assert(paid!=null and paid.disabled)
  if DisplayServer.get_name()!="headless":
   await RenderingServer.frame_post_draw
   root.get_texture().get_image().save_png(OS.get_environment("TEMP")+"/paid_summon_preview.png")

@@ -1,6 +1,7 @@
 extends Node
 func _ready() -> void:
-	if not "reverie_tutorial_qa" in OS.get_user_data_dir().to_lower():
+	var qa_profile := OS.get_environment("REVERIE_TUTORIAL_QA") == "1"
+	if not qa_profile and not "reverie_tutorial_qa" in OS.get_user_data_dir().to_lower():
 		get_tree().quit(1)
 		return
 	await get_tree().process_frame
@@ -10,18 +11,24 @@ func _ready() -> void:
 	tree.current_scene = scene
 	await tree.process_frame
 	assert(not scene.player.has_node("FairyCompanion"))
-	for i in range(3): scene._accept_challenge()
+	for i in range(3):
+		scene._accept_challenge()
+		await tree.process_frame
 	scene._open_challenge()
-	for i in range(4): scene._accept_challenge()
+	for i in range(4):
+		scene._accept_challenge()
+		await tree.process_frame
 	scene._on_practice_hit(false)
 	scene._on_practice_hit(false)
 	scene._on_practice_hit(true)
 	scene._open_challenge()
-	for i in range(3): scene._accept_challenge()
+	for i in range(3):
+		scene._accept_challenge()
+		await tree.process_frame
 	await tree.create_timer(2.0).timeout
 	var combat = scene.get_node("TutorialHUD/SparringRoot").get_child(0)
 	assert(combat.engine.combatants.size() == 2)
-	var gold := GameState.inventory_domain.currency("gold")
+	var gold: int = GameState.inventory_domain.currency("gold")
 	var deadline := Time.get_ticks_msec() + 45000
 	var player_actions := 0
 	var enemy_actions := 0
