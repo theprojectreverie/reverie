@@ -384,6 +384,10 @@ try {
   }
   if (process.env.REVERIE_E2E_CLUSTER_MODE) {
     await runClusterProbe({clients,playerRows,pool,serverId,mode:process.env.REVERIE_E2E_CLUSTER_MODE,serverPid:godot.child.pid});
+    if (process.env.REVERIE_TRANSPORT_METRICS === "1") {
+      const metrics = godot.getOutput().split(/\r?\n/).filter(line => line.startsWith("TRANSPORT_METRICS "));
+      console.log("DEDICATED_TRANSPORT_METRICS " + JSON.stringify(metrics.map(line => JSON.parse(line.slice("TRANSPORT_METRICS ".length)))));
+    }
     if(process.env.REVERIE_E2E_CHECKPOINT_VERIFY==="1"){
       const deadline=Date.now()+35000;
       let checkpoint;

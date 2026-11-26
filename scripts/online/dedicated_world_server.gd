@@ -47,6 +47,13 @@ var _deferred_positions: Dictionary = {}
 var _lease_renew_queue: Array[int] = []
 var _lease_renew_inflight := 0
 var _coalesced_positions := 0
+var _metrics_enabled := false
+var _metrics_timer: Timer
+var _metrics_process_count := 0
+var _metrics_process_total_usec := 0
+var _metrics_process_max_usec := 0
+var _metrics_bytes_received := 0
+var _metrics_bytes_sent := 0
 
 var _tcp_server := TCPServer.new()
 var _server_id := ""
@@ -72,6 +79,7 @@ var _disconnect_timers: Dictionary = {}
 var _shutdown_requested := false
 
 func _ready() -> void:
+	_metrics_enabled = OS.get_environment("REVERIE_TRANSPORT_METRICS") == "1"
 	var configured_batch_size := OS.get_environment("REVERIE_SERVER_EVENT_BATCH_SIZE")
 	if configured_batch_size.is_valid_int():
 		_event_batch_size = clampi(int(configured_batch_size), 32, 128)
@@ -143,6 +151,11 @@ func _ready() -> void:
 	_event_retry_timer.wait_time = 1.0
 	_event_retry_timer.timeout.connect(_process_next_world_event)
 	add_child(_event_retry_timer)
+	if _metrics_enabled:
+		_metrics_timer = Timer.new()
+		_metrics_timer.wait_time = 10.0
+		_metrics_timer.timeout.connect(_emit_transport_metrics)
+		add_child(_metrics_timer)
 	if transport_test_mode:
 		return
 	if api_base_url.is_empty() or not api_base_url.begins_with("http"):
@@ -157,6 +170,7 @@ func _ready() -> void:
 	_register_server()
 
 func _process(_delta: float) -> void:
+	var process_started := Time.get_ticks_usec() if _metrics_enabled else 0
 	if _ready_for_heartbeat:
 		_poll_listener()
 		_flush_deferred_positions()
@@ -164,6 +178,36 @@ func _process(_delta: float) -> void:
 		_flush_deferred_positions()
 		_process_next_world_event()
 		_try_save_world_state()
+	if _metrics_enabled:
+		var elapsed := Time.get_ticks_usec() - process_started
+		_metrics_process_count += 1
+		_metrics_process_total_usec += elapsed
+		_metrics_process_max_usec = maxi(_metrics_process_max_usec, elapsed)
+
+func _emit_transport_metrics() -> void:
+	if not _metrics_enabled:
+		return
+	var buffered_bytes := 0
+	for session in _sessions.values():
+		var socket: WebSocketPeer = session.get("socket")
+		if socket != null:
+			buffered_bytes += socket.get_current_outbound_buffered_amount()
+	print("TRANSPORT_METRICS " + JSON.stringify({
+		"sessions": _sessions.size(),
+		"eventQueue": _event_queue.size(),
+		"deferredPositions": _deferred_positions.size(),
+		"leaseRenewQueue": _lease_renew_queue.size(),
+		"leaseRenewInflight": _lease_renew_inflight,
+		"bufferedOutboundBytes": buffered_bytes,
+		"receivedBytes": _metrics_bytes_received,
+		"sentBytes": _metrics_bytes_sent,
+		"processSamples": _metrics_process_count,
+		"processAvgMs": (_metrics_process_total_usec / 1000.0 / _metrics_process_count) if _metrics_process_count > 0 else 0.0,
+		"processMaxMs": _metrics_process_max_usec / 1000.0
+	}))
+	_metrics_process_count = 0
+	_metrics_process_total_usec = 0
+	_metrics_process_max_usec = 0
 
 func _exit_tree() -> void:
 	if _tcp_server.is_listening():
@@ -360,6 +404,8 @@ func _start_transport() -> void:
 		_heartbeat.start()
 		_save_timer.start()
 		_lease_timer.start()
+		if _metrics_timer != null:
+			_metrics_timer.start()
 	print("Dedicated world transport listening at ", world_endpoint_url)
 
 func _send_heartbeat() -> void:
@@ -437,6 +483,7 @@ func _poll_sessions() -> void:
 			while socket.get_ready_state() == WebSocketPeer.STATE_OPEN and socket.get_available_packet_count() > 0 and processed < MAX_INPUT_PACKETS_PER_FRAME:
 				processed += 1
 				var packet := socket.get_packet()
+				_metrics_bytes_received += packet.size()
 				if packet.size() > MAX_INPUT_BYTES:
 					_close_peer(int(peer_id), 1009, "message_too_large")
 					break
@@ -705,6 +752,8 @@ func _send_encoded(peer_id: int, encoded: PackedByteArray) -> void:
 			_last_pressure_log["send_error_detail"] = now
 			push_warning("World send failed: error=%d payload_bytes=%d buffered_bytes=%d" % [result, encoded.size(), socket.get_current_outbound_buffered_amount()])
 		_close_peer(peer_id, 1013, "send_backpressure")
+	else:
+		_metrics_bytes_sent += encoded.size()
 
 func _make_event_id() -> String:
 	var value := Crypto.new().generate_random_bytes(16).hex_encode()

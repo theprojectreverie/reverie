@@ -1,4 +1,4 @@
-import {performance} from "node:perf_hooks";
+import {performance,monitorEventLoopDelay} from "node:perf_hooks";
 import {execFile} from "node:child_process";
 import {promisify} from "node:util";
 const run=promisify(execFile);
@@ -62,7 +62,7 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
   };
   const storageBefore=await eventStorage();
 
-  let bytes=0,packets=0,memberRecords=0,rejected=0,foreign=0,sequenceGaps=0;
+  let bytes=0,packets=0,clientSentBytes=0,memberRecords=0,rejected=0,foreign=0,sequenceGaps=0;
   let emoteDeliveries=0,pingSent=0,pongReceived=0,syncHints=0,mixedBytes=0,invalidEmotes=0;
   const expectedEmotes=new Uint16Array(n),seenEmotes=new Uint16Array(n*n),expectedPings=new Uint16Array(n),seenPongs=new Uint16Array(n);
   const closes=[],rejections={};
@@ -85,11 +85,11 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
     try{
       // Godot's Windows console executable launches the real engine as a child.
       // Measure the full dedicated-server process tree, not just the launcher.
-      const command="$root="+Number(serverPid)+"; $ids=@($root); for($i=0;$i -lt $ids.Count;$i++){ $child=@(Get-CimInstance Win32_Process -Filter ('ParentProcessId = '+$ids[$i]) | Select-Object -ExpandProperty ProcessId); $ids+=@($child | Where-Object {$_ -notin $ids}) }; $ps=@(Get-Process -Id $ids -ErrorAction SilentlyContinue); @($ps | Select-Object Id,ProcessName,WorkingSet64,PrivateMemorySize64) | ConvertTo-Json -Compress";
+       const command="$root="+Number(serverPid)+"; $ids=@($root); for($i=0;$i -lt $ids.Count;$i++){ $child=@(Get-CimInstance Win32_Process -Filter ('ParentProcessId = '+$ids[$i]) | Select-Object -ExpandProperty ProcessId); $ids+=@($child | Where-Object {$_ -notin $ids}) }; $ps=@(Get-Process -Id $ids -ErrorAction SilentlyContinue); @($ps | ForEach-Object {[pscustomobject]@{Id=$_.Id;ProcessName=$_.ProcessName;WorkingSet64=$_.WorkingSet64;PrivateMemorySize64=$_.PrivateMemorySize64;CpuSeconds=$_.TotalProcessorTime.TotalSeconds}}) | ConvertTo-Json -Compress";
       const {stdout}=await run("powershell.exe",["-NoProfile","-Command",command],{timeout:8000,windowsHide:true});
       const parsed=JSON.parse(stdout.trim());
       const processes=Array.isArray(parsed)?parsed:[parsed];
-      if(processes.length&&processes.every(p=>Number.isFinite(p.WorkingSet64)&&Number.isFinite(p.PrivateMemorySize64)))memorySamples.push({workingSet:processes.reduce((sum,p)=>sum+p.WorkingSet64,0),privateBytes:processes.reduce((sum,p)=>sum+p.PrivateMemorySize64,0),processes:processes.map(p=>({pid:p.Id,name:p.ProcessName}))});
+       if(processes.length&&processes.every(p=>Number.isFinite(p.WorkingSet64)&&Number.isFinite(p.PrivateMemorySize64)&&Number.isFinite(p.CpuSeconds)))memorySamples.push({sampledAt:performance.now(),workingSet:processes.reduce((sum,p)=>sum+p.WorkingSet64,0),privateBytes:processes.reduce((sum,p)=>sum+p.PrivateMemorySize64,0),cpuSeconds:processes.reduce((sum,p)=>sum+p.CpuSeconds,0),processes:processes.map(p=>({pid:p.Id,name:p.ProcessName}))});
     }catch{}
   };
   const listeners=clients.map((c,receiver)=>{
@@ -139,6 +139,8 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
   const closeListeners=clients.map((c,i)=>{const handler=(code,reason)=>closes.push({client:i,code,reason:String(reason)});c.socket.on("close",handler);return handler;});
   let memoryTimer;
   let memoryPending=Promise.resolve();
+  const loopDelay=monitorEventLoopDelay({resolution:10});
+  loopDelay.enable();
   try{
     await sampleMemory();
     memoryTimer=setInterval(()=>{memoryPending=sampleMemory();},10000);
@@ -150,12 +152,14 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
         const now=performance.now();
         if(r>1){const interval=now-sent[(r-1)*n+i];minimumSendInterval=Math.min(minimumSendInterval,interval);if(interval<40)shortSendIntervals++;}
         if(clients[i].socket.readyState!==1)throw new Error("cluster movement socket closed at round "+r);
-        sent[r*n+i]=now;clients[i].socket.send(JSON.stringify({type:"position",...point(i,r)}));
+        const positionPayload=JSON.stringify({type:"position",...point(i,r)});
+        sent[r*n+i]=now;clientSentBytes+=Buffer.byteLength(positionPayload);clients[i].socket.send(positionPayload);
         // Stagger auxiliary traffic instead of deliberately synchronizing every
         // heartbeat and emote across 100 clients in the same frame.
         if(mixed&&r<rounds&&(r+i)%50===0){
-          clients[i].socket.send(JSON.stringify({type:"emote",emoteId:"wave"}));expectedEmotes[i]++;
-          clients[i].socket.send(JSON.stringify({type:"ping",lastSequence:lastCursor[i]??storageBefore.lastSequence}));expectedPings[i]++;pingSent++;
+          const emotePayload=JSON.stringify({type:"emote",emoteId:"wave"});const pingPayload=JSON.stringify({type:"ping",lastSequence:lastCursor[i]??storageBefore.lastSequence});
+          clientSentBytes+=Buffer.byteLength(emotePayload)+Buffer.byteLength(pingPayload);clients[i].socket.send(emotePayload);expectedEmotes[i]++;
+          clients[i].socket.send(pingPayload);expectedPings[i]++;pingSent++;
         }
       }
       if(r%150===0){
@@ -172,7 +176,10 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
     const expectedEmoteDeliveries=expectedEmotes.reduce((sum,count)=>sum+count,0)*n;
     while((finalDeliveries<finalExpected||(interested&&lastCursor.some(cursor=>cursor===null||cursor<latestStorage.lastSequence))||(mixed&&(emoteDeliveries<expectedEmoteDeliveries||pongReceived<pingSent)))&&performance.now()<until)await sleep(50);
     clearInterval(memoryTimer);await memoryPending;await sampleMemory();
-    const measured=latency.subarray(0,receivedCount);measured.sort();
+     const measured=latency.subarray(0,receivedCount);measured.sort();
+     const harnessEventLoopMs={p50:loopDelay.percentile(50)/1e6,p95:loopDelay.percentile(95)/1e6,p99:loopDelay.percentile(99)/1e6,max:loopDelay.max/1e6};
+     const cpuFirst=memorySamples[0],cpuLast=memorySamples[memorySamples.length-1];
+     const serverCpuPercent=cpuFirst&&cpuLast&&cpuLast.sampledAt>cpuFirst.sampledAt?((cpuLast.cpuSeconds-cpuFirst.cpuSeconds)/(cpuLast.sampledAt-cpuFirst.sampledAt))*100000:null;
     if(memorySamples.length)console.log("SERVER_MEMORY_SAMPLES "+JSON.stringify(memorySamples));
     // Verify all proposals reached durable storage. For a missing intermediate
     // sample, require proof of a later sample in the SAME received sequence
@@ -213,7 +220,7 @@ export async function runClusterProbe({clients,playerRows,pool,serverId,mode,ser
     const storageAfter=await eventStorage();
     console.log("WORLD_EVENT_STORAGE "+JSON.stringify({before:storageBefore,after:storageAfter,addedRows:storageAfter.events-storageBefore.events,addedRowBytes:storageAfter.rowBytes-storageBefore.rowBytes}));
 
-    console.log("CLUSTER_LOAD_RESULT "+JSON.stringify({mode,players:n,rounds,groupSize:size,batchSize,proposals:n*rounds,packets,payloadBytes:bytes,memberRecords,nearbyDeliveries:receivedCount,expectedNearby:expected,verifiedSupersededDeliveries:missing.verifiedSupersededDeliveries,finalDeliveries,finalExpected,p50Ms:pct(measured,.5),p95Ms:pct(measured,.95),maxMs:pct(measured,1),foreign,sequenceGaps,rejected,unexpectedCloses:closes.length}));
+     console.log("CLUSTER_LOAD_RESULT "+JSON.stringify({mode,players:n,rounds,groupSize:size,batchSize,proposals:n*rounds,packets,payloadBytes:bytes,clientSentBytes,memberRecords,nearbyDeliveries:receivedCount,expectedNearby:expected,verifiedSupersededDeliveries:missing.verifiedSupersededDeliveries,finalDeliveries,finalExpected,p50Ms:pct(measured,.5),p95Ms:pct(measured,.95),p99Ms:pct(measured,.99),maxMs:pct(measured,1),harnessEventLoopMs,serverCpuPercent,foreign,sequenceGaps,rejected,unexpectedCloses:closes.length}));
     if(committed.size!==n*rounds||receivedCount+missing.verifiedSupersededDeliveries!==expected||missing.uncommittedProposals||missing.unexplainedCommittedDeliveries||missing.missingFinalDeliveries||finalDeliveries!==finalExpected||!finalCursorMatch||!mixedMatch||foreign||sequenceGaps||rejected||closes.length)throw new Error("cluster delivery invariant failed");
-  }finally{clearInterval(memoryTimer);clients.forEach((c,i)=>{c.socket.off("message",listeners[i]);c.socket.off("close",closeListeners[i]);});}
+  }finally{clearInterval(memoryTimer);loopDelay.disable();clients.forEach((c,i)=>{c.socket.off("message",listeners[i]);c.socket.off("close",closeListeners[i]);});}
 }
