@@ -40,4 +40,9 @@ func _run():
  print("ERRORS ",errors)
  vis.queue_free()
  await process_frame
- quit(0 if errors.is_empty() and valid.size()==15 else 1)
+ var declared:Array=[]
+ for id in data:
+  if not str(data[id].get("assets",{}).get("world_sheet","")).is_empty():declared.append(id)
+ var all_declared_valid:bool=not declared.is_empty() and declared.all(func(id):return valid.has(id))
+ print("DECLARED_SHEETS ",declared.size()," ALL_VALID ",all_declared_valid)
+ quit(0 if errors.is_empty() and all_declared_valid and valid.size()>=declared.size() else 1)

@@ -12,6 +12,11 @@ func bind(owner_visual) -> void:
 
 
 func set_frame_source(source: ActorFrameSource) -> void:
+	_apply_frame_source(source, source != null and source.has_frames())
+
+# The registration path has already checked the complete sheet. Do not
+# repeat the expensive validation while installing that same result.
+func _apply_frame_source(source: ActorFrameSource, has_valid_frames: bool) -> void:
 	if visual == null:
 		return
 	if source == null:
@@ -26,7 +31,7 @@ func set_frame_source(source: ActorFrameSource) -> void:
 	visual.frame_source = source
 	visual.using_temporary_art = source.is_temporary()
 	visual._last_sprite_key = -1
-	visual._sprite_active = source.has_frames()
+	visual._sprite_active = has_valid_frames
 	if visual._sprite_active:
 		ensure_sprite()
 		update_sprite_frame()
@@ -51,8 +56,13 @@ func _configure_registered_source(asset_id: String, source: ActorFrameSource) ->
 		return {"character_id": asset_id, "registered": false, "fallback_active": true}
 	registered_asset_id = asset_id
 	visual.character_id = asset_id
+	# Validate the supplied resource once for this synchronous registration.
+	# SpriteFramesActorSource.has_frames() already runs the complete validator.
+	var valid := source != null and source.has_frames()
+	if valid and not source is SpriteFramesActorSource:
+		valid = source.validate_sheets().is_empty()
 	# Rarity variants share the same authored artwork and animation behaviour.
-	if source != null and source.has_frames():
+	if valid:
 		var path := source.source_label()
 		if path.ends_with("/kael_avatar/world_sheet.tres"):
 			visual.character_id = "kael"
@@ -61,11 +71,11 @@ func _configure_registered_source(asset_id: String, source: ActorFrameSource) ->
 		elif path.ends_with("/lilith/world_sheet.tres"):
 			visual.character_id = "lilith"
 	if visual.animator != null:
-		visual.animator.kael_combat_frames = visual.character_id == "kael" and source != null and source.has_frames()
-		visual.animator.gerald_fallen_frames = source != null and source.source_label().ends_with("/gerald/world_sheet_fallen.tres") and source.has_frames()
+		visual.animator.kael_combat_frames = visual.character_id == "kael" and valid
+		visual.animator.gerald_fallen_frames = valid and source.source_label().ends_with("/gerald/world_sheet_fallen.tres")
 	var registered := false
-	if source != null and source.has_frames() and source.validate_sheets().is_empty():
-		set_frame_source(source)
+	if valid:
+		_apply_frame_source(source, true)
 		registered = true
 	else:
 		# Registration is an explicit replacement, not a best-effort overlay.

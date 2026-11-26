@@ -58,6 +58,15 @@ func _ready() -> void:
         sync.name = "StoryOpeningWorldSync"
         add_child(sync)
         sync.bind_player(player, "story_village")
+    elif is_royal_gardens and story_sync.pilot_enabled() and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") == "1" and MultiplayerGateway.standalone_expedition_id.is_empty():
+        var sync = story_sync.new()
+        sync.name = "StoryOpeningWorldSync"
+        add_child(sync)
+        sync.bind_player(player, "story_royal_gardens")
+        var monsters = preload("res://scripts/online/story_garden_combat_sync.gd").new()
+        monsters.name = "StoryGardenCombatSync"
+        add_child(monsters)
+        monsters.bind(self, sync, player)
     var expeditions: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://resources/data/six_zone_expeditions.json"))
     var coop_region: String = MultiplayerGateway.standalone_expedition_region
     if not MultiplayerGateway.standalone_expedition_id.is_empty() and expeditions.has(coop_region) and str(expeditions[coop_region]["node"]) == str(name):
@@ -70,7 +79,7 @@ func _ready() -> void:
     var fairy_scene: PackedScene = load("res://scenes/characters/components/fairy_companion.tscn")
     if fairy_scene != null and bool(GameState.quest_domain.flags.get("tutorial_complete", false)):
         player.add_child(fairy_scene.instantiate())
-    if MultiplayerGateway.standalone_expedition_id.is_empty():
+    if MultiplayerGateway.standalone_expedition_id.is_empty() and not has_node("StoryGardenCombatSync"):
         if bool(GameState.quest_domain.flags.get("tutorial_complete", false)):
             if not region.is_empty():
                 GameState.session_domain.set_player_region(region)
@@ -103,6 +112,7 @@ func _ready() -> void:
         player_camera.reset_smoothing()
 
 func _open_local_npc_dialogue(id: String) -> void:
+    if has_node("StoryGardenCombatSync"): return # Quest rewards are not part of this pilot.
     if id != "elathra":
         return
     var dialogue = get_node_or_null("NPCDialogueLayer/Dialogue")
@@ -117,6 +127,7 @@ func _on_local_dialogue_finished(_id: String) -> void:
         checkpoint_player.set("input_enabled", true)
 
 func _input(event: InputEvent) -> void:
+    if has_node("StoryGardenCombatSync"): return
     var dialogue = get_node_or_null("NPCDialogueLayer/Dialogue")
     if dialogue == null or dialogue.visible or not is_instance_valid(checkpoint_player) or not checkpoint_player.input_enabled:
         return

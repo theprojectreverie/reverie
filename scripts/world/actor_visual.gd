@@ -416,7 +416,7 @@ func _on_one_shot_finished(state: int) -> void:
 
 # ------------------------------------------------------------------ process
 
-func tick_animation(delta: float) -> void:
+func tick_animation(delta: float, present: bool = true) -> void:
 	# Called by the authored AnimationRuntime child; that component owns the frame cadence.
 	# anim_time keeps advancing (existing _draw() uses it for smooth bob).
 	anim_time += delta
@@ -425,6 +425,14 @@ func tick_animation(delta: float) -> void:
 		return
 	_reconcile_compat()
 	animator.tick(delta)
+	if present:
+		refresh_animation_presentation(delta)
+
+# State advancement remains independent of visual presentation. Only remote
+# avatars explicitly suppress this work; local actors keep the default path.
+func refresh_animation_presentation(delta: float = 0.0) -> void:
+	if animator == null:
+		return
 	if _sprite_active:
 		_update_sprite_frame()
 		_update_locomotion_pose(delta)

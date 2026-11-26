@@ -6,6 +6,14 @@ extends Node
 const REMOTE_AVATAR_SCENE: PackedScene = preload("res://scenes/online/remote_player_avatar.tscn")
 const SEND_INTERVAL := 0.10
 const MAX_BUFFERED_WORLD_EVENTS := 200
+const REMOTE_SPAWN_BATCH := 4
+const REMOTE_SPAWN_BUDGET_USEC := 2000
+var _pending_remote_members: Dictionary = {}
+var _remote_sheet_path := ""
+var _remote_sheet: SpriteFrames
+var _remote_sheet_attempted := false
+var _remote_sheet_loading := false
+var _remote_sheet_generation := 0
 
 var game: Node
 var active_world: Node2D
@@ -149,6 +157,8 @@ func _ensure_remote_root() -> void:
 	remote_root.global_position = Vector2.ZERO
 
 func _process(delta: float) -> void:
+	if _snapshot_ready and not _world_recovering:
+		_drain_remote_admissions()
 	if _gateway == null or not _snapshot_ready or local_player == null or not is_instance_valid(local_player):
 		return
 	if not _gateway.is_connected_to_lobby() and not _gateway.is_connected_to_persistent_world():
@@ -281,8 +291,60 @@ func _on_persistent_world_event(event: Dictionary) -> void:
 	elif event_type == "position":
 		_apply_position(str(event.get("playerId", "")), Vector2(float(event.get("x", 0.0)), float(event.get("y", 0.0))), 0)
 
+# Large negotiated snapshots may create many expensive avatar scenes.
+# Keep at most one pending presentation record per player; newest windows
+# replace stale coordinates and cancel departed players before allocation.
+# Request only when an expedition peer is actually needed. The independent
+# loader consumes its own request even if this map disappears mid-load.
+func _request_remote_sheet() -> void:
+	if _remote_sheet_attempted or not active_region_id.begins_with("six_zone_"):
+		return
+	_remote_sheet_attempted = true
+	_remote_sheet_path = MainCharacterRoster.world_sheet_path("kael")
+	if _remote_sheet_path.is_empty():
+		return
+	var loader := Node.new()
+	loader.set_script(load("res://scripts/online/remote_sheet_prefetch.gd"))
+	loader.name = "RemoteSheetPrefetch"
+	_remote_sheet_loading = true
+	loader.completed.connect(_on_remote_sheet_loaded.bind(_remote_sheet_generation))
+	get_tree().root.add_child(loader)
+	loader.begin(_remote_sheet_path)
+
+func _on_remote_sheet_loaded(sheet: SpriteFrames, generation: int) -> void:
+	if generation != _remote_sheet_generation:
+		return
+	_remote_sheet_loading = false
+	_remote_sheet = sheet
+
+func _stage_remote_member(id: String, label: String, position: Vector2, title: Variant, defer_spawn: bool) -> void:
+	if not remote_players.has(id):
+		_request_remote_sheet()
+	if not remote_players.has(id) and (defer_spawn or _remote_sheet_loading or _pending_remote_members.has(id)):
+		_pending_remote_members[id] = {"name":label,"position":position,"title":title}
+		return
+	var avatar := _ensure_remote(id,label,position,title)
+	if avatar != null:
+		avatar.set_authoritative_position(position)
+
+func _drain_remote_admissions() -> void:
+	if not is_instance_valid(remote_root) or _pending_remote_members.is_empty() or _remote_sheet_loading:
+		return
+	var started := Time.get_ticks_usec()
+	var count := 0
+	for id in _pending_remote_members.keys():
+		var member: Dictionary = _pending_remote_members[id]
+		_pending_remote_members.erase(id)
+		var avatar := _ensure_remote(str(id), str(member["name"]), member["position"], member["title"])
+		if avatar != null:
+			avatar.set_authoritative_position(member["position"])
+		count += 1
+		if count >= REMOTE_SPAWN_BATCH or Time.get_ticks_usec()-started >= REMOTE_SPAWN_BUDGET_USEC:
+			break
+
 func _apply_interest_members(members: Array) -> void:
 	var present: Dictionary = {}
+	var defer_spawn := members.size() > REMOTE_SPAWN_BATCH or not _pending_remote_members.is_empty()
 	for member in members:
 		if not member is Dictionary:
 			continue
@@ -293,9 +355,10 @@ func _apply_interest_members(members: Array) -> void:
 		if not position.is_finite():
 			continue
 		present[player_id] = true
-		var avatar := _ensure_remote(player_id, str(member.get("name", "Wanderer")), position, member.get("title", null))
-		if avatar != null:
-			avatar.set_authoritative_position(position)
+		_stage_remote_member(player_id, str(member.get("name","Wanderer")), position, member.get("title",null), defer_spawn)
+	for id in _pending_remote_members.keys():
+		if not present.has(id):
+			_pending_remote_members.erase(id)
 	for player_id in remote_players.keys():
 		if not present.has(player_id):
 			_remove_remote(str(player_id))
@@ -303,9 +366,12 @@ func _apply_interest_members(members: Array) -> void:
 func _apply_persistent_world_snapshot(event: Dictionary) -> void:
 	local_player_id = str(event.get("playerId", local_player_id))
 	_snapshot_ready = false
+	_pending_remote_members.clear()
 	var present_ids: Dictionary = {}
 	var local_member_found := false
-	for member in event.get("members", []):
+	var members: Array = event.get("members", [])
+	var defer_spawn := _persistent_interest_windows and members.size() > REMOTE_SPAWN_BATCH+1
+	for member in members:
 		if not member is Dictionary:
 			continue
 		var member_id := str(member.get("playerId", member.get("player_id", member.get("id", ""))))
@@ -319,9 +385,12 @@ func _apply_persistent_world_snapshot(event: Dictionary) -> void:
 				local_player.global_position = member_position
 			continue
 		present_ids[member_id] = true
-		var avatar := _ensure_remote(member_id, str(member.get("name", "Wanderer")), member_position, member.get("title",null))
-		if avatar != null and has_position:
-			avatar.set_authoritative_position(member_position)
+		if _persistent_interest_windows and not remote_players.has(member_id):
+			_stage_remote_member(member_id, str(member.get("name","Wanderer")), member_position, member.get("title",null), defer_spawn)
+		else:
+			var avatar := _ensure_remote(member_id, str(member.get("name", "Wanderer")), member_position, member.get("title",null))
+			if avatar != null and has_position:
+				avatar.set_authoritative_position(member_position)
 	for existing_id in remote_players.keys():
 		if not present_ids.has(existing_id):
 			_remove_remote(str(existing_id))
@@ -341,6 +410,7 @@ func _on_persistent_world_disconnected() -> void:
 	if local_player_id.is_empty() and _persistent_world_server_id.is_empty():
 		return
 	# Preserve the last rendered party state while the transport retries.
+	_pending_remote_members.clear()
 	_snapshot_ready = false
 	_set_local_network_recovery_paused(true)
 	_pending_persistent_world_snapshot.clear()
@@ -365,6 +435,7 @@ func _on_persistent_world_recovered(_server_id: String) -> void:
 	_set_recovery_status("Connection restored — synchronizing your world…")
 
 func _on_persistent_world_connection_failed(reason: String) -> void:
+	_pending_remote_members.clear()
 	_world_recovering = false
 	_snapshot_ready = false
 	_set_local_network_recovery_paused(true)
@@ -752,6 +823,10 @@ func _apply_position(player_id: String, next_position: Vector2, sequence: int) -
 	if player_id.is_empty() or player_id == local_player_id:
 		_advance_sequence(sequence)
 		return
+	if _pending_remote_members.has(player_id):
+		_pending_remote_members[player_id]["position"] = next_position
+		_advance_sequence(sequence)
+		return
 	var avatar := _ensure_remote(player_id, "Wanderer", next_position)
 	if avatar != null:
 		avatar.set_authoritative_position(next_position)
@@ -763,6 +838,8 @@ func _apply_title_refresh(event:Dictionary) -> void:
 	for entry in event.get("players",[]):
 		if not entry is Dictionary:continue
 		var id:=str(entry.get("playerId",""))
+		if _pending_remote_members.has(id):
+			_pending_remote_members[id]["title"] = str(entry.get("title",""))
 		if not remote_players.has(id):continue
 		var avatar=remote_players[id]
 		if is_instance_valid(avatar):
@@ -791,6 +868,7 @@ func _ensure_remote(player_id: String, label: String, initial_position: Vector2,
 	return avatar
 
 func _remove_remote(player_id: String) -> void:
+	_pending_remote_members.erase(player_id)
 	if player_id.is_empty() or not remote_players.has(player_id):
 		return
 	var avatar: Node = remote_players[player_id]
@@ -806,6 +884,12 @@ func _advance_sequence(sequence: int) -> void:
 		_gateway.acknowledge_sequence(last_sequence)
 
 func _clear_remote_players() -> void:
+	_remote_sheet_generation += 1
+	_remote_sheet_loading = false
+	_remote_sheet_attempted = false
+	_remote_sheet_path = ""
+	_remote_sheet = null
+	_pending_remote_members.clear()
 	remote_players.clear()
 	if is_instance_valid(remote_root):
 		remote_root.queue_free()

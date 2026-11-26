@@ -1,0 +1,31 @@
+import assert from "node:assert/strict";
+import {randomBytes} from "node:crypto";
+import {mkdtemp,mkdir,writeFile,rm,readdir} from "node:fs/promises";
+import {tmpdir} from "node:os";
+import {join} from "node:path";
+import {Readable} from "node:stream";
+import {encryptArchive} from "./encrypted-backup.mjs";
+import {planRecovery} from "./backup-recovery-plan.mjs";
+const root=await mkdtemp(join(tmpdir(),"reverie-recovery-plan-")),dir=join(root,"primary"),replicaDir=join(root,"replica"),key=randomBytes(32);
+await mkdir(dir);await mkdir(replicaDir);
+const now=Date.UTC(2026,10,26,12),opts={dir,replicaDir,key,now};
+const name=d=>"reverie-202611"+d+"T080000Z-abcdef123456.rvbak";
+const archive=(folder,n,text)=>encryptArchive(Readable.from([Buffer.from(text)]),join(folder,n),key);
+try{
+ assert.equal((await planRecovery(opts)).status,"no_authenticated_candidate");
+ await archive(replicaDir,name("24"),"older authentic");
+ await writeFile(join(dir,name("26")),"corrupt latest");
+ await writeFile(join(replicaDir,name("26")),"corrupt replica");
+ await archive(dir,name("25"),"primary version");
+ await archive(replicaDir,name("25"),"different authenticated version");
+ const plan=await planRecovery(opts);
+ assert.equal(plan.status,"older_authenticated");assert.equal(plan.candidate.name,name("24"));assert.equal(plan.candidate.source,"replica");
+ assert.equal(plan.examined.length,3);assert.equal(plan.examined[1].agreement,"conflict");assert.equal(plan.requiresRestoreVerification,true);
+ assert.equal((await planRecovery({...opts,limit:2})).status,"no_authenticated_candidate");
+ assert.equal((await planRecovery({...opts,key:randomBytes(32)})).status,"no_authenticated_candidate");
+ await archive(dir,name("27"),"future timestamp ignored");
+ assert.equal((await planRecovery(opts)).candidate.name,name("24"));
+ await writeFile(join(dir,".reverie-backup.lock"),"fixture");assert.equal((await planRecovery(opts)).status,"locked");
+ await rm(join(dir,".reverie-backup.lock"));assert.ok(!(await readdir(dir)).some(n=>n.endsWith(".lock")));
+ console.log("PASS corrupt newest archive, authenticated conflict refusal, older replica recovery, bounded scan, wrong key, future timestamps and locking");
+}finally{await rm(root,{recursive:true,force:true});}

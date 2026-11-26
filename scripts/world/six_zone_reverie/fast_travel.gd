@@ -54,6 +54,8 @@ static func record_visit(zone: Node2D) -> void:
 static func unavailable_reason(zone: Node2D, id: String) -> String:
 	if zone == null or not CHECKPOINT.SCENES.has(id):
 		return "Unknown destination"
+	if zone.has_node("StoryOpeningWorldSync"):
+		return "Online story fast travel is not available yet"
 	if not bool(GameState.quest_domain.flags.get("tutorial_complete", false)):
 		return "Complete the tutorial first"
 	if not MultiplayerGateway.standalone_expedition_id.is_empty():

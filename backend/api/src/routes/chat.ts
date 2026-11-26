@@ -61,6 +61,7 @@ export const chatRoutes:FastifyPluginAsync=async app=>{
  app.setErrorHandler((error,req,reply)=>{
   const e=error as {code?:string;message?:string};
   if(e.code==="P0001"&&e.message==="chat_muted")return reply.code(403).send({error:"chat_muted"});
+  if(e.code==="P0001"&&e.message==="chat_duplicate_spam")return reply.code(429).send({error:"chat_duplicate_spam"});
   throw error;
  });
  app.post("/reports",{config:{rateLimit:{max:12,timeWindow:"1 minute"}}},async(req,reply)=>{

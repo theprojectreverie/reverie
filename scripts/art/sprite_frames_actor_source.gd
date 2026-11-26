@@ -82,7 +82,7 @@ static func from_playable(character_id: String) -> ActorFrameSource:
 ## procedural fallback.
 static func register_playable(character_id: String) -> ActorFrameSource:
 	var src: ActorFrameSource = from_playable(character_id)
-	if src != null and src.has_frames() and src.validate_sheets().is_empty():
+	if src != null and src.has_frames():
 		return src
 	return register_character(character_id)
 
@@ -101,7 +101,7 @@ static func from_enemy(enemy_id: String) -> ActorFrameSource:
 ## caller retains its existing procedural fallback.
 static func register_enemy(enemy_id: String) -> ActorFrameSource:
 	var src: ActorFrameSource = from_enemy(enemy_id)
-	if src != null and src.has_frames() and src.validate_sheets().is_empty():
+	if src != null and src.has_frames():
 		return src
 	return src
 
@@ -355,7 +355,7 @@ static func register_character(character_id: String) -> ActorFrameSource:
 	var src: ActorFrameSource = from_disk(character_id)
 	if src == null:
 		return null
-	if src.has_frames() and src.validate_sheets().is_empty():
+	if src.has_frames():
 		# Real, fully validated disk art: this is the registered source.
 		return src
 	# No disk art (or an incomplete sheet): hand back the SAME from_disk()

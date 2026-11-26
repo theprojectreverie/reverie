@@ -399,7 +399,10 @@ func _completed(result: int, code: int, _headers: PackedStringArray, bytes: Pack
 			_layout.get_node("Composer/Message").clear()
 		_layout.get_node("Status").text = "Join a party to use Party Chat." if reason=="party_membership_required" else ("You're sending too quickly." if code==429 else "Chat unavailable. Try again.")
 		if reason=="guild_membership_required":_layout.get_node("Status").text="Join a guild to use Guild Chat."
-		if code==429 and operation=="send":
+		if reason=="chat_duplicate_spam":
+			_layout.get_node("Status").text="Repeated world message blocked. Try a different message."
+			EventBus.toast_requested.emit("Repeated world message blocked. Try a different message.")
+		if code==429 and operation=="send" and reason!="chat_duplicate_spam":
 			_next_send_at=maxi(_next_send_at,Time.get_ticks_msec()+10000)
 		if reason=="sticker_locked":_layout.get_node("Status").text="Obtain the matching Mythic character to unlock this sticker."
 		if reason=="chat_muted":

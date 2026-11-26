@@ -9,6 +9,12 @@
     "spawn": [-2090,112],
     "outline": [[-2200,-850],[2350,-850],[2350,3700],[-2200,3700]],
     "encounter": {"groupId":"gerald_boss_encounter","position":[13,2865],"radius":100},
-    "nextRegion":"six_zone_royal_gardens"
+    "nextRegion":"story_royal_gardens"
+  },
+  "story_royal_gardens": {
+    "spawn": [-1320,2325],
+    "outline": [[3,12],[3150,1584],[3,3185],[-3138,1584]],
+    "encounter": {"groupId":"rose_slime_garden_1","position":[-1100,2200],"radius":113},
+    "nextRegion":"story_royal_gate"
   }
 }

@@ -82,7 +82,7 @@ export const persistentWorldRealtimeRoutes:FastifyPluginAsync=async app=>{
    if(account.rows[0]?.status!=="active"||account.rows[0].token_version!==claims.tokenVersion)return reply.code(401).send({error:"session_revoked"});
    const assignment=await pool.query<{region_id:string}>("SELECT s.region_id FROM game_server_players p JOIN game_servers s ON s.id=p.server_id WHERE p.server_id=$1 AND p.player_id=$2 AND s.status IN('online','draining') AND s.heartbeat_at>now()-interval '60 seconds'",[query.data.serverId,claims.playerId]);
    if(!assignment.rowCount)return reply.code(403).send({error:"server_assignment_required"});
-   if(["story_training_ground","story_village"].includes(assignment.rows[0]!.region_id))return reply.code(403).send({error:"dedicated_story_transport_required"});
+   if(["story_training_ground","story_village","story_royal_gardens"].includes(assignment.rows[0]!.region_id))return reply.code(403).send({error:"dedicated_story_transport_required"});
   }
  },(socket:Socket,request:FastifyRequest)=>{
   const {serverId}=querySchema.parse(request.query);
@@ -130,7 +130,7 @@ export const persistentWorldRealtimeRoutes:FastifyPluginAsync=async app=>{
      finally{client.release();}
      if(peer.admissionTimer){clearTimeout(peer.admissionTimer);peer.admissionTimer=undefined;}
      peer.leaseTimer=setInterval(()=>{
-      void pool.query("UPDATE game_server_player_connections SET lease_expires_at=now()+interval '45 seconds' WHERE connection_id=$1 AND server_id=$2 AND player_id=$3 RETURNING connection_id",[peer.connectionId,serverId,peer.playerId]).then(result=>{
+      void pool.query("UPDATE game_server_player_connections SET lease_expires_at=now()+interval '45 seconds' WHERE connection_id=$1 AND server_id=$2 AND player_id=$3 AND EXISTS(SELECT 1 FROM accounts WHERE id=$4 AND status='active' AND token_version=$5) RETURNING connection_id",[peer.connectionId,serverId,peer.playerId,peer.accountId,peer.tokenVersion]).then(result=>{
        if(!result.rowCount&&peer.socket.readyState===1)peer.socket.close(1011,"connection_lease_lost");
       }).catch(error=>{
        request.log.error({err:error,serverId,playerId:peer.playerId},"persistent world connection lease renewal failed");

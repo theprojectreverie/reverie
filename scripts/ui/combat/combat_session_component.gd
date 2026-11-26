@@ -18,12 +18,16 @@ var _server_rewards: Dictionary = {}
 var _needs_story_recovery := false
 
 var _gerald_authoritative := false
+var _garden_authoritative := false
+
+func is_online_garden() -> bool:
+	return _garden_authoritative
 
 func is_online_gerald() -> bool:
 	return _gerald_authoritative
 
 func is_authoritative_story() -> bool:
-	return is_online_spar() or is_online_gerald()
+	return is_online_spar() or is_online_gerald() or is_online_garden()
 
 func is_online_spar() -> bool:
 	return screen != null and screen.group_id == "tutorial_fairy_spar"
@@ -34,6 +38,7 @@ func bind(owner_screen: CombatScreen) -> void:
 	# Latch authority for the lifetime of the battle. Scene teardown must never
 	# turn an online encounter into a local reward or local damage path.
 	_gerald_authoritative = screen.group_id == "gerald_boss_encounter" and world != null and world.has_node("StoryOpeningWorldSync")
+	_garden_authoritative = world != null and world.has_node("StoryGardenCombatSync") and screen.group_id in ["rose_slime_garden_1", "rose_slime_garden_2", "rose_slime_garden_3", "rose_slime_garden_4", "rose_slime_garden_5", "rose_slime_garden_6", "crownling_garden_1", "crownling_garden_2", "crownling_garden_3"]
 
 func start_battle() -> void:
 	if screen == null or not is_instance_valid(screen):
@@ -52,6 +57,9 @@ func start_battle() -> void:
 	screen._title_label.text = str(group.get("name", screen.group_id))
 	screen._round_label.text = "Round 1"
 	if is_authoritative_story():
+		if is_online_garden() and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") != "1":
+			screen._claim(false)
+			return
 		if is_online_gerald() and OS.get_environment("REVERIE_GERALD_STORY_PILOT") != "1":
 			EventBus.toast_requested.emit("Online Gerald combat is unavailable.")
 			screen._claim(false)
@@ -203,7 +211,12 @@ func _spar_request(payload: Dictionary) -> Dictionary:
 		add_child(_spar_http)
 	var owner := str(AuthGateway.current_player().get("id",""))
 	_spar_busy = true
-	var error := _spar_http.request(AuthGateway.api_base_url+("/v1/gerald-story/" if is_online_gerald() else "/v1/tutorial-spar/"),PackedStringArray(["Authorization: Bearer "+AuthGateway.access_token_for_request(),"Content-Type: application/json"]),HTTPClient.METHOD_POST,JSON.stringify(payload))
+	var route := "/v1/gerald-story/" if is_online_gerald() else "/v1/tutorial-spar/"
+	if is_online_garden():
+		route = "/v1/gardens-story/"
+		payload = payload.duplicate(true)
+		payload["groupId"] = screen.group_id
+	var error := _spar_http.request(AuthGateway.api_base_url+route,PackedStringArray(["Authorization: Bearer "+AuthGateway.access_token_for_request(),"Content-Type: application/json"]),HTTPClient.METHOD_POST,JSON.stringify(payload))
 	if error != OK:
 		_spar_busy = false
 		return {}

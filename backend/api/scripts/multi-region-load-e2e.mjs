@@ -13,12 +13,14 @@ import {pool} from "../src/db.ts";
 import {gameServerRoutes} from "../src/routes/game-servers.ts";
 import {persistentWorldRealtimeRoutes} from "../src/routes/persistent-world-realtime.ts";
 import {runMovementLoadProbe} from "./movement-load-probe.mjs";
+import {createSharedRateLimitStore} from "../src/world/shared-rate-limit.ts";
 const N=Number(process.env.REVERIE_E2E_REGION_PLAYERS??32);
 assert.ok(Number.isInteger(N)&&N>=2&&N<=50);
 assert.ok(["localhost","127.0.0.1","[::1]"].includes(new URL(config.DATABASE_URL).hostname));
 assert.ok(config.GAME_SERVER_BOOTSTRAP_SECRET);
 const suffix=randomBytes(6).toString("hex"),app=Fastify({logger:false}),emails=[],sockets=new Set();
 const regions=["castle_royal_gardens","six_zone_willow_fields"].map((region,i)=>({region,key:"multi-region-"+suffix+"-"+i,players:[],clients:[],id:null,child:null,token:null,output:""}));
+const quotaNamespace=process.env.REVERIE_E2E_SHARED_QUOTAS==="1"?"region_qa_"+suffix:null;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const root=fileURLToPath(new URL("../../../",import.meta.url));
 const bin=process.env.REVERIE_GODOT_BIN;
@@ -71,7 +73,7 @@ function observe(r){
  for(const c of r.clients)c.socket.on("message",raw=>{const m=JSON.parse(String(raw));if(m.playerId&&!allowed.has(m.playerId))crossMessages++;for(const member of m.members??[])if(!allowed.has(member.playerId))crossMessages++;});
 }
 try{
- await app.register(rateLimit,{max:100,timeWindow:"1 minute"}); await app.register(jwt,{secret:config.JWT_SECRET});await app.register(websocket);
+ await app.register(rateLimit,{max:100,timeWindow:"1 minute",...(quotaNamespace?{store:createSharedRateLimitStore(pool,quotaNamespace,config.JWT_SECRET)}:{})}); await app.register(jwt,{secret:config.JWT_SECRET});await app.register(websocket);
  // Capture credentials only inside this isolated test app, never log or persist them.
  app.addHook("onSend",async(req,reply,payload)=>{if(req.url.endsWith("/register")&&reply.statusCode===201){const r=regions.find(r=>r.key===req.body.serverKey);if(r)r.token=JSON.parse(String(payload)).serverToken;}return payload;});
  await app.register(gameServerRoutes,{prefix:"/v1/game-servers"});await app.register(persistentWorldRealtimeRoutes,{prefix:"/v1"});
@@ -153,5 +155,6 @@ try{
  await pool.query("DELETE FROM accounts WHERE email=ANY($1)",[emails]);
  const residue=(await pool.query("SELECT (SELECT count(*)::int FROM game_servers WHERE server_key=ANY($1)) AS servers,(SELECT count(*)::int FROM accounts WHERE email=ANY($2)) AS accounts",[regions.map(r=>r.key),emails])).rows[0];
  assert.deepEqual(residue,{servers:0,accounts:0});
+ if(quotaNamespace)await pool.query("DELETE FROM api_rate_limit_buckets WHERE namespace=$1",[quotaNamespace]);
  await pool.end();console.log("PASS disposable multi-region fixtures cleaned up");
 }

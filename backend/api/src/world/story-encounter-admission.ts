@@ -3,14 +3,17 @@ import {verifiedStoryVictories,TUTORIAL_GROUP,VILLAGE_GROUP} from "./story-progr
 import {startStoryBattle,storyTransactionAdmission} from "./story-combat-service.js";
 
 type EncounterRule={region:string;x:number;y:number;radius:number;requires:readonly string[];cooldownSeconds:number};
-// Pilot allowlist: authored zone 01 RoseSlime1..6 positions. The 113 radius
+// Pilot allowlist: authored zone 01 RoseSlime1..6 and Crownling1..3 positions. The 113 radius
 // combines the NPC interaction radius (85) and authored roaming radius (28).
 // No shared co-op encounter or story boss is enabled by this policy.
-const rule=(x:number,y:number):EncounterRule=>({region:"six_zone_royal_gardens",x,y,radius:113,requires:[TUTORIAL_GROUP,VILLAGE_GROUP],cooldownSeconds:15});
+const rule=(x:number,y:number):EncounterRule=>({region:"story_royal_gardens",x,y,radius:113,requires:[TUTORIAL_GROUP,VILLAGE_GROUP],cooldownSeconds:15});
 const rules:Readonly<Record<string,EncounterRule>>=Object.freeze({
  rose_slime_garden_1:rule(-1100,2200),rose_slime_garden_2:rule(-800,1850),rose_slime_garden_3:rule(-1450,1500),
  rose_slime_garden_4:rule(700,2250),rose_slime_garden_5:rule(1200,1750),rose_slime_garden_6:rule(950,1000),
+ crownling_garden_1:rule(-900,2100),crownling_garden_2:rule(550,2100),crownling_garden_3:rule(1100,1500),
 });
+export const gardenEncounterIds=Object.freeze(Object.keys(rules));
+export function isGardenEncounter(groupId:string):boolean{return Object.hasOwn(rules,groupId);}
 type Proof={region:string;x:number;y:number;fresh:boolean;live:boolean;victories:readonly string[];coolingDown:boolean};
 type Decision={ok:true}|{ok:false;reason:string};
 export function evaluateStoryEncounter(groupId:string,proof:Proof|null):Decision{
@@ -25,7 +28,7 @@ export function evaluateStoryEncounter(groupId:string,proof:Proof|null):Decision
 }
 /** DB-owned evidence only. The caller has already authenticated the account.
  * No coordinates, progression flags, or victory claims are accepted from clients.
- * Do not expose as a route until the solo-world transport and entry chain are verified.
+ * Restricted to the isolated story region; never accepts a shared co-op position.
  */
 export async function verifyStoryEncounter(db:PoolClient,playerId:string,groupId:string):Promise<Decision>{
  if(!Object.hasOwn(rules,groupId))return {ok:false,reason:"encounter_not_enabled"};

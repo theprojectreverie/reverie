@@ -1,18 +1,35 @@
 import type {FastifyPluginAsync} from "fastify";
 import argon2 from "argon2";
-import {createHash,randomBytes} from "node:crypto";
+import {createHash,randomBytes,createHmac,timingSafeEqual} from "node:crypto";
 import {z} from "zod";
 import {pool} from "../db.js";
 import {ownedProfilePicture} from "./social.js";
+import {currentSuspension,expireSuspension} from "../world/account-suspensions.js";
 import {config,localDevelopmentRegistration} from "../config.js";
 
 const registerBody=z.object({email:z.string().trim().email().max(254),password:z.string().min(localDevelopmentRegistration ? 8 : 12).max(128),playerName:z.string().trim().min(3).max(20).regex(/^[A-Za-z0-9_]+$/)});
-const loginBody=z.object({playerName:z.string().trim().min(3).max(20).regex(/^[A-Za-z0-9_]+$/).optional(),email:z.string().trim().email().max(254).optional(),password:z.string().min(1).max(128)}).refine(v=>Boolean(v.playerName || v.email));
+const loginBody=z.object({playerName:z.string().trim().min(3).max(20).regex(/^[A-Za-z0-9_]+$/).optional(),email:z.string().trim().email().max(254).optional(),password:z.string().min(1).max(128),appeal:z.object({suspensionId:z.string().uuid(),statement:z.string().trim().min(10).max(1000).refine(s=>!/\p{Cc}|\p{Cf}/u.test(s))}).strict().optional()}).refine(v=>Boolean(v.playerName || v.email));
 const verifyBody=z.object({token:z.string().min(32).max(200)});
 const refreshBody=z.object({refreshToken:z.string().min(32).max(200)});
 type AccountRow={id:string;status:string;password_hash:string;player_id:string;player_name:string;avatar?:string;token_version:number};
 const hashToken=(value:string)=>createHash("sha256").update(value).digest("hex");
 const newToken=()=>randomBytes(48).toString("base64url");
+const appealClaims=z.object({accountId:z.string().uuid(),suspensionId:z.string().uuid(),version:z.number().int().nonnegative(),expires:z.number().int()}).strict();
+function appealSignature(payload:string){return createHmac("sha256",config.JWT_SECRET).update("reverie-suspension-appeal-v1:"+payload).digest();}
+function appealTicket(accountId:string,suspensionId:string,version:number){
+ const encoded=Buffer.from(JSON.stringify({accountId,suspensionId,version,expires:Date.now()+10*60*1000})).toString("base64url");
+ return encoded+"."+appealSignature(encoded).toString("base64url");
+}
+function parseAppealTicket(ticket:string){
+ try{
+  const [payload,signature,extra]=ticket.split(".");
+  if(!payload||!signature||extra!==undefined)return null;
+  const expected=appealSignature(payload),actual=Buffer.from(signature,"base64url");
+  if(actual.length!==expected.length||!timingSafeEqual(expected,actual))return null;
+  const parsed=appealClaims.safeParse(JSON.parse(Buffer.from(payload,"base64url").toString("utf8")));
+  return parsed.success&&parsed.data.expires>Date.now()?parsed.data:null;
+ }catch{return null;}
+}
 const issueAccess=(app:any,row:AccountRow)=>app.jwt.sign({sub:row.id,playerId:row.player_id,playerName:row.player_name,tokenVersion:row.token_version});
 
 export const authRoutes:FastifyPluginAsync=async app=>{
@@ -74,7 +91,7 @@ export const authRoutes:FastifyPluginAsync=async app=>{
   const parsed=loginBody.safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:"invalid_credentials"});
   const q=await pool.query<AccountRow>("SELECT a.id,a.status,a.password_hash,a.token_version,p.id AS player_id,p.name AS player_name,p.settings->>'profile_picture' AS avatar FROM accounts a JOIN players p ON p.account_id=a.id WHERE (CASE WHEN $2::boolean THEN lower(p.name)=lower($1) ELSE lower(a.email)=lower($1) END) LIMIT 2",[parsed.data.playerName ?? parsed.data.email,Boolean(parsed.data.playerName)]);
   const row=q.rows.length===1?q.rows[0]:undefined;const valid=row?await argon2.verify(row.password_hash,parsed.data.password).catch(()=>false):false;
-  if(!row||!valid||row.status!=="active")return reply.code(401).send({error:"invalid_credentials"});
+  if(!row||!valid||!["active","suspended"].includes(row.status))return reply.code(401).send({error:"invalid_credentials"});
   const verified=await pool.query<{email_verified:boolean}>("SELECT email_verified FROM accounts WHERE id=$1",[row.id]);
   if(!localDevelopmentRegistration && !verified.rows[0]?.email_verified)return reply.code(403).send({error:"email_verification_required"});
   const refreshToken=newToken();
@@ -82,10 +99,25 @@ export const authRoutes:FastifyPluginAsync=async app=>{
   try{
    await client.query("BEGIN");
    const locked=await client.query<{status:string;token_version:number}>("SELECT status,token_version FROM accounts WHERE id=$1 FOR UPDATE",[row.id]);
-   if(locked.rows[0]?.status!=="active"){
-    await client.query("ROLLBACK");
-    return reply.code(401).send({error:"invalid_credentials"});
+   const account=locked.rows[0];
+   if(account?.status==="suspended"){
+    const suspension=await currentSuspension(client,row.id,account.token_version);
+    if(suspension&&!suspension.expired){
+     const appeal=parsed.data.appeal;
+     if(appeal&&appeal.suspensionId!==suspension.id){await client.query("ROLLBACK");return reply.code(409).send({error:"suspension_changed"});}
+     if(appeal)await client.query("INSERT INTO reverie_suspension_appeals(suspension_id,statement) VALUES($1,$2) ON CONFLICT(suspension_id) DO NOTHING",[suspension.id,appeal.statement]);
+     const review=(await client.query("SELECT status,review_note AS \"reviewNote\" FROM reverie_suspension_appeals WHERE suspension_id=$1",[suspension.id])).rows[0]??null;
+     await client.query("COMMIT");
+     return reply.code(403).send({error:"account_suspended",reason:suspension.reason,suspendedUntil:suspension.suspended_until,suspensionId:suspension.id,appeal:review,...(!review?{appealTicket:appealTicket(row.id,suspension.id,account.token_version)}:{})});
+    }
+    if(parsed.data.appeal){await client.query("ROLLBACK");return reply.code(409).send({error:"suspension_changed"});}
+    if(!suspension||!await expireSuspension(client,row.id,account.token_version,suspension.id)){
+     await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_credentials"});
+    }
+   }else if(account?.status!=="active"){
+    await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_credentials"});
    }
+   if(parsed.data.appeal){await client.query("ROLLBACK");return reply.code(409).send({error:"suspension_changed"});}
    await client.query(
     "UPDATE account_sessions SET revoked_at=now() WHERE id IN (SELECT id FROM account_sessions WHERE account_id=$1 AND revoked_at IS NULL AND expires_at>now() ORDER BY created_at DESC,id DESC OFFSET 4)",
     [row.id]);
@@ -98,6 +130,22 @@ export const authRoutes:FastifyPluginAsync=async app=>{
   return{accessToken:issueAccess(app,row),refreshToken,tokenType:"Bearer",expiresIn:config.ACCESS_TOKEN_TTL_SECONDS,player:{id:row.player_id,name:row.player_name,avatar:await ownedProfilePicture(row.player_id,row.avatar)}};
  });
 
+ app.post("/suspension-appeal",{config:{rateLimit:{max:8,timeWindow:"15 minutes"}}},async(req,reply)=>{
+  const parsed=z.object({ticket:z.string().min(40).max(1024),statement:z.string().trim().min(10).max(1000).refine(s=>!/\p{Cc}|\p{Cf}/u.test(s))}).strict().safeParse(req.body);
+  if(!parsed.success)return reply.code(400).send({error:"invalid_appeal"});
+  const claim=parseAppealTicket(parsed.data.ticket);
+  if(!claim)return reply.code(401).send({error:"appeal_ticket_invalid"});
+  const db=await pool.connect();
+  try{
+   await db.query("BEGIN");
+   const account=(await db.query("SELECT status,token_version FROM accounts WHERE id=$1 FOR UPDATE",[claim.accountId])).rows[0];
+   const suspension=account?.status==="suspended"&&account.token_version===claim.version?await currentSuspension(db,claim.accountId,claim.version):null;
+   if(!suspension||suspension.id!==claim.suspensionId||suspension.expired){await db.query("ROLLBACK");return reply.code(409).send({error:"suspension_changed"});}
+   await db.query("INSERT INTO reverie_suspension_appeals(suspension_id,statement) VALUES($1,$2) ON CONFLICT(suspension_id) DO NOTHING",[claim.suspensionId,parsed.data.statement]);
+   const review=(await db.query("SELECT status,review_note AS \"reviewNote\" FROM reverie_suspension_appeals WHERE suspension_id=$1",[claim.suspensionId])).rows[0];
+   await db.query("COMMIT");return {status:review.status,reviewNote:review.reviewNote};
+  }catch(e){await db.query("ROLLBACK");throw e;}finally{db.release();}
+ });
  app.post("/refresh",{config:{rateLimit:{max:20,timeWindow:"15 minutes"}}},async(req,reply)=>{
   const parsed=refreshBody.safeParse(req.body);if(!parsed.success)return reply.code(401).send({error:"invalid_session"});
   const client=await pool.connect();const nextToken=newToken();

@@ -227,6 +227,3 @@ func _on_stream_finished() -> void:
 
 func _on_stream_timeout() -> void:
 	stream_completed.emit()
-
-
-

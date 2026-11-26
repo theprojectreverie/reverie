@@ -3,15 +3,16 @@ import {z} from "zod";
 import {config} from "../config.js";
 import {pool} from "../db.js";
 import {staffActivityAccess,staffOwners} from "./staff.js";
-import {moderationAccess} from "./moderation.js";
-import {operationalSnapshot} from "../world/operational-metrics.js";
+import {moderationAccess,suspensionAccess} from "./moderation.js";
+import {readBackupHealth} from "../world/backup-health.js";
+import {operationalSnapshot,readOperationalHistory} from "../world/operational-metrics.js";
 
 type Claims={sub?:string;playerId?:string;tokenVersion?:number};
 type Queryable={query:(sql:string,values?:unknown[])=>Promise<{rows:Array<Record<string,unknown>>}>};
-type DashboardOptions={developerAccountIds:string;database:Queryable;staffAccess?:(id:string)=>Promise<boolean>;incidentMonitoring?:boolean;metrics?:()=>ReturnType<typeof operationalSnapshot>};
+type DashboardOptions={developerAccountIds:string;database:Queryable;staffAccess?:(id:string)=>Promise<boolean>;incidentMonitoring?:boolean;metrics?:()=>ReturnType<typeof operationalSnapshot>|Promise<ReturnType<typeof operationalSnapshot>&{persistentHistory?:boolean}>;backupHealth?:()=>ReturnType<typeof readBackupHealth>};
 const accountId=z.string().uuid();
 
-export function createDeveloperRoutes({developerAccountIds,database,staffAccess,incidentMonitoring=false,metrics}:DashboardOptions):FastifyPluginAsync{
+export function createDeveloperRoutes({developerAccountIds,database,staffAccess,incidentMonitoring=false,metrics,backupHealth}:DashboardOptions):FastifyPluginAsync{
  const allowedAccounts=new Set(developerAccountIds.split(",").map(value=>value.trim()).filter(value=>accountId.safeParse(value).success));
  return async app=>{
   app.get("/developer",async(_request,reply)=>reply.type("text/html; charset=utf-8").header("Cache-Control","no-store").header("Content-Security-Policy","default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'").send(dashboardHtml));
@@ -54,7 +55,7 @@ export function createDeveloperRoutes({developerAccountIds,database,staffAccess,
      (SELECT count(*)::int FROM regional_server_incidents WHERE resolved_at IS NULL) AS open_count,
      COALESCE((SELECT jsonb_agg(jsonb_build_object('id',i.id::text,'name',s.display_name,'region',s.region_id,'kind',i.kind,'initialReason',i.initial_reason,'reason',i.current_reason,'openedAt',i.opened_at,'resolvedAt',i.resolved_at,'resolution',i.resolution,'acknowledgedAt',i.acknowledged_at,'acknowledgmentNote',i.acknowledgment_note) ORDER BY (i.resolved_at IS NOT NULL),i.opened_at DESC,i.id DESC)
      FROM (SELECT * FROM regional_server_incidents ORDER BY (resolved_at IS NOT NULL),opened_at DESC,id DESC LIMIT 50) i JOIN game_servers s ON s.id=i.server_id),'[]'::jsonb) AS incidents`)).rows[0]:null;
-   return {metrics:metrics?.()??null,incidentMonitoring,openIncidents:Number(history?.open_count??0),incidents:history?.incidents??[],total:Number(r.total??0),online:Number(r.online??0),unhealthy:Number(r.unhealthy??0),pressured:Number(r.pressured??0),slots:Number(r.slots??0),reserved:Number(r.reserved??0),connected:Number(r.connected??0),servers:r.servers??[],asOf:new Date().toISOString()};
+   return {backupHealth:await backupHealth?.()??{status:"not_configured"},metrics:await metrics?.()??null,incidentMonitoring,openIncidents:Number(history?.open_count??0),incidents:history?.incidents??[],total:Number(r.total??0),online:Number(r.online??0),unhealthy:Number(r.unhealthy??0),pressured:Number(r.pressured??0),slots:Number(r.slots??0),reserved:Number(r.reserved??0),connected:Number(r.connected??0),servers:r.servers??[],asOf:new Date().toISOString()};
   });
   app.post("/v1/developer/server-incidents/:id/acknowledge",{config:{rateLimit:{max:10,timeWindow:"1 minute"}}},async(request:FastifyRequest,reply:FastifyReply)=>{
    reply.header("Cache-Control","no-store");
@@ -132,7 +133,7 @@ export function createDeveloperRoutes({developerAccountIds,database,staffAccess,
       (SELECT min(reached_at) FROM story_milestone_reaches) AS story_coverage_since`);
    const history=progression.rows[0]??{};
    return reply.header("Cache-Control","no-store").send({
-    onlinePlayers:Number(row.online_players??0),zones:row.zones??[],serverHealthAccess:allowedAccounts.has(claims.sub)||staffOwners.has(claims.sub),staffManagement:staffOwners.has(claims.sub),moderation:staffAccess?await moderationAccess(claims.sub):false,
+    onlinePlayers:Number(row.online_players??0),zones:row.zones??[],serverHealthAccess:allowedAccounts.has(claims.sub)||staffOwners.has(claims.sub),staffManagement:staffOwners.has(claims.sub),moderation:staffAccess?await moderationAccess(claims.sub):false,suspensions:staffAccess?await suspensionAccess(claims.sub):false,
     progression:{windowDays:30,dailyClaims:history.daily_claims??{},dailyPlayers:Number(history.daily_players??0),expeditionVictoryCredits:Number(history.expedition_victory_credits??0),sharedVictoryDays:Number(history.shared_victory_days??0),weeklyClaims:history.weekly_claims??{},weeklyPlayers:Number(history.weekly_players??0),regionArrivals:history.region_arrivals??[],storyMilestones:history.story_milestones??[],storyCoverageSince:history.story_coverage_since??null},
     asOf:new Date().toISOString()
    });
@@ -140,7 +141,12 @@ export function createDeveloperRoutes({developerAccountIds,database,staffAccess,
  };
 }
 
-export const developerRoutes=createDeveloperRoutes({developerAccountIds:config.DEVELOPER_ACCOUNT_IDS,staffAccess:staffActivityAccess,incidentMonitoring:config.SERVER_INCIDENT_MONITOR_ENABLED==="1",metrics:()=>operationalSnapshot(pool),database:{query:(sql,values)=>pool.query(sql,values)}});
+export const developerRoutes=createDeveloperRoutes({developerAccountIds:config.DEVELOPER_ACCOUNT_IDS,staffAccess:staffActivityAccess,incidentMonitoring:config.SERVER_INCIDENT_MONITOR_ENABLED==="1",backupHealth:()=>readBackupHealth(config.BACKUP_HEALTH_REPORT_PATH),metrics:async()=>{
+ const snapshot=operationalSnapshot(pool),id=config.OPERATIONAL_HISTORY_INSTANCE_ID;
+ if(!id)return {...snapshot,persistentHistory:false};
+ try{return {...snapshot,history:await readOperationalHistory(pool,id),persistentHistory:true};}
+ catch{return {...snapshot,persistentHistory:false};}
+},database:{query:(sql,values)=>pool.query(sql,values)}});
 
 const dashboardHtml=`<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Reverie · Developer activity</title>
@@ -150,8 +156,10 @@ const dashboardHtml=`<!doctype html>
 <section id="signin" class="card signin"><h2>Sign in to activity</h2><p>Use a developer account configured for this server. This dashboard shows anonymous, aggregate activity only.</p><form id="login"><div class="field"><label for="name">Player name</label><input id="name" autocomplete="username" required minlength="3"></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div><button class="submit">Sign in</button><div id="error" class="error" role="status"></div></form></section>
 <section id="dashboard" class="hidden"><div class="intro"><div class="eyebrow">Live world pulse</div><h1>Players in Reverie</h1><p>A quiet, real time view of who's exploring and where the world is gathering.</p></div><div class="grid"><article class="card"><div class="label">Currently online</div><div id="online" class="count">—</div><div class="hint">Unique active player sessions</div></article><article class="card"><div class="zone-head"><div class="label">Multiplayer zones</div><div class="label">Players</div></div><ul id="zones" class="zone-list"></ul><div id="empty" class="hint">No active zone activity yet.</div></article></div>
 <section style="margin-top:54px"><div class="intro" style="margin-bottom:24px"><div class="eyebrow">Server records · last 30 days</div><h2 style="font-size:28px;letter-spacing:-.035em;margin:10px 0">Quest activity &amp; regional reach</h2><p>Reward claims and region arrivals the backend can verify.</p></div><div class="grid"><article class="card"><div class="label">Online quest progression</div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0"><div style="padding:13px;background:#151619;border-radius:12px"><div id="victory-credits" style="font-size:25px;font-variant-numeric:tabular-nums">—</div><div class="hint">Expedition victory credits</div></div><div style="padding:13px;background:#151619;border-radius:12px"><div id="shared-days" style="font-size:25px;font-variant-numeric:tabular-nums">—</div><div class="hint">Shared-victory days</div></div><div style="padding:13px;background:#151619;border-radius:12px"><div id="daily-players" style="font-size:25px;font-variant-numeric:tabular-nums">—</div><div class="hint">Players claiming daily rewards</div></div><div style="padding:13px;background:#151619;border-radius:12px"><div id="weekly-players" style="font-size:25px;font-variant-numeric:tabular-nums">—</div><div class="hint">Players claiming weekly rewards</div></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div><div class="label">Daily claims</div><ul class="zone-list" style="margin:12px 0 0;gap:8px"><li class="zone-row" style="grid-template-columns:1fr 32px"><span class="zone-name">Adventurer's Check-in</span><span id="daily-checkin" class="zone-count">0</span></li><li class="zone-row" style="grid-template-columns:1fr 32px"><span class="zone-name">Expedition Duty</span><span id="daily-victories" class="zone-count">0</span></li><li class="zone-row" style="grid-template-columns:1fr 32px"><span class="zone-name">United Front</span><span id="daily-shared" class="zone-count">0</span></li><li class="zone-row" style="grid-template-columns:1fr 32px"><span class="zone-name">Daily Devotion</span><span id="daily-bonus" class="zone-count">0</span></li></ul></div><div><div class="label">Weekly claims</div><ul class="zone-list" style="margin:12px 0 0;gap:8px"><li class="zone-row" style="grid-template-columns:1fr 32px"><span class="zone-name">Faithful Adventurer</span><span id="weekly-checkins" class="zone-count">0</span></li><li class="zone-row" style="grid-template-columns:1fr 32px"><span class="zone-name">Expedition Veteran</span><span id="weekly-victories" class="zone-count">0</span></li><li class="zone-row" style="grid-template-columns:1fr 32px"><span class="zone-name">Together We Stand</span><span id="weekly-shared" class="zone-count">0</span></li><li class="zone-row" style="grid-template-columns:1fr 32px"><span class="zone-name">Weekly Devotion</span><span id="weekly-bonus" class="zone-count">0</span></li></ul></div></div><div class="hint" style="margin-top:18px">A claim is recorded only after the server confirms its reward. Victory credits are written with the server-owned expedition payout.</div></article><article class="card"><div class="zone-head"><div class="label">Distinct players entering each zone</div><div class="label">Players</div></div><ul id="region-arrivals" class="zone-list"></ul><div id="region-arrivals-empty" class="hint">No retained region arrivals in this window.</div><div class="hint" style="margin-top:18px">Counts come from durable player-joined events in the last 30 days; retained history may be shorter.</div></article></div><div class="card" style="margin-top:18px"><div class="zone-head"><div class="label">Story milestone funnel · post-update observations</div><div class="label">Unique players</div></div><ul id="story-milestones" class="zone-list" style="margin-top:18px"></ul><div id="story-milestones-empty" class="hint">No signed-in milestone reaches recorded yet.</div><div id="story-coverage" class="hint" style="margin-top:14px">Coverage starts with post-update transitions; existing saves are not backfilled.</div><div class="hint" style="margin-top:8px">Counts are independent first reaches, not a matched cohort. Returning saves may first appear at a later stage. Fewer reaches do not confirm abandonment; offline and unsigned play are not included.</div><div class="hint" style="margin-top:8px">Chapter completion is recorded when the player confirms the ending.</div></div></section>
+<section id="player-directory" class="card hidden" style="margin-top:30px"><div class="eyebrow">Staff player directory</div><h2>Find a player</h2><p class="hint">Search by the beginning of a player name (at least three characters). Account and disciplinary information only.</p><form id="player-search-form"><div class="field"><label for="player-search">Player name</label><input id="player-search" minlength="3" maxlength="20" required></div><button class="button" id="player-search-submit">Search players</button></form><p id="player-search-status" class="status" role="status"></p><div id="player-search-results"></div><div id="player-detail" style="overflow-wrap:anywhere"></div></section>
 <section id="mod-panel" class="card hidden" style="margin-top:30px"><div class="eyebrow">Staff moderation</div><h2>World chat and player discipline</h2><p class="hint">Public world messages only. Private messages are not visible here. Moderators can warn and mute for up to 24 hours; admins and owners can mute for up to 7 days and unmute. Staff accounts are protected.</p><button id="mod-load" class="button">Refresh moderation</button><h3>Recent public chat</h3><div id="mod-messages" style="max-height:320px;overflow:auto;overflow-wrap:anywhere"></div><form id="mod-form"><div class="field"><label for="mod-name">Exact player name</label><input id="mod-name" required maxlength="32"></div><div class="field"><label for="mod-action">Action</label><select id="mod-action" style="background:#111316;color:#f3eee8;padding:10px"><option value="warn">Warning</option><option value="mute">Timed mute</option><option value="unmute">Unmute (admin / owner)</option></select></div><div class="field"><label for="mod-minutes">Mute duration (minutes)</label><input id="mod-minutes" type="number" min="5" max="10080" value="30" required></div><div class="field"><label for="mod-reason">Reason (8-300 characters, visible to player)</label><input id="mod-reason" minlength="8" maxlength="300" required></div><button id="mod-submit" class="button">Apply moderation action</button></form><p id="mod-status" class="status" role="status"></p><h3>Active mutes</h3><div id="mod-mutes"></div><h3>Player reports</h3><p class="hint">Reported public messages are preserved as evidence. Reviewing a report does not automatically punish the player.</p><div class="field"><label for="report-filter">Review status</label><select id="report-filter" style="background:#111316;color:#f3eee8;padding:10px"><option value="pending">Pending</option><option value="resolved">Resolved</option><option value="dismissed">Dismissed</option></select></div><button id="report-load" class="button">Load reports</button><p id="report-status" class="status" role="status"></p><div id="report-list" style="overflow-wrap:anywhere"></div><h3>Recent moderation history</h3><div id="mod-audit" style="overflow-wrap:anywhere"></div></section>
-<section id="server-health-panel" class="card hidden" style="margin-top:30px"><div class="eyebrow">Infrastructure ? read only</div><h2>Regional server health</h2><p class="hint">Registry and live lease snapshots. A stale heartbeat does not establish a process crash. Offline servers may be intentionally retired.</p><div id="server-health-summary" class="status" style="margin:16px 0"></div><p id="server-health-status" class="status" role="status"></p><div id="server-health-rows" style="display:grid;gap:10px"></div><h3 style="margin-top:28px">API and database performance</h3><div id="operational-metrics" class="status" style="line-height:1.8;white-space:pre-line"></div><p class="hint">Single API process, rolling HTTP window of approximately 60 seconds. Latency values are histogram upper bounds, not player movement latency.</p><h3 style="margin-top:28px">Incident history</h3><p id="incident-summary" class="status" role="status"></p><div id="incident-rows" style="display:grid;gap:10px"></div><p class="hint">Observed conditions, not confirmed crashes. Closed incidents may indicate a server was intentionally taken offline. Latest 50 records, open incidents first.</p></section>
+<section id="server-health-panel" class="card hidden" style="margin-top:30px"><div class="eyebrow">Infrastructure ? read only</div><h2>Regional server health</h2><p class="hint">Registry and live lease snapshots. A stale heartbeat does not establish a process crash. Offline servers may be intentionally retired.</p><div id="server-health-summary" class="status" style="margin:16px 0"></div><p id="server-health-status" class="status" role="status"></p><div id="server-health-rows" style="display:grid;gap:10px"></div><h3 style="margin-top:28px">API and database performance</h3><div id="operational-metrics" class="status" style="line-height:1.8;white-space:pre-line"></div><p class="hint">Single API process, rolling HTTP window of approximately 60 seconds. Latency values are histogram upper bounds, not player movement latency.</p><h3 style="margin-top:28px">Performance history</h3><p class="hint">Last hour on this API instance. Samples every 15 seconds. Gaps indicate missing observations, not zero latency.</p><p id="performance-history-mode" class="hint"></p><div id="performance-history" style="display:grid;gap:14px"></div><h3 style="margin-top:28px">Backup health</h3><div id="backup-health" class="status" role="status" style="white-space:pre-line;line-height:1.8"></div><p class="hint">Independent verification report. A verified replica does not establish that it is offsite or that a full restore has succeeded.</p><h3 style="margin-top:28px">Incident history</h3><p id="incident-summary" class="status" role="status"></p><div id="incident-rows" style="display:grid;gap:10px"></div><p class="hint">Observed conditions, not confirmed crashes. Closed incidents may indicate a server was intentionally taken offline. Latest 50 records, open incidents first.</p></section>
+<section id="suspension-panel" class="card hidden" style="margin-top:30px"><div class="eyebrow">Admin / owner only</div><h2>Temporary account suspensions</h2><p class="hint">Revokes sign-in sessions and restricts online gameplay. Admins may suspend up to 7 days; the owner up to 30 days. Staff and existing bans are protected. Players may sign in again after expiry.</p><form id="suspension-form"><div class="field"><label for="suspension-name">Exact player name</label><input id="suspension-name" required minlength="3" maxlength="32"></div><div class="field"><label for="suspension-action">Action</label><select id="suspension-action" style="background:#111316;color:#f3eee8;padding:10px"><option value="suspend">Suspend temporarily</option><option value="lift">Lift suspension</option></select></div><div class="field"><label for="suspension-minutes">Duration (minutes)</label><input id="suspension-minutes" type="number" value="60" min="5" max="43200" required></div><div class="field"><label for="suspension-reason">Reason (8-300 characters, shown to player)</label><input id="suspension-reason" required minlength="8" maxlength="300"></div><button id="suspension-submit" class="button">Apply account action</button></form><p id="suspension-status" class="status" role="status"></p><button id="suspension-load" class="button">Load suspension history</button><div id="suspension-list" style="overflow-wrap:anywhere"></div><h3>Suspension appeals</h3><p class="hint">Independent review only. Approval lifts the original active suspension. Review notes are visible to the player while suspended.</p><div class="field"><label for="appeal-filter">Appeal status</label><select id="appeal-filter" style="background:#111316;color:#f3eee8;padding:10px"><option value="pending">Pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="closed">Closed</option></select></div><button id="appeal-load" class="button">Load appeals</button><p id="appeal-status" class="status" role="status"></p><div id="appeal-list" style="overflow-wrap:anywhere"></div></section>
 <section id="staff-panel" class="card hidden" style="margin-top:30px"><div class="eyebrow">Owner only</div><h2>Staff management</h2><p class="hint">Assign access to existing Reverie accounts. Analysts can view activity. Moderators and admins can also moderate world chat. Financial privileges are separate.</p><form id="staff-form"><div class="field"><label for="staff-name">Exact player name</label><input id="staff-name" required minlength="3" maxlength="32"></div><div class="field"><label for="staff-role">Role</label><select id="staff-role" style="background:#111316;color:#f3eee8;padding:10px;border:1px solid #39383d;border-radius:9px"><option value="analyst">Analyst</option><option value="moderator">Moderator</option><option value="admin">Admin</option><option value="revoke">Revoke access</option></select></div><div class="field"><label for="staff-note">Reason (8-300 characters)</label><input id="staff-note" required minlength="8" maxlength="300"></div><button id="staff-submit" class="button">Apply role change</button></form><p id="staff-status" class="status" role="status"></p><button id="staff-load" class="button">Load staff and audit history</button><h3>Staff accounts</h3><div id="staff-roles" style="overflow-wrap:anywhere"></div><h3>Recent permission changes</h3><div id="staff-audit" style="overflow-wrap:anywhere"></div></section>
 <div class="footer"><div id="updated" class="status">Waiting for the first update…</div><a class="button" href="/v1/developer/compensation/dashboard">Compensation reviews</a><button id="refresh" class="button">Refresh now</button><button id="logout" class="button">Sign out</button></div></section></main>
 <script>
@@ -161,6 +169,20 @@ const STORY_LABELS={village:'Village',royal_gardens:'Royal Gardens',royal_gate:'
 function renderZoneBars(selector,emptySelector,zones){const list=document.querySelector(selector);list.replaceChildren();document.querySelector(emptySelector).classList.toggle('hidden',zones.length>0);const max=Math.max(1,...zones.map(z=>z.players));for(const z of zones){const li=document.createElement('li');li.className='zone-row';const name=document.createElement('span');name.className='zone-name';name.textContent=pretty(z.regionId);const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('div');fill.className='fill';fill.style.width=(100*z.players/max)+'%';bar.append(fill);const count=document.createElement('span');count.className='zone-count';count.textContent=z.players;li.append(name,bar,count);list.append(li)}}
 function renderStoryMilestones(p){const rows=p.storyMilestones??[],list=document.querySelector('#story-milestones');list.replaceChildren();const total=rows.reduce((sum,row)=>sum+Number(row.players),0);const max=Math.max(1,...rows.map(row=>Number(row.players)));document.querySelector('#story-milestones-empty').classList.toggle('hidden',total>0);for(const row of rows){const li=document.createElement('li');li.className='zone-row';li.style.gridTemplateColumns='minmax(105px,1fr) 2fr 40px';const name=document.createElement('span');name.className='zone-name';name.textContent=STORY_LABELS[row.milestoneId]??'Story milestone';const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('div');fill.className='fill';fill.style.width=(100*Number(row.players)/max)+'%';bar.append(fill);const count=document.createElement('span');count.className='zone-count';count.textContent=Number(row.players);li.append(name,bar,count);list.append(li)}const coverage=p.storyCoverageSince?new Date(p.storyCoverageSince).toLocaleDateString():'No reaches recorded yet';document.querySelector('#story-coverage').textContent='Coverage since first reported reach: '+coverage+'. No pre-update saves are backfilled.'}
 function renderProgression(p){document.querySelector('#victory-credits').textContent=p.expeditionVictoryCredits;document.querySelector('#shared-days').textContent=p.sharedVictoryDays;document.querySelector('#daily-players').textContent=p.dailyPlayers;document.querySelector('#weekly-players').textContent=p.weeklyPlayers;for(const key of ['checkin','victories','shared','bonus']){document.querySelector('#daily-'+key).textContent=p.dailyClaims[key]??0;document.querySelector('#weekly-'+(key==='checkin'?'checkins':key)).textContent=p.weeklyClaims[key==='checkin'?'checkins':key]??0}renderZoneBars('#region-arrivals','#region-arrivals-empty',p.regionArrivals);renderStoryMilestones(p)}
+function renderPerformanceHistory(samples){
+ const container=document.querySelector('#performance-history');container.replaceChildren();
+ if(!samples.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='No samples recorded yet.';container.append(empty);return}
+ const end=Date.parse(samples[samples.length-1].at),start=end-3600000;
+ for(const [label,key,unit] of [['HTTP p95 upper bound','p95UpperMs','ms'],['Database round trip','databaseMs','ms'],['Requests per rolling minute','requests',''],['Server errors per rolling minute','serverErrors',''],['Pool waiting','waiting',''],['API resident memory','residentMiB','MiB']]){
+  const group=document.createElement('div'),caption=document.createElement('div');caption.className='hint';
+  const values=samples.filter(s=>s[key]!==null&&Number.isFinite(s[key])),max=Math.max(1,...values.map(s=>s[key]));
+  const last=samples[samples.length-1][key];caption.textContent=label+' ? latest '+(last===null?'unavailable':last+' '+unit)+' ? scale 0?'+max+' '+unit;
+  const plot=document.createElement('div');plot.style.position='relative';plot.style.height='56px';plot.style.background='#151619';plot.style.borderRadius='6px';
+  plot.setAttribute('aria-label',label+' over last hour');plot.setAttribute('role','img');
+  for(const s of values){const mark=document.createElement('span');mark.style.position='absolute';mark.style.left=Math.max(0,Math.min(99.5,100*(Date.parse(s.at)-start)/3600000))+'%';mark.style.bottom='0';mark.style.width='0.45%';mark.style.height=Math.max(2,100*s[key]/max)+'%';mark.style.background='#c49a70';mark.title=new Date(s.at).toLocaleTimeString()+' ? '+s[key]+' '+unit;plot.append(mark)}
+  group.append(caption,plot);container.append(group);
+ }
+}
 function renderServerHealth(d){
  const rows=document.querySelector('#server-health-rows');rows.replaceChildren();
  document.querySelector('#server-health-summary').textContent=d.online+' online / '+d.total+' registered ? '+d.unhealthy+' unhealthy ? '+d.pressured+' near capacity or full ? '+d.reserved+'/'+d.slots+' reserved slots ? '+d.connected+' connected players';
@@ -179,6 +201,12 @@ function renderServerHealth(d){
   'Database sampled: '+(m.database.sampledAt?new Date(m.database.sampledAt).toLocaleTimeString():'not yet'),
   'API: '+m.process.residentMiB+' MiB RAM ? '+m.process.uptimeSeconds+'s uptime ? event loop p95 '+(m.process.eventLoopP95Ms??'?')+' ms'
  ].join(String.fromCharCode(10)):'Performance metrics unavailable.';
+ renderPerformanceHistory(m?.history??[]);
+ document.querySelector('#performance-history-mode').textContent=m?.persistentHistory?'Persisted across restarts for this configured instance.':'In-memory history only; resets on restart.';
+
+ const b=d.backupHealth??{status:'not_configured'};
+ const backupLabel={not_configured:'Verification report not configured',report_unavailable:'Verification report unavailable or invalid',report_stale:'Verification report overdue',attention:'Backup requires attention',healthy:'Primary and replica verified'};
+ document.querySelector('#backup-health').textContent=[backupLabel[b.status]??'Unknown backup state',...(b.checkedAt?['Checked: '+new Date(b.checkedAt).toLocaleString(),'Last backup: '+(b.lastSuccessAt?new Date(b.lastSuccessAt).toLocaleString():'None'),'Age: '+(b.backupAgeHours??'?')+' hours','Primary: '+b.primary.replaceAll('_',' ')+' ? Replica: '+b.replica.replaceAll('_',' '),'Schedule: '+b.schedule.replaceAll('_',' ')]:[])].join(String.fromCharCode(10));
  const incidents=document.querySelector('#incident-rows');incidents.replaceChildren();
  const summary=document.querySelector('#incident-summary');
  summary.textContent=d.incidentMonitoring?(d.openIncidents+' open incident(s) ? '+(d.incidents??[]).length+' displayed'):'Incident monitoring is disabled.';
@@ -208,7 +236,7 @@ function renderServerHealth(d){
  }
  document.querySelector('#server-health-status').textContent=(d.total>(d.servers??[]).length?'Showing first 200 servers, warnings first. ':'')+'Updated '+new Date(d.asOf).toLocaleTimeString()+(d.total===0?' ? No registered servers.':'');
 }
-function clearServerHealth(){document.querySelector('#server-health-panel').classList.add('hidden');document.querySelector('#server-health-summary').textContent='';document.querySelector('#server-health-status').textContent='';document.querySelector('#server-health-rows').replaceChildren();document.querySelector('#incident-rows').replaceChildren();document.querySelector('#incident-summary').textContent='';document.querySelector('#operational-metrics').textContent=''}
+function clearServerHealth(){document.querySelector('#server-health-panel').classList.add('hidden');document.querySelector('#server-health-summary').textContent='';document.querySelector('#server-health-status').textContent='';document.querySelector('#server-health-rows').replaceChildren();document.querySelector('#incident-rows').replaceChildren();document.querySelector('#incident-summary').textContent='';document.querySelector('#operational-metrics').textContent='';document.querySelector('#performance-history').replaceChildren();document.querySelector('#backup-health').textContent=''}
 async function refreshServerHealth(g,allowed){
  if(!allowed){clearServerHealth();return}
  document.querySelector('#server-health-panel').classList.remove('hidden');
@@ -233,6 +261,13 @@ function clearSession(message=''){
  document.querySelector('#refresh').disabled=false;
  document.querySelector('#staff-panel').classList.add('hidden');
  document.querySelector('#mod-panel').classList.add('hidden');
+ clearPlayerDirectory();
+ document.querySelector('#suspension-panel').classList.add('hidden');
+ document.querySelector('#suspension-list').replaceChildren();
+ document.querySelector('#appeal-list').replaceChildren();
+ document.querySelector('#appeal-status').textContent='';
+ for(const id of ['suspension-name','suspension-reason'])document.querySelector('#'+id).value='';
+ document.querySelector('#suspension-status').textContent='';
  for(const id of ['mod-messages','mod-mutes','mod-audit','report-list'])document.querySelector('#'+id).replaceChildren();
  for(const id of ['mod-name','mod-reason'])document.querySelector('#'+id).value='';
  document.querySelector('#mod-status').textContent='';document.querySelector('#report-status').textContent='';
@@ -271,6 +306,9 @@ async function refresh(){
   document.querySelector('#online').textContent=d.onlinePlayers;
   document.querySelector('#staff-panel').classList.toggle('hidden',d.staffManagement!==true);
   document.querySelector('#mod-panel').classList.toggle('hidden',d.moderation!==true);
+  if(d.moderation===true)document.querySelector('#player-directory').classList.remove('hidden');else clearPlayerDirectory();
+  if(directoryAdminAllowed&&d.suspensions!==true){directorySequence++;document.querySelector('#player-detail').replaceChildren();directoryShowsAdmin=false;}directoryAdminAllowed=d.suspensions===true;
+  document.querySelector('#suspension-panel').classList.toggle('hidden',d.suspensions!==true);
   renderZoneBars('#zones','#empty',d.zones??[]);renderProgression(d.progression);
   status.textContent='Updated '+new Date(d.asOf).toLocaleTimeString();
   await refreshServerHealth(g,d.serverHealthAccess===true);
@@ -286,6 +324,7 @@ document.querySelector('#login').addEventListener('submit',async e=>{
   if(g!==generation)return;
   if(r.status===429)throw new Error('Too many sign-in attempts. Wait '+(r.headers.get('retry-after')||'900')+' seconds and retry.');
   if(r.status===401||r.status===400)throw new Error('Sign in failed. Check the account and password.');
+  if(r.status===403){const d=await r.json();if(d.error==='account_suspended')throw new Error('Account suspended until '+new Date(d.suspendedUntil).toLocaleString()+': '+d.reason);throw new Error('Sign-in access restricted.')}
   if(!r.ok)throw new Error('Server returned HTTP '+r.status+'. Try again.');
   const d=await r.json();if(g!==generation)return;applySession(d);
   document.querySelector('#password').value='';signin.classList.add('hidden');dashboard.classList.remove('hidden');await refresh();
@@ -328,6 +367,140 @@ async function loadReports(change=null){
 }
 document.querySelector('#report-load').addEventListener('click',()=>loadReports());
 document.querySelector('#report-filter').addEventListener('change',()=>loadReports());
+let appealBusy=false;
+async function loadAppeals(change=null){
+ if(!token||appealBusy)return;
+ const g=generation,status=document.querySelector('#appeal-status'),root=document.querySelector('#appeal-list'),filter=document.querySelector('#appeal-filter');
+ appealBusy=true;status.textContent='Loading...';
+ try{
+  const headers={Authorization:'Bearer '+token,'Content-Type':'application/json'};
+  if(change){
+   const r=await request('/v1/developer/moderation/appeals',{method:'POST',headers,body:JSON.stringify(change)});
+   if(g!==generation)return;
+   if(!r.ok){const d=await r.json();throw new Error(d.error||'Review failed.')}
+  }
+  const r=await request('/v1/developer/moderation/appeals?status='+encodeURIComponent(filter.value),{headers});
+  if(g!==generation)return;
+  if(!r.ok)throw new Error('Appeal access denied or session expired.');
+  const d=await r.json();if(g!==generation)return;
+  root.replaceChildren();
+  for(const row of d.appeals){
+   const card=document.createElement('div');card.className='card';card.style.marginTop='12px';
+   const line=text=>{const p=document.createElement('p');p.textContent=text;card.append(p)};
+   line(row.target_name+' | '+row.status+' | until '+new Date(row.suspended_until).toLocaleString());
+   line('Suspension by '+row.imposed_by+': '+row.reason);line('Appeal: '+row.statement);
+   if(row.status==='pending'){
+    if(row.conflict)line('Independent reviewer required.');
+    else for(const decision of row.actionable?['approve','reject']:['close']){
+     const b=document.createElement('button');b.className='button';b.textContent=decision==='approve'?'Approve and lift':decision==='reject'?'Reject':'Close inactive appeal';
+     b.addEventListener('click',()=>{const note=window.prompt('Review reason (8-300 characters)');if(note&&note.trim().length>=8&&note.trim().length<=300&&window.confirm('Confirm '+decision+'?'))loadAppeals({id:row.id,decision,note:note.trim()})});card.append(b);
+    }
+   }else line('Review: '+row.reviewer+' | '+row.review_note);
+   root.append(card);
+  }
+  status.textContent=d.appeals.length?d.appeals.length+' appeals':'No appeals in this queue.';
+ }catch(e){if(g===generation)status.textContent='Could not complete request: '+(e.message||'connection error')}
+ finally{appealBusy=false}
+}
+document.querySelector('#appeal-load').addEventListener('click',()=>loadAppeals());
+document.querySelector('#appeal-filter').addEventListener('change',()=>loadAppeals());
+let suspensionBusy=false;
+async function loadSuspensions(change=null){
+ if(!token||suspensionBusy)return;
+ const g=generation,status=document.querySelector('#suspension-status'),root=document.querySelector('#suspension-list'),submit=document.querySelector('#suspension-submit');
+ suspensionBusy=true;submit.disabled=true;status.textContent='Loading...';
+ try{
+  const headers={Authorization:'Bearer '+token,'Content-Type':'application/json'};
+  if(change){
+   const r=await request('/v1/developer/moderation/suspensions',{method:'POST',headers,body:JSON.stringify(change)});
+   if(g!==generation)return;
+   if(!r.ok){const d=await r.json();throw new Error(d.error||'Account action failed.')}
+  }
+  const r=await request('/v1/developer/moderation/suspensions',{headers});
+  if(g!==generation)return;
+  if(!r.ok)throw new Error('Access denied or session expired.');
+  const d=await r.json();if(g!==generation)return;
+  root.replaceChildren();
+  for(const row of d.suspensions){
+   const p=document.createElement('p');p.className='hint';
+   p.textContent=row.target_name+' | '+row.status+' | until '+new Date(row.suspended_until).toLocaleString()+' | '+row.actor+' | '+row.reason+(row.end_reason?' | End: '+row.end_reason:'');
+   root.append(p);
+  }
+  status.textContent=change?'Account action saved.':(d.suspensions.length?'Suspension history loaded.':'No suspension records.');
+ }catch(e){if(g===generation)status.textContent='Could not complete request: '+(e.message||'connection error')}
+ finally{suspensionBusy=false;submit.disabled=false}
+}
+document.querySelector('#suspension-load').addEventListener('click',()=>loadSuspensions());
+document.querySelector('#suspension-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ const action=document.querySelector('#suspension-action').value;
+ const change={action,playerName:document.querySelector('#suspension-name').value.trim(),reason:document.querySelector('#suspension-reason').value.trim()};
+ if(action==='suspend')change.minutes=Number(document.querySelector('#suspension-minutes').value);
+ if(window.confirm('Confirm '+action+' for '+change.playerName+'?'))loadSuspensions(change);
+});
+let directorySequence=0,directoryShowsAdmin=false,directoryAdminAllowed=false;
+function clearPlayerDirectory(){
+ directorySequence++;
+ directoryShowsAdmin=false;
+ document.querySelector('#player-directory').classList.add('hidden');
+ for(const id of ['player-search-results','player-detail'])document.querySelector('#'+id).replaceChildren();
+ document.querySelector('#player-search').value='';
+ document.querySelector('#player-search-status').textContent='';
+}
+async function directoryFetch(path){
+ const seq=++directorySequence,g=generation,status=document.querySelector('#player-search-status');
+ status.textContent='Loading...';
+ try{
+  const r=await request('/v1/developer/moderation/players'+path,{headers:{Authorization:'Bearer '+token}});
+  if(seq!==directorySequence||g!==generation)return null;
+  if(r.status===401||r.status===403){clearPlayerDirectory();return null}
+  if(!r.ok)throw Error('Player lookup failed (HTTP '+r.status+').');
+  const d=await r.json();
+  if(seq!==directorySequence||g!==generation)return null;
+  status.textContent='';return d;
+ }catch(e){if(seq===directorySequence&&g===generation)status.textContent=e.message||'Player lookup unavailable.';return null}
+}
+function directoryText(root,text,tag='p'){
+ const node=document.createElement(tag);node.textContent=text;root.append(node);return node;
+}
+async function searchPlayers(){
+ if(!token)return;
+ const q=document.querySelector('#player-search').value.trim();
+ const root=document.querySelector('#player-search-results');
+ root.replaceChildren();document.querySelector('#player-detail').replaceChildren();directoryShowsAdmin=false;
+ const d=await directoryFetch('?q='+encodeURIComponent(q));if(!d)return;
+ document.querySelector('#player-search-status').textContent=d.more?'Showing first 20 matches. Refine your search.':d.players.length+' matching players';
+ for(const row of d.players){
+  const button=document.createElement('button');button.className='button';button.textContent=row.name+' | Lv. '+row.level+' | '+row.status;
+  button.addEventListener('click',()=>openPlayer(row.id));root.append(button);
+ }
+}
+async function openPlayer(id){
+ if(!token)return;
+ const root=document.querySelector('#player-detail');root.replaceChildren();directoryShowsAdmin=false;
+ const d=await directoryFetch('/'+encodeURIComponent(id));if(!d)return;
+ const p=d.player;
+ directoryText(root,p.name,'h3');
+ directoryText(root,'Level '+p.level+' | '+p.status+(p.protectedAccount?' | Protected staff':''));
+ directoryText(root,'Joined '+new Date(p.createdAt).toLocaleDateString()+' | '+(p.mutedUntil?'Muted until '+new Date(p.mutedUntil).toLocaleString():'No active chat mute'));
+ function shortcut(label,target){
+  const b=document.createElement('button');b.className='button';b.textContent=label;b.addEventListener('click',()=>{const field=document.querySelector('#'+target);field.value=p.name;field.focus();field.scrollIntoView({block:'center'})});root.append(b);
+ }
+ if(d.canModerate)shortcut('Open chat moderation','mod-name');
+ if(d.canSuspend)shortcut('Open suspension controls','suspension-name');
+ directoryText(root,'Report counts (not findings of misconduct)','h3');
+ directoryText(root,d.reports.map(r=>r.status+': '+r.total).join(' | ')||'No reports.');
+ directoryText(root,'Chat disciplinary history (latest 50)','h3');
+ if(!d.history.length)directoryText(root,'No actions recorded.');
+ for(const a of d.history)directoryText(root,new Date(a.created_at).toLocaleString()+' | '+a.action+' | '+a.actor+' | '+a.reason+(a.muted_until?' | until '+new Date(a.muted_until).toLocaleString():''));
+ directoryShowsAdmin=Array.isArray(d.suspensions);
+ if(directoryShowsAdmin){
+  directoryText(root,'Account suspension history (latest 50)','h3');
+  if(!d.suspensions.length)directoryText(root,'No suspensions recorded.');
+  for(const s of d.suspensions)directoryText(root,new Date(s.created_at).toLocaleString()+' | '+s.actor+' | '+s.reason+' | until '+new Date(s.suspended_until).toLocaleString()+(s.end_reason?' | End: '+s.end_reason:''));
+ }
+}
+document.querySelector('#player-search-form').addEventListener('submit',e=>{e.preventDefault();searchPlayers()});
 let modBusy=false;
 async function modRequest(change=null){
  if(!token||modBusy)return;

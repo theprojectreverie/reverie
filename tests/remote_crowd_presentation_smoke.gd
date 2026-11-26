@@ -23,6 +23,10 @@ func _run() -> void:
 		peer._refresh_presentation_budget()
 		assert(peer.visible)
 		assert(is_equal_approx(peer.visual.animation_runtime_component.presentation_interval, 1.0 / 15.0))
+	var phases: Dictionary = {}
+	for peer in sync.remote_players.values():
+		phases[peer._presentation_phase] = true
+	assert(phases.size() >= 80, "Crowd visibility checks must not share a single phase")
 	var first: RemotePlayerAvatar = sync.remote_players["crowd-0"]
 	var old_visual := first.visual
 	assert(sync._ensure_remote("crowd-0", "Adventurer 0", Vector2.ZERO, "Dawn Wanderer") == first)

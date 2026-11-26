@@ -1,0 +1,45 @@
+import assert from "node:assert/strict";
+import {randomBytes} from "node:crypto";
+import {mkdtemp,mkdir,rm,readFile,writeFile,unlink,readdir} from "node:fs/promises";
+import {tmpdir} from "node:os";
+import {join} from "node:path";
+import {Readable} from "node:stream";
+import {encryptArchive} from "./encrypted-backup.mjs";
+import {runBackupCycle} from "./backup-cycle.mjs";
+import {checkBackup,reportName} from "./backup-verification.mjs";
+import {readBackupHealth} from "../src/world/backup-health.ts";
+const root=await mkdtemp(join(tmpdir(),"reverie-backup-verification-")),dir=join(root,"primary"),replicaDir=join(root,"replica"),key=randomBytes(32);
+await mkdir(dir);await mkdir(replicaDir);
+let clock=Date.UTC(2026,10,26,8);
+const now=()=>clock,check=(copy=false)=>checkBackup({dir,replicaDir,key,copy,now});
+try{
+ assert.equal((await check()).primary,"missing");
+ await assert.rejects(runBackupCycle({dir,now,backup:async()=>{throw Error("Synthetic failed first attempt");}}));
+ const failedFirst=await check();assert.equal(failedFirst.primary,"missing");assert.equal(failedFirst.schedule,"last_attempt_failed");
+
+ const name="reverie-20261126T080000Z-abcdef123456.rvbak",file=join(dir,name),dest=join(replicaDir,name);
+ await runBackupCycle({dir,now,backup:async()=>{await encryptArchive(Readable.from([Buffer.from("synthetic recovery fixture")]),file,key);return {name};}});
+ assert.equal((await check()).replica,"missing");
+ const copied=await check(true);assert.equal(copied.primary,"verified");assert.equal(copied.replica,"verified");
+ const bytes=await readFile(dest);assert.deepEqual(bytes,await readFile(file));
+ assert.equal((await check(true)).replica,"verified");
+ const health=await readBackupHealth(join(dir,reportName),clock);
+ assert.equal(health.status,"healthy");
+ assert.ok(!JSON.stringify(health).includes(name));assert.ok(!JSON.stringify(health).includes(root));
+ clock+=27*3600000;
+ assert.equal((await readBackupHealth(join(dir,reportName),clock)).status,"report_stale");
+ assert.equal((await check()).schedule,"overdue");
+ const corrupt=Buffer.from(bytes);corrupt[25]^=1;await writeFile(dest,corrupt);
+ assert.equal((await check()).replica,"verification_failed");
+ assert.equal((await check(true)).replica,"copy_failed");
+ assert.deepEqual(await readFile(dest),corrupt);
+ await unlink(dest);await check(true);
+ await unlink(file);const missing=await check();assert.equal(missing.primary,"missing");assert.equal(missing.replica,"authenticated_uncompared");
+ assert.equal((await readBackupHealth(join(dir,reportName),clock)).status,"attention");
+ await writeFile(join(dir,".reverie-backup.lock"),"owned");assert.equal((await check()).status,"locked");await unlink(join(dir,".reverie-backup.lock"));
+ await assert.rejects(checkBackup({dir,replicaDir:dir,key}),/separate directory/);
+ await writeFile(join(dir,reportName),JSON.stringify({...copied,secret:"should-not-be-exposed"}));
+ assert.equal((await readBackupHealth(join(dir,reportName),clock)).status,"report_unavailable");
+ assert.ok(!(await readdir(replicaDir)).some(x=>x.includes(".partial-")));
+ console.log("PASS replica copy, ciphertext equality, repeat verification, corruption refusal, missing primary, overdue report, lock, privacy and cleanup");
+}finally{await rm(root,{recursive:true,force:true});}

@@ -1,5 +1,6 @@
 import type {FastifyPluginAsync,FastifyRequest,FastifyReply} from "fastify";
 import {pool} from "../db.js";
+import {expirePlayerMatches} from "../world/pvp-expiry.js";
 import {resolvePvpAction,type PvpState,type PvpSkill} from "../world/pvp.js";
 import {validatePersistedPvpState,sequencePvpEvents} from "../world/pvp-runtime.js";
 import {isReplayCursorValid} from "../world/event-cursor.js";
@@ -11,7 +12,7 @@ async function authenticatedPlayer(req:FastifyRequest,reply:FastifyReply):Promis
   await req.jwtVerify();
   const claims=req.user as Claims;
   if(claims.playerId&&claims.sub&&Number.isInteger(claims.tokenVersion)){
-   const current=await pool.query<{token_version:number;status:string}>("SELECT token_version,status FROM accounts WHERE id=$1",[claims.sub]);
+   const current=await pool.query<{token_version:number;status:string}>("SELECT a.token_version,a.status FROM accounts a JOIN players p ON p.account_id=a.id WHERE a.id=$1 AND p.id=$2",[claims.sub,claims.playerId]);
    if(current.rows[0]?.status==="active"&&current.rows[0].token_version===claims.tokenVersion)return claims.playerId;
   }
  }catch{/* unauthorized */}
@@ -150,6 +151,7 @@ export const pvpMatchRoutes:FastifyPluginAsync=async app=>{
   const client=await pool.connect();
   try{
    await client.query("BEGIN");
+   await expirePlayerMatches(client,playerId);
    const match=await client.query<{status:string;state:StoredState|null;state_sequence:string;latest_sequence:string}>(
     "SELECT m.status,m.state,m.state_sequence::text,COALESCE((SELECT max(e.sequence)::text FROM pvp_events e WHERE e.match_id=m.id),'0') AS latest_sequence FROM pvp_matches m JOIN pvp_match_players mp ON mp.match_id=m.id WHERE m.id=$1 AND mp.player_id=$2 FOR SHARE OF m",[matchId,playerId]);
    const row=match.rows[0];
@@ -164,7 +166,7 @@ export const pvpMatchRoutes:FastifyPluginAsync=async app=>{
    await client.query("COMMIT");
    const stored=row.state;
    let state:ReturnType<typeof publicState>|null=null;
-   if(stored){const {skillbook:_privateSkills,seed:_privateSeed,passiveFlags:_privateFlags,...safe}=stored;state=safe as ReturnType<typeof publicState>;}
+   if(stored){const {skillbook:_privateSkills,seed:_privateSeed,passiveFlags:_privateFlags,...safe}=stored;state={...safe,status:row.status,winnerId:row.status==="expired"||row.status==="cancelled"?null:safe.winnerId??null} as ReturnType<typeof publicState>;}
    return {matchId,status:row.status,state,stateIsLatestSnapshot:state!==null,snapshotEventSequence:latest,events:page.map(e=>({sequence:Number(e.sequence),actorPlayerId:e.actor_player_id,event:e.event})),eventsAfter:after,hasMoreEvents:more,nextCursor:more?last:null,latestSequence:latest};
   }catch(error){await client.query("ROLLBACK");req.log.error(error);return reply.code(500).send({error:"pvp_replay_failed"});}
   finally{client.release();}

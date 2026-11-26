@@ -40,6 +40,27 @@ try{
  const rows=response.json().incidents.filter(i=>i.name==="QA incident");
  assert.equal(rows.length,3);assert.ok(rows.every(i=>i.resolvedAt));assert.ok(rows.some(i=>i.resolution==="server_inactive"));
  assert.equal((await app.inject({url:"/v1/developer/server-health"})).statusCode,401);
+ await pool.query("UPDATE game_servers SET status='online',heartbeat_at=now()-interval '90 seconds' WHERE id=$1",[id]);
+ const ackIncident=(await retry()).opened[0];
+ const url="/v1/developer/server-incidents/"+ackIncident.id+"/acknowledge";
+ const ack=(note,t=token,path=url)=>app.inject({method:"POST",url:path,headers:{authorization:"Bearer "+t},payload:{note}});
+ assert.equal((await ack("x")).statusCode,400);
+ assert.equal((await ack("Valid note",token,"/v1/developer/server-incidents/9999999999999999999/acknowledge")).statusCode,400);
+ assert.equal((await ack("Valid note",app.jwt.sign({sub:account.id,playerId:player.id,tokenVersion:account.token_version+1}))).statusCode,401);
+ assert.equal((await app.inject({method:"POST",url,payload:{note:"Valid note"}})).statusCode,401);
+ const acknowledgments=await Promise.all([ack("Investigating heartbeat"),ack("Second operator attempt")]);
+ assert.deepEqual(acknowledgments.map(r=>r.statusCode).sort(),[200,409]);
+ const saved=(await pool.query("SELECT acknowledged_by,acknowledgment_note,acknowledged_at,resolved_at FROM regional_server_incidents WHERE id=$1",[ackIncident.id])).rows[0];
+ assert.equal(saved.acknowledged_by,account.id);assert.ok(saved.acknowledged_at);assert.equal(saved.resolved_at,null);
+ assert.ok(["Investigating heartbeat","Second operator attempt"].includes(saved.acknowledgment_note));
+ const history=await app.inject({url:"/v1/developer/server-health",headers:{authorization:"Bearer "+token}});
+ const visible=history.json().incidents.find(i=>i.id===ackIncident.id);
+ assert.equal(visible.acknowledgmentNote,saved.acknowledgment_note);assert.ok(visible.acknowledgedAt);assert.equal(visible.resolvedAt,null);
+ await scan();assert.equal((await ack("Another note")).statusCode,409);
+ await pool.query("UPDATE game_servers SET heartbeat_at=now() WHERE id=$1",[id]);await retry();
+ const closed=(await pool.query("SELECT acknowledged_at,resolved_at FROM regional_server_incidents WHERE id=$1",[ackIncident.id])).rows[0];assert.ok(closed.acknowledged_at&&closed.resolved_at);
+ console.log("PASS acknowledgment authorization, strict validation, concurrent write-once audit, separate resolution and history");
+
  console.log("PASS incident persistence, deduplication, changing reason, recovery, capacity, concurrent scans, maintenance closure and authenticated history");
  let release;const started=new Promise(r=>release=r);let runs=0,changes=0,errors=0;
  const stop=startServerIncidentMonitor(async()=>{runs++;release();return {opened:[],resolved:[]};},()=>changes++,()=>errors++,5);

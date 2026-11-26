@@ -98,7 +98,7 @@ func _on_http(result: int, code: int, _headers: PackedStringArray, bytes: Packed
 			if assigned_region == _region:
 				_target = assigned_id
 				_send("reconnect", "/v1/game-servers/" + _target + "/reconnect", HTTPClient.METHOD_POST)
-			elif assigned_region in ["story_training_ground", "story_village"]:
+			elif assigned_region in ["story_training_ground", "story_village", "story_royal_gardens"]:
 				_send("leave", "/v1/game-servers/" + assigned_id + "/leave", HTTPClient.METHOD_POST)
 			else:
 				_fail("leave_current_world_first", false)

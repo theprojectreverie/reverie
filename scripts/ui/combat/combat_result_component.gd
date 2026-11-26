@@ -203,7 +203,7 @@ func claim(victory: bool) -> void:
 		screen._result_layer.queue_free()
 		screen._result_layer = null
 	if victory:
-		if screen._session_component.is_online_gerald():
+		if screen._session_component.is_online_gerald() or screen._session_component.is_online_garden():
 			AuthGateway.refresh_online_wallet()
 			await AuthGateway.refresh_account_roster()
 			if not is_instance_valid(screen) or not screen.is_inside_tree():return

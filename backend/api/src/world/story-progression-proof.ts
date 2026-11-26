@@ -21,3 +21,13 @@ export async function readVerifiedOpeningProgress(db:PoolClient,playerId:string)
  const geraldDefeated=tutorialComplete&&wins.includes(VILLAGE_GROUP);
  return {tutorialComplete,geraldDefeated,next:!tutorialComplete?TUTORIAL_GROUP:!geraldDefeated?VILLAGE_GROUP:"royal_gardens"};
 }
+
+/** Separate story namespace; existing co-op regions are never reclassified. */
+export function eligibleOpeningRegions(progress:{tutorialComplete:boolean;geraldDefeated:boolean},gardensEnabled:boolean):string[]{
+ const regions=["story_training_ground"];
+ if(progress.tutorialComplete){regions.push("story_village");if(gardensEnabled&&progress.geraldDefeated)regions.push("story_royal_gardens");}
+ return regions;
+}
+export function openingRegionAllowed(region:string,progress:{tutorialComplete:boolean;geraldDefeated:boolean},gardensEnabled:boolean):boolean{
+ return !["story_training_ground","story_village","story_royal_gardens"].includes(region)||eligibleOpeningRegions(progress,gardensEnabled).includes(region);
+}

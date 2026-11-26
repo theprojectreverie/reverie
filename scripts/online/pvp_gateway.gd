@@ -19,6 +19,7 @@ var active_match_id := ""
 var last_event_sequence := 0
 var match_state: Dictionary = {}
 var _polling_enabled := false
+var _session_player_id := ""
 
 func _ready() -> void:
 	for request_node in [queue_join_request, queue_leave_request, queue_status_request, match_events_request, match_action_request, match_surrender_request]:
@@ -31,9 +32,10 @@ func _ready() -> void:
 	match_surrender_request.request_completed.connect(_on_match_surrender_completed)
 
 
+	_session_player_id=str(AuthGateway.current_player().get("id",""))
 	AuthGateway.authentication_changed.connect(_on_authentication_changed)
 
-func queue_join() -> Error:
+func queue_join(mode:String="friendly_duel") -> Error:
 	if not _session_ready():
 		return ERR_UNAUTHORIZED if not AuthGateway.is_authenticated() else ERR_BUSY
 	if not _idle(queue_join_request):
@@ -41,7 +43,7 @@ func queue_join() -> Error:
 	_polling_enabled = true
 	queue_status_timer.start()
 	match_events_timer.start()
-	return queue_join_request.request(api_base_url + "/v1/pvp/queue/join", _headers(), HTTPClient.METHOD_POST, "{}")
+	return queue_join_request.request(api_base_url + "/v1/pvp/queue/join", _headers(), HTTPClient.METHOD_POST, JSON.stringify({"mode":mode}))
 
 func queue_leave() -> Error:
 	if not _session_ready():
@@ -156,6 +158,9 @@ func _consume_queue_payload(payload: Dictionary) -> void:
 	var match_id := str(payload.get("matchId", ""))
 	if status == "matched" and not match_id.is_empty() and bool(payload.get("combatReady", false)):
 		if active_match_id != match_id:
+			match_events_request.cancel_request()
+			match_action_request.cancel_request()
+			match_surrender_request.cancel_request()
 			active_match_id = match_id
 			last_event_sequence = 0
 			match_state.clear()
@@ -169,7 +174,7 @@ func _on_match_events_completed(result: int, code: int, _headers_received: Packe
 	var payload := _emit("match_events", result, code, body)
 	if result != HTTPRequest.RESULT_SUCCESS or code < 200 or code >= 300:
 		return
-	if not _session_ready() or active_match_id.is_empty():
+	if not _session_ready() or active_match_id.is_empty() or str(payload.get("matchId",""))!=active_match_id:
 		return
 	var received: Array = payload.get("events", [])
 	var expected_sequence := last_event_sequence + 1
@@ -186,12 +191,13 @@ func _on_match_events_completed(result: int, code: int, _headers_received: Packe
 		expected_sequence += 1
 	if typeof(payload.get("state", null)) == TYPE_DICTIONARY:
 		match_state = (payload["state"] as Dictionary).duplicate(true)
+		match_state["status"]=str(payload.get("status",match_state.get("status","active")))
 	if not received.is_empty():
 		last_event_sequence = expected_sequence - 1
 	match_state_updated.emit(match_state.duplicate(true), received.duplicate(true))
 	if bool(payload.get("hasMoreEvents", false)):
 		call_deferred("fetch_match_events")
-	if str(payload.get("status", "")) in ["completed", "expired", "cancelled"]:
+	if str(payload.get("status", "")) in ["completed", "expired", "cancelled"] and not bool(payload.get("hasMoreEvents",false)):
 		stop_polling()
 func _on_match_action_completed(result: int, code: int, _headers_received: PackedStringArray, body: PackedByteArray) -> void:
 	var payload := _emit("match_action", result, code, body)
@@ -204,7 +210,10 @@ func _on_match_surrender_completed(result: int, code: int, _headers_received: Pa
 	if result == HTTPRequest.RESULT_SUCCESS and code >= 200 and code < 300:
 		fetch_match_events()
 
-func _on_authentication_changed(authenticated: bool, _player: Dictionary) -> void:
-	if not authenticated:
-		stop_polling()
-		clear_match()
+func _on_authentication_changed(authenticated: bool, player: Dictionary) -> void:
+	var next_id:=str(player.get("id","")) if authenticated else ""
+	if next_id==_session_player_id:return
+	_session_player_id=next_id
+	stop_polling()
+	for request in [queue_join_request,queue_leave_request,queue_status_request,match_events_request,match_action_request,match_surrender_request]:request.cancel_request()
+	clear_match()

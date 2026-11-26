@@ -29,7 +29,11 @@ func _run() -> void:
 	assert(sync.remote_players.size() == 25)
 	var distant := sync.remote_players["remote-1"] as RemotePlayerAvatar
 	var distant_runtime := distant.visual.animation_runtime_component
+	assert(distant_runtime.presentation_suppressed)
 	distant_runtime.set_process(false)
+	distant_runtime.set_presentation_interval(0.0)
+	distant_runtime.set_presentation_interval(0.25)
+	distant_runtime._presentation_elapsed = 0.0
 	var animation_start := distant.visual.anim_time
 	for i in range(3):
 		distant_runtime._process(0.05)
@@ -37,13 +41,21 @@ func _run() -> void:
 	for i in range(2):
 		distant_runtime._process(0.05)
 	assert(is_equal_approx(distant.visual.anim_time, animation_start + 0.25))
+	# Leave a fractional interval pending while offscreen. Reentry must
+	# immediately account for the elapsed time rather than replay it later.
+	distant_runtime._process(0.07)
+	assert(is_equal_approx(distant.visual.anim_time, animation_start + 0.25))
 	distant_runtime.set_process(true)
 	sync._apply_position("remote-1", Vector2(100, 100), 1)
 	assert(distant.target_position == Vector2(100, 100) and sync.last_sequence == 1)
 	for i in range(100):
 		distant._process(0.05)
 	assert(distant.visible and distant.position.distance_to(Vector2(100, 100)) < 1.0)
-	assert(distant_runtime.presentation_interval == 0.0)
+	assert(distant_runtime.presentation_interval == 0.0 and not distant_runtime.presentation_suppressed)
+	assert(is_equal_approx(distant.visual.anim_time, animation_start + 0.32))
+	assert(is_zero_approx(distant_runtime._presentation_elapsed))
+	distant_runtime._process(0.02)
+	assert(is_equal_approx(distant.visual.anim_time, animation_start + 0.34))
 	GraphicsSettings.apply_preferences(1, 60)
 	var offscreen := sync.remote_players["remote-2"] as RemotePlayerAvatar
 	assert(not offscreen.visible and offscreen.visual.animation_runtime_component.presentation_interval == 0.125)

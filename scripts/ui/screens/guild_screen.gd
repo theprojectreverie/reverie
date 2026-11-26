@@ -195,6 +195,7 @@ func _completed(result:int,code:int,_headers:PackedStringArray,bytes:PackedByteA
 			_layout.get_node("Status").text="Guild purchase confirmed."
 			_load()
 		"competition_claim":
+			_render_shop(data.get("shop"))
 			AuthGateway.refresh_online_wallet()
 			_begin("competition","/competition")
 		"competition":

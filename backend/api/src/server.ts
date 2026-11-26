@@ -27,14 +27,17 @@ import {staffRoutes} from "./routes/staff.js";
 import {developerRoutes} from "./routes/developer.js";
 import {scanServerIncidents,startServerIncidentMonitor} from "./world/server-incidents.js";
 import {attachOperationalMetrics,startOperationalSampling} from "./world/operational-metrics.js";
+import {createSharedRateLimitStore,startSharedRateLimitCleanup} from "./world/shared-rate-limit.js";
 import {compensationRoutes} from "./routes/compensation.js";
 import {tutorialSparRoutes} from "./routes/tutorial-spar.js";
 import {geraldStoryPilotRoutes} from "./routes/gerald-story-pilot.js";
+import {gardensStoryPilotRoutes} from "./routes/gardens-story-pilot.js";
 import {storyProgressionRoutes} from "./routes/story-progression.js";
 const app=Fastify({logger:true,trustProxy:config.NODE_ENV==="production",bodyLimit:16384});
 attachOperationalMetrics(app);
 await app.register(helmet);
-await app.register(rateLimit,{max:100,timeWindow:"1 minute"});
+await app.register(rateLimit,{max:100,timeWindow:"1 minute",skipOnError:false,
+ ...(config.SHARED_RATE_LIMIT_NAMESPACE?{store:createSharedRateLimitStore(pool,config.SHARED_RATE_LIMIT_NAMESPACE,config.JWT_SECRET)}:{})});
 await app.register(jwt,{secret:config.JWT_SECRET,sign:{expiresIn:config.ACCESS_TOKEN_TTL_SECONDS}});
 await app.register(websocket);
 await app.register(authRoutes,{prefix:"/v1/auth"});
@@ -54,6 +57,7 @@ await app.register(persistentWorldRealtimeRoutes,{prefix:"/v1"});
 await app.register(storyProgressionRoutes,{prefix:"/v1/progression"});
 await app.register(tutorialSparRoutes,{prefix:"/v1/tutorial-spar"});
 if(config.NODE_ENV!=="production"&&process.env.REVERIE_GERALD_STORY_PILOT==="1")await app.register(geraldStoryPilotRoutes,{prefix:"/v1/gerald-story"});
+if(config.NODE_ENV!=="production"&&process.env.REVERIE_GARDENS_STORY_PILOT==="1")await app.register(gardensStoryPilotRoutes,{prefix:"/v1/gardens-story"});
 await app.register(developerRoutes);
 await app.register(staffRoutes,{prefix:"/v1/developer/staff"});
 await app.register(moderationRoutes,{prefix:"/v1/developer/moderation"});
@@ -64,9 +68,11 @@ let stopGuildLeagueFinalizer:(()=>Promise<void>)|undefined;
 let stopWorldEventRetention:(()=>Promise<void>)|undefined;
 let stopServerIncidents:(()=>Promise<void>)|undefined;
 let stopOperationalSampling:(()=>Promise<void>)|undefined;
-app.addHook("onClose",async()=>{await stopSeasonFinalizer?.();await stopGuildLeagueFinalizer?.();await stopWorldEventRetention?.();await stopServerIncidents?.();await stopOperationalSampling?.();await pool.end();});
+let stopRateLimitCleanup:(()=>Promise<void>)|undefined;
+app.addHook("onClose",async()=>{await stopSeasonFinalizer?.();await stopGuildLeagueFinalizer?.();await stopWorldEventRetention?.();await stopServerIncidents?.();await stopOperationalSampling?.();await stopRateLimitCleanup?.();await pool.end();});
 app.addHook("onReady",async()=>{
- stopOperationalSampling=startOperationalSampling(pool);
+ if(config.SHARED_RATE_LIMIT_NAMESPACE)stopRateLimitCleanup=startSharedRateLimitCleanup(pool,config.SHARED_RATE_LIMIT_NAMESPACE,error=>app.log.warn({err:error},"Shared quota cleanup failed"));
+ stopOperationalSampling=startOperationalSampling(pool,15000,config.OPERATIONAL_HISTORY_INSTANCE_ID?{instanceId:config.OPERATIONAL_HISTORY_INSTANCE_ID,onError:error=>app.log.warn({err:error},"Operational history persistence failed")}:undefined);
  if(config.SERVER_INCIDENT_MONITOR_ENABLED==="1"){
   stopServerIncidents=startServerIncidentMonitor(()=>scanServerIncidents(pool),result=>{
    for(const incident of result.opened)app.log.warn({incident},"Regional server incident opened");

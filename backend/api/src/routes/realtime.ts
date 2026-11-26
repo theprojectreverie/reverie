@@ -259,6 +259,15 @@ export const realtimeRoutes:FastifyPluginAsync=async app=>{
    return false;
   });
 
+  let sessionChecking=false;
+  const sessionTimer=setInterval(()=>{
+   if(socket.readyState!==1||sessionChecking)return;
+   sessionChecking=true;
+   void pool.query("SELECT 1 FROM accounts WHERE id=$1 AND status='active' AND token_version=$2",[accountId,tokenVersion]).then(result=>{
+    if(!result.rowCount&&socket.readyState===1){send(socket,{type:"rejected",reason:"session_revoked"});socket.close(1008,"session_revoked");}
+   }).catch(()=>{if(socket.readyState===1)socket.close(1011,"session_validation_unavailable");}).finally(()=>{sessionChecking=false;});
+  },15000);
+  sessionTimer.unref();
   let messageQueue:Promise<void>=Promise.resolve();
   socket.on("message",(raw:unknown)=>{
    if(queuedMessages>=MAX_QUEUED_MESSAGES_PER_SOCKET){
@@ -541,6 +550,7 @@ export const realtimeRoutes:FastifyPluginAsync=async app=>{
   });
 
   socket.on("close",()=>{
+   clearInterval(sessionTimer);
    peers.delete(socket);
    if(peers.size===0&&rooms.get(lobbyId)===peers){rooms.delete(lobbyId);lastMonsterMotion.delete(lobbyId);monsterMotions.delete(lobbyId);for(const key of playerPositions.keys())if(key.startsWith(lobbyId+":")){playerPositions.delete(key);playerLastMessageAt.delete(key);}}
    // Pending specials are durable events; allow their short timer to resolve even when everyone disconnects.

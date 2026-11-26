@@ -98,6 +98,12 @@ custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 text = "Forgot password?"
 
+[node name="AppealButton" type="Button" parent="Center/Panel/Margins/Content/Tabs/SignIn"]
+visible = false
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "APPEAL SUSPENSION"
+
 [node name="Status" type="Label" parent="Center/Panel/Margins/Content/Tabs/SignIn"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
@@ -151,3 +157,14 @@ custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 autowrap_mode = 2
 text = "A verification link will be sent to your email in the production service."
+
+[node name="AppealDialog" type="ConfirmationDialog" parent="."]
+title = "Suspension appeal"
+size = Vector2i(420, 180)
+ok_button_text = "Submit appeal"
+dialog_text = "Explain why staff should review this suspension. One appeal per suspension."
+
+[node name="Statement" type="LineEdit" parent="AppealDialog"]
+custom_minimum_size = Vector2(300, 48)
+max_length = 1000
+placeholder_text = "Your explanation (10-1000 characters)"

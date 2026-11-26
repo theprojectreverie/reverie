@@ -19,3 +19,13 @@ test("opening regions reject out-of-outline proposals and wrong encounter ranges
  assert.ok(openingContains("story_training_ground",{x:0,y:245}));assert.ok(!openingContains("story_training_ground",{x:600,y:300}));assert.ok(openingContains("story_village",{x:2350,y:3700}));assert.ok(!openingContains("story_village",{x:2351,y:3700}));
  assert.ok(openingEncounterInRange("story_training_ground","tutorial_fairy_spar",{x:0,y:-82}));assert.ok(!openingEncounterInRange("story_training_ground","gerald_boss_encounter",{x:0,y:-82}));assert.ok(!openingEncounterInRange("story_village","gerald_boss_encounter",{x:114,y:2865}));assert.ok(!openingContains("__proto__",{x:0,y:0}));
 });
+
+test("garden solo region mirrors the authored diamond and entrance",()=>{
+ const garden=scene("six_zone_reverie/individual_zones/zone_01_royal_gardens_standalone.tscn");
+ const region=openingRegion("story_royal_gardens")!;
+ assert.deepEqual(region.spawn,nodePosition(garden,"GardenEntrance"));
+ assert.deepEqual(region.encounter.position,nodePosition(garden,"RoseSlime1"));
+ const points=Array.from(garden.matchAll(/\[sub_resource type="SegmentShape2D" id="edge_[1-4]"\]\s+a = Vector2\(([-\d.]+), ([-\d.]+)\)/g),m=>[Number(m[1]),Number(m[2])]);
+ assert.deepEqual(region.outline,points);assert.ok(openingContains("story_royal_gardens",{x:-1320,y:2325}));assert.ok(!openingContains("story_royal_gardens",{x:3000,y:3000}));
+ assert.equal(openingRegion("story_village")?.nextRegion,"story_royal_gardens");assert.equal(openingRegion("six_zone_royal_gardens"),undefined);
+});

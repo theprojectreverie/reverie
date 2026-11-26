@@ -32,7 +32,8 @@ func _exit_tree() -> void:
 
 func _join_queue() -> void:
 	status_label.text = "Finding an opponent…"
-	var result := PvpGateway.queue_join()
+	var mode:="guild_duel" if $Center/Panel/Margins/Content/Mode.selected==1 else "friendly_duel"
+	var result := PvpGateway.queue_join(mode)
 	if result != OK:
 		status_label.text = "Sign in and make sure your party is ready before queueing."
 
@@ -64,6 +65,9 @@ func _on_pvp_result(operation: String, success: bool, payload: Dictionary) -> vo
 	match operation:
 		"queue_join", "queue_status":
 			var queue_status := str(payload.get("status", ""))
+			var mode_selector:OptionButton=$Center/Panel/Margins/Content/Mode
+			mode_selector.disabled=queue_status in ["waiting","matched"]
+			if mode_selector.disabled:mode_selector.select(1 if str(payload.get("mode",""))=="guild_duel" else 0)
 			if queue_status == "waiting":
 				status_label.text = "Searching for an opponent…"
 			elif queue_status == "matched":
@@ -71,6 +75,7 @@ func _on_pvp_result(operation: String, success: bool, payload: Dictionary) -> vo
 			elif queue_status == "not_queued":
 				status_label.text = "Ready for a friendly duel."
 		"queue_leave":
+			$Center/Panel/Margins/Content/Mode.disabled=false
 			status_label.text = "Queue cancelled."
 
 func _on_match_state_updated(state: Dictionary, _events: Array) -> void:

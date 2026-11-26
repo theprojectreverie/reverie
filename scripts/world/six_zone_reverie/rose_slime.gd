@@ -40,7 +40,7 @@ func _ready() -> void:
     interaction_radius = 85.0
     add_to_group("world_minimap_monsters")
     EventBus.battle_finished.connect(_on_battle_finished)
-    if not _is_coop():
+    if not _is_coop() and _story_garden_zone() == null:
         _restore_local_respawn()
 
 func _physics_process(delta: float) -> void:
@@ -63,6 +63,8 @@ func _physics_process(delta: float) -> void:
             if hit_lock <= 0.0 and coop_counterattack_remaining <= 0.0:
                 sprite.play("walk" if moving else "idle")
         return
+    if _story_garden_zone() != null and defeated:
+        return # Only a fresh server status can respawn a story monster.
     if defeated:
         respawn_remaining = maxf(0.0, respawn_remaining - delta)
         if respawn_remaining <= 0.0:
@@ -118,6 +120,11 @@ func receive_world_hit(amount: float) -> void:
     if _is_coop():
         MultiplayerGateway.request_monster_attack(group_id)
         return
+    var story_zone := _story_garden_zone()
+    if story_zone != null:
+        var sync := story_zone.get_node_or_null("StoryGardenCombatSync")
+        if sync != null: sync.request_encounter(group_id)
+        return # Never calculate world damage or grant local loot in story mode.
     AudioDirector.play_variant("slime_hurt")
     windup = false
     attack_timer = 0.6
@@ -144,7 +151,7 @@ func _begin_defeat() -> void:
     sprite.play("defeat")
 
 func _reset_after_respawn() -> void:
-    if not _is_coop() and coop_dead_until <= 0.0:
+    if not _is_coop() and _story_garden_zone() == null and coop_dead_until <= 0.0:
         _forget_local_respawn()
     position = home
     coop_motion_target = global_position
@@ -230,3 +237,19 @@ func apply_coop_motion(next_position: Vector2, mode: String = "patrol", target_i
     coop_motion_target = next_position
     coop_motion_ready = true
     coop_motion_samples += 1
+func _story_garden_zone() -> Node:
+    if OS.get_environment("REVERIE_STORY_WORLD_PILOT") != "1" or OS.get_environment("REVERIE_GARDENS_STORY_PILOT") != "1" or not MultiplayerGateway.standalone_expedition_id.is_empty():
+        return null
+    var node := get_parent()
+    while node != null:
+        if node.name == &"StandaloneZone01": return node
+        node = node.get_parent()
+    return null
+
+func apply_story_respawn_ms(remaining_ms: int) -> void:
+    if _story_garden_zone() == null: return
+    if remaining_ms > 0:
+        if not defeated: _begin_defeat()
+        respawn_remaining = float(remaining_ms) / 1000.0
+    elif defeated:
+        _reset_after_respawn()

@@ -36,7 +36,7 @@ theme_override_constants/separation = 16
 
 [node name="Title" type="Label" parent="Center/Panel/Margins/Content"]
 layout_mode = 2
-text = "FRIENDLY DUEL"
+text = "PVP DUELS"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 30
 
@@ -45,6 +45,16 @@ layout_mode = 2
 text = "Server-authoritative PvP · Your saved party and equipment are used"
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="Mode" type="OptionButton" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(0,44)
+item_count = 2
+selected = 0
+popup/item_0/text = "Friendly duel"
+popup/item_0/id = 0
+popup/item_1/text = "Guild duel - unranked"
+popup/item_1/id = 1
 
 [node name="Status" type="Label" parent="Center/Panel/Margins/Content"]
 layout_mode = 2

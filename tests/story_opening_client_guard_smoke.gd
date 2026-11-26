@@ -25,6 +25,11 @@ func _run() -> void:
 			push_error("Opening scene permitted unauthenticated movement")
 			get_tree().quit(1)
 			return
+		if scene.name == &"StandaloneVillage":
+			var fast_travel = preload("res://scripts/world/six_zone_reverie/fast_travel.gd")
+			assert(fast_travel.unavailable_reason(scene, "StandaloneZone01") == "Online story fast travel is not available yet")
+			assert(not fast_travel.travel(scene, "StandaloneZone01"))
+			print("PASS online fast travel guard")
 		print("PASS opening client guard: " + path)
 		scene.queue_free()
 		await get_tree().process_frame

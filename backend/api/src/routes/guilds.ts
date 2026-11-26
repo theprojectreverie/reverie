@@ -87,7 +87,9 @@ export const guildRoutes:FastifyPluginAsync=async app=>{
  });
  app.post("/competition/claim",mutation(z.object({season:z.string().regex(/^\d{4}-\d{2}-\d{2}$/)}).strict(),async(db,id,d)=>{
   const result=await claimGuildLeagueReward(db,id,d.season);
-  return result?ok(result):error(409,"guild_league_reward_unavailable");
+  if(!result)return error(409,"guild_league_reward_unavailable");
+  const m=await membership(db,id);
+  return ok({...result,shop:m?await guildShop(db,id,m.guild_id):null});
  }));
  app.get("/search",async(req,reply)=>{
   const id=await identity(req,reply);if(!id)return;

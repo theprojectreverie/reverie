@@ -31,7 +31,33 @@ export function attachOperationalMetrics(app:FastifyInstance){
 type DatabaseSample={status:"unknown"|"ok"|"unavailable";roundTripMs:number|null;sampledAt:string|null};
 let databaseSample:DatabaseSample={status:"unknown",roundTripMs:null,sampledAt:null};
 let loopP95Ms:number|null=null;
-export function startOperationalSampling(pool:Pool,intervalMs=15000){
+type HistorySample={at:string;requests:number;p95UpperMs:number|null;serverErrors:number;rateLimited:number;databaseMs:number|null;databaseStatus:string;waiting:number;residentMiB:number};
+export function createOperationalHistory(now=Date.now,maxSamples=240){
+ const samples:HistorySample[]=[];
+ return {
+  record(value:Omit<HistorySample,"at">){
+   const t=now();
+   samples.push({...value,at:new Date(t).toISOString()});
+   while(samples.length>maxSamples|| (samples.length>0&&Date.parse(samples[0]!.at)<t-3600000))samples.shift();
+  },
+  snapshot(){return samples.filter(s=>Date.parse(s.at)>=now()-3600000).map(s=>({...s}));}
+ };
+}
+const history=createOperationalHistory();
+export async function persistOperationalSample(pool:Pool,instanceId:string,sample:HistorySample){
+ await pool.query("INSERT INTO api_operational_history(instance_id,sampled_at,sample) VALUES($1,$2,$3) ON CONFLICT DO NOTHING",[instanceId,sample.at,JSON.stringify(sample)]);
+}
+export async function readOperationalHistory(pool:Pool,instanceId:string){
+ const result=await pool.query<{sample:HistorySample}>("SELECT sample FROM (SELECT sampled_at,sample FROM api_operational_history WHERE instance_id=$1 AND sampled_at>=now()-interval '1 hour' AND sampled_at<=now() ORDER BY sampled_at DESC LIMIT 240) recent ORDER BY sampled_at",[instanceId]);
+ return result.rows.map(r=>r.sample);
+}
+export async function pruneOperationalHistory(pool:Pool,instanceId:string){
+ return (await pool.query("DELETE FROM api_operational_history WHERE instance_id=$1 AND sampled_at IN (SELECT sampled_at FROM api_operational_history WHERE instance_id=$1 AND sampled_at<now()-interval '24 hours' ORDER BY sampled_at LIMIT 1000)",[instanceId])).rowCount??0;
+}
+
+
+export function startOperationalSampling(pool:Pool,intervalMs=15000,persistence?:{instanceId:string;onError:(e:unknown)=>void}){
+ let nextPrune=0;
  const histogram=monitorEventLoopDelay({resolution:20});histogram.enable();
  let stopped=false,active:Promise<void>|undefined;
  const tick=()=>{
@@ -41,11 +67,22 @@ export function startOperationalSampling(pool:Pool,intervalMs=15000){
    const start=performance.now();
    try{await pool.query(Object.assign({text:"SELECT 1"},{query_timeout:5000}));databaseSample={status:"ok",roundTripMs:Math.round((performance.now()-start)*10)/10,sampledAt:new Date().toISOString()};}
    catch{databaseSample={status:"unavailable",roundTripMs:null,sampledAt:new Date().toISOString()};}
+   const http=requestMetrics.snapshot();
+   history.record({requests:http.requests,p95UpperMs:http.p95UpperMs,serverErrors:http.serverErrors,rateLimited:http.rateLimited,databaseMs:databaseSample.roundTripMs,databaseStatus:databaseSample.status,waiting:pool.waitingCount,residentMiB:Math.round(process.memoryUsage.rss()/1048576)});
+   if(persistence&&databaseSample.status==="ok"){
+    try{
+     const sample=history.snapshot().at(-1);
+     if(sample)await persistOperationalSample(pool,persistence.instanceId,sample);
+     if(Date.now()>=nextPrune){await pruneOperationalHistory(pool,persistence.instanceId);nextPrune=Date.now()+60000;}
+    }catch(e){persistence.onError(e);}
+   }
+
+
   })().finally(()=>{active=undefined;});
  };
  const timer=setInterval(tick,intervalMs);timer.unref();tick();
  return async()=>{stopped=true;clearInterval(timer);histogram.disable();await active;};
 }
 export function operationalSnapshot(pool:Pool){
- return {scope:"single_api_process",http:requestMetrics.snapshot(),database:{...databaseSample,poolTotal:pool.totalCount,poolIdle:pool.idleCount,poolWaiting:pool.waitingCount},process:{uptimeSeconds:Math.floor(process.uptime()),residentMiB:Math.round(process.memoryUsage.rss()/1048576),eventLoopP95Ms:loopP95Ms}};
+ return {scope:"single_api_process",history:history.snapshot(),http:requestMetrics.snapshot(),database:{...databaseSample,poolTotal:pool.totalCount,poolIdle:pool.idleCount,poolWaiting:pool.waitingCount},process:{uptimeSeconds:Math.floor(process.uptime()),residentMiB:Math.round(process.memoryUsage.rss()/1048576),eventLoopP95Ms:loopP95Ms}};
 }

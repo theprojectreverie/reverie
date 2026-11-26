@@ -38,6 +38,10 @@ func _run() -> void:
 		var avatar: Node = sync.call("_ensure_remote","benchmark-%d"%i,"Adventurer %d"%i,target)
 		assert(avatar != null)
 		peers.append(avatar)
+	var frames := 180
+	var configured := OS.get_environment("REVERIE_CROWD_BENCH_FRAMES")
+	if configured.is_valid_int():
+		frames = clampi(int(configured), 180, 900)
 	for mode in [2, 1, 0, 2]:
 		graphics.apply_preferences(mode,60)
 		for i in range(peers.size()):
@@ -47,17 +51,24 @@ func _run() -> void:
 		for i in range(60):
 			await process_frame
 		var times: Array[float] = []
+		var wall_times: Array[float] = []
+		var previous_frame := Time.get_ticks_usec()
 		var start := Time.get_ticks_usec()
-		for f in range(180):
+		for f in range(frames):
 			if f%12 == 0:
 				for i in range(peers.size()):
 					peers[i].target_position = starts[i]+Vector2(float((f/12)%2)*10.0,0.0)
 			await process_frame
 			times.append(Performance.get_monitor(Performance.TIME_PROCESS)*1000.0)
+			var now := Time.get_ticks_usec()
+			wall_times.append(float(now-previous_frame)/1000.0)
+			previous_frame = now
 		var elapsed := float(Time.get_ticks_usec()-start)/1000000.0
 		times.sort()
+		wall_times.sort()
 		var visible_count := 0
 		var uncapped_count := 0
+		var suppressed_count := 0
 		var near_interval := -1.0
 		var far_interval := -1.0
 		for i in range(peers.size()):
@@ -66,6 +77,8 @@ func _run() -> void:
 			if peer.visible:
 				visible_count += 1
 			var interval: float = peer.visual.animation_runtime_component.presentation_interval
+			if peer.visual.animation_runtime_component.presentation_suppressed:
+				suppressed_count += 1
 			if interval == 0.0:
 				uncapped_count += 1
 			if i==0:
@@ -74,9 +87,10 @@ func _run() -> void:
 				far_interval=interval
 		assert(visible_count == (100 if mode==2 else 12))
 		assert(uncapped_count == (100 if mode==2 else 0))
+		assert(suppressed_count == (0 if mode==2 else 88))
 		assert(is_equal_approx(near_interval,0.0 if mode==2 else (1.0/30.0 if mode==1 else 1.0/15.0)))
 		assert(is_equal_approx(far_interval,0.0 if mode==2 else (0.125 if mode==1 else 0.25)))
-		var info := {"quality":mode,"samples":times.size(),"elapsed_seconds":elapsed,"cpu_process_p50_ms":times[89],"cpu_process_p95_ms":times[170],"visible":visible_count,"full_rate_avatars":uncapped_count,"near_interval":near_interval,"far_interval":far_interval,"memory_mib":Performance.get_monitor(Performance.MEMORY_STATIC)/1048576.0}
+		var info := {"quality":mode,"samples":times.size(),"elapsed_seconds":elapsed,"cpu_process_p50_ms":times[ceili(frames*0.5)-1],"cpu_process_p95_ms":times[ceili(frames*0.95)-1],"cpu_process_p99_ms":times[ceili(frames*0.99)-1],"wall_p95_ms":wall_times[ceili(frames*0.95)-1],"suppressed":suppressed_count,"visible":visible_count,"full_rate_avatars":uncapped_count,"near_interval":near_interval,"far_interval":far_interval,"memory_mib":Performance.get_monitor(Performance.MEMORY_STATIC)/1048576.0}
 		print("CROWD_BENCHMARK "+JSON.stringify(info))
 	sync.call("_clear_remote_players")
 	await process_frame
