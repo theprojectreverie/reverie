@@ -86,6 +86,7 @@ func _process(_delta: float) -> void:
 
 func _restart_particles(particles: CPUParticles2D) -> void:
 	particles.emitting = false
+	GraphicsSettings.prepare_combat_particles(particles)
 	particles.restart()
 	particles.emitting = true
 

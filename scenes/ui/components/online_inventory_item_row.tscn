@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[node name="OnlineItemRow" type="PanelContainer"]
+
+[node name="Content" type="HBoxContainer" parent="."]
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Content"]
+size_flags_horizontal = 3
+text = "Item"
+
+[node name="Category" type="Label" parent="Content"]
+custom_minimum_size = Vector2(105, 0)
+text = "Material"
+
+[node name="Count" type="Label" parent="Content"]
+custom_minimum_size = Vector2(75, 0)
+horizontal_alignment = 2
+text = "x1"

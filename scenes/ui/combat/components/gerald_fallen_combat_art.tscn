@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://assets/enemies/gerald_fallen/combat_frames.tres" id="1"]
+
+[ext_resource type="SpriteFrames" path="res://assets/enemies/gerald_fallen/walk_directions.tres" id="2_walk"]
+
+[node name="GeraldFallenArt" type="AnimatedSprite2D"]
+texture_filter = 1
+position = Vector2(0, -88.35)
+scale = Vector2(1.55, 1.55)
+sprite_frames = ExtResource("1")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="WalkArt" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, 0)
+sprite_frames = ExtResource("2_walk")
+animation = &"walk_w"

@@ -3,7 +3,7 @@ export type PvpUnit = {
   uid: string; ownerId: string; team: 1 | 2; charId: string; element: string;
   maxHp: number; hp: number; atk: number; defense: number; speed: number;
   critChance: number; critDamage?: number; energy: number; shield: number;
-  skillIds: string[]; ultimateId?: string; passiveId?: string;
+  skillIds: string[]; ultimateId?: string; passiveId?: string; skillLevels?: Record<string,number>;
   cooldowns: Record<string, number>; statuses: PvpStatus[];
 };
 export type PvpSkill = {
@@ -63,6 +63,7 @@ function validNumbers(u:PvpUnit):boolean {
     u.critChance>=0 && u.critChance<=1 && (u.critDamage??1.6)>=1 && (u.critDamage??1.6)<=5 &&
     u.energy>=0 && u.energy<=100 && u.shield>=0 && u.shield<=u.maxHp*10 && Array.isArray(u.skillIds) &&
     u.skillIds.every(id=>typeof id==="string"&&id.length>0) && new Set(u.skillIds).size===u.skillIds.length &&
+    (u.skillLevels===undefined||(isRecord(u.skillLevels)&&Object.entries(u.skillLevels).every(([id,n])=>(u.skillIds.includes(id)||u.ultimateId===id)&&Number.isInteger(n)&&Number(n)>=1&&Number(n)<=5))) &&
     (u.ultimateId===undefined||(typeof u.ultimateId==="string"&&u.ultimateId.length>0&&!u.skillIds.includes(u.ultimateId))) &&
     (u.passiveId===undefined||(typeof u.passiveId==="string"&&u.passiveId.length>0)) &&
     Array.isArray(u.statuses) && u.statuses.length<=16 && u.statuses.every(s=>isRecord(s)&&typeof s.id==="string"&&SUPPORTED_STATUSES.has(s.id)&&Number.isInteger(s.turns)&&Number(s.turns)>0&&Number(s.turns)<=MAX_STATUS_TURNS&&Number.isFinite(s.potency)&&Number(s.potency)>=0&&Number(s.potency)<=MAX_STATUS_POTENCY) && new Set(u.statuses.map(s=>(s as PvpStatus).id)).size===u.statuses.length &&
@@ -131,6 +132,7 @@ export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Rec
   if(!targets) return {ok:false,reason:"invalid_targets"};
   const next: PvpState=structuredClone(state);
   const nextActor=next.units.find(u=>u.uid===actor.uid)!;
+  const skillMultiplier=1+0.05*((nextActor.skillLevels?.[skill.id]??1)-1);
   const nextTargets=targets.map(t=>next.units.find(u=>u.uid===t.uid)!);
   const rng=randomStream(state.seed,action.sequence);
   const events:Array<Record<string,unknown>>=[];
@@ -154,7 +156,7 @@ export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Rec
       if(nextActor.passiveId==="nothing_to_lose"&&nextActor.hp/nextActor.maxHp<0.4)passiveMultiplier*=1.12;
       if(nextActor.passiveId==="hollow_crown"&&(skill.element??"neutral")==="dark"&&target.statuses.some(s=>["burn","poison","stun","blind","atk_down","def_down","spd_down"].includes(s.id)))passiveMultiplier*=1.15;
       if(nextActor.passiveId==="patient_weaver"&&target.statuses.some(s=>s.id==="stun"))passiveMultiplier*=1.2;
-      let raw=skill.power*(scaling/(scaling+defense))*1.6*elementMultiplier*passiveMultiplier*(0.95+rng()*0.10);
+      let raw=skill.power*skillMultiplier*(scaling/(scaling+defense))*1.6*elementMultiplier*passiveMultiplier*(0.95+rng()*0.10);
       const crit=rng()<clamp(nextActor.critChance+(skill.critBonus??0),0,1);
       if(crit) raw*=nextActor.critDamage??1.6;
       const damage=Math.max(1,Math.round(raw));
@@ -174,17 +176,18 @@ export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Rec
       if(crit&&nextActor.passiveId==="ashen_wake"){applyStatus(target,"burn",2,0.05);newlyAppliedStatuses.add(target.uid+":burn");events.push({type:"status",targetUid:target.uid,status:"burn",turns:2,passiveId:"ashen_wake"});}
       if(target.hp===0) events.push({type:"defeat",targetUid:target.uid});
     } else if(skill.kind==="heal"){
-      const before=target.hp; target.hp=Math.min(target.maxHp,target.hp+target.maxHp*skill.power/100);
+      const before=target.hp; target.hp=Math.min(target.maxHp,target.hp+target.maxHp*skill.power*skillMultiplier/100);
       events.push({type:"heal",targetUid:target.uid,amount:Math.round(target.hp-before)});
       if(nextActor.passiveId==="tidecall"){const amount=target.maxHp*0.08;target.shield+=amount;events.push({type:"passive_shield",targetUid:target.uid,amount:Math.round(amount),passiveId:"tidecall"});}
       if(skill.cleanse) target.statuses=target.statuses.filter(s=>!CLEANSABLE_STATUSES.has(s.id));
     } else if(skill.kind==="shield"){
-      const amount=target.maxHp*skill.power/100; target.shield+=amount;
+      const amount=target.maxHp*skill.power*skillMultiplier/100; target.shield+=amount;
       events.push({type:"shield",targetUid:target.uid,amount:Math.round(amount)});
     }
     for(const status of skill.statuses??[]){
       if(rng()<(status.chance??1)) {
-        applyStatus(target,status.id,status.turns??1,status.potency??0);
+        const scaledStatus=(skill.kind==="buff"||skill.kind==="debuff")&&["atk_up","atk_down","def_up","def_down","spd_up","spd_down","regen","burn","poison","shield"].includes(status.id);
+        applyStatus(target,status.id,status.turns??1,Math.min(MAX_STATUS_POTENCY,(status.potency??0)*(scaledStatus?skillMultiplier:1)));
         newlyAppliedStatuses.add(target.uid+":"+status.id);
         events.push({type:"status",targetUid:target.uid,status:status.id,turns:status.turns??1});
       }

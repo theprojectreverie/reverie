@@ -31,7 +31,10 @@ func finish_battle(victory: bool) -> void:
 	UIFactory.clear(screen._skills_box)
 	screen._actor_label.text = "Victory" if victory else "Defeat"
 	screen._hint_label.text = ""
-	screen._pending_rewards = GameState.reward_domain.build_battle_rewards(screen.group_id, true) if victory else {}
+	if screen._session_component.is_authoritative_story():
+		screen._pending_rewards = screen._session_component._server_rewards.duplicate(true) if victory else {}
+	else:
+		screen._pending_rewards = GameState.reward_domain.build_battle_rewards(screen.group_id, true) if victory else {}
 	show_result(victory)
 
 
@@ -94,6 +97,15 @@ func show_result(victory: bool) -> void:
 	rewards_caption.visible = victory and screen.group_id != "tutorial_fairy_spar"
 	rewards_row.visible = victory and screen.group_id != "tutorial_fairy_spar"
 	defeat_details.visible = not victory
+	if victory and screen._session_component.is_online_spar() and screen._session_component._spar_unlock_notice:
+		var unlock := UIFactory.label("NEW MAIN MENU ILLUSTRATION UNLOCKED", 15, UITheme.GOLD_BRIGHT)
+		unlock.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		unlock.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		details.add_child(unlock)
+		var note := UIFactory.label("Select your companion in the main menu character gallery.", 13, UITheme.TEXT_DIM)
+		note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		details.add_child(note)
 	if victory:
 		rewards_caption.add_theme_font_size_override("font_size", 10)
 		rewards_caption.add_theme_color_override("font_color", UITheme.TEXT_FAINT)
@@ -111,7 +123,7 @@ func show_result(victory: bool) -> void:
 
 	var actions := content.get_node("Actions") as HBoxContainer
 	if victory:
-		var claim_button := UIFactory.button("Continue" if screen.group_id == "tutorial_fairy_spar" else "Claim Rewards", true)
+		var claim_button := UIFactory.button("Continue" if screen.group_id == "tutorial_fairy_spar" else ("Speak to Gerald" if screen.group_id == "gerald_boss_encounter" and screen.get_tree().current_scene != null and screen.get_tree().current_scene.name == &"StandaloneVillage" else "Claim Rewards"), true)
 		claim_button.custom_minimum_size = Vector2(220, 46)
 		claim_button.pressed.connect(func() -> void: claim(true))
 		actions.add_child(claim_button)
@@ -150,6 +162,8 @@ func confirm_retreat() -> void:
 	title.add_theme_font_size_override("font_size", 24)
 	title.add_theme_color_override("font_color", UITheme.DANGER)
 	var description := content.get_node("Description") as Label
+	if screen.group_id == "tutorial_fairy_spar":
+		description.text = "End this practice duel and return to your companion. You may challenge her again whenever you are ready."
 	description.add_theme_font_size_override("font_size", 12)
 	description.add_theme_color_override("font_color", UITheme.TEXT_DIM)
 	var stay := content.get_node("Actions/StayButton") as Button
@@ -166,6 +180,21 @@ func confirm_retreat() -> void:
 func claim(victory: bool) -> void:
 	if screen == null or screen._claimed:
 		return
+	if screen._session_component.is_authoritative_story():
+		if screen._session_component._spar_busy:return
+		if victory and (not screen._session_component._spar_verified or not screen._session_component.spar_owner_is_current()):return
+		if victory and screen._session_component._spar_unlock_notice:
+			screen._claimed = true
+			await screen._session_component.acknowledge_spar_unlock()
+			if not is_instance_valid(screen) or not screen.is_inside_tree():return
+		if not victory:
+			screen._claimed = true
+			var abandoned := await screen._session_component.abandon_online_spar()
+			if not is_instance_valid(screen) or not screen.is_inside_tree():return
+			if not abandoned:
+				screen._claimed = false
+				EventBus.toast_requested.emit("Could not confirm retreat. Reconnect and try again.")
+				return
 	screen._claimed = true
 	if screen._confirm_layer != null and is_instance_valid(screen._confirm_layer):
 		screen._confirm_layer.queue_free()
@@ -174,7 +203,15 @@ func claim(victory: bool) -> void:
 		screen._result_layer.queue_free()
 		screen._result_layer = null
 	if victory:
-		if screen.group_id != "tutorial_fairy_spar":
+		if screen._session_component.is_online_gerald():
+			AuthGateway.refresh_online_wallet()
+			await AuthGateway.refresh_account_roster()
+			if not is_instance_valid(screen) or not screen.is_inside_tree():return
+			if not screen._session_component.spar_owner_is_current():
+				screen.closed.emit()
+				screen.queue_free()
+				return
+		elif screen.group_id != "tutorial_fairy_spar":
 			GameState.reward_domain.apply_battle_result(screen.group_id, true, screen._pending_rewards)
 	EventBus.battle_finished.emit({
 		"group_id": screen.group_id,

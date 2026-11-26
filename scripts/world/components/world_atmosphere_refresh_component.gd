@@ -16,7 +16,7 @@ func tick(delta: float) -> void:
 	if world == null:
 		return
 	_refresh_accumulator += delta
-	if _refresh_accumulator < REFRESH_INTERVAL:
+	if _refresh_accumulator < GraphicsSettings.atmosphere_refresh_interval():
 		return
 	_refresh_accumulator = 0.0
 	world._apply_atmosphere()

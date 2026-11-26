@@ -3,12 +3,35 @@ extends Node
 ## Owns the tracked-quest summary and local/cross-region navigation text.
 
 var hud: HUD
+const CHAPTER_NAV = preload("res://scripts/world/six_zone_reverie/chapter_navigation.gd")
+var _elapsed := 0.0
+
+func _process(delta: float) -> void:
+	_elapsed += delta
+	if _elapsed >= 0.25:
+		_elapsed = 0.0
+		if is_instance_valid(hud) and CHAPTER_NAV.find_zone(hud) != null:
+			refresh_quest()
 
 func bind(owner: HUD) -> void:
 	hud = owner
 
 func refresh_quest() -> void:
 	if hud == null or hud._quest_label == null:
+		return
+	var zone := CHAPTER_NAV.find_zone(hud)
+	if zone != null:
+		var result := CHAPTER_NAV.resolve(zone)
+		zone.set_meta("chapter_navigation",result)
+		hud._quest_label.visible = not result.is_empty()
+		if not result.is_empty():
+			var suffix := ""
+			if bool(result.get("valid",false)) and float(result.get("distance",0.0))>1.0:
+				suffix = " (%s %.0f tiles)" % [quest_arrow(result.direction),float(result.distance)/IsoMath.TILE_W]
+			hud._quest_label.text = "%s - %s%s" % [result.title,result.text,suffix]
+		return
+	if not MultiplayerGateway.standalone_expedition_id.is_empty():
+		hud._quest_label.visible = false
 		return
 	var tracked := GameState.quest_domain.tracked_quest()
 	if tracked.is_empty():

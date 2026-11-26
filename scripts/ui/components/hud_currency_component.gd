@@ -3,6 +3,7 @@ extends Node
 ## Owns the HUD wallet and binds the hand-authored currency icon assets.
 
 var hud: HUD
+var _wallet_signature: Array = []
 
 const ICONS := {
 	"gold": "res://assets/ui/currencies/gold.png",
@@ -27,7 +28,34 @@ func bind(owner: HUD) -> void:
 func refresh_currency() -> void:
 	if hud == null or hud._currency_box == null:
 		return
+	var online := not MultiplayerGateway.standalone_expedition_id.is_empty()
+	var signature: Array = [online]
+	if online:
+		var balances: Dictionary = AuthGateway.online_wallet
+		signature.append(balances.is_empty())
+		for id in ["gold", "xp"]:
+			signature.append(int(balances.get(id, 0)))
+		for id in ["crystals", "ancient_coins"]:
+			signature.append(int(AuthGateway.online_currencies.get(id, 0)))
+	else:
+		for id in ICONS:
+			signature.append(GameState.inventory_domain.currency(id))
+	if signature == _wallet_signature and hud._currency_box.get_child_count() > 0:
+		return
+	_wallet_signature = signature
 	UIFactory.clear(hud._currency_box)
+	if online:
+		var wallet: Dictionary = AuthGateway.online_wallet
+		if wallet.is_empty():
+			add_currency_chip("Online wallet loading", UITheme.TEAL)
+			return
+		add_currency_chip("Online gold: " + UIFactory.number(int(wallet.get("gold",0))), UITheme.GOLD)
+		add_currency_chip("Online XP: " + UIFactory.number(int(wallet.get("xp",0))), UITheme.TEAL)
+		for currency_id in ["crystals","ancient_coins"]:
+			var balance := int(AuthGateway.online_currencies.get(currency_id,0))
+			if balance > 0:
+				_add_currency_icon_chip(currency_id,balance)
+		return
 	for currency_id in ICONS:
 		var amount: int = GameState.inventory_domain.currency(currency_id)
 		if currency_id in ["ancient_coins", "gems", "guild_tokens", "event_tokens"] and amount <= 0:

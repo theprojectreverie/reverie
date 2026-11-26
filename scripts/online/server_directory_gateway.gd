@@ -22,10 +22,10 @@ func list_servers() -> Error:
 		return ERR_UNAUTHORIZED
 	return _send("list", "/v1/game-servers", HTTPClient.METHOD_GET)
 
-func join_server(server_id: String) -> Error:
+func join_server(server_id: String, allow_region_fallback: bool = false) -> Error:
 	if not AuthGateway.is_authenticated() or not _is_uuid(server_id):
 		return ERR_UNAUTHORIZED if not AuthGateway.is_authenticated() else ERR_INVALID_PARAMETER
-	var result := _send("join", "/v1/game-servers/" + server_id + "/join", HTTPClient.METHOD_POST)
+	var result := _send("join", "/v1/game-servers/" + server_id + "/join", HTTPClient.METHOD_POST, {"allowRegionFallback":allow_region_fallback})
 	if result == OK:
 		_server_id = server_id
 		clear_pending_join_ticket()
@@ -53,7 +53,7 @@ func leave_server(server_id: String) -> Error:
 		_server_id = server_id
 	return result
 
-func _send(operation: String, path: String, method: HTTPClient.Method) -> Error:
+func _send(operation: String, path: String, method: HTTPClient.Method, payload: Dictionary = {}) -> Error:
 	if not _operation.is_empty():
 		return ERR_BUSY
 	if not AuthGateway.access_token_ready_for_connection():
@@ -63,7 +63,7 @@ func _send(operation: String, path: String, method: HTTPClient.Method) -> Error:
 		"Authorization: Bearer " + AuthGateway.access_token_for_request(),
 		"Content-Type: application/json"
 	])
-	var result := request.request(api_base_url + path, headers, method, "{}" if method == HTTPClient.METHOD_POST else "")
+	var result := request.request(api_base_url + path, headers, method, JSON.stringify(payload) if method == HTTPClient.METHOD_POST else "")
 	if result != OK:
 		_operation = ""
 	return result

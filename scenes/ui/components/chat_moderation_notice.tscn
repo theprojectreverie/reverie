@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[node name="ModerationNoticeDialog" type="ConfirmationDialog"]
+title = "Chat moderation notices"
+size = Vector2i(400, 300)
+ok_button_text = "Mark shown as read"
+cancel_button_text = "Close"
+
+[node name="History" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(320, 210)
+bbcode_enabled = false
+selection_enabled = true

@@ -1,0 +1,585 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Vegetation/tree_dead_01.png" id="tree"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/ruined_pillar_01.png" id="pillar"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/rubble_pile_01.png" id="rubble"]
+
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/corrupted_fountain_2x2.png" id="fountain"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/broken_statue_01.png" id="statue"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/ruined_arch_x_3x1.png" id="arch"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/ruined_pillar_02.png" id="pillar2"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Vegetation/tree_dead_02.png" id="dead2"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Vegetation/twisted_roots_01.png" id="roots"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/rubble_pile_02.png" id="rubble2"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/candelabrum.png" id="ritual_candle"]
+
+[node name="ForsakenRuinsDecoration" type="Node2D"]
+y_sort_enabled = true
+
+[node name="WestTree" type="Node2D" parent="."]
+position = Vector2(-1450, 1430)
+
+[node name="Artwork" type="Sprite2D" parent="WestTree"]
+texture_filter = 1
+texture = ExtResource("tree")
+position = Vector2(0, -58)
+
+[node name="Body" type="StaticBody2D" parent="WestTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="WestTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="NorthTree" type="Node2D" parent="."]
+position = Vector2(-660, 800)
+
+[node name="Artwork" type="Sprite2D" parent="NorthTree"]
+texture_filter = 1
+texture = ExtResource("tree")
+position = Vector2(0, -58)
+
+[node name="Body" type="StaticBody2D" parent="NorthTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="NorthTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="CentralTree" type="Node2D" parent="."]
+position = Vector2(180, 1450)
+
+[node name="Artwork" type="Sprite2D" parent="CentralTree"]
+texture_filter = 1
+texture = ExtResource("tree")
+position = Vector2(0, -58)
+
+[node name="Body" type="StaticBody2D" parent="CentralTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CentralTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="EastTree" type="Node2D" parent="."]
+position = Vector2(1180, 1840)
+
+[node name="Artwork" type="Sprite2D" parent="EastTree"]
+texture_filter = 1
+texture = ExtResource("tree")
+position = Vector2(0, -58)
+
+[node name="Body" type="StaticBody2D" parent="EastTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EastTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="FarTree" type="Node2D" parent="."]
+position = Vector2(570, 2330)
+
+[node name="Artwork" type="Sprite2D" parent="FarTree"]
+texture_filter = 1
+texture = ExtResource("tree")
+position = Vector2(0, -58)
+
+[node name="Body" type="StaticBody2D" parent="FarTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="FarTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="NorthPillar" type="Node2D" parent="."]
+position = Vector2(-1210, 790)
+
+[node name="Artwork" type="Sprite2D" parent="NorthPillar"]
+texture_filter = 1
+texture = ExtResource("pillar")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="NorthPillar"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="NorthPillar/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="EastPillar" type="Node2D" parent="."]
+position = Vector2(-575, 1040)
+
+[node name="Artwork" type="Sprite2D" parent="EastPillar"]
+texture_filter = 1
+texture = ExtResource("pillar")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="EastPillar"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EastPillar/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="SouthPillar" type="Node2D" parent="."]
+position = Vector2(-1000, 1600)
+
+[node name="Artwork" type="Sprite2D" parent="SouthPillar"]
+texture_filter = 1
+texture = ExtResource("pillar")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="SouthPillar"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthPillar/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="MidPillar" type="Node2D" parent="."]
+position = Vector2(160, 1920)
+
+[node name="Artwork" type="Sprite2D" parent="MidPillar"]
+texture_filter = 1
+texture = ExtResource("pillar")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="MidPillar"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="MidPillar/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="FarPillar" type="Node2D" parent="."]
+position = Vector2(1120, 2000)
+
+[node name="Artwork" type="Sprite2D" parent="FarPillar"]
+texture_filter = 1
+texture = ExtResource("pillar")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="FarPillar"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="FarPillar/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="NorthRubble" type="Node2D" parent="."]
+position = Vector2(-1150, 805)
+
+[node name="Artwork" type="Sprite2D" parent="NorthRubble"]
+texture_filter = 1
+texture = ExtResource("rubble")
+position = Vector2(0, -3)
+
+[node name="EastRubble" type="Node2D" parent="."]
+position = Vector2(-525, 1070)
+
+[node name="Artwork" type="Sprite2D" parent="EastRubble"]
+texture_filter = 1
+texture = ExtResource("rubble")
+position = Vector2(0, -3)
+
+[node name="SouthRubble" type="Node2D" parent="."]
+position = Vector2(-925, 1620)
+
+[node name="Artwork" type="Sprite2D" parent="SouthRubble"]
+texture_filter = 1
+texture = ExtResource("rubble")
+position = Vector2(0, -3)
+
+[node name="MidRubble" type="Node2D" parent="."]
+position = Vector2(235, 1900)
+
+[node name="Artwork" type="Sprite2D" parent="MidRubble"]
+texture_filter = 1
+texture = ExtResource("rubble")
+position = Vector2(0, -3)
+
+[node name="FarRubble" type="Node2D" parent="."]
+position = Vector2(1200, 2010)
+
+[node name="Artwork" type="Sprite2D" parent="FarRubble"]
+texture_filter = 1
+texture = ExtResource("rubble")
+position = Vector2(0, -3)
+
+[node name="NorthMemorial" type="Node2D" parent="."]
+position = Vector2(-300, 790)
+
+[node name="Artwork" type="Sprite2D" parent="NorthMemorial"]
+texture_filter = 1
+texture = ExtResource("statue")
+position = Vector2(0, -49)
+
+[node name="Body" type="StaticBody2D" parent="NorthMemorial"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="NorthMemorial/Body"]
+polygon = PackedVector2Array(-32,0,0,-15,32,0,0,15)
+
+[node name="NorthRemnant" type="Node2D" parent="."]
+position = Vector2(-430, 865)
+
+[node name="Artwork" type="Sprite2D" parent="NorthRemnant"]
+texture_filter = 1
+texture = ExtResource("pillar2")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="NorthRemnant"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="NorthRemnant/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="NorthRubbleA" type="Node2D" parent="."]
+position = Vector2(-348, 845)
+
+[node name="Artwork" type="Sprite2D" parent="NorthRubbleA"]
+texture_filter = 1
+texture = ExtResource("rubble2")
+position = Vector2(0, -4)
+
+[node name="NorthDeadTree" type="Node2D" parent="."]
+position = Vector2(-160, 800)
+
+[node name="Artwork" type="Sprite2D" parent="NorthDeadTree"]
+texture_filter = 1
+texture = ExtResource("dead2")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="NorthDeadTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="NorthDeadTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="NorthRoots" type="Node2D" parent="."]
+position = Vector2(-130, 835)
+
+[node name="Artwork" type="Sprite2D" parent="NorthRoots"]
+texture_filter = 1
+texture = ExtResource("roots")
+position = Vector2(0, -4)
+
+[node name="NorthRubbleB" type="Node2D" parent="."]
+position = Vector2(-260, 856)
+
+[node name="Artwork" type="Sprite2D" parent="NorthRubbleB"]
+texture_filter = 1
+texture = ExtResource("rubble2")
+position = Vector2(0, -4)
+
+[node name="EasternFountain" type="Node2D" parent="."]
+position = Vector2(1380, 1220)
+
+[node name="Artwork" type="Sprite2D" parent="EasternFountain"]
+texture_filter = 1
+texture = ExtResource("fountain")
+position = Vector2(0, -42)
+
+[node name="Body" type="StaticBody2D" parent="EasternFountain"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EasternFountain/Body"]
+polygon = PackedVector2Array(-58,0,0,-26,58,0,0,26)
+
+[node name="EastArch" type="Node2D" parent="."]
+position = Vector2(1380, 1070)
+
+[node name="Artwork" type="Sprite2D" parent="EastArch"]
+texture_filter = 1
+texture = ExtResource("arch")
+position = Vector2(0, -96)
+
+[node name="Body" type="StaticBody2D" parent="EastArch"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EastArch/Body"]
+polygon = PackedVector2Array(-58,0,0,-29,58,0,0,29)
+
+[node name="EastFountainPillar" type="Node2D" parent="."]
+position = Vector2(1200, 1165)
+
+[node name="Artwork" type="Sprite2D" parent="EastFountainPillar"]
+texture_filter = 1
+texture = ExtResource("pillar2")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="EastFountainPillar"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EastFountainPillar/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="EastRubbleA" type="Node2D" parent="."]
+position = Vector2(1260, 1240)
+
+[node name="Artwork" type="Sprite2D" parent="EastRubbleA"]
+texture_filter = 1
+texture = ExtResource("rubble2")
+position = Vector2(0, -4)
+
+[node name="EastRubbleB" type="Node2D" parent="."]
+position = Vector2(1490, 1260)
+
+[node name="Artwork" type="Sprite2D" parent="EastRubbleB"]
+texture_filter = 1
+texture = ExtResource("rubble2")
+position = Vector2(0, -4)
+
+[node name="EastDeadTree" type="Node2D" parent="."]
+position = Vector2(1530, 1190)
+
+[node name="Artwork" type="Sprite2D" parent="EastDeadTree"]
+texture_filter = 1
+texture = ExtResource("dead2")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="EastDeadTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EastDeadTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="EastRoots" type="Node2D" parent="."]
+position = Vector2(1495, 1225)
+
+[node name="Artwork" type="Sprite2D" parent="EastRoots"]
+texture_filter = 1
+texture = ExtResource("roots")
+position = Vector2(0, -4)
+
+[node name="SouthMemorial" type="Node2D" parent="."]
+position = Vector2(-650, 2370)
+
+[node name="Artwork" type="Sprite2D" parent="SouthMemorial"]
+texture_filter = 1
+texture = ExtResource("statue")
+position = Vector2(0, -49)
+
+[node name="Body" type="StaticBody2D" parent="SouthMemorial"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthMemorial/Body"]
+polygon = PackedVector2Array(-32,0,0,-15,32,0,0,15)
+
+[node name="SouthPillarA" type="Node2D" parent="."]
+position = Vector2(-785, 2340)
+
+[node name="Artwork" type="Sprite2D" parent="SouthPillarA"]
+texture_filter = 1
+texture = ExtResource("pillar2")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="SouthPillarA"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthPillarA/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="SouthPillarB" type="Node2D" parent="."]
+position = Vector2(-510, 2350)
+
+[node name="Artwork" type="Sprite2D" parent="SouthPillarB"]
+texture_filter = 1
+texture = ExtResource("pillar2")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="SouthPillarB"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthPillarB/Body"]
+polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+
+[node name="SouthDeadTree" type="Node2D" parent="."]
+position = Vector2(-850, 2430)
+
+[node name="Artwork" type="Sprite2D" parent="SouthDeadTree"]
+texture_filter = 1
+texture = ExtResource("dead2")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="SouthDeadTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthDeadTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="SouthRubbleA" type="Node2D" parent="."]
+position = Vector2(-725, 2400)
+
+[node name="Artwork" type="Sprite2D" parent="SouthRubbleA"]
+texture_filter = 1
+texture = ExtResource("rubble2")
+position = Vector2(0, -4)
+
+[node name="SouthRubbleB" type="Node2D" parent="."]
+position = Vector2(-555, 2405)
+
+[node name="Artwork" type="Sprite2D" parent="SouthRubbleB"]
+texture_filter = 1
+texture = ExtResource("rubble2")
+position = Vector2(0, -4)
+
+[node name="SouthRoots" type="Node2D" parent="."]
+position = Vector2(-820, 2450)
+
+[node name="Artwork" type="Sprite2D" parent="SouthRoots"]
+texture_filter = 1
+texture = ExtResource("roots")
+position = Vector2(0, -4)
+
+[node name="FarArch" type="Node2D" parent="."]
+position = Vector2(390, 2670)
+
+[node name="Artwork" type="Sprite2D" parent="FarArch"]
+texture_filter = 1
+texture = ExtResource("arch")
+position = Vector2(0, -96)
+
+[node name="Body" type="StaticBody2D" parent="FarArch"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="FarArch/Body"]
+polygon = PackedVector2Array(-58,0,0,-29,58,0,0,29)
+
+[node name="FarDeadTree" type="Node2D" parent="."]
+position = Vector2(530, 2750)
+
+[node name="Artwork" type="Sprite2D" parent="FarDeadTree"]
+texture_filter = 1
+texture = ExtResource("dead2")
+position = Vector2(0, -64)
+
+[node name="Body" type="StaticBody2D" parent="FarDeadTree"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="FarDeadTree/Body"]
+polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+
+[node name="FarArchRubble" type="Node2D" parent="."]
+position = Vector2(450, 2735)
+
+[node name="Artwork" type="Sprite2D" parent="FarArchRubble"]
+texture_filter = 1
+texture = ExtResource("rubble2")
+position = Vector2(0, -4)
+
+[node name="TombCandleWest" type="Node2D" parent="."]
+position = Vector2(-1280, 1092)
+
+[node name="Artwork" type="Sprite2D" parent="TombCandleWest"]
+texture_filter = 1
+texture = ExtResource("ritual_candle")
+position = Vector2(0, -28)
+scale = Vector2(0.46, 0.46)
+modulate = Color(0.88, 0.79, 0.73, 1)
+
+[node name="Body" type="StaticBody2D" parent="TombCandleWest"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="TombCandleWest/Body"]
+polygon = PackedVector2Array(-9,0,0,-5,9,0,0,5)
+
+[node name="TombCandleEast" type="Node2D" parent="."]
+position = Vector2(-920, 1092)
+
+[node name="Artwork" type="Sprite2D" parent="TombCandleEast"]
+texture_filter = 1
+texture = ExtResource("ritual_candle")
+position = Vector2(0, -28)
+scale = Vector2(0.46, 0.46)
+modulate = Color(0.88, 0.79, 0.73, 1)
+
+[node name="Body" type="StaticBody2D" parent="TombCandleEast"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="TombCandleEast/Body"]
+polygon = PackedVector2Array(-9,0,0,-5,9,0,0,5)
+
+[node name="NorthMemorialCandle" type="Node2D" parent="."]
+position = Vector2(-240, 825)
+
+[node name="Artwork" type="Sprite2D" parent="NorthMemorialCandle"]
+texture_filter = 1
+texture = ExtResource("ritual_candle")
+position = Vector2(0, -28)
+scale = Vector2(0.46, 0.46)
+modulate = Color(0.88, 0.79, 0.73, 1)
+
+[node name="Body" type="StaticBody2D" parent="NorthMemorialCandle"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="NorthMemorialCandle/Body"]
+polygon = PackedVector2Array(-9,0,0,-5,9,0,0,5)
+
+[node name="SouthernMemorialCandle" type="Node2D" parent="."]
+position = Vector2(-590, 2410)
+
+[node name="Artwork" type="Sprite2D" parent="SouthernMemorialCandle"]
+texture_filter = 1
+texture = ExtResource("ritual_candle")
+position = Vector2(0, -28)
+scale = Vector2(0.46, 0.46)
+modulate = Color(0.88, 0.79, 0.73, 1)
+
+[node name="Body" type="StaticBody2D" parent="SouthernMemorialCandle"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthernMemorialCandle/Body"]
+polygon = PackedVector2Array(-9,0,0,-5,9,0,0,5)
+
+[node name="EasternFountainCandle" type="Node2D" parent="."]
+position = Vector2(1310, 1275)
+
+[node name="Artwork" type="Sprite2D" parent="EasternFountainCandle"]
+texture_filter = 1
+texture = ExtResource("ritual_candle")
+position = Vector2(0, -28)
+scale = Vector2(0.46, 0.46)
+modulate = Color(0.88, 0.79, 0.73, 1)
+
+[node name="Body" type="StaticBody2D" parent="EasternFountainCandle"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EasternFountainCandle/Body"]
+polygon = PackedVector2Array(-9,0,0,-5,9,0,0,5)
+
+[node name="FarArchCandle" type="Node2D" parent="."]
+position = Vector2(320, 2720)
+
+[node name="Artwork" type="Sprite2D" parent="FarArchCandle"]
+texture_filter = 1
+texture = ExtResource("ritual_candle")
+position = Vector2(0, -28)
+scale = Vector2(0.46, 0.46)
+modulate = Color(0.88, 0.79, 0.73, 1)
+
+[node name="Body" type="StaticBody2D" parent="FarArchCandle"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="FarArchCandle/Body"]
+polygon = PackedVector2Array(-9,0,0,-5,9,0,0,5)

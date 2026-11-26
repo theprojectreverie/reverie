@@ -5,6 +5,14 @@ extends Control
 ## CombatEngine remains authoritative for all damage and turn resolution.
 
 var battlefield: Battlefield
+const BOSS_APPROACH_TIME := 0.8
+const BOSS_ATTACK_TIME := 16.0 / 12.0
+const BOSS_RETREAT_TIME := 6.0 / 9.0
+const BOSS_IMPACT_TIME := BOSS_APPROACH_TIME + 5.0 / 12.0
+const BOSS_TOTAL_TIME := BOSS_APPROACH_TIME + BOSS_ATTACK_TIME + BOSS_RETREAT_TIME
+
+static func uses_boss_combo(attacker: BattlefieldActor, skill_id: String, ultimate: bool) -> bool:
+	return is_instance_valid(attacker) and attacker.kael_boss_art_enabled and not ultimate and skill_id not in ["rally_cry", "ember_lance", "blazing_charge"]
 
 func bind(owner: Battlefield) -> void:
 	battlefield = owner
@@ -13,6 +21,9 @@ func bind(owner: Battlefield) -> void:
 ## authoritative in CombatEngine; this choreography never applies gameplay hits.
 func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		skill_id: String, ultimate: bool) -> void:
+	if uses_boss_combo(attacker, skill_id, ultimate):
+		_play_boss_combo(attacker, target)
+		return
 	var origin := attacker.home_position
 	var has_target := target != null and is_instance_valid(target)
 	var direction := (target.home_position - origin).normalized() if has_target else Vector2.RIGHT
@@ -107,12 +118,39 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		if has_target and is_instance_valid(target):
 			_spawn_kael_cross_slash(attacker, impact + Vector2(-4, -4), direction.rotated(-0.48), pale, 1.14)
 			_spawn_kael_impact(attacker, impact, fire, gold, 0.72)
-			var knock := create_tween()
-			target.track_recoil_motion(knock)
-			knock.tween_property(target, "position", target_home + direction * 22.0, 0.10).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-			knock.tween_property(target, "position", target_home, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			if not is_instance_valid(target.ravienna_art) and not target.dead:
+				var knock := create_tween()
+				target.track_recoil_motion(knock)
+				knock.tween_property(target, "position", target_home + direction * 22.0, 0.10).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+				knock.tween_property(target, "position", target_home, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	)
 	combo.tween_property(attacker, "position", attacker.home_position, 0.30).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
+func _play_boss_combo(attacker: BattlefieldActor, target: BattlefieldActor) -> void:
+	attacker.cancel_attack_motion()
+	var origin := attacker.home_position
+	var target_home := target.home_position if is_instance_valid(target) else origin + Vector2(180, 0)
+	var direction := (target_home - origin).normalized()
+	attacker.face(direction)
+	var distance := origin.distance_to(target_home)
+	var reach := origin + direction * maxf(0.0, distance - (95.0 if is_instance_valid(target) and target.unit.is_boss else 52.0))
+	attacker.play_kael_boss_clip(&"approach")
+	var motion := attacker.create_tween()
+	attacker.track_attack_motion(motion)
+	motion.tween_property(attacker, "position", reach, BOSS_APPROACH_TIME)
+	motion.tween_callback(func() -> void:
+		attacker.play_kael_boss_clip(&"attack")
+	)
+	motion.tween_interval(BOSS_ATTACK_TIME)
+	motion.tween_callback(func() -> void:
+		attacker.play_kael_boss_clip(&"retreat")
+	)
+	motion.tween_property(attacker, "position", origin, BOSS_RETREAT_TIME).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	motion.tween_callback(func() -> void:
+		attacker.position = origin
+		attacker.play_kael_boss_clip(&"idle")
+	)
 
 
 func _play_kael_pose(attacker: BattlefieldActor, animation_name: String) -> void:

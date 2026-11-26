@@ -25,10 +25,19 @@ func begin() -> void:
 	host.add_child(title)
 	title.menu_requested.connect(_on_title_action)
 	title.quit_requested.connect(quit_requested.emit)
+	AuthGateway.session_restore_finished.connect(_resume_pending_title_action)
+
+func _resume_pending_title_action() -> void:
+	if pending_account_action.is_empty() or not is_instance_valid(title):
+		return
+	var action := pending_account_action
+	pending_account_action = ""
+	_on_title_action.call_deferred(action)
 
 func _on_title_action(action: String) -> void:
 	if not AuthGateway.is_authenticated():
 		if AuthGateway.restoring_session:
+			pending_account_action = action
 			return
 		pending_account_action = action
 		if not is_instance_valid(title) or title.has_node("RequiredAccountOverlay"):

@@ -48,16 +48,21 @@ static func consume(item_id: String) -> Dictionary:
 
 
 static func drop_item(item_id: String, amount: int = 1) -> Dictionary:
+	if amount <= 0:
+		return {"ok": false, "reason": "Invalid amount."}
 	if GameState.inventory_domain.item_count(item_id) < amount:
 		return {"ok": false, "reason": "Not enough items."}
 	var category := str(ContentDB.get_item(item_id).get("category", ""))
 	if category in ["currency", "quest_item"]:
 		return {"ok": false, "reason": "Cannot drop this item."}
-	GameState.inventory_domain.remove_item(item_id, amount)
+	if not GameState.inventory_domain.remove_item(item_id, amount):
+		return {"ok": false, "reason": "Enhanced equipment is protected from dropping."}
 	return {"ok": true, "reason": "Dropped %s." % str(ContentDB.get_item(item_id).get("name", item_id))}
 
 
 static func sell(item_id: String, amount: int = 1) -> Dictionary:
+	if amount <= 0:
+		return {"ok": false, "reason": "Invalid amount."}
 	var data := ContentDB.get_item(item_id)
 	if data.is_empty():
 		return {"ok": false, "reason": "Unknown item."}

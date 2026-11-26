@@ -1,6 +1,7 @@
 extends RefCounted
 
 const SCENES = {
+    "StandaloneVillage": "res://scenes/world/village/imported_village/village_playable.tscn",
     "StandaloneZone01": "res://scenes/world/six_zone_reverie/individual_zones/zone_01_royal_gardens_standalone.tscn",
     "StandaloneZone02": "res://scenes/world/six_zone_reverie/individual_zones/zone_02_royal_gate_standalone.tscn",
     "StandaloneZone03": "res://scenes/world/six_zone_reverie/individual_zones/zone_03_willow_fields_standalone.tscn",
@@ -16,12 +17,42 @@ static func resume_scene() -> String:
 static func safe_position(zone: Node2D, point: Vector2) -> bool:
     if not point.is_finite():
         return false
+    var outline := zone.get_node_or_null("TerrainPerimeter/TerrainOutline") as CollisionPolygon2D
+    if outline != null and not Geometry2D.is_point_in_polygon(outline.to_local(zone.to_global(point)), outline.polygon):
+        return false
+    if outline == null:
+        var village_bounds := zone.get_node_or_null("Perimeter/Bounds") as CollisionPolygon2D
+        if village_bounds != null and not Geometry2D.is_point_in_polygon(village_bounds.to_local(zone.to_global(point)), village_bounds.polygon):
+            return false
+        var garden_bounds := zone.get_node_or_null("GroundPerimeter") as StaticBody2D
+        if garden_bounds != null and zone.name == &"StandaloneZone01":
+            var points := PackedVector2Array()
+            for edge in garden_bounds.get_children():
+                if edge is CollisionShape2D and edge.shape is SegmentShape2D:
+                    points.append(zone.to_local(edge.to_global(edge.shape.a)))
+                    points.append(zone.to_local(edge.to_global(edge.shape.b)))
+            if points.size() >= 3 and not Geometry2D.is_point_in_polygon(point, Geometry2D.convex_hull(points)):
+                return false
     var transfers := zone.get_node_or_null("TransferPoints")
     if transfers != null:
         for marker in transfers.get_children():
             for child in marker.get_children():
                 if child is Area2D and point.distance_to(zone.to_local(child.global_position)) < 150.0:
                     return false
+    # These two diamond maps have an authored connector outside their main
+    # tilemap. A checkpoint must be on terrain, including the connector tiles.
+    if zone.name in [&"StandaloneZone04", &"StandaloneZone05"]:
+        var ground := zone.get_node_or_null("Zone/GroundTiles/EditableTileMap") as TileMapLayer
+        if ground != null:
+            var world_point := zone.to_global(point)
+            if ground.get_cell_source_id(ground.local_to_map(ground.to_local(world_point))) >= 0:
+                return true
+            for road in zone.get_children():
+                if str(road.name).begins_with("EntryRoad") or str(road.name).begins_with("ExitRoad"):
+                    var tiles := road.get_node_or_null("RoadTiles/EditableTileMap") as TileMapLayer
+                    if tiles != null and tiles.get_cell_source_id(tiles.local_to_map(tiles.to_local(world_point))) >= 0:
+                        return true
+            return false
     return true
 
 static func restore(zone: Node2D, fallback: Vector2, arrival: StringName) -> Vector2:

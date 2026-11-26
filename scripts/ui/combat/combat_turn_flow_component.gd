@@ -10,6 +10,7 @@ func bind(owner_screen: CombatScreen) -> void:
 
 
 func schedule_enemy_turn() -> void:
+	if screen != null and screen._session_component.is_authoritative_story():return
 	if screen == null or not is_instance_valid(screen):
 		return
 	screen._turn_token += 1
@@ -20,6 +21,11 @@ func schedule_enemy_turn() -> void:
 	var decision := CombatAI.choose(screen.engine, screen.engine.current_actor_index)
 	var skill_id := str(decision.get("skill_id", ""))
 	if skill_id.is_empty():
+		# All abilities may be on cooldown; passing is better than a stalled turn.
+		await screen.get_tree().process_frame
+		if is_instance_valid(screen) and screen.is_inside_tree() and token == screen._turn_token and not screen._resolved and screen.engine != null and screen.engine.current_actor() == actor:
+			screen._log("[color=#9aa8c2]%s has no available action.[/color]" % actor.display_name)
+			await screen._process_events(screen.engine.advance_turn())
 		return
 	var skill: SkillDef = ContentDB.get_skill(skill_id)
 	var skill_name := skill.display_name if skill != null else "Attack"
@@ -28,7 +34,10 @@ func schedule_enemy_turn() -> void:
 		telegraph_actor.set_intent(skill_name)
 	if screen._battlefield != null:
 		screen._battlefield.set_target_team(CombatEngine.PLAYER_TEAM, true)
-	screen._hint_label.text = "%s is preparing %s — brace for impact" % [actor.display_name, skill_name]
+	if actor.def_id == "gerald_boss":
+		screen._hint_label.text = "Gerald prepares %s." % skill_name
+	else:
+		screen._hint_label.text = "%s prepares %s." % [actor.display_name, skill_name]
 	# Keep the already-selected action stable throughout the readable reaction window.
 	await screen.get_tree().create_timer((CombatScreen.TURN_DELAY + 0.72) / screen._speed).timeout
 	if not is_instance_valid(screen) or not screen.is_inside_tree() or token != screen._turn_token or screen._resolved or screen.engine == null:

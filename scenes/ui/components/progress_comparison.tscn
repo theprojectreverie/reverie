@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[node name="ProgressComparison" type="AcceptDialog"]
+title = "Local and online progress comparison"
+size = Vector2i(700, 520)
+
+[node name="Content" type="VBoxContainer" parent="."]
+theme_override_constants/separation = 10
+
+[node name="Notice" type="Label" parent="Content"]
+text = "Read-only comparison. Nothing is transferred, merged, or overwritten."
+autowrap_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="Content"]
+custom_minimum_size = Vector2(420, 360)
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Report" type="Label" parent="Content/Scroll"]
+size_flags_horizontal = 3
+autowrap_mode = 2
+text = "Loading..."

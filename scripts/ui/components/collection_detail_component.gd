@@ -30,7 +30,8 @@ func show_detail(uid: String) -> void:
 		portrait.custom_minimum_size = Vector2(196, 232)
 	else:
 		portrait.custom_minimum_size = Vector2(168, 196)
-	portrait.setup_character(definition)  # ZERO final portraits -> procedural fallback
+	portrait.fit_mode = "card"
+	portrait.setup_character(definition)
 	screen._detail.add_child(portrait_slot)
 
 	var name_label := UIFactory.heading(definition.display_name, 23, UITheme.TEXT)
@@ -72,6 +73,15 @@ func show_detail(uid: String) -> void:
 	progression.add_child(UIFactory.chip("Ascension %d / %d" % [instance.ascension, CharacterInstance.MAX_ASCENSION], UITheme.VIOLET))
 	progression.add_child(UIFactory.chip("Awakening %d / %d" % [instance.awakening, CharacterInstance.MAX_AWAKENING], UITheme.TEAL))
 	screen._detail.add_child(progression)
+	var fusion = preload("res://scripts/gacha/character_upgrade_card.gd")
+	var recipe: Dictionary = fusion.ascension_recipe(instance.char_id)
+	if not recipe.is_empty():
+		var count: int = GameState.inventory_domain.item_count(str(recipe.item))
+		screen._detail.add_child(UIFactory.wrapped("Mythic ascension: %d / %d acquisitions" % [count, int(recipe.cost)], 12, UITheme.GOLD))
+		for bond in fusion.bonds():
+			if instance.char_id in bond.members:
+				var active: bool = fusion.active_bonds(GameState.roster_domain.party_instances()).has(bond)
+				screen._detail.add_child(UIFactory.wrapped("%s - %s: +10%% %s to both fully ascended Mythic partners in the party." % [bond.name, "ACTIVE" if active else "Inactive", "Defense" if bond.stat == "def" else "Attack"], 12, UITheme.GREEN if active else UITheme.TEXT_DIM))
 
 	# XP / level-up progress (P2).
 	var xp_needed := GameState.roster_domain.xp_to_next(instance.level)
@@ -82,24 +92,27 @@ func show_detail(uid: String) -> void:
 	screen._detail.add_child(UIFactory.label("XP %d / %d" % [instance.xp, xp_needed], 10, UITheme.TEXT_FAINT))
 
 	var multiplier := instance.power_multiplier() * GameState.roster_domain.collection_bonus()
+	var combat_stats := CombatFactory.build_from_character(instance, GameState.roster_domain.collection_bonus())
 	var stats := UIFactory.grid(2, 4)
-	stats.add_child(stat_row("HP", int(round(definition.effective_stat("hp", instance.level, instance.ascension) * multiplier))))
-	stats.add_child(stat_row("Attack", int(round(definition.effective_stat("atk", instance.level, instance.ascension) * multiplier))))
-	stats.add_child(stat_row("Defense", int(round(definition.effective_stat("def", instance.level, instance.ascension) * multiplier))))
-	stats.add_child(stat_row("Speed", int(round(definition.effective_stat("spd", instance.level, instance.ascension) * (1.0 + 0.02 * (instance.level - 1))))))
-	stats.add_child(stat_row("Crit", "%.1f%%" % (definition.effective_stat("crit", instance.level, instance.ascension) * 100.0)))
-	stats.add_child(stat_row("Crit Dmg", "%.2fx" % definition.effective_stat("crit_dmg", instance.level, instance.ascension)))
+	stats.add_child(stat_row("HP", int(round(combat_stats.max_hp))))
+	stats.add_child(stat_row("Attack", int(round(combat_stats.atk))))
+	stats.add_child(stat_row("Defense", int(round(combat_stats.defense))))
+	stats.add_child(stat_row("Speed", int(round(combat_stats.speed))))
+	stats.add_child(stat_row("Crit", "%.1f%%" % (combat_stats.crit_chance * 100.0)))
+	stats.add_child(stat_row("Crit Dmg", "%.2fx" % combat_stats.crit_mult))
 	stats.add_child(stat_row("Power", int(round(power_score(definition, multiplier)))))
 	screen._detail.add_child(stats)
 
 	# Stat preview: next level.
 	if not instance.is_max_level():
 		var next_level := instance.level + 1
-		var next_mult := instance.power_multiplier() * GameState.roster_domain.collection_bonus()
-		var next_hp := int(round(definition.effective_stat("hp", next_level, instance.ascension) * next_mult))
-		var next_atk := int(round(definition.effective_stat("atk", next_level, instance.ascension) * next_mult))
-		var next_def := int(round(definition.effective_stat("def", next_level, instance.ascension) * next_mult))
-		var next_spd := int(round(definition.effective_stat("spd", next_level, instance.ascension) * (1.0 + 0.02 * (next_level - 1))))
+		var preview_instance := CharacterInstance.from_dict(instance.to_dict())
+		preview_instance.level = next_level
+		var next_stats := CombatFactory.build_from_character(preview_instance, GameState.roster_domain.collection_bonus())
+		var next_hp := int(round(next_stats.max_hp))
+		var next_atk := int(round(next_stats.atk))
+		var next_def := int(round(next_stats.defense))
+		var next_spd := int(round(next_stats.speed))
 		screen._detail.add_child(UIFactory.label("NEXT LEVEL (Lv %d)" % next_level, 10, UITheme.TEXT_FAINT))
 		var preview := UIFactory.hbox(8)
 		preview.add_child(UIFactory.label("HP %d" % next_hp, 10, UITheme.GREEN))
@@ -140,6 +153,26 @@ func show_detail(uid: String) -> void:
 			skill_header.add_child(UIFactory.chip("Ultimate", UITheme.GOLD))
 		skill_box.add_child(skill_header)
 		skill_box.add_child(UIFactory.wrapped(skill.description, 11, UITheme.TEXT_DIM))
+		var current_skill_id := str(skill_id)
+		var skill_level := instance.skill_level(current_skill_id)
+		skill_box.add_child(UIFactory.label("Skill Lv %d / %d  |  +%d%% effect" % [skill_level, CharacterInstance.MAX_SKILL_LEVEL, 5 * (skill_level - 1)], 11, UITheme.TEAL))
+		var upgrade := GameState.roster_domain.skill_upgrade_info(instance.uid, current_skill_id)
+		if upgrade.has("next"):
+			var upgrade_button := UIFactory.button("Upgrade to Lv %d - %d gold, %d Moonpetal" % [int(upgrade.next), int(upgrade.gold), int(upgrade.petals)], true)
+			upgrade_button.disabled = not bool(upgrade.ok)
+			upgrade_button.tooltip_text = str(upgrade.reason)
+			if not bool(upgrade.ok):
+				skill_box.add_child(UIFactory.wrapped(str(upgrade.reason), 10, UITheme.TEXT_DIM))
+			upgrade_button.pressed.connect(func() -> void:
+				if GameState.roster_domain.upgrade_skill(instance.uid, current_skill_id):
+					EventBus.toast_requested.emit("Skill upgraded!")
+				else:
+					EventBus.toast_requested.emit("Skill upgrade unavailable.")
+				show_detail.call_deferred(instance.uid)
+			)
+			skill_box.add_child(upgrade_button)
+		else:
+			skill_box.add_child(UIFactory.label(str(upgrade.get("reason", "Upgrade unavailable.")), 10, UITheme.TEXT_DIM))
 		skill_panel.add_child(skill_box)
 		screen._detail.add_child(skill_panel)
 
@@ -155,29 +188,20 @@ func show_detail(uid: String) -> void:
 	screen._detail.add_child(UIFactory.separator())
 
 	var actions := UIFactory.vbox(6)
-	var in_party := GameState.roster_domain.party.has(instance.uid)
+	var in_party := GameState.roster_domain.effective_party_ids().has(instance.uid)
 	var party_button := UIFactory.button("Remove from Party" if in_party else "Add to Party", not in_party)
-	if not in_party and GameState.roster_domain.party.size() >= GameState.PARTY_MAX:
+	if not in_party and GameState.roster_domain.effective_party_ids().size() >= GameState.PARTY_MAX:
 		party_button.disabled = true
 		party_button.tooltip_text = "Party is full."
-	if in_party and GameState.roster_domain.party.size() <= 1:
+	if in_party and GameState.roster_domain.effective_party_ids().size() <= 1:
 		party_button.disabled = true
 		party_button.tooltip_text = "You must keep at least one character in the party."
 	party_button.pressed.connect(func() -> void: screen._toggle_party(instance.uid))
 	actions.add_child(party_button)
 
 	var ascension := GameState.roster_domain.ascension_info(instance.uid)
-	var levelup_button := UIFactory.button("Gain 100 XP", true)
-	levelup_button.pressed.connect(func() -> void:
-		var result: Dictionary = GameState.roster_domain.add_xp_to_character(instance, 100)
-		var gained := int(result.get("levels", 0))
-		if gained > 0:
-			EventBus.toast_requested.emit("Level up! +%d level(s)" % gained)
-		else:
-			EventBus.toast_requested.emit("+100 XP")
-		show_detail(instance.uid)
-	)
-	actions.add_child(levelup_button)
+	var training_hint := UIFactory.wrapped("Earn XP through battles and quests." if not instance.is_max_level() else "Level cap reached. Ascend to keep progressing.", 11, UITheme.TEXT_DIM)
+	actions.add_child(training_hint)
 
 	var ascend_button := UIFactory.button("Ascend", false)
 	if not bool(ascension.get("ok", false)):

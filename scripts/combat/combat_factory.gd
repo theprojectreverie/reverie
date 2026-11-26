@@ -9,11 +9,22 @@ const PLAYER_HP_SCALE := 1.0
 
 static func player_units() -> Array:
 	var units: Array = []
-	var bonus := GameState.roster_domain.collection_bonus()
-	for instance in GameState.roster_domain.party_instances():
+	var bonus := float(GameState.roster_domain.collection_bonus())
+	if AuthGateway.is_authenticated():
+		bonus = 1.0 + minf(0.15, 0.01 * floori(GameState.roster_domain.account_instances().size() / 3.0))
+	var party := GameState.roster_domain.party_instances()
+	for instance in party:
 		var unit := build_from_character(instance, bonus)
 		if unit != null:
 			units.append(unit)
+	for bond in preload("res://scripts/gacha/character_upgrade_card.gd").active_bonds(party):
+		for unit in units:
+			if unit.def_id not in bond.members:
+				continue
+			if bond.stat == "def":
+				unit.defense *= float(bond.multiplier)
+			elif bond.stat == "atk":
+				unit.atk *= float(bond.multiplier)
 	return units
 
 
@@ -41,6 +52,11 @@ static func build_from_character(instance: CharacterInstance, collection_bonus: 
 	unit.atk *= (1.0 + GameState.roster_domain.bond_bonus_atk(instance.uid))
 	unit.skills = definition.skills.duplicate()
 	unit.ultimate = definition.ultimate
+	var learned: Array = unit.skills.duplicate()
+	learned.append(unit.ultimate)
+	for id in learned:
+		if not str(id).is_empty():
+			unit.skill_levels[str(id)] = instance.skill_level(str(id))
 	unit.passive_id = definition.passive_id
 	_apply_equipment(unit, instance)
 	unit.hp = unit.max_hp
@@ -55,7 +71,7 @@ static func _apply_equipment(unit: Combatant, instance: CharacterInstance) -> vo
 			continue
 		var item: Dictionary = ContentDB.get_item(item_id)
 		var stats: Dictionary = item.get("stats", {})
-		var enhancement := GameState.roster_domain.gear_level(instance.uid, slot)
+		var enhancement := int(GameState.roster_domain.gear_level(instance.uid, slot))
 		var enhancement_mult := 1.0 + 0.08 * float(enhancement)
 		unit.max_hp += float(stats.get("hp", 0)) * enhancement_mult
 		unit.atk += float(stats.get("atk", 0)) * enhancement_mult
@@ -79,7 +95,7 @@ static func _apply_equipment(unit: Combatant, instance: CharacterInstance) -> vo
 	unit.crit_mult += float(set_bonus.get("crit_dmg", 0.0))
 
 
-static func enemy_units(group_id: String) -> Array:
+static func enemy_units(group_id: String, profile: String = "") -> Array:
 	var group: Dictionary = ContentDB.get_enemy_group(group_id)
 	var units: Array = []
 	if group.is_empty():
@@ -117,7 +133,22 @@ static func enemy_units(group_id: String) -> Array:
 		unit.ultimate = str(definition.get("ultimate", ""))
 		unit.is_boss = bool(group.get("boss", false)) or bool(group.get("elite", false))
 		unit.phases = definition.get("phases", [])
+		var starting_energy := 0.0
+		# Optional authored encounter profile; other contexts keep the original boss stats.
+		if not profile.is_empty():
+			var profiles: Dictionary = group.get("combat_profiles", {})
+			var overrides: Dictionary = profiles.get(profile, {}).get(str(enemy_id), {})
+			if not overrides.is_empty():
+				unit.max_hp = float(overrides.get("hp", unit.max_hp))
+				unit.atk = float(overrides.get("atk", unit.atk))
+				unit.defense = float(overrides.get("def", unit.defense))
+				unit.speed = float(overrides.get("spd", unit.speed))
+				unit.crit_chance = float(overrides.get("crit", unit.crit_chance))
+				unit.level = int(overrides.get("level", unit.level))
+				unit.skills = overrides.get("skills", unit.skills).duplicate()
+				unit.ultimate = str(overrides.get("ultimate", unit.ultimate))
+				starting_energy = float(overrides.get("starting_energy", 0.0))
 		unit.hp = unit.max_hp
-		unit.energy = 0.0
+		unit.energy = clampf(starting_energy, 0.0, unit.max_energy)
 		units.append(unit)
 	return units

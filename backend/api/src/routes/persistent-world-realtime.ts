@@ -1,9 +1,10 @@
+import {titleName,verifiedTitleSql} from "./daily-quests.js";
 import type {FastifyPluginAsync,FastifyRequest,FastifyReply} from "fastify";
 import {createHash,randomUUID} from "node:crypto";
 import {z} from "zod";
 import {pool} from "../db.js";
 import {validateRegionBounds} from "../world/movement.js";
-import {canReplayFromCursor} from "../world/persistent-replay-window.js";
+import {canReplayFromCursor,hasContiguousEventSequences} from "../world/persistent-replay-window.js";
 import {shouldSendWorldSyncHint} from "../world/persistent-sync-hint.js";
 
 type Claims={playerId?:string;sub?:string;tokenVersion?:number};
@@ -79,8 +80,9 @@ export const persistentWorldRealtimeRoutes:FastifyPluginAsync=async app=>{
    if(!query.success)return reply.code(400).send({error:"invalid_server_id"});
    const account=await pool.query<{token_version:number;status:string}>("SELECT token_version,status FROM accounts WHERE id=$1",[claims.sub]);
    if(account.rows[0]?.status!=="active"||account.rows[0].token_version!==claims.tokenVersion)return reply.code(401).send({error:"session_revoked"});
-   const assignment=await pool.query("SELECT 1 FROM game_server_players p JOIN game_servers s ON s.id=p.server_id WHERE p.server_id=$1 AND p.player_id=$2 AND s.status IN('online','draining') AND s.heartbeat_at>now()-interval '60 seconds'",[query.data.serverId,claims.playerId]);
+   const assignment=await pool.query<{region_id:string}>("SELECT s.region_id FROM game_server_players p JOIN game_servers s ON s.id=p.server_id WHERE p.server_id=$1 AND p.player_id=$2 AND s.status IN('online','draining') AND s.heartbeat_at>now()-interval '60 seconds'",[query.data.serverId,claims.playerId]);
    if(!assignment.rowCount)return reply.code(403).send({error:"server_assignment_required"});
+   if(["story_training_ground","story_village"].includes(assignment.rows[0]!.region_id))return reply.code(403).send({error:"dedicated_story_transport_required"});
   }
  },(socket:Socket,request:FastifyRequest)=>{
   const {serverId}=querySchema.parse(request.query);
@@ -149,13 +151,13 @@ export const persistentWorldRealtimeRoutes:FastifyPluginAsync=async app=>{
      // append updates this same row, so the snapshot and cursor share one boundary.
      const snapshotClient=await pool.connect();
      let stateRows:{revision:string;state:Record<string,unknown>}[]=[];
-     let memberRows:{player_id:string;name:string;level:number;x:number|null;y:number|null;position_updated_at:Date|null}[]=[];
+     let memberRows:{player_id:string;name:string;level:number;title_id:string;x:number|null;y:number|null;position_updated_at:Date|null}[]=[];
      let joinSequence=0;
      try{
       await snapshotClient.query("BEGIN");
       await snapshotClient.query("SELECT id FROM game_servers WHERE id=$1 FOR UPDATE",[serverId]);
       const state=await snapshotClient.query<{revision:string;state:Record<string,unknown>}>("SELECT revision::text,state FROM game_server_world_state WHERE server_id=$1",[serverId]);
-      const members=await snapshotClient.query<{player_id:string;name:string;level:number;x:number|null;y:number|null;position_updated_at:Date|null}>("SELECT p.id AS player_id,p.name,p.level,ps.x,ps.y,ps.updated_at AS position_updated_at FROM game_server_players a JOIN players p ON p.id=a.player_id LEFT JOIN game_server_player_state ps ON ps.server_id=a.server_id AND ps.player_id=a.player_id WHERE a.server_id=$1 ORDER BY a.joined_at",[serverId]);
+      const members=await snapshotClient.query<{player_id:string;name:string;level:number;title_id:string;x:number|null;y:number|null;position_updated_at:Date|null}>("SELECT p.id AS player_id,p.name,p.level,"+verifiedTitleSql+" AS title_id,ps.x,ps.y,ps.updated_at AS position_updated_at FROM game_server_players a JOIN players p ON p.id=a.player_id LEFT JOIN game_server_player_state ps ON ps.server_id=a.server_id AND ps.player_id=a.player_id WHERE a.server_id=$1 ORDER BY a.joined_at",[serverId]);
       const event=await snapshotClient.query<{sequence:string}>("WITH bumped AS (UPDATE game_servers SET next_event_sequence=next_event_sequence+1,updated_at=now() WHERE id=$1 RETURNING next_event_sequence), inserted AS (INSERT INTO game_server_world_events(server_id,sequence,event_type,player_id,payload) SELECT $1,next_event_sequence,'player_joined',$2,'{}'::jsonb FROM bumped RETURNING sequence) SELECT sequence::text FROM inserted",[serverId,peer.playerId]);
       if(!event.rows[0])throw new Error("world_event_server_missing");
       joinSequence=Number(event.rows[0].sequence);
@@ -168,7 +170,7 @@ export const persistentWorldRealtimeRoutes:FastifyPluginAsync=async app=>{
      }finally{snapshotClient.release();}
      const snapshotMembers=memberRows.map(member=>{
       if(member.x!==null&&member.y!==null)positions.set(serverId+":"+member.player_id,{x:member.x,y:member.y,at:member.position_updated_at?.getTime()??Date.now()});
-      return{playerId:member.player_id,name:member.name,level:member.level,x:member.x,y:member.y};
+      return{playerId:member.player_id,name:member.name,level:member.level,title:titleName(member.title_id),x:member.x,y:member.y};
      });
      if(socket.readyState!==1)return;
      // This is an authoritative snapshot, not a historical replay. Its cursor is
@@ -177,7 +179,8 @@ export const persistentWorldRealtimeRoutes:FastifyPluginAsync=async app=>{
      const queuedEvents=peer.pendingEvents.splice(0).sort((a,b)=>Number(a.sequence??0)-Number(b.sequence??0));
      peer.replaying=false;
      for(const event of queuedEvents)send(peer,event);
-     broadcast(serverId,{type:"player_joined",playerId:peer.playerId,sequence:joinSequence},peer);
+     const joined=snapshotMembers.find(m=>m.playerId===peer.playerId);
+     broadcast(serverId,{type:"player_joined",playerId:peer.playerId,name:joined?.name??"Wanderer",title:joined?.title??"",sequence:joinSequence},peer);
      return;
     }
     const account=await pool.query<{token_version:number;status:string}>("SELECT token_version,status FROM accounts WHERE id=$1",[peer.accountId]);
@@ -224,8 +227,8 @@ export const persistentWorldRealtimeRoutes:FastifyPluginAsync=async app=>{
      const replayWindow=await pool.query<{min_sequence:string|null;current_sequence:string}>("SELECT (SELECT min(sequence)::text FROM game_server_world_events WHERE server_id=$1) AS min_sequence,next_event_sequence::text AS current_sequence FROM game_servers WHERE id=$1",[serverId]);
      const oldestSequence=replayWindow.rows[0]?.min_sequence===null?null:Number(replayWindow.rows[0]?.min_sequence);
      const currentSequence=Number(replayWindow.rows[0]?.current_sequence??0);
-     const events=await pool.query<{sequence:string;event_type:string;player_id:string|null;payload:Record<string,unknown>}>("SELECT sequence::text,event_type,player_id,payload FROM game_server_world_events WHERE server_id=$1 AND sequence>$2 ORDER BY sequence ASC LIMIT 201",[serverId,cursor.data]);
-     if(!canReplayFromCursor(cursor.data,oldestSequence,currentSequence,events.rows.length)){send(peer,{type:"world_resync_required",reason:"replay_window_unavailable"});peer.socket.close(1012,"world_resync_required");return;}
+     const events=await pool.query<{sequence:string;event_type:string;player_id:string|null;payload:Record<string,unknown>}>("SELECT sequence::text,event_type,player_id,payload FROM game_server_world_events WHERE server_id=$1 AND sequence>$2 AND sequence<=$3 ORDER BY sequence ASC LIMIT 201",[serverId,cursor.data,currentSequence]);
+     if(!canReplayFromCursor(cursor.data,oldestSequence,currentSequence,events.rows.length)||!hasContiguousEventSequences(cursor.data,currentSequence,events.rows.map(event=>Number(event.sequence)))){send(peer,{type:"world_resync_required",reason:"replay_window_unavailable"});peer.socket.close(1012,"world_resync_required");return;}
      for(const event of events.rows)send(peer,{type:event.event_type,playerId:event.player_id,sequence:Number(event.sequence),...event.payload});
      const queuedEvents=peer.pendingEvents.splice(0).sort((a,b)=>Number(a.sequence??0)-Number(b.sequence??0));
      peer.replaying=false;
@@ -239,7 +242,9 @@ export const persistentWorldRealtimeRoutes:FastifyPluginAsync=async app=>{
      const cursor=await pool.query<{current_sequence:string}>("SELECT next_event_sequence::text AS current_sequence FROM game_servers WHERE id=$1",[serverId]);
      const currentSequence=Number(cursor.rows[0]?.current_sequence??0);
      if(shouldSendWorldSyncHint(lastSequence.data,currentSequence))send(peer,{type:"world_sync_hint",currentSequence});
-     send(peer,{type:"pong",serverTime:Date.now()});
+     const titles=await pool.query("SELECT p.id AS \"playerId\","+verifiedTitleSql+" AS title_id FROM game_server_players m JOIN players p ON p.id=m.player_id WHERE m.server_id=$1",[serverId]);
+      send(peer,{type:"player_titles",players:titles.rows.map(r=>({playerId:r.playerId,title:titleName(r.title_id)}))});
+      send(peer,{type:"pong",serverTime:Date.now()});
      return;
     }
     send(peer,{type:"rejected",reason:"unsupported_event"});

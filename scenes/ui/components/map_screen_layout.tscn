@@ -1,52 +1,86 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/components/act1_map_atlas.tscn" id="1"]
 
-[node name="MapScreenLayout" type="HBoxContainer"]
+[sub_resource type="StyleBoxFlat" id="InfoPanel"]
+bg_color = Color(0.075, 0.058, 0.105, 1)
+border_color = Color(0.40, 0.31, 0.23, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 14.0
+content_margin_bottom = 14.0
+
+[node name="MapScreenLayout" type="BoxContainer"]
 size_flags_vertical = 3
-theme_override_constants/separation = 14
+theme_override_constants/separation = 20
 
 [node name="Left" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
-[node name="RegionName" type="Label" parent="Left"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
+size_flags_vertical = 3
+theme_override_constants/separation = 6
 
 [node name="MapCanvas" parent="Left" instance=ExtResource("1")]
-custom_minimum_size = Vector2(620, 500)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PlayerPosition" type="Label" parent="Left"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 14
 
-[node name="Right" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(280, 0)
+[node name="Details" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(330, 0)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("InfoPanel")
+
+[node name="Scroll" type="ScrollContainer" parent="Details"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Right" type="VBoxContainer" parent="Details/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="PointsHeading" type="Label" parent="Right"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
+[node name="Eyebrow" type="Label" parent="Details/Scroll/Right"]
+theme_override_colors/font_color = Color(0.91, 0.75, 0.47, 1)
+theme_override_font_sizes/font_size = 12
+text = "REGION DETAILS"
+
+[node name="RegionName" type="Label" parent="Details/Scroll/Right"]
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="RegionArtwork" type="TextureRect" parent="Details/Scroll/Right"]
+custom_minimum_size = Vector2(0, 110)
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="PointsHeading" type="Label" parent="Details/Scroll/Right"]
+theme_override_colors/font_color = Color(0.91, 0.75, 0.47, 1)
+theme_override_font_sizes/font_size = 13
 text = "POINTS OF INTEREST"
 
-[node name="POIList" type="VBoxContainer" parent="Right"]
-layout_mode = 2
-theme_override_constants/separation = 4
+[node name="POIList" type="VBoxContainer" parent="Details/Scroll/Right"]
+theme_override_constants/separation = 6
 
-[node name="Separator" type="HSeparator" parent="Right"]
-layout_mode = 2
+[node name="Separator" type="HSeparator" parent="Details/Scroll/Right"]
 
-[node name="TrackedHeading" type="Label" parent="Right"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
+[node name="TrackedHeading" type="Label" parent="Details/Scroll/Right"]
+theme_override_colors/font_color = Color(0.91, 0.75, 0.47, 1)
+theme_override_font_sizes/font_size = 13
 text = "TRACKED QUEST"
 
-[node name="TrackedQuestContent" type="VBoxContainer" parent="Right"]
-layout_mode = 2
+[node name="TrackedQuestContent" type="VBoxContainer" parent="Details/Scroll/Right"]
 theme_override_constants/separation = 8

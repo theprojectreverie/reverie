@@ -20,6 +20,7 @@ var _is_enemy := false
 var _is_boss := false
 var _is_matron := false
 var _element_color := Color("#c6cad6")
+var _last_shadow_radius := -1.0
 
 
 func configure(is_player: bool, is_boss: bool, is_matron: bool, element_color: Color) -> void:
@@ -27,6 +28,7 @@ func configure(is_player: bool, is_boss: bool, is_matron: bool, element_color: C
 	_is_boss = is_boss
 	_is_matron = is_matron
 	_element_color = element_color
+	_last_shadow_radius = -1.0
 	enemy_rune.visible = _is_enemy
 	rune_outer.default_color = _element_color
 	rune_inner.default_color = Color(_element_color.r, _element_color.g, _element_color.b, 0.7)
@@ -35,32 +37,40 @@ func configure(is_player: bool, is_boss: bool, is_matron: bool, element_color: C
 
 func update_state(pulse: float, targetable: bool, active: bool, dead: bool, base_scale: float, matron_phase: int) -> void:
 	var shadow_radius := 16.0 * base_scale * (1.25 if _is_boss else 1.0)
-	shadow_outer.position = Vector2(0, 2)
-	shadow_outer.scale = Vector2(shadow_radius * 0.55, shadow_radius * 0.42)
-	shadow_inner.position = Vector2(0, 2)
-	shadow_inner.scale = Vector2(shadow_radius * 0.34, shadow_radius * 0.26)
-	var rune_alpha := 0.12 + 0.05 * (0.5 + 0.5 * sin(pulse * 1.8))
-	rune_outer.default_color = Color(_element_color.r, _element_color.g, _element_color.b, rune_alpha)
-	rune_inner.default_color = Color(_element_color.r, _element_color.g, _element_color.b, rune_alpha * 0.7)
-	rune_outer.scale = Vector2.ONE * shadow_radius * (1.05 if _is_boss else 0.82)
-	rune_inner.scale = Vector2.ONE * shadow_radius * (1.05 if _is_boss else 0.82) * 1.18
-	rune_outer.width = 2.0 if _is_boss else 1.3
-	rune_inner.width = 1.0
-	var target_glow := 0.5 + 0.5 * sin(pulse * 4.0)
-	var target_color := Color("#ffd477")
-	target_color.a = 0.35 + 0.35 * target_glow
+	if not is_equal_approx(_last_shadow_radius, shadow_radius):
+		_last_shadow_radius = shadow_radius
+		shadow_outer.position = Vector2(0, 2)
+		shadow_outer.scale = Vector2(shadow_radius * 0.55, shadow_radius * 0.42)
+		shadow_inner.position = Vector2(0, 2)
+		shadow_inner.scale = Vector2(shadow_radius * 0.34, shadow_radius * 0.26)
+		rune_outer.scale = Vector2.ONE * shadow_radius * (1.05 if _is_boss else 0.82)
+		rune_inner.scale = Vector2.ONE * shadow_radius * (1.05 if _is_boss else 0.82) * 1.18
+		rune_outer.width = (2.0 if _is_boss else 1.3) / maxf(1.0, rune_outer.scale.x)
+		rune_inner.width = 1.0 / maxf(1.0, rune_inner.scale.x)
+		active_ring.scale = Vector2.ONE * shadow_radius * 0.92
+		active_ring.width = 2.5 / maxf(1.0, active_ring.scale.x)
+		active_ring.scale.y *= 0.38
+		enemy_rune.scale.y = 0.38
+		target_ring.scale.y = 0.38
+		var active_color := Color("#65e0d0")
+		active_color.a = 0.75
+		active_ring.default_color = active_color
+	if enemy_rune.visible:
+		var rune_alpha := 0.12 + 0.05 * (0.5 + 0.5 * sin(pulse * 1.8))
+		rune_outer.default_color = Color(_element_color.r, _element_color.g, _element_color.b, rune_alpha)
+		rune_inner.default_color = Color(_element_color.r, _element_color.g, _element_color.b, rune_alpha * 0.7)
 	target_ring.visible = targetable and not dead
-	target_outer.default_color = target_color
-	target_inner.default_color = Color(target_color.r, target_color.g, target_color.b, target_color.a * 0.48)
-	target_outer.scale = Vector2.ONE * shadow_radius * (0.75 + 0.06 * target_glow)
-	target_inner.scale = Vector2.ONE * shadow_radius * (0.92 + 0.08 * target_glow)
-	target_outer.width = 3.0
-	target_inner.width = 1.2
+	if target_ring.visible:
+		var target_glow := 0.5 + 0.5 * sin(pulse * 4.0)
+		var target_color := Color("#ffd477")
+		target_color.a = 0.35 + 0.35 * target_glow
+		target_outer.default_color = target_color
+		target_inner.default_color = Color(target_color.r, target_color.g, target_color.b, target_color.a * 0.48)
+		target_outer.scale = Vector2.ONE * shadow_radius * (0.75 + 0.06 * target_glow)
+		target_inner.scale = Vector2.ONE * shadow_radius * (0.92 + 0.08 * target_glow)
+		target_outer.width = 3.0 / maxf(1.0, target_outer.scale.x)
+		target_inner.width = 1.2 / maxf(1.0, target_inner.scale.x)
 	active_ring.visible = active and not dead
-	active_ring.scale = Vector2.ONE * shadow_radius * 0.92
-	var active_color := Color("#65e0d0")
-	active_color.a = 0.75
-	active_ring.default_color = active_color
 	matron_sigils.visible = _is_matron and matron_phase > 0
 	if matron_sigils.visible:
 		var phase_pulse := 0.5 + 0.5 * sin(pulse * (2.2 + float(matron_phase) * 0.55))

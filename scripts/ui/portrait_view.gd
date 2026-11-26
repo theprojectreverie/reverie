@@ -18,6 +18,10 @@ var show_frame: bool = true
 # Resolved painted portrait texture. Null means the procedural fallback is active.
 var character_id: String = ""
 var portrait_texture: Texture2D = null
+@export_enum("auto", "icon", "card", "art") var fit_mode: String = "auto"
+const FRAMING := preload("res://scripts/ui/portrait_framing.gd")
+const ROUND_MASK := preload("res://assets/ui/battle/panels/portrait_ellipse_mask.gdshader")
+var _round_material: ShaderMaterial
 var show_rarity_effect: bool = true
 var battle_frame_style: String = ""
 var _battle_frame_texture: Texture2D = null
@@ -50,6 +54,8 @@ func _ready() -> void:
 		portrait_art.visible = portrait_texture != null
 	_battle_frame_art = get_node_or_null("BattleFrameArt") as TextureRect
 	_refresh_battle_frame()
+	resized.connect(_refresh_portrait_fit)
+	_refresh_portrait_fit()
 	set_process(true)
 
 
@@ -59,6 +65,45 @@ func _refresh_battle_frame() -> void:
 	_battle_frame_texture = load(str(_battle_frame_paths.get(battle_frame_style, ""))) as Texture2D if not battle_frame_style.is_empty() else null
 	_battle_frame_art.texture = _battle_frame_texture
 	_battle_frame_art.visible = _battle_frame_texture != null
+	_battle_frame_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+func _resolved_fit() -> String:
+	if fit_mode != "auto":
+		return fit_mode
+	return "icon" if not battle_frame_style.is_empty() or custom_minimum_size.y < custom_minimum_size.x * 1.22 else "card"
+
+func _refresh_portrait_fit() -> void:
+	if portrait_art == null or size.x <= 0 or size.y <= 0:
+		return
+	var area := Rect2(Vector2.ZERO,size)
+	if _battle_frame_texture != null:
+		var frame_size := _battle_frame_texture.get_size()
+		frame_size *= minf(size.x/frame_size.x,size.y/frame_size.y)
+		var frame_origin := (size-frame_size)*0.5
+		var margin := Rect2(0.085,0.13,0.83,0.72) if battle_frame_style == "round" else Rect2(0.10,0.12,0.80,0.77)
+		area = Rect2(frame_origin+frame_size*margin.position,frame_size*margin.size)
+	elif show_frame:
+		area = area.grow(-minf(2.0,minf(size.x,size.y)*0.05))
+	portrait_art.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	portrait_art.position = area.position
+	portrait_art.size = area.size
+	portrait_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	var mode := _resolved_fit()
+	var source := portrait_texture
+	if mode == "card" and FRAMING.base_id(character_id) == "elathra":
+		source = FRAMING.authored_texture(character_id,"card") if portrait_texture != null else null
+	portrait_art.texture = FRAMING.fitted(source,character_id,area.size.x/maxf(1.0,area.size.y),mode)
+	portrait_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED if mode == "art" else TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	portrait_art.visible = source != null
+	if battle_frame_style == "round":
+		if _round_material == null:
+			_round_material = ShaderMaterial.new()
+			_round_material.shader = ROUND_MASK
+		_round_material.set_shader_parameter("rect_size",area.size)
+		portrait_art.material = _round_material
+	else:
+		portrait_art.material = null
+	portrait_art.modulate = Color(0.48,0.48,0.48,1) if dim else Color.WHITE
 
 func setup(
 	p_palette: Dictionary,
@@ -101,23 +146,19 @@ func setup_character(definition: CharacterDef, p_rarity: String = "") -> void:
 	# downloaded collection portrait. Only characters without any of those
 	# assets use the procedural fallback.
 	character_id = definition.id
-	portrait_texture = MainCharacterRoster.portrait_texture(definition.id)
+	portrait_texture = FRAMING.authored_texture(definition.id)
 	if portrait_texture == null:
-		portrait_texture = PortraitAssetSource.texture_for(definition.id, "hud")
-	if portrait_texture == null:
-		portrait_texture = PortraitAssetSource.texture_for(definition.id, "collection")
-	if is_node_ready() and portrait_art != null:
-		portrait_art.texture = portrait_texture
-		portrait_art.visible = portrait_texture != null
+		portrait_texture = MainCharacterRoster.portrait_texture(definition.id)
+	if is_node_ready():
+		_refresh_portrait_fit()
 
 
 ## Inject a real validated painted portrait (the future seam). When null, the
 ## procedural fallback is restored.
 func set_portrait_texture(tex: Texture2D) -> void:
 	portrait_texture = tex
-	if is_node_ready() and portrait_art != null:
-		portrait_art.texture = tex
-		portrait_art.visible = tex != null
+	if is_node_ready():
+		_refresh_portrait_fit()
 	queue_redraw()
 
 
@@ -136,6 +177,8 @@ func portrait_report() -> Dictionary:
 
 func _process(delta: float) -> void:
 	_time += delta
+	if portrait_art != null and portrait_texture != null:
+		portrait_art.modulate = Color(0.48,0.48,0.48,1) if dim else Color.WHITE
 	queue_redraw()
 
 

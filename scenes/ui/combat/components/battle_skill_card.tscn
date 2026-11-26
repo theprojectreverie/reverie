@@ -50,11 +50,11 @@ content_margin_bottom = 6.0
 modulate_color = Color(0.62, 0.62, 0.68, 0.72)
 
 [node name="BattleSkillCard" type="Button"]
-custom_minimum_size = Vector2(166, 62)
+custom_minimum_size = Vector2(178, 72)
 focus_mode = 0
 theme_override_colors/font_color = Color(0.91, 0.89, 0.84, 1)
 theme_override_colors/font_hover_color = Color(1, 0.86, 0.56, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxTexture_normal")
 theme_override_styles/hover = SubResource("StyleBoxTexture_hover")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pressed")
@@ -64,10 +64,10 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_disabled")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 5.0
-offset_right = -8.0
-offset_bottom = -5.0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = -15.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 7
@@ -91,7 +91,7 @@ mouse_filter = 2
 [node name="SkillName" type="Label" parent="CardContent/TextStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.90, 0.74, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "Skill"
 clip_text = true
 mouse_filter = 2
@@ -99,7 +99,7 @@ mouse_filter = 2
 [node name="SkillDetail" type="Label" parent="CardContent/TextStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.80, 0.81, 0.84, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 10
 text = "Element · DMG · 0"
 clip_text = true
 mouse_filter = 2
@@ -107,7 +107,7 @@ mouse_filter = 2
 [node name="SkillCost" type="Label" parent="CardContent/TextStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.83, 0.76, 0.60, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 10
 text = "FREE"
 clip_text = true
 mouse_filter = 2

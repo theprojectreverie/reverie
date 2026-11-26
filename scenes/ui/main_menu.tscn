@@ -1,14 +1,15 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/ui/main_backdrop.tscn" id="2_backdrop"]
 [ext_resource type="Script" path="res://scripts/ui/components/main_menu_navigation_component.gd" id="3_navigation"]
 [ext_resource type="Script" path="res://scripts/ui/components/main_menu_skin_component.gd" id="4_skin"]
 [ext_resource type="Script" path="res://scripts/ui/components/main_menu_overlay_component.gd" id="5_overlays"]
-[ext_resource type="Texture2D" path="res://assets/characters/ravienna/main_menu_illustration.png" id="6_ravienna"]
 [ext_resource type="Texture2D" path="res://assets/ui/dialogue/gothic_rose_dialogue_box.png" id="7_dialogue"]
 [ext_resource type="Texture2D" path="res://assets/ui/logos/reverie_title_logo.png" id="8_logo"]
 [ext_resource type="Texture2D" path="res://assets/characters/kael/player_avatar.png" id="9_kael_avatar"]
+[ext_resource type="Script" path="res://scripts/ui/components/menu_character_selector.gd" id="10_menu_character"]
+[ext_resource type="PackedScene" path="res://scenes/ui/components/menu_character_gallery.tscn" id="11_menu_gallery"]
 
 
 
@@ -69,6 +70,18 @@ corner_radius_bottom_right = 18
 corner_radius_bottom_left = 18
 shadow_color = Color(0.01, 0.015, 0.04, 0.8)
 shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="NotificationBadge"]
+bg_color = Color(0.91, 0.15, 0.26, 1)
+border_color = Color(0.22, 0.07, 0.13, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -233,21 +246,6 @@ theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 13
 
-[node name="MailButton" type="Button" parent="ReferenceInterface"]
-anchor_left = 0.895
-anchor_top = 0.018
-anchor_right = 0.95
-anchor_bottom = 0.095
-text = "✉"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 15
-
 [node name="SettingsShortcut" type="Button" parent="ReferenceInterface"]
 anchor_left = 0.96
 anchor_top = 0.018
@@ -265,10 +263,10 @@ theme_override_font_sizes/font_size = 15
 
 [node name="LeftRail" type="VBoxContainer" parent="ReferenceInterface"]
 anchor_left = 0.012
-anchor_top = 0.19
-anchor_right = 0.075
-anchor_bottom = 0.67
-theme_override_constants/separation = 12
+anchor_top = 0.16
+anchor_right = 0.085
+anchor_bottom = 0.78
+theme_override_constants/separation = 7
 
 [node name="EventsButton" type="Button" parent="ReferenceInterface/LeftRail"]
 custom_minimum_size = Vector2(68, 68)
@@ -283,6 +281,18 @@ theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 15
 
+[node name="Notification" type="Panel" parent="ReferenceInterface/LeftRail/EventsButton"]
+visible = false
+z_index = 5
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -19.0
+offset_top = 2.0
+offset_bottom = 21.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("NotificationBadge")
+
 [node name="CalendarButton" type="Button" parent="ReferenceInterface/LeftRail"]
 custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
@@ -296,110 +306,29 @@ theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 15
 
-[node name="GiftsButton" type="Button" parent="ReferenceInterface/LeftRail"]
-custom_minimum_size = Vector2(68, 68)
-layout_mode = 2
-text = "GIFTS"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 15
-
-[node name="AchievementsButton" type="Button" parent="ReferenceInterface/LeftRail"]
-custom_minimum_size = Vector2(68, 68)
-layout_mode = 2
-text = "ACHIEVEMENTS"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 15
-
-[node name="FeaturedBanners" type="VBoxContainer" parent="ReferenceInterface"]
+[node name="Notification" type="Panel" parent="ReferenceInterface/LeftRail/CalendarButton"]
 visible = false
-anchor_left = 0.82
-anchor_top = 0.16
-anchor_right = 0.985
-anchor_bottom = 0.62
-theme_override_constants/separation = 10
-
-[node name="FeaturedBannerOne" type="Button" parent="ReferenceInterface/FeaturedBanners"]
-custom_minimum_size = Vector2(0, 112)
-layout_mode = 2
-text = "NYX VAELORA\nHOLLOW MOON OVERTURE"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 15
-
-[node name="FeaturedBannerTwo" type="Button" parent="ReferenceInterface/FeaturedBanners"]
-custom_minimum_size = Vector2(0, 112)
-layout_mode = 2
-text = "CRIMSON WITCH\nSCARLET REQUIEM"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 19
-
-[node name="BannerPager" type="HBoxContainer" parent="ReferenceInterface"]
-visible = false
-anchor_left = 0.87
-anchor_top = 0.63
-anchor_right = 0.96
-anchor_bottom = 0.67
-alignment = 1
-
-[node name="BannerPageOne" type="Button" parent="ReferenceInterface/BannerPager"]
-custom_minimum_size = Vector2(18, 18)
-layout_mode = 2
-text = "•"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 19
-
-[node name="BannerPageTwo" type="Button" parent="ReferenceInterface/BannerPager"]
-custom_minimum_size = Vector2(18, 18)
-layout_mode = 2
-text = "•"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 19
+z_index = 5
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -19.0
+offset_top = 2.0
+offset_right = 0.0
+offset_bottom = 21.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("NotificationBadge")
 
 [node name="BottomNavigation" type="HBoxContainer" parent="ReferenceInterface"]
-anchor_left = 0.09
-anchor_top = 0.88
-anchor_right = 0.91
+anchor_left = 0.10
+anchor_top = 0.87
+anchor_right = 0.90
 anchor_bottom = 0.99
 alignment = 1
 theme_override_constants/separation = 8
 
 [node name="WorldButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(94, 76)
+custom_minimum_size = Vector2(84, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "WORLD"
@@ -413,7 +342,7 @@ theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 19
 
 [node name="CommunicationButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(84, 68)
+custom_minimum_size = Vector2(84, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MESSAGES"
@@ -426,8 +355,33 @@ theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 19
 
+[node name="Notification" type="Panel" parent="ReferenceInterface/BottomNavigation/CommunicationButton"]
+visible = false
+z_index = 5
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -27.0
+offset_top = 2.0
+offset_right = 0.0
+offset_bottom = 24.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("NotificationBadge")
+
+[node name="Count" type="Label" parent="ReferenceInterface/BottomNavigation/CommunicationButton/Notification"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "1"
+
 [node name="CharactersButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(84, 68)
+custom_minimum_size = Vector2(84, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PARTY"
@@ -441,7 +395,7 @@ theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 19
 
 [node name="InventoryButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(84, 68)
+custom_minimum_size = Vector2(84, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "INVENTORY"
@@ -455,7 +409,7 @@ theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 19
 
 [node name="SummonButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(94, 76)
+custom_minimum_size = Vector2(84, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SUMMON"
@@ -469,7 +423,7 @@ theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 19
 
 [node name="StoryButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(84, 68)
+custom_minimum_size = Vector2(84, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "STORY"
@@ -482,50 +436,8 @@ theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
 theme_override_font_sizes/font_size = 19
 
-[node name="CombatButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(84, 68)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "COMBAT"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 19
-
-[node name="CastleButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(94, 76)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "CASTLE"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 19
-
-[node name="ResourcesButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(84, 68)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "RESOURCES"
-theme_override_styles/normal = SubResource("MenuButtonNormal")
-theme_override_styles/hover = SubResource("MenuButtonHover")
-theme_override_styles/pressed = SubResource("MenuButtonPressed")
-theme_override_styles/focus = SubResource("MenuButtonHover")
-theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
-theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.78, 0.52, 1)
-theme_override_font_sizes/font_size = 19
-
 [node name="PvpButton" type="Button" parent="ReferenceInterface/BottomNavigation"]
-custom_minimum_size = Vector2(84, 68)
+custom_minimum_size = Vector2(84, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PVP"
@@ -548,17 +460,54 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 mouse_filter = 2
-texture = ExtResource("6_ravienna")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="MenuCharacterSelector" type="Button" parent="."]
+z_index = 4
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -222.0
+offset_top = 96.0
+offset_right = -24.0
+offset_bottom = 138.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("MenuButtonNormal")
+theme_override_styles/hover = SubResource("MenuButtonHover")
+theme_override_styles/pressed = SubResource("MenuButtonPressed")
+theme_override_styles/focus = SubResource("MenuButtonHover")
+theme_override_font_sizes/font_size = 16
+text = "Change character"
+tooltip_text = "Change your main menu character"
+disabled = true
+script = ExtResource("10_menu_character")
+
+[node name="MenuCharacterGallery" parent="." instance=ExtResource("11_menu_gallery")]
+
+[node name="MenuDialogueButton" type="Button" parent="."]
+z_index = 4
+anchor_left = 0.14
+anchor_right = 0.14
+anchor_top = 0.49
+anchor_bottom = 0.49
+offset_right = 134.0
+offset_bottom = 42.0
+text = "Talk"
+theme_override_styles/normal = SubResource("MenuButtonNormal")
+theme_override_styles/hover = SubResource("MenuButtonHover")
+theme_override_styles/pressed = SubResource("MenuButtonPressed")
+theme_override_styles/focus = SubResource("MenuButtonHover")
+theme_override_font_sizes/font_size = 16
 
 [node name="RaviennaDialogue" type="TextureRect" parent="."]
 visible = false
 z_index = 3
-anchor_left = 0.035
+anchor_left = 0.13
 anchor_top = 0.565
 anchor_right = 0.49
-anchor_bottom = 0.835
+anchor_bottom = 0.83
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
@@ -566,8 +515,9 @@ offset_bottom = 0.0
 mouse_filter = 2
 texture = ExtResource("7_dialogue")
 flip_h = true
+flip_v = true
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 0
 
 [node name="DialogueMargin" type="MarginContainer" parent="RaviennaDialogue"]
 layout_mode = 1
@@ -576,10 +526,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 126
-theme_override_constants/margin_top = 48
-theme_override_constants/margin_right = 126
-theme_override_constants/margin_bottom = 88
+theme_override_constants/margin_left = 85
+theme_override_constants/margin_top = 68
+theme_override_constants/margin_right = 85
+theme_override_constants/margin_bottom = 46
 
 [node name="DialogueContent" type="VBoxContainer" parent="RaviennaDialogue/DialogueMargin"]
 layout_mode = 2
@@ -627,5 +577,36 @@ theme_override_styles/focus = SubResource("MenuButtonHover")
 theme_override_colors/font_color = Color(0.91, 0.88, 0.96, 1)
 theme_override_colors/font_hover_color = Color(1, 0.88, 0.68, 1)
 theme_override_font_sizes/font_size = 15
+
+[node name="FriendsButton" type="Button" parent="ReferenceInterface/LeftRail"]
+custom_minimum_size = Vector2(88, 60)
+layout_mode = 2
+text = "FRIENDS"
+tooltip_text = "Friends and profile"
+
+[node name="Notification" type="Panel" parent="ReferenceInterface/LeftRail/FriendsButton"]
+visible = false
+z_index = 5
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -27.0
+offset_top = 2.0
+offset_right = 0.0
+offset_bottom = 24.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("NotificationBadge")
+
+[node name="Count" type="Label" parent="ReferenceInterface/LeftRail/FriendsButton/Notification"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "1"
 
 [connection signal="pressed" from="ReferenceInterface/LeftRail/PersistentWorldsButton" to="." method="_open_server_browser"]

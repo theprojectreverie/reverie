@@ -162,6 +162,28 @@ static func validate_banners(data: Dictionary, context: Dictionary, rarities: Ar
 						ContentValidator._err(errors, file, character_path, "expected a character ID string")
 						continue
 					var character_key := str(character_id)
+					if rarity == "common" and banner.get("common_rewards", {}).has(character_key):
+						var mob: Dictionary = banner.common_rewards[character_key]
+						if str(mob.get("name", "")).is_empty() or not mob.get("items") is Dictionary or mob.items.is_empty():
+							ContentValidator._err(errors, file, character_path, "invalid mob reward")
+						else:
+							for item_id in mob.items:
+								if str(items.get(item_id, {}).get("category", "")) != "material" or int(mob.items[item_id]) <= 0:
+									ContentValidator._err(errors, file, character_path, "invalid upgrade material reward")
+						if seen_characters.has(character_key):
+							ContentValidator._err(errors, file, character_path, "duplicate mob reward")
+						seen_characters[character_key] = true
+						continue
+					if rarity in ["rare", "epic"] and banner.get("upgrade_cards", {}).has(character_key):
+						var card: Dictionary = banner.upgrade_cards[character_key]
+						var target := str(card.get("target", ""))
+						var valid_target := str(items.get(target, {}).get("rarity", "")) == "epic" if rarity == "rare" else str(characters.get(target, {}).get("rarity", "")) == "legendary" and bool(characters.get(target, {}).get("gacha_enabled", true))
+						if str(card.get("rarity", "")) != rarity or int(card.get("cost", 0)) != (20 if rarity == "rare" else 10) or not valid_target or str(items.get(character_key, {}).get("category", "")) != "material":
+							ContentValidator._err(errors, file, character_path, "invalid character upgrade card")
+						if seen_characters.has(character_key):
+							ContentValidator._err(errors, file, character_path, "duplicate upgrade card")
+						seen_characters[character_key] = true
+						continue
 					if not characters.has(character_key):
 						ContentValidator._err(errors, file, character_path, "references missing character '%s'" % character_key)
 						continue

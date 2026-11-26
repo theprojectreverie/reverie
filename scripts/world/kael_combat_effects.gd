@@ -24,6 +24,8 @@ func _process(_delta: float) -> void:
 		_play_state(state)
 
 func _play_state(state: int) -> void:
+	for shape in [$SlashTrail, $ImpactRing, $CastRing, $EruptionCenter, $AuraHalo]:
+		shape.hide()
 	if state in [ActorVisual.S_DAMAGE, ActorVisual.S_DEFEAT, ActorVisual.S_VICTORY]:
 		_clear_transient_particles()
 	var clip: StringName = &"idle"
@@ -48,6 +50,7 @@ func _play_state(state: int) -> void:
 
 func _restart(particles: CPUParticles2D) -> void:
 	particles.emitting = false
+	GraphicsSettings.prepare_combat_particles(particles)
 	particles.restart()
 	particles.emitting = true
 

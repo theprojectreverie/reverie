@@ -28,10 +28,14 @@ func _ready() -> void:
 	_center = size * 0.5
 	_knob_pos = _center
 	set_process(false)
+	TouchInput.released.connect(_reset_capture)
 	_refresh_visuals()
 
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_VISIBILITY_CHANGED and not is_visible_in_tree() and is_node_ready():
+		if _pressed:
+			_release()
 	if what == NOTIFICATION_RESIZED:
 		_center = size * 0.5
 		if not _pressed:
@@ -39,9 +43,22 @@ func _notification(what: int) -> void:
 		_refresh_visuals()
 
 
+func _input(event: InputEvent) -> void:
+	if _active_index < 0:
+		return
+	if event is InputEventScreenTouch and event.index == _active_index and (not event.pressed or event.canceled):
+		_release()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventScreenDrag and event.index == _active_index:
+		_update_knob(get_global_transform_with_canvas().affine_inverse() * event.position)
+		get_viewport().set_input_as_handled()
+
 func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouse and (event.device == InputEvent.DEVICE_ID_EMULATION or _active_index >= 0):
+		accept_event()
+		return
 	if event is InputEventScreenTouch:
-		if event.pressed and _active_index < 0:
+		if event.pressed and not event.canceled and _active_index < 0:
 			_active_index = event.index
 			_pressed = true
 			_update_knob(event.position)
@@ -70,15 +87,19 @@ func _update_knob(local_position: Vector2) -> void:
 		offset = offset.normalized() * RADIUS
 	_knob_pos = _center + offset
 	var value := offset / RADIUS
-	TouchInput.set_move_vector(value)
+	var strength := value.length()
+	# Small dead zone removes thumb jitter without reducing full-speed reach.
+	TouchInput.set_move_vector(Vector2.ZERO if strength <= 0.12 else value.normalized() * ((strength - 0.12) / 0.88))
 	_update_knob_position()
 
 
 func _release() -> void:
+	TouchInput.release()
+
+func _reset_capture() -> void:
 	_active_index = -1
 	_pressed = false
 	_knob_pos = _center
-	TouchInput.release()
 	_update_knob_position()
 
 

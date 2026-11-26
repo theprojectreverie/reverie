@@ -2,6 +2,7 @@ extends Node
 ## Bridge between the on-screen joystick (UI) and the player controller.
 ## Kept as its own autoload so gameplay never reaches into UI nodes.
 
+signal released
 var move_vector: Vector2 = Vector2.ZERO
 var touch_active: bool = false
 var interact_pressed: bool = false
@@ -21,3 +22,8 @@ func release() -> void:
 	move_vector = Vector2.ZERO
 	touch_active = false
 	interact_pressed = false
+	released.emit()
+
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED]:
+		release()

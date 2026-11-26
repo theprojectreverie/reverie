@@ -1,0 +1,499 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bqoog3oedtjwq"]
+
+[ext_resource type="Texture2D" uid="uid://dwef7dbca0cwd" path="res://assets/enemies/gerald_fallen/gerald_fallen_attack_16x128.png" id="attack"]
+[ext_resource type="Texture2D" uid="uid://c2xhyhmvqoqng" path="res://assets/enemies/gerald_fallen/gerald_fallen_defeat_14x128.png" id="defeat"]
+[ext_resource type="Texture2D" uid="uid://bywh7k0rcjb07" path="res://assets/enemies/gerald_fallen/gerald_earthquake_16x384x128.png" id="earthquake"]
+[ext_resource type="Texture2D" uid="uid://ckbsdfkay8qdh" path="res://assets/enemies/gerald_fallen/gerald_fallen_hit_8x128.png" id="hit"]
+[ext_resource type="Texture2D" uid="uid://bqlia53vaxppt" path="res://assets/enemies/gerald_fallen/gerald_fallen_idle_left_4x128.png" id="idle"]
+
+[sub_resource type="AtlasTexture" id="attack_0"]
+atlas = ExtResource("attack")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_1"]
+atlas = ExtResource("attack")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_2"]
+atlas = ExtResource("attack")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_3"]
+atlas = ExtResource("attack")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_4"]
+atlas = ExtResource("attack")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_5"]
+atlas = ExtResource("attack")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_6"]
+atlas = ExtResource("attack")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_7"]
+atlas = ExtResource("attack")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_8"]
+atlas = ExtResource("attack")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_9"]
+atlas = ExtResource("attack")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_10"]
+atlas = ExtResource("attack")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_11"]
+atlas = ExtResource("attack")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_12"]
+atlas = ExtResource("attack")
+region = Rect2(0, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_13"]
+atlas = ExtResource("attack")
+region = Rect2(128, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_14"]
+atlas = ExtResource("attack")
+region = Rect2(256, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_15"]
+atlas = ExtResource("attack")
+region = Rect2(384, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_0"]
+atlas = ExtResource("defeat")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_1"]
+atlas = ExtResource("defeat")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_2"]
+atlas = ExtResource("defeat")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_3"]
+atlas = ExtResource("defeat")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_4"]
+atlas = ExtResource("defeat")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_5"]
+atlas = ExtResource("defeat")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_6"]
+atlas = ExtResource("defeat")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_7"]
+atlas = ExtResource("defeat")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_8"]
+atlas = ExtResource("defeat")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_9"]
+atlas = ExtResource("defeat")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_10"]
+atlas = ExtResource("defeat")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_11"]
+atlas = ExtResource("defeat")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_12"]
+atlas = ExtResource("defeat")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_13"]
+atlas = ExtResource("defeat")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_0"]
+atlas = ExtResource("earthquake")
+region = Rect2(0, 0, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_1"]
+atlas = ExtResource("earthquake")
+region = Rect2(384, 0, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_2"]
+atlas = ExtResource("earthquake")
+region = Rect2(768, 0, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_3"]
+atlas = ExtResource("earthquake")
+region = Rect2(1152, 0, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_4"]
+atlas = ExtResource("earthquake")
+region = Rect2(0, 128, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_5"]
+atlas = ExtResource("earthquake")
+region = Rect2(384, 128, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_6"]
+atlas = ExtResource("earthquake")
+region = Rect2(768, 128, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_7"]
+atlas = ExtResource("earthquake")
+region = Rect2(1152, 128, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_8"]
+atlas = ExtResource("earthquake")
+region = Rect2(0, 256, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_9"]
+atlas = ExtResource("earthquake")
+region = Rect2(384, 256, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_10"]
+atlas = ExtResource("earthquake")
+region = Rect2(768, 256, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_11"]
+atlas = ExtResource("earthquake")
+region = Rect2(1152, 256, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_12"]
+atlas = ExtResource("earthquake")
+region = Rect2(0, 384, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_13"]
+atlas = ExtResource("earthquake")
+region = Rect2(384, 384, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_14"]
+atlas = ExtResource("earthquake")
+region = Rect2(768, 384, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="earthquake_15"]
+atlas = ExtResource("earthquake")
+region = Rect2(1152, 384, 384, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_0"]
+atlas = ExtResource("hit")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_1"]
+atlas = ExtResource("hit")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_2"]
+atlas = ExtResource("hit")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_3"]
+atlas = ExtResource("hit")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_4"]
+atlas = ExtResource("hit")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_5"]
+atlas = ExtResource("hit")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_6"]
+atlas = ExtResource("hit")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_7"]
+atlas = ExtResource("hit")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("idle")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("idle")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("idle")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("idle")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.7,
+"texture": SubResource("attack_0")
+}, {
+"duration": 1.1,
+"texture": SubResource("attack_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("attack_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("attack_3")
+}, {
+"duration": 0.9,
+"texture": SubResource("attack_4")
+}, {
+"duration": 0.9,
+"texture": SubResource("attack_5")
+}, {
+"duration": 0.9,
+"texture": SubResource("attack_6")
+}, {
+"duration": 1.1,
+"texture": SubResource("attack_7")
+}, {
+"duration": 0.65,
+"texture": SubResource("attack_8")
+}, {
+"duration": 0.55,
+"texture": SubResource("attack_9")
+}, {
+"duration": 0.9,
+"texture": SubResource("attack_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("attack_11")
+}, {
+"duration": 1.05,
+"texture": SubResource("attack_12")
+}, {
+"duration": 1.15,
+"texture": SubResource("attack_13")
+}, {
+"duration": 1.4,
+"texture": SubResource("attack_14")
+}, {
+"duration": 2.1,
+"texture": SubResource("attack_15")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.6,
+"texture": SubResource("defeat_0")
+}, {
+"duration": 1.3,
+"texture": SubResource("defeat_1")
+}, {
+"duration": 1.2,
+"texture": SubResource("defeat_2")
+}, {
+"duration": 1.2,
+"texture": SubResource("defeat_3")
+}, {
+"duration": 1.4,
+"texture": SubResource("defeat_4")
+}, {
+"duration": 1.5,
+"texture": SubResource("defeat_5")
+}, {
+"duration": 1.5,
+"texture": SubResource("defeat_6")
+}, {
+"duration": 1.4,
+"texture": SubResource("defeat_7")
+}, {
+"duration": 1.4,
+"texture": SubResource("defeat_8")
+}, {
+"duration": 1.3,
+"texture": SubResource("defeat_9")
+}, {
+"duration": 1.3,
+"texture": SubResource("defeat_10")
+}, {
+"duration": 1.3,
+"texture": SubResource("defeat_11")
+}, {
+"duration": 1.5,
+"texture": SubResource("defeat_12")
+}, {
+"duration": 4.0,
+"texture": SubResource("defeat_13")
+}],
+"loop": 0,
+"name": &"defeat",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.6,
+"texture": SubResource("earthquake_0")
+}, {
+"duration": 1.3,
+"texture": SubResource("earthquake_1")
+}, {
+"duration": 1.2,
+"texture": SubResource("earthquake_2")
+}, {
+"duration": 1.2,
+"texture": SubResource("earthquake_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("earthquake_4")
+}, {
+"duration": 0.9,
+"texture": SubResource("earthquake_5")
+}, {
+"duration": 0.8,
+"texture": SubResource("earthquake_6")
+}, {
+"duration": 0.8,
+"texture": SubResource("earthquake_7")
+}, {
+"duration": 1.1,
+"texture": SubResource("earthquake_8")
+}, {
+"duration": 1.8,
+"texture": SubResource("earthquake_9")
+}, {
+"duration": 1.2,
+"texture": SubResource("earthquake_10")
+}, {
+"duration": 1.1,
+"texture": SubResource("earthquake_11")
+}, {
+"duration": 1.3,
+"texture": SubResource("earthquake_12")
+}, {
+"duration": 1.3,
+"texture": SubResource("earthquake_13")
+}, {
+"duration": 1.3,
+"texture": SubResource("earthquake_14")
+}, {
+"duration": 2.0,
+"texture": SubResource("earthquake_15")
+}],
+"loop": 0,
+"name": &"earthquake",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 0.8,
+"texture": SubResource("hit_0")
+}, {
+"duration": 0.5,
+"texture": SubResource("hit_1")
+}, {
+"duration": 0.5,
+"texture": SubResource("hit_2")
+}, {
+"duration": 0.7,
+"texture": SubResource("hit_3")
+}, {
+"duration": 0.8,
+"texture": SubResource("hit_4")
+}, {
+"duration": 0.9,
+"texture": SubResource("hit_5")
+}, {
+"duration": 0.9,
+"texture": SubResource("hit_6")
+}, {
+"duration": 1.1,
+"texture": SubResource("hit_7")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("idle_0")
+}, {
+"duration": 2.6,
+"texture": SubResource("idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_2")
+}, {
+"duration": 3.5,
+"texture": SubResource("idle_3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]

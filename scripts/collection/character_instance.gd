@@ -6,6 +6,7 @@ extends RefCounted
 const LEVEL_CAP_PER_ASCENSION := 20
 const MAX_ASCENSION := 3
 const MAX_AWAKENING := 5
+const MAX_SKILL_LEVEL := 5
 const SLOTS := ["weapon", "armor", "accessory"]
 
 var uid: String = ""
@@ -17,6 +18,7 @@ var awakening: int = 0
 var bond: int = 0
 var dupes: int = 0
 var equipment: Dictionary = {}
+var skill_levels: Dictionary = {}
 
 
 static func create(character_id: String, instance_uid: String) -> CharacterInstance:
@@ -37,6 +39,11 @@ static func from_dict(data: Dictionary) -> CharacterInstance:
 	instance.bond = maxi(0, int(data.get("bond", 0)))
 	instance.dupes = maxi(0, int(data.get("dupes", 0)))
 	instance.equipment = data.get("equipment", {})
+	var saved: Variant = data.get("skill_levels", {})
+	if saved is Dictionary:
+		for id in saved:
+			if saved[id] is int or saved[id] is float:
+				instance.skill_levels[str(id)] = clampi(int(saved[id]), 1, MAX_SKILL_LEVEL)
 	return instance
 
 
@@ -51,7 +58,12 @@ func to_dict() -> Dictionary:
 		"bond": bond,
 		"dupes": dupes,
 		"equipment": equipment,
+		"skill_levels": skill_levels.duplicate(true),
 	}
+
+
+func skill_level(skill_id: String) -> int:
+	return clampi(int(skill_levels.get(skill_id, 1)), 1, MAX_SKILL_LEVEL)
 
 
 func level_cap() -> int:

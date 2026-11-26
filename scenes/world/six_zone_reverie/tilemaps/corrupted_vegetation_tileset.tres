@@ -1,0 +1,40 @@
+[gd_resource type="TileSet" format=3 uid="uid://buigtbrtuwokn"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/bush_corrupted_01.tscn" id="1_52ffg"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/tree_corrupted_02.tscn" id="2_2vlex"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/tree_dead_01.tscn" id="3_8aor1"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/tree_dead_02.tscn" id="4_mlplf"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/tree_dead_03.tscn" id="5_mu6yr"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/twisted_roots_01.tscn" id="6_dqcq5"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/twisted_roots_02.tscn" id="7_67ins"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/bush_dead_01.tscn" id="8_tg65x"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/corrupted_flower_01.tscn" id="9_gcduv"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/corrupted_flower_02.tscn" id="10_d11od"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/corruption_growth_01.tscn" id="11_ykpby"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/corruption_growth_02.tscn" id="12_jx1i3"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/corruption_growth_03.tscn" id="13_hj5ht"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/dark_grass_tuft_01.tscn" id="14_76r4p"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Vegetation/tree_corrupted_01.tscn" id="15_g0xgy"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_h18s8"]
+resource_name = "corrupted_vegetation"
+scenes/1/scene = ExtResource("1_52ffg")
+scenes/2/scene = ExtResource("8_tg65x")
+scenes/3/scene = ExtResource("9_gcduv")
+scenes/4/scene = ExtResource("10_d11od")
+scenes/5/scene = ExtResource("11_ykpby")
+scenes/6/scene = ExtResource("12_jx1i3")
+scenes/7/scene = ExtResource("13_hj5ht")
+scenes/8/scene = ExtResource("14_76r4p")
+scenes/9/scene = ExtResource("15_g0xgy")
+scenes/10/scene = ExtResource("2_2vlex")
+scenes/11/scene = ExtResource("3_8aor1")
+scenes/12/scene = ExtResource("4_mlplf")
+scenes/13/scene = ExtResource("5_mu6yr")
+scenes/14/scene = ExtResource("6_dqcq5")
+scenes/15/scene = ExtResource("7_67ins")
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetScenesCollectionSource_h18s8")

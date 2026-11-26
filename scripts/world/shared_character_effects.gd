@@ -16,8 +16,12 @@ func _ready() -> void:
 	cast_particles.emitting = false
 
 func _process(_delta: float) -> void:
-	if owner_visual == null or owner_visual.animator == null or owner_visual.character_id in ["kael", "lilith"]:
+	if owner_visual == null or owner_visual.animator == null or owner_visual.character_id == "kael" or owner_visual.character_id.begins_with("gerald") or owner_visual.character_id.begins_with("lilith") or owner_visual.character_id.begins_with("ravienna"):
 		visible = false
+		if _last_state != -1:
+			player.stop()
+			_clear_transient_particles()
+			_last_state = -1
 		return
 	visible = true
 	_apply_palette()
@@ -56,6 +60,7 @@ func _play_state(state: int) -> void:
 
 func _restart(particles: CPUParticles2D) -> void:
 	particles.emitting = false
+	GraphicsSettings.prepare_combat_particles(particles)
 	particles.restart()
 	particles.emitting = true
 

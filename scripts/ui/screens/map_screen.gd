@@ -9,6 +9,8 @@ var _info_box: VBoxContainer
 var _tracked_box: VBoxContainer
 var _map_canvas: Control
 var _region_label: Label
+var _region_artwork: TextureRect
+var _map_layout: BoxContainer
 var _player_position_label: Label
 var _selected_poi_id: String = ""
 var _selected_detail_label: Label
@@ -20,21 +22,34 @@ var _displayed_region_id: String = ""
 
 func _init() -> void:
 	screen_title = "World Map"
-	screen_subtitle = "Current region, points of interest, and quest objectives"
+	screen_subtitle = "Act I atlas  |  Explore regions and follow your journey"
 
 
 func _build_content() -> void:
-	var layout := MAP_LAYOUT_SCENE.instantiate() as HBoxContainer
+	_shell.get_node("Margin/Panel").add_theme_stylebox_override("panel",UITheme.style(Color("#171322"),Color("#a38350"),12,1,18))
+	_shell.get_node("Margin/Panel/Root/Header/Titles/Title").add_theme_color_override("font_color",UITheme.GOLD_BRIGHT)
+	if preload("res://scripts/world/six_zone_reverie/fast_travel.gd").find_zone(self) != null:
+		_shell.get_node("Margin/Panel/Root/Header/Titles/Title").text = "World Map | Reverie"
+		_shell.get_node("Margin/Panel/Root/Header/Titles/Subtitle").text = "Explore the route and teleport to unlocked zones"
+		var navigation = preload("res://scripts/world/six_zone_reverie/chapter_navigation.gd")
+		var guidance: Dictionary = navigation.resolve(navigation.find_zone(self))
+		if not guidance.is_empty():
+			content.add_child(UIFactory.wrapped(("Party expedition: " if not MultiplayerGateway.standalone_expedition_id.is_empty() else "Main story: ") + str(guidance.text),14,UITheme.GOLD))
+		content.add_child(load("res://scenes/ui/components/fast_travel_panel.tscn").instantiate())
+		return
+	var layout := MAP_LAYOUT_SCENE.instantiate() as BoxContainer
 	layout.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	content.add_child(layout)
 
-	_region_label = layout.get_node("Left/RegionName") as Label
+	_map_layout=layout
+	_region_label = layout.get_node("Details/Scroll/Right/RegionName") as Label
+	_region_artwork = layout.get_node("Details/Scroll/Right/RegionArtwork") as TextureRect
 	_map_canvas = layout.get_node("Left/MapCanvas") as Control
 	_last_map_region_id = str(GameState.session_domain.player_region)
 	_last_map_tracked_quest = str(GameState.quest_domain.tracked_quest())
 	_player_position_label = layout.get_node("Left/PlayerPosition") as Label
-	_info_box = layout.get_node("Right/POIList") as VBoxContainer
-	_tracked_box = layout.get_node("Right/TrackedQuestContent") as VBoxContainer
+	_info_box = layout.get_node("Details/Scroll/Right/POIList") as VBoxContainer
+	_tracked_box = layout.get_node("Details/Scroll/Right/TrackedQuestContent") as VBoxContainer
 
 	var region: Dictionary = {}
 	if GameState.session_domain.player_region != "":
@@ -45,6 +60,9 @@ func _build_content() -> void:
 	elif not str(GameState.session_domain.player_region).is_empty():
 		region_name = str(GameState.session_domain.player_region).replace("_", " ").capitalize()
 	_region_label.text = region_name
+	_update_region_artwork(str(GameState.session_domain.player_region))
+	get_viewport().size_changed.connect(_adapt_atlas_layout)
+	_adapt_atlas_layout.call_deferred()
 	_region_label.add_theme_color_override("font_color", UITheme.TEXT)
 
 	# Use the live player node whenever the world is active; the saved
@@ -73,6 +91,7 @@ func _on_atlas_region_selected(region_id: String) -> void:
 	if region.is_empty():
 		return
 	_displayed_region_id = region_id
+	_update_region_artwork(region_id)
 	_region_label.text = str(region.get("name", region_id.replace("_", " ").capitalize()))
 	var player_world := _current_player_region_position()
 	var is_current_region := region_id == str(GameState.session_domain.player_region)
@@ -91,7 +110,7 @@ func _populate_region_pois(region: Dictionary, player_world: Vector2) -> void:
 	for child in _info_box.get_children():
 		_info_box.remove_child(child)
 		child.queue_free()
-	_selected_detail_label = UIFactory.label("Select a point of interest to inspect it.", 11, UITheme.TEXT_DIM)
+	_selected_detail_label = UIFactory.wrapped("Select a point of interest to inspect it.", 13, UITheme.TEXT_DIM)
 	_info_box.add_child(_selected_detail_label)
 	_info_box.add_child(HSeparator.new())
 	_selected_poi_id = ""
@@ -114,9 +133,12 @@ func _populate_region_pois(region: Dictionary, player_world: Vector2) -> void:
 		var button := Button.new()
 		button.text = "%s  (%s)%s" % [poi_name, poi_type.capitalize(), distance_text]
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		button.custom_minimum_size = Vector2(0, 30)
+		button.custom_minimum_size = Vector2(0, 40)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button.add_theme_font_size_override("font_size", 11)
+		button.add_theme_font_size_override("font_size", 14)
+		button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		button.tooltip_text=button.text
+		button.add_theme_stylebox_override("normal",UITheme.style(Color("#211a2e"),Color("#55445d"),6,1,8))
 		button.add_theme_color_override("font_color", UITheme.TEXT_DIM)
 		button.pressed.connect(func() -> void: _select_poi(poi_id, poi, _current_player_region_position()))
 		_info_box.add_child(button)
@@ -175,14 +197,14 @@ func _populate_tracked_quest(region: Dictionary, player_world: Vector2) -> void:
 
 	var definition: Dictionary = ContentDB.get_quest(tracked)
 	var step: Dictionary = GameState.quest_domain.quest_step(tracked)
-	_tracked_box.add_child(UIFactory.label(str(definition.get("name", tracked)), 13, UITheme.TEXT))
+	_tracked_box.add_child(UIFactory.wrapped(str(definition.get("name", tracked)), 16, UITheme.GOLD_BRIGHT))
 	var resolver: QuestNavigationResolver = QuestNavigationResolver.shared()
 	var game_screen := get_tree().get_first_node_in_group("game_screen")
 	if game_screen != null and game_screen.get("quest_resolver") is QuestNavigationResolver:
 		resolver = game_screen.get("quest_resolver") as QuestNavigationResolver
 	var resolved := resolver.get_resolved_target(GameState.session_domain.player_region, player_world)
 	var objective_text := str(resolved.get("step_text", step.get("text", "")))
-	_tracked_box.add_child(UIFactory.label(objective_text, 11, UITheme.TEXT_DIM))
+	_tracked_box.add_child(UIFactory.wrapped(objective_text, 14, UITheme.TEXT_DIM))
 	if not bool(resolved.get("valid", false)):
 		_tracked_box.add_child(UIFactory.label("Destination unavailable", 12, UITheme.TEXT_FAINT))
 	elif not bool(resolved.get("same_frame", false)):
@@ -261,3 +283,18 @@ func _quest_arrow(direction: Variant = null) -> String:
 	var sector := int(round(angle / (PI * 0.25))) % 8
 	var arrows := ["→", "↘", "↓", "↙", "←", "↖", "↑", "↗"]
 	return arrows[sector]
+
+
+func _update_region_artwork(id: String) -> void:
+	if _region_artwork==null:return
+	var file := "royal_gardens" if id=="castle_royal_gardens" else id
+	var path := "res://assets/environment/act1_map/"+file+".png"
+	_region_artwork.texture=load(path) if ResourceLoader.exists(path) else null
+	_region_artwork.visible=_region_artwork.texture!=null
+
+func _adapt_atlas_layout() -> void:
+	if _map_layout==null:return
+	var portrait := get_viewport_rect().size.y>get_viewport_rect().size.x
+	_map_layout.vertical=portrait
+	_map_layout.get_node("Details").custom_minimum_size=Vector2(0,180) if portrait else Vector2(330,0)
+	_map_canvas.custom_minimum_size=Vector2(0,300) if portrait else Vector2(420,360)

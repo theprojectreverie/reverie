@@ -14,6 +14,8 @@ var _target_uid: String = ""
 
 
 func show_item(item_id: String) -> void:
+	if _item_id != item_id:
+		_target_uid = ""
 	_item_id = item_id
 	UIFactory.clear(self)
 	if item_id.is_empty():
@@ -82,6 +84,11 @@ func show_item(item_id: String) -> void:
 func _build_equipment_actions(item: Dictionary, amount: int) -> void:
 	var slot_id := str(item.get("slot", ""))
 	add_child(UIFactory.chip("SLOT  " + slot_id.capitalize(), UITheme.TEAL))
+	var stored := GameState.roster_domain.stored_copies(_item_id)
+	if not stored.is_empty():
+		var best := GameState.roster_domain.best_stored_gear(_item_id)
+		add_child(UIFactory.wrapped("Enhanced copies in bag: %d. Best: +%d. Equipping uses the strongest stored copy first." % [stored.size(), int(best.get("level", 0))], 11, UITheme.GOLD))
+	add_child(UIFactory.label("Enhancement limit: +%d" % GameState.roster_domain.gear_cap(_item_id), 11, UITheme.TEXT_DIM))
 	var equipped_by := _equipped_by(_item_id)
 	if not equipped_by.is_empty():
 		add_child(UIFactory.label("Equipped by: " + ", ".join(equipped_by), 11, UITheme.TEAL))
@@ -91,7 +98,7 @@ func _build_equipment_actions(item: Dictionary, amount: int) -> void:
 				continue
 			for slot in CharacterInstance.SLOTS:
 				if instance.equipped_item(slot) == _item_id:
-					var unequip_button := UIFactory.small_button("Unequip from " + definition.display_name)
+					var unequip_button := UIFactory.small_button("Unequip +%d from %s" % [GameState.roster_domain.gear_level(instance.uid, slot), definition.display_name])
 					var uid_str: String = str(instance.uid)
 					var slot_name_str: String = str(slot)
 					unequip_button.pressed.connect(func() -> void: unequip_requested.emit(uid_str, slot_name_str))
@@ -100,36 +107,38 @@ func _build_equipment_actions(item: Dictionary, amount: int) -> void:
 	target_row.add_child(UIFactory.label("Equip to", 11, UITheme.TEXT_FAINT))
 	var picker := EQUIPMENT_TARGET_PICKER_SCENE.instantiate() as OptionButton
 	var index := 0
+	var selected_index := 0
 	for instance in GameState.roster_domain.roster:
 		var definition: CharacterDef = ContentDB.get_character(instance.char_id)
 		if definition == null:
 			continue
 		picker.add_item("%s  ·  Lv %d" % [definition.display_name, instance.level])
 		picker.set_item_metadata(index, instance.uid)
+		if instance.uid == _target_uid:
+			selected_index = index
 		index += 1
 	if index == 0:
 		picker.disabled = true
 		target_row.add_child(picker)
 	else:
-		_target_uid = str(picker.get_item_metadata(0))
+		picker.select(selected_index)
+		_target_uid = str(picker.get_item_metadata(selected_index))
 		target_row.add_child(picker)
-		var comparison := _build_comparison(item, _target_uid)
-		add_child(comparison)
-		_maybe_add_enhancement(_target_uid, slot_id)
 		picker.item_selected.connect(func(selected: int) -> void:
 			_target_uid = str(picker.get_item_metadata(selected))
-			var old_comparison := get_node_or_null("EquipmentComparison")
-			if old_comparison != null:
-				old_comparison.queue_free()
-			var next_comparison := _build_comparison(item, _target_uid)
-			next_comparison.name = "EquipmentComparison"
-			add_child(next_comparison)
+			show_item.call_deferred(_item_id)
 		)
 	var equip_button := UIFactory.button("Equip", true)
 	equip_button.disabled = amount <= 0 or index == 0
 	equip_button.pressed.connect(func() -> void: equip_requested.emit(_item_id, _target_uid))
 	target_row.add_child(equip_button)
 	add_child(target_row)
+	if index > 0:
+		add_child(_build_comparison(item, _target_uid))
+		_maybe_add_enhancement(_target_uid, slot_id)
+		var target := GameState.roster_domain._find_instance(_target_uid)
+		if target != null and target.equipped_item(slot_id) == _item_id:
+			equip_button.disabled = true
 
 
 func _maybe_add_enhancement(uid: String, slot_id: String) -> void:
@@ -141,9 +150,14 @@ func _maybe_add_enhancement(uid: String, slot_id: String) -> void:
 	if target_instance == null or target_instance.equipped_item(slot_id) != _item_id:
 		return
 	var enhancement := GameState.roster_domain.gear_level(uid, slot_id)
-	add_child(UIFactory.label("ENHANCEMENT  +%d%% stats" % (enhancement * 8), 10, UITheme.GOLD))
+	var cap := GameState.roster_domain.gear_cap(_item_id)
+	add_child(UIFactory.label("ENHANCEMENT +%d / +%d | +%d%% stats" % [enhancement, cap, enhancement * 8], 10, UITheme.GOLD))
 	var upgrade_info := GameState.roster_domain.gear_upgrade_info(uid, slot_id)
 	var upgrade_button := UIFactory.button("Enhance to +%d  ·  %d Gold  ·  %d Glade Sap" % [enhancement + 1, int(upgrade_info.get("gold", 0)), int(upgrade_info.get("sap", 0))], true)
+	if enhancement >= cap:
+		upgrade_button.text = "Fully enhanced"
+	elif int(upgrade_info.get("shards", 0)) > 0:
+		upgrade_button.text = "Enhance to +%d: %d gold, %d Sap, %d Shard" % [enhancement + 1, int(upgrade_info.gold), int(upgrade_info.sap), int(upgrade_info.shards)]
 	upgrade_button.disabled = not bool(upgrade_info.get("ok", false))
 	upgrade_button.tooltip_text = str(upgrade_info.get("reason", "Raises this gear's stats by 8% per level."))
 	upgrade_button.pressed.connect(func() -> void: enhance_requested.emit(uid, slot_id))
@@ -179,8 +193,17 @@ func _build_comparison(item: Dictionary, uid: String) -> VBoxContainer:
 	var current_id := instance.equipped_item(slot)
 	var current: Dictionary = ContentDB.get_item(current_id) if not current_id.is_empty() else {}
 	box.add_child(UIFactory.label("Equipped: %s" % str(current.get("name", "Empty slot")), 11, UITheme.TEXT))
-	var next_stats: Dictionary = item.get("stats", {})
-	var old_stats: Dictionary = current.get("stats", {})
+	var best := GameState.roster_domain.best_stored_gear(_item_id)
+	var current_level := GameState.roster_domain.gear_level(uid, slot)
+	var current_roll: Dictionary = GameState.gear_rerolls.get(uid + "|" + slot, {})
+	var next_level := int(best.get("level", 0))
+	var next_roll: Dictionary = best.get("reroll", {})
+	if current_id == _item_id:
+		next_level = current_level
+		next_roll = current_roll
+	var next_stats := _copy_stats(item, next_level, next_roll)
+	var old_stats := _copy_stats(current, current_level, current_roll)
+	box.add_child(UIFactory.label("Enhancement: +%d to +%d (item stats only)" % [current_level, next_level], 10, UITheme.TEXT_DIM))
 	var keys: Array = next_stats.keys()
 	for key in old_stats.keys():
 		if not keys.has(key):
@@ -193,3 +216,15 @@ func _build_comparison(item: Dictionary, uid: String) -> VBoxContainer:
 	if current_id == str(item.get("id", _item_id)):
 		box.add_child(UIFactory.label("Already equipped in this slot.", 10, UITheme.TEXT_DIM))
 	return box
+
+
+func _copy_stats(item: Dictionary, level: int, roll: Dictionary) -> Dictionary:
+	var stats: Dictionary = item.get("stats", {}).duplicate(true)
+	var stat := str(roll.get("stat", ""))
+	var base := float(stats.get(stat, 0.0))
+	for key in stats:
+		stats[key] = float(stats[key]) * (1.0 + 0.08 * level)
+	if base > 0.0 and stats.has(stat):
+		var limit := maxf(0.001 if stat in ["crit", "crit_dmg"] else 1.0, base * 0.10)
+		stats[stat] += clampf(float(roll.get("value", 0.0)), 0.0, limit)
+	return stats

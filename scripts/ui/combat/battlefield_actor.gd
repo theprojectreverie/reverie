@@ -23,6 +23,20 @@ const PLATE_OFFSET := 14.0
 
 
 var rose_art: AnimatedSprite2D
+var fairy_art: AnimatedSprite2D
+var _fairy_facing_right := false
+var gerald_art: AnimatedSprite2D
+var gerald_walk_sequence_active := false
+var _gerald_walk_progress := 0.0
+var _gerald_walk_target: WeakRef
+const GERALD_WALK_TIME := 1.2
+const GERALD_STRIKE_TIME := 1.74
+var cassien_art: AnimatedSprite2D
+var elathra_art: AnimatedSprite2D
+var ravienna_art: Node2D
+var kael_boss_art_enabled := false
+var kael_boss_sequence_active := false
+@onready var kael_boss_art: AnimatedSprite2D = $KaelBossCombatArt
 var unit: Combatant = null
 var visual: ActorVisual = null
 var _matron_presentation: FallenMatronPresentationComponent
@@ -114,6 +128,29 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 			rose_art.position.y = -44.0
 			visual.hide()
 			rose_art.animation_finished.connect(_rose_animation_finished)
+	if is_player and unit.def_id == "elathra":
+		elathra_art = $ElathraArt
+		elathra_art.show()
+		elathra_art.play(&"idle")
+		visual.hide()
+	if unit.def_id == "gerald_boss":
+		gerald_art = get_node("GeraldFallenArt") as AnimatedSprite2D
+		gerald_art.show()
+		gerald_art.play("idle")
+		gerald_art.animation_finished.connect(_gerald_return_idle)
+		gerald_art.get_node("WalkArt").frame_changed.connect(_on_gerald_walk_frame_changed)
+		visual.hide()
+	if unit.def_id == "cassien_boss" or (is_player and (unit.def_id == "cassien" or unit.def_id.begins_with("cassien_"))):
+		cassien_art = $CassienArt
+		cassien_art.show()
+		cassien_art.play("idle")
+		cassien_art.animation_finished.connect(_cassien_return_idle)
+		visual.hide()
+	if unit.def_id == "revienna_boss" or (is_player and (unit.def_id == "ravienna" or unit.def_id.begins_with("ravienna_"))):
+		ravienna_art = $ReviennaArt
+		ravienna_art.show()
+		ravienna_art.get_node("AnimatedSprite2D").animation_finished.connect(_revienna_return_idle)
+		visual.hide()
 	# The bespoke boss presentation is a scene-owned child component.
 	_matron_presentation.configure(unit, visual)
 	_base_scale = SPRITE_SCALE if not visual.using_temporary_art else PLACEOLDER_SCALE
@@ -132,11 +169,12 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 				_base_scale *= BOSS_MULTIPLIER
 	visual.visual_scale = _base_scale
 	if unit.def_id == "fairy_spar":
-		var spar_art := visual.get_node("FairySparArt") as AnimatedSprite2D
-		spar_art.reparent(self, false)
-		spar_art.show()
+		fairy_art = visual.get_node("FairySparArt") as AnimatedSprite2D
+		fairy_art.reparent(self, false)
+		fairy_art.show()
+		fairy_art.animation_finished.connect(_fairy_return_idle)
 		visual.hide()
-	if unit.is_boss and unit.def_id != "fallen_matron":
+	if unit.is_boss and unit.def_id not in ["fallen_matron", "gerald_boss", "revienna_boss", "cassien_boss"]:
 		_animation_player.play("boss_idle")
 	var element_color := UITheme.element_color(unit.element)
 	if element_color == UITheme.TEXT_DIM:
@@ -155,7 +193,44 @@ func face(direction: Vector2) -> void:
 		return
 	visual.set_move_direction(direction.normalized())
 	visual.facing = 1.0 if direction.x >= 0.0 else -1.0
+	if is_instance_valid(fairy_art) and not dead:
+		_fairy_facing_right = direction.x > 0.0
+		if fairy_art.animation in [&"front", &"left", &"right"]:
+			_fairy_return_idle()
+		else:
+			fairy_art.flip_h = _fairy_facing_right
+	if is_instance_valid(cassien_art):
+		cassien_art.flip_h = direction.x > 0.0
+	if is_instance_valid(elathra_art):
+		elathra_art.flip_h = direction.x < 0.0
+	if is_instance_valid(ravienna_art):
+		ravienna_art.get_node("AnimatedSprite2D").flip_h = direction.x > 0.0
 
+
+func enable_kael_boss_art() -> void:
+	kael_boss_art_enabled = true
+	_sync_kael_boss_art()
+
+func play_kael_boss_clip(clip: StringName) -> void:
+	kael_boss_sequence_active = clip != &"idle"
+	kael_boss_art.play(clip)
+	kael_boss_art.set_frame_and_progress(0, 0.0)
+	_sync_kael_boss_art()
+
+func _sync_kael_boss_art() -> void:
+	if not kael_boss_art_enabled or visual == null:
+		return
+	var show_art := not dead and (kael_boss_sequence_active or visual.animator.state == CharacterAnimator.State.IDLE)
+	if show_art and not kael_boss_sequence_active and kael_boss_art.animation != &"idle":
+		kael_boss_art.play(&"idle")
+	elif show_art and not kael_boss_art.is_playing() and not kael_boss_sequence_active:
+		kael_boss_art.play(&"idle")
+	kael_boss_art.visible = show_art
+	visual.visible = not show_art
+	kael_boss_art.flip_h = visual.facing < 0.0
+	var attack := kael_boss_art.animation == &"attack"
+	kael_boss_art.scale = Vector2.ONE * visual.visual_scale * (1.075 if attack else 1.0)
+	kael_boss_art.offset = Vector2(10.0 * (-1.0 if kael_boss_art.flip_h else 1.0) if attack else 0.0, -55.0 if attack else -56.0)
 
 func refresh() -> void:
 	if unit == null:
@@ -170,7 +245,7 @@ func refresh() -> void:
 	_name_label.text = ("◆  " if targetable else "") + unit.display_name
 	_name_label.add_theme_color_override("font_color",
 		UITheme.GOLD_BRIGHT if targetable else UITheme.TEXT if unit.is_alive() else UITheme.TEXT_DIM)
-	if not unit.is_alive() and not is_instance_valid(rose_art):
+	if not unit.is_alive() and not is_instance_valid(rose_art) and not is_instance_valid(fairy_art) and not is_instance_valid(gerald_art) and not is_instance_valid(cassien_art) and not is_instance_valid(ravienna_art):
 		modulate = Color(1, 1, 1, 0.38)
 	queue_redraw()
 
@@ -181,6 +256,10 @@ func set_intent(skill_name: String) -> void:
 	_intent_label.visible = not skill_name.is_empty() and not is_player and not dead
 	_intent_label.text = "!  %s" % skill_name.to_upper() if _intent_label.visible else ""
 	_intent_label.position = Vector2(-78, -124 if unit != null and unit.is_boss else -104)
+	if is_instance_valid(gerald_art):
+		_intent_label.position.y = maxf(-position.y + 2.0, -114.0 * gerald_art.scale.y - 18.0)
+	if is_instance_valid(cassien_art):
+		_intent_label.position.y = maxf(-position.y + 2.0, -106.0 * cassien_art.scale.y - 18.0)
 	_intent_label.size = Vector2(156, 20)
 	queue_redraw()
 
@@ -203,7 +282,10 @@ func set_home(position: Vector2) -> void:
 
 
 func _process(delta: float) -> void:
+	if is_instance_valid(ravienna_art):
+		position = home_position
 	_pulse += delta
+	_sync_kael_boss_art()
 	_sync_ground_fx()
 	if _matron_presentation != null:
 		_matron_presentation.refresh_phase(_hp_ratio)
@@ -296,6 +378,14 @@ func cancel_attack_motion(restore_formation: bool = true) -> void:
 				motion.kill()
 			remove_meta(key)
 	cancel_attack_effects()
+	if gerald_walk_sequence_active:
+		_end_gerald_walk()
+	if kael_boss_art_enabled and kael_boss_sequence_active:
+		play_kael_boss_clip(&"idle")
+	if is_instance_valid(cassien_art) and not dead:
+		cassien_art.play(&"idle")
+	if is_instance_valid(fairy_art) and not dead:
+		_fairy_return_idle()
 	if restore_formation:
 		position = home_position
 
@@ -343,6 +433,41 @@ func _recover_combat_pose() -> void:
 
 ## Damage reaction: white flash + a short shake + the damage animation.
 func take_hit() -> void:
+	if is_instance_valid(elathra_art):
+		if not dead:
+			elathra_art.get_node("PoseAnimation").play("hit")
+		return
+	if is_instance_valid(ravienna_art):
+		if not dead:
+			var sprite := ravienna_art.get_node("AnimatedSprite2D") as AnimatedSprite2D
+			if sprite.animation in [&"idle", &"hit"]:
+				sprite.play(&"hit")
+				sprite.set_frame_and_progress(0, 0.0)
+				ravienna_art.get_node("PoseAnimation").play("hit")
+		return
+	if is_instance_valid(cassien_art):
+		if not dead:
+			_cancel_hit_flash()
+			# Delayed hit reactions must not replace an active authored strike.
+			if not (cassien_art.is_playing() and cassien_art.animation in [&"attack", &"heavy_attack", &"crimson_crescent", &"crimson_requiem"]):
+				cancel_attack_motion()
+				cassien_art.play(&"hit")
+				cassien_art.set_frame_and_progress(0, 0.0)
+			cassien_art.modulate = Color(1.8,0.65,0.65)
+			_hit_flash_tween = create_tween()
+			_hit_flash_tween.tween_property(cassien_art,"modulate",Color.WHITE,0.28)
+		return
+	if is_instance_valid(gerald_art):
+		if not dead and not gerald_walk_sequence_active and gerald_art.animation not in [&"attack", &"earthquake"]:
+			gerald_art.position.y = -57.0 * gerald_art.scale.y
+			gerald_art.modulate = Color.WHITE
+			gerald_art.play("hit")
+			gerald_art.set_frame_and_progress(0, 0.0)
+		return
+	if is_instance_valid(fairy_art):
+		if not dead and fairy_art.animation not in [&"crystal_bolt", &"crystal_veil", &"crystal_bloom"]:
+			_play_fairy_clip(&"hit")
+		return
 	if is_instance_valid(rose_art) and not dead:
 		rose_art.play("hit")
 		return
@@ -369,7 +494,219 @@ func take_hit() -> void:
 
 
 ## The attack lunge is driven by the battlefield (it knows the target).
+# Existing painted walk frames; only the presentation moves, never the combat rules.
+func _on_gerald_walk_frame_changed() -> void:
+	if not gerald_walk_sequence_active or dead or not is_instance_valid(gerald_art):
+		return
+	var walk := gerald_art.get_node("WalkArt") as AnimatedSprite2D
+	if walk.visible and walk.is_playing() and walk.frame in [3, 11]:
+		AudioDirector.play_variant("dirt_step", -5.0, 0.72)
+
+func _show_gerald_walk(direction: Vector2) -> void:
+	var walk := gerald_art.get_node("WalkArt") as AnimatedSprite2D
+	var names := ["e", "se", "s", "sw", "w", "nw", "n", "ne"]
+	var index := posmod(roundi(direction.angle() / (PI / 4.0)), 8)
+	gerald_art.position.y = -57.0 * gerald_art.scale.y
+	walk.position.y = -3.0
+	gerald_art.pause()
+	gerald_art.self_modulate.a = 0.0
+	walk.show()
+	walk.play(StringName("walk_" + names[index]), 16.0 / (9.0 * GERALD_WALK_TIME))
+	walk.set_frame_and_progress(0, 0.0)
+
+func _hide_gerald_walk() -> void:
+	var walk := gerald_art.get_node("WalkArt") as AnimatedSprite2D
+	walk.stop()
+	walk.hide()
+	gerald_art.self_modulate.a = 1.0
+	gerald_art.position.y = -57.0 * gerald_art.scale.y
+
+func _end_gerald_walk() -> void:
+	gerald_walk_sequence_active = false
+	_gerald_walk_progress = 0.0
+	_gerald_walk_target = null
+	position = home_position
+	_hide_gerald_walk()
+	if not dead:
+		gerald_art.play("idle")
+
+# Keep the walk path relative to the current responsive formation, not old screen coordinates.
+func refresh_gerald_walk_position() -> void:
+	if not gerald_walk_sequence_active or _gerald_walk_target == null:
+		return
+	var target := _gerald_walk_target.get_ref() as BattlefieldActor
+	if not is_instance_valid(target):
+		position = home_position
+		return
+	var delta := target.home_position - home_position
+	var reach := clampf(delta.length() - 140.0, 0.0, 120.0)
+	position = home_position + delta.normalized() * reach * _gerald_walk_progress
+
+func _set_gerald_walk_progress(progress: float) -> void:
+	_gerald_walk_progress = progress
+	refresh_gerald_walk_position()
+
+func play_gerald_flame_approach(target: BattlefieldActor) -> bool:
+	if not is_instance_valid(gerald_art) or dead or not is_instance_valid(target) or target == self:
+		return false
+	var displacement := target.home_position - home_position
+	var distance := minf(120.0, displacement.length() - 140.0)
+	if distance < 8.0:
+		return false
+	cancel_attack_motion()
+	gerald_walk_sequence_active = true
+	_gerald_walk_target = weakref(target)
+	_gerald_walk_progress = 0.0
+	var direction := displacement.normalized()
+	var motion := create_tween()
+	track_attack_motion(motion)
+	_show_gerald_walk(direction)
+	motion.tween_method(_set_gerald_walk_progress, 0.0, 1.0, GERALD_WALK_TIME)
+	motion.tween_callback(func() -> void:
+		_hide_gerald_walk()
+		play_gerald_action(false)
+	)
+	motion.tween_interval(GERALD_STRIKE_TIME)
+	motion.tween_callback(func() -> void:
+		_show_gerald_walk(-direction)
+	)
+	motion.tween_method(_set_gerald_walk_progress, 1.0, 0.0, GERALD_WALK_TIME)
+	motion.tween_callback(_end_gerald_walk)
+	return true
+
+func play_gerald_action(ultimate: bool) -> void:
+	if not is_instance_valid(gerald_art) or dead:
+		return
+	gerald_art.position.y = (-50.0 if ultimate else -57.0) * gerald_art.scale.y
+	gerald_art.play("earthquake" if ultimate else "attack")
+	gerald_art.set_frame_and_progress(0, 0.0)
+
+func _gerald_return_idle() -> void:
+	if is_instance_valid(gerald_art) and not dead and not gerald_art.get_node("WalkArt").visible:
+		gerald_art.position.y = -57.0 * gerald_art.scale.y
+		gerald_art.play("idle")
+
+
+# Presentation mapping retains the existing boss skill IDs and combat balance.
+static func fairy_clip(skill_id: String, ultimate: bool = false) -> StringName:
+	if ultimate or skill_id == "spar_crystal_bloom":
+		return &"crystal_bloom"
+	return &"crystal_veil" if skill_id == "spar_crystal_veil" else &"crystal_bolt"
+
+static func fairy_impact_time(skill_id: String, ultimate: bool = false) -> float:
+	match fairy_clip(skill_id, ultimate):
+		&"crystal_bloom": return 0.76
+		&"crystal_veil": return 0.42
+		_: return 0.47
+
+func fairy_action_duration(skill_id: String, ultimate: bool = false) -> float:
+	if not is_instance_valid(fairy_art):
+		return 0.0
+	var clip := fairy_clip(skill_id, ultimate)
+	var frames := fairy_art.sprite_frames
+	var duration := 0.0
+	for i in range(frames.get_frame_count(clip)):
+		duration += frames.get_frame_duration(clip, i)
+	return duration / frames.get_animation_speed(clip)
+
+func _play_fairy_clip(clip: StringName) -> void:
+	fairy_art.flip_h = _fairy_facing_right
+	fairy_art.play(clip)
+	fairy_art.set_frame_and_progress(0, 0.0)
+
+func play_fairy_action(skill_id: String = "", ultimate: bool = false) -> void:
+	if not is_instance_valid(fairy_art) or dead:
+		return
+	cancel_attack_motion()
+	cancel_recoil_motion()
+	_play_fairy_clip(fairy_clip(skill_id, ultimate))
+
+func _fairy_return_idle() -> void:
+	if is_instance_valid(fairy_art) and not dead:
+		fairy_art.flip_h = false
+		fairy_art.play(&"right" if _fairy_facing_right else &"left")
+
+static func cassien_clip(skill_id: String, ultimate: bool = false) -> StringName:
+	if ultimate or skill_id in ["soul_drain", "cassien_crimson_requiem"]:
+		return &"crimson_requiem"
+	match skill_id:
+		"umbral_rend", "cassien_heavy_cleave": return &"heavy_attack"
+		"blood_waltz", "cassien_crimson_crescent": return &"crimson_crescent"
+		_: return &"attack"
+
+static func cassien_impact_time(skill_id: String, ultimate: bool = false) -> float:
+	match cassien_clip(skill_id, ultimate):
+		&"crimson_requiem": return 0.9
+		&"heavy_attack": return 0.75
+		&"crimson_crescent": return 0.39
+		_: return 0.36
+
+func cassien_action_duration(skill_id: String, ultimate: bool = false) -> float:
+	if not is_instance_valid(cassien_art):
+		return 0.0
+	var clip := cassien_clip(skill_id, ultimate)
+	var frames := cassien_art.sprite_frames
+	var duration := 0.0
+	for i in range(frames.get_frame_count(clip)):
+		duration += frames.get_frame_duration(clip, i)
+	return duration / frames.get_animation_speed(clip)
+
+func play_cassien_action(skill_id: String = "", ultimate: bool = false) -> void:
+	if not is_instance_valid(cassien_art) or dead:
+		return
+	cancel_attack_motion()
+	cancel_recoil_motion()
+	cassien_art.play(cassien_clip(skill_id, ultimate))
+	cassien_art.set_frame_and_progress(0, 0.0)
+
+func _cassien_return_idle() -> void:
+	if is_instance_valid(cassien_art) and not dead:
+		cassien_art.play(&"idle")
+
+static func ravienna_visual_skill(skill_id: String) -> String:
+	match skill_id:
+		"lunar_wisp": return "corruption_bolt"
+		"velvet_hex": return "shadow_lash"
+		"hollow_moon_eclipse": return "ravienna_eclipse"
+		"": return "corruption_bolt"
+		_: return skill_id
+
+func play_revienna_action(skill_id: String) -> bool:
+	skill_id = ravienna_visual_skill(skill_id)
+	if not is_instance_valid(ravienna_art) or dead:
+		return false
+	var sprite := ravienna_art.get_node("AnimatedSprite2D") as AnimatedSprite2D
+	if skill_id not in ["shadow_lash", "corruption_bolt", "soul_drain", "hollow_wail", "ravienna_eclipse"] or not sprite.sprite_frames.has_animation(skill_id):
+		return false
+	var pose := ravienna_art.get_node("PoseAnimation") as AnimationPlayer
+	pose.stop()
+	sprite.modulate = Color.WHITE
+	sprite.play(skill_id)
+	sprite.set_frame_and_progress(0, 0.0)
+	return true
+
+
+func _revienna_return_idle() -> void:
+	if is_instance_valid(ravienna_art) and not dead:
+		ravienna_art.get_node("AnimatedSprite2D").play("idle")
+
+
 func play_attack() -> void:
+	if is_instance_valid(elathra_art):
+		elathra_art.get_node("PoseAnimation").play("cast")
+		return
+	if is_instance_valid(ravienna_art):
+		ravienna_art.get_node("PoseAnimation").play("cast")
+		return
+	if is_instance_valid(cassien_art):
+		play_cassien_action()
+		return
+	if is_instance_valid(gerald_art):
+		play_gerald_action(false)
+		return
+	if is_instance_valid(fairy_art):
+		play_fairy_action()
+		return
 	if is_instance_valid(rose_art):
 		rose_art.play("attack")
 		return
@@ -385,6 +722,25 @@ func play_attack() -> void:
 
 
 func play_victory() -> void:
+	if is_instance_valid(elathra_art):
+		if not dead:
+			elathra_art.get_node("PoseAnimation").stop()
+			elathra_art.modulate = Color.WHITE
+			elathra_art.play(&"idle")
+		return
+	if is_instance_valid(cassien_art) or is_instance_valid(ravienna_art):
+		if dead:
+			return
+		cancel_attack_motion()
+		cancel_recoil_motion()
+		if is_instance_valid(cassien_art):
+			cassien_art.play(&"idle")
+		else:
+			ravienna_art.get_node("PoseAnimation").stop()
+			var sprite := ravienna_art.get_node("AnimatedSprite2D") as AnimatedSprite2D
+			sprite.modulate = Color.WHITE
+			sprite.play(&"idle")
+		return
 	_cancel_hit_flash()
 	cancel_attack_motion()
 	cancel_recoil_motion()
@@ -395,6 +751,67 @@ func play_victory() -> void:
 
 
 func play_death() -> void:
+	if is_instance_valid(elathra_art):
+		if dead:
+			return
+		dead = true
+		cancel_attack_motion()
+		cancel_recoil_motion()
+		elathra_art.stop()
+		elathra_art.get_node("PoseAnimation").play("defeat")
+		return
+	if is_instance_valid(ravienna_art):
+		if dead:
+			return
+		dead = true
+		cancel_attack_motion()
+		cancel_recoil_motion()
+		modulate = Color.WHITE
+		var sprite := ravienna_art.get_node("AnimatedSprite2D") as AnimatedSprite2D
+		var pose := ravienna_art.get_node("PoseAnimation") as AnimationPlayer
+		pose.stop()
+		sprite.modulate = Color.WHITE
+		sprite.play(&"defeat")
+		sprite.set_frame_and_progress(0, 0.0)
+		pose.play("surrender")
+		set_intent("")
+		return
+	if is_instance_valid(cassien_art):
+		if dead:
+			return
+		dead = true
+		cancel_attack_motion()
+		cancel_recoil_motion()
+		_cancel_hit_flash()
+		modulate = Color.WHITE
+		cassien_art.modulate = Color.WHITE
+		cassien_art.play(&"defeat")
+		cassien_art.set_frame_and_progress(0, 0.0)
+		set_intent("")
+		return
+	if is_instance_valid(gerald_art):
+		if dead:
+			return
+		dead = true
+		cancel_attack_motion()
+		cancel_recoil_motion()
+		modulate = Color.WHITE
+		gerald_art.modulate = Color.WHITE
+		gerald_art.position.y = -57.0 * gerald_art.scale.y
+		gerald_art.play("defeat")
+		gerald_art.set_frame_and_progress(0, 0.0)
+		set_intent("")
+		return
+	if is_instance_valid(fairy_art):
+		if dead:
+			return
+		dead = true
+		cancel_attack_motion()
+		cancel_recoil_motion()
+		modulate = Color.WHITE
+		_play_fairy_clip(&"surrender")
+		set_intent("")
+		return
 	if is_instance_valid(rose_art):
 		dead = true
 		modulate = Color.WHITE

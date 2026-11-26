@@ -10,14 +10,15 @@ signal navigate_requested(screen_id: String)
 @export var overlay_root_path: NodePath = NodePath("../UI/Overlays")
 
 const SCREEN_SCENES := {
-	"gacha": preload("res://scenes/ui/gacha_screen.tscn"),
-	"collection": preload("res://scenes/ui/collection_screen.tscn"),
-	"inventory": preload("res://scenes/ui/inventory_screen.tscn"),
-	"quests": preload("res://scenes/ui/quest_screen.tscn"),
-	"map": preload("res://scenes/ui/map_screen.tscn"),
-	"shop": preload("res://scenes/ui/shop_screen.tscn"),
+	"gacha": "res://scenes/ui/gacha_screen.tscn",
+	"collection": "res://scenes/ui/collection_screen.tscn",
+	"inventory": "res://scenes/ui/inventory_screen.tscn",
+	"quests": "res://scenes/ui/quest_screen.tscn",
+	"chat": "res://scenes/ui/chat_screen.tscn",
+	"social": "res://scenes/ui/social_screen.tscn",
+	"shop": "res://scenes/ui/shop_screen.tscn",
 }
-const PAUSE_MENU_SCENE: PackedScene = preload("res://scenes/ui/pause_menu.tscn")
+const PAUSE_MENU_PATH := "res://scenes/ui/pause_menu.tscn"
 
 var overlay_root: Control
 var active_overlay: OverlayScreen
@@ -30,10 +31,17 @@ func _ready() -> void:
 func open_screen(screen_id: String) -> bool:
 	if active_overlay != null and is_instance_valid(active_overlay):
 		return false
-	var scene: PackedScene = SCREEN_SCENES.get(screen_id)
+	var scene: PackedScene
+	var path := str(SCREEN_SCENES.get(screen_id, ""))
+	if not path.is_empty():
+		scene = load(path) as PackedScene
+	if screen_id == "map":
+		scene = load("res://scenes/ui/map_screen.tscn") as PackedScene
+		if scene != null and not scene.can_instantiate():
+			scene = ResourceLoader.load("res://scenes/ui/map_screen.tscn", "PackedScene", ResourceLoader.CACHE_MODE_IGNORE) as PackedScene
 	if scene == null and screen_id == "settings" and ResourceLoader.exists("res://scenes/ui/settings_screen.tscn"):
 		scene = load("res://scenes/ui/settings_screen.tscn") as PackedScene
-	if scene == null:
+	if scene == null or not scene.can_instantiate():
 		push_warning("[GameOverlayRouter] Unknown or unavailable screen: " + screen_id)
 		return false
 	var screen := scene.instantiate() as OverlayScreen
@@ -46,7 +54,10 @@ func open_screen(screen_id: String) -> bool:
 func open_pause_menu() -> bool:
 	if active_overlay != null and is_instance_valid(active_overlay):
 		return false
-	var menu := PAUSE_MENU_SCENE.instantiate() as PauseMenu
+	var packed := load(PAUSE_MENU_PATH) as PackedScene
+	if packed == null or not packed.can_instantiate():
+		return false
+	var menu := packed.instantiate() as PauseMenu
 	if menu == null:
 		return false
 	menu.main_menu_requested.connect(_on_pause_main_menu_requested)
@@ -65,9 +76,27 @@ func _attach_overlay(screen: OverlayScreen, node_name: String) -> bool:
 	active_overlay = screen
 	screen.name = node_name
 	screen.closed.connect(_on_overlay_closed)
+	if screen.has_signal("private_chat_requested"):
+		screen.connect("private_chat_requested",_open_private_chat)
 	overlay_root.add_child(screen)
 	return true
 
+
+func _open_private_chat(player_id: String) -> void:
+	if not is_instance_valid(active_overlay):return
+	var previous:=active_overlay
+	var packed := load(SCREEN_SCENES["chat"]) as PackedScene
+	if packed == null or not packed.can_instantiate():return
+	var chat:=packed.instantiate() as OverlayScreen
+	if chat==null:return
+	chat.call("set_initial_recipient",player_id)
+	previous.closed.disconnect(_on_overlay_closed)
+	active_overlay=null
+	if _attach_overlay(chat,"Overlay_chat"):
+		previous.close_screen()
+	else:
+		active_overlay=previous
+		previous.closed.connect(_on_overlay_closed)
 
 func _on_overlay_closed() -> void:
 	active_overlay = null

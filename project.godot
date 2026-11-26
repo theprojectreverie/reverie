@@ -28,6 +28,7 @@ default_bus_layout="res://resources/audio/reverie_audio_bus_layout.tres"
 [autoload]
 
 EventBus="*res://scripts/core/event_bus.gd"
+GraphicsSettings="*res://scripts/core/graphics_settings.gd"
 InputSetup="*res://scripts/core/input_setup.gd"
 TouchInput="*res://scripts/player/touch_input.gd"
 ContentDB="*res://scripts/core/content_db.gd"
@@ -35,10 +36,12 @@ SaveService="*res://scripts/core/save_service.gd"
 GameState="*res://scenes/core/game_state.tscn"
 AudioDirector="*res://scenes/core/audio_director.tscn"
 AuthGateway="*res://scenes/online/auth_gateway.tscn"
+StoryMilestoneTelemetry="*res://scripts/online/story_milestone_telemetry.gd"
 MultiplayerGateway="*res://scenes/online/multiplayer_gateway.tscn"
 CoopGateway="*res://scenes/online/coop_gateway.tscn"
 PvpGateway="*res://scenes/online/pvp_gateway.tscn"
 ServerDirectoryGateway="*res://scenes/online/server_directory_gateway.tscn"
+ApplicationShutdown="*res://scripts/core/application_shutdown.gd"
 
 [display]
 

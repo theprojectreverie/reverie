@@ -100,6 +100,7 @@ func _ready() -> void:
 	check(AudioDirector._ambience_id == "" and not AudioDirector._ambience_player.playing, "Leaving Gothic Castle fades wind out")
 
 	AudioDirector.stop_all_audio_immediately()
+	await get_tree().create_timer(0.35).timeout
 	print("AUDIO INTEGRATION SMOKE: %d passed, %d failed" % [passed, failed])
 	get_tree().quit(0 if failed == 0 else 1)
 

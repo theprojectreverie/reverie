@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[node name="ArenaEmbers" type="CPUParticles2D"]
+[node name="ArenaEmbers" type="CPUParticles2D" groups=["optional_ambient_fx"]]
 amount = 22
 lifetime = 7.0
 emission_shape = 3

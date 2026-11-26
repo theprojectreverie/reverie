@@ -1,0 +1,209 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://k3xtkb5ljfjk"]
+
+[ext_resource type="Texture2D" uid="uid://cav48jpef4tir" path="res://assets/characters/revienna/cinematic/Revienna_Resurrection_160.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://34sy1d64x4b3" path="res://assets/characters/revienna/cinematic/Revienna_Possession_160.png" id="2"]
+
+[sub_resource type="AtlasTexture" id="possession_0"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_1"]
+atlas = ExtResource("2")
+region = Rect2(160, 0, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_2"]
+atlas = ExtResource("2")
+region = Rect2(320, 0, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_3"]
+atlas = ExtResource("2")
+region = Rect2(480, 0, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_4"]
+atlas = ExtResource("2")
+region = Rect2(0, 160, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_5"]
+atlas = ExtResource("2")
+region = Rect2(160, 160, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_6"]
+atlas = ExtResource("2")
+region = Rect2(320, 160, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_7"]
+atlas = ExtResource("2")
+region = Rect2(480, 160, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_8"]
+atlas = ExtResource("2")
+region = Rect2(0, 320, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_9"]
+atlas = ExtResource("2")
+region = Rect2(160, 320, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_10"]
+atlas = ExtResource("2")
+region = Rect2(320, 320, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="possession_11"]
+atlas = ExtResource("2")
+region = Rect2(480, 320, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_1"]
+atlas = ExtResource("1")
+region = Rect2(160, 0, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_2"]
+atlas = ExtResource("1")
+region = Rect2(320, 0, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_3"]
+atlas = ExtResource("1")
+region = Rect2(480, 0, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_4"]
+atlas = ExtResource("1")
+region = Rect2(0, 160, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_5"]
+atlas = ExtResource("1")
+region = Rect2(160, 160, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_6"]
+atlas = ExtResource("1")
+region = Rect2(320, 160, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_7"]
+atlas = ExtResource("1")
+region = Rect2(480, 160, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_8"]
+atlas = ExtResource("1")
+region = Rect2(0, 320, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_9"]
+atlas = ExtResource("1")
+region = Rect2(160, 320, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_10"]
+atlas = ExtResource("1")
+region = Rect2(320, 320, 160, 160)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="resurrection_11"]
+atlas = ExtResource("1")
+region = Rect2(480, 320, 160, 160)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("possession_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("possession_11")
+}],
+"loop": 0,
+"name": &"possession",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("resurrection_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("resurrection_11")
+}],
+"loop": 0,
+"name": &"resurrection",
+"speed": 6.0
+}]

@@ -6,6 +6,8 @@ extends Control
 @onready var motes_layer: Node2D = $Motes
 @onready var petals_layer: Node2D = $Petals
 var elapsed := 0.0
+var _accumulated_delta := 0.0
+var _animation_ticks := 0
 var _mote_positions: Array[Vector3] = []
 var _petal_positions: Array[Vector3] = []
 
@@ -20,6 +22,18 @@ func _ready() -> void:
 	for i in range(petals_layer.get_child_count()):
 		_petal_positions.append(Vector3(rng.randf(), rng.randf(), rng.randf_range(0.5, 1.3)))
 	_layout()
+	GraphicsSettings.quality_changed.connect(_apply_quality)
+	visibility_changed.connect(_apply_quality)
+	_apply_quality()
+
+func _apply_quality() -> void:
+	var quality: int = GraphicsSettings.quality
+	motes_layer.visible = quality > 0
+	petals_layer.visible = quality == 2
+	for i in range(motes_layer.get_child_count()):
+		motes_layer.get_child(i).visible = quality == 2 or i % 2 == 0
+	set_process(is_visible_in_tree() and quality > 0)
+	_accumulated_delta = 0.0
 
 
 func _notification(what: int) -> void:
@@ -42,6 +56,11 @@ func _layout() -> void:
 
 
 func _process(delta: float) -> void:
+	_accumulated_delta += delta
+	if GraphicsSettings.quality == 1 and _accumulated_delta < 1.0/30.0: return
+	delta = _accumulated_delta
+	_accumulated_delta = 0.0
+	_animation_ticks += 1
 	elapsed += delta
 	var pulse := 0.5 + 0.5 * sin(elapsed * 1.35)
 	beam.color.a = 0.035 + pulse * 0.065
@@ -50,6 +69,7 @@ func _process(delta: float) -> void:
 		ring.rotation = elapsed * (0.12 if i % 2 == 0 else -0.09)
 		ring.default_color.a = 0.08 + pulse * 0.08
 	for i in range(_mote_positions.size()):
+		if GraphicsSettings.quality == 1 and i % 2 != 0: continue
 		var p := _mote_positions[i]
 		p.y -= delta * (10.0 + p.z * 17.0) / maxf(size.y, 1.0)
 		p.x += sin(elapsed * 0.7 + i * 1.7) * delta * 9.0 / maxf(size.x, 1.0)
@@ -61,6 +81,7 @@ func _process(delta: float) -> void:
 		node.scale = Vector2.ONE * (1.0 + p.z * 1.5)
 		var c := Color(0.86, 0.72, 1.0, 0.18 + 0.35 * (0.5 + 0.5 * sin(elapsed * 2.2 + i)))
 		node.color = c
+	if GraphicsSettings.quality < 2: return
 	for i in range(_petal_positions.size()):
 		var p := _petal_positions[i]
 		p.y -= delta * (16.0 + p.z * 22.0) / maxf(size.y, 1.0)

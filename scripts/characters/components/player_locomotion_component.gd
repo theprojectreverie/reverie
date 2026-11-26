@@ -89,6 +89,9 @@ func physics_step(delta: float) -> void:
 	else:
 		_touch_sprint = false
 
+	var stair_surface := body.get_tree().get_first_node_in_group("elevation_surface")
+	if stair_surface != null and stair_surface.has_method("is_on_ramp") and bool(stair_surface.call("is_on_ramp", body.global_position)):
+		sprinting = false
 	var nominal_speed: float = float(profile.get("run", RUN_SPEED)) if sprinting else float(profile.get("walk", WALK_SPEED))
 	nominal_speed *= movement_speed_multiplier
 	var speed: float = nominal_speed
@@ -108,7 +111,10 @@ func physics_step(delta: float) -> void:
 			if align < 0.3:
 				var turn_brake := float(profile.get("turn", TURN_BRAKE_MULT))
 				accel *= lerpf(turn_brake, 1.0, clampf((align + 1.0) / 1.3, 0.0, 1.0))
-		body.velocity = body.velocity.move_toward(input_vector * _speed_target, accel * delta)
+		var target_velocity := input_vector * _speed_target
+		if stair_surface != null and stair_surface.has_method("project_motion"):
+			target_velocity = stair_surface.call("project_motion", body.global_position, target_velocity)
+		body.velocity = body.velocity.move_toward(target_velocity, accel * delta)
 		if visual != null and absf(input_vector.x) > 0.08:
 			visual.facing = 1.0 if input_vector.x > 0.0 else -1.0
 		facing = input_vector.normalized()
@@ -125,7 +131,7 @@ func physics_step(delta: float) -> void:
 	if moving and body.get_real_velocity().length() > STOP_SNAP_SPEED and not in_water and not _avatar_id().begins_with("lilith"):
 		_step_timer -= delta
 		if _step_timer <= 0.0:
-			var region := AudioDirector._region_ambience_id if not AudioDirector._region_ambience_id.is_empty() else str(GameState.player_region)
+			var region: String = AudioDirector._region_ambience_id if not AudioDirector._region_ambience_id.is_empty() else str(GameState.player_region)
 			var surface := _surface_at(body.global_position, region)
 			AudioDirector.play_variant(surface, -5.0)
 			_step_timer = 0.30 if sprinting else 0.44

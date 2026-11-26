@@ -21,6 +21,64 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor, element: 
 	if target != null and is_instance_valid(target):
 		direction = (target_home - origin).normalized()
 	attacker.face(direction)
+	if is_instance_valid(attacker.elathra_art):
+		attacker.play_attack()
+		if is_instance_valid(target) and target != attacker:
+			var cast_timer := create_tween()
+			attacker.track_attack_sequence(cast_timer)
+			cast_timer.tween_interval(0.12)
+			cast_timer.tween_callback(func() -> void:
+				if is_instance_valid(target):
+					_spawn_attack_trail(attacker, origin + Vector2(0, -38), target_home + Vector2(0, -28), element))
+		return
+	if is_instance_valid(attacker.ravienna_art):
+		var lunar_wisp := attacker.is_player and skill_id == "lunar_wisp"
+		var wisp_targets: Array[BattlefieldActor] = []
+		if lunar_wisp:
+			for candidate in battlefield.actors():
+				if is_instance_valid(candidate) and not candidate.is_player and not candidate.dead:
+					wisp_targets.append(candidate)
+		skill_id = BattlefieldActor.ravienna_visual_skill(skill_id)
+		if skill_id == "ravienna_eclipse":
+			attacker.play_revienna_action(skill_id)
+			attacker.ravienna_art.get_node("PoseAnimation").play("eclipse")
+			var effects := preload("res://scenes/ui/combat/components/revienna_eclipse_effects.tscn").instantiate()
+			battlefield.add_child(effects)
+			battlefield.move_child(effects, battlefield.get_node("Actors").get_index())
+			attacker.track_attack_effect(effects)
+			effects.start(battlefield, attacker)
+			return
+		var authored := attacker.play_revienna_action(skill_id)
+		if not authored:
+			attacker.play_attack()
+		if is_instance_valid(target) and target != attacker:
+			var cast_timer := create_tween()
+			attacker.track_attack_sequence(cast_timer)
+			cast_timer.tween_interval(0.625 if skill_id == "corruption_bolt" and authored else 0.75 if skill_id == "soul_drain" and authored else 0.5 if authored else 0.24)
+			cast_timer.tween_callback(func() -> void:
+				if is_instance_valid(attacker) and lunar_wisp and authored:
+					for enemy in wisp_targets:
+						if is_instance_valid(enemy):
+							_launch_revienna_bolt(attacker, enemy)
+					return
+				if is_instance_valid(target) and is_instance_valid(attacker):
+					if skill_id == "corruption_bolt" and authored:
+						_launch_revienna_bolt(attacker, target)
+					elif skill_id == "soul_drain" and authored:
+						_spawn_attack_trail(attacker, target_home + Vector2(0, -28), origin + Vector2(0, -76), element)
+					elif skill_id != "hollow_wail" or not authored:
+						_spawn_attack_trail(attacker, origin + Vector2(0, -58), target_home + Vector2(0, -28), element))
+		return
+	if attacker.unit != null and attacker.unit.def_id == "fairy_spar":
+		attacker.play_attack()
+		if skill_id != "spar_crystal_veil" and target != null and is_instance_valid(target):
+			var cast_timer := create_tween()
+			attacker.track_attack_sequence(cast_timer)
+			cast_timer.tween_interval(0.24)
+			cast_timer.tween_callback(func() -> void:
+				if is_instance_valid(target):
+					_spawn_attack_trail(attacker, origin + Vector2(0, -22), target_home + Vector2(0, -28), element))
+		return
 	var is_gerald_skill := attacker.visual != null and attacker.visual.character_id == "gerald" and skill_id.to_lower() in ["blade_wave", "guardian_aura", "ground_eruption"]
 	if attacker.unit != null and attacker.unit.def_id in ["rose_slime", "crownling"]:
 		attacker.play_attack()
@@ -82,6 +140,22 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor, element: 
 	# prevents small layout changes or a partially interrupted previous move
 	# from accumulating battlefield drift across successive turns.
 	tween.tween_property(attacker, "position", attacker.home_position, 0.26).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
+func _launch_revienna_bolt(owner: BattlefieldActor, target: BattlefieldActor) -> void:
+	var bolt := preload("res://scenes/ui/combat/components/revienna_corruption_projectile.tscn").instantiate() as Sprite2D
+	add_child(bolt)
+	bolt.set_meta("revienna_target_uid", target.unit.uid)
+	var side := 1.0 if target.home_position.x >= owner.home_position.x else -1.0
+	bolt.position = owner.home_position + Vector2(side * 52.0, -88.0) * owner.ravienna_art.scale
+	bolt.flip_h = side > 0.0
+	owner.track_attack_effect(bolt)
+	var flight := bolt.create_tween()
+	flight.tween_property(bolt, "position", target.home_position + Vector2(0, -45), 0.26)
+	flight.tween_callback(func() -> void:
+		if is_instance_valid(owner):
+			owner.release_attack_effect(bolt)
+		bolt.queue_free())
 
 
 ## A visible strike trail connects the attacker to the actual target.

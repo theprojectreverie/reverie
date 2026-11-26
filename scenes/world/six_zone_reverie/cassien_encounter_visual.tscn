@@ -1,0 +1,134 @@
+[gd_scene load_steps=28 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/cassien/encounter/Cassien_Kneeling_Idle_128_Matched.png" id="idle"]
+[ext_resource type="Texture2D" path="res://assets/characters/cassien/encounter/Cassien_Encounter_128_Refined.png" id="wake"]
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("idle")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("idle")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("idle")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("idle")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_4"]
+atlas = ExtResource("idle")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_5"]
+atlas = ExtResource("idle")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_6"]
+atlas = ExtResource("idle")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_7"]
+atlas = ExtResource("idle")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_0"]
+atlas = ExtResource("wake")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_1"]
+atlas = ExtResource("wake")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_2"]
+atlas = ExtResource("wake")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_3"]
+atlas = ExtResource("wake")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_4"]
+atlas = ExtResource("wake")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_5"]
+atlas = ExtResource("wake")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_6"]
+atlas = ExtResource("wake")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_7"]
+atlas = ExtResource("wake")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_8"]
+atlas = ExtResource("wake")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_9"]
+atlas = ExtResource("wake")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_10"]
+atlas = ExtResource("wake")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_11"]
+atlas = ExtResource("wake")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_12"]
+atlas = ExtResource("wake")
+region = Rect2(0, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_13"]
+atlas = ExtResource("wake")
+region = Rect2(128, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_14"]
+atlas = ExtResource("wake")
+region = Rect2(256, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="wake_15"]
+atlas = ExtResource("wake")
+region = Rect2(384, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="SpriteFrames" id="cassien_frames"]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("idle_0")}, {"duration": 1.0, "texture": SubResource("idle_1")}, {"duration": 1.0, "texture": SubResource("idle_2")}, {"duration": 1.0, "texture": SubResource("idle_3")}, {"duration": 1.0, "texture": SubResource("idle_4")}, {"duration": 1.0, "texture": SubResource("idle_5")}, {"duration": 1.0, "texture": SubResource("idle_6")}, {"duration": 1.0, "texture": SubResource("idle_7")}], "loop": true, "name": &"kneeling_idle", "speed": 6.0}, {"frames": [{"duration": 1.0, "texture": SubResource("wake_0")}, {"duration": 1.0, "texture": SubResource("wake_1")}, {"duration": 1.0, "texture": SubResource("wake_2")}, {"duration": 1.0, "texture": SubResource("wake_3")}, {"duration": 1.0, "texture": SubResource("wake_4")}, {"duration": 1.0, "texture": SubResource("wake_5")}, {"duration": 1.0, "texture": SubResource("wake_6")}, {"duration": 1.0, "texture": SubResource("wake_7")}, {"duration": 1.0, "texture": SubResource("wake_8")}, {"duration": 1.0, "texture": SubResource("wake_9")}, {"duration": 1.0, "texture": SubResource("wake_10")}, {"duration": 1.0, "texture": SubResource("wake_11")}, {"duration": 1.0, "texture": SubResource("wake_12")}, {"duration": 1.0, "texture": SubResource("wake_13")}, {"duration": 1.0, "texture": SubResource("wake_14")}, {"duration": 1.0, "texture": SubResource("wake_15")}], "loop": false, "name": &"awakening", "speed": 8.0}]
+
+[node name="CassienEncounterVisual" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("cassien_frames")
+animation = &"kneeling_idle"
+autoplay = "kneeling_idle"
+offset = Vector2(0, -54)

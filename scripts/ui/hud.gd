@@ -27,6 +27,8 @@ var _prompt_label: Label
 var _toast_box: VBoxContainer
 var _touch_interact: Button
 var _touch_switch: Button
+var _touch_combat: HBoxContainer
+var _touch_refresh_elapsed := 0.0
 var _hint_label: Label
 var _minimap: Minimap
 var _currency_component: HUDCurrencyComponent
@@ -54,6 +56,8 @@ func _ready() -> void:
 		return
 
 	EventBus.currency_changed.connect(refresh_currency)
+	AuthGateway.online_wallet_changed.connect(refresh_currency)
+	AuthGateway.account_roster_changed.connect(refresh_party)
 	EventBus.party_changed.connect(refresh_party)
 	EventBus.roster_changed.connect(refresh_party)
 	EventBus.quest_updated.connect(_on_quest_updated)
@@ -65,6 +69,37 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_apply_responsive_layout)
 	_apply_responsive_layout()
 
+
+func _touch_world_action(action: String) -> void:
+	var player := get_tree().get_first_node_in_group("player") as Player
+	if player == null or not player.input_enabled or player.network_recovery_paused:
+		return
+	var combat := player.get_node_or_null("WorldCombatComponent")
+	if combat != null and action in ["attack", "dodge", "skill"]:
+		combat.call("try_" + action)
+
+func _process(delta: float) -> void:
+	_touch_refresh_elapsed += delta
+	if _touch_refresh_elapsed < 0.08:
+		return
+	_touch_refresh_elapsed = 0.0
+	if not TouchInput.using_touch:
+		return
+	var player := get_tree().get_first_node_in_group("player") as Player
+	var active := is_instance_valid(player) and player.input_enabled and not player.network_recovery_paused and is_visible_in_tree()
+	if joystick != null:
+		joystick.visible = active
+	if _touch_combat != null:
+		_touch_combat.visible = active
+		var combat = player.get_node_or_null("WorldCombatComponent") if active else null
+		if combat != null:
+			_touch_combat.get_node("Attack").disabled = combat.cooldown > 0.0 or combat.attack_pending or combat.dodge_time > 0.0
+			_touch_combat.get_node("Dodge").disabled = combat.dodge_recovery > 0.0 or combat.attack_pending
+			_touch_combat.get_node("Skill").disabled = combat.skill_cooldown > 0.0 or combat.attack_pending or combat.dodge_time > 0.0 or not MultiplayerGateway.standalone_expedition_id.is_empty()
+	if _touch_interact != null:
+		_touch_interact.visible = active and not player.current_prompt().is_empty()
+	if _touch_switch != null:
+		_touch_switch.visible = active and not GameState.roster_domain.story_solo_active()
 
 func _bind_components() -> bool:
 	_currency_component = get_node_or_null("Currency") as HUDCurrencyComponent
@@ -149,6 +184,11 @@ func _bind_authored_ui() -> bool:
 	joystick = get_node_or_null("Joystick") as TouchJoystick
 	_touch_interact = get_node_or_null("TouchInteractButton") as Button
 	_touch_switch = get_node_or_null("TouchSwitchButton") as Button
+	_touch_combat = get_node_or_null("TouchCombat") as HBoxContainer
+	if _touch_combat != null:
+		for action in ["Attack", "Dodge", "Skill"]:
+			var button := _touch_combat.get_node(action) as Button
+			button.pressed.connect(_touch_world_action.bind(action.to_lower()))
 	_hint_label = get_node_or_null("HintLabel") as Label
 
 	if _quest_label == null:
@@ -162,10 +202,12 @@ func _bind_authored_ui() -> bool:
 	if _touch_switch:
 		_touch_switch.pressed.connect(func() -> void: switch_avatar_requested.emit())
 
+	if _touch_combat != null:
+		_touch_combat.visible = TouchInput.using_touch
 	if joystick:
 		joystick.visible = TouchInput.using_touch
 	if _touch_switch:
-		_touch_switch.visible = TouchInput.using_touch
+		_touch_switch.visible = TouchInput.using_touch and not GameState.roster_domain.story_solo_active()
 	if _touch_interact:
 		_touch_interact.visible = false
 	return true

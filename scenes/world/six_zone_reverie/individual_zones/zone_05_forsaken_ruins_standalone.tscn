@@ -1,5 +1,7 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=20 format=3]
 
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/reverie_exit_southeast.png" id="southeast_exit_art"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_03.png" id="perimeter_cloud_3"]
@@ -16,10 +18,28 @@
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_05_forsaken_ruins.png" id="prepared_background"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_05_forsaken_ruins.tscn" id="zone"]
 
-[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/forsaken_stone_road_6x10.tscn" id="road"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/ruins_brazier.gd" id="brazier_logic"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Corrupted_Environment/Structures/corrupted_brazier.tscn" id="brazier_art"]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/cassien_ritual.gd" id="cassien_ritual"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/ravienna_courtyard.tscn" id="ritual_tomb"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/cassien_encounter_visual.tscn" id="cassien_visual"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_ruins_decoration.tscn" id="ruins_decoration"]
+
+[ext_resource type="Script" path="res://scripts/game/game_combat_router_component.gd" id="cassien_combat_router"]
+
+[ext_resource type="SpriteFrames" path="res://assets/characters/revienna/cinematic/walk_frames.tres" id="revienna_departure_walk"]
 
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
+
+[sub_resource type="RectangleShape2D" id="ExitTransferDetection"]
+size = Vector2(240, 180)
 
 [sub_resource type="Animation" id="FogDrift_ToPreviousZone"]
 resource_name = "drift"
@@ -61,11 +81,13 @@ tracks/0/keys = {
 _data = {&"drift": SubResource("FogDrift_ToNextZone")}
 
 [node name="StandaloneZone05" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("zone_controller")
 
 [node name="Zone" parent="." instance=ExtResource("zone")]
 
 [node name="ZoneCamera" type="Camera2D" parent="."]
+process_callback = 0
 position = Vector2(2100, 1050)
 zoom = Vector2(0.45, 0.45)
 
@@ -90,10 +112,19 @@ texture = ExtResource("prepared_background")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
+position = Vector2(-1654.0, 968.0)
+
 [node name="TransferPoints" type="Node2D" parent="."]
 
+[node name="SafeSpawnFromPreviousZone" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-1600, 1050)
+
+[node name="FastTravelArrival" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-1744, 980)
+
 [node name="ToPreviousZone" type="Marker2D" parent="TransferPoints"]
-position = Vector2(-1744, 800)
+position = Vector2(-1712, 816)
 metadata/target_zone = 4
 metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn"
 metadata/connection = "entry"
@@ -119,10 +150,13 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("transfer_script")
 destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_06_ruined_tower_standalone.tscn"
+required_quest = "cassien_resurrection"
+previously_visited_zone = "StandaloneZone06"
+locked_route_text = "Complete the resurrection"
 arrival_marker = &"ToPreviousZone"
 
 [node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger"]
-shape = SubResource("TransferDetection")
+shape = SubResource("ExitTransferDetection")
 
 [node name="UI" parent="." instance=ExtResource("existing_game_ui")]
 
@@ -612,3 +646,208 @@ rotation = -0.523
 scale = Vector2(0.896, 0.896)
 modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_1")
+[node name="SoutheastRoadContinuation" type="Sprite2D" parent="TransferPoints/ToNextZone"]
+texture_filter = 1
+z_index = -5
+position = Vector2(-160, -130)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("southeast_exit_art")
+
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
+position = Vector2(-134, -67)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+visible = false
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = 0.463648
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Ruined Tower"
+horizontal_alignment = 1
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToPreviousZone"]
+position = Vector2(134, 67)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = -2.677945
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Elderwood Grove"
+horizontal_alignment = 1
+
+[node name="RuinsBraziers" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Western" type="Node2D" parent="RuinsBraziers"]
+position = Vector2(-950, 1300)
+script = ExtResource("brazier_logic")
+objective_id = "ruins_western_brazier"
+sequence_index = 0
+
+[node name="Brazier" parent="RuinsBraziers/Western" instance=ExtResource("brazier_art")]
+
+[node name="ObjectiveLabel" type="Label" parent="RuinsBraziers/Western"]
+offset_left = -120.0
+offset_right = 120.0
+offset_top = -110.0
+offset_bottom = -80.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1,0.93,0.72,1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+text = "Purify brazier"
+horizontal_alignment = 1
+
+[node name="Central" type="Node2D" parent="RuinsBraziers"]
+position = Vector2(0, 1600)
+script = ExtResource("brazier_logic")
+objective_id = "ruins_central_brazier"
+sequence_index = 1
+
+[node name="Brazier" parent="RuinsBraziers/Central" instance=ExtResource("brazier_art")]
+
+[node name="ObjectiveLabel" type="Label" parent="RuinsBraziers/Central"]
+offset_left = -120.0
+offset_right = 120.0
+offset_top = -110.0
+offset_bottom = -80.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1,0.93,0.72,1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+text = "Purify brazier"
+horizontal_alignment = 1
+
+[node name="Eastern" type="Node2D" parent="RuinsBraziers"]
+position = Vector2(930, 2080)
+script = ExtResource("brazier_logic")
+objective_id = "ruins_eastern_brazier"
+sequence_index = 2
+
+[node name="Brazier" parent="RuinsBraziers/Eastern" instance=ExtResource("brazier_art")]
+
+[node name="ObjectiveLabel" type="Label" parent="RuinsBraziers/Eastern"]
+offset_left = -120.0
+offset_right = 120.0
+offset_top = -110.0
+offset_bottom = -80.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1,0.93,0.72,1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+text = "Purify brazier"
+horizontal_alignment = 1
+
+[node name="RaviennaCourtyard" parent="." instance=ExtResource("ritual_tomb")]
+position = Vector2(-1100, 1100)
+
+[node name="CombatRouter" type="Node" parent="."]
+script = ExtResource("cassien_combat_router")
+
+[node name="RitualCamera" type="Camera2D" parent="."]
+process_callback = 0
+position = Vector2(-1100, 1250)
+zoom = Vector2(0.9, 0.9)
+enabled = false
+
+[node name="CassienTombPosition" type="Marker2D" parent="."]
+position = Vector2(-1250, 1050)
+
+[node name="CassienRitual" type="Node2D" parent="."]
+position = Vector2(-908, 1196)
+script = ExtResource("cassien_ritual")
+
+
+
+[node name="CassienVisual" parent="CassienRitual" instance=ExtResource("cassien_visual")]
+position = Vector2(0, 0)
+
+[node name="CassienFootprint" type="StaticBody2D" parent="CassienRitual"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CassienRitual/CassienFootprint"]
+polygon = PackedVector2Array(-26, -5, 0, -17, 26, -5, 26, 5, 0, 14, -26, 5)
+
+[node name="ObjectiveLabel" type="Label" parent="CassienRitual"]
+offset_left = -160.0
+offset_top = -120.0
+offset_right = 160.0
+offset_bottom = -90.0
+mouse_filter = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+text = "Speak to Cassien"
+horizontal_alignment = 1
+[node name="RuinsDecoration" parent="." instance=ExtResource("ruins_decoration")]
+
+[node name="TerrainPerimeter" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="TerrainOutline" type="CollisionPolygon2D" parent="TerrainPerimeter"]
+build_mode = 1
+polygon = PackedVector2Array(-1616, 720, -1480, 788, 64, 16, 3264, 1616, 1696, 2400, 1920, 2512, 1728, 2608, 1504, 2496, 64, 3216, -3136, 1616, -1672, 884, -1808, 816)
+
+
+[node name="ReviennaDeparture" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+sprite_frames = ExtResource("revienna_departure_walk")
+animation = &"walk_e"
+scale = Vector2(1.25, 1.25)
+offset = Vector2(0, -63)
+
+[node name="ReviennaDepartureRoute" type="Node2D" parent="."]
+
+[node name="Waypoint00" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(-968, 1130)
+
+[node name="Waypoint01" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(-880, 1170)
+
+[node name="Waypoint02" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(-780, 1260)
+
+[node name="Waypoint03" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(-650, 1390)
+
+[node name="Waypoint04" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(-100, 1500)
+
+[node name="Waypoint05" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(100, 1550)
+
+[node name="Waypoint06" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(850, 1980)
+
+[node name="Waypoint07" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(1030, 2050)
+
+[node name="Waypoint08" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(1568, 2352)
+
+[node name="Waypoint09" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(1664, 2432)

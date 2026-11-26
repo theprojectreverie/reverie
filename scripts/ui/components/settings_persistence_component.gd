@@ -23,6 +23,14 @@ func collect_working_from_ui() -> Dictionary:
 	d["sfx_volume"] = screen._sfx_slider.value if screen._sfx_slider else float(screen._saved.get("sfx_volume", 1.0))
 	d["fullscreen"] = screen._fullscreen_check.button_pressed if screen._fullscreen_check else bool(screen._saved.get("fullscreen", false))
 	d["resolution"] = screen._resolution_option.get_item_text(screen._resolution_option.selected) if screen._resolution_option and screen._resolution_option.selected >= 0 else str(screen._saved.get("resolution", screen._current_resolution_string()))
+	if screen._quality_option and screen._quality_option.selected >= 0:
+		d["graphics_quality"] = screen._quality_option.selected
+	if screen._fps_option and screen._fps_option.selected >= 0:
+		d["fps_limit"] = GraphicsSettings.FPS_OPTIONS[screen._fps_option.selected]
+	if screen._adaptive_check:
+		d["adaptive_graphics"] = screen._adaptive_check.button_pressed
+	if screen._monitor_check:
+		d["performance_monitor"] = screen._monitor_check.button_pressed
 	return d
 
 
@@ -54,6 +62,7 @@ func restore_defaults() -> void:
 	if screen._sfx_slider: screen._sfx_slider.value = float(screen._working.sfx_volume)
 	if screen._fullscreen_check: screen._fullscreen_check.button_pressed = bool(screen._working.fullscreen)
 	if screen._resolution_option: screen._populate_resolutions(str(screen._working.resolution))
+	screen._sync_graphics_options()
 	screen._rebuild_controls()
 	screen._mark_dirty()
 	EventBus.toast_requested.emit("Settings restored to defaults.")
@@ -70,14 +79,16 @@ func apply_runtime(settings: Dictionary, persist_controls: bool) -> void:
 		set_bus_volume("Music", music)
 	if AudioServer.get_bus_index("SFX") >= 0:
 		set_bus_volume("SFX", sfx)
-	var fullscreen := bool(settings.get("fullscreen", false))
-	if fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		var res := parse_resolution(str(settings.get("resolution", screen._current_resolution_string())))
-		if res.x >= 640 and res.y >= 360:
-			DisplayServer.window_set_size(res)
+	GraphicsSettings.apply_preferences(settings.get("graphics_quality", GraphicsSettings.default_quality()), settings.get("fps_limit", 0), bool(settings.get("adaptive_graphics", false)), bool(settings.get("performance_monitor", false)))
+	if not OS.has_feature("mobile"):
+		var fullscreen := bool(settings.get("fullscreen", false))
+		if fullscreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			var res := parse_resolution(str(settings.get("resolution", screen._current_resolution_string())))
+			if res.x >= 640 and res.y >= 360:
+				DisplayServer.window_set_size(res)
 	screen._controls_component.apply_controls(settings.get("controls", {}))
 
 
@@ -107,14 +118,18 @@ func default_settings() -> Dictionary:
 		"sfx_volume": 1.0,
 		"fullscreen": false,
 		"resolution": "1280x720",
+		"graphics_quality": GraphicsSettings.default_quality(),
+		"fps_limit": 0,
+		"adaptive_graphics": false,
+		"performance_monitor": false,
 		"controls": {},
 	}
 
 
 
-func load_config() -> Dictionary:
+func load_config(path: String = SettingsScreen.CONFIG_PATH) -> Dictionary:
 	var cfg := ConfigFile.new()
-	var err := cfg.load(SettingsScreen.CONFIG_PATH)
+	var err := cfg.load(path)
 	var defaults := default_settings()
 	if err != OK:
 		return defaults
@@ -122,6 +137,10 @@ func load_config() -> Dictionary:
 		defaults[key] = float(cfg.get_value(SettingsScreen.SECTION_AUDIO, key, defaults[key]))
 	for key in ["fullscreen", "resolution"]:
 		defaults[key] = cfg.get_value(SettingsScreen.SECTION_DISPLAY, key, defaults[key])
+	defaults["graphics_quality"] = GraphicsSettings.normalize_quality(cfg.get_value(GraphicsSettings.SECTION, "quality", defaults["graphics_quality"]))
+	defaults["fps_limit"] = GraphicsSettings.normalize_fps(cfg.get_value(GraphicsSettings.SECTION, "fps", defaults["fps_limit"]))
+	defaults["adaptive_graphics"] = bool(cfg.get_value(GraphicsSettings.SECTION, "adaptive", false))
+	defaults["performance_monitor"] = bool(cfg.get_value(GraphicsSettings.SECTION, "monitor", false))
 	var controls: Dictionary = defaults.get("controls", {})
 	if cfg.has_section(SettingsScreen.SECTION_CONTROLS):
 		for key in cfg.get_section_keys(SettingsScreen.SECTION_CONTROLS):
@@ -131,17 +150,21 @@ func load_config() -> Dictionary:
 
 
 
-func save_config(settings: Dictionary) -> void:
+func save_config(settings: Dictionary, path: String = SettingsScreen.CONFIG_PATH) -> void:
 	var cfg := ConfigFile.new()
 	cfg.set_value(SettingsScreen.SECTION_AUDIO, "master_volume", float(settings.get("master_volume", 1.0)))
 	cfg.set_value(SettingsScreen.SECTION_AUDIO, "music_volume", float(settings.get("music_volume", 1.0)))
 	cfg.set_value(SettingsScreen.SECTION_AUDIO, "sfx_volume", float(settings.get("sfx_volume", 1.0)))
 	cfg.set_value(SettingsScreen.SECTION_DISPLAY, "fullscreen", bool(settings.get("fullscreen", false)))
 	cfg.set_value(SettingsScreen.SECTION_DISPLAY, "resolution", str(settings.get("resolution", "1280x720")))
+	cfg.set_value(GraphicsSettings.SECTION, "quality", GraphicsSettings.normalize_quality(settings.get("graphics_quality", GraphicsSettings.default_quality())))
+	cfg.set_value(GraphicsSettings.SECTION, "fps", GraphicsSettings.normalize_fps(settings.get("fps_limit", 0)))
+	cfg.set_value(GraphicsSettings.SECTION, "adaptive", bool(settings.get("adaptive_graphics", false)))
+	cfg.set_value(GraphicsSettings.SECTION, "monitor", bool(settings.get("performance_monitor", false)))
 	var controls: Dictionary = settings.get("controls", {})
 	for key in controls.keys():
 		cfg.set_value(SettingsScreen.SECTION_CONTROLS, str(key), controls[key])
-	var save_error := cfg.save(SettingsScreen.CONFIG_PATH)
+	var save_error := cfg.save(path)
 	if save_error != OK:
 		push_error("[Settings] Could not save settings.cfg (error %d)." % save_error)
 

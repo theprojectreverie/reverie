@@ -1,0 +1,158 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/combat/components/ravienna_combat_art.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/components/coop_revienna_battle.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/panels/battle_dialogue_panel.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/meters/sliced/meter_empty_track.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/ui/battle/meters/sliced/hp_red_fill.png" id="5"]
+
+[ext_resource type="SpriteFrames" path="res://assets/characters/revienna/combat/eclipse_effect_frames.tres" id="6"]
+
+[sub_resource type="StyleBoxTexture" id="PanelStyle"]
+texture = ExtResource("3")
+texture_margin_left = 38.0
+texture_margin_right = 38.0
+texture_margin_top = 36.0
+texture_margin_bottom = 36.0
+content_margin_left = 32.0
+content_margin_right = 32.0
+content_margin_top = 42.0
+content_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="Track"]
+texture = ExtResource("4")
+texture_margin_left = 24.0
+texture_margin_right = 18.0
+
+[sub_resource type="StyleBoxTexture" id="Fill"]
+texture = ExtResource("5")
+texture_margin_left = 28.0
+texture_margin_right = 18.0
+
+[node name="CoopReviennaBattle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2")
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.055, 0.025, 0.09, 0.94)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(360, 340)
+theme_override_styles/panel = SubResource("PanelStyle")
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.95, 0.76, 0.45, 1)
+text = "REVIENNA\nTHE ECLIPSE SOVEREIGN"
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="Portrait" type="Control" parent="Center/Panel/Content"]
+custom_minimum_size = Vector2(0, 180)
+clip_contents = true
+layout_mode = 2
+
+[node name="Revienna" parent="Center/Panel/Content/Portrait" instance=ExtResource("1")]
+position = Vector2(168, 170)
+scale = Vector2(1.35, 1.35)
+
+[node name="Cracks" type="AnimatedSprite2D" parent="Center/Panel/Content/Portrait"]
+visible = false
+texture_filter = 1
+z_index = 0
+sprite_frames = ExtResource("6")
+animation = &"cracks"
+offset = Vector2(0, 0)
+
+[node name="Corona" type="AnimatedSprite2D" parent="Center/Panel/Content/Portrait"]
+visible = false
+texture_filter = 1
+z_index = 1
+sprite_frames = ExtResource("6")
+animation = &"eclipse"
+offset = Vector2(0, 0)
+
+[node name="Eruption" type="AnimatedSprite2D" parent="Center/Panel/Content/Portrait"]
+visible = false
+texture_filter = 1
+z_index = 2
+sprite_frames = ExtResource("6")
+animation = &"eruption"
+offset = Vector2(0, -73)
+
+[node name="Health" type="ProgressBar" parent="Center/Panel/Content"]
+layout_mode = 2
+max_value = 1800.0
+value = 1800.0
+show_percentage = false
+custom_minimum_size = Vector2(0, 12)
+theme_override_styles/background = SubResource("Track")
+theme_override_styles/fill = SubResource("Fill")
+
+[node name="Phase" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+text = "Phase 1 / 3"
+horizontal_alignment = 1
+
+[node name="PlayerHealthLabel" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Your health: 100 / 100"
+
+[node name="PlayerHealth" type="ProgressBar" parent="Center/Panel/Content"]
+layout_mode = 2
+max_value = 100.0
+value = 100.0
+show_percentage = false
+custom_minimum_size = Vector2(0, 12)
+theme_override_styles/background = SubResource("Track")
+theme_override_styles/fill = SubResource("Fill")
+
+[node name="CombatFeedback" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+text = "Prepare to strike."
+
+[node name="Warning" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.45, 1)
+autowrap_mode = 2
+horizontal_alignment = 1
+text = "Watch for the Sovereign's next attack."
+
+[node name="Guard" type="Button" parent="Center/Panel/Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+text = "Guard"
+disabled = true
+
+[node name="Attack" type="Button" parent="Center/Panel/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Strike"
+
+[node name="Leave" type="Button" parent="Center/Panel/Content"]
+layout_mode = 2
+text = "Return to exploration"

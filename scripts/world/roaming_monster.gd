@@ -30,7 +30,7 @@ var required_quest: String = ""
 var required_quest_step: int = 0
 var engaged: bool = false
 var defeated: bool = false
-var respawn_seconds: float = 75.0
+var respawn_seconds: float = 15.0
 ## Set by GreenwardWorld before setup(); drives deterministic per-spawn variety.
 var spawn_index: int = 0
 var _engagement_cooldown: float = 0.0
@@ -66,7 +66,7 @@ func setup(p_group_id: String, p_home: Vector2, p_enemy_def: Dictionary, p_boss:
 	prompt = "Challenge" if p_boss else "Fight"
 	interaction_radius = 70.0
 	visual_definition = p_enemy_def
-	respawn_seconds = 120.0 if p_boss else 75.0
+	respawn_seconds = 120.0 if p_boss else 15.0
 	move_speed = 14.0 if p_boss else 26.0
 	_sync_components_from_setup()
 

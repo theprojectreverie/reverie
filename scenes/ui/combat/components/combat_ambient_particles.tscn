@@ -2,7 +2,7 @@
 
 [node name="CombatAmbientParticles" type="Node2D"]
 
-[node name="VioletEmbers" type="CPUParticles2D" parent="."]
+[node name="VioletEmbers" type="CPUParticles2D" parent="." groups=["optional_ambient_fx"]]
 position = Vector2(640, 300)
 z_index = 1
 emitting = true
@@ -18,7 +18,7 @@ scale_amount_min = 0.3
 scale_amount_max = 1.0
 color = Color(0.7, 0.5, 0.9, 0.25)
 
-[node name="DarkDust" type="CPUParticles2D" parent="."]
+[node name="DarkDust" type="CPUParticles2D" parent="." groups=["optional_ambient_fx"]]
 position = Vector2(640, 360)
 z_index = 1
 emitting = true

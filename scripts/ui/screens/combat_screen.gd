@@ -121,8 +121,7 @@ func _build_background() -> void:
 		_layout_component.build_background()
 
 func _style_combat_panel(panel: PanelContainer, fill: Color, radius: int, margin: int) -> void:
-	if _layout_component != null:
-		_layout_component.style_combat_panel(panel, fill, radius, margin)
+	panel.add_theme_stylebox_override("panel", UITheme.style(fill, UITheme.BORDER, radius, 1, margin, true))
 
 func _build_layout() -> void:
 	if _layout_component != null:

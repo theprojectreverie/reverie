@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[node name="PortraitTile" type="Button"]
+custom_minimum_size = Vector2(112, 140)
+size_flags_horizontal = 3
+toggle_mode = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+theme_override_constants/icon_max_width = 80
+theme_override_font_sizes/font_size = 13
+text_overrun_behavior = 3
+alignment = 1

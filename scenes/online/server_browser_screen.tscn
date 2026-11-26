@@ -63,6 +63,11 @@ layout_mode = 2
 autowrap_mode = 2
 text = "Regional servers are persistent worlds, separate from private co-op expeditions."
 
+[node name="RegionFallback" type="CheckButton" parent="Center/Panel/Margins/Content"]
+layout_mode = 2
+text = "Use another server in this region if full"
+button_pressed = false
+
 [node name="Scroll" type="ScrollContainer" parent="Center/Panel/Margins/Content"]
 layout_mode = 2
 size_flags_vertical = 3

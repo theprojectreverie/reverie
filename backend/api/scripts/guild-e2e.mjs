@@ -1,0 +1,58 @@
+import Fastify from 'fastify';
+import jwt from '@fastify/jwt';
+import assert from 'node:assert/strict';
+import {randomBytes} from 'node:crypto';
+import {pool} from '../src/db.ts';
+import {config} from '../src/config.ts';
+import {authRoutes} from '../src/routes/auth.ts';
+import {guildRoutes} from '../src/routes/guilds.ts';
+assert.equal(config.NODE_ENV,'development');
+assert.ok(['localhost','127.0.0.1','[::1]'].includes(new URL(config.DATABASE_URL).hostname));
+const app=Fastify(),suffix=randomBytes(4).toString('hex'),emails=[],ids=[],tokens=[],guilds=[];
+const call=(method,path,i,payload)=>app.inject({method,url:'/v1/guilds'+path,headers:i==null?{}:{authorization:'Bearer '+tokens[i]},...(payload?{payload}:{})});
+const post=(i,path,payload)=>call('POST',path,i,payload);
+const me=i=>call('GET','/me',i);
+async function register(i){
+ const name='Guild'+i+suffix,email=name+'@example.test',password=randomBytes(16).toString('hex');emails.push(email);
+ const r=await app.inject({method:'POST',url:'/v1/auth/register',payload:{email,playerName:name,password}});assert.equal(r.statusCode,201,r.body);
+ const login=await app.inject({method:'POST',url:'/v1/auth/login',payload:{playerName:name,password}});assert.equal(login.statusCode,200,login.body);ids.push(login.json().player.id);tokens.push(login.json().accessToken);
+}
+try{
+ await app.register(jwt,{secret:config.JWT_SECRET});await app.register(authRoutes,{prefix:'/v1/auth'});await app.register(guildRoutes,{prefix:'/v1/guilds'});await app.ready();
+ for(let i=0;i<32;i++)await register(i);
+ assert.equal((await me(null)).statusCode,401);
+ const fields={name:'Moon '+suffix,description:'Guild test',emblem:'moon'};
+ let r=await post(0,'/create',fields);assert.equal(r.statusCode,201,r.body);const g=r.json().guildId;guilds.push(g);
+ assert.equal((await post(1,'/create',{...fields,name:fields.name.toUpperCase()})).statusCode,409);
+ assert.equal((await post(0,'/create',{...fields,name:'Other '+suffix})).statusCode,409);
+ assert.equal((await me(0)).json().guild.role,'leader');
+ assert.ok((await call('GET','/search?q='+suffix,1)).json().guilds.some(v=>v.id===g));
+ assert.equal((await post(1,'/apply',{guildId:g})).statusCode,200);
+ assert.equal((await me(0)).json().requests[0].playerId,ids[1]);
+ assert.equal((await post(2,'/application',{playerId:ids[1],accept:true})).statusCode,403);
+ assert.equal((await post(0,'/application',{playerId:ids[1],accept:true})).statusCode,200);
+ assert.equal((await post(1,'/invite',{playerId:ids[2]})).statusCode,403);
+ assert.equal((await post(0,'/role',{playerId:ids[1],role:'officer'})).statusCode,200);
+ assert.equal((await post(1,'/invite',{playerId:ids[2]})).statusCode,200);
+ assert.equal((await post(3,'/invitation',{guildId:g,accept:true})).statusCode,404);
+ assert.equal((await post(2,'/invitation',{guildId:g,accept:true})).statusCode,200);
+ assert.equal((await post(1,'/kick',{playerId:ids[0]})).statusCode,403);
+ assert.equal((await post(0,'/leave',{})).statusCode,409);
+ assert.equal((await post(1,'/settings',fields)).statusCode,403);
+ assert.equal((await post(0,'/settings',{...fields,emblem:'star'})).statusCode,200);
+ assert.equal((await me(2)).json().guild.emblem,'star');
+ assert.equal((await post(0,'/role',{playerId:ids[1],role:'leader'})).statusCode,200);
+ assert.equal((await me(0)).json().guild.role,'member');assert.equal((await me(1)).json().guild.role,'leader');
+ assert.equal((await pool.query('SELECT leader_id FROM guilds WHERE id=$1',[g])).rows[0].leader_id,ids[1]);
+ assert.equal((await post(1,'/kick',{playerId:ids[2]})).statusCode,200);
+ assert.equal((await me(2)).json().guild,null);
+ for(let i=3;i<30;i++)await pool.query("INSERT INTO guild_members(guild_id,player_id,guild_rank) VALUES($1,$2,'member')",[g,ids[i]]);
+ assert.equal((await me(1)).json().guild.memberCount,29);
+ for(let i of [30,31])assert.equal((await post(i,'/apply',{guildId:g})).statusCode,200);
+ const race=await Promise.all([post(1,'/application',{playerId:ids[30],accept:true}),post(1,'/application',{playerId:ids[31],accept:true})]);
+ assert.deepEqual(race.map(v=>v.statusCode).sort(),[200,409]);assert.equal((await me(1)).json().guild.memberCount,30);
+ assert.equal((await post(2,'/apply',{guildId:g})).statusCode,409);
+ const other=await post(2,'/create',{...fields,name:'Star '+suffix});assert.equal(other.statusCode,201,other.body);guilds.push(other.json().guildId);
+ assert.equal((await post(2,'/leave',{})).statusCode,200);
+ console.log('PASS guild creation, unique names, applications, invitations, consent, role permissions, leadership transfer, kick, settings, 30-member concurrent capacity and solo disband');
+}catch(e){console.error(e);process.exitCode=1;}finally{await app.close();for(const g of guilds)await pool.query('DELETE FROM guilds WHERE id=$1',[g]);await pool.query('DELETE FROM accounts WHERE email=ANY($1)',[emails]);await pool.end();}

@@ -136,7 +136,7 @@ func show_phase_transition(boss_id: String, phase_number: int, message: String =
 	var profile := _profile_for_boss(boss_id)
 	var title: String = str(profile.get("phase_title")) if profile != null else "THE ENCOUNTER CHANGES"
 	var accent: Color = profile.get("phase_color") if profile != null else Color.WHITE
-	var visual_style := str(profile.get("visual_style")) if profile != null else "roots"
+	var visual_style := "eclipse" if boss_id == "revienna_boss" else (str(profile.get("visual_style")) if profile != null else "roots")
 	var cue_message := message.strip_edges()
 	if cue_message.is_empty():
 		cue_message = "The encounter changes."
@@ -170,7 +170,6 @@ func _start_next_phase_cue() -> void:
 		return
 	_phase_cue_busy = true
 	var request: Dictionary = _phase_queue.pop_front()
-	var token := _phase_queue_token
 	var boss_id := str(request.get("boss_id", ""))
 	var phase_number := int(request.get("phase_number", 2))
 	var accent_color: Color = request.get("accent", Color.WHITE)
@@ -186,11 +185,7 @@ func _start_next_phase_cue() -> void:
 		str(request.get("visual_style", "roots")),
 		1.55
 	)
-	await _phase_cue.finished
-	if not is_inside_tree() or token != _phase_queue_token:
-		return
-	_phase_cue_busy = false
-	_start_next_phase_cue()
+
 
 
 func _phase_label_for_boss(boss_id: String, phase_number: int) -> String:
@@ -201,6 +196,8 @@ func _phase_label_for_boss(boss_id: String, phase_number: int) -> String:
 			return "Heartwood Break" if phase_number <= 2 else "Roots Unbound"
 		"fallen_matron":
 			return "Corruption" if phase_number <= 2 else "Descent"
+		"revienna_boss":
+			return "Fractured Mind" if phase_number <= 2 else "Total Eclipse"
 	return "Phase %d" % phase_number
 
 
@@ -227,6 +224,8 @@ func transient_count() -> int:
 
 func _profile_for_boss(boss_id: String) -> Resource:
 	match boss_id:
+		"revienna_boss":
+			return preload("res://resources/combat/presentation/ravienna.tres")
 		"elder_hollow", "corrupted_treant":
 			return elder_hollow_profile if elder_hollow_profile != null else default_profile
 		"fallen_matron", "fallen_matron_encounter":
@@ -236,4 +235,14 @@ func _profile_for_boss(boss_id: String) -> Resource:
 
 
 func _on_phase_cue_finished() -> void:
+	var token := _phase_queue_token
 	phase_change_finished.emit()
+	if _phase_cue_busy and token == _phase_queue_token:
+		# Advance outside the AnimationPlayer signal; a canceled cue has no continuation.
+		_advance_phase_queue.call_deferred(token)
+
+func _advance_phase_queue(token: int) -> void:
+	if not is_inside_tree() or token != _phase_queue_token or not _phase_cue_busy:
+		return
+	_phase_cue_busy = false
+	_start_next_phase_cue()

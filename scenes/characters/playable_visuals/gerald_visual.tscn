@@ -1,12 +1,13 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/characters/playable_visuals/playable_character_visual_base.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://assets/characters/gerald/world_sheet.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/gerald/world_sheet_fallen.tres" id="2_frames"]
 
 [node name="GeraldVisual" instance=ExtResource("1_base")]
 
 [node name="Body" parent="." index="1"]
 sprite_frames = ExtResource("2_frames")
+offset = Vector2(-64, -128)
 animation = &"idle_0"
 frame = 0
 playing = false

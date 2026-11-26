@@ -1,0 +1,1 @@
+ALTER TABLE owned_characters ADD COLUMN IF NOT EXISTS skill_levels jsonb NOT NULL DEFAULT '{}'::jsonb;

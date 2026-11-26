@@ -17,6 +17,27 @@ const RECIPES: Dictionary = {
 		"gold": 250,
 		"output": {"mossweave_vest": 1}
 	},
+	"gladewood_bow": {
+		"name": "Gladewood Bow",
+		"description": "Shape a living bow from sap, moonpetals and a royal seal.",
+		"materials": {"glade_sap": 5, "moonpetal": 3, "royal_seal": 1},
+		"gold": 400,
+		"output": {"gladewood_bow": 1}
+	},
+	"awakening_dew": {
+		"name": "Dew of Awakening",
+		"description": "Distill awakening dew from moonpetals, sap and a Gothic Shard.",
+		"materials": {"moonpetal": 3, "glade_sap": 2, "gothic_shard": 1},
+		"gold": 300,
+		"output": {"dew_of_awakening": 1}
+	},
+	"sunfire_royal_forge": {
+		"name": "Sunfire Blade - Royal Forge",
+		"description": "Forge the legendary blade from a royal seal, Gothic Shards and awakening dew.",
+		"materials": {"royal_seal": 1, "gothic_shard": 4, "dew_of_awakening": 2},
+		"gold": 700,
+		"output": {"sunfire_blade": 1}
+	},
 	"sunfire_blade": {
 		"name": "Sunfire Blade",
 		"description": "Temper a legendary blade around a Hollow Heart and awakening dew.",
@@ -77,10 +98,14 @@ static func craft(recipe_id: String) -> Dictionary:
 	if not bool(status.get("ok", false)):
 		return {"ok": false, "reason": str(status.get("reason", "Missing crafting materials.")), "missing": status.get("missing", {})}
 	var recipe: Dictionary = status["recipe"]
-	# All costs are validated before mutation; no partial craft is possible.
+	# Roll back earlier deductions if any material changes during callbacks.
+	var consumed: Dictionary = {}
 	for item_id in recipe["materials"]:
 		if not GameState.inventory_domain.remove_item(str(item_id), int(recipe["materials"][item_id])):
+			for restored in consumed:
+				GameState.inventory_domain.add_item(str(restored), int(consumed[restored]))
 			return {"ok": false, "reason": "Material inventory changed; nothing was crafted."}
+		consumed[item_id] = int(recipe["materials"][item_id])
 	if not GameState.inventory_domain.spend_currency("gold", int(recipe.get("gold", 0))):
 		# Defensive rollback in case wallet state changed between validation and charge.
 		for item_id in recipe["materials"]:

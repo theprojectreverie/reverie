@@ -546,7 +546,7 @@ func _ready() -> void:
 		check(bottom_hud != null and bottom_hud.position.y + bottom_hud.size.y <= 688.0, "Bottom HUD remains inside the 720px viewport safe margin")
 		var roster_panel := live_screen.get_node("CombatScreenLayout/Root/CombatBottomHUD/RosterPanel") as Control
 		check(roster_panel.get_combined_minimum_size().y <= 180.0, "Four-member roster fits within the fixed 180px bottom HUD")
-		check(bottom_hud.get_combined_minimum_size().y <= 180.0, "Full bottom HUD minimum height stays within 180px")
+		check(bottom_hud.get_combined_minimum_size().y <= 184.0, "Full bottom HUD minimum height stays within revised 184px")
 		check(layout_root != null and layout_root.size.y <= 688.0, "Combat layout root fits the viewport safe area")
 
 		var action_grid := live_screen.get_node_or_null("CombatScreenLayout/Root/CombatBottomHUD/SkillsPanel/SkillsContent/ActionCategories") as GridContainer

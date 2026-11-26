@@ -48,6 +48,8 @@ func try_dodge() -> bool:
 	return true
 
 func try_skill() -> bool:
+	if not MultiplayerGateway.standalone_expedition_id.is_empty():
+		return false # Only server-validated basic attacks are enabled in this co-op prototype.
 	if not player.input_enabled or player.network_recovery_paused or skill_cooldown > 0.0 or dodge_time > 0.0 or attack_pending:
 		return false
 	skill_cooldown = 4.0
@@ -105,3 +107,14 @@ func receive_world_damage(amount: float) -> void:
 		hp = max_hp
 		hurt_cooldown = 3.0
 		EventBus.toast_requested.emit("You were knocked out. Health restored for this prototype.")
+func apply_coop_health(authoritative_hp: float, knocked_out: bool = false, animate: bool = false) -> void:
+	hp = clampf(authoritative_hp, 0.0, max_hp)
+	if not animate:
+		return
+	attack_pending = false
+	if knocked_out:
+		player.play_defeat()
+		EventBus.toast_requested.emit("Knocked out. Expedition health restored.")
+	else:
+		player.play_damage()
+		EventBus.toast_requested.emit("Expedition health: %d / %d" % [hp,max_hp])

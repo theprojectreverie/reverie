@@ -1,4 +1,4 @@
-﻿class_name CombatTurnOrderComponent
+class_name CombatTurnOrderComponent
 extends Node
 ## Renders the initiative strip from the combat engine's live turn queue.
 
@@ -80,7 +80,11 @@ func refresh() -> void:
 			portrait.setup_character(definition)
 		else:
 			portrait.setup(unit.palette, "Monster" if unit.team == CombatEngine.ENEMY_TEAM else "Human", unit.element, unit.rarity, unit.def_id.hash())
-			if unit.def_id == "fallen_matron":
+			if unit.def_id == "gerald_boss":
+				portrait.set_portrait_texture(preload("res://assets/enemies/gerald_fallen/turn_order_portrait.tres"))
+			elif unit.def_id == "cassien_boss":
+				portrait.set_portrait_texture(preload("res://assets/characters/cassien/combat/turn_order_portrait.tres"))
+			elif unit.def_id == "fallen_matron":
 				var matron_phase := 1
 				if unit.hp_ratio() <= 0.33:
 					matron_phase = 3

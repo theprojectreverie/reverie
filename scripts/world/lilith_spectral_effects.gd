@@ -10,8 +10,12 @@ func _ready() -> void:
 	wisps.emitting = false
 	sparks.emitting = false
 func _process(_delta: float) -> void:
-	if owner_visual == null or owner_visual.animator == null or owner_visual.character_id != "lilith":
+	if owner_visual == null or owner_visual.animator == null or not owner_visual.character_id.begins_with("lilith"):
 		visible = false
+		if _last_state != -1:
+			player.stop()
+			_clear_transient_particles()
+			_last_state = -1
 		return
 	var state := owner_visual.animator.state
 	if state != _last_state:
@@ -36,6 +40,7 @@ func _play_state(state: int) -> void:
 	elif state == ActorVisual.S_CAST: _restart(wisps)
 func _restart(p: CPUParticles2D) -> void:
 	p.emitting = false
+	GraphicsSettings.prepare_combat_particles(p)
 	p.restart()
 	p.emitting = true
 

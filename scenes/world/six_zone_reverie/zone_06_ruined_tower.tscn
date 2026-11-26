@@ -1,8 +1,19 @@
 [gd_scene format=3 uid="uid://decg4mhgu0vl6"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/tilemaps/06_courtyard_paving.tscn" id="courtyard_paving"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/tilemaps/06_courtyard_repair.tscn" id="courtyard_repair"]
+[ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/road_paint_tileset.tres" id="paint_roads"]
+
+[ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/water_tileset.tres" id="paint_water"]
+
+[ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/corrupted_vegetation_tileset.tres" id="paint_corrupted_vegetation"]
+[ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/path_borders_tileset.tres" id="paint_path_borders"]
+[ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/gothic_walls_tileset.tres" id="paint_gothic_walls"]
+[ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/corruption_pools_tileset.tres" id="paint_corruption_pools"]
+
 [ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Boss_Arena/Flooring/arena_floor_dark_01.tscn" id="tile_interior"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/gothic_architecture.tscn" id="gothic_arch"]
-[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/revienna.tscn" id="revienna_boss"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/revienna_throne.tscn" id="revienna_boss"]
 [ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Ground/path_corrupted_stone.tscn" id="tile_c"]
 [ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Terrain/grass_dark_01.tscn" id="tile_g"]
 [ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Ground/gothic_courtyard_floor_01.tscn" id="tile_hall"]
@@ -19,10 +30,49 @@ y_sort_enabled = true
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
+[node name="CourtyardRepair" parent="." instance=ExtResource("courtyard_repair")]
+
+[node name="CourtyardPaving" parent="." instance=ExtResource("courtyard_paving")]
+
 [node name="Revienna" parent="." unique_id=112670322 instance=ExtResource("revienna_boss")]
 position = Vector2(0, 1050)
+scale = Vector2(1.5, 1.5)
 
 [node name="GothicArchitecture" parent="." unique_id=537425873 instance=ExtResource("gothic_arch")]
 position = Vector2(0, 0)
+
+[node name="EditableVegetation" type="TileMapLayer" parent="."]
+texture_filter = 1
+y_sort_enabled = true
+z_index = 0
+tile_set = ExtResource("paint_corrupted_vegetation")
+
+[node name="EditablePathBorders" type="TileMapLayer" parent="."]
+texture_filter = 1
+y_sort_enabled = true
+z_index = 0
+tile_set = ExtResource("paint_path_borders")
+
+[node name="EditableWalls" type="TileMapLayer" parent="."]
+texture_filter = 1
+y_sort_enabled = true
+z_index = 0
+tile_set = ExtResource("paint_gothic_walls")
+
+[node name="EditableCorruptionPools" type="TileMapLayer" parent="."]
+texture_filter = 1
+y_sort_enabled = true
+z_index = -18
+tile_set = ExtResource("paint_corruption_pools")
+
+[node name="EditableWater" type="TileMapLayer" parent="."]
+texture_filter = 1
+z_index = -20
+tile_set = ExtResource("paint_water")
+
+[node name="EditableRoads" type="TileMapLayer" parent="."]
+texture_filter = 1
+z_index = -19
+tile_set = ExtResource("paint_roads")
 
 [editable path="GothicArchitecture"]

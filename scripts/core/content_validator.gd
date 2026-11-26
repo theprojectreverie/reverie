@@ -34,7 +34,7 @@ const STATUS_IDS := [
 const ITEM_CATEGORIES := ["currency", "material", "equipment"]
 const EQUIPMENT_SLOTS := ["weapon", "armor", "accessory"]
 const EQUIPMENT_STATS := ["hp", "atk", "def", "spd", "crit", "crit_dmg"]
-const QUEST_STEP_TYPES := ["talk", "kill"]
+const QUEST_STEP_TYPES := ["talk", "kill", "explore"]
 const BANNER_TYPES := ["standard", "limited"]
 # The full set of Phase-3 prop kinds ProceduralArt / GreenwardStyle can paint.
 # (The original 12 plus every additional tree/ground/structure/magical/water/

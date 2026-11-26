@@ -10,7 +10,22 @@ var BACKUP_PATH := "user://project_fantasy_save.backup.json"
 const SAVE_VERSION := 1
 
 
+const STORY_PREVIEW_PATH := "scenes/qa/gerald_story_preview.tscn"
+var story_preview_mode := false
+
+func _ready() -> void:
+	# SaveService starts before GameState and AuthGateway. F6 supplies the
+	# scene path as a positional command-line argument.
+	for arg in OS.get_cmdline_args():
+		if arg.replace("\\", "/").ends_with(STORY_PREVIEW_PATH):
+			story_preview_mode = true
+			OS.set_environment("REVERIE_E2E_DISABLE_LOCAL_SAVE", "1")
+			print("[GeraldPreview] Read-only preview: saves and remembered login disabled.")
+			break
+
 func has_save() -> bool:
+	if story_preview_mode:
+		return false
 	return FileAccess.file_exists(SAVE_PATH) or FileAccess.file_exists(SAVE_PATH + ".previous.tmp") or FileAccess.file_exists(SAVE_PATH + ".last_good")
 
 func _read_valid(path: String) -> Dictionary:
@@ -23,6 +38,8 @@ func _read_valid(path: String) -> Dictionary:
 	return data if validate_save_data(data).is_empty() else {}
 
 func load_save() -> Dictionary:
+	if story_preview_mode:
+		return {}
 	# Never discard a save just because another writer is replacing it.
 	for path in [SAVE_PATH, SAVE_PATH + ".previous.tmp", SAVE_PATH + ".last_good"]:
 		var data := _read_valid(path)
@@ -45,7 +62,7 @@ func validate_save_data(data: Dictionary) -> Array[String]:
 	for key in ["roster", "party"]:
 		if data.has(key) and typeof(data[key]) != TYPE_ARRAY:
 			errors.append("%s must be an array" % key)
-	for key in ["inventory", "quests", "pity", "flags", "position", "region_positions"]:
+	for key in ["inventory", "quests", "pity", "flags", "position", "region_positions", "stored_gear"]:
 		if data.has(key) and typeof(data[key]) != TYPE_DICTIONARY:
 			errors.append("%s must be a dictionary" % key)
 	if data.has("gear_levels") and typeof(data["gear_levels"]) != TYPE_DICTIONARY:

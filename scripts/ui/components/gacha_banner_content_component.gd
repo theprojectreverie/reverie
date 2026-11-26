@@ -22,14 +22,28 @@ func rebuild_main() -> void:
 		return
 
 	# ---------------------------------------------------------------- banner art
+	var compact := screen.compact_summon_layout()
+	var compact_column: VBoxContainer
+	if compact:
+		var shared_scroll := ScrollContainer.new()
+		shared_scroll.name = "CompactSummonScroll"
+		shared_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		shared_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		shared_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		screen._main.add_child(shared_scroll)
+		compact_column = UIFactory.vbox(12)
+		compact_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		shared_scroll.add_child(compact_column)
 	var art_scroll := ScrollContainer.new()
 	art_scroll.custom_minimum_size = Vector2(390, 0)
 	art_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	art_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	screen._main.add_child(art_scroll)
+	if not compact:
+		screen._main.add_child(art_scroll)
 	var art_panel := UIFactory.panel(Color("#0a0f1c"), Color(UITheme.GOLD.r, UITheme.GOLD.g, UITheme.GOLD.b, 0.28), 14, 1, 16)
-	art_panel.custom_minimum_size = Vector2(370, 0)
-	art_scroll.add_child(art_panel)
+	art_panel.custom_minimum_size = Vector2(0 if compact else 370, 0)
+	if not compact:
+		art_scroll.add_child(art_panel)
 	var art := UIFactory.vbox(8)
 	art_panel.add_child(art)
 
@@ -57,7 +71,9 @@ func rebuild_main() -> void:
 	var portrait := GachaScreen.PORTRAIT_VIEW_SCENE.instantiate() as PortraitView
 	# Use the complete 2:3 painted portrait as the card itself. Keep its native
 	# aspect ratio so no generic ritual backdrop is exposed around the artwork.
-	portrait.custom_minimum_size = Vector2(320, 480)
+	portrait.fit_mode = "art"
+	var portrait_width := minf(320.0,maxf(140.0,screen.get_viewport_rect().size.x - 112.0)) if compact else 320.0
+	portrait.custom_minimum_size = Vector2(portrait_width, portrait_width * 1.5)
 	portrait.show_frame = false
 	portrait.show_rarity_effect = false
 	if featured_def != null:
@@ -69,7 +85,18 @@ func rebuild_main() -> void:
 				portrait.set_portrait_texture(featured_texture)
 	else:
 		portrait.setup({}, "Human", "neutral", "legendary", 0)
+	# Match the frame to the complete artwork instead of forcing every painting
+	# into a 2:3 slot. This keeps hats, horns and full-body designs intact.
+	if portrait.portrait_texture != null:
+		var native := portrait.portrait_texture.get_size()
+		var available_height := clampf(screen.get_viewport_rect().size.y - 350.0, 220.0, 480.0)
+		var fitted_size := native * minf(portrait_width / native.x, available_height / native.y)
+		portrait.custom_minimum_size = fitted_size.round()
+		portrait_backdrop.custom_minimum_size = fitted_size + Vector2(16, 16)
+		portrait_backdrop.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		portrait_backdrop.get_node("FrameContent").custom_minimum_size = fitted_size
 	portrait_center.add_child(portrait)
+	portrait.set_process(false)
 	art.add_child(portrait_backdrop)
 
 	var banner_name := UIFactory.heading(str(banner.get("name", screen._selected_banner)), 24, UITheme.GOLD_BRIGHT)
@@ -98,15 +125,82 @@ func rebuild_main() -> void:
 	info_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	info_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	info_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	screen._main.add_child(info_scroll)
+	if not compact:
+		screen._main.add_child(info_scroll)
 	var info := UIFactory.vbox(10)
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	info_scroll.add_child(info)
+	if compact:
+		compact_column.add_child(info)
+		compact_column.add_child(art_panel)
+		art_scroll.free()
+		info_scroll.free()
+	else:
+		info_scroll.add_child(info)
 
-	var wallet := UIFactory.hbox(8)
-	wallet.add_child(_currency_icon_chip("crystals", GameState.inventory_domain.currency("crystals"), UITheme.TEAL))
-	wallet.add_child(_currency_icon_chip("gold", GameState.inventory_domain.currency("gold"), UITheme.GOLD))
+	var wallet := HFlowContainer.new()
+	wallet.add_theme_constant_override("h_separation",8)
+	wallet.add_theme_constant_override("v_separation",6)
+	wallet.add_child(_currency_icon_chip("crystals", screen.summon_currency("crystals"), UITheme.TEAL))
+	wallet.add_child(_currency_icon_chip("gold", screen.summon_currency("gold"), UITheme.GOLD))
+	wallet.add_child(_currency_icon_chip("paid_moonstones", screen.summon_currency("paid_moonstones"), UITheme.VIOLET))
 	info.add_child(wallet)
+	info.add_child(UIFactory.label("ORDINARY CRYSTALS", 11, UITheme.TEXT_DIM))
+	var cost: Dictionary = banner.get("cost", {})
+	var currency_id := str(cost.get("currency", "crystals"))
+	var single_cost := int(cost.get("single", 0))
+	var ten_cost := int(cost.get("ten", 0))
+	var buttons := BoxContainer.new()
+	buttons.vertical = compact and screen.get_viewport_rect().size.x < 520.0
+	buttons.add_theme_constant_override("separation",10)
+	var single := UIFactory.button("Summon ×1 — %s" % UIFactory.number(single_cost))
+	_apply_currency_button_icon(single, currency_id)
+	single.custom_minimum_size = Vector2(0, 48)
+	single.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	single.disabled = not screen.summon_available(1, single_cost, currency_id)
+	single.pressed.connect(func() -> void: screen._pull(1))
+	buttons.add_child(single)
+	var ten := UIFactory.button("Summon ×10 — %s" % UIFactory.number(ten_cost), true)
+	_apply_currency_button_icon(ten, currency_id)
+	ten.custom_minimum_size = Vector2(0, 48)
+	ten.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	ten.disabled = not screen.summon_available(10, ten_cost, currency_id)
+	ten.pressed.connect(func() -> void: screen._pull(10))
+	buttons.add_child(ten)
+	info.add_child(buttons)
+	var paid_progress := screen.paid_summon_progress()
+	var paid_box := UIFactory.vbox(6)
+	paid_box.name = "PaidMilestone"
+	if screen.paid_guarantee_verified():
+		paid_box.add_child(pity_row("Featured character guarantee",paid_progress,100,"%d / 100" % paid_progress,UITheme.VIOLET))
+	else:
+		paid_box.add_child(UIFactory.wrapped("Paid guarantee progress unavailable. Sign in or reconnect to verify your server counter.",13,UITheme.GOLD))
+	paid_box.add_child(UIFactory.wrapped("Every 100th Paid Moon Stone summon guarantees the current banner character. Counts across banners; ordinary crystals do not count. Existing featured characters may repeat.",12,UITheme.TEXT_DIM))
+	if screen.paid_guarantee_verified():
+		paid_box.add_child(UIFactory.wrapped("%d paid summons until the featured character is guaranteed." % (100 - paid_progress),12,UITheme.VIOLET))
+	var paid_cost: Dictionary = banner.get("cost",{})
+	var paid_buttons := BoxContainer.new()
+	paid_buttons.vertical = compact and screen.get_viewport_rect().size.x < 520.0
+	paid_buttons.add_theme_constant_override("separation",8)
+	for count in [1,10]:
+		var price := int(paid_cost.get("single" if count==1 else "ten",0))
+		var button := UIFactory.button("Paid x%d - %s" % [count,UIFactory.number(price)],count==10)
+		button.name = "PaidPull%d" % count
+		if not screen._summon_flow.pending_online.is_empty() and screen.summon_available(count,price,"paid_moonstones"):
+			button.text = "Retry paid x%d" % count
+		button.custom_minimum_size = Vector2(0,48)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.disabled = price<=0 or not screen.summon_available(count,price,"paid_moonstones")
+		_apply_currency_button_icon(button,"paid_moonstones")
+		button.pressed.connect(screen._pull.bind(count,true))
+		paid_buttons.add_child(button)
+	paid_box.add_child(paid_buttons)
+	if OS.get_name() not in ["Android","iOS","Web"]:
+		var shop := UIFactory.button("Moonstone Shop (test mode)")
+		shop.name = "MoonstoneShopButton"
+		shop.custom_minimum_size = Vector2(0,44)
+		shop.pressed.connect(screen._open_moonstone_shop)
+		paid_box.add_child(shop)
+	info.add_child(paid_box)
 
 	var scarlet_palette := false
 	var rates_panel := UIFactory.panel(
@@ -122,6 +216,27 @@ func rebuild_main() -> void:
 		var row := GachaScreen.RARITY_RATE_ROW_SCENE.instantiate() as RarityRateRow
 		row.setup(rarity, UIFactory.percent(float(rates.get(rarity, 0.0))), color)
 		rates_box.add_child(row)
+	var mob_note := UIFactory.wrapped("Common: mob materials. Rare and Epic: matching upgrade cards. 20 Rare = 1 Epic; 10 Epic = 1 Legendary; 7 Legendary acquisitions = 1 Mythic; 7 Mythic acquisitions = full ascension. Only Legendary and Mythic summons are playable.", 12, UITheme.TEXT_DIM)
+	rates_box.add_child(mob_note)
+	var stock: Dictionary = screen._summon_flow.online_state.get("cards", {})
+	var card_lines: Array[String] = []
+	for card_id in banner.get("upgrade_cards", {}):
+		var amount := int(stock.get(card_id, 0))
+		if amount > 0:
+			card_lines.append("%s: %d/%d" % [ContentDB.get_item(card_id).get("name", card_id), amount, int(banner.upgrade_cards[card_id].cost)])
+	var mythic_stock: Dictionary = screen._summon_flow.online_state.get("inventory", {})
+	for legendary in banner.get("mythic_fusion", {}):
+		var recipe: Dictionary = banner.mythic_fusion[legendary]
+		var amount := int(mythic_stock.get(str(recipe.item), 0))
+		if amount > 0:
+			card_lines.append("%s: %d/%d" % [ContentDB.get_item(str(recipe.item)).get("name", recipe.item), amount, int(recipe.cost)])
+	for mythic in banner.get("mythic_ascension", {}):
+		var recipe: Dictionary = banner.mythic_ascension[mythic]
+		var amount := int(mythic_stock.get(str(recipe.item), 0))
+		if amount > 0:
+			card_lines.append("%s: %d/%d" % [ContentDB.get_item(str(recipe.item)).get("name", recipe.item), amount, int(recipe.cost)])
+	rates_box.add_child(UIFactory.wrapped("UPGRADE CARDS\n" + ("\n".join(card_lines) if not card_lines.is_empty() else "No cards collected yet."), 12, UITheme.TEXT_DIM))
+
 	var guarantee_text := "10-pull guarantees at least one Epic or better." if bool(banner.get("ten_pull_epic_guarantee", false)) else "No Epic-or-better ten-pull guarantee is configured for this banner."
 	var guarantee := UIFactory.wrapped(
 		guarantee_text + " Featured rate-up: %s. " % UIFactory.percent(float(banner.get("featured_rate", 0.5)), 0)
@@ -135,7 +250,7 @@ func rebuild_main() -> void:
 	rates_panel.add_child(rates_box)
 	info.add_child(rates_panel)
 
-	var pity: Dictionary = GameState.reward_domain.pity.get(screen._selected_banner, GachaService.empty_pity())
+	var pity: Dictionary = screen.summon_pity()
 	var hard_pity := maxi(1, int(banner.get("hard_pity", 70)))
 	var featured_pity := maxi(1, int(banner.get("featured_pity", 140)))
 	var legendary_count := int(pity.get("legendary", 0))
@@ -164,35 +279,12 @@ func rebuild_main() -> void:
 	pity_panel.add_child(pity_box)
 	info.add_child(pity_panel)
 
-	info.add_child(UIFactory.spacer(true))
-	var cost: Dictionary = banner.get("cost", {})
-	var currency_id := str(cost.get("currency", "crystals"))
-	var single_cost := int(cost.get("single", 0))
-	var ten_cost := int(cost.get("ten", 0))
-	var buttons := UIFactory.hbox(10)
-	var single := UIFactory.button("Summon ×1 — %s" % UIFactory.number(single_cost))
-	_apply_currency_button_icon(single, currency_id)
-	single.custom_minimum_size = Vector2(0, 48)
-	single.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	if scarlet_palette:
-		style_scarlet_pull_button(single, false)
-	single.disabled = GameState.inventory_domain.currency(currency_id) < single_cost
-	single.pressed.connect(func() -> void: screen._pull(1))
-	buttons.add_child(single)
-	var ten := UIFactory.button("Summon ×10 — %s" % UIFactory.number(ten_cost), true)
-	_apply_currency_button_icon(ten, currency_id)
-	ten.custom_minimum_size = Vector2(0, 48)
-	ten.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	if scarlet_palette:
-		style_scarlet_pull_button(ten, true)
-	ten.disabled = GameState.inventory_domain.currency(currency_id) < ten_cost
-	ten.pressed.connect(func() -> void: screen._pull(10))
-	buttons.add_child(ten)
-	info.add_child(buttons)
+
 
 
 
 const CURRENCY_ICON_PATHS := {
+	"paid_moonstones": "res://assets/ui/buttons/paid_moonstone.png",
 	"gold": "res://assets/ui/currencies/gold.png",
 	"crystals": "res://assets/ui/currencies/summoning_crystals.png",
 	"ancient_coins": "res://assets/ui/currencies/ancient_coins.png",

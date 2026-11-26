@@ -44,8 +44,44 @@ jobs:
       - name: Run audio integration smoke test
         run: godot --headless --path . res://tests/audio_integration_smoke.tscn
 
+      - name: Chat emotes, unlocks and responsive layout
+        env:
+          REVERIE_E2E_DISABLE_LOCAL_SAVE: "1"
+        run: |
+          set -euo pipefail
+          for test in chat_emotes_smoke chat_layout_smoke; do
+            log="$(mktemp)"
+            timeout 60s godot --headless --path . "res://tests/${test}.tscn" --quit-after 300 2>&1 | tee "$log"
+            grep -Eq 'CHAT_(EMOTES|LAYOUT)_SMOKE: PASS' "$log"
+            if grep -Eq 'SCRIPT ERROR:|^ERROR:' "$log"; then exit 1; fi
+            rm -f "$log"
+          done
+
       - name: Run automated test suite
         run: godot --headless --path . res://tests/test_runner.tscn
+
+      - name: Cassien combat and story regressions
+        env:
+          REVERIE_E2E_DISABLE_LOCAL_SAVE: "1"
+        run: |
+          set -euo pipefail
+          run_check() {
+            local script="$1" marker="$2" log
+            log="$(mktemp)"
+            timeout 90s godot --headless --path . --script "res://tests/${script}.gd" 2>&1 | tee "$log"
+            grep -F -- "$marker" "$log"
+            if grep -Eq 'SCRIPT ERROR:|^ERROR:' "$log"; then
+              echo "Godot reported an error in $script"
+              return 1
+            fi
+            rm -f "$log"
+          }
+          run_check cassien_combat_art_smoke 'CASSIEN COMBAT RESULT []'
+          run_check cassien_coop_art_smoke 'COOP SNAPSHOT FINAL POSE PASS'
+          run_check cassien_hud_smoke 'CASSIEN HUD FAILURES=0'
+          run_check cassien_retry_smoke 'CASSIEN RECHALLENGE PASS'
+          run_check cassien_resurrection_progression 'PERSISTENT RITUAL, RAVIENNA DIALOGUE AND BOSS LAUNCH PASS'
+          run_check cassien_balance 'CASSIEN BALANCE'
 
       - name: Smoke test game scene
         run: godot --headless --path . res://scenes/game.tscn --quit-after 240
@@ -63,3 +99,26 @@ jobs:
           path: build/project-fantasy.pck
           if-no-files-found: error
           retention-days: 7
+
+  backend:
+    name: Backend typecheck, tests and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: backend/api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: backend/api/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+        env:
+          NODE_ENV: test
+          DATABASE_URL: postgresql://unused:unused@127.0.0.1:1/unused
+          JWT_SECRET: ci-test-only-secret-at-least-32-characters
+      - run: npm run build

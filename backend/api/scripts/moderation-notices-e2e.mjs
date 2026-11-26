@@ -1,0 +1,58 @@
+import assert from "node:assert/strict";
+import Fastify from "fastify";
+import jwt from "@fastify/jwt";
+import {randomBytes} from "node:crypto";
+import {spawn} from "node:child_process";
+import {fileURLToPath} from "node:url";
+import {pool} from "../src/db.ts";
+import {config} from "../src/config.ts";
+import {staffRoutes,staffOwners} from "../src/routes/staff.ts";
+import {developerRoutes} from "../src/routes/developer.ts";
+import {moderationRoutes} from "../src/routes/moderation.ts";
+import {chatRoutes} from "../src/routes/chat.ts";
+import {authRoutes} from "../src/routes/auth.ts";
+assert.ok(["localhost","127.0.0.1","[::1]"].includes(new URL(config.DATABASE_URL).hostname)&&config.NODE_ENV!=="production");
+const app=Fastify(),emails=[],ids=[],suffix=randomBytes(4).toString("hex");
+try{
+ await app.register(jwt,{secret:config.JWT_SECRET});
+ await app.register(authRoutes,{prefix:"/v1/auth"});await app.register(staffRoutes,{prefix:"/v1/developer/staff"});await app.register(developerRoutes);
+ await app.register(moderationRoutes,{prefix:"/v1/developer/moderation"});await app.register(chatRoutes,{prefix:"/v1/chat"});await app.listen({host:"127.0.0.1",port:0});
+ assert.equal(staffOwners.size,1);
+ const owner=(await pool.query("SELECT a.id,a.token_version,p.id AS player_id,p.name FROM accounts a JOIN players p ON p.account_id=a.id WHERE a.id=$1 AND a.status='active'",[[...staffOwners][0]])).rows[0];
+ assert.ok(owner);
+ const ownerToken=app.jwt.sign({sub:owner.id,playerId:owner.player_id,tokenVersion:owner.token_version});
+ async function create(n){
+  const name="StaffQA"+suffix+n,email=name.toLowerCase()+"@example.test",password=randomBytes(16).toString("hex");emails.push(email);
+  assert.equal((await app.inject({method:"POST",url:"/v1/auth/register",payload:{email,playerName:name,password}})).statusCode,201);
+  const login=(await app.inject({method:"POST",url:"/v1/auth/login",payload:{playerName:name,password}})).json();
+  const id=(await pool.query("SELECT id FROM accounts WHERE email=$1",[email])).rows[0].id;ids.push(id);
+  return {name,password,token:login.accessToken,id};
+ }
+ const a=await create(1),b=await create(2);
+ const request=(token,url,payload)=>app.inject({method:payload?"POST":"GET",url,headers:token?{authorization:"Bearer "+token}:{},...(payload?{payload}:{})});
+ const staff=(token,payload)=>request(token,"/v1/developer/staff/",payload);
+ const activity=token=>request(token,"/v1/developer/activity");
+ const change=(name,role)=>({playerName:name,role,note:"Automated permission QA"});
+ const mod=(token,payload)=>request(token,"/v1/developer/moderation/",payload);
+ const act=(name,action,minutes)=>({playerName:name,action,reason:"Automated moderation QA",...(minutes?{minutes}:{})});
+ const chat=(token)=>request(token,"/v1/chat/messages",{channel:"world",text:"Moderation QA"});
+ const reason="QA reason for moderation";
+ assert.equal((await mod(ownerToken,{playerName:b.name,action:"warn",reason})).statusCode,200);
+ assert.equal((await mod(ownerToken,{playerName:b.name,action:"mute",minutes:30,reason})).statusCode,200);
+ const status=(await request(b.token,"/v1/chat/moderation-status")).json();
+ assert.equal(status.unread,2);assert.ok(status.remainingSeconds>0);
+ const idsToAck=status.notices.map(n=>n.id);
+ assert.equal((await request(a.token,"/v1/chat/moderation-ack",{ids:idsToAck})).statusCode,404);
+ assert.equal((await request(b.token,"/v1/chat/moderation-ack",{ids:[...idsToAck,"999999999999999999"]})).statusCode,404);
+ assert.equal((await request(b.token,"/v1/chat/moderation-status")).json().unread,2);
+ const root=fileURLToPath(new URL("../../../",import.meta.url));
+ const code=await new Promise((resolve,reject)=>{const p=spawn(process.env.QA_GODOT,["--headless","--path",root,"res://tools/qa_moderation_notices.tscn"],{cwd:root,env:{...process.env,REVERIE_E2E_DISABLE_LOCAL_SAVE:"1",QA_API:"http://127.0.0.1:"+app.server.address().port,QA_NAME:b.name,QA_PASSWORD:b.password}});p.stdout.on("data",d=>process.stdout.write(d));p.stderr.on("data",d=>process.stderr.write(d));const t=setTimeout(()=>p.kill(),60000);p.on("error",reject);p.on("close",c=>{clearTimeout(t);resolve(c)})});
+ assert.equal(code,0);
+ assert.equal((await request(b.token,"/v1/chat/moderation-status")).json().unread,0);
+ assert.equal((await request(b.token,"/v1/chat/moderation-ack",{ids:idsToAck})).statusCode,200);
+ assert.equal((await chat(b.token)).json().error,"chat_muted");
+ assert.equal((await mod(ownerToken,{playerName:b.name,action:"unmute",reason})).statusCode,200);
+ const after=(await request(b.token,"/v1/chat/moderation-status")).json();
+ assert.equal(after.unread,1);assert.equal(after.remainingSeconds,0);assert.equal(after.notices[0].action,"unmute");
+ console.log("PASS account-bound acknowledgement, atomic invalid-ID rejection, persistent read state, idempotency, unmute notification");
+}finally{await app.close();await pool.query("DELETE FROM reverie_moderation_audit WHERE target_player_id IN (SELECT id FROM players WHERE account_id=ANY($1::uuid[]))",[ids]);await pool.query("DELETE FROM reverie_staff_audit WHERE target_account_id=ANY($1::uuid[])",[ids]);await pool.query("DELETE FROM accounts WHERE email=ANY($1::text[])",[emails]);await pool.end()}

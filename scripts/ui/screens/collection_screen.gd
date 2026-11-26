@@ -35,26 +35,22 @@ func _ready() -> void:
 
 func _init() -> void:
 	screen_title = "Roster"
-	screen_subtitle = "Every bond you have made in Aetheria"
+	screen_subtitle = "Your account characters and party"
 
 
 func _build_content() -> void:
-	var layout := COLLECTION_LAYOUT_SCENE.instantiate() as HBoxContainer
-	layout.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	content.add_child(layout)
-
-	var filters := layout.get_node("Left/Filters") as HBoxContainer
-	var all_button := filters.get_node("AllCharactersButton") as Button
-	var party_button := filters.get_node("PartyOnlyButton") as Button
-	for button in [all_button, party_button]:
-		button.add_theme_stylebox_override("normal", UITheme.style(Color("#111a2d"), UITheme.BORDER_SOFT, 8, 1, 8))
-	all_button.pressed.connect(func() -> void: _set_filter("all"))
-	party_button.pressed.connect(func() -> void: _set_filter("party"))
-	(filters.get_node("FilterHint") as Label).add_theme_color_override("font_color", UITheme.TEXT_FAINT)
-
-	_grid = layout.get_node("Left/GridScroll/CharacterGrid") as GridContainer
-	_detail = layout.get_node("DetailPanel/DetailScroll/DetailContent") as VBoxContainer
-	_rebuild_grid()
+	var notice := UIFactory.wrapped("Your characters, upgrades and party are stored on your account. Sign in to manage them.", 16, UITheme.TEXT_DIM)
+	content.add_child(notice)
+	var button := UIFactory.button("Open collection")
+	header_actions.add_child(button)
+	button.disabled = not AuthGateway.is_authenticated()
+	button.pressed.connect(_open_online_collection)
+	AuthGateway.authentication_changed.connect(func(signed_in: bool, _player: Dictionary):
+		button.disabled = not signed_in
+		if signed_in: _open_online_collection.call_deferred()
+	)
+	if AuthGateway.is_authenticated():
+		_open_online_collection.call_deferred()
 
 
 func _set_filter(value: String) -> void:
@@ -138,7 +134,8 @@ func _find_instance(uid: String) -> CharacterInstance:
 
 
 func _refresh() -> void:
-	_rebuild_grid()
+	if _grid != null:
+		_rebuild_grid()
 
 
 ## Additive presentation report (Phase 5). ZERO final portraits exist; every
@@ -161,3 +158,14 @@ func _count_portrait_views(node: Node) -> int:
 	for child in node.get_children():
 		total += _count_portrait_views(child)
 	return total
+
+func _open_online_collection() -> void:
+	if not AuthGateway.is_authenticated() or has_node("OnlineCollectionOverlay"): return
+	var overlay: GachaScreen = load("res://scenes/ui/gacha_screen.tscn").instantiate()
+	overlay.name = "OnlineCollectionOverlay"
+	overlay.collection_only = true
+	overlay.screen_title = "Collection"
+	overlay.screen_subtitle = "Account characters and party"
+	overlay.z_index = 21
+	overlay.closed.connect(close_screen)
+	add_child(overlay)

@@ -7,6 +7,8 @@ var _action_categories: GridContainer
 var _category_buttons: Dictionary = {}
 var _active_action_category: String = "attack"
 var _status_icons: HBoxContainer
+var _mobile_hud := false
+var _mobile_log_open := false
 
 const STATUS_ICON_SCENE: PackedScene = preload("res://scenes/ui/combat/components/battle_status_icon.tscn")
 const SKILL_CARD_SCENE: PackedScene = preload("res://scenes/ui/combat/components/battle_skill_card.tscn")
@@ -48,6 +50,7 @@ func bind(owner_screen: CombatScreen) -> void:
 		category_button.focus_exited.connect(_on_category_hover.bind(str(category), false))
 		category_button.focus_mode = Control.FOCUS_ALL
 		AudioDirector.set_button_feedback(category_button, "confirm")
+	_configure_mobile_hud()
 
 
 func _on_action_category_pressed(category: String) -> void:
@@ -183,7 +186,7 @@ func build_roster(units: Array) -> void:
 	for unit in units:
 		var row := preload("res://scenes/ui/combat/components/party_roster_entry.tscn").instantiate() as HBoxContainer
 		var portrait := CombatScreen.PORTRAIT_VIEW_SCENE.instantiate() as PortraitView
-		portrait.custom_minimum_size = Vector2(28, 30)
+		portrait.custom_minimum_size = Vector2(42, 48) if _mobile_hud else Vector2(28, 30)
 		portrait.battle_frame_style = "tall"
 		var definition := ContentDB.get_character(unit.def_id)
 		if definition != null:
@@ -193,6 +196,11 @@ func build_roster(units: Array) -> void:
 		row.get_node("PortraitSlot").add_child(portrait)
 		var name_label := row.get_node("Info/Name") as Label
 		name_label.text = unit.display_name
+		if _mobile_hud:
+			row.custom_minimum_size.y = 74
+			row.get_node("PortraitSlot").custom_minimum_size = Vector2(42, 48)
+			name_label.add_theme_font_size_override("font_size", 17)
+			row.get_node("Info/HPLabel").add_theme_font_size_override("font_size", 16)
 		var hp_bar := row.get_node("Info/HPBar") as ProgressBar
 		hp_bar.max_value = maxf(1.0, unit.max_hp)
 		hp_bar.value = clampf(unit.hp, 0.0, unit.max_hp)
@@ -217,14 +225,22 @@ func refresh_skills() -> void:
 		return
 	if actor.team != CombatEngine.PLAYER_TEAM:
 		if _action_categories != null:
-			_action_categories.visible = false
-		screen._actor_label.text = "Enemy turn — " + actor.display_name
-		screen._hint_label.text = "Watch enemy intent markers. Gold rings show the threatened party."
+			_action_categories.visible = true
+			for category in _category_buttons:
+				_category_buttons[category].disabled = true
+				_apply_category_button_visual(str(category), false)
+		if screen.group_id != "gerald_boss_encounter":
+			screen._actor_label.text = "Enemy turn"
+		# Unlocking the preceding animation refreshes this panel while an enemy
+		# is already preparing. Preserve that warning until the queued action.
+		var telegraph := screen._actor_for_uid(actor.uid)
+		if telegraph == null or telegraph._intent_label == null or not telegraph._intent_label.visible:
+			screen._hint_label.text = "Watch enemy intent markers. Gold rings show the threatened party."
 		return
 	if _action_categories != null:
 		_action_categories.visible = true
 	_update_category_buttons(actor)
-	screen._actor_label.text = "%s — choose an action" % actor.display_name
+	screen._actor_label.text = actor.display_name
 	var shown := 0
 	for skill_id in actor.skills:
 		var skill: SkillDef = ContentDB.get_skill(str(skill_id))
@@ -242,18 +258,31 @@ func refresh_skills() -> void:
 		screen._hint_label.text = "Ultimate energy is charging. The ability will activate when the meter is full."
 	else:
 		screen._hint_label.text = "Select an ability, then tap a gold-ringed foe. Esc cancels targeting."
+	for boss in screen.engine.living(CombatEngine.ENEMY_TEAM):
+		if boss.def_id == "cassien_boss" and boss.energy >= boss.max_energy - 8.0:
+			screen._hint_label.text = "Crimson Requiem ready. Defend to reduce damage." if boss.ultimate_ready() else "One hit may ready Crimson Requiem. Consider Defend."
+			break
+		if boss.def_id == "gerald_boss" and boss.energy >= 92.0:
+			screen._hint_label.text = "Earthquake ready. Defend to reduce damage." if boss.ultimate_ready() else "One hit may ready Earthquake. Consider Defend."
+			break
 
 func add_skill_button(skill: SkillDef, actor: Combatant) -> void:
 	# The card hierarchy and visual states are authored in its reusable scene.
-	var energy_text := "FREE" if skill.energy_gain <= 0 else "%d EN" % int(skill.energy_gain)
+	var energy_text := "No energy gain" if skill.energy_gain <= 0 else "+%d energy" % int(skill.energy_gain)
+	if skill.ultimate:
+		energy_text = "%d energy needed" % ceili(actor.max_energy)
 	var cooldown := actor.cooldown_remaining(skill.id)
 	var cooldown_text := " · CD %d" % cooldown if cooldown > 0 else ""
-	var kind_label := "DMG" if skill.kind == "damage" else skill.kind.capitalize().left(4).to_upper()
-	var detail := "%s · %s · %d" % [skill.element.capitalize(), kind_label, int(skill.power)]
+	var kind_label := "Power" if skill.kind == "damage" else skill.kind.capitalize()
+	var detail := "%s · %s · %d" % [skill.element.capitalize(), kind_label, roundi(skill.power * actor.skill_power_multiplier(skill.id))]
 	var cost := energy_text + cooldown_text
 	var card := SKILL_CARD_SCENE.instantiate() as Button
+	if _mobile_hud:
+		card.custom_minimum_size = Vector2(242, 94)
+		for name in ["SkillName", "SkillDetail", "SkillCost"]:
+			card.get_node("CardContent/TextStack/" + name).add_theme_font_size_override("font_size", 20 if name == "SkillName" else 16)
 	card.tooltip_text = skill.description
-	card.get_node("CardContent/TextStack/SkillName").text = ("ULT · " if skill.ultimate else "") + skill.display_name
+	card.get_node("CardContent/TextStack/SkillName").text = ("ULT · " if skill.ultimate else "") + skill.display_name + "  Lv %d" % actor.skill_level(skill.id)
 	card.get_node("CardContent/TextStack/SkillDetail").text = detail
 	card.get_node("CardContent/TextStack/SkillCost").text = cost
 	var skill_icon := load(skill_icon_path(skill)) as Texture2D
@@ -274,7 +303,10 @@ func add_skill_button(skill: SkillDef, actor: Combatant) -> void:
 
 func on_auto_toggled(value: bool) -> void:
 	screen._auto = value
-	screen._turn_token += 1 # Cancel any queued auto action when the player switches mode.
+	# Auto controls player decisions only. Do not cancel an enemy telegraph.
+	var current: Combatant = screen.engine.current_actor() if screen.engine != null else null
+	if current != null and current.team == CombatEngine.PLAYER_TEAM:
+		screen._turn_token += 1
 	screen._auto_button.text = "ON" if value else "OFF"
 	screen._auto_button.add_theme_color_override("font_color", UITheme.GOLD if value else UITheme.TEXT_DIM)
 	if value and screen.engine != null and not screen._resolved:
@@ -302,22 +334,24 @@ func cycle_speed() -> void:
 
 
 func refresh_cards() -> void:
+	refresh_mobile_utility()
 	if screen.engine == null:
 		return
-	if screen._boss_hp_bar != null and screen._boss_hp_bar.visible:
-		for unit in screen.engine.combatants:
-			var boss: Combatant = unit
-			if boss.is_boss and boss.is_alive():
-				screen._boss_hp_bar.value = boss.hp
-				if screen._boss_phase_label != null:
-					screen._boss_phase_label.text = "Phase %d" % (boss.triggered_phases.size() + 1)
+	refresh_boss_header()
 	# Update active character info panel.
 	if screen.engine.current_actor() != null and screen._hp_bar != null:
 		var active: Combatant = screen.engine.current_actor()
+		if active.team == CombatEngine.ENEMY_TEAM and screen.group_id == "gerald_boss_encounter":
+			var living_party := screen.engine.living(CombatEngine.PLAYER_TEAM)
+			if not living_party.is_empty():
+				active = living_party[0]
 		screen._hp_bar.max_value = maxf(1.0, active.max_hp)
 		screen._hp_bar.value = clampf(active.hp, 0.0, active.max_hp)
 		screen._energy_bar.max_value = maxf(1.0, active.max_energy)
 		screen._energy_bar.value = clampf(active.energy, 0.0, active.max_energy)
+		var info := screen._hp_bar.get_parent()
+		info.get_node("HPReadout").text = "HP  %d / %d" % [ceili(active.hp), ceili(active.max_hp)]
+		info.get_node("EnergyReadout").text = "Energy  %d / %d" % [floori(active.energy), ceili(active.max_energy)]
 		screen._actor_label.text = active.display_name
 		screen._status_label.text = UIFactory.status_text(active)
 		refresh_status_icons(active)
@@ -343,6 +377,85 @@ func refresh_roster() -> void:
 			bar.max_value = maxf(1.0, unit.max_hp)
 			bar.value = clampf(unit.hp, 0.0, unit.max_hp)
 		if label != null:
-			label.text = "%d/%d" % [int(ceil(unit.hp)), int(round(unit.max_hp))]
+			label.text = "%d/%d" % [ceili(unit.hp), ceili(unit.max_hp)]
 
 
+
+
+func refresh_boss_header(phase_override: int = 0) -> void:
+	if screen.engine == null:
+		return
+	if screen._boss_hp_bar != null and screen._boss_hp_bar.visible:
+		for unit in screen.engine.combatants:
+			var boss: Combatant = unit
+			if boss.is_boss:
+				screen._boss_hp_bar.value = boss.hp
+				if screen._boss_phase_label != null:
+					var phase_text := "Phase %d   |   HP %d / %d" % [(phase_override if phase_override > 0 else boss.triggered_phases.size() + 1), ceili(boss.hp), ceili(boss.max_hp)]
+					if boss.def_id == "gerald_boss":
+						phase_text += "   |   Earthquake READY" if boss.ultimate_ready() else "   |   Earthquake charge %d%%" % floori(boss.energy)
+					if boss.def_id == "revienna_boss":
+						phase_text += "  |  Eclipse %s" % ["READY" if boss.ultimate_ready() else "%d%%" % floori(100.0 * boss.energy / maxf(1.0, boss.max_energy))]
+					if boss.def_id == "cassien_boss":
+						phase_text = "HP %d / %d  |  Requiem %s" % [ceili(boss.hp), ceili(boss.max_hp), "READY" if boss.ultimate_ready() else "%d%%" % floori(100.0 * boss.energy / maxf(1.0, boss.max_energy))]
+					screen._boss_phase_label.text = phase_text
+					var warning_color := UITheme.TEXT_DIM
+					if boss.def_id == "gerald_boss" and boss.energy >= 92.0:
+						warning_color = Color(1.0, 0.67, 0.28)
+					elif boss.def_id == "revienna_boss" and boss.ultimate_ready():
+						warning_color = Color(0.9, 0.63, 1.0)
+					elif boss.def_id == "cassien_boss" and boss.energy >= boss.max_energy - 8.0:
+						warning_color = Color(1.0, 0.48, 0.46)
+					screen._boss_phase_label.add_theme_color_override("font_color", warning_color)
+
+
+
+func _configure_mobile_hud() -> void:
+	var bottom := screen.get_node("CombatScreenLayout/Root/CombatBottomHUD") as HBoxContainer
+	var mobile_button := bottom.get_node("ActiveInfoPanel/InfoContent/MobileUtility") as Button
+	_mobile_hud = screen.get_window().size.x < 1000 and screen.get_window().size.x > screen.get_window().size.y
+	mobile_button.visible = _mobile_hud
+	if not _mobile_hud:
+		return
+	mobile_button.pressed.connect(_on_mobile_utility)
+	AudioDirector.set_button_feedback(mobile_button, "confirm")
+	bottom.custom_minimum_size.y = 280
+	bottom.get_node("RosterPanel").custom_minimum_size.x = 204
+	var info := bottom.get_node("ActiveInfoPanel/InfoContent")
+	for name in ["ActorLabel", "HPReadout", "EnergyReadout", "StatusLabel"]:
+		info.get_node(name).add_theme_font_size_override("font_size", 19 if name == "ActorLabel" else 17)
+	for button in _category_buttons.values():
+		button.custom_minimum_size = Vector2(140, 78)
+	_action_categories.add_theme_constant_override("v_separation", 4)
+	screen._hint_label.add_theme_font_size_override("font_size", 17)
+	screen._log_label.add_theme_font_size_override("normal_font_size", 22)
+	bottom.get_node("LogPanel/LogContent/LogCaption").add_theme_font_size_override("font_size", 20)
+	bottom.get_node("LogPanel").size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	bottom.get_node("LogPanel").hide()
+	screen._battlefield.custom_minimum_size.y = 174
+	screen._boss_phase_label.add_theme_font_size_override("font_size", 18)
+	var header := screen.get_node("CombatScreenLayout/Root/CombatHeader")
+	for name in ["AutoButton", "SpeedButton", "RetreatButton"]:
+		var control := header.get_node(name) as Button
+		control.custom_minimum_size = Vector2(112, 54)
+		control.add_theme_font_size_override("font_size", 20)
+
+func _on_mobile_utility() -> void:
+	if not _mobile_hud or screen._resolved:
+		return
+	if screen._targeting_component.is_targeting():
+		screen._cancel_targeting()
+		refresh_mobile_utility()
+		return
+	_mobile_log_open = not _mobile_log_open
+	var bottom := screen.get_node("CombatScreenLayout/Root/CombatBottomHUD")
+	bottom.get_node("SkillsPanel").visible = not _mobile_log_open
+	bottom.get_node("LogPanel").visible = _mobile_log_open
+	refresh_mobile_utility()
+
+func refresh_mobile_utility() -> void:
+	if not _mobile_hud:
+		return
+	var button := screen.get_node("CombatScreenLayout/Root/CombatBottomHUD/ActiveInfoPanel/InfoContent/MobileUtility") as Button
+	button.text = "Cancel target" if screen._targeting_component.is_targeting() else ("Actions" if _mobile_log_open else "Battle log")
+	button.disabled = screen._resolved

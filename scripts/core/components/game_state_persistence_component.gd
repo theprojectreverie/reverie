@@ -23,9 +23,11 @@ func to_dict() -> Dictionary:
 		"quests": state.quests,
 		"pity": state.pity,
 		"daily_rewards": state.daily_rewards.duplicate(true),
+		"daily_quests": state.daily_quests.duplicate(true),
 		"flags": state.flags,
 		"gear_levels": state.gear_levels.duplicate(true),
 		"gear_rerolls": state.gear_rerolls.duplicate(true),
+		"stored_gear": state.roster_domain.stored_gear.duplicate(true),
 		"position": {"x": state.player_position.x, "y": state.player_position.y},
 		"has_position": state.has_player_position,
 		"player_facing": {"x": state.player_facing.x, "y": state.player_facing.y},
@@ -44,13 +46,21 @@ func load_from_dict(data: Dictionary) -> void:
 	state.roster.clear()
 	var removed_uids: Dictionary = {}
 	var refunded_items: Dictionary = {}
+	var retired_common: Dictionary = {}
+	var retired_gear: Array = []
+	var refunded_cards: Dictionary = {}
 	for entry in data.get("roster", []):
 		if typeof(entry) != TYPE_DICTIONARY:
 			continue
 		var instance: CharacterInstance = CharacterInstance.from_dict(entry)
 		if instance.uid.is_empty():
 			continue
-		if state.REMOVED_CHARACTERS.has(instance.char_id):
+		if state.REMOVED_CHARACTERS.has(instance.char_id) or state.RETIRED_COMMON_CHARACTERS.has(instance.char_id) or state.RETIRED_UPGRADE_CARDS.has(instance.char_id):
+			if state.RETIRED_COMMON_CHARACTERS.has(instance.char_id) or state.RETIRED_UPGRADE_CARDS.has(instance.char_id):
+				retired_common[instance.uid] = entry.duplicate(true)
+			if state.RETIRED_UPGRADE_CARDS.has(instance.char_id):
+				var card_id: String = state.RETIRED_UPGRADE_CARDS[instance.char_id]
+				refunded_cards[card_id] = int(refunded_cards.get(card_id, 0)) + 1 + instance.dupes + 2 * instance.awakening
 			# Retire archived characters before definition lookup, so their gear
 			# is still refunded even though they are excluded from ContentDB.
 			removed_uids[instance.uid] = true
@@ -58,6 +68,8 @@ func load_from_dict(data: Dictionary) -> void:
 				var item_id: String = str(instance.equipment[slot])
 				if not item_id.is_empty():
 					refunded_items[item_id] = int(refunded_items.get(item_id, 0)) + 1
+					if state.RETIRED_COMMON_CHARACTERS.has(instance.char_id) or state.RETIRED_UPGRADE_CARDS.has(instance.char_id):
+						retired_gear.append({"item": item_id, "key": instance.uid + "|" + str(slot)})
 			continue
 		if ContentDB.get_character(instance.char_id) == null:
 			continue
@@ -79,21 +91,41 @@ func load_from_dict(data: Dictionary) -> void:
 	else:
 		state._fill_party()
 
-	state.inventory = data.get("inventory", {})
+	state.inventory = data.get("inventory", {}).duplicate(true)
 	for item_id in refunded_items.keys():
 		state.inventory[item_id] = int(state.inventory.get(item_id, 0)) + int(refunded_items[item_id])
+	for card_id in refunded_cards:
+		state.inventory[card_id] = int(state.inventory.get(card_id, 0)) + int(refunded_cards[card_id])
 	state.quests = data.get("quests", {})
 	state.pity = data.get("pity", {})
 	var saved_daily_rewards: Variant = data.get("daily_rewards", {})
 	state.daily_rewards = saved_daily_rewards.duplicate(true) if typeof(saved_daily_rewards) == TYPE_DICTIONARY else {}
-	state.flags = data.get("flags", {})
+	var saved_daily_quests: Variant = data.get("daily_quests", {})
+	state.daily_quests = saved_daily_quests.duplicate(true) if saved_daily_quests is Dictionary else {}
+	state.flags = data.get("flags", {}).duplicate(true)
+	var archive: Dictionary = state.flags.get("retired_common_archive", {})
+	archive.merge(retired_common, false)
+	if not archive.is_empty():
+		state.flags["retired_common_archive"] = archive
 	var checkpoint: Variant = state.flags.get("six_zone_checkpoint", {})
-	if checkpoint is Dictionary and str(checkpoint.get("zone", "")) in ["StandaloneZone01", "StandaloneZone02", "StandaloneZone03", "StandaloneZone04", "StandaloneZone05", "StandaloneZone06"]:
+	if checkpoint is Dictionary and str(checkpoint.get("zone", "")) in ["StandaloneVillage", "StandaloneZone01", "StandaloneZone02", "StandaloneZone03", "StandaloneZone04", "StandaloneZone05", "StandaloneZone06"]:
 		state.flags["tutorial_complete"] = true
 	var saved_gear_levels: Variant = data.get("gear_levels", {})
 	state.gear_levels = saved_gear_levels.duplicate(true) if typeof(saved_gear_levels) == TYPE_DICTIONARY else {}
 	var saved_gear_rerolls: Variant = data.get("gear_rerolls", {})
 	state.gear_rerolls = saved_gear_rerolls.duplicate(true) if typeof(saved_gear_rerolls) == TYPE_DICTIONARY else {}
+	state.roster_domain.restore_stored_gear(data.get("stored_gear", {}))
+	for gear in retired_gear:
+		var key := str(gear.key)
+		var item_id := str(gear.item)
+		var level := int(state.gear_levels.get(key, 0))
+		var roll: Dictionary = state.gear_rerolls.get(key, {}).duplicate(true)
+		if level > 0 or not roll.is_empty():
+			var copies: Array = state.roster_domain.stored_copies(item_id)
+			copies.append({"level": level, "reroll": roll})
+			state.roster_domain.stored_gear[item_id] = copies
+		state.gear_levels.erase(key)
+		state.gear_rerolls.erase(key)
 	var pos: Dictionary = data.get("position", {})
 	state.player_position = Vector2(float(pos.get("x", 0.0)), float(pos.get("y", 0.0)))
 	state.has_player_position = bool(data.get("has_position", false))

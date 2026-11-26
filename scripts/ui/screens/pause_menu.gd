@@ -55,7 +55,7 @@ func _build_content() -> void:
 	profile_meta.text = "LEVEL %d   ·   %d CHARACTERS   ·   %d IN PARTY   ·   %s" % [
 		int(profile.get("level", 1)),
 		GameState.roster_domain.unique_owned_count(),
-		GameState.roster_domain.party.size(),
+		GameState.roster_domain.effective_party_ids().size(),
 		region_name.to_upper(),
 	]
 

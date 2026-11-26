@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/ui/buttons/party.png" id="hud_icon_RosterButton"]
 [ext_resource type="Texture2D" path="res://assets/ui/buttons/castle_moon.png" id="hud_icon_MainMenuButton"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" path="res://scripts/ui/components/hud_responsive_layout_component.gd" id="8_responsive_layout"]
 [ext_resource type="Script" path="res://scripts/ui/components/hud_navigation_component.gd" id="9_navigation"]
 [ext_resource type="Script" path="res://scripts/ui/components/hud_prompt_component.gd" id="10_prompt"]
+
+[ext_resource type="Script" path="res://scripts/ui/components/touch_action_button.gd" id="11_touch_action"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_party"]
 bg_color = Color(0.045, 0.065, 0.115, 0.78)
@@ -154,7 +156,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -158.0
-offset_top = -306.0
+offset_top = -404.0
 offset_right = -20.0
 offset_bottom = -20.0
 grow_horizontal = 0
@@ -200,6 +202,16 @@ theme_override_constants/icon_max_width = 30
 custom_minimum_size = Vector2(138, 42)
 layout_mode = 2
 text = "Map"
+
+[node name="ChatButton" type="Button" parent="ActionStack"]
+custom_minimum_size = Vector2(138, 42)
+layout_mode = 2
+text = "Chat"
+
+[node name="SocialButton" type="Button" parent="ActionStack"]
+custom_minimum_size = Vector2(138, 42)
+layout_mode = 2
+text = "Friends"
 
 [node name="MenuButton" type="Button" parent="ActionStack"]
 icon = ExtResource("hud_icon_MenuButton")
@@ -270,6 +282,8 @@ visible = false
 mouse_filter = 2
 
 [node name="TouchInteractButton" type="Button" parent="."]
+script = ExtResource("11_touch_action")
+focus_mode = 0
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -285,6 +299,8 @@ visible = false
 text = "Interact"
 
 [node name="TouchSwitchButton" type="Button" parent="."]
+script = ExtResource("11_touch_action")
+focus_mode = 0
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -298,6 +314,44 @@ grow_horizontal = 0
 grow_vertical = 0
 visible = false
 text = "Switch"
+
+[node name="TouchCombat" type="HBoxContainer" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -352.0
+offset_top = -100.0
+offset_right = -20.0
+offset_bottom = -20.0
+theme_override_constants/separation = 8
+mouse_filter = 2
+
+[node name="Attack" type="Button" parent="TouchCombat"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(100, 80)
+focus_mode = 0
+text = "ATTACK"
+script = ExtResource("11_touch_action")
+
+[node name="Dodge" type="Button" parent="TouchCombat"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(100, 80)
+focus_mode = 0
+text = "DODGE"
+script = ExtResource("11_touch_action")
+
+[node name="Skill" type="Button" parent="TouchCombat"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(100, 80)
+focus_mode = 0
+text = "SKILL"
+script = ExtResource("11_touch_action")
+
 
 [node name="Currency" type="Node" parent="."]
 script = ExtResource("4_currency")

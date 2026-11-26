@@ -17,10 +17,10 @@ func bind(owner: Minimap) -> void:
 
 
 func _process(delta: float) -> void:
-	if minimap == null or minimap._collapsed:
+	if not is_instance_valid(minimap) or minimap._collapsed or not minimap.is_visible_in_tree():
 		return
 	_update_timer += delta
-	if _update_timer < 0.1:
+	if _update_timer < GraphicsSettings.minimap_refresh_interval():
 		return
 	_update_timer = 0.0
 	if minimap._world == null or not is_instance_valid(minimap._world):

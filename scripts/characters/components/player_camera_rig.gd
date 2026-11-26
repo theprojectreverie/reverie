@@ -13,7 +13,7 @@ const LOOKAHEAD_VERTICAL := 0.6
 const LOOKAHEAD_RATE := 5.0
 const PORTRAIT_ASPECT_THRESHOLD := 0.85
 const PORTRAIT_HORIZONTAL_OFFSET := 0.0
-const PORTRAIT_VERTICAL_OFFSET := 1000.0
+const PORTRAIT_VERTICAL_SCREEN_FRACTION := 0.10
 const PORTRAIT_ZOOM_FACTOR := 1.2
 const REFERENCE_MOVE_SPEED := 350.0
 
@@ -96,7 +96,9 @@ func update_follow_offset(delta: float, move_velocity: Vector2, movement_ratio: 
 	if is_portrait != _last_is_portrait:
 		_last_is_portrait = is_portrait
 		_apply_zoom()
-	var target := Vector2(PORTRAIT_HORIZONTAL_OFFSET, PORTRAIT_VERTICAL_OFFSET) if is_portrait else Vector2.ZERO
+	# Express portrait framing relative to the visible view, not fixed world coordinates.
+	var portrait_offset := get_viewport_rect().size.y * PORTRAIT_VERTICAL_SCREEN_FRACTION / maxf(zoom.y, 0.01)
+	var target := Vector2(PORTRAIT_HORIZONTAL_OFFSET, portrait_offset) if is_portrait else Vector2.ZERO
 	if move_velocity.length_squared() > 1.0:
 		var direction := move_velocity.normalized()
 		target += Vector2(direction.x, direction.y * LOOKAHEAD_VERTICAL) * LOOKAHEAD_DISTANCE * clampf(movement_ratio, 0.0, 1.0)

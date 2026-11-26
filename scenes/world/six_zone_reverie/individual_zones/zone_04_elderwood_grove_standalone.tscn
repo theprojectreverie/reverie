@@ -1,5 +1,7 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=18 format=3]
 
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/reverie_exit_southeast.png" id="southeast_exit_art"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_03.png" id="perimeter_cloud_3"]
@@ -18,8 +20,22 @@
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/elderwood_relic.gd" id="relic_logic"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/broken_statue_01.png" id="memorial_art"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/ruined_pillar_01.png" id="pillar_art"]
+
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Vegetation/twisted_roots_01.png" id="grove_roots"]
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Corrupted_Environment/Structures/rubble_pile_01.png" id="grove_rubble"]
+
+[ext_resource type="Texture2D" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/mossy_rock_cluster_a.png" id="grove_mossy_rock"]
+
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
+
+[sub_resource type="RectangleShape2D" id="ExitTransferDetection"]
+size = Vector2(240, 180)
 
 [sub_resource type="Animation" id="FogDrift_ToPreviousZone"]
 resource_name = "drift"
@@ -60,12 +76,18 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="FogDriftLibrary_ToNextZone"]
 _data = {&"drift": SubResource("FogDrift_ToNextZone")}
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_grove_mossy_rock"]
+atlas = ExtResource("grove_mossy_rock")
+region = Rect2(0, 0, 125, 122)
+filter_clip = true
+
 [node name="StandaloneZone04" type="Node2D"]
 script = ExtResource("zone_controller")
 
 [node name="Zone" parent="." instance=ExtResource("zone")]
 
 [node name="ZoneCamera" type="Camera2D" parent="."]
+process_callback = 0
 position = Vector2(2100, 1050)
 zoom = Vector2(0.45, 0.45)
 
@@ -90,10 +112,19 @@ texture = ExtResource("prepared_background")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
+position = Vector2(-1654.0, 968.0)
+
 [node name="TransferPoints" type="Node2D" parent="."]
 
+[node name="SafeSpawnFromPreviousZone" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-1600, 1050)
+
+[node name="FastTravelArrival" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-1744, 980)
+
 [node name="ToPreviousZone" type="Marker2D" parent="TransferPoints"]
-position = Vector2(-1744, 800)
+position = Vector2(-1712, 816)
 metadata/target_zone = 3
 metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_03_willow_fields_standalone.tscn"
 metadata/connection = "entry"
@@ -119,10 +150,13 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("transfer_script")
 destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_05_forsaken_ruins_standalone.tscn"
+required_quest = "elderwood_relics"
+previously_visited_zone = "StandaloneZone05"
+locked_route_text = "Examine the grove relics"
 arrival_marker = &"ToPreviousZone"
 
 [node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger"]
-shape = SubResource("TransferDetection")
+shape = SubResource("ExitTransferDetection")
 
 [node name="UI" parent="." instance=ExtResource("existing_game_ui")]
 
@@ -612,3 +646,135 @@ rotation = -0.373
 scale = Vector2(0.572, 0.572)
 modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_5")
+[node name="SoutheastRoadContinuation" type="Sprite2D" parent="TransferPoints/ToNextZone"]
+texture_filter = 1
+z_index = -5
+position = Vector2(-160, -130)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("southeast_exit_art")
+
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
+position = Vector2(-134, -67)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+visible = false
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = 0.463648
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Forsaken Ruins"
+horizontal_alignment = 1
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToPreviousZone"]
+position = Vector2(134, 67)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = -2.677945
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Willow Fields"
+horizontal_alignment = 1
+
+[node name="GroveDecorations" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="ExposedRoots" type="Sprite2D" parent="GroveDecorations"]
+position = Vector2(-799, 1352)
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("grove_roots")
+offset = Vector2(0, -14)
+
+[node name="StoneRubble" type="Sprite2D" parent="GroveDecorations"]
+position = Vector2(866, 1942)
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("grove_rubble")
+offset = Vector2(0, -12)
+
+[node name="MossyRockCluster" type="Sprite2D" parent="GroveDecorations"]
+position = Vector2(32, 1600)
+texture_filter = 1
+scale = Vector2(1.3, 1.3)
+texture = SubResource("AtlasTexture_grove_mossy_rock")
+offset = Vector2(0, -47)
+
+[node name="ElderwoodRelics" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="BrokenMemorial" type="Node2D" parent="ElderwoodRelics"]
+position = Vector2(-700, 1370)
+script = ExtResource("relic_logic")
+objective_id = "elderwood_memorial"
+relic_name = "broken memorial"
+inscription = "The names carved into the memorial have worn away."
+
+[node name="Artwork" type="Sprite2D" parent="ElderwoodRelics/BrokenMemorial"]
+texture_filter = 1
+texture = ExtResource("memorial_art")
+position = Vector2(0,-36)
+
+[node name="ObjectiveLabel" type="Label" parent="ElderwoodRelics/BrokenMemorial"]
+offset_left = -120.0
+offset_right = 120.0
+offset_top = -125.0
+offset_bottom = -100.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 6
+text = "Examine memorial"
+horizontal_alignment = 1
+
+[node name="WeatheredPillar" type="Node2D" parent="ElderwoodRelics"]
+position = Vector2(760, 1960)
+script = ExtResource("relic_logic")
+objective_id = "elderwood_pillar"
+relic_name = "weathered pillar"
+inscription = "An old royal seal points toward the Forsaken Ruins."
+
+[node name="Artwork" type="Sprite2D" parent="ElderwoodRelics/WeatheredPillar"]
+texture_filter = 1
+texture = ExtResource("pillar_art")
+position = Vector2(0,-52)
+
+[node name="ObjectiveLabel" type="Label" parent="ElderwoodRelics/WeatheredPillar"]
+offset_left = -120.0
+offset_right = 120.0
+offset_top = -145.0
+offset_bottom = -120.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 6
+text = "Examine pillar"
+horizontal_alignment = 1
+
+[node name="TerrainPerimeter" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="TerrainOutline" type="CollisionPolygon2D" parent="TerrainPerimeter"]
+build_mode = 1
+polygon = PackedVector2Array(-1616, 720, -1480, 788, 64, 16, 3264, 1616, 1696, 2400, 1920, 2512, 1728, 2608, 1504, 2496, 64, 3216, -3136, 1616, -1672, 884, -1808, 816)
+

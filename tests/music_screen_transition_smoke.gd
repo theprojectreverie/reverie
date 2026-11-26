@@ -52,5 +52,6 @@ func _run() -> void:
 	else:
 		print("PASS rapid open/close")
 	audio.stop_all_audio_immediately()
+	await create_timer(0.35).timeout
 	print("MUSIC SCREEN TRANSITIONS: %d failures" % failures)
 	quit(failures)

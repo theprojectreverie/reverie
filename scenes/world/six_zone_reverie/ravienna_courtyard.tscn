@@ -1,0 +1,412 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/balustrade_stone.png" id="rail"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/ravienna_stone_tomb.tscn" id="tomb"]
+
+[node name="RaviennaCourtyard" type="Node2D"]
+y_sort_enabled = true
+
+[node name="RaviennaStoneTomb" parent="." instance=ExtResource("tomb")]
+
+[node name="ClosedWestFence" type="Marker2D" parent="."]
+position = Vector2(-192, 96)
+
+[node name="EastEntrance" type="Marker2D" parent="."]
+position = Vector2(192, 96)
+
+[node name="NorthWest1" type="Node2D" parent="."]
+position = Vector2(-352, -16)
+
+[node name="Railing" type="Sprite2D" parent="NorthWest1"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthWest1"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthWest1/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="NorthWest2" type="Node2D" parent="."]
+position = Vector2(-288, -48)
+
+[node name="Railing" type="Sprite2D" parent="NorthWest2"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthWest2"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthWest2/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="NorthWest3" type="Node2D" parent="."]
+position = Vector2(-224, -80)
+
+[node name="Railing" type="Sprite2D" parent="NorthWest3"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthWest3"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthWest3/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="NorthWest4" type="Node2D" parent="."]
+position = Vector2(-160, -112)
+
+[node name="Railing" type="Sprite2D" parent="NorthWest4"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthWest4"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthWest4/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="NorthWest5" type="Node2D" parent="."]
+position = Vector2(-96, -144)
+
+[node name="Railing" type="Sprite2D" parent="NorthWest5"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthWest5"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthWest5/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="NorthWest6" type="Node2D" parent="."]
+position = Vector2(-32, -176)
+
+[node name="Railing" type="Sprite2D" parent="NorthWest6"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthWest6"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthWest6/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="NorthEast1" type="Node2D" parent="."]
+position = Vector2(32, -176)
+
+[node name="Railing" type="Sprite2D" parent="NorthEast1"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthEast1"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthEast1/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="NorthEast2" type="Node2D" parent="."]
+position = Vector2(96, -144)
+
+[node name="Railing" type="Sprite2D" parent="NorthEast2"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthEast2"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthEast2/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="NorthEast3" type="Node2D" parent="."]
+position = Vector2(160, -112)
+
+[node name="Railing" type="Sprite2D" parent="NorthEast3"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthEast3"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthEast3/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="NorthEast4" type="Node2D" parent="."]
+position = Vector2(224, -80)
+
+[node name="Railing" type="Sprite2D" parent="NorthEast4"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthEast4"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthEast4/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="NorthEast5" type="Node2D" parent="."]
+position = Vector2(288, -48)
+
+[node name="Railing" type="Sprite2D" parent="NorthEast5"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthEast5"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthEast5/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="NorthEast6" type="Node2D" parent="."]
+position = Vector2(352, -16)
+
+[node name="Railing" type="Sprite2D" parent="NorthEast6"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="NorthEast6"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NorthEast6/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="SouthWest1" type="Node2D" parent="."]
+position = Vector2(-352, 16)
+
+[node name="Railing" type="Sprite2D" parent="SouthWest1"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthWest1"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest1/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="SouthWest2" type="Node2D" parent="."]
+position = Vector2(-288, 48)
+
+[node name="Railing" type="Sprite2D" parent="SouthWest2"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthWest2"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest2/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="SouthWest3" type="Node2D" parent="."]
+position = Vector2(-224, 80)
+
+[node name="Railing" type="Sprite2D" parent="SouthWest3"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthWest3"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest3/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="SouthWest4" type="Node2D" parent="."]
+position = Vector2(-160, 112)
+
+[node name="Railing" type="Sprite2D" parent="SouthWest4"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthWest4"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest4/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+
+[node name="SouthWest5" type="Node2D" parent="."]
+position = Vector2(-96, 144)
+
+[node name="Railing" type="Sprite2D" parent="SouthWest5"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthWest5"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest5/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="SouthWest6" type="Node2D" parent="."]
+position = Vector2(-32, 176)
+
+[node name="Railing" type="Sprite2D" parent="SouthWest6"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = true
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthWest6"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest6/Footprint"]
+polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
+
+[node name="SouthEast1" type="Node2D" parent="."]
+position = Vector2(32, 176)
+
+[node name="Railing" type="Sprite2D" parent="SouthEast1"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthEast1"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthEast1/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="SouthEast2" type="Node2D" parent="."]
+position = Vector2(96, 144)
+
+[node name="Railing" type="Sprite2D" parent="SouthEast2"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthEast2"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthEast2/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="SouthEast5" type="Node2D" parent="."]
+position = Vector2(288, 48)
+
+[node name="Railing" type="Sprite2D" parent="SouthEast5"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthEast5"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthEast5/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="SouthEast6" type="Node2D" parent="."]
+position = Vector2(352, 16)
+
+[node name="Railing" type="Sprite2D" parent="SouthEast6"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthEast6"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthEast6/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)

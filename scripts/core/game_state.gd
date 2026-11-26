@@ -13,6 +13,8 @@ const STARTING_CHARACTERS := ["gerald", "lilith", "kael"]
 ## Retired characters remain in the authoring archive for migration and art
 ## references, but are never registered in the live roster or granted by new_game().
 ## Existing saves containing any retired unit are migrated and equipped items refunded.
+const RETIRED_UPGRADE_CARDS := {"ravienna_rare": "upgrade_ravienna_rare_v1", "cassien": "upgrade_cassien_rare_v1", "nyx_rare": "upgrade_nyx_rare_v1", "crimson_witch": "upgrade_crimson_witch_rare_v1", "mirene": "upgrade_mirene_rare_v1", "caelith": "upgrade_caelith_rare_v1", "kael_epic": "upgrade_kael_epic_v1", "lilith_epic": "upgrade_lilith_epic_v1", "gerald_epic": "upgrade_gerald_epic_v1", "ravienna_epic": "upgrade_ravienna_epic_v1", "cassien_epic": "upgrade_cassien_epic_v1", "nyx_epic": "upgrade_nyx_epic_v1", "crimson_witch_epic": "upgrade_crimson_witch_epic_v1", "mirene_epic": "upgrade_mirene_epic_v1", "caelith_epic": "upgrade_caelith_epic_v1"}
+const RETIRED_COMMON_CHARACTERS := ["mira_sol", "kael_common", "lilith_common", "gerald_common", "ravienna_common", "cassien_common", "nyx_common", "crimson_witch_common", "mirene_common", "caelith_common"]
 const REMOVED_CHARACTERS := [
 	"lyra_vey", "bramble", "seraphine", "coralyn", "ignis",
 	"mira_sol", "thistle", "vespera", "scarlet_requiem", "arachnia", "terra"
@@ -64,6 +66,7 @@ var pity: Dictionary:
 		if reward_domain != null:
 			reward_domain.pity = value
 var daily_rewards: Dictionary = {}
+var daily_quests: Dictionary = {}
 ## Persistent per-character gear enhancement levels, keyed by "uid|slot".
 var gear_levels: Dictionary:
 	get:

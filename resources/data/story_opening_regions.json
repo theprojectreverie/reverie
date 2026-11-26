@@ -1,0 +1,14 @@
+{
+  "story_training_ground": {
+    "spawn": [0, 245],
+    "outline": [[-638,-16],[-500,-146],[-160,-296],[0,-320],[160,-296],[500,-146],[638,-16],[98,292],[0,328],[-98,292]],
+    "encounter": {"groupId":"tutorial_fairy_spar","position":[0,-82],"radius":90},
+    "nextRegion":"story_village"
+  },
+  "story_village": {
+    "spawn": [-2090,112],
+    "outline": [[-2200,-850],[2350,-850],[2350,3700],[-2200,3700]],
+    "encounter": {"groupId":"gerald_boss_encounter","position":[13,2865],"radius":100},
+    "nextRegion":"six_zone_royal_gardens"
+  }
+}

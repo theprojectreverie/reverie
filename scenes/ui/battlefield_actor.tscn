@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/combat/battlefield_actor.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/characters/actor_visual.tscn" id="2"]
@@ -12,6 +12,15 @@
 [ext_resource type="AnimationLibrary" path="res://resources/characters/animations/battle_combat.tres" id="10_battle_combat"]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/combat/components/fairy_spar_art.tscn" id="11_elathra"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/combat/components/ravienna_combat_art.tscn" id="revienna_art"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/combat/components/gerald_fallen_combat_art.tscn" id="gerald_fallen_art"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/kael/boss_combat/combat_frames.tres" id="kael_boss_frames"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/combat/components/cassien_combat_art.tscn" id="cassien_art"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/combat/components/elathra_combat_art.tscn" id="elathra_art"]
 
 [sub_resource type="Animation" id="Animation_boss_hit"]
 resource_name = "boss_hit"
@@ -96,6 +105,13 @@ script = ExtResource("1")
 
 [node name="ActorVisual" parent="." instance=ExtResource("2")]
 
+[node name="KaelBossCombatArt" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+sprite_frames = ExtResource("kael_boss_frames")
+animation = &"idle"
+offset = Vector2(0, -56)
+
 [node name="KaelAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {"": ExtResource("9_kael_combat")}
 
@@ -111,4 +127,17 @@ libraries = {"": ExtResource("10_battle_combat")}
 libraries = {"": SubResource("AnimationLibrary_boss_actor")}
 
 [node name="FairySparArt" parent="ActorVisual" instance=ExtResource("11_elathra")]
+visible = false
+
+[node name="ReviennaArt" parent="." instance=ExtResource("revienna_art")]
+visible = false
+scale = Vector2(1.6, 1.6)
+
+[node name="GeraldFallenArt" parent="." instance=ExtResource("gerald_fallen_art")]
+visible = false
+
+[node name="CassienArt" parent="." instance=ExtResource("cassien_art")]
+visible = false
+
+[node name="ElathraArt" parent="." instance=ExtResource("elathra_art")]
 visible = false

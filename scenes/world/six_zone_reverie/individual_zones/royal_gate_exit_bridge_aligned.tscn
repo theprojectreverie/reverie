@@ -1,81 +1,11 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_stone_path.tscn" id="stone"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/tilemaps/royal_gate_exit_bridge_aligned_tilemap.tscn" id="road_tilemap"]
 
 [node name="RoyalGateExitBridgeAligned" type="Node2D"]
 z_index = -19
 
-[node name="Stone_000" parent="." instance=ExtResource("stone")]
-position = Vector2(1490, 2268)
+[node name="EditableRoadLayers" parent="." instance=ExtResource("road_tilemap")]
 
-[node name="Stone_001" parent="." instance=ExtResource("stone")]
-position = Vector2(1554, 2268)
-
-[node name="Stone_002" parent="." instance=ExtResource("stone")]
-position = Vector2(1618, 2268)
-
-[node name="Stone_003" parent="." instance=ExtResource("stone")]
-position = Vector2(1458, 2284)
-
-[node name="Stone_004" parent="." instance=ExtResource("stone")]
-position = Vector2(1522, 2284)
-
-[node name="Stone_005" parent="." instance=ExtResource("stone")]
-position = Vector2(1586, 2284)
-
-[node name="Stone_006" parent="." instance=ExtResource("stone")]
-position = Vector2(1650, 2284)
-
-[node name="Stone_007" parent="." instance=ExtResource("stone")]
-position = Vector2(1490, 2300)
-
-[node name="Stone_008" parent="." instance=ExtResource("stone")]
-position = Vector2(1554, 2300)
-
-[node name="Stone_009" parent="." instance=ExtResource("stone")]
-position = Vector2(1618, 2300)
-
-[node name="Stone_010" parent="." instance=ExtResource("stone")]
-position = Vector2(1458, 2316)
-
-[node name="Stone_011" parent="." instance=ExtResource("stone")]
-position = Vector2(1522, 2316)
-
-[node name="Stone_012" parent="." instance=ExtResource("stone")]
-position = Vector2(1586, 2316)
-
-[node name="Stone_013" parent="." instance=ExtResource("stone")]
-position = Vector2(1650, 2316)
-
-[node name="Stone_014" parent="." instance=ExtResource("stone")]
-position = Vector2(1490, 2332)
-
-[node name="Stone_015" parent="." instance=ExtResource("stone")]
-position = Vector2(1554, 2332)
-
-[node name="Stone_016" parent="." instance=ExtResource("stone")]
-position = Vector2(1618, 2332)
-
-[node name="Stone_017" parent="." instance=ExtResource("stone")]
-position = Vector2(1522, 2348)
-
-[node name="Stone_018" parent="." instance=ExtResource("stone")]
-position = Vector2(1586, 2348)
-
-[node name="Stone_019" parent="." instance=ExtResource("stone")]
-position = Vector2(1426, 2300)
-
-[node name="Stone_020" parent="." instance=ExtResource("stone")]
-position = Vector2(1394, 2316)
-
-[node name="Stone_021" parent="." instance=ExtResource("stone")]
-position = Vector2(1426, 2332)
-
-[node name="Stone_022" parent="." instance=ExtResource("stone")]
-position = Vector2(1522, 2252)
-
-[node name="Stone_023" parent="." instance=ExtResource("stone")]
-position = Vector2(1586, 2252)
-
-[node name="Stone_024" parent="." instance=ExtResource("stone")]
-position = Vector2(1458, 2348)

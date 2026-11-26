@@ -1,0 +1,122 @@
+[gd_scene format=3]
+[node name="ChatLayout" type="VBoxContainer"]
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+[node name="Channels" type="HBoxContainer" parent="."]
+[node name="World" type="Button" parent="Channels"]
+custom_minimum_size = Vector2(120,44)
+text = "WORLD"
+toggle_mode = true
+button_pressed = true
+[node name="Party" type="Button" parent="Channels"]
+custom_minimum_size = Vector2(120,44)
+text = "PARTY"
+toggle_mode = true
+[node name="Guild" type="Button" parent="Channels"]
+custom_minimum_size = Vector2(120,44)
+text = "GUILD"
+toggle_mode = true
+[node name="Private" type="Button" parent="Channels"]
+custom_minimum_size = Vector2(120,44)
+text = "PRIVATE"
+toggle_mode = true
+[node name="Blocks" type="Button" parent="Channels"]
+custom_minimum_size = Vector2(120,44)
+text = "BLOCKED"
+toggle_mode = true
+[node name="Contacts" type="OptionButton" parent="."]
+visible = false
+custom_minimum_size = Vector2(0,44)
+fit_to_longest_item = false
+[node name="Status" type="Label" parent="."]
+text = "Connecting..."
+autowrap_mode = 2
+[node name="Moderation" type="HBoxContainer" parent="."]
+visible = false
+[node name="MuteStatus" type="Label" parent="Moderation"]
+size_flags_horizontal = 3
+autowrap_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.65, 0.59, 1)
+[node name="Notices" type="Button" parent="Moderation"]
+custom_minimum_size = Vector2(120, 36)
+text = "Notices"
+[node name="History" type="RichTextLabel" parent="."]
+size_flags_vertical = 3
+custom_minimum_size = Vector2(0,160)
+bbcode_enabled = false
+scroll_following = true
+selection_enabled = true
+[node name="EmotePicker" type="VBoxContainer" parent="."]
+visible = false
+theme_override_constants/separation = 4
+[node name="Tabs" type="HBoxContainer" parent="EmotePicker"]
+[node name="Emoji" type="Button" parent="EmotePicker/Tabs"]
+custom_minimum_size = Vector2(92,40)
+text = "Emoji"
+toggle_mode = true
+button_pressed = true
+[node name="Stickers" type="Button" parent="EmotePicker/Tabs"]
+custom_minimum_size = Vector2(92,40)
+text = "Stickers"
+toggle_mode = true
+[node name="Favorites" type="Button" parent="EmotePicker/Tabs"]
+visible = false
+custom_minimum_size = Vector2(98,40)
+text = "Pin stickers"
+toggle_mode = true
+tooltip_text = "Choose favorite stickers"
+[node name="Hint" type="Label" parent="EmotePicker/Tabs"]
+size_flags_horizontal = 3
+text = "Tap to insert"
+autowrap_mode = 2
+[node name="EmojiScroll" type="ScrollContainer" parent="EmotePicker"]
+custom_minimum_size = Vector2(0,56)
+vertical_scroll_mode = 0
+horizontal_scroll_mode = 1
+follow_focus = true
+[node name="EmojiGrid" type="HBoxContainer" parent="EmotePicker/EmojiScroll"]
+theme_override_constants/separation = 6
+[node name="StickerScroll" type="ScrollContainer" parent="EmotePicker"]
+visible = false
+custom_minimum_size = Vector2(0,96)
+vertical_scroll_mode = 0
+horizontal_scroll_mode = 1
+follow_focus = true
+[node name="StickerGrid" type="HBoxContainer" parent="EmotePicker/StickerScroll"]
+theme_override_constants/separation = 6
+[node name="ReplyBar" type="HBoxContainer" parent="."]
+visible = false
+[node name="Preview" type="Label" parent="ReplyBar"]
+size_flags_horizontal = 3
+text_overrun_behavior = 3
+theme_override_font_sizes/font_size = 14
+[node name="Cancel" type="Button" parent="ReplyBar"]
+custom_minimum_size = Vector2(90,32)
+text = "Cancel"
+[node name="Composer" type="HBoxContainer" parent="."]
+[node name="Message" type="LineEdit" parent="Composer"]
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0,48)
+max_length = 200
+placeholder_text = "Type a message (200 characters)"
+[node name="Emotes" type="Button" parent="Composer"]
+custom_minimum_size = Vector2(58,48)
+text = "Emote"
+toggle_mode = true
+tooltip_text = "Emoji and stickers"
+[node name="Send" type="Button" parent="Composer"]
+custom_minimum_size = Vector2(96,48)
+text = "Send"
+[node name="PlayerActions" type="HBoxContainer" parent="."]
+[node name="Players" type="OptionButton" parent="PlayerActions"]
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0,44)
+[node name="Profile" type="Button" parent="PlayerActions"]
+custom_minimum_size = Vector2(90,44)
+text = "Profile"
+[node name="Block" type="Button" parent="PlayerActions"]
+custom_minimum_size = Vector2(120,44)
+text = "Block player"
+[node name="Notice" type="Label" parent="."]
+text = "Be respectful. Never share passwords or personal information."
+autowrap_mode = 2

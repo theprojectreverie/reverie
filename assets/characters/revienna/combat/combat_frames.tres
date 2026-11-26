@@ -1,0 +1,725 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://co1brru03vrgk"]
+
+[ext_resource type="Texture2D" uid="uid://kkavqnb10dhl" path="res://assets/characters/revienna/combat/Revienna_Combat_Idle_Left_128.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://df3bn74dowsl4" path="res://assets/characters/revienna/combat/Revienna_Combat_Shadow_Lash_Left_128.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://6hlx7ctcuye0" path="res://assets/characters/revienna/combat/Revienna_Combat_Corruption_Bolt_Left_128.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bu6ftjs6ihfal" path="res://assets/characters/revienna/combat/Revienna_Combat_Soul_Drain_Left_128.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://0fphj324pbu8" path="res://assets/characters/revienna/combat/Revienna_Combat_Hollow_Wail_Left_128.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://b6ldrjxelbn38" path="res://assets/characters/revienna/combat/Revienna_Combat_Ultimate_Left_128.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://c8vriiioax6xw" path="res://assets/characters/revienna/combat/Revienna_Combat_Hit_Left_128.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://d2705utoikh6h" path="res://assets/characters/revienna/combat/Revienna_Combat_Defeat_Left_128.png" id="8"]
+
+[sub_resource type="AtlasTexture" id="corruption_bolt_0"]
+atlas = ExtResource("3")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="corruption_bolt_1"]
+atlas = ExtResource("3")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="corruption_bolt_2"]
+atlas = ExtResource("3")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="corruption_bolt_3"]
+atlas = ExtResource("3")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="corruption_bolt_4"]
+atlas = ExtResource("3")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="corruption_bolt_5"]
+atlas = ExtResource("3")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="corruption_bolt_6"]
+atlas = ExtResource("3")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="corruption_bolt_7"]
+atlas = ExtResource("3")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_0"]
+atlas = ExtResource("8")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_1"]
+atlas = ExtResource("8")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_2"]
+atlas = ExtResource("8")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_3"]
+atlas = ExtResource("8")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_4"]
+atlas = ExtResource("8")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_5"]
+atlas = ExtResource("8")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_6"]
+atlas = ExtResource("8")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_7"]
+atlas = ExtResource("8")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_8"]
+atlas = ExtResource("8")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_9"]
+atlas = ExtResource("8")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_10"]
+atlas = ExtResource("8")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="defeat_11"]
+atlas = ExtResource("8")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_0"]
+atlas = ExtResource("7")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_1"]
+atlas = ExtResource("7")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_2"]
+atlas = ExtResource("7")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_3"]
+atlas = ExtResource("7")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_4"]
+atlas = ExtResource("7")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_5"]
+atlas = ExtResource("7")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_6"]
+atlas = ExtResource("7")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hit_7"]
+atlas = ExtResource("7")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_0"]
+atlas = ExtResource("5")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_1"]
+atlas = ExtResource("5")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_2"]
+atlas = ExtResource("5")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_3"]
+atlas = ExtResource("5")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_4"]
+atlas = ExtResource("5")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_5"]
+atlas = ExtResource("5")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_6"]
+atlas = ExtResource("5")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_7"]
+atlas = ExtResource("5")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_8"]
+atlas = ExtResource("5")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_9"]
+atlas = ExtResource("5")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_10"]
+atlas = ExtResource("5")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="hollow_wail_11"]
+atlas = ExtResource("5")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("1")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("1")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("1")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_4"]
+atlas = ExtResource("1")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_5"]
+atlas = ExtResource("1")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_6"]
+atlas = ExtResource("1")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_7"]
+atlas = ExtResource("1")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_0"]
+atlas = ExtResource("6")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_1"]
+atlas = ExtResource("6")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_2"]
+atlas = ExtResource("6")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_3"]
+atlas = ExtResource("6")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_4"]
+atlas = ExtResource("6")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_5"]
+atlas = ExtResource("6")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_6"]
+atlas = ExtResource("6")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_7"]
+atlas = ExtResource("6")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_8"]
+atlas = ExtResource("6")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_9"]
+atlas = ExtResource("6")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_10"]
+atlas = ExtResource("6")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_11"]
+atlas = ExtResource("6")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_12"]
+atlas = ExtResource("6")
+region = Rect2(0, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_13"]
+atlas = ExtResource("6")
+region = Rect2(128, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_14"]
+atlas = ExtResource("6")
+region = Rect2(256, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="ravienna_eclipse_15"]
+atlas = ExtResource("6")
+region = Rect2(384, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="shadow_lash_0"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="shadow_lash_1"]
+atlas = ExtResource("2")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="shadow_lash_2"]
+atlas = ExtResource("2")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="shadow_lash_3"]
+atlas = ExtResource("2")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="shadow_lash_4"]
+atlas = ExtResource("2")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="shadow_lash_5"]
+atlas = ExtResource("2")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="shadow_lash_6"]
+atlas = ExtResource("2")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="shadow_lash_7"]
+atlas = ExtResource("2")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_0"]
+atlas = ExtResource("4")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_1"]
+atlas = ExtResource("4")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_2"]
+atlas = ExtResource("4")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_3"]
+atlas = ExtResource("4")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_4"]
+atlas = ExtResource("4")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_5"]
+atlas = ExtResource("4")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_6"]
+atlas = ExtResource("4")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_7"]
+atlas = ExtResource("4")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_8"]
+atlas = ExtResource("4")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_9"]
+atlas = ExtResource("4")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_10"]
+atlas = ExtResource("4")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="soul_drain_11"]
+atlas = ExtResource("4")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("corruption_bolt_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("corruption_bolt_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("corruption_bolt_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("corruption_bolt_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("corruption_bolt_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("corruption_bolt_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("corruption_bolt_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("corruption_bolt_7")
+}],
+"loop": 0,
+"name": &"corruption_bolt",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("defeat_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("defeat_11")
+}],
+"loop": 0,
+"name": &"defeat",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("hit_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("hit_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("hit_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("hit_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("hit_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("hit_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("hit_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("hit_7")
+}],
+"loop": 0,
+"name": &"hit",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("hollow_wail_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("hollow_wail_11")
+}],
+"loop": 0,
+"name": &"hollow_wail",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("idle_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("ravienna_eclipse_15")
+}],
+"loop": 0,
+"name": &"ravienna_eclipse",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("shadow_lash_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("shadow_lash_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("shadow_lash_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("shadow_lash_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("shadow_lash_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("shadow_lash_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("shadow_lash_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("shadow_lash_7")
+}],
+"loop": 0,
+"name": &"shadow_lash",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("soul_drain_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("soul_drain_11")
+}],
+"loop": 0,
+"name": &"soul_drain",
+"speed": 8.0
+}]

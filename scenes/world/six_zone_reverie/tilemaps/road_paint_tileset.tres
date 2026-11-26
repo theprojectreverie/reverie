@@ -1,0 +1,142 @@
+[gd_resource type="TileSet" format=3 uid="uid://bvhxu3ovn2gu8"]
+
+[ext_resource type="Texture2D" uid="uid://cfamfv64hudr5" path="res://assets/reverie_pack_v01/Pathways/Ground/gothic_courtyard_floor_01.png" id="tex_0"]
+[ext_resource type="Texture2D" uid="uid://dnjn68qn6a24w" path="res://assets/reverie_pack_v01/Pathways/Ground/gothic_courtyard_floor_02.png" id="tex_1"]
+[ext_resource type="Texture2D" uid="uid://bxvryln4vwrik" path="res://assets/reverie_pack_v01/Pathways/Ground/path_cobble_01.png" id="tex_2"]
+[ext_resource type="Texture2D" uid="uid://c7bqf3kac1q5w" path="res://assets/reverie_pack_v01/Pathways/Ground/path_cobble_02.png" id="tex_3"]
+[ext_resource type="Texture2D" uid="uid://m4rgcgf0hb4h" path="res://assets/reverie_pack_v01/Pathways/Ground/path_corrupted_stone.png" id="tex_4"]
+[ext_resource type="Texture2D" uid="uid://b8wslsy71pcde" path="res://assets/reverie_pack_v01/Pathways/Ground/path_curved_ne.png" id="tex_5"]
+[ext_resource type="Texture2D" uid="uid://dkdchbk12lnr2" path="res://assets/reverie_pack_v01/Pathways/Ground/path_curved_nw.png" id="tex_6"]
+[ext_resource type="Texture2D" uid="uid://ctvds2u1nr2k8" path="res://assets/reverie_pack_v01/Pathways/Ground/path_curved_se.png" id="tex_7"]
+[ext_resource type="Texture2D" uid="uid://pb7yg2o7rts2" path="res://assets/reverie_pack_v01/Pathways/Ground/path_curved_sw.png" id="tex_8"]
+[ext_resource type="Texture2D" uid="uid://cg4p0aomnlkoj" path="res://assets/reverie_pack_v01/Pathways/Ground/path_intersection.png" id="tex_9"]
+[ext_resource type="Texture2D" uid="uid://0getg85v8f2y" path="res://assets/reverie_pack_v01/Pathways/Ground/path_ruined_01.png" id="tex_10"]
+[ext_resource type="Texture2D" uid="uid://dhqynmklh4eop" path="res://assets/reverie_pack_v01/Pathways/Ground/path_ruined_02.png" id="tex_11"]
+[ext_resource type="Texture2D" uid="uid://bg812ssg323u4" path="res://assets/reverie_pack_v01/Pathways/Ground/path_rune_tile_01.png" id="tex_12"]
+[ext_resource type="Texture2D" uid="uid://cudfw1kd2r05m" path="res://assets/reverie_pack_v01/Pathways/Ground/path_rune_tile_02.png" id="tex_13"]
+[ext_resource type="Texture2D" uid="uid://dbtf1r6p6e7n1" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/soil_garden_01.png" id="tex_14"]
+[ext_resource type="Texture2D" uid="uid://cssypk2ijw43d" path="res://assets/environment/royal_gardens_ground_64x32/garden_stone_path.png" id="tex_15"]
+[ext_resource type="Texture2D" uid="uid://cm6a6e1buxc87" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_plain.png" id="tex_16"]
+
+[sub_resource type="TileSetAtlasSource" id="atlas_0"]
+resource_name = "gothic_courtyard_floor_01"
+texture = ExtResource("tex_0")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_1"]
+resource_name = "gothic_courtyard_floor_02"
+texture = ExtResource("tex_1")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_10"]
+resource_name = "path_ruined_01"
+texture = ExtResource("tex_10")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_11"]
+resource_name = "path_ruined_02"
+texture = ExtResource("tex_11")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_12"]
+resource_name = "path_rune_tile_01"
+texture = ExtResource("tex_12")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_13"]
+resource_name = "path_rune_tile_02"
+texture = ExtResource("tex_13")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_14"]
+resource_name = "soil_garden_01"
+texture = ExtResource("tex_14")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_15"]
+resource_name = "garden_stone_path"
+texture = ExtResource("tex_15")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_16"]
+resource_name = "path_stone_plain"
+texture = ExtResource("tex_16")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_2"]
+resource_name = "path_cobble_01"
+texture = ExtResource("tex_2")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_3"]
+resource_name = "path_cobble_02"
+texture = ExtResource("tex_3")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_4"]
+resource_name = "path_corrupted_stone"
+texture = ExtResource("tex_4")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_5"]
+resource_name = "path_curved_ne"
+texture = ExtResource("tex_5")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_6"]
+resource_name = "path_curved_nw"
+texture = ExtResource("tex_6")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_7"]
+resource_name = "path_curved_se"
+texture = ExtResource("tex_7")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_8"]
+resource_name = "path_curved_sw"
+texture = ExtResource("tex_8")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_9"]
+resource_name = "path_intersection"
+texture = ExtResource("tex_9")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("atlas_0")
+sources/1 = SubResource("atlas_1")
+sources/2 = SubResource("atlas_2")
+sources/3 = SubResource("atlas_3")
+sources/4 = SubResource("atlas_4")
+sources/5 = SubResource("atlas_5")
+sources/6 = SubResource("atlas_6")
+sources/7 = SubResource("atlas_7")
+sources/8 = SubResource("atlas_8")
+sources/9 = SubResource("atlas_9")
+sources/10 = SubResource("atlas_10")
+sources/11 = SubResource("atlas_11")
+sources/12 = SubResource("atlas_12")
+sources/13 = SubResource("atlas_13")
+sources/14 = SubResource("atlas_14")
+sources/15 = SubResource("atlas_15")
+sources/16 = SubResource("atlas_16")

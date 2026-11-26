@@ -59,6 +59,7 @@ func apply_atmosphere(phase: Dictionary, weather_params: Dictionary, mobile: boo
 			pollen_amount = int(pollen_amount * 0.55)
 		if mobile:
 			pollen_amount = int(pollen_amount * 0.5)
+		pollen_amount = int(pollen_amount * GraphicsSettings.ambient_multiplier())
 		ambient.amount = maxi(1, clampi(pollen_amount, 0, particle_cap))
 		ambient.emitting = pollen_amount > 0
 		var pollen_color := GreenwardStyle.ACCENTS.petal_alt.lerp(presentation_tint, 0.12)
@@ -74,6 +75,7 @@ func apply_atmosphere(phase: Dictionary, weather_params: Dictionary, mobile: boo
 		var firefly_amount := int(particle_cap * 0.06) if night else 0
 		if mobile:
 			firefly_amount = int(firefly_amount * 0.5)
+		firefly_amount = int(firefly_amount * GraphicsSettings.ambient_multiplier())
 		fireflies.amount = maxi(1, clampi(firefly_amount, 0, particle_cap))
 		fireflies.emitting = night and firefly_amount > 0
 		var firefly_color := GreenwardStyle.ACCENTS.firefly
@@ -87,7 +89,7 @@ func apply_rain(weather_params: Dictionary, mobile: bool, particle_cap: int) -> 
 	var desired := int(weather_params.get("rain_amount", 0))
 	if mobile:
 		desired = 0
-	desired = clampi(desired, 0, particle_cap)
+	desired = clampi(int(desired * GraphicsSettings.ambient_multiplier()), 0, particle_cap)
 	rain.amount = maxi(1, desired)
 	rain.emitting = desired > 0
 	var rain_color := GreenwardStyle.WATER.glint

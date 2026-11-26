@@ -69,12 +69,24 @@ func quest_destination(quest_id: String) -> Vector2:
 
 func quest_target_position(quest_id: String) -> Vector2:
 	var step := quest_step(quest_id)
+	if str(step.get("type", "")) == "explore":
+		for marker in get_tree().get_nodes_in_group("quest_exploration_targets"):
+			if marker is Node2D and str(marker.get("objective_id")) == str(step.get("target", "")):
+				return marker.global_position
 	if str(step.get("type", "")) == "kill":
 		var target_id := str(step.get("target", ""))
 		var player_pos := _find_player_position()
 		var best_position := Vector2.ZERO
 		var best_distance := INF
 		for node in get_tree().get_nodes_in_group("interactables"):
+			if is_instance_valid(node) and node is Node2D and node.is_in_group("world_action_targets") and "group_id" in node:
+				var group := ContentDB.get_enemy_group(str(node.group_id))
+				if group.get("quest_kills", {}).has(target_id) and not node.get("defeated") and node.visible:
+					var distance: float = player_pos.distance_to(node.global_position)
+					if distance < best_distance:
+						best_distance = distance
+						best_position = node.global_position
+				continue
 			if not is_instance_valid(node) or not (node is RoamingMonster):
 				continue
 			var monster := node as RoamingMonster

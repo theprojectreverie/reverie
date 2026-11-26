@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/fast_travel_waypoint.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Bedroom/crystal_pedestal.png" id="2"]
+
+[sub_resource type="CircleShape2D" id="foot"]
+radius = 15.0
+
+[sub_resource type="Animation" id="pulse"]
+resource_name = "crystal_pulse"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Artwork:modulate")
+tracks/0/interp = 1
+tracks/0/keys = {"times": PackedFloat32Array(0, 1.5, 3), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1.12, 1.06, 1.13, 1), Color(1, 1, 1, 1)]}
+
+[sub_resource type="AnimationLibrary" id="pulse_library"]
+_data = {&"crystal_pulse": SubResource("pulse")}
+
+[node name="Waystone" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2")
+position = Vector2(0, -50)
+scale = Vector2(0.85, 0.85)
+
+[node name="Base" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
+shape = SubResource("foot")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {"": SubResource("pulse_library")}
+autoplay = "crystal_pulse"

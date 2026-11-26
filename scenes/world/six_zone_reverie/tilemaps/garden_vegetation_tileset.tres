@@ -1,0 +1,46 @@
+[gd_resource type="TileSet" format=3 uid="uid://br076f0vat4i5"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/bush_flowering_01.tscn" id="1_5q2lr"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/rose_bush_01.tscn" id="2_3rc3o"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/rose_bush_02.tscn" id="3_lrad3"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/tree_blossom_01.tscn" id="4_uhbk7"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/tree_blossom_02.tscn" id="5_tyrra"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/tree_oak_01.tscn" id="6_13h0n"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/tree_oak_02.tscn" id="7_21x2p"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/tree_oak_03_tall.tscn" id="8_5i05m"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/tree_topiary_cone.tscn" id="9_p2hu1"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/tree_topiary_round.tscn" id="10_yp7mo"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/bush_round_01.tscn" id="11_tilct"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/flower_patch_01.tscn" id="12_exu5v"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/grass_tuft_01.tscn" id="13_sdl2r"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/hedge_corner_1x1.tscn" id="14_2vpdd"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/hedge_x_2x1.tscn" id="15_0236p"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/hedge_y_1x2.tscn" id="16_re6uo"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/ivy_wall_01.tscn" id="17_pgwmx"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Royal_Gardens/Vegetation/ivy_wall_02.tscn" id="18_64lub"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_qf0kv"]
+resource_name = "garden_vegetation"
+scenes/1/scene = ExtResource("1_5q2lr")
+scenes/2/scene = ExtResource("11_tilct")
+scenes/3/scene = ExtResource("12_exu5v")
+scenes/4/scene = ExtResource("13_sdl2r")
+scenes/5/scene = ExtResource("14_2vpdd")
+scenes/6/scene = ExtResource("15_0236p")
+scenes/7/scene = ExtResource("16_re6uo")
+scenes/8/scene = ExtResource("17_pgwmx")
+scenes/9/scene = ExtResource("18_64lub")
+scenes/10/scene = ExtResource("2_3rc3o")
+scenes/11/scene = ExtResource("3_lrad3")
+scenes/12/scene = ExtResource("4_uhbk7")
+scenes/13/scene = ExtResource("5_tyrra")
+scenes/14/scene = ExtResource("6_13h0n")
+scenes/15/scene = ExtResource("7_21x2p")
+scenes/16/scene = ExtResource("8_5i05m")
+scenes/17/scene = ExtResource("9_p2hu1")
+scenes/18/scene = ExtResource("10_yp7mo")
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetScenesCollectionSource_qf0kv")

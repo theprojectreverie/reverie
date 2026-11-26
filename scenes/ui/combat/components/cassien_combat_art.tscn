@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="SpriteFrames" path="res://assets/characters/cassien/combat/combat_frames.tres" id="frames"]
+
+[node name="CassienCombatArt" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = ExtResource("frames")
+animation = &"idle"
+offset = Vector2(0, -54)
+scale = Vector2(1.3, 1.3)

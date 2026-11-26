@@ -71,8 +71,10 @@ func _run() -> void:
 		push_error("Battle speed control must use the compact, readable multiplier label.")
 		ok = false
 	var log_caption := battle.get_node_or_null("CombatScreenLayout/Root/CombatBottomHUD/LogPanel/LogContent/LogCaption") as Label
-	if log_caption == null or log_caption.visible:
-		push_error("Battle log must not duplicate the title already present in its authored frame.")
+	var log_panel := battle.get_node("CombatScreenLayout/Root/CombatBottomHUD/LogPanel") as PanelContainer
+	var log_style := log_panel.get_theme_stylebox("panel") as StyleBoxTexture
+	if log_caption == null or not log_caption.visible or log_style == null or not log_style.texture.resource_path.ends_with("battle_status_panel.png"):
+		push_error("Battle log must use a blank authored frame and a single live caption.")
 		ok = false
 	if battle._log_label != null and battle._log_label.get_theme_font_size("normal_font_size") < 11:
 		push_error("Battle log body text must remain readable at the revised 11px baseline.")
@@ -177,4 +179,6 @@ func _run() -> void:
 		print("COMBAT SCREEN RUNTIME SMOKE: PASS")
 		print("SKILL_BUTTONS=", report.get("skill_buttons", 0))
 		print("BATTLEFIELD=true; RESOLUTION_AND_TEARDOWN_CLEANUP=true")
+	AudioDirector.stop_all_audio_immediately()
+	await get_tree().create_timer(0.35).timeout
 	get_tree().quit(0 if ok else 1)

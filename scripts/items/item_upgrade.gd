@@ -1,10 +1,10 @@
 class_name ItemUpgrade
 extends RefCounted
 
-static func get_config_for_slot(slot: String) -> Dictionary:
-	# Preserve existing progression/economy rules (gear enhancement in GameState).
+static func get_config_for_slot(slot: String, item_id: String = "") -> Dictionary:
+	# The legacy no-item query retains its default; actual gear uses rarity caps.
 	return {
-		"max_level": 5,
+		"max_level": 5 if item_id.is_empty() else GameState.roster_domain.gear_cap(item_id),
 		"stat_bonus_per_level": 0.08,
 		"currency": "gold",
 		"material": "glade_sap",

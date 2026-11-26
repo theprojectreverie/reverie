@@ -33,7 +33,7 @@ func available_avatars() -> Array[String]:
 		if not character_id.is_empty() and not party_ids.has(character_id):
 			party_ids.append(character_id)
 	var ids: Array[String] = []
-	for character_id in ["kael", "lilith", "gerald"]:
+	for character_id in ["kael", "lilith", "gerald", "ravienna", "ravienna_legendary", "ravienna_mythic"]:
 		if not party_ids.has(character_id):
 			continue
 		var source := SpriteFramesActorSource.from_playable(character_id)
@@ -57,13 +57,22 @@ func cycle_avatar() -> String:
 
 
 func set_avatar(character_id: String) -> bool:
+	if not MultiplayerGateway.standalone_expedition_id.is_empty() and character_id != "kael":
+		return false
+	if character_id != "kael" and GameState.roster_domain.story_solo_active():
+		return false
 	if actor == null or character_id.is_empty():
 		return false
+	var previous_id := str(actor.get("avatar_id"))
 	var visual := actor.get("visual") as ActorVisual
 	if visual == null:
 		return false
 	var definition := ContentDB.get_character(character_id)
 	if definition == null or definition.id.is_empty():
+		return false
+	# Validate before mutating the current visual. Invalid art must not replace a working avatar.
+	var source := SpriteFramesActorSource.from_playable(character_id)
+	if source == null or not source.has_frames() or not source.validate_sheets().is_empty():
 		return false
 	var kind := ActorVisual.Kind.HUMAN
 	if definition.race == "Spirit":
@@ -82,5 +91,7 @@ func set_avatar(character_id: String) -> bool:
 	var name_label := actor.get_node_or_null("NameLabel") as Label
 	if name_label != null:
 		name_label.text = definition.display_name
-	EventBus.toast_requested.emit("Now playing as " + definition.display_name)
+	# Initialization and reapplying the same avatar should not generate a switch notification.
+	if not previous_id.is_empty() and previous_id != character_id:
+		EventBus.toast_requested.emit("Now playing as " + definition.display_name)
 	return true

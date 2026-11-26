@@ -4,6 +4,7 @@ extends Node
 
 signal presentation_finished
 
+var _prefetch = preload("res://scripts/ui/components/cinematic_texture_prefetch.gd").new()
 var _artwork: TextureRect
 var _caption: Label
 var _fade_overlay: ColorRect
@@ -23,7 +24,7 @@ func bind(owner: Control) -> bool:
 
 func show_shot(index: int, shot: Dictionary, total: int) -> void:
 	var texture_path := str(shot.get("image", ""))
-	var texture := load(texture_path) as Texture2D
+	var texture: Texture2D = _prefetch.take(texture_path)
 	if texture == null:
 		push_error("[KaelPresentation] Could not load image: " + texture_path)
 		return
@@ -58,3 +59,12 @@ func finish_to_black() -> void:
 func _update_artwork_pivot() -> void:
 	if _artwork != null:
 		_artwork.pivot_offset = _artwork.size * 0.5
+
+func prefetch_next(path: String) -> void:
+	_prefetch.request(path)
+
+func release_prefetch() -> void:
+	_prefetch.clear()
+
+func _exit_tree() -> void:
+	release_prefetch()

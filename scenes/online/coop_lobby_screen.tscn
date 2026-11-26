@@ -67,11 +67,10 @@ text = "Explore Reverie's regions together. Invite up to three friends."
 layout_mode = 2
 text = "EXPEDITION REGION"
 
-[node name="Region" type="LineEdit" parent="Center/Panel/Margins/Content"]
+[node name="Region" type="OptionButton" parent="Center/Panel/Margins/Content"]
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
-text = "royal_gardens"
-placeholder_text = "Region ID"
+
 
 [node name="CreateButton" type="Button" parent="Center/Panel/Margins/Content"]
 custom_minimum_size = Vector2(0, 48)
@@ -113,6 +112,13 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "REFRESH"
 
+[node name="CopyInviteButton" type="Button" parent="Center/Panel/Margins/Content/Actions"]
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+layout_mode = 2
+text = "COPY INVITE"
+disabled = true
+
 [node name="LeaveButton" type="Button" parent="Center/Panel/Margins/Content/Actions"]
 custom_minimum_size = Vector2(0, 44)
 size_flags_horizontal = 3
@@ -129,3 +135,8 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 autowrap_mode = 2
 text = "Checking your expedition status…"
+
+[node name="EnterButton" type="Button" parent="Center/Panel/Margins/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "ENTER EXPEDITION"

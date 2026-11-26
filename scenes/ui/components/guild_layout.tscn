@@ -1,0 +1,177 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="PackedScene" path="res://scenes/ui/components/guild_raid_stage.tscn" id="raid_stage"]
+[node name="GuildLayout" type="VBoxContainer"]
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+[node name="Status" type="Label" parent="."]
+text = "Loading guild..."
+autowrap_mode = 2
+[node name="Toolbar" type="HBoxContainer" parent="."]
+[node name="Refresh" type="Button" parent="Toolbar"]
+text = "Refresh"
+custom_minimum_size = Vector2(110,40)
+[node name="Search" type="LineEdit" parent="Toolbar"]
+size_flags_horizontal = 3
+placeholder_text = "Search guild name"
+max_length = 24
+[node name="Find" type="Button" parent="Toolbar"]
+text = "Find guilds"
+custom_minimum_size = Vector2(120,40)
+[node name="Scroll" type="ScrollContainer" parent="."]
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+[node name="Body" type="VBoxContainer" parent="Scroll"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+[node name="Summary" type="Label" parent="Scroll/Body"]
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 20
+[node name="Competition" type="VBoxContainer" parent="Scroll/Body"]
+visible = false
+[node name="Heading" type="Label" parent="Scroll/Body/Competition"]
+text = "GUILD LEAGUE"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.91,0.76,0.48,1)
+[node name="Open" type="Button" parent="Scroll/Body/Competition"]
+text = "View seasonal leaderboard"
+custom_minimum_size = Vector2(0,44)
+[node name="Period" type="Label" parent="Scroll/Body/Competition"]
+autowrap_mode = 2
+[node name="Own" type="Label" parent="Scroll/Body/Competition"]
+autowrap_mode = 2
+[node name="Rows" type="VBoxContainer" parent="Scroll/Body/Competition"]
+[node name="Raid" type="VBoxContainer" parent="Scroll/Body"]
+visible = false
+theme_override_constants/separation = 6
+[node name="Heading" type="Label" parent="Scroll/Body/Raid"]
+text = "WEEKLY GUILD RAID - CRIMSON ECHO"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.91,0.76,0.48,1)
+autowrap_mode = 2
+[node name="Boss" type="HBoxContainer" parent="Scroll/Body/Raid"]
+[node name="Portrait" type="TextureRect" parent="Scroll/Body/Raid/Boss"]
+custom_minimum_size = Vector2(88,88)
+expand_mode = 1
+stretch_mode = 5
+[node name="Info" type="VBoxContainer" parent="Scroll/Body/Raid/Boss"]
+size_flags_horizontal = 3
+[node name="Health" type="ProgressBar" parent="Scroll/Body/Raid/Boss/Info"]
+custom_minimum_size = Vector2(0,24)
+show_percentage = false
+[node name="Stats" type="Label" parent="Scroll/Body/Raid/Boss/Info"]
+autowrap_mode = 2
+[node name="Reward" type="Label" parent="Scroll/Body/Raid"]
+autowrap_mode = 2
+[node name="Buttons" type="HBoxContainer" parent="Scroll/Body/Raid"]
+[node name="Start" type="Button" parent="Scroll/Body/Raid/Buttons"]
+text = "Fight"
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0,44)
+[node name="Claim" type="Button" parent="Scroll/Body/Raid/Buttons"]
+text = "Claim reward"
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0,44)
+[node name="Battle" type="VBoxContainer" parent="Scroll/Body/Raid"]
+visible = false
+[node name="Stage" parent="Scroll/Body/Raid/Battle" instance=ExtResource("raid_stage")]
+[node name="Turn" type="Label" parent="Scroll/Body/Raid/Battle"]
+autowrap_mode = 2
+[node name="Units" type="VBoxContainer" parent="Scroll/Body/Raid/Battle"]
+[node name="Actions" type="VBoxContainer" parent="Scroll/Body/Raid/Battle"]
+[node name="Abandon" type="Button" parent="Scroll/Body/Raid/Battle"]
+text = "Retreat (uses attempt)"
+custom_minimum_size = Vector2(0,40)
+[node name="Ranking" type="VBoxContainer" parent="Scroll/Body/Raid"]
+[node name="Progression" type="VBoxContainer" parent="Scroll/Body"]
+visible = false
+[node name="Progress" type="ProgressBar" parent="Scroll/Body/Progression"]
+custom_minimum_size = Vector2(0,24)
+show_percentage = false
+[node name="XP" type="Label" parent="Scroll/Body/Progression"]
+autowrap_mode = 2
+[node name="Missions" type="VBoxContainer" parent="Scroll/Body/Progression"]
+[node name="Ranking" type="VBoxContainer" parent="Scroll/Body/Progression"]
+[node name="Treasury" type="VBoxContainer" parent="Scroll/Body"]
+visible = false
+[node name="Heading" type="Label" parent="Scroll/Body/Treasury"]
+text = "GUILD TREASURY"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.91,0.76,0.48,1)
+[node name="Balance" type="Label" parent="Scroll/Body/Treasury"]
+autowrap_mode = 2
+[node name="Daily" type="Label" parent="Scroll/Body/Treasury"]
+autowrap_mode = 2
+[node name="Donation" type="HBoxContainer" parent="Scroll/Body/Treasury"]
+[node name="Amount" type="OptionButton" parent="Scroll/Body/Treasury/Donation"]
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0,44)
+[node name="Donate" type="Button" parent="Scroll/Body/Treasury/Donation"]
+text = "Donate gold"
+custom_minimum_size = Vector2(130,44)
+[node name="Notice" type="Label" parent="Scroll/Body/Treasury"]
+text = "Donations are permanent. No withdrawals. Resets at 00:00 UTC."
+autowrap_mode = 2
+[node name="History" type="VBoxContainer" parent="Scroll/Body/Treasury"]
+[node name="Perks" type="VBoxContainer" parent="Scroll/Body"]
+visible = false
+[node name="Heading" type="Label" parent="Scroll/Body/Perks"]
+text = "GUILD HALL UPGRADES"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.91,0.76,0.48,1)
+[node name="Notice" type="Label" parent="Scroll/Body/Perks"]
+text = "Permanent shared upgrades. Only the guild leader can purchase."
+autowrap_mode = 2
+[node name="Rows" type="VBoxContainer" parent="Scroll/Body/Perks"]
+[node name="Shop" type="VBoxContainer" parent="Scroll/Body"]
+visible = false
+[node name="Heading" type="Label" parent="Scroll/Body/Shop"]
+text = "GUILD EXCHANGE"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.91,0.76,0.48,1)
+[node name="Balance" type="Label" parent="Scroll/Body/Shop"]
+autowrap_mode = 2
+[node name="Notice" type="Label" parent="Scroll/Body/Shop"]
+text = "Earn tokens through daily guild missions. Weekly stock resets Monday at 00:00 UTC."
+autowrap_mode = 2
+[node name="Retry" type="Button" parent="Scroll/Body/Shop"]
+visible = false
+text = "Retry pending purchase"
+custom_minimum_size = Vector2(0,44)
+[node name="Rows" type="VBoxContainer" parent="Scroll/Body/Shop"]
+[node name="Editor" type="VBoxContainer" parent="Scroll/Body"]
+visible = false
+[node name="Name" type="LineEdit" parent="Scroll/Body/Editor"]
+placeholder_text = "Guild name (3-24 characters)"
+max_length = 24
+custom_minimum_size = Vector2(0,40)
+[node name="Description" type="LineEdit" parent="Scroll/Body/Editor"]
+placeholder_text = "Guild description"
+max_length = 180
+custom_minimum_size = Vector2(0,40)
+[node name="Emblem" type="OptionButton" parent="Scroll/Body/Editor"]
+custom_minimum_size = Vector2(0,40)
+[node name="Save" type="Button" parent="Scroll/Body/Editor"]
+text = "Create guild"
+custom_minimum_size = Vector2(0,42)
+[node name="Invite" type="HBoxContainer" parent="Scroll/Body"]
+visible = false
+[node name="Name" type="LineEdit" parent="Scroll/Body/Invite"]
+size_flags_horizontal = 3
+placeholder_text = "Exact player name"
+max_length = 20
+[node name="Find" type="Button" parent="Scroll/Body/Invite"]
+text = "Find player"
+custom_minimum_size = Vector2(115,40)
+[node name="Confirm" type="Button" parent="Scroll/Body/Invite"]
+text = "Invite"
+disabled = true
+custom_minimum_size = Vector2(100,40)
+[node name="Requests" type="VBoxContainer" parent="Scroll/Body"]
+[node name="Members" type="VBoxContainer" parent="Scroll/Body"]
+[node name="Results" type="VBoxContainer" parent="Scroll/Body"]
+[node name="Leave" type="Button" parent="Scroll/Body"]
+visible = false
+text = "Leave guild"
+custom_minimum_size = Vector2(0,42)
+[node name="ConfirmAction" type="ConfirmationDialog" parent="."]
+title = "Confirm guild action"

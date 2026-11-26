@@ -22,3 +22,6 @@ timeout = 15.0
 
 [node name="LogoutAllRequest" type="HTTPRequest" parent="."]
 timeout = 15.0
+
+[node name="WalletRequest" type="HTTPRequest" parent="."]
+timeout = 15.0

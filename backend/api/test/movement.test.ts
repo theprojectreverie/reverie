@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { validateMovementProposal, validateRegionBounds, validateRegionProposal } from "../src/world/movement.js";
 import { REGION_BOUNDS, REGION_SPAWNS } from "../src/world/region-bounds.generated.js";
 
@@ -10,7 +11,17 @@ test("locks movement to the lobby's assigned region", () => {
 });
 
 test("loads every authored map_bounds entry from the canonical region manifest", () => {
-  assert.deepEqual(Object.keys(REGION_BOUNDS).sort(), ["castle_royal_gardens", "gothic_castle_boss_zone"]);
+  const regions = JSON.parse(readFileSync(new URL("../../../resources/data/regions.json", import.meta.url), "utf8"));
+  const expeditions = JSON.parse(readFileSync(new URL("../../../resources/data/six_zone_expeditions.json", import.meta.url), "utf8"));
+  const expected = Object.fromEntries(Object.entries(regions).filter(([, r]) => (r as any).map_bounds).map(([id, r]) => {
+    const { min, max } = (r as any).map_bounds;
+    return [id, { minX: min[0], minY: min[1], maxX: max[0], maxY: max[1] }];
+  }));
+  for (const [id, r] of Object.entries(expeditions)) {
+    const [minX,minY,maxX,maxY] = (r as any).bounds;
+    expected[id] = {minX,minY,maxX,maxY};
+  }
+  assert.deepEqual(REGION_BOUNDS, expected);
   assert.deepEqual(REGION_BOUNDS.castle_royal_gardens, { minX: -544, minY: -714, maxX: 3800, maxY: 7200 });
   assert.deepEqual(REGION_BOUNDS.gothic_castle_boss_zone, { minX: -400, minY: -320, maxX: 3200, maxY: 1600 });
 });

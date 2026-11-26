@@ -1,4 +1,4 @@
-﻿class_name PortraitAssetSource
+class_name PortraitAssetSource
 extends RefCounted
 ## PORTRAIT ASSET SOURCE — defensive loader for authored portrait exports.
 ##
@@ -48,6 +48,8 @@ static func expected_path(char_id: String, size_class: String = "hud") -> String
 ## additionally validated (dims / RGBA8 / alpha) before being returned.
 static func texture_for(char_id: String, size_class: String = "hud") -> Texture2D:
 	var path := expected_path(char_id, size_class)
+	if size_class == "collection":
+		path = preload("res://scripts/art/portrait_texture_aliases.gd").collection_path(char_id)
 	if not _path_exists(path):
 		return null
 	var loaded: Resource = load(path)
@@ -62,7 +64,10 @@ static func texture_for(char_id: String, size_class: String = "hud") -> Texture2
 ## True when ANY expected portrait file for the character exists on disk.
 static func has_portrait(char_id: String) -> bool:
 	for sc in SIZE_CLASSES.keys():
-		if _path_exists(expected_path(char_id, str(sc))):
+		var path := expected_path(char_id, str(sc))
+		if sc == "collection":
+			path = preload("res://scripts/art/portrait_texture_aliases.gd").collection_path(char_id)
+		if _path_exists(path):
 			return true
 	return false
 

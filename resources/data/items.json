@@ -1,150 +1,402 @@
 {
- "gold": {
-  "name": "Gold",
-  "category": "currency",
-  "description": "Common coin of Aetheria. Used for upgrades and everyday purchases.",
-  "icon": "coin",
-  "color": "#e8c27a"
- },
- "gems": {
-  "name": "Gems",
-  "category": "currency",
-  "description": "Rare crystalline currency. Premium purchases only after platform compliance is approved.",
-  "icon": "gem",
-  "color": "#a87bd4"
- },
- "crystals": {
-  "name": "Summoning Crystals",
-  "category": "currency",
-  "description": "Earned through play. Spent on character summons.",
-  "icon": "crystal",
-  "color": "#7fe3e0"
- },
- "guild_tokens": {
-  "name": "Guild Tokens",
-  "category": "currency",
-  "description": "Earned through guild activity and spent in the guild shop.",
-  "icon": "token",
-  "color": "#c9a45a"
- },
- "ancient_coins": {
-  "name": "Ancient Coins",
-  "category": "currency",
-  "description": "A sovereign minting from the old kingdom. Awarded for defeating major bosses and claiming rare blessings.",
-  "icon": "ancient_coin",
-  "color": "#d9ff9f"
- },
- "event_tokens": {
-  "name": "Event Tokens",
-  "category": "currency",
-  "description": "Earned during live events and traded for limited rewards.",
-  "icon": "event",
-  "color": "#ff8fb3"
- },
- "moonpetal": {
-  "name": "Moonpetal",
-  "category": "material",
-  "rarity": "rare",
-  "description": "A pale flower that only opens under a moonless sky. Used in ascension.",
-  "color": "#b9f6ff"
- },
- "glade_sap": {
-  "name": "Glade Sap",
-  "category": "material",
-  "rarity": "common",
-  "description": "Warm amber sap from the oldest trees of Greenward.",
-  "color": "#e8c27a"
- },
- "dew_of_awakening": {
-  "name": "Dew of Awakening",
-  "category": "material",
-  "rarity": "epic",
-  "description": "Collected at dawn from the leaves of sleeping guardians.",
-  "color": "#9df5cf"
- },
- "gladewood_bow": {
-  "name": "Gladewood Bow",
-  "category": "equipment",
-  "set_id": "greenward_wayfarer",
-  "slot": "weapon",
-  "rarity": "epic",
-  "level": 2,
-  "element": "wind",
-  "stats": {
-   "atk": 24,
-   "spd": 4
+  "gold": {
+    "name": "Gold",
+    "category": "currency",
+    "description": "Common coin of Aetheria. Used for upgrades and everyday purchases.",
+    "icon": "coin",
+    "color": "#e8c27a"
   },
-  "description": "A living bow cut from a branch that agreed to be cut.",
-  "color": "#8fbf6a"
- },
- "mossweave_vest": {
-  "name": "Mossweave Vest",
-  "category": "equipment",
-  "set_id": "greenward_wayfarer",
-  "slot": "armor",
-  "rarity": "rare",
-  "level": 1,
-  "stats": {
-   "hp": 120,
-   "def": 16
+  "gems": {
+    "name": "Gems",
+    "category": "currency",
+    "description": "Rare crystalline currency. Premium purchases only after platform compliance is approved.",
+    "icon": "gem",
+    "color": "#a87bd4"
   },
-  "description": "Moss woven so tightly it remembers being bark.",
-  "color": "#6f8f5a"
- },
- "wayfarer_charm": {
-  "name": "Wayfarer Charm",
-  "category": "equipment",
-  "set_id": "greenward_wayfarer",
-  "slot": "accessory",
-  "rarity": "rare",
-  "level": 1,
-  "stats": {
-   "spd": 9,
-   "crit": 0.04
+  "crystals": {
+    "name": "Summoning Crystals",
+    "category": "currency",
+    "description": "Earned through play. Spent on character summons.",
+    "icon": "crystal",
+    "color": "#7fe3e0"
   },
-  "description": "A small wooden charm carved with a road that has no end.",
-  "color": "#c9a45a"
- },
- "sunfire_blade": {
-  "name": "Sunfire Blade",
-  "category": "equipment",
-  "slot": "weapon",
-  "rarity": "legendary",
-  "level": 3,
-  "element": "fire",
-  "stats": {
-   "atk": 38,
-   "crit": 0.06
+  "guild_tokens": {
+    "name": "Guild Tokens",
+    "category": "currency",
+    "description": "Earned through guild activity and spent in the guild shop.",
+    "icon": "token",
+    "color": "#c9a45a"
   },
-  "description": "Forged in the last hour of a sun that no longer exists.",
-  "color": "#ff9f5a"
- },
- "hollow_heart": {
-  "name": "Hollow Heart",
-  "category": "material",
-  "rarity": "legendary",
-  "description": "A seed from the Elder Hollow. It beats, faintly, when held.",
-  "color": "#c8ff8f"
- },
- "gothic_shard": {
-  "name": "Gothic Shard",
-  "category": "material",
-  "rarity": "rare",
-  "description": "A splinter of the sealed castle masonry, humming with violet light.",
-  "color": "#b49cff"
- },
- "blight_resin": {
-  "name": "Blight Resin",
-  "category": "material",
-  "rarity": "rare",
-  "description": "Bitter amber wept by corrupted trees. Reagent for wardens of the road.",
-  "color": "#c060d8"
- },
- "royal_seal": {
-  "name": "Royal Seal",
-  "category": "material",
-  "rarity": "epic",
-  "description": "A gold seal bearing the royal gardens crest, still warm to the touch.",
-  "color": "#e8be5c"
- }
+  "ancient_coins": {
+    "name": "Ancient Coins",
+    "category": "currency",
+    "description": "A sovereign minting from the old kingdom. Awarded for defeating major bosses and claiming rare blessings.",
+    "icon": "ancient_coin",
+    "color": "#d9ff9f"
+  },
+  "event_tokens": {
+    "name": "Event Tokens",
+    "category": "currency",
+    "description": "Earned during live events and traded for limited rewards.",
+    "icon": "event",
+    "color": "#ff8fb3"
+  },
+  "moonpetal": {
+    "name": "Moonpetal",
+    "category": "material",
+    "rarity": "rare",
+    "description": "A pale flower that only opens under a moonless sky. Used in crafting and skill upgrades.",
+    "color": "#b9f6ff"
+  },
+  "glade_sap": {
+    "name": "Glade Sap",
+    "category": "material",
+    "rarity": "common",
+    "description": "Warm amber sap from the oldest trees of Greenward. Used to craft and enhance equipment.",
+    "color": "#e8c27a"
+  },
+  "dew_of_awakening": {
+    "name": "Dew of Awakening",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collected at dawn from the leaves of sleeping guardians.",
+    "color": "#9df5cf"
+  },
+  "gladewood_bow": {
+    "name": "Gladewood Bow",
+    "category": "equipment",
+    "set_id": "greenward_wayfarer",
+    "slot": "weapon",
+    "rarity": "epic",
+    "level": 2,
+    "element": "wind",
+    "stats": {
+      "atk": 24,
+      "spd": 4
+    },
+    "description": "A living bow cut from a branch that agreed to be cut.",
+    "color": "#8fbf6a"
+  },
+  "mossweave_vest": {
+    "name": "Mossweave Vest",
+    "category": "equipment",
+    "set_id": "greenward_wayfarer",
+    "slot": "armor",
+    "rarity": "rare",
+    "level": 1,
+    "stats": {
+      "hp": 120,
+      "def": 16
+    },
+    "description": "Moss woven so tightly it remembers being bark.",
+    "color": "#6f8f5a"
+  },
+  "wayfarer_charm": {
+    "name": "Wayfarer Charm",
+    "category": "equipment",
+    "set_id": "greenward_wayfarer",
+    "slot": "accessory",
+    "rarity": "rare",
+    "level": 1,
+    "stats": {
+      "spd": 9,
+      "crit": 0.04
+    },
+    "description": "A small wooden charm carved with a road that has no end.",
+    "color": "#c9a45a"
+  },
+  "sunfire_blade": {
+    "name": "Sunfire Blade",
+    "category": "equipment",
+    "slot": "weapon",
+    "rarity": "legendary",
+    "level": 3,
+    "element": "fire",
+    "stats": {
+      "atk": 38,
+      "crit": 0.06
+    },
+    "description": "Forged in the last hour of a sun that no longer exists.",
+    "color": "#ff9f5a"
+  },
+  "hollow_heart": {
+    "name": "Hollow Heart",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "A seed from the Elder Hollow. It beats, faintly, when held.",
+    "color": "#c8ff8f"
+  },
+  "gothic_shard": {
+    "name": "Gothic Shard",
+    "category": "material",
+    "rarity": "rare",
+    "description": "A splinter of the sealed castle masonry, humming with violet light. Used for advanced enhancement, rerolls and crafting.",
+    "color": "#b49cff"
+  },
+  "blight_resin": {
+    "name": "Blight Resin",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Bitter amber wept by corrupted trees. Reagent for wardens of the road.",
+    "color": "#c060d8"
+  },
+  "royal_seal": {
+    "name": "Royal Seal",
+    "category": "material",
+    "rarity": "epic",
+    "description": "A gold seal bearing the royal gardens crest, still warm to the touch.",
+    "color": "#e8be5c"
+  },
+  "upgrade_kael_rare_v1": {
+    "name": "Kael Ashford Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_lilith_rare_v1": {
+    "name": "Lilith Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_gerald_rare_v1": {
+    "name": "Gerald Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_ravienna_rare_v1": {
+    "name": "Queen Ravienna Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_cassien_rare_v1": {
+    "name": "Cassien Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_nyx_rare_v1": {
+    "name": "Nyx Vaelora Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_crimson_witch_rare_v1": {
+    "name": "Crimson Witch Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_mirene_rare_v1": {
+    "name": "MirÃ©ne Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_caelith_rare_v1": {
+    "name": "Caelith Rare Card",
+    "category": "material",
+    "rarity": "rare",
+    "description": "Collect 20 matching cards to receive one Epic card.",
+    "color": "#638fdf"
+  },
+  "upgrade_kael_epic_v1": {
+    "name": "Kael Ashford Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "upgrade_lilith_epic_v1": {
+    "name": "Lilith Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "upgrade_gerald_epic_v1": {
+    "name": "Gerald Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "upgrade_ravienna_epic_v1": {
+    "name": "Queen Ravienna Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "upgrade_cassien_epic_v1": {
+    "name": "Cassien Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "upgrade_nyx_epic_v1": {
+    "name": "Nyx Vaelora Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "upgrade_crimson_witch_epic_v1": {
+    "name": "Crimson Witch Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "upgrade_mirene_epic_v1": {
+    "name": "MirÃ©ne Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "upgrade_caelith_epic_v1": {
+    "name": "Caelith Epic Card",
+    "category": "material",
+    "rarity": "epic",
+    "description": "Collect 10 matching cards to receive the matching Legendary character.",
+    "color": "#ad7bdc"
+  },
+  "legendary_progress_ravienna": {
+    "name": "Queen Ravienna Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "legendary_progress_nyx": {
+    "name": "Nyx Vaelora Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "legendary_progress_kael_legendary": {
+    "name": "Kael Ashford Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "legendary_progress_lilith_legendary": {
+    "name": "Lilith Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "legendary_progress_gerald_legendary": {
+    "name": "Gerald Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "legendary_progress_cassien_legendary": {
+    "name": "Cassien Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "legendary_progress_crimson_witch_legendary": {
+    "name": "Crimson Witch Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "legendary_progress_mirene_legendary": {
+    "name": "MirÃ©ne Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "legendary_progress_caelith_legendary": {
+    "name": "Caelith Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "mythic_ascension_kael_mythic": {
+    "name": "Kael Ashford Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "mythic_ascension_lilith_mythic": {
+    "name": "Lilith Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "mythic_ascension_gerald_mythic": {
+    "name": "Gerald Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "mythic_ascension_ravienna_mythic": {
+    "name": "Queen Ravienna Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "mythic_ascension_cassien_mythic": {
+    "name": "Cassien Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "mythic_ascension_nyx_mythic": {
+    "name": "Nyx Vaelora Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "mythic_ascension_crimson_witch_mythic": {
+    "name": "Crimson Witch Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "mythic_ascension_mirene_mythic": {
+    "name": "MirÃ©ne Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "mythic_ascension_caelith_mythic": {
+    "name": "Caelith Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  }
 }

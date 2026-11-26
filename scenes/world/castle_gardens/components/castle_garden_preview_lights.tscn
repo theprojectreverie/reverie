@@ -14,7 +14,7 @@ fill_to = Vector2(0.5, 0.02)
 
 [node name="RoyalGardenPreviewLights" type="Node2D"]
 
-[node name="WestFountainGlow" type="PointLight2D" parent="."]
+[node name="WestFountainGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.76, 0.66, 1)
 energy = 0.68
@@ -22,7 +22,7 @@ texture_scale = 3.5
 position = Vector2(350, 690)
 shadow_enabled = false
 
-[node name="EastFountainGlow" type="PointLight2D" parent="."]
+[node name="EastFountainGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(0.72, 0.8, 1, 1)
 energy = 0.62
@@ -30,7 +30,7 @@ texture_scale = 3.5
 position = Vector2(930, 690)
 shadow_enabled = false
 
-[node name="GrandFountainGlow" type="PointLight2D" parent="."]
+[node name="GrandFountainGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.84, 0.7, 1)
 energy = 0.72
@@ -38,7 +38,7 @@ texture_scale = 3.8
 position = Vector2(640, 820)
 shadow_enabled = false
 
-[node name="WestPromenadeGlow" type="PointLight2D" parent="."]
+[node name="WestPromenadeGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.88, 0.72, 1)
 energy = 0.38
@@ -46,7 +46,7 @@ texture_scale = 3
 position = Vector2(500, 610)
 shadow_enabled = false
 
-[node name="EastPromenadeGlow" type="PointLight2D" parent="."]
+[node name="EastPromenadeGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(0.84, 0.8, 1, 1)
 energy = 0.38
@@ -54,7 +54,7 @@ texture_scale = 3
 position = Vector2(780, 610)
 shadow_enabled = false
 
-[node name="WestCloisterLanternGlow" type="PointLight2D" parent="."]
+[node name="WestCloisterLanternGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.76, 0.62, 1)
 energy = 0.24
@@ -62,7 +62,7 @@ texture_scale = 2.4
 position = Vector2(355, 650)
 shadow_enabled = false
 
-[node name="EastCloisterLanternGlow" type="PointLight2D" parent="."]
+[node name="EastCloisterLanternGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.76, 0.62, 1)
 energy = 0.24
@@ -70,7 +70,7 @@ texture_scale = 2.4
 position = Vector2(925, 650)
 shadow_enabled = false
 
-[node name="WestNorthApproachGlow" type="PointLight2D" parent="."]
+[node name="WestNorthApproachGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.78, 0.65, 1)
 energy = 0.20
@@ -78,7 +78,7 @@ texture_scale = 2.1
 position = Vector2(475, 450)
 shadow_enabled = false
 
-[node name="EastNorthApproachGlow" type="PointLight2D" parent="."]
+[node name="EastNorthApproachGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.78, 0.65, 1)
 energy = 0.20
@@ -86,7 +86,7 @@ texture_scale = 2.1
 position = Vector2(805, 450)
 shadow_enabled = false
 
-[node name="WestGardenBenchGlow" type="PointLight2D" parent="."]
+[node name="WestGardenBenchGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.82, 0.68, 1)
 energy = 0.14
@@ -94,7 +94,7 @@ texture_scale = 1.8
 position = Vector2(115, 900)
 shadow_enabled = false
 
-[node name="EastGardenBenchGlow" type="PointLight2D" parent="."]
+[node name="EastGardenBenchGlow" type="PointLight2D" parent="." groups=["optional_environment_light"]]
 texture = SubResource("FountainGlowTexture")
 color = Color(1, 0.82, 0.68, 1)
 energy = 0.14

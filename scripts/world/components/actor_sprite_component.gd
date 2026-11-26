@@ -4,6 +4,7 @@ extends Node
 ## ActorVisual remains the public API and authoritative animation/data state.
 
 var visual
+var registered_asset_id := ""
 
 
 func bind(owner_visual) -> void:
@@ -48,9 +49,20 @@ func configure_enemy_character(enemy_id: String) -> Dictionary:
 func _configure_registered_source(asset_id: String, source: ActorFrameSource) -> Dictionary:
 	if visual == null:
 		return {"character_id": asset_id, "registered": false, "fallback_active": true}
+	registered_asset_id = asset_id
 	visual.character_id = asset_id
+	# Rarity variants share the same authored artwork and animation behaviour.
+	if source != null and source.has_frames():
+		var path := source.source_label()
+		if path.ends_with("/kael_avatar/world_sheet.tres"):
+			visual.character_id = "kael"
+		elif path.ends_with("/gerald/world_sheet_fallen.tres"):
+			visual.character_id = "gerald"
+		elif path.ends_with("/lilith/world_sheet.tres"):
+			visual.character_id = "lilith"
 	if visual.animator != null:
-		visual.animator.kael_combat_frames = asset_id == "kael" and source != null and source.has_frames()
+		visual.animator.kael_combat_frames = visual.character_id == "kael" and source != null and source.has_frames()
+		visual.animator.gerald_fallen_frames = source != null and source.source_label().ends_with("/gerald/world_sheet_fallen.tres") and source.has_frames()
 	var registered := false
 	if source != null and source.has_frames() and source.validate_sheets().is_empty():
 		set_frame_source(source)
@@ -87,7 +99,7 @@ func character_art_report() -> Dictionary:
 			if report is Dictionary:
 				animation_count = int((report as Dictionary).get("animation_count", 0))
 	return {
-		"character_id": visual.character_id,
+		"character_id": registered_asset_id if not registered_asset_id.is_empty() else visual.character_id,
 		"frame_source": source_label,
 		"using_temporary_art": visual.using_temporary_art,
 		"has_frames": has_frames,
@@ -141,6 +153,9 @@ func apply_sprite_geometry() -> void:
 	visual._sprite.offset = Vector2(-float(texture.get_width()) * anchor.x, -float(texture.get_height()) * anchor.y)
 	visual._sprite.scale = Vector2.ONE * visual.visual_scale
 	visual._sprite.flip_h = visual.facing < 0.0 and mirrors_by_facing()
+	visual._sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if visual.animator.gerald_fallen_frames or visual.character_id.begins_with("ravienna") else CanvasItem.TEXTURE_FILTER_LINEAR
+	if visual.animator.gerald_fallen_frames:
+		visual._sprite.flip_h = visual.animator.state in [4,5,7,8] and visual.animator.direction in [1,2,3]
 
 
 func update_sprite_frame() -> void:

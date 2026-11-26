@@ -19,6 +19,8 @@ static func battle_background_path_for_group(group_id: String) -> String:
 	var group_data: Dictionary = ContentDB.get_enemy_group(group_id)
 	var region_id := str(group_data.get("region", "greenward"))
 	match group_id:
+		"gerald_boss_encounter":
+			return "res://assets/ui/battle/backgrounds/gerald_twilight_battlefield.png"
 		"tutorial_fairy_spar":
 			return "res://assets/ui/battle/backgrounds/frozen_castle_courtyard.png"
 		"fallen_matron_encounter":
@@ -27,7 +29,7 @@ static func battle_background_path_for_group(group_id: String) -> String:
 			return "res://assets/ui/battle/backgrounds/crimson_castle_ruins.png"
 		"elder_hollow":
 			return "res://assets/backgrounds/greenward_battle.svg"
-		"baltoria_encounter":
+		"baltoria_encounter", "revienna_encounter":
 			return "res://assets/ui/battle/backgrounds/gothic_cathedral_hall.png"
 	match region_id:
 		"castle_royal_gardens":
@@ -59,6 +61,9 @@ func build_environment() -> void:
 	boss_backdrop.visible = not art_backdrop.visible and battlefield.arena_id in ["corrupted_treant", "elder_hollow"]
 	boss_backdrop.set("arena_id", battlefield.arena_id)
 	estate_backdrop.visible = not art_backdrop.visible and battlefield.arena_id == "fallen_matron_encounter"
+	# Hidden alternative arenas must not animate dozens of invisible nodes.
+	for backdrop in [field_backdrop, boss_backdrop, estate_backdrop]:
+		backdrop.set_process(backdrop.visible)
 	if battlefield.arena_id == "fallen_matron_encounter":
 		embers.color = Color(0.85, 0.6, 0.95, 0.22)
 	elif battlefield.arena_id == "baltoria_encounter" or has_dedicated_arena_art:
@@ -74,6 +79,10 @@ func setup(party: Array, enemies: Array) -> void:
 		_add_actor(unit, true)
 	for unit in enemies:
 		_add_actor(unit, false)
+	if enemies.any(func(enemy): return enemy != null and enemy.is_boss):
+		for actor in actors:
+			if actor.is_player and actor.unit.def_id == "kael":
+				actor.enable_kael_boss_art()
 	layout()
 	battlefield.call_deferred("_layout")
 	face_opponents()
@@ -113,7 +122,43 @@ func layout() -> void:
 	var enemy_slot := 0
 	for entry in actors:
 		var actor: BattlefieldActor = entry
-		if actor.is_player:
+		if actor.is_player and battlefield.arena_id == "gerald_boss_encounter" and actor.unit != null and actor.unit.def_id == "kael":
+			actor.visual.visual_scale = minf(1.08, height / 220.0)
+			actor.set_home(Vector2(width * 0.28, height * 0.82))
+			party_slot += 1
+		elif is_instance_valid(actor.gerald_art):
+			# Leave space for the full 384px authored earthquake cell.
+			var titan_scale := minf(2.12, minf(height / 145.0, width / 460.0))
+			actor.gerald_art.scale = Vector2.ONE * titan_scale
+			actor.gerald_art.position.y = (-50.0 if actor.gerald_art.animation == &"earthquake" else -57.0) * titan_scale
+			var right_margin := 192.0 * titan_scale + 16.0
+			actor.set_home(Vector2(minf(width * 0.74, width - right_margin), height * 0.84))
+			var hitbox := actor.get_node("Hitbox") as Control
+			hitbox.position = Vector2(-35.0, -109.0) * titan_scale
+			hitbox.size = Vector2(70.0, 116.0) * titan_scale
+		elif is_instance_valid(actor.cassien_art) and not actor.is_player:
+			var knight_scale := minf(1.45, height / 210.0)
+			actor.cassien_art.scale = Vector2.ONE * knight_scale
+			actor._base_scale = knight_scale
+			actor.set_home(Vector2(width * 0.77, height * 0.80))
+			var hitbox := actor.get_node("Hitbox") as Control
+			hitbox.position = Vector2(-36.0, -105.0) * knight_scale
+			hitbox.size = Vector2(72.0, 115.0) * knight_scale
+			var name_label := actor.get_node("NameLabel") as Label
+			name_label.position = Vector2(-105.0, 22.0)
+			name_label.size = Vector2(210.0, 16.0)
+		elif actor.is_player:
+			if is_instance_valid(actor.elathra_art) or is_instance_valid(actor.cassien_art) or is_instance_valid(actor.ravienna_art):
+				var art_scale := minf(1.15, height / 230.0)
+				var art: Node2D = actor.elathra_art if is_instance_valid(actor.elathra_art) else (actor.cassien_art if is_instance_valid(actor.cassien_art) else actor.ravienna_art)
+				art.scale = Vector2.ONE * art_scale
+				actor._base_scale = art_scale
+				var hitbox := actor.get_node("Hitbox") as Control
+				hitbox.position = Vector2(-36.0, -105.0) * art_scale
+				hitbox.size = Vector2(72.0, 115.0) * art_scale
+			if battlefield.arena_id == "cassien_encounter" and actor.unit.def_id == "kael":
+				actor.visual.visual_scale = minf(1.17, height / 220.0)
+				actor._base_scale = actor.visual.visual_scale
 			actor.set_home(Vector2(
 				width * (Battlefield.PARTY_X + Battlefield.PARTY_DX * float(party_slot)),
 				height * (Battlefield.PARTY_Y + Battlefield.PARTY_DY * float(party_slot))))
@@ -125,8 +170,15 @@ func layout() -> void:
 				width * (Battlefield.ENEMY_X + Battlefield.ENEMY_DX * float(enemy_slot)),
 				height * (Battlefield.ENEMY_Y + Battlefield.ENEMY_DY * float(enemy_slot))))
 			enemy_slot += 1
-		if not actor.dead:
+		if battlefield.arena_id == "revienna_encounter" and battlefield.get_window().size.x < 1000 and battlefield.get_window().size.x > battlefield.get_window().size.y:
+			actor.scale = Vector2.ONE * minf(1.0, height / 270.0)
+		if is_instance_valid(actor.ravienna_art) or (not actor.dead and not actor.gerald_walk_sequence_active):
 			actor.position = actor.home_position
+	# Recompute paths only after every combatant has its new formation slot.
+	for entry in actors:
+		var actor: BattlefieldActor = entry
+		if actor.gerald_walk_sequence_active:
+			actor.refresh_gerald_walk_position()
 	if embers != null:
 		embers.position = Vector2(width * 0.5, height * 0.55)
 		embers.emission_rect_extents = Vector2(width * 0.5, height * 0.4)

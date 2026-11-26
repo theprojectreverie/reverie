@@ -1,0 +1,165 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/components/progress_comparison.tscn" id="1_comparison"]
+
+[node name="OnlineRosterDialog" type="AcceptDialog"]
+title = "Online character collection"
+size = Vector2i(720, 500)
+
+[node name="BodyScroll" type="ScrollContainer" parent="."]
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 1
+follow_focus = true
+
+[node name="Collection" type="VBoxContainer" parent="BodyScroll"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Summary" type="Label" parent="BodyScroll/Collection"]
+text = "Server-owned characters"
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 16
+
+[node name="CompareProgress" type="Button" parent="BodyScroll/Collection"]
+text = "Compare local and online progress"
+visible = false
+
+[node name="SectionTabs" type="HFlowContainer" parent="BodyScroll/Collection"]
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 4
+
+[node name="Roster" type="Button" parent="BodyScroll/Collection/SectionTabs"]
+custom_minimum_size = Vector2(90, 44)
+text = "Characters"
+toggle_mode = true
+
+[node name="Progression" type="Button" parent="BodyScroll/Collection/SectionTabs"]
+custom_minimum_size = Vector2(90, 44)
+text = "Upgrades"
+toggle_mode = true
+
+[node name="Equipment" type="Button" parent="BodyScroll/Collection/SectionTabs"]
+custom_minimum_size = Vector2(90, 44)
+text = "Equipment"
+toggle_mode = true
+
+[node name="Party" type="Button" parent="BodyScroll/Collection/SectionTabs"]
+custom_minimum_size = Vector2(90, 44)
+text = "Party"
+toggle_mode = true
+
+[node name="Search" type="LineEdit" parent="BodyScroll/Collection"]
+placeholder_text = "Search character or rarity"
+custom_minimum_size = Vector2(0, 44)
+
+[node name="Scroll" type="ScrollContainer" parent="BodyScroll/Collection"]
+size_flags_vertical = 3
+custom_minimum_size = Vector2(0, 100)
+horizontal_scroll_mode = 3
+
+[node name="Grid" type="GridContainer" parent="BodyScroll/Collection/Scroll"]
+size_flags_horizontal = 3
+columns = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="Detail" type="Label" parent="BodyScroll/Collection"]
+text = "Select a character for details."
+autowrap_mode = 2
+
+[node name="UpgradeRow" type="HFlowContainer" parent="BodyScroll/Collection"]
+visible = false
+theme_override_constants/separation = 8
+
+[node name="Ascend" type="Button" parent="BodyScroll/Collection/UpgradeRow"]
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+disabled = true
+text = "Ascend"
+
+[node name="Awaken" type="Button" parent="BodyScroll/Collection/UpgradeRow"]
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+disabled = true
+text = "Awaken"
+
+[node name="SkillRow" type="HFlowContainer" parent="BodyScroll/Collection"]
+visible = false
+theme_override_constants/separation = 8
+
+[node name="Skill" type="OptionButton" parent="BodyScroll/Collection/SkillRow"]
+fit_to_longest_item = false
+text_overrun_behavior = 3
+size_flags_horizontal = 3
+disabled = true
+custom_minimum_size = Vector2(160, 40)
+
+[node name="Upgrade" type="Button" parent="BodyScroll/Collection/SkillRow"]
+custom_minimum_size = Vector2(0, 44)
+disabled = true
+text = "Upgrade skill"
+
+[node name="SkillHint" type="Label" parent="BodyScroll/Collection"]
+visible = false
+autowrap_mode = 2
+text = "Select a character to see their skills."
+
+[node name="GearRow" type="HFlowContainer" parent="BodyScroll/Collection"]
+visible = false
+theme_override_constants/separation = 8
+
+[node name="Slot" type="OptionButton" parent="BodyScroll/Collection/GearRow"]
+custom_minimum_size = Vector2(100, 40)
+
+[node name="Item" type="OptionButton" parent="BodyScroll/Collection/GearRow"]
+fit_to_longest_item = false
+text_overrun_behavior = 3
+size_flags_horizontal = 3
+
+[node name="Equip" type="Button" parent="BodyScroll/Collection/GearRow"]
+custom_minimum_size = Vector2(0, 44)
+text = "Equip"
+disabled = true
+
+[node name="Remove" type="Button" parent="BodyScroll/Collection/GearRow"]
+custom_minimum_size = Vector2(0, 44)
+text = "Remove"
+disabled = true
+
+[node name="Enhance" type="Button" parent="BodyScroll/Collection/GearRow"]
+custom_minimum_size = Vector2(0, 44)
+text = "Enhance"
+disabled = true
+
+[node name="Reroll" type="Button" parent="BodyScroll/Collection/GearRow"]
+custom_minimum_size = Vector2(0, 44)
+text = "Reroll"
+disabled = true
+
+[node name="GearHint" type="Label" parent="BodyScroll/Collection"]
+visible = false
+autowrap_mode = 2
+text = "Select a character to manage equipment."
+
+[node name="PartyRow" type="HFlowContainer" parent="BodyScroll/Collection"]
+visible = false
+theme_override_constants/separation = 8
+
+[node name="PartySummary" type="Label" parent="BodyScroll/Collection/PartyRow"]
+size_flags_horizontal = 3
+text = "Online party"
+autowrap_mode = 2
+custom_minimum_size = Vector2(180, 40)
+
+[node name="PartyToggle" type="Button" parent="BodyScroll/Collection/PartyRow"]
+custom_minimum_size = Vector2(0, 44)
+text = "Add to party"
+disabled = true
+
+[node name="SaveParty" type="Button" parent="BodyScroll/Collection/PartyRow"]
+custom_minimum_size = Vector2(0, 44)
+text = "Confirm party"
+disabled = true
+
+[node name="ProgressComparison" parent="." instance=ExtResource("1_comparison")]

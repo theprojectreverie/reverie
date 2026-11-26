@@ -130,9 +130,9 @@
         384
       ],
       "portrait_status": "final",
-      "world_sheet": "res://assets/characters/gerald/world_sheet.tres",
+      "world_sheet": "res://assets/characters/gerald/world_sheet_fallen.tres",
       "world_sheet_animations": 72,
-      "world_sheet_frames": 432,
+      "world_sheet_frames": 784,
       "combat_sprite": "res://assets/characters/gerald/combat_sprite.png",
       "full_body_illustration": "res://assets/characters/gerald/full_body_illustration.png",
       "art_status": "final",

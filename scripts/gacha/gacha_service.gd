@@ -15,7 +15,7 @@ static func empty_pity() -> Dictionary:
 	return { "legendary": 0, "featured": 0, "epic_streak": 0 }
 
 
-static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionary, count: int) -> Dictionary:
+static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionary, count: int, paid_progress: int = -1) -> Dictionary:
 	var state := empty_pity()
 	state.merge(pity, true)
 	var rates: Dictionary = banner.get("rates", {})
@@ -38,6 +38,9 @@ static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionar
 		else:
 			rarity = _roll_rarity(rates, rng)
 
+		var milestone := paid_progress >= 0 and (paid_progress + index + 1) % 100 == 0
+		if milestone and RARITY_RANK[rarity] < RARITY_RANK["legendary"]:
+			rarity = "legendary"
 		var pick := _pick_character(banner, rarity, featured, featured_rate, state, featured_pity, rng)
 		var is_featured: bool = pick.featured
 
@@ -49,12 +52,19 @@ static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionar
 			state.featured = 0
 
 		best_rank = maxi(best_rank, int(RARITY_RANK.get(rarity, 0)))
-		results.append({
+		var result := {
 			"character_id": pick.character_id,
 			"rarity": rarity,
 			"featured": is_featured,
 			"index": index,
-		})
+		}
+		if milestone:
+			result["paid_guaranteed"] = true
+		var mob: Dictionary = banner.get("common_rewards", {}).get(str(pick.character_id), {}) if rarity == "common" else {}
+		if not mob.is_empty():
+			result["kind"] = "mob_reward"
+			result["items"] = mob.get("items", {}).duplicate(true)
+		results.append(_describe_card(banner, result))
 
 	# Ten-pull floor: at least one Epic or better. If the banner has no Epic
 	# unit, use its lowest available higher rarity (normally Legendary) rather
@@ -70,6 +80,7 @@ static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionar
 			"index": results.size() - 1,
 			"guaranteed": true,
 		}
+		results[results.size() - 1] = _describe_card(banner, results[results.size() - 1])
 		if floor_rank >= RARITY_RANK["legendary"]:
 			state.legendary = 0
 		if floor_rank >= RARITY_RANK["epic"]:
@@ -78,6 +89,14 @@ static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionar
 			state.featured = 0
 
 	return { "results": results, "pity": state }
+
+
+static func _describe_card(banner: Dictionary, result: Dictionary) -> Dictionary:
+	var id := str(result.get("character_id", ""))
+	if banner.get("upgrade_cards", {}).has(id):
+		result["kind"] = "upgrade_card"
+		result["items"] = {id: 1}
+	return result
 
 
 static func _roll_rarity(rates: Dictionary, rng: RandomNumberGenerator) -> String:
@@ -142,6 +161,8 @@ static func _epic_floor_rarity(banner: Dictionary) -> String:
 	for rarity in ["epic", "legendary", "mythic"]:
 		var candidates: Array = pool.get(rarity, [])
 		for raw_id in candidates:
+			if rarity == "epic" and banner.get("upgrade_cards", {}).has(str(raw_id)):
+				return rarity
 			var definition: CharacterDef = ContentDB.get_character(str(raw_id))
 			if definition != null and definition.rarity == rarity:
 				return rarity

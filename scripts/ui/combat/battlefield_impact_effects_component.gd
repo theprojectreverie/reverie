@@ -48,6 +48,7 @@ func _spawn_elemental_burst(owner: BattlefieldActor, pos: Vector2, element: Stri
 	if color == UITheme.TEXT_DIM:
 		color = Color(0.85, 0.85, 0.9)
 	var particles := preload("res://scenes/ui/combat/components/elemental_burst.tscn").instantiate() as CPUParticles2D
+	GraphicsSettings.prepare_combat_particles(particles)
 	particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
 	particles.color = color
 	particles.z_index = 35

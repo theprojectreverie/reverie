@@ -182,6 +182,11 @@ try {
   );
   const playerA = players.rows.find(row => row.account_id === accountA).id;
   const playerB = players.rows.find(row => row.account_id === accountB).id;
+  if(!["localhost","127.0.0.1","[::1]"].includes(new URL(config.DATABASE_URL).hostname))throw new Error("Title fixtures require local database");
+  await pool.query("INSERT INTO currency_ledger(player_id,currency_id,delta,balance_after,reason,ref_type,ref_id,idempotency_key) VALUES($1,'gold',200,200,'online_achievement','achievement','first_duty','achievement:first_duty:gold')",[playerA]);
+  await pool.query("UPDATE players SET settings=jsonb_set(settings,'{profile_title}',to_jsonb('first_duty'::text),true) WHERE id=$1",[playerA]);
+  await pool.query("UPDATE players SET settings=jsonb_set(settings,'{profile_title}',to_jsonb('cassien'::text),true) WHERE id=$1",[playerB]);
+
   const versionA = (await pool.query("select token_version from accounts where id=$1", [accountA])).rows[0].token_version;
   const versionB = (await pool.query("select token_version from accounts where id=$1", [accountB])).rows[0].token_version;
   const tokenA = app.jwt.sign({ sub: accountA, playerId: playerA, tokenVersion: versionA });
@@ -213,6 +218,11 @@ try {
   socketB = connectedB.client;
   check(connectedB.admission.type === "world_joined" && connectedB.admission.playerId === playerB, "player B is admitted by the standalone Godot process");
   check(connectedB.admission.members.some(member => member.playerId === playerA), "player B snapshot includes player A");
+  check(connectedB.admission.members.find(member=>member.playerId===playerA)?.title==="Dawn Wanderer","regional snapshot exposes earned title");
+  check(connectedB.admission.members.find(member=>member.playerId===playerB)?.title==="","regional snapshot hides forged locked title");
+  await pool.query("UPDATE players SET settings=jsonb_set(settings,'{profile_title}',to_jsonb(''::text),true) WHERE id=$1",[playerA]);
+
+
 
   await sleep(100);
   socketA.send({ type: "position", x: 20, y: 20 });
@@ -251,6 +261,12 @@ try {
     return rows.rows[0]?.expiry && new Date(rows.rows[0].expiry).getTime() > initialLeaseExpiry + 5000;
   }, "Godot's periodic connection-lease renewal", 22000);
   check(true, "Godot renews both PostgreSQL connection leases while clients remain connected");
+  const cleared=await socketB.waitFor(m=>m.type==="player_titles"&&m.players.some(p=>p.playerId===playerA&&p.title===""),30000);
+  check(cleared.players.some(p=>p.playerId===playerB&&p.title===""),"live regional refresh removes title and still rejects locked titles");
+  await pool.query("UPDATE players SET settings=jsonb_set(settings,'{profile_title}',to_jsonb('first_duty'::text),true) WHERE id=$1",[playerA]);
+  await socketB.waitFor(m=>m.type==="player_titles"&&m.players.some(p=>p.playerId===playerA&&p.title==="Dawn Wanderer"),30000);
+  check(true,"live regional refresh re-equips title on the same connection");
+
 
   await stopGodot();
   await pool.query("update game_servers set status='offline',heartbeat_at=now(),stopped_at=now() where id=$1", [serverId]);
@@ -278,6 +294,8 @@ try {
   check(reconnectedB.admission.type === "world_joined" && reconnectedB.admission.playerId === playerB, "player B reconnects to the restarted Godot process");
   const recoveredMemberA = reconnectedB.admission.members.find(member => member.playerId === playerA);
   const recoveredMemberB = reconnectedB.admission.members.find(member => member.playerId === playerB);
+  check(recoveredMemberA?.title==="Dawn Wanderer"&&recoveredMemberB?.title==="","regional titles survive restart and reconnect");
+
   check(recoveredMemberA?.x === 20 && recoveredMemberA?.y === 20 && recoveredMemberB?.x === 40 && recoveredMemberB?.y === 40,
     "restarted Godot process restores both player positions from PostgreSQL event history",
     JSON.stringify({ recoveredMemberA, recoveredMemberB }));

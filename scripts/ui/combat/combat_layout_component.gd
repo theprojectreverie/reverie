@@ -94,13 +94,28 @@ func build_layout() -> void:
 	# Bind arena visuals after the encounter ID is assigned; Battlefield is nested
 	# below the authored layout and cannot discover CombatScreen via its parent.
 	screen._battlefield._build_environment()
+	if screen.group_id in ["gerald_boss_encounter", "cassien_encounter", "revienna_encounter"]:
+		# One continuous backdrop; no second differently cropped image rectangle.
+		screen._battlefield.get_node("ArenaArtBackdrop").hide()
+		var vignette := screen.get_node_or_null("CombatScreenBackdrop/Vignette") as ColorRect
+		if vignette != null:
+			vignette.color = Color(0, 0, 0, 0.16)
+		if screen.group_id in ["cassien_encounter", "revienna_encounter"]:
+			# The wide ruin painting has its floor near its lower edge.
+			# Frame that floor inside the playable stage, above the bottom HUD.
+			var sky := screen.get_node_or_null("CombatScreenBackdrop/Sky") as TextureRect
+			if sky != null:
+				sky.show()
+			if battle_art != null:
+				battle_art.anchor_top = -0.16
+				battle_art.anchor_bottom = 0.78
+
 	screen._battlefield.actor_clicked.connect(screen._on_battlefield_actor_clicked)
 	screen._battlefield.cinematic_impact.connect(screen._camera_shake)
 
 	var bottom := root.get_node("CombatBottomHUD") as HBoxContainer
-	# The supplied battle-log frame already contains its title; reserve space
-	# for that artwork instead of drawing a second caption over it.
-	bottom.get_node("LogPanel/LogContent/LogCaption").visible = false
+	# Blank authored frame: show the actual log caption.
+	bottom.get_node("LogPanel/LogContent/LogCaption").visible = true
 
 	screen._actor_label = bottom.get_node("ActiveInfoPanel/InfoContent/ActorLabel") as Label
 

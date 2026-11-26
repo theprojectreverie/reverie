@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[node name="LedgerDialog" type="AcceptDialog"]
+title = "Paid Moon Stone transactions"
+size = Vector2i(650, 510)
+ok_button_text = "Close"
+
+[node name="Body" type="VBoxContainer" parent="."]
+theme_override_constants/separation = 8
+
+[node name="Summary" type="Label" parent="Body"]
+autowrap_mode = 3
+text = "Loading server ledger..."
+
+[node name="Refresh" type="Button" parent="Body"]
+text = "Refresh"
+custom_minimum_size = Vector2(0, 40)
+
+[node name="Scroll" type="ScrollContainer" parent="Body"]
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Entries" type="VBoxContainer" parent="Body/Scroll"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="More" type="Button" parent="Body"]
+text = "Load older transactions"
+custom_minimum_size = Vector2(0, 40)
+disabled = true

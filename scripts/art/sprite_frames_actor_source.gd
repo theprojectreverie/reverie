@@ -55,6 +55,8 @@ func _init(p_character_id: String = "", p_sprite_frames: SpriteFrames = null) ->
 ## SpriteFrames) or world_sheet.png. On ANY failure return a NOT-loaded source
 ## (has_frames false, is_temporary true, missing_reason set) -- NEVER crash.
 static func from_disk(character_id: String) -> ActorFrameSource:
+	if character_id == "gerald":
+		return _from_sheet_paths(character_id, "res://assets/characters/gerald/world_sheet_fallen.tres", "")
 	return _from_sheet_paths(character_id,
 		"res://assets/characters/%s/world_sheet.tres" % character_id,
 		"res://assets/characters/%s/world_sheet.png" % character_id)
@@ -273,10 +275,14 @@ func validate_sheets() -> Array[String]:
 		var expected_frames := CharacterAnimator.frame_count_for(s)
 		var expected_fps := CharacterAnimator.fps_for(s)
 		var expected_loop := CharacterAnimator.looping_for(s)
-		if character_id == "kael" and s in [4, 5]:
+		var fallen_gerald := sheet_path.ends_with("/gerald/world_sheet_fallen.tres")
+		if fallen_gerald:
+			expected_frames = [4,16,16,4,16,8,4,14,16][s]
+			expected_fps = [4.0,12.0,16.0,4.0,10.0,10.0,4.0,10.0,10.0][s]
+		if sheet_path.ends_with("/kael_avatar/world_sheet.tres") and s in [4, 5]:
 			expected_frames = 8 if s == 4 else 4
 			expected_fps = 12.0
-		if character_id == "kael" and s == 0:
+		if sheet_path.ends_with("/kael_avatar/world_sheet.tres") and s == 0:
 			expected_fps = 6.0
 		for raw_d in CharacterAnimator.ALL_DIRECTIONS:
 			var d := int(raw_d)
@@ -300,7 +306,7 @@ func validate_sheets() -> Array[String]:
 					errors.append("animation '%s' frame %d is null" % [label, i])
 				else:
 					# Every production actor frame uses the shared 96x128 world canvas.
-					var frame_width := 128 if character_id == "kael" and s in [0, 4, 5] else width
+					var frame_width := 128 if fallen_gerald or (sheet_path.ends_with("/kael_avatar/world_sheet.tres") and s in [0, 4, 5]) else width
 					var frame_height := height
 					if tex.get_width() != frame_width or tex.get_height() != frame_height:
 						errors.append("animation '%s' frame %d is %dx%d, expected %dx%d" % [label, i, tex.get_width(), tex.get_height(), frame_width, frame_height])

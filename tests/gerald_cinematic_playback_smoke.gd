@@ -17,10 +17,10 @@ func _run() -> void:
 	playback.shot_changed.connect(func(_index: int, _shot: Dictionary, _total: int) -> void: seen[0] += 1)
 	var completed := [false]
 	intro.finished.connect(func() -> void: completed[0] = true)
-	await get_tree().create_timer(12.0).timeout
+	await get_tree().create_timer(32.0).timeout
 	assert(completed[0], "Autoplay did not complete the sequence. index=%d active=%s elapsed=%.2f seen=%d" % [playback.shot_index, str(playback.active), playback.shot_elapsed, seen[0]])
-	assert(seen[0] == 6, "Expected transitions through all six following shots; got %d." % seen[0])
-	assert(playback.shot_index == 7 and not playback.active, "Playback did not reach the terminal sequence state.")
-	print("[GeraldPlaybackSmoke] PASS — autoplay advances all seven shots and finishes cleanly.")
+	assert(seen[0] == 16, "Expected transitions through all sixteen following shots; got %d." % seen[0])
+	assert(playback.shot_index == 17 and not playback.active, "Playback did not reach the terminal sequence state.")
+	print("[GeraldPlaybackSmoke] PASS: autoplay advances all 17 shots and finishes cleanly.")
 	intro.queue_free()
 	get_tree().quit()

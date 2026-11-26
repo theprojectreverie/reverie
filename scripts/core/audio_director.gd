@@ -8,22 +8,26 @@ const TRACKS := {
 	"title_screen": "res://assets/audio/music/the_frozen_kingdom.mp3",
 	"exploration": "res://assets/audio/music/the_frozen_kingdom.mp3",
 	"kael_prologue": "res://assets/audio/music/fading_into_the_void.mp3",
+	"gerald_childhood": "res://assets/audio/music/before_the_ashes.mp3",
+	"gerald_tragedy": "res://assets/audio/music/the_guardian_who_failed.mp3",
 }
 const SFX_STREAMS := {
-	"training_ground_ambience": preload("res://assets/audio/sfx/ambience/training_ground_ambience.ogg"),
-	"willow_fields_ambience": preload("res://assets/audio/sfx/ambience/willow_fields_ambience.ogg"),
-	"royal_gardens_ambience": preload("res://assets/audio/sfx/ambience/royal_gardens_ambience.ogg"),
-	"royal_gate_ambience": preload("res://assets/audio/sfx/ambience/royal_gate_ambience.ogg"),
 	"ui_crystal_click": preload("res://assets/audio/sfx/ui_crystal_click.mp3"),
 	"ui_crystal_hover": preload("res://assets/audio/sfx/ui_crystal_hover.mp3"),
 	"ui_confirm_select": preload("res://assets/audio/sfx/ui_confirm_select.mp3"),
 	"ui_panel_open": preload("res://assets/audio/sfx/ui_panel_open.mp3"),
 	"ui_panel_close": preload("res://assets/audio/sfx/ui_panel_close.mp3"),
 	"inventory_equip": preload("res://assets/audio/sfx/inventory_equip.mp3"),
-	"summon_ritual_ambience": preload("res://assets/audio/sfx/summon_ritual_ambience.mp3"),
 	"summon_reveal": preload("res://assets/audio/sfx/summon_reveal.mp3"),
 	"spell_cast": preload("res://assets/audio/sfx/spell_cast.mp3"),
-	"frozen_hall_wind_loop": preload("res://assets/audio/sfx/frozen_hall_wind_loop.mp3"),
+}
+const AMBIENCE_PATHS := {
+	"training_ground_ambience": "res://assets/audio/sfx/ambience/training_ground_ambience.ogg",
+	"willow_fields_ambience": "res://assets/audio/sfx/ambience/willow_fields_ambience.ogg",
+	"royal_gardens_ambience": "res://assets/audio/sfx/ambience/royal_gardens_ambience.ogg",
+	"royal_gate_ambience": "res://assets/audio/sfx/ambience/royal_gate_ambience.ogg",
+	"summon_ritual_ambience": "res://assets/audio/sfx/summon_ritual_ambience.mp3",
+	"frozen_hall_wind_loop": "res://assets/audio/sfx/frozen_hall_wind_loop.mp3",
 }
 const EXTENDED_SFX := {
 	"chest_open": 1,
@@ -89,6 +93,7 @@ func _create_sfx_players() -> void:
 		audio_player.bus = "SFX"
 		add_child(audio_player)
 		_sfx_players.append(audio_player)
+		audio_player.finished.connect(_release_finished_sfx.bind(audio_player))
 
 
 func play_main_theme(fade_duration: float = 1.8) -> bool:
@@ -108,6 +113,16 @@ func play_exploration_theme(fade_duration: float = 2.2) -> bool:
 
 
 ## Screen music temporarily replaces the underlying track.
+## Source clock for music-synchronized cinematic cue sheets.
+## Negative means the requested track is still transitioning in.
+func music_position_for(track_id: String) -> float:
+	if _current_track_id != track_id or not _player.playing:
+		return -1.0
+	return maxf(0.0, _player.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency())
+
+func requested_music_track() -> String:
+	return _requested_track_id
+
 func begin_screen_music(track_id: String) -> String:
 	var previous := _requested_track_id
 	play_track(track_id, 0.8)
@@ -181,17 +196,26 @@ func _start_track(track_id: String, fade_duration: float) -> void:
 
 func _stop_player() -> void:
 	_player.stop()
+	_player.stream = null
 	_current_track_id = ""
 
 
 ## Public one-shot API. A small pool allows overlapping clicks and combat cues.
 func play_sfx(sound_id: String, volume_db: float = -4.0) -> void:
-	if not SFX_STREAMS.has(sound_id):
-		push_warning("[AudioDirector] Unknown SFX: " + sound_id)
+	var stream := _resolve_sfx(sound_id)
+	if stream == null:
+		push_warning("[AudioDirector] Unknown or unavailable SFX: " + sound_id)
 		return
-	_play_sfx_stream(SFX_STREAMS[sound_id], volume_db)
+	_play_sfx_stream(stream, volume_db)
 
-func play_variant(category: String, volume_db: float = -2.0) -> void:
+
+func _resolve_sfx(sound_id: String) -> AudioStream:
+	if SFX_STREAMS.has(sound_id):
+		return SFX_STREAMS[sound_id] as AudioStream
+	var path := str(AMBIENCE_PATHS.get(sound_id, ""))
+	return load(path) as AudioStream if not path.is_empty() else null
+
+func play_variant(category: String, volume_db: float = -2.0, pitch_scale: float = 1.0) -> void:
 	var count := int(EXTENDED_SFX.get(category, 0))
 	if count <= 0:
 		return
@@ -206,7 +230,7 @@ func play_variant(category: String, volume_db: float = -2.0) -> void:
 	if stream == null:
 		return
 	_last_sfx_variant[category] = index
-	_play_sfx_stream(stream, volume_db)
+	_play_sfx_stream(stream, volume_db, pitch_scale)
 
 func play_damage_reaction(unit: Combatant) -> void:
 	if unit == null:
@@ -221,7 +245,12 @@ func play_damage_reaction(unit: Combatant) -> void:
 	elif unit.team == 1:
 		play_variant("monster_growl", -5.0)
 
-func _play_sfx_stream(stream: AudioStream, volume_db: float) -> void:
+func _release_finished_sfx(player: AudioStreamPlayer) -> void:
+	if is_instance_valid(player) and not player.playing:
+		player.stream = null
+
+
+func _play_sfx_stream(stream: AudioStream, volume_db: float, pitch_scale: float = 1.0) -> void:
 	if _sfx_players.is_empty():
 		return
 	var selected: AudioStreamPlayer
@@ -237,6 +266,7 @@ func _play_sfx_stream(stream: AudioStream, volume_db: float) -> void:
 	selected.stop()
 	selected.stream = stream
 	selected.volume_db = volume_db
+	selected.pitch_scale = pitch_scale
 	selected.play()
 
 
@@ -370,7 +400,7 @@ func sync_region_ambience(region_id: String) -> void:
 
 
 func _start_ambience(sound_id: String, volume_db: float) -> void:
-	if not SFX_STREAMS.has(sound_id) or _ambience_player == null:
+	if not AMBIENCE_PATHS.has(sound_id) or _ambience_player == null:
 		return
 	if _ambience_requested == sound_id and _ambience_id == sound_id and _ambience_player.playing:
 		return
@@ -386,10 +416,13 @@ func _start_ambience(sound_id: String, volume_db: float) -> void:
 
 
 func _begin_ambience(sound_id: String, volume_db: float) -> void:
-	if _ambience_player == null or not SFX_STREAMS.has(sound_id):
+	if _ambience_player == null or not AMBIENCE_PATHS.has(sound_id):
+		return
+	var source := _resolve_sfx(sound_id)
+	if source == null:
 		return
 	_ambience_player.stop()
-	var stream := SFX_STREAMS[sound_id].duplicate() as AudioStream
+	var stream := source.duplicate() as AudioStream
 	if stream is AudioStreamMP3:
 		(stream as AudioStreamMP3).loop = true
 	elif stream is AudioStreamOggVorbis:
@@ -404,11 +437,14 @@ func _begin_ambience(sound_id: String, volume_db: float) -> void:
 
 func stop_ambience(fade_duration: float = 0.5) -> void:
 	_ambience_requested = ""
-	if _ambience_player == null or not _ambience_player.playing:
-		_ambience_id = ""
-		return
 	if _ambience_tween != null and _ambience_tween.is_running():
 		_ambience_tween.kill()
+	_ambience_tween = null
+	if _ambience_player == null or not _ambience_player.playing:
+		_ambience_id = ""
+		if _ambience_player != null:
+			_ambience_player.stream = null
+		return
 	_ambience_tween = create_tween()
 	_ambience_tween.tween_property(_ambience_player, "volume_db", -48.0, maxf(fade_duration, 0.05))
 	_ambience_tween.tween_callback(func() -> void:
@@ -450,6 +486,12 @@ func stop_all_audio_immediately() -> void:
 	if get_tree() != null and get_tree().node_added.is_connected(_on_scene_node_added):
 		get_tree().node_added.disconnect(_on_scene_node_added)
 
+
+func drain_for_shutdown() -> void:
+	stop_all_audio_immediately()
+	if is_inside_tree():
+		# AudioServer retires stopped playback references on the mixer callback.
+		await get_tree().create_timer(0.35, true, false, true).timeout
 
 func _exit_tree() -> void:
 	stop_all_audio_immediately()

@@ -16,8 +16,55 @@ var _objectives: VBoxContainer
 var _reward_chips: HBoxContainer
 var _reward_items: VBoxContainer
 var _detail_actions: HBoxContainer
+const CHAPTER_NAV = preload("res://scripts/world/six_zone_reverie/chapter_navigation.gd")
 var _selected_quest: String = ""
 var _cards: Dictionary = {}
+var _shared_signature := ""
+var _shared_elapsed := 0.0
+
+func _process(delta: float) -> void:
+	if MultiplayerGateway.standalone_expedition_id.is_empty() or _list == null:
+		return
+	_shared_elapsed += delta
+	if _shared_elapsed < 0.25:
+		return
+	_shared_elapsed = 0.0
+	var zone := CHAPTER_NAV.find_zone(self)
+	if zone != null:
+		var guide := CHAPTER_NAV.resolve(zone)
+		var signature := str([guide.get("ready"),guide.get("rows"),guide.get("text")])
+		if signature != _shared_signature:
+			_show_expedition(guide)
+
+func _show_expedition(guide: Dictionary) -> void:
+	_shared_signature = str([guide.get("ready"),guide.get("rows"),guide.get("text")])
+	UIFactory.clear(_list)
+	_cards.clear()
+	for section in [_detail_chips,_objectives,_reward_chips,_reward_items,_detail_actions]:
+		UIFactory.clear(section)
+	_shell.get_node("Margin/Panel/Root/Header/Titles/Title").text = "Expedition Journal"
+	_shell.get_node("Margin/Panel/Root/Header/Titles/Subtitle").text = "Shared party objectives — server-confirmed progress"
+	_list.add_child(UIFactory.label("CURRENT EXPEDITION",13,UITheme.TEAL))
+	_list.add_child(UIFactory.wrapped(str(guide.get("region","Party expedition")),16,UITheme.TEXT))
+	_list.add_child(UIFactory.wrapped(str(guide.get("text","Synchronizing...")),13,UITheme.GOLD))
+	_detail_title.text = str(guide.get("region","Party expedition"))
+	_detail_summary.text = "Party members contribute to the same objectives. Solo quests and saves are separate."
+	_detail_chips.show()
+	_detail_summary.show()
+	_objectives.show()
+	_detail_actions.show()
+	_reward_chips.hide()
+	_reward_items.hide()
+	var ready := bool(guide.get("ready",false))
+	var complete := bool(guide.get("complete",false))
+	_detail_chips.add_child(UIFactory.chip("Complete" if complete else ("Shared" if ready else "Synchronizing"),UITheme.GREEN if complete else UITheme.TEAL))
+	for objective in guide.get("rows",[]):
+		var row := QUEST_OBJECTIVE_ROW_SCENE.instantiate() as QuestObjectiveRow
+		var done: bool = objective.done
+		var active: bool = objective.active
+		row.setup("✓" if done else ("◆" if active else "○"),str(objective.text),UITheme.GREEN if done else (UITheme.GOLD if active else UITheme.TEXT_DIM))
+		_objectives.add_child(row)
+	_detail_actions.add_child(UIFactory.wrapped("Automatic party guidance" if ready else "Waiting for the authoritative world snapshot.",12,UITheme.TEXT_DIM))
 
 
 func _init() -> void:
@@ -26,6 +73,9 @@ func _init() -> void:
 
 
 func _build_content() -> void:
+	var daily:=UIFactory.button("Daily Quests",false)
+	header_actions.add_child(daily)
+	daily.pressed.connect(_open_daily_quests)
 	var layout := QUEST_LAYOUT_SCENE.instantiate() as HBoxContainer
 	layout.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	content.add_child(layout)
@@ -49,15 +99,44 @@ func _rebuild_list() -> void:
 		return
 	UIFactory.clear(_list)
 	_cards.clear()
-	var quest_ids: Array = ContentDB.quests.keys()
+	var zone := CHAPTER_NAV.find_zone(self)
+	if zone != null and not MultiplayerGateway.standalone_expedition_id.is_empty():
+		_show_expedition(CHAPTER_NAV.resolve(zone))
+		return
+	var quest_ids: Array = CHAPTER_NAV.JOURNAL_IDS.duplicate() if zone != null else ContentDB.quests.keys()
+	if zone != null:
+		_list.add_child(UIFactory.label("CHAPTER I — MAIN STORY",13,UITheme.GOLD))
+		var guidance := CHAPTER_NAV.resolve(zone)
+		if not guidance.is_empty():
+			_list.add_child(UIFactory.wrapped("Main story: " + str(guidance.text),12,UITheme.GOLD))
+		var online := not MultiplayerGateway.standalone_expedition_id.is_empty()
+		var paused := bool(GameState.quest_domain.flags.get("chapter_tracking_paused",false))
+		var follow := UIFactory.button("Resume main story" if paused else "Follow main story",true)
+		follow.disabled = online
+		follow.pressed.connect(func():
+			GameState.quest_domain.flags.erase("chapter_tracking_paused")
+			GameState.quest_domain.flags.erase("chapter_manual_quest")
+			GameState.quest_domain.untrack_quest()
+			_rebuild_list())
+		_list.add_child(follow)
+		var pause := UIFactory.button("Pause guidance",false)
+		pause.disabled = online or paused
+		pause.pressed.connect(func():
+			GameState.quest_domain.flags["chapter_tracking_paused"] = true
+			GameState.quest_domain.flags.erase("chapter_manual_quest")
+			GameState.quest_domain.untrack_quest()
+			_rebuild_list())
+		_list.add_child(pause)
 	quest_ids.sort_custom(func(a, b) -> bool:
+		if zone != null:
+			return CHAPTER_NAV.JOURNAL_IDS.find(a)<CHAPTER_NAV.JOURNAL_IDS.find(b)
 		var state_a := GameState.quest_domain.quest_state(a)
 		var state_b := GameState.quest_domain.quest_state(b)
 		var order := {"active": 0, "not_started": 1, "complete": 2}
 		var rank_a := int(order.get(state_a, 3))
 		var rank_b := int(order.get(state_b, 3))
 		if rank_a == rank_b:
-			return str(a) < str(b)
+			return CHAPTER_NAV.IDS.find(a) < CHAPTER_NAV.IDS.find(b) if zone != null else str(a) < str(b)
 		return rank_a < rank_b
 	)
 	if quest_ids.is_empty():
@@ -65,19 +144,27 @@ func _rebuild_list() -> void:
 		_show_detail("")
 		return
 	if _selected_quest.is_empty() or not quest_ids.has(_selected_quest):
-		_selected_quest = str(quest_ids[0])
+		var current_id := str(CHAPTER_NAV.resolve(zone).get("quest_id","")) if zone != null else ""
+		_selected_quest = current_id if quest_ids.has(current_id) else str(quest_ids[0])
 	for quest_id in quest_ids:
 		_list.add_child(_make_card(str(quest_id)))
 	_show_detail(_selected_quest)
 
 
+func _is_tracking(quest_id: String) -> bool:
+	var zone := CHAPTER_NAV.find_zone(self)
+	if zone != null:
+		return str(CHAPTER_NAV.resolve(zone).get("quest_id","")) == quest_id
+	return GameState.quest_domain.tracked_quest() == quest_id
+
 func _make_card(quest_id: String) -> PanelContainer:
-	var quest: Dictionary = ContentDB.get_quest(quest_id)
-	var state := GameState.quest_domain.quest_state(quest_id)
+	var quest: Dictionary = CHAPTER_NAV.journal_definition(quest_id)
+	var chapter_zone := CHAPTER_NAV.find_zone(self)
+	var state := CHAPTER_NAV.journal_state(chapter_zone,quest_id) if chapter_zone != null else GameState.quest_domain.quest_state(quest_id)
 	var state_color := UITheme.GOLD if state == "active" else (UITheme.GREEN if state == "complete" else UITheme.TEXT_DIM)
-	var step: Dictionary = GameState.quest_domain.quest_step(quest_id)
+	var step: Dictionary = CHAPTER_NAV.journal_step(quest_id)
 	var step_text := str(step.get("text", "Complete" if state == "complete" else "Speak with the quest giver"))
-	var tracked := str(GameState.quest_domain.flags.get("tracked_quest", "")) == quest_id
+	var tracked := _is_tracking(quest_id)
 	var card := QUEST_CARD_SCENE.instantiate() as QuestListCard
 	card.setup(quest_id, str(quest.get("name", quest_id)), state.replace("_", " ").capitalize(), state_color, step_text, tracked)
 	card.selected.connect(func(selected_id: String) -> void:
@@ -108,7 +195,7 @@ func _show_detail(quest_id: String) -> void:
 		_reward_items.visible = false
 		_detail_actions.visible = false
 		return
-	var quest: Dictionary = ContentDB.get_quest(quest_id)
+	var quest: Dictionary = CHAPTER_NAV.journal_definition(quest_id)
 	if quest.is_empty():
 		_detail_title.text = "Unknown quest."
 		_detail_title.add_theme_color_override("font_color", UITheme.DANGER)
@@ -120,7 +207,8 @@ func _show_detail(quest_id: String) -> void:
 		_detail_actions.visible = false
 		return
 
-	var state := GameState.quest_domain.quest_state(quest_id)
+	var chapter_zone := CHAPTER_NAV.find_zone(self)
+	var state := CHAPTER_NAV.journal_state(chapter_zone,quest_id) if chapter_zone != null else GameState.quest_domain.quest_state(quest_id)
 	var state_color := UITheme.GOLD if state == "active" else (UITheme.GREEN if state == "complete" else UITheme.TEXT_DIM)
 	_detail_title.text = str(quest.get("name", quest_id))
 	_detail_title.add_theme_color_override("font_color", UITheme.TEXT)
@@ -135,7 +223,7 @@ func _show_detail(quest_id: String) -> void:
 	_detail_summary.text = str(quest.get("summary", ""))
 
 	var steps: Array = quest.get("steps", [])
-	var current := GameState.quest_domain.quest_step_index(quest_id)
+	var current := CHAPTER_NAV.journal_step_index(quest_id)
 	for index in steps.size():
 		var step: Dictionary = steps[index]
 		var done := state == "complete" or index < current
@@ -166,18 +254,34 @@ func _show_detail(quest_id: String) -> void:
 			UITheme.TEXT_DIM
 		))
 
-	var tracked := str(GameState.quest_domain.flags.get("tracked_quest", "")) == quest_id
+	var tracked := _is_tracking(quest_id)
+	var zone := CHAPTER_NAV.find_zone(self)
+	var allowed := state != "complete" and (zone == null or CHAPTER_NAV.can_track(zone,quest_id))
+	var requirement := str(quest.get("requires",""))
+	if not requirement.is_empty() and GameState.quest_domain.quest_state(requirement)!="complete":
+		allowed = false
 	var track_button := UIFactory.button("Untrack" if tracked else "Track on HUD", not tracked)
+	track_button.disabled = not allowed and not tracked
 	track_button.pressed.connect(func() -> void:
 		if tracked:
+			if zone != null:
+				GameState.quest_domain.flags["chapter_tracking_paused"]=true
+				GameState.quest_domain.flags.erase("chapter_manual_quest")
 			GameState.quest_domain.untrack_quest()
-		else:
-			GameState.quest_domain.set_tracked_quest(quest_id)
+		elif allowed:
+			if zone != null:
+				GameState.quest_domain.flags.erase("chapter_tracking_paused")
+				GameState.quest_domain.flags["chapter_manual_quest"]=quest_id
+			if CHAPTER_NAV.STORY_ENTRIES.has(quest_id):
+				GameState.quest_domain.untrack_quest()
+			else:
+				GameState.quest_domain.set_tracked_quest(quest_id)
 		_rebuild_list()
-		_show_detail(quest_id)
 	)
 	_detail_actions.add_child(track_button)
-	if state == "not_started":
+	if state == "not_started" and zone != null:
+		_detail_actions.add_child(UIFactory.wrapped("Starts during the main story.",11,UITheme.TEXT_FAINT))
+	elif state == "not_started":
 		var requires := str(quest.get("requires", ""))
 		if not requires.is_empty() and GameState.quest_domain.quest_state(requires) != "complete":
 			_detail_actions.add_child(UIFactory.wrapped(
@@ -199,3 +303,11 @@ func _show_detail(quest_id: String) -> void:
 			_detail_actions.add_child(UIFactory.wrapped("Speak with %s to begin." % giver_name, 11, UITheme.TEXT_FAINT))
 	elif state == "active" and GameState.quest_domain.quest_ready(quest_id):
 		_detail_actions.add_child(UIFactory.wrapped("Ready to turn in. Return to the quest giver.", 11, UITheme.GREEN))
+
+
+func _open_daily_quests() -> void:
+	if has_node("DailyQuestsOverlay"):return
+	var daily:=load("res://scenes/ui/daily_quests_screen.tscn").instantiate() as Control
+	daily.name="DailyQuestsOverlay"
+	daily.z_index=120
+	add_child(daily)

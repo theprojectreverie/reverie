@@ -1,0 +1,279 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://byumx8ilrwqdv"]
+
+[ext_resource type="Texture2D" uid="uid://db4b4sitpqijl" path="res://assets/characters/revienna/combat/Revienna_Eclipse_Cracks_192.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bfmpa7msnlxds" path="res://assets/characters/revienna/combat/Revienna_Eclipse_Eruption_192.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c7urn314vy8xe" path="res://assets/characters/revienna/combat/Revienna_Eclipse_Eclipse_192.png" id="3"]
+
+[sub_resource type="AtlasTexture" id="cracks_0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_1"]
+atlas = ExtResource("1")
+region = Rect2(192, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_2"]
+atlas = ExtResource("1")
+region = Rect2(384, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_3"]
+atlas = ExtResource("1")
+region = Rect2(576, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_4"]
+atlas = ExtResource("1")
+region = Rect2(0, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_5"]
+atlas = ExtResource("1")
+region = Rect2(192, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_6"]
+atlas = ExtResource("1")
+region = Rect2(384, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_7"]
+atlas = ExtResource("1")
+region = Rect2(576, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_8"]
+atlas = ExtResource("1")
+region = Rect2(0, 384, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_9"]
+atlas = ExtResource("1")
+region = Rect2(192, 384, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_10"]
+atlas = ExtResource("1")
+region = Rect2(384, 384, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="cracks_11"]
+atlas = ExtResource("1")
+region = Rect2(576, 384, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eclipse_0"]
+atlas = ExtResource("3")
+region = Rect2(0, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eclipse_1"]
+atlas = ExtResource("3")
+region = Rect2(192, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eclipse_2"]
+atlas = ExtResource("3")
+region = Rect2(384, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eclipse_3"]
+atlas = ExtResource("3")
+region = Rect2(576, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eclipse_4"]
+atlas = ExtResource("3")
+region = Rect2(0, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eclipse_5"]
+atlas = ExtResource("3")
+region = Rect2(192, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eclipse_6"]
+atlas = ExtResource("3")
+region = Rect2(384, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eclipse_7"]
+atlas = ExtResource("3")
+region = Rect2(576, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_0"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_1"]
+atlas = ExtResource("2")
+region = Rect2(192, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_2"]
+atlas = ExtResource("2")
+region = Rect2(384, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_3"]
+atlas = ExtResource("2")
+region = Rect2(576, 0, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_4"]
+atlas = ExtResource("2")
+region = Rect2(0, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_5"]
+atlas = ExtResource("2")
+region = Rect2(192, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_6"]
+atlas = ExtResource("2")
+region = Rect2(384, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_7"]
+atlas = ExtResource("2")
+region = Rect2(576, 192, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_8"]
+atlas = ExtResource("2")
+region = Rect2(0, 384, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_9"]
+atlas = ExtResource("2")
+region = Rect2(192, 384, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_10"]
+atlas = ExtResource("2")
+region = Rect2(384, 384, 192, 192)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="eruption_11"]
+atlas = ExtResource("2")
+region = Rect2(576, 384, 192, 192)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("cracks_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("cracks_11")
+}],
+"loop": 0,
+"name": &"cracks",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("eclipse_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("eclipse_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("eclipse_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("eclipse_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("eclipse_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("eclipse_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("eclipse_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("eclipse_7")
+}],
+"loop": 0,
+"name": &"eclipse",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("eruption_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("eruption_11")
+}],
+"loop": 0,
+"name": &"eruption",
+"speed": 10.0
+}]

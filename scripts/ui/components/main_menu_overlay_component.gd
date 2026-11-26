@@ -2,26 +2,26 @@ class_name MainMenuOverlayComponent
 extends Node
 ## Owns overlay instantiation and lightweight feature panels for hub shortcuts.
 
-const SUMMON_SCREEN_SCENE: PackedScene = preload("res://scenes/ui/gacha_screen.tscn")
-const INVENTORY_SCREEN_SCENE: PackedScene = preload("res://scenes/ui/inventory_screen.tscn")
-const WORLD_MAP_SCENE: PackedScene = preload("res://scenes/ui/map_screen.tscn")
-const DAILY_REWARDS_SCENE: PackedScene = preload("res://scenes/ui/components/daily_rewards_panel.tscn")
+const SUMMON_SCREEN_PATH := "res://scenes/ui/gacha_screen.tscn"
+const INVENTORY_SCREEN_PATH := "res://scenes/ui/inventory_screen.tscn"
+const WORLD_MAP_PATH := "res://scenes/ui/map_screen.tscn"
+const DAILY_REWARDS_PATH := "res://scenes/ui/components/daily_rewards_panel.tscn"
 var menu: Control
 
 func bind(owner: Control) -> void:
 	menu = owner
 
 func open_summon() -> void:
-	open_scene(SUMMON_SCREEN_SCENE, "SummonOverlay")
+	open_path(SUMMON_SCREEN_PATH, "SummonOverlay")
 
 func open_inventory() -> void:
-	open_scene(INVENTORY_SCREEN_SCENE, "InventoryOverlay")
+	open_path(INVENTORY_SCREEN_PATH, "InventoryOverlay")
 
 func open_world_map() -> void:
-	open_scene(WORLD_MAP_SCENE, "WorldMapOverlay")
+	open_path(WORLD_MAP_PATH, "WorldMapOverlay")
 
 func open_daily_rewards() -> void:
-	open_scene(DAILY_REWARDS_SCENE, "DailyRewardsOverlay")
+	open_path(DAILY_REWARDS_PATH, "DailyRewardsOverlay")
 
 func open_settings() -> void:
 	open_path("res://scenes/ui/settings_screen.tscn", "SettingsOverlay")

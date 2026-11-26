@@ -18,6 +18,21 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		element: String = "neutral", skill_id: String = "", ultimate: bool = false) -> void:
 	if attacker == null or not is_instance_valid(attacker):
 		return
+	if is_instance_valid(attacker.fairy_art):
+		if is_instance_valid(target) and target != attacker:
+			attacker.face(target.home_position - attacker.home_position)
+		attacker.play_fairy_action(skill_id, ultimate)
+		return
+	if is_instance_valid(attacker.cassien_art):
+		if is_instance_valid(target) and target != attacker:
+			attacker.face(target.home_position - attacker.home_position)
+		attacker.play_cassien_action(skill_id, ultimate)
+		return
+	if attacker.unit != null and attacker.unit.def_id == "gerald_boss":
+		if not ultimate and skill_id == "gerald_village_flame" and attacker.play_gerald_flame_approach(target):
+			return
+		attacker.play_gerald_action(ultimate)
+		return
 	if attacker.unit != null and attacker.unit.def_id == "fallen_matron":
 		if matron_attack_component != null:
 			matron_attack_component.play_attack(attacker, target, skill_id, ultimate)

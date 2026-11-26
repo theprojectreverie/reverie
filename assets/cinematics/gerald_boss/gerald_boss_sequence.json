@@ -2,39 +2,7 @@
 	"shots": [
 		{
 			"caption": "",
-			"duration": 5.0,
-			"image": "res://assets/cinematics/gerald_story/fallen_guardian/01_Ashes of a Burning Village.png",
-			"pan_x": 0.0,
-			"pan_y": 0.0,
-			"zoom": 1.035
-		},
-		{
-			"caption": "",
-			"duration": 5.0,
-			"image": "res://assets/cinematics/gerald_story/fallen_guardian/02_Lilithâ€™s Grief Amidst the Flames.png",
-			"pan_x": 0.0,
-			"pan_y": 0.0,
-			"zoom": 1.035
-		},
-		{
-			"caption": "",
-			"duration": 5.0,
-			"image": "res://assets/cinematics/gerald_story/fallen_guardian/03_Ashes of a Shattered Home.png",
-			"pan_x": 0.0,
-			"pan_y": 0.0,
-			"zoom": 1.035
-		},
-		{
-			"caption": "",
-			"duration": 5.0,
-			"image": "res://assets/cinematics/gerald_story/fallen_guardian/04_Lilithâ€™s Lament Amidst the Flames(2).png",
-			"pan_x": 0.0,
-			"pan_y": 0.0,
-			"zoom": 1.035
-		},
-		{
-			"caption": "",
-			"duration": 5.0,
+			"duration": 12.0,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/07_Final Farewell Amidst the Flames.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -42,7 +10,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 12.5,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/06_Tragic Embrace Amidst Burning Ruins.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -50,7 +18,31 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 13.0,
+			"image": "res://assets/cinematics/gerald_story/fallen_guardian/03_Ashes of a Shattered Home.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 13.3,
+			"image": "res://assets/cinematics/gerald_story/fallen_guardian/02_Lilith’s Grief Amidst the Flames.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 13.3,
+			"image": "res://assets/cinematics/gerald_story/fallen_guardian/01_Ashes of a Burning Village.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 12.5,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/05_Tears Beneath the Burning Village.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -58,7 +50,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 13.0,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/08_Tragedy Beneath the Burning Village.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -66,7 +58,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 13.0,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/09_Embers Beneath a Shattered Village.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -74,23 +66,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
-			"image": "res://assets/cinematics/gerald_story/fallen_guardian/return_discovery/01_Gerald_Sees_Fire_From_Afar.png",
-			"pan_x": 0.0,
-			"pan_y": 0.0,
-			"zoom": 1.035
-		},
-		{
-			"caption": "",
-			"duration": 5.0,
-			"image": "res://assets/cinematics/gerald_story/fallen_guardian/return_discovery/03_Gerald_Sees_Burning_Home.png",
-			"pan_x": 0.0,
-			"pan_y": 0.0,
-			"zoom": 1.035
-		},
-		{
-			"caption": "",
-			"duration": 5.0,
+			"duration": 10.0,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/return_discovery/02_Gerald_Approaches_Crowd.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -98,7 +74,15 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 11.0,
+			"image": "res://assets/cinematics/gerald_story/fallen_guardian/return_discovery/03_Gerald_Sees_Burning_Home.png",
+			"pan_x": 0.0,
+			"pan_y": 0.0,
+			"zoom": 1.035
+		},
+		{
+			"caption": "",
+			"duration": 13.0,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/return_discovery/04_Gerald_Discovers_Lilith_And_Mother.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -106,7 +90,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 12.0,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/12_Grief Beneath the Burning Ruins.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -114,7 +98,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 10.0,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/13_Whispers Beneath the Burning Town.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -122,7 +106,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 17.0,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/10_Mournful Embrace Amidst Burning Ruins.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -130,7 +114,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 13.5,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/15_Berserk Knight Amidst Burning Ruins.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -138,7 +122,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
+			"duration": 11.5,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/11_Hooded Warrior Amidst the Burning Village.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,
@@ -146,15 +130,7 @@
 		},
 		{
 			"caption": "",
-			"duration": 5.0,
-			"image": "res://assets/cinematics/gerald_story/fallen_guardian/14_Geraldâ€™s Tear Amidst the Flames.png",
-			"pan_x": 0.0,
-			"pan_y": 0.0,
-			"zoom": 1.035
-		},
-		{
-			"caption": "",
-			"duration": 5.0,
+			"duration": 11.5,
 			"image": "res://assets/cinematics/gerald_story/fallen_guardian/16_Gerald Walks Through Burning Ruins.png",
 			"pan_x": 0.0,
 			"pan_y": 0.0,

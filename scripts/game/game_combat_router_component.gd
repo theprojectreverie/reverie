@@ -6,7 +6,7 @@ signal combat_closed
 
 @export var combat_root_path: NodePath = NodePath("../UI/Combat")
 
-const COMBAT_SCREEN_SCENE: PackedScene = preload("res://scenes/ui/combat_screen.tscn")
+const COMBAT_SCREEN_PATH := "res://scenes/ui/combat_screen.tscn"
 
 var combat_root: Control
 var active_combat: CombatScreen
@@ -24,7 +24,11 @@ func start_encounter(group_id: String) -> bool:
 	if combat_root == null:
 		push_error("[GameCombatRouter] Combat root is missing.")
 		return false
-	var combat := COMBAT_SCREEN_SCENE.instantiate() as CombatScreen
+	var packed := load(COMBAT_SCREEN_PATH) as PackedScene
+	if packed == null or not packed.can_instantiate():
+		push_error("[GameCombatRouter] Combat scene unavailable.")
+		return false
+	var combat := packed.instantiate() as CombatScreen
 	if combat == null:
 		push_error("[GameCombatRouter] Combat scene failed to instantiate.")
 		return false

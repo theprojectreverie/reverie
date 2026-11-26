@@ -34,7 +34,7 @@ func _notification(what: int) -> void:
 
 
 func _process(delta: float) -> void:
-	if size.x <= 0.0 or size.y <= 0.0:
+	if not is_visible_in_tree() or size.x <= 0.0 or size.y <= 0.0:
 		return
 	_clock += delta
 	_fog_phase = fposmod(_fog_phase + delta * 0.018, 1.0)

@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="SpriteFrames" path="res://assets/enemies/gerald_fallen/walk_directions.tres" id="1"]
+
+[node name="GeraldFallenWalkPreview" type="Node2D"]
+texture_filter = 1
+
+[node name="Walk_S" type="AnimatedSprite2D" parent="."]
+position = Vector2(128, 128)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1")
+animation = &"walk_s"
+autoplay = "walk_s"
+
+[node name="Walk_SE" type="AnimatedSprite2D" parent="."]
+position = Vector2(288, 128)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1")
+animation = &"walk_se"
+autoplay = "walk_se"
+
+[node name="Walk_E" type="AnimatedSprite2D" parent="."]
+position = Vector2(448, 128)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1")
+animation = &"walk_e"
+autoplay = "walk_e"
+
+[node name="Walk_NE" type="AnimatedSprite2D" parent="."]
+position = Vector2(608, 128)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1")
+animation = &"walk_ne"
+autoplay = "walk_ne"
+
+[node name="Walk_N" type="AnimatedSprite2D" parent="."]
+position = Vector2(128, 308)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1")
+animation = &"walk_n"
+autoplay = "walk_n"
+
+[node name="Walk_NW" type="AnimatedSprite2D" parent="."]
+position = Vector2(288, 308)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1")
+animation = &"walk_nw"
+autoplay = "walk_nw"
+
+[node name="Walk_W" type="AnimatedSprite2D" parent="."]
+position = Vector2(448, 308)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1")
+animation = &"walk_w"
+autoplay = "walk_w"
+
+[node name="Walk_SW" type="AnimatedSprite2D" parent="."]
+position = Vector2(608, 308)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("1")
+animation = &"walk_sw"
+autoplay = "walk_sw"
+

@@ -21,7 +21,7 @@ func rebuild_grid() -> void:
 	screen._cards.clear()
 	var instances: Array = []
 	for instance in GameState.roster_domain.roster:
-		if screen._filter == "party" and not GameState.roster_domain.party.has(instance.uid):
+		if screen._filter == "party" and not GameState.roster_domain.effective_party_ids().has(instance.uid):
 			continue
 		instances.append(instance)
 	instances.sort_custom(func(a, b) -> bool:
@@ -59,7 +59,7 @@ func make_card(instance: CharacterInstance) -> PanelContainer:
 	var glow: Color = effect.get("glow", UITheme.GOLD_BRIGHT)
 	var tier_text := UITheme.rarity_tier_label(rarity) if premium else ""
 	var card := CollectionScreen.ROSTER_CARD_SCENE.instantiate() as RosterCharacterCard
-	card.setup(instance.uid, definition, instance.level, GameState.roster_domain.party.has(instance.uid), premium, glow, tier_text)
+	card.setup(instance.uid, definition, instance.level, GameState.roster_domain.effective_party_ids().has(instance.uid), premium, glow, tier_text)
 	card.set_meta("premium", premium)
 	card.set_meta("rarity", rarity)
 	if premium:

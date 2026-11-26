@@ -40,6 +40,16 @@ func _resolve_nodes() -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
+	var chapter := get_parent() as Node2D
+	if chapter != null and (str(chapter.name).begins_with("StandaloneZone") or chapter.name=="StandaloneVillage"):
+		var guidance: Dictionary = chapter.get_meta("chapter_navigation",{})
+		var player := chapter.get("checkpoint_player") as Node2D
+		visible = bool(guidance.get("valid",false)) and is_instance_valid(player) and not bool(player.get("network_recovery_paused")) and bool(player.get("input_enabled"))
+		if visible:
+			global_position = guidance.position
+			_distance = player.global_position.distance_to(global_position)
+			_animate_nodes()
+		return
 	var quest_id: String = GameState.quest_domain.tracked_quest()
 	if quest_id.is_empty():
 		visible = false

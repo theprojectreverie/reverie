@@ -188,3 +188,33 @@ offset_right = 176.0
 offset_bottom = 24.0
 theme_override_font_sizes/font_size = 10
 text = "-"
+
+[node name="TravelButton" type="Button" parent="."]
+visible = false
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 10
+text = "Travel"
+tooltip_text = "Open fast travel"
+
+
+[node name="WaystoneDot" type="ColorRect" parent="Overlay"]
+visible = false
+offset_left = 155.0
+offset_top = 211.0
+offset_right = 159.0
+offset_bottom = 215.0
+mouse_filter = 2
+color = Color(0.498, 0.89, 0.878, 1)
+
+[node name="WaystoneLabel" type="Label" parent="Overlay"]
+visible = false
+offset_left = 162.0
+offset_top = 206.0
+offset_right = 216.0
+offset_bottom = 218.0
+theme_override_colors/font_color = Color(0.898, 0.929, 0.961, 1)
+theme_override_font_sizes/font_size = 7
+text = "Waystone"

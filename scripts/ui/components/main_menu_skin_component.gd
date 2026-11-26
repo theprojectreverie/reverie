@@ -104,7 +104,7 @@ func _button_artwork_for(button_name: String) -> String:
 		"InventoryButton": "inventory_chest",
 		"SummonButton": "crystals_single",
 		"StoryButton": "story_book",
-		"CombatButton": "combat_swords",
+		"PvpButton": "combat_swords",
 		"CastleButton": "castle_moon",
 		"ResourcesButton": "resources_crystals"
 	}

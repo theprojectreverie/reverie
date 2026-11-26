@@ -23,6 +23,9 @@ const WORLD_CONNECT_TIMEOUT := 12.0
 
 var _peer: WebSocketPeer
 var _lobby_id := ""
+var standalone_expedition_id := ""
+var standalone_expedition_region := ""
+var _party_travel_pending := false
 var _connection_pending := false
 var _connected_emitted := false
 var _reconnect_enabled := false
@@ -36,6 +39,7 @@ var _world_server_id := ""
 var _world_ticket := ""
 var _world_ticket_sent := false
 var _world_ready := false
+var _world_interest_windows := false
 var _world_heartbeat_elapsed := 0.0
 var _world_heartbeat_wait_elapsed := 0.0
 var _world_heartbeat_pending := false
@@ -194,6 +198,8 @@ func _begin_connection() -> Error:
 	return result
 
 func disconnect_from_lobby() -> void:
+	standalone_expedition_id = ""
+	standalone_expedition_region = ""
 	_reconnect_enabled = false
 	_reconnect_elapsed = 0.0
 	_reconnect_attempts = 0
@@ -208,6 +214,60 @@ func disconnect_from_lobby() -> void:
 
 func is_connected_to_lobby() -> bool:
 	return _peer != null and _peer.get_ready_state() == WebSocketPeer.STATE_OPEN
+
+func request_expedition_travel(destination_scene: String) -> Error:
+	if standalone_expedition_id.is_empty() or _party_travel_pending:
+		return ERR_UNAVAILABLE
+	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://resources/data/six_zone_expeditions.json"))
+	if not data.has(standalone_expedition_region):
+		return ERR_INVALID_PARAMETER
+	for id in data[standalone_expedition_region]["portals"]:
+		if str(data[id]["scene"]) == destination_scene:
+			return _send({"type":"region_transition","regionId":id})
+	return ERR_INVALID_PARAMETER
+
+func _route_expedition_event(event: Dictionary) -> bool:
+	if standalone_expedition_id.is_empty() or standalone_expedition_id != _lobby_id:
+		return false
+	var target := ""
+	if str(event.get("type", "")) == "region_transition":
+		target = str(event.get("regionId", ""))
+	elif str(event.get("type", "")) == "snapshot":
+		var members: Array = event.get("members", [])
+		if not members.is_empty() and members[0] is Dictionary:
+			target = str(members[0].get("region_id", ""))
+	if target.is_empty() or target == standalone_expedition_region:
+		return _party_travel_pending
+	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://resources/data/six_zone_expeditions.json"))
+	if not data.has(target):
+		return false
+	if not _party_travel_pending:
+		_party_travel_pending = true
+		var player = get_tree().get_first_node_in_group("player")
+		if player != null and player.has_method("set_network_recovery_paused"):
+			player.set_network_recovery_paused(true)
+		call_deferred("_apply_expedition_travel", target, str(data[target]["scene"]))
+	return true
+
+func _apply_expedition_travel(region: String, scene_path: String) -> void:
+	if standalone_expedition_id.is_empty():
+		_party_travel_pending = false
+		return
+	standalone_expedition_region = region
+	var result := get_tree().change_scene_to_file(scene_path)
+	_party_travel_pending = false
+	if result != OK:
+		connection_failed.emit("Could not load the expedition destination.")
+
+func request_exploration_objective(objective_id: String) -> Error:
+	if standalone_expedition_id.is_empty() or _party_travel_pending or standalone_expedition_region not in ["six_zone_willow_fields", "six_zone_elderwood_grove", "six_zone_forsaken_ruins"]:
+		return ERR_UNAVAILABLE
+	return _send({"type":"exploration_objective", "objectiveId":objective_id})
+
+func request_monster_attack(monster_id: String, guard: bool = false) -> Error:
+	if standalone_expedition_region not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_forsaken_ruins", "six_zone_ruined_tower"]:
+		return ERR_UNAVAILABLE
+	return _send({"type":"monster_attack","monsterId":monster_id,"guard":guard})
 
 func send_position(world_position: Vector2, region_id: String) -> Error:
 	if region_id.is_empty():
@@ -290,7 +350,16 @@ func _process(delta: float) -> void:
 					_handle_session_revoked()
 					break
 				else:
-					server_event.emit(parsed)
+					if str(parsed.get("type", "")) == "rejected" and not standalone_expedition_id.is_empty():
+						match str(parsed.get("reason", "")):
+							"leader_or_region_required":
+								EventBus.toast_requested.emit("Only the party leader can move the expedition through a portal.")
+							"portal_proximity_required":
+								EventBus.toast_requested.emit("Move closer to the portal and try again.")
+							"invalid_region_transition":
+								EventBus.toast_requested.emit("This expedition cannot travel directly to that zone.")
+					if not _route_expedition_event(parsed):
+						server_event.emit(parsed)
 	elif state == WebSocketPeer.STATE_CLOSED:
 		var reason := _peer.get_close_reason()
 		if _connection_pending:
@@ -410,7 +479,7 @@ func _process_persistent_world(delta: float) -> void:
 		_world_connect_elapsed = 0.0
 		if not _world_ticket_sent:
 			_world_ticket_sent = true
-			var sent := _world_peer.send_text(JSON.stringify({"type":"join_ticket","ticket":_world_ticket,"lastEventSequence":_world_last_event_sequence}))
+			var sent := _world_peer.send_text(JSON.stringify({"type":"join_ticket","ticket":_world_ticket,"lastEventSequence":_world_last_event_sequence,"interestWindows":true}))
 			_world_ticket = ""
 			if sent != OK:
 				_world_peer.close(1011,"ticket_send_failed")
@@ -438,6 +507,7 @@ func _process_persistent_world(delta: float) -> void:
 			var message_type := str(parsed.get("type",""))
 			if message_type == "world_joined":
 				_world_ready = true
+				_world_interest_windows = bool(parsed.get("interestWindows", false))
 				_world_last_event_sequence = maxi(0, int(parsed.get("eventSequence", 0)))
 				_world_replay_requested = false
 				if _world_reconnect_attempts > 0:
@@ -451,6 +521,20 @@ func _process_persistent_world(delta: float) -> void:
 				_world_heartbeat_pending = false
 				persistent_world_event.emit(parsed)
 				persistent_world_connected.emit(_world_server_id)
+			elif message_type == "world_position_window":
+				if not _world_ready or not _world_interest_windows:
+					continue
+				var first := int(parsed.get("fromSequence", 0))
+				var last := int(parsed.get("sequence", 0))
+				if last <= _world_last_event_sequence:
+					continue
+				if first <= 0 or first > last or first > _world_last_event_sequence + 1 or not parsed.get("members") is Array:
+					if not _world_replay_requested:
+						_world_replay_requested = true
+						_world_peer.send_text(JSON.stringify({"type":"replay_request","lastSequence":_world_last_event_sequence}))
+					continue
+				_world_last_event_sequence = last
+				persistent_world_event.emit(parsed)
 			elif message_type == "world_sync_hint":
 				if not _world_replay_requested and int(parsed.get("currentSequence",0)) > _world_last_event_sequence:
 					_world_replay_requested = true

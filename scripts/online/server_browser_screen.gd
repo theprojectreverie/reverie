@@ -6,9 +6,12 @@ signal closed
 @onready var server_list: VBoxContainer = $Center/Panel/Margins/Content/Scroll/ServerList
 @onready var refresh_button: Button = $Center/Panel/Margins/Content/Actions/RefreshButton
 
+@onready var region_fallback: CheckButton = $Center/Panel/Margins/Content/RegionFallback
+
 var _servers: Array = []
 var _busy := false
 var _current_server_id := ""
+var _current_server_label := ""
 var _reconnect_attempts := 0
 const MAX_WORLD_RECONNECT_ATTEMPTS := 2
 
@@ -73,7 +76,10 @@ func _on_servers_received(servers: Array) -> void:
 		row.add_child(details)
 		var join := Button.new()
 		var has_transport := str(server.get("endpoint_url", server.get("endpointUrl", ""))).begins_with("ws")
-		join.text = "JOIN" if has_transport else "OFFLINE"
+		join.text = ("JOIN" if current < maximum else "FULL") if has_transport else "OFFLINE"
+		if current >= maximum and has_transport:
+			join.text = "TRY JOIN"
+			join.tooltip_text = "Enable same-region fallback to try another compatible server if this one is full."
 		join.disabled = not _is_uuid(server_id) or _busy or not has_transport
 		if has_transport:
 			join.pressed.connect(_join.bind(server_id))
@@ -86,7 +92,7 @@ func _join(server_id: String) -> void:
 	_busy = true
 	refresh_button.disabled = true
 	status_label.text = "Requesting a place in the selected world…"
-	var result: Error = ServerDirectoryGateway.join_server(server_id)
+	var result: Error = ServerDirectoryGateway.join_server(server_id, region_fallback.button_pressed)
 	if result != OK:
 		_busy = false
 		refresh_button.disabled = false
@@ -97,12 +103,17 @@ func _on_assignment_received(payload: Dictionary) -> void:
 	refresh_button.disabled = false
 	if str(payload.get("status", "")) == "left":
 		_current_server_id = ""
+		_current_server_label = ""
 		_reconnect_attempts = 0
 		ServerDirectoryGateway.clear_pending_join_ticket()
 		status_label.text = "Your server assignment has been released."
 	elif not ServerDirectoryGateway.pending_join_ticket.is_empty():
 		var server_id := str(payload.get("serverId", ""))
 		_current_server_id = server_id
+		if payload.has("displayName"):
+			_current_server_label = str(payload["displayName"])
+			if bool(payload.get("redirected", false)):
+				_current_server_label += " (same-region alternative)"
 		var ticket := ServerDirectoryGateway.pending_join_ticket
 		var endpoint := ServerDirectoryGateway.pending_world_endpoint
 		var expiry_text := ServerDirectoryGateway.pending_join_ticket_expires_at
@@ -114,7 +125,7 @@ func _on_assignment_received(payload: Dictionary) -> void:
 		var connect_result := MultiplayerGateway.connect_to_persistent_world(server_id, ticket, endpoint)
 		ServerDirectoryGateway.clear_pending_join_ticket()
 		if connect_result == OK:
-			status_label.text = "Connecting to the selected persistent world…"
+			status_label.text = "Connecting to %s." % (_current_server_label if not _current_server_label.is_empty() else "the selected persistent world")
 		else:
 			status_label.text = "The world slot is reserved, but the live connection could not start. You can leave this server and try again."
 	else:
@@ -123,7 +134,7 @@ func _on_assignment_received(payload: Dictionary) -> void:
 func _on_world_connected(server_id: String) -> void:
 	_current_server_id = server_id
 	_reconnect_attempts = 0
-	status_label.text = "Connected to persistent world %s. Your session is live." % server_id
+	status_label.text = "Connected to %s. Your session is live." % (_current_server_label if not _current_server_label.is_empty() else server_id)
 
 func _on_world_connection_failed(reason: String) -> void:
 	if _current_server_id.is_empty() or _busy or _reconnect_attempts >= MAX_WORLD_RECONNECT_ATTEMPTS:
@@ -143,7 +154,12 @@ func _on_world_connection_failed(reason: String) -> void:
 func _on_request_failed(operation: String, reason: String) -> void:
 	_busy = false
 	refresh_button.disabled = false
-	status_label.text = "%s failed: %s" % [operation.capitalize(), reason]
+	if reason == "region_full":
+		status_label.text = "All compatible servers in this region are full. Refresh and try again later."
+	elif reason == "server_full":
+		status_label.text = "This server is full. Enable same-region fallback or choose another server."
+	else:
+		status_label.text = "%s failed: %s" % [operation.capitalize(), reason]
 
 func _is_uuid(value: String) -> bool:
 	var regex := RegEx.new()

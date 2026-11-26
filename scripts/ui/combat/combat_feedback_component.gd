@@ -36,6 +36,9 @@ func float_text(actor: BattlefieldActor, text: String, color: Color, delay: floa
 func show_banner(text: String) -> void:
 	if screen == null or not screen.is_inside_tree():
 		return
+	if text == "Eclipse Verdict":
+		_show_eclipse_banner()
+		return
 	var banner := preload("res://scenes/ui/combat/components/battle_event_banner.tscn").instantiate() as PanelContainer
 	if banner == null:
 		return
@@ -150,9 +153,21 @@ func _process(delta: float) -> void:
 		return
 	_shake_timer -= delta
 	var offset := Vector2(randf_range(-_shake_intensity, _shake_intensity), randf_range(-_shake_intensity, _shake_intensity))
-	if boss_bar != null:
-		boss_bar.position = offset
+	# Containers own HUD positions. Shake only the actor stage.
+	if is_instance_valid(battlefield) and is_instance_valid(battlefield._stage):
+		var quake := battlefield._gerald_quake_tween
+		if quake == null or not quake.is_valid() or not quake.is_running():
+			battlefield._stage.position = offset if _shake_timer > 0.0 else Vector2.ZERO
 	if _shake_timer <= 0.0:
 		_shake_intensity = 0.0
-		if boss_bar != null:
-			boss_bar.position = Vector2.ZERO
+
+
+func _show_eclipse_banner() -> void:
+	var banner := preload("res://scenes/ui/combat/components/eclipse_verdict_banner.tscn").instantiate() as PanelContainer
+	screen.add_child(banner)
+	banner.modulate.a = 0.0
+	var motion := banner.create_tween()
+	motion.tween_property(banner, "modulate:a", 1.0, 0.15)
+	motion.tween_interval(0.58)
+	motion.tween_property(banner, "modulate:a", 0.0, 0.2)
+	motion.tween_callback(banner.queue_free)

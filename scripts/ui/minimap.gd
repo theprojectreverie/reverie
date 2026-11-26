@@ -7,15 +7,22 @@ const TILE_PX := 4.0
 const VIEW_RADIUS := 26
 
 var _collapsed: bool = false
+var _expanded_size := Vector2(MAP_SIZE, MAP_SIZE)
 var _expand_button: Button
 var _collapse_button: Button
 var _canvas: Control
 var _overlay: Control
 var _world: Node = null
 var _six_zone: Node2D
-var _zone_art: Array[Dictionary] = []
+# Compact positional draw commands: texture, bounds, destination, region,
+# transform, z, tint, flip flags. Avoid a hash table for every map tile.
+enum ArtField { TEXTURE, BOUNDS, DEST, REGION, TRANSFORM, Z, TINT, FLIPS }
+var _zone_art: Array[Array] = []
 var _zone_bounds := Rect2()
-var _overview := false
+var _overview := true
+var _art_viewport: SubViewport
+var _art_canvas: Node2D
+var _art_factor := 1.0
 @onready var marker_component: MinimapMarkerComponent = get_node("MarkerData") as MinimapMarkerComponent
 ## Shared resolver injected by GameScreen through HUD; keeps compass, map and beacon aligned.
 var quest_resolver: QuestNavigationResolver = null
@@ -45,10 +52,13 @@ func _ready() -> void:
 	if _overlay:
 		_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_canvas.draw.connect(_on_draw)
+	resized.connect(_layout_top_controls)
 	_expand_button.pressed.connect(_request_full_map)
 	_collapse_button.pressed.connect(_toggle_collapse)
+	$TravelButton.pressed.connect(_open_fast_travel)
 	_canvas.clip_contents = true
 	_find_world()
+	GraphicsSettings.quality_changed.connect(_on_graphics_quality_changed)
 	if marker_component != null:
 		marker_component.bind(self)
 
@@ -58,7 +68,7 @@ func _find_world() -> void:
 		return
 	var ancestor := get_parent()
 	while ancestor != null:
-		if ancestor is Node2D and str(ancestor.name).begins_with("StandaloneZone"):
+		if ancestor is Node2D and (str(ancestor.name).begins_with("StandaloneZone") or ancestor.name == "StandaloneVillage"):
 			_world = ancestor
 			if _six_zone != ancestor:
 				_six_zone = ancestor
@@ -228,7 +238,21 @@ func _on_draw() -> void:
 	]), Color.WHITE)
 
 
+func set_layout_rect(top: float, right: float, requested_size: float) -> void:
+	# The authored legend requires at least 224 logical pixels.
+	var side := maxf(float(MAP_SIZE), requested_size)
+	_expanded_size = Vector2(side, side)
+	var dimensions := Vector2(60, 28) if _collapsed else _expanded_size
+	custom_minimum_size = dimensions
+	size = dimensions
+	position = Vector2(get_parent_area_size().x + right - dimensions.x, top)
+	_layout_top_controls()
+
 func _toggle_collapse() -> void:
+	var right := offset_right
+	var top := offset_top
+	if not _collapsed:
+		_expanded_size = size
 	_collapsed = not _collapsed
 	if _collapsed:
 		custom_minimum_size = Vector2(60, 28)
@@ -239,6 +263,7 @@ func _toggle_collapse() -> void:
 		if _overlay:
 			_overlay.visible = false
 		_expand_button.visible = false
+		$TravelButton.hide()
 		# Keep the restore control inside the collapsed chip. Previously it kept
 		# its expanded-map X offset (156 px), leaving the button outside the
 		# 60 px control and making the minimap impossible to reopen.
@@ -246,17 +271,19 @@ func _toggle_collapse() -> void:
 		_collapse_button.size = Vector2(22.0, 24.0)
 		_collapse_button.text = "+"
 	else:
-		custom_minimum_size = Vector2(MAP_SIZE, MAP_SIZE)
-		size = Vector2(MAP_SIZE, MAP_SIZE)
-		offset_left = offset_right - MAP_SIZE
-		offset_bottom = offset_top + MAP_SIZE
+		custom_minimum_size = _expanded_size
+		size = _expanded_size
+		offset_left = offset_right - _expanded_size.x
+		offset_bottom = offset_top + _expanded_size.y
 		_canvas.visible = true
 		if _overlay:
 			_overlay.visible = true
 		_expand_button.visible = true
-		_collapse_button.position = Vector2(156.0, 4.0)
+		$TravelButton.visible = is_instance_valid(_six_zone)
+		_collapse_button.position = Vector2(size.x - 68.0, 4.0)
 		_collapse_button.size = Vector2(20.0, 20.0)
 		_collapse_button.text = "-"
+	set_layout_rect(top, right, _expanded_size.x)
 	_find_world()
 
 
@@ -280,39 +307,131 @@ func _cache_zone_art() -> void:
 	_canvas.offset_bottom = -22.0
 	_zone_art.clear()
 	_zone_bounds = Rect2()
-	var roots: Array[Node] = []
-	var terrain := _six_zone.get_node_or_null("Zone")
-	if terrain != null:
-		roots.append(terrain)
+	_overview = true
 	for child in _six_zone.get_children():
-		if child is Node2D and ("Road" in str(child.name) or "Connector" in str(child.name)):
-			roots.append(child)
-	for root in roots:
-		for item in root.find_children("*", "Sprite2D", true, false):
-			var sprite := item as Sprite2D
-			if sprite.texture == null or not sprite.is_visible_in_tree():
-				continue
-			if sprite.is_in_group("world_minimap_npcs"):
-				continue
-			var bounds: Rect2 = sprite.global_transform * sprite.get_rect()
-			if bounds.size.x <= 0.0 or bounds.size.y <= 0.0:
-				continue
-			_zone_art.append({"texture": sprite.texture, "rect": bounds, "z": sprite.z_index, "region": sprite.region_rect if sprite.region_enabled else Rect2()})
-			_zone_bounds = bounds if _zone_bounds.size == Vector2.ZERO else _zone_bounds.merge(bounds)
-	_zone_art.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
-		if a.z != b.z:
-			return a.z < b.z
-		return a.rect.end.y < b.rect.end.y)
-	_expand_button.text = "Map"
+		if child is Node2D:
+			_collect_map_art(child, 0, Color.WHITE)
+	_zone_art.sort_custom(func(a: Array, b: Array) -> bool:
+		if a[ArtField.Z] != b[ArtField.Z]:
+			return a[ArtField.Z] < b[ArtField.Z]
+		return a[ArtField.BOUNDS].end.y < b[ArtField.BOUNDS].end.y)
+	_build_cached_preview()
+	_expand_button.text = "Near"
+	$TravelButton.show()
 	$Overlay/NpcDot.color = Color("#f1cd79")
-	$Overlay/BossDot.color = Color("#e5b8ff")
-	$Overlay/BossLabel.text = "Exit"
-	$Overlay/PoiDot.hide()
-	$Overlay/PoiLabel.hide()
+	$Overlay/BossDot.color = Color("#ff8299")
+	$Overlay/BossLabel.text = "Boss"
+	$Overlay/PoiDot.color = Color("#e5b8ff")
+	$Overlay/PoiLabel.text = "Exit"
+	$Overlay/PoiDot.show()
+	$Overlay/PoiLabel.show()
+	$Overlay/WaystoneDot.show()
+	$Overlay/WaystoneLabel.show()
 	$Overlay/YouDot.color = Color.WHITE
 
+func _collect_map_art(node: Node, inherited_z: int, tint: Color) -> void:
+	if node is CanvasLayer or node is Control or node is Camera2D or node is CharacterBody2D or node is Interactable:
+		return
+	var lower := str(node.name).to_lower()
+	if "fog" in lower or "background" in lower or "camera" in lower or "revienna" in lower or "light" in lower or "transferpoints" in lower or "fairy" in lower:
+		return
+	var z := inherited_z
+	var color := tint
+	if node is CanvasItem:
+		if not node.is_visible_in_tree():
+			return
+		z = inherited_z + node.z_index if node.z_as_relative else node.z_index
+		color *= node.modulate
+	if node is Sprite2D:
+		var sprite := node as Sprite2D
+		if sprite.texture != null:
+			var local_rect := sprite.get_rect()
+			var source := sprite.region_rect if sprite.region_enabled else Rect2(Vector2.ZERO, sprite.texture.get_size())
+			_add_map_art(sprite.texture, local_rect, source, sprite.global_transform, z, color * sprite.self_modulate, sprite.flip_h, sprite.flip_v)
+	if node is TileMapLayer:
+		var layer := node as TileMapLayer
+		var tileset := layer.tile_set
+		if tileset != null:
+			# Identical atlas tiles share immutable metadata. Cache per layer so
+			# alternative tiles, flip flags and texture origins stay exact.
+			var metadata: Dictionary = {}
+			var layer_transform := layer.global_transform
+			var layer_tint := color * layer.self_modulate
+			for cell in layer.get_used_cells():
+				var source_id := layer.get_cell_source_id(cell)
+				var coords := layer.get_cell_atlas_coords(cell)
+				var key := Vector4i(source_id, coords.x, coords.y, layer.get_cell_alternative_tile(cell))
+				if not metadata.has(key):
+					if not tileset.has_source(source_id):
+						metadata[key] = []
+						continue
+					var atlas := tileset.get_source(source_id) as TileSetAtlasSource
+					if atlas == null or atlas.texture == null or not atlas.has_tile(coords):
+						metadata[key] = []
+						continue
+					var region := Rect2(atlas.get_tile_texture_region(coords))
+					var tile_data := layer.get_cell_tile_data(cell)
+					var origin := Vector2(tile_data.texture_origin) if tile_data != null else Vector2.ZERO
+					metadata[key] = [atlas.texture, region, origin - region.size * 0.5, z + (tile_data.z_index if tile_data != null else 0), tile_data.flip_h if tile_data != null else false, tile_data.flip_v if tile_data != null else false]
+				var cached: Array = metadata[key]
+				if cached.is_empty():
+					continue
+				var region: Rect2 = cached[1]
+				var local_rect := Rect2(layer.map_to_local(cell) + (cached[2] as Vector2), region.size)
+				_add_map_art(cached[0], local_rect, region, layer_transform, cached[3], layer_tint, cached[4], cached[5])
+	for child in node.get_children():
+		_collect_map_art(child, z, color)
+
+func _add_map_art(texture: Texture2D, local_rect: Rect2, source: Rect2, transform: Transform2D, z: int, tint: Color, flip_h: bool, flip_v: bool) -> void:
+	var bounds := transform * local_rect
+	if bounds.size.x <= 0 or bounds.size.y <= 0:
+		return
+	_zone_art.append([texture, bounds, local_rect, source, transform, z, tint, int(flip_h) | (int(flip_v) << 1)])
+	_zone_bounds = bounds if _zone_bounds.size == Vector2.ZERO else _zone_bounds.merge(bounds)
+
+func _on_graphics_quality_changed() -> void:
+	if is_instance_valid(_six_zone) and is_instance_valid(_art_viewport):
+		_build_cached_preview()
+		_canvas.queue_redraw()
+
+
+func _build_cached_preview() -> void:
+	if is_instance_valid(_art_viewport):
+		remove_child(_art_viewport)
+		_art_viewport.queue_free()
+		_art_viewport = null
+	if _zone_bounds.size.x <= 0 or _zone_bounds.size.y <= 0:
+		return
+	var preview_limit := GraphicsSettings.minimap_preview_limit(TouchInput.using_touch or OS.has_feature("mobile"))
+	_art_factor = minf(preview_limit / _zone_bounds.size.x, preview_limit / _zone_bounds.size.y)
+	_art_viewport = SubViewport.new()
+	_art_viewport.name = "CachedMapArtwork"
+	_art_viewport.size = Vector2i(ceil(_zone_bounds.size.x * _art_factor), ceil(_zone_bounds.size.y * _art_factor))
+	_art_viewport.transparent_bg = true
+	_art_viewport.disable_3d = true
+	_art_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	_art_viewport.world_2d = World2D.new()
+	add_child(_art_viewport)
+	_art_canvas = Node2D.new()
+	_art_canvas.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	_art_viewport.add_child(_art_canvas)
+	_art_canvas.draw.connect(_draw_cached_preview)
+
+func _draw_cached_preview() -> void:
+	var world_to_texture := Transform2D(Vector2(_art_factor, 0), Vector2(0, _art_factor), -_zone_bounds.position * _art_factor)
+	for art in _zone_art:
+		_art_canvas.draw_set_transform_matrix(world_to_texture * art[ArtField.TRANSFORM])
+		var dest: Rect2 = art[ArtField.DEST]
+		var flips: int = art[ArtField.FLIPS]
+		if flips & 1:
+			dest.size.x = -dest.size.x
+		if flips & 2:
+			dest.size.y = -dest.size.y
+		_art_canvas.draw_texture_rect_region(art[ArtField.TEXTURE], dest, art[ArtField.REGION], art[ArtField.TINT])
+	_art_canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
+
 func _draw_six_zone() -> void:
-	var player := get_tree().get_first_node_in_group("player") as Node2D
+	var player := _six_zone.get("checkpoint_player") as Node2D
 	if player == null:
 		return
 	var viewport_rect := Rect2(Vector2.ZERO, _canvas.size)
@@ -325,22 +444,37 @@ func _draw_six_zone() -> void:
 		focus = _zone_bounds.get_center()
 		factor = minf(viewport_rect.size.x / _zone_bounds.size.x, viewport_rect.size.y / _zone_bounds.size.y) * 0.96
 	_canvas.draw_rect(Rect2(Vector2.ZERO, _canvas.size), Color("#161321"))
-	var visible_world := Rect2(focus - viewport_rect.size / (2.0 * factor), viewport_rect.size / factor)
-	for art in _zone_art:
-		var r: Rect2 = art.rect
-		if not visible_world.intersects(r):
-			continue
-		var dest := Rect2(center + (r.position - focus) * factor, r.size * factor)
-		if art.region.size != Vector2.ZERO:
-			_canvas.draw_texture_rect_region(art.texture, dest, art.region)
-		else:
-			_canvas.draw_texture_rect(art.texture, dest, false)
+	if is_instance_valid(_art_viewport):
+		var dest := Rect2(center + (_zone_bounds.position - focus) * factor, _zone_bounds.size * factor)
+		_canvas.draw_texture_rect(_art_viewport.get_texture(), dest, false)
 	for npc in get_tree().get_nodes_in_group("world_minimap_npcs"):
 		if npc is Node2D and _six_zone.is_ancestor_of(npc):
 			var point: Vector2 = center + (npc.global_position - focus) * factor
 			if viewport_rect.has_point(point):
 				_canvas.draw_circle(point, 5.0, Color("#17101c"))
 				_canvas.draw_circle(point, 3.5, Color("#f1cd79"))
+	for target in get_tree().get_nodes_in_group("world_minimap_monsters"):
+		if target is Node2D and _six_zone.is_ancestor_of(target) and target.visible:
+			if "defeated" in target and target.defeated:
+				continue
+			var location: Vector2 = center + (target.global_position - focus) * factor
+			if viewport_rect.has_point(location):
+				var boss: bool = "is_boss" in target and target.is_boss
+				_canvas.draw_circle(location, 3.5 if boss else 2.0, Color("#ff8299") if boss else Color("#d68e59"))
+	var revienna := _six_zone.get_node_or_null("ReviennaEncounter") as Interactable
+	var in_expedition := not MultiplayerGateway.standalone_expedition_id.is_empty()
+	var finale_pending := not in_expedition and bool(GameState.quest_domain.flags.get("ravienna_ending_pending", false)) and not bool(GameState.quest_domain.flags.get("ravienna_ending_seen", false))
+	if revienna != null and (finale_pending or (not bool(revienna.get("defeated")) if in_expedition else not bool(GameState.quest_domain.flags.get("revienna_defeated", false)))):
+		var location: Vector2 = center + (revienna.global_position - focus) * factor
+		if viewport_rect.has_point(location):
+			_canvas.draw_circle(location, 5.0, Color("#261021"))
+			_canvas.draw_circle(location, 3.5, Color("#f1cd79") if finale_pending else Color("#ff8299"))
+	for waypoint in get_tree().get_nodes_in_group("world_minimap_waypoints"):
+		if waypoint is Node2D and _six_zone.is_ancestor_of(waypoint) and waypoint.visible:
+			var location: Vector2 = center + (waypoint.global_position - focus) * factor
+			if viewport_rect.has_point(location):
+				_canvas.draw_circle(location, 5.0, Color("#17101c"))
+				_canvas.draw_circle(location, 3.0, Color("#7fe3e0"))
 	var transfers := _six_zone.get_node_or_null("TransferPoints")
 	if transfers != null:
 		for marker in transfers.get_children():
@@ -354,7 +488,37 @@ func _draw_six_zone() -> void:
 				if viewport_rect.has_point(point):
 					_canvas.draw_circle(point, 5.0, Color("#21162b"))
 					_canvas.draw_arc(point, 4.0, 0, TAU, 16, Color("#e5b8ff"), 2.0)
+	# Both map modes use the same live chapter objective as the HUD.
+	var guidance: Dictionary = _six_zone.get_meta("chapter_navigation",{})
+	if bool(guidance.get("valid",false)) and not bool(player.get("network_recovery_paused")):
+		var objective := center + (Vector2(guidance.position) - focus) * factor
+		var inset := viewport_rect.grow(-10.0)
+		var shown := objective
+		if not inset.has_point(objective):
+			var direction_to_target := (objective-center).normalized()
+			var extent := inset.size*0.5
+			var reach := minf(extent.x/maxf(absf(direction_to_target.x),0.001),extent.y/maxf(absf(direction_to_target.y),0.001))
+			shown = center + direction_to_target*reach
+		_canvas.draw_circle(shown,7.0,Color("#17101c"))
+		_canvas.draw_colored_polygon(PackedVector2Array([shown+Vector2(0,-6),shown+Vector2(6,0),shown+Vector2(0,6),shown+Vector2(-6,0)]),Color("#7fe3e0") if not MultiplayerGateway.standalone_expedition_id.is_empty() else Color("#ffe08a"))
 	var point := center + (player.global_position - focus) * factor
 	var direction := Vector2.from_angle(_player_facing)
+	if "facing_direction" in player and player.facing_direction.length_squared() > 0.01:
+		direction = player.facing_direction.normalized()
 	_canvas.draw_circle(point, 6.0, Color("#17101c"))
 	_canvas.draw_colored_polygon(PackedVector2Array([point + direction * 7.0, point - direction * 4.0 + direction.orthogonal() * 4.0, point - direction * 4.0 - direction.orthogonal() * 4.0]), Color.WHITE)
+
+func _open_fast_travel() -> void:
+	if is_instance_valid(_six_zone):
+		var binding := _six_zone.get_node_or_null("ZoneUIBinding")
+		if binding != null:
+			binding._open_screen("map")
+
+func _layout_top_controls() -> void:
+	if not is_instance_valid(_collapse_button) or not is_instance_valid(_expand_button):
+		return
+	if _collapsed:
+		_collapse_button.position = Vector2(size.x - 24.0, 2.0)
+	else:
+		_collapse_button.position = Vector2(size.x - 68.0, 4.0)
+		_expand_button.position = Vector2(size.x - 44.0, 4.0)

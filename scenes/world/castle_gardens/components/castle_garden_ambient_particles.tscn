@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/rose_petal_particle.png" id="1_petal"]
 
-[node name="GardenAmbientParticles" type="CPUParticles2D"]
+[node name="GardenAmbientParticles" type="CPUParticles2D" groups=["optional_ambient_fx"]]
 texture = ExtResource("1_petal")
 amount = 54
 lifetime = 7.0

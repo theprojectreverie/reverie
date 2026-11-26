@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/combat/presentation/boss_phase_cue.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/battle/panels/battle_dialogue_panel.png" id="2_frame"]
 [ext_resource type="Texture2D" path="res://assets/ui/battle/panels/sliced/boss_emblem_crest.png" id="4_matron_crest"]
 [ext_resource type="Texture2D" path="res://assets/ui/battle/boss/elder_hollow_root_crest.png" id="5_root_crest"]
+
+[ext_resource type="Texture2D" path="res://assets/portraits/summon/ravienna.png" id="6_ravienna"]
 
 [sub_resource type="Animation" id="Animation_phase_change"]
 resource_name = "phase_change"
@@ -103,6 +105,15 @@ visible = false
 custom_minimum_size = Vector2(220, 152)
 layout_mode = 2
 texture = ExtResource("4_matron_crest")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="RaviennaCrest" type="TextureRect" parent="PhasePanel/Content"]
+visible = false
+custom_minimum_size = Vector2(172, 152)
+layout_mode = 2
+texture = ExtResource("6_ravienna")
 expand_mode = 1
 stretch_mode = 5
 mouse_filter = 2

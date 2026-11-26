@@ -16,6 +16,26 @@ static func choose(engine: CombatEngine, actor_index: int) -> Dictionary:
 	var best: Dictionary = { "skill_id": "", "targets": [], "score": -INF }
 	var lowest_ally := _lowest_health(allies)
 	var lowest_enemy := _lowest_health(enemies)
+	# Village Gerald is a restrained Titan, not a support-buff loop.
+	# Prioritize the charged ultimate, otherwise use his authored flame strike.
+	if actor.def_id == "gerald_boss" and actor.ultimate == "gerald_village_earthquake":
+		var chosen := actor.ultimate if actor.ultimate_ready() and not actor.is_skill_on_cooldown(actor.ultimate) else "gerald_village_flame"
+		if not actor.is_skill_on_cooldown(chosen):
+			return {"skill_id": chosen, "targets": [lowest_enemy.combat_index], "score": 1000.0}
+
+	if actor.def_id == "revienna_boss" and actor.ultimate == "ravienna_eclipse" and actor.ultimate_ready() and not actor.is_skill_on_cooldown(actor.ultimate):
+		return {"skill_id": actor.ultimate, "targets": _indices_of(enemies), "score": 1000.0}
+
+	# Cassien tests the party's resolve: alternate distinct strikes, then spend a full charge.
+	# No turn counters are mutated by AI queries (intent previews call choose too).
+	if actor.def_id == "cassien_boss" and actor.ultimate == "cassien_crimson_requiem":
+		if actor.ultimate_ready() and not actor.is_skill_on_cooldown(actor.ultimate):
+			return {"skill_id": actor.ultimate, "targets": [lowest_enemy.combat_index], "score": 1000.0}
+		var rotation := ["cassien_sword_slash", "cassien_heavy_cleave", "cassien_crimson_crescent", "cassien_crimson_crescent"]
+		for offset in range(rotation.size()):
+			var chosen: String = rotation[(engine.round_number - 1 + offset) % rotation.size()]
+			if chosen in actor.skills and not actor.is_skill_on_cooldown(chosen):
+				return {"skill_id": chosen, "targets": [lowest_enemy.combat_index], "score": 1000.0}
 
 	var candidates: Array = actor.skills.duplicate()
 	if actor.ultimate_ready() and not actor.ultimate.is_empty():
@@ -95,7 +115,7 @@ static func _damage_score(engine: CombatEngine, actor: Combatant, skill: SkillDe
 	var element := ElementTable.multiplier(skill.element, target.element)
 	var scaling_value := CombatSkillResolver.effective_scaling_value(actor, skill.scaling_stat)
 	var defense := engine.unit_defense(target)
-	var estimate := skill.power * (scaling_value / (scaling_value + defense)) * element
+	var estimate := skill.power * actor.skill_power_multiplier(skill.id) * (scaling_value / (scaling_value + defense)) * element
 	estimate *= 1.0 + (1.0 - target.hp_ratio()) * 0.3
 	# Prefer finishing blows.
 	if estimate >= target.hp:

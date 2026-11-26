@@ -9,6 +9,7 @@ var host: Control
 var menu: MainMenu
 var loading: LoadingScreen
 var intro: Node
+var _account_start_pending := false
 
 func bind(owner: Control, startup: MainStartupFlowComponent) -> void:
 	host = owner
@@ -16,6 +17,10 @@ func bind(owner: Control, startup: MainStartupFlowComponent) -> void:
 	startup.new_journey_requested.connect(_start_new_journey)
 
 func _start_new_journey() -> void:
+	if not await AuthGateway.refresh_account_roster():
+		# Return to account-required title rather than starting with an empty party.
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
+		return
 	if menu != null and is_instance_valid(menu):
 		menu.queue_free()
 		menu = null
@@ -33,18 +38,25 @@ func _on_menu_ready(ready_menu: MainMenu) -> void:
 	menu.quit_requested.connect(quit_requested.emit)
 
 func _start_game() -> void:
+	if _account_start_pending:
+		return
 	if not AuthGateway.is_authenticated():
 		if is_instance_valid(menu):
 			menu._open_profile_account()
 		return
-	# The main-menu Story entry is the direct gateway into the authored,
-	# explorable Castle & Royal Gardens world. Keep both region selectors in
-	# sync because GameScreen initially builds from player_region.
-	GameState.session_domain.set_player_region("castle_royal_gardens")
-	GameState.session_domain.set_active_world("castle_royal_gardens")
+	_account_start_pending = true
+	var ready := await AuthGateway.refresh_account_roster()
+	_account_start_pending = false
+	if not ready or not AuthGateway.is_authenticated():
+		EventBus.toast_requested.emit("Account connection unavailable. Reconnect before playing.")
+		return
+	# A completed tutorial resumes the saved world without rewriting its region
+	# while the destination is still loading.
 	if bool(GameState.quest_domain.flags.get("tutorial_complete", false)):
 		_load_gameplay()
 		return
+	GameState.session_domain.set_player_region("castle_royal_gardens")
+	GameState.session_domain.set_active_world("castle_royal_gardens")
 	if GameState.session_domain.loaded_from_save:
 		_load_tutorial()
 		return

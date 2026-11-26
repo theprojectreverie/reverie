@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/garden_stone_path.tscn" id="stone"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/tilemaps/05_forsaken_connector_tilemap.tscn" id="editable_ground_map"]
+
+[node name="StoneRoadSixWideTenLong" type="Node2D"]
+
+[node name="RoadTiles" type="Node2D" parent="."]
+z_index = -19
+
+[node name="EditableTileMap" parent="RoadTiles" instance=ExtResource("editable_ground_map")]
+
+[node name="TransitionEnd" type="Marker2D" parent="."]
+position = Vector2(288, 224)
+

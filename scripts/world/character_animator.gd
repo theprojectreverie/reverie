@@ -82,6 +82,7 @@ signal one_shot_finished(state: int)
 signal transitioned(from_state: int, to_state: int, direction: int)
 
 var kael_combat_frames := false
+var gerald_fallen_frames := false
 var state: int = 0
 var direction: int = 0
 var frame: int = 0
@@ -239,6 +240,8 @@ func is_looping() -> bool:
 
 ## Number of frames for the current state (always >= 1).
 func frame_count() -> int:
+	if gerald_fallen_frames:
+		return [4,16,16,4,16,8,4,14,16][state]
 	if kael_combat_frames and state in [State.ATTACK, State.DAMAGE]:
 		return 8 if state == State.ATTACK else 4
 	return maxi(1, frame_count_for(state))
@@ -247,6 +250,8 @@ func frame_count() -> int:
 ## Nominal playback rate (fps) for the current state, before speed_scale.
 ## Guarded: a non-positive / non-finite value is treated as 1.0.
 func fps() -> float:
+	if gerald_fallen_frames:
+		return [4.0,12.0,16.0,4.0,10.0,10.0,4.0,10.0,10.0][state]
 	if kael_combat_frames and state == State.IDLE:
 		return 6.0
 	var base := 12.0 if kael_combat_frames and state in [State.ATTACK, State.DAMAGE] else fps_for(state)

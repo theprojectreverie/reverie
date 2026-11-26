@@ -3,6 +3,7 @@ extends Node
 ## Owns the always-on party roster presentation.
 
 var hud: HUD
+var _party_signature: Array = []
 
 func bind(owner: HUD) -> void:
 	hud = owner
@@ -10,10 +11,17 @@ func bind(owner: HUD) -> void:
 func refresh_party() -> void:
 	if hud == null or hud._party_box == null:
 		return
+	var instances := GameState.roster_domain.party_instances()
+	var signature: Array = [instances.size()]
+	for instance in instances:
+		signature.append([instance.uid, instance.char_id, instance.level])
+	if signature == _party_signature:
+		return
+	_party_signature = signature
 	for child in hud._party_box.get_children():
 		if child != hud._party_empty_label:
+			hud._party_box.remove_child(child)
 			child.queue_free()
-	var instances := GameState.roster_domain.party_instances()
 	hud._party_empty_label.visible = instances.is_empty()
 	if instances.is_empty():
 		return

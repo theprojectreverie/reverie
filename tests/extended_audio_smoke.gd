@@ -59,5 +59,6 @@ func _run() -> void:
 		failures += 1
 		push_error("Region ambience leaks into title")
 	audio.stop_all_audio_immediately()
+	await create_timer(0.35).timeout
 	print("EXTENDED AUDIO: %d assets checked, %d failures" % [checked, failures])
 	quit(failures)

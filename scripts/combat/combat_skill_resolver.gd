@@ -18,7 +18,7 @@ func apply_skill(actor: Combatant, skill: SkillDef, target: Combatant) -> Array:
 		"damage":
 			events.append_array(deal_damage(actor, skill, target))
 		"heal":
-			var amount := target.max_hp * skill.power / 100.0
+			var amount := target.max_hp * skill.power * actor.skill_power_multiplier(skill.id) / 100.0
 			var healed := target.heal(amount)
 			if skill.cleanse:
 				target.cleanse()
@@ -57,7 +57,7 @@ func apply_skill(actor: Combatant, skill: SkillDef, target: Combatant) -> Array:
 					actor.display_name, int(PassiveEffects.DAWNKEEPER_ENERGY)
 				])
 		"shield":
-			var shield_amount := target.max_hp * skill.power / 100.0
+			var shield_amount := target.max_hp * skill.power * actor.skill_power_multiplier(skill.id) / 100.0
 			target.shield += shield_amount
 			events.append({
 				"type": "shield",
@@ -80,7 +80,10 @@ func apply_skill(actor: Combatant, skill: SkillDef, target: Combatant) -> Array:
 		var chance := float(status_data.get("chance", 1.0))
 		if engine.rng.randf() < chance:
 			var status_id := str(status_data.get("id", ""))
-			target.apply_status(status_id, int(status_data.get("turns", 1)), float(status_data.get("potency", 0.0)))
+			var potency := float(status_data.get("potency", 0.0))
+			if skill.kind in ["buff", "debuff"] and status_id in ["atk_up", "atk_down", "def_up", "def_down", "spd_up", "spd_down", "regen", "burn", "poison", "shield"]:
+				potency *= actor.skill_power_multiplier(skill.id)
+			target.apply_status(status_id, int(status_data.get("turns", 1)), potency)
 			events.append({
 				"type": "status",
 				"target_uid": target.uid,
@@ -128,7 +131,7 @@ func deal_damage(actor: Combatant, skill: SkillDef, target: Combatant) -> Array:
 	var element_mult := ElementTable.multiplier(skill.element, target.element)
 	var scaling_value := effective_scaling_value(actor, skill.scaling_stat)
 	var defense: float = float(engine.unit_defense(target))
-	var raw: float = skill.power * (scaling_value / (scaling_value + defense)) * engine.DAMAGE_SCALE
+	var raw: float = skill.power * actor.skill_power_multiplier(skill.id) * (scaling_value / (scaling_value + defense)) * engine.DAMAGE_SCALE
 	raw *= element_mult
 	raw *= engine.outgoing_multiplier(actor, skill.element, target)
 	raw *= engine.rng.randf_range(0.95, 1.05)
@@ -189,6 +192,8 @@ func deal_damage(actor: Combatant, skill: SkillDef, target: Combatant) -> Array:
 			events.append({
 				"type": "heal",
 				"status": "lifesteal",
+				"actor_uid": actor.uid,
+				"skill_id": skill.id,
 				"target_uid": actor.uid,
 				"target_name": actor.display_name,
 				"amount": int(round(healed)),

@@ -27,7 +27,11 @@ const ANIM_WALK := 1
 const ANIM_RUN := 2
 const GLOW_INTERVAL := 0.25
 
-var input_enabled: bool = true
+var input_enabled: bool = true:
+	set(value):
+		if input_enabled and not value:
+			TouchInput.release()
+		input_enabled = value
 ## Network recovery pauses movement without overriding menu/combat input ownership.
 var network_recovery_paused: bool = false
 var visual: ActorVisual
@@ -45,6 +49,8 @@ var facing_direction: Vector2 = Vector2(0.0, 1.0)
 
 
 func set_network_recovery_paused(paused: bool) -> void:
+	if paused and not network_recovery_paused:
+		TouchInput.release()
 	network_recovery_paused = paused
 
 

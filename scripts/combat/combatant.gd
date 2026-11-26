@@ -26,6 +26,7 @@ var shield: float = 0.0
 var defending: bool = false
 
 var skills: Array = []
+var skill_levels: Dictionary = {}
 var ultimate: String = ""
 var passive_id: String = ""
 var equipment_element: String = ""
@@ -36,6 +37,14 @@ var triggered_phases: Array = []
 
 var statuses: Array = []             # [{id, turns, potency}]
 var skill_cooldowns: Dictionary = {}  # skill_id -> turns remaining (plus active-turn offset)
+
+
+func skill_level(skill_id: String) -> int:
+	return clampi(int(skill_levels.get(skill_id, 1)), 1, CharacterInstance.MAX_SKILL_LEVEL)
+
+
+func skill_power_multiplier(skill_id: String) -> float:
+	return 1.0 + 0.05 * (skill_level(skill_id) - 1)
 
 
 func is_alive() -> bool:

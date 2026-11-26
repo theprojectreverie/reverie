@@ -52,7 +52,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Embers" type="CPUParticles2D" parent="."]
+[node name="Embers" type="CPUParticles2D" parent="." groups=["optional_ambient_fx"]]
 position = Vector2(640, 396)
 amount = 22
 lifetime = 7.0

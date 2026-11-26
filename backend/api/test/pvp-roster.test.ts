@@ -113,9 +113,19 @@ test("applies persisted equipment enhancement levels and reroll stat bonuses",()
  assert.equal(result.units[0]!.speed,12+4*1.16);
 });
 test("rejects invalid persisted enhancement and reroll values",()=>{
- assert.deepEqual(buildPvpRoster("p",1,[{...owned,equipment:[{slot:"weapon",item_id:"gladewood_bow",enhancement_level:6}]}],contentData),{ok:false,reason:"equipment_content_invalid"});
+ assert.deepEqual(buildPvpRoster("p",1,[{...owned,equipment:[{slot:"weapon",item_id:"gladewood_bow",enhancement_level:7}]}],contentData),{ok:false,reason:"equipment_content_invalid"});
  assert.deepEqual(buildPvpRoster("p",1,[{...owned,equipment:[{slot:"weapon",item_id:"gladewood_bow",reroll_stat:"gold",reroll_value:1}]}],contentData),{ok:false,reason:"equipment_content_invalid"});
 });
 test("Whisperstep applies its team speed aura when selecting the opening player",()=>{const whisperContent={...contentData,characters:{...contentData.characters,kael:{...contentData.characters.kael,passive:{id:"whisperstep"}},other:{...contentData.characters.kael,base:{...contentData.characters.kael!.base,spd:12.5},passive:undefined}}};const a=buildPvpRoster("p1",1,[owned],whisperContent);const b=buildPvpRoster("p2",2,[{...owned,id:"owned-2",char_id:"other"}],whisperContent);assert.equal(a.ok,true);assert.equal(b.ok,true);if(!a.ok||!b.ok)return;const state=createInitialPvpState("match-whisper",7,{playerId:"p1",team:1,units:a.units},{playerId:"p2",team:2,units:b.units});assert.equal(state?.turnPlayerId,"p1");});
 
 test("Small Miracles grants one team-wide battle-start bonus even with multiple holders",()=>{const a=buildPvpRoster("p1",1,[owned,{...owned,id:"owned-a2",char_id:"other"}],{...contentData,characters:{...contentData.characters,other:{...contentData.characters.kael,passive:{id:"small_miracles"}}}});const b=buildPvpRoster("p2",2,[{...owned,id:"owned-b"}],contentData);assert.equal(a.ok,true);assert.equal(b.ok,true);if(!a.ok||!b.ok)return;a.units[0]!.passiveId="small_miracles";const state=createInitialPvpState("match-small-miracles",9,{playerId:"p1",team:1,units:a.units},{playerId:"p2",team:2,units:b.units});assert.ok(state);assert.deepEqual(state!.units.map(u=>u.energy),[10,10,0]);});
+
+test("optional authored growth mirrors Godot zero-growth defaults",()=>{
+ const {growth,...definition}=contentData.characters.kael!;
+ const character={...owned,level:2};
+ const omitted=buildPvpRoster("p",1,[character],{...contentData,characters:{kael:definition}});
+ const empty=buildPvpRoster("p",1,[character],{...contentData,characters:{kael:{...definition,growth:{}}}});
+ assert.ok(omitted.ok);
+ assert.deepEqual(omitted,empty);
+ assert.deepEqual(buildPvpRoster("p",1,[character],{...contentData,characters:{kael:{...definition,growth:[]}}}),{ok:false,reason:"character_content_missing"});
+});

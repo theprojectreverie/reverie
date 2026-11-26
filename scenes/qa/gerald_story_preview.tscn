@@ -1,0 +1,142 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/qa/gerald_story_preview.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="2"]
+[ext_resource type="Texture2D" path="res://assets/cinematics/gerald_story/fallen_guardian/01_Ashes of a Burning Village.png" id="3"]
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.025, 0.025, 0.045, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.66, 0.49, 0.27, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 28.0
+content_margin_right = 28.0
+content_margin_top = 24.0
+content_margin_bottom = 24.0
+
+[node name="GeraldStoryPreview" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.015, 0.012, 0.025, 0.72)
+
+[node name="Menu" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.0
+offset_top = -230.0
+offset_right = 310.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="Content" type="VBoxContainer" parent="Menu"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Eyebrow" type="Label" parent="Menu/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.62, 0.36, 1)
+theme_override_font_sizes/font_size = 16
+text = "REVERIE  /  DEVELOPMENT PREVIEW"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Menu/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "The Fallen Guardian"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Menu/Content"]
+layout_mode = 2
+text = "Gerald & Lilith's memories"
+horizontal_alignment = 1
+
+[node name="Before" type="Button" parent="Menu/Content"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+text = "I  |  Before the Fall - with music"
+
+[node name="After" type="Button" parent="Menu/Content"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+text = "II  |  After the Fall - with music"
+
+[node name="Full" type="Button" parent="Menu/Content"]
+custom_minimum_size = Vector2(0, 66)
+layout_mode = 2
+text = "Full story - all post-battle dialogues"
+
+[node name="Notice" type="Label" parent="Menu/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Read-only preview. No combat, rewards or save changes."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Playback" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Dialogue" parent="." instance=ExtResource("2")]
+z_index = 100
+
+[node name="Status" type="Label" parent="."]
+visible = false
+z_index = 200
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 520.0
+offset_bottom = 54.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 17
+
+[node name="ReturnButton" type="Button" parent="."]
+visible = false
+z_index = 200
+layout_mode = 1
+offset_left = 24.0
+offset_top = 62.0
+offset_right = 234.0
+offset_bottom = 108.0
+text = "Return to Preview"

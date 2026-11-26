@@ -3,13 +3,14 @@ import argon2 from "argon2";
 import {createHash,randomBytes} from "node:crypto";
 import {z} from "zod";
 import {pool} from "../db.js";
+import {ownedProfilePicture} from "./social.js";
 import {config,localDevelopmentRegistration} from "../config.js";
 
 const registerBody=z.object({email:z.string().trim().email().max(254),password:z.string().min(localDevelopmentRegistration ? 8 : 12).max(128),playerName:z.string().trim().min(3).max(20).regex(/^[A-Za-z0-9_]+$/)});
 const loginBody=z.object({playerName:z.string().trim().min(3).max(20).regex(/^[A-Za-z0-9_]+$/).optional(),email:z.string().trim().email().max(254).optional(),password:z.string().min(1).max(128)}).refine(v=>Boolean(v.playerName || v.email));
 const verifyBody=z.object({token:z.string().min(32).max(200)});
 const refreshBody=z.object({refreshToken:z.string().min(32).max(200)});
-type AccountRow={id:string;status:string;password_hash:string;player_id:string;player_name:string;token_version:number};
+type AccountRow={id:string;status:string;password_hash:string;player_id:string;player_name:string;avatar?:string;token_version:number};
 const hashToken=(value:string)=>createHash("sha256").update(value).digest("hex");
 const newToken=()=>randomBytes(48).toString("base64url");
 const issueAccess=(app:any,row:AccountRow)=>app.jwt.sign({sub:row.id,playerId:row.player_id,playerName:row.player_name,tokenVersion:row.token_version});
@@ -19,6 +20,17 @@ export const authRoutes:FastifyPluginAsync=async app=>{
   reply.header("Cache-Control","no-store, max-age=0");
   reply.header("Pragma","no-cache");
   return payload;
+ });
+ app.get("/wallet",async(req,reply)=>{
+  try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}
+  const claims=req.user as {sub?:string;playerId?:string;tokenVersion?:number};
+  if(!claims.sub||!claims.playerId||!Number.isInteger(claims.tokenVersion))return reply.code(401).send({error:"authentication_required"});
+  const q=await pool.query(`SELECT p.id,p.xp::text,COALESCE((SELECT balance FROM player_currencies WHERE player_id=p.id AND currency_id='gold'),0)::text AS gold,
+   COALESCE((SELECT jsonb_object_agg(item_id,quantity::text) FROM inventory_items WHERE player_id=p.id AND quantity>0),'{}'::jsonb) AS items,
+   COALESCE((SELECT jsonb_object_agg(currency_id,balance::text) FROM player_currencies WHERE player_id=p.id),'{}'::jsonb) AS currencies
+   FROM players p JOIN accounts a ON a.id=p.account_id WHERE a.id=$1 AND p.id=$2 AND a.status='active' AND a.token_version=$3`,[claims.sub,claims.playerId,claims.tokenVersion]);
+  if(!q.rows[0])return reply.code(401).send({error:"session_revoked"});
+  return {playerId:q.rows[0].id,gold:q.rows[0].gold,xp:q.rows[0].xp,currencies:q.rows[0].currencies,items:q.rows[0].items};
  });
  app.post("/register",{config:{rateLimit:{max:5,timeWindow:"1 hour"}}},async(req,reply)=>{
   const parsed=registerBody.safeParse(req.body);
@@ -60,7 +72,7 @@ export const authRoutes:FastifyPluginAsync=async app=>{
 
  app.post("/login",{config:{rateLimit:{max:8,timeWindow:"15 minutes"}}},async(req,reply)=>{
   const parsed=loginBody.safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:"invalid_credentials"});
-  const q=await pool.query<AccountRow>("SELECT a.id,a.status,a.password_hash,a.token_version,p.id AS player_id,p.name AS player_name FROM accounts a JOIN players p ON p.account_id=a.id WHERE (CASE WHEN $2::boolean THEN lower(p.name)=lower($1) ELSE lower(a.email)=lower($1) END) LIMIT 2",[parsed.data.playerName ?? parsed.data.email,Boolean(parsed.data.playerName)]);
+  const q=await pool.query<AccountRow>("SELECT a.id,a.status,a.password_hash,a.token_version,p.id AS player_id,p.name AS player_name,p.settings->>'profile_picture' AS avatar FROM accounts a JOIN players p ON p.account_id=a.id WHERE (CASE WHEN $2::boolean THEN lower(p.name)=lower($1) ELSE lower(a.email)=lower($1) END) LIMIT 2",[parsed.data.playerName ?? parsed.data.email,Boolean(parsed.data.playerName)]);
   const row=q.rows.length===1?q.rows[0]:undefined;const valid=row?await argon2.verify(row.password_hash,parsed.data.password).catch(()=>false):false;
   if(!row||!valid||row.status!=="active")return reply.code(401).send({error:"invalid_credentials"});
   const verified=await pool.query<{email_verified:boolean}>("SELECT email_verified FROM accounts WHERE id=$1",[row.id]);
@@ -83,7 +95,7 @@ export const authRoutes:FastifyPluginAsync=async app=>{
    await client.query("COMMIT");
   }catch(e){await client.query("ROLLBACK");req.log.error(e);return reply.code(500).send({error:"login_failed"});}
   finally{client.release();}
-  return{accessToken:issueAccess(app,row),refreshToken,tokenType:"Bearer",expiresIn:config.ACCESS_TOKEN_TTL_SECONDS,player:{id:row.player_id,name:row.player_name}};
+  return{accessToken:issueAccess(app,row),refreshToken,tokenType:"Bearer",expiresIn:config.ACCESS_TOKEN_TTL_SECONDS,player:{id:row.player_id,name:row.player_name,avatar:await ownedProfilePicture(row.player_id,row.avatar)}};
  });
 
  app.post("/refresh",{config:{rateLimit:{max:20,timeWindow:"15 minutes"}}},async(req,reply)=>{
@@ -102,7 +114,7 @@ export const authRoutes:FastifyPluginAsync=async app=>{
    const account=await client.query<{status:string;token_version:number}>(
     "SELECT status,token_version FROM accounts WHERE id=$1 FOR UPDATE",[accountId]);
    const q=await client.query<AccountRow & {session_id:string}>(
-    "SELECT s.id AS session_id,a.id,a.status,a.password_hash,a.token_version,p.id AS player_id,p.name AS player_name FROM account_sessions s JOIN accounts a ON a.id=s.account_id JOIN players p ON p.account_id=a.id WHERE s.refresh_token_hash=$1 AND s.account_id=$2 AND s.revoked_at IS NULL AND s.expires_at>now() FOR UPDATE OF s",
+    "SELECT s.id AS session_id,a.id,a.status,a.password_hash,a.token_version,p.id AS player_id,p.name AS player_name,p.settings->>'profile_picture' AS avatar FROM account_sessions s JOIN accounts a ON a.id=s.account_id JOIN players p ON p.account_id=a.id WHERE s.refresh_token_hash=$1 AND s.account_id=$2 AND s.revoked_at IS NULL AND s.expires_at>now() FOR UPDATE OF s",
     [tokenHash,accountId]);
    const row=q.rows[0];
    if(!row||account.rows[0]?.status!=="active"||row.status!=="active"){
@@ -112,7 +124,7 @@ export const authRoutes:FastifyPluginAsync=async app=>{
    await client.query("UPDATE account_sessions SET revoked_at=now(),last_used_at=now() WHERE id=$1",[row.session_id]);
    await client.query("INSERT INTO account_sessions(account_id,refresh_token_hash,expires_at) VALUES($1,$2,now()+interval '30 days')",[row.id,hashToken(nextToken)]);
    await client.query("COMMIT");
-   return{accessToken:issueAccess(app,row),refreshToken:nextToken,tokenType:"Bearer",expiresIn:config.ACCESS_TOKEN_TTL_SECONDS,player:{id:row.player_id,name:row.player_name}};
+   return{accessToken:issueAccess(app,row),refreshToken:nextToken,tokenType:"Bearer",expiresIn:config.ACCESS_TOKEN_TTL_SECONDS,player:{id:row.player_id,name:row.player_name,avatar:await ownedProfilePicture(row.player_id,row.avatar)}};
   }catch(e){await client.query("ROLLBACK");req.log.error(e);return reply.code(500).send({error:"session_refresh_failed"});}
   finally{client.release();}
  });

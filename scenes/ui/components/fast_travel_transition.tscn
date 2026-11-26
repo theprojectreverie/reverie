@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/components/fast_travel_transition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/components/loading_resource_component.gd" id="2_loader"]
+
+[sub_resource type="Animation" id="depart"]
+resource_name = "depart"
+length = 0.32
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cover:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.32), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]}
+
+[sub_resource type="Animation" id="arrive"]
+resource_name = "arrive"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cover:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.12, 0.5), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+
+[sub_resource type="AnimationLibrary" id="library"]
+_data = {&"depart": SubResource("depart"), &"arrive": SubResource("arrive")}
+
+[node name="FastTravelTransition" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1")
+
+[node name="Cover" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.045, 0.025, 0.085, 1)
+modulate = Color(1, 1, 1, 0)
+
+[node name="Destination" type="Label" parent="Cover"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.96, 0.84, 0.59, 1)
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "Travelling"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {"": SubResource("library")}
+
+[node name="ResourceLoader" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_loader")
+minimum_display_seconds = 0.0

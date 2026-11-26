@@ -1,0 +1,1 @@
+Each directional strip: 512 x 128, four 128 x 128 RGBA frames, left to right. Combined sheet: 512 x 512; rows front, right, back, left. Suggested frame durations (ms): 350, 260, 100, 350. Import with nearest-neighbor filtering. No Godot import performed.

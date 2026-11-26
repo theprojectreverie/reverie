@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/village/imported_village/village_playable.tscn" id="1_village_playable"]
+
+[node name="Village" type="Node2D"]
+
+[node name="VillagePlayable" parent="." instance=ExtResource("1_village_playable")]
+
+[editable path="VillagePlayable"]

@@ -1,8 +1,9 @@
+import {ascendedBonds} from "./summon.js";
 import type {PvpSkill,PvpState,PvpUnit} from "./pvp.js";
 
 type JsonRecord=Record<string,unknown>;
 export type OwnedPvpCharacter={
- id:string;char_id:string;level:number;ascension:number;awakening:number;bond:number;
+ id:string;char_id:string;level:number;ascension:number;awakening:number;bond:number;skill_levels?:Record<string,number>;
  equipment?:Array<{slot:string;item_id:string;enhancement_level?:number;reroll_stat?:string|null;reroll_value?:number}>;
 };
 export type PvpRosterContent={characters:Record<string,JsonRecord>;skills:Record<string,JsonRecord>;items:Record<string,JsonRecord>};
@@ -86,7 +87,8 @@ export function buildPvpRoster(ownerId:string,team:1|2,owned:OwnedPvpCharacter[]
   if(!instance.id||!instance.char_id||seen.has(instance.id))return {ok:false,reason:"owned_character_invalid"};
   seen.add(instance.id);
   const definition=content.characters[instance.char_id];
-  if(!record(definition)||!record(definition.base)||!record(definition.growth))return {ok:false,reason:"character_content_missing"};
+  if(!record(definition)||!record(definition.base)||(definition.growth!==undefined&&!record(definition.growth)))return {ok:false,reason:"character_content_missing"};
+  if(["common","rare","epic"].includes(String(definition.rarity))&&!["kael","gerald","lilith"].includes(instance.char_id))return {ok:false,reason:"character_not_playable"};
   const level=Math.max(1,Math.min(20*(Math.max(0,Math.min(3,Math.trunc(instance.ascension)))+1),Math.trunc(instance.level)));
   const ascension=Math.max(0,Math.min(3,Math.trunc(instance.ascension)));
   const awakening=Math.max(0,Math.min(5,Math.trunc(instance.awakening)));
@@ -101,7 +103,7 @@ export function buildPvpRoster(ownerId:string,team:1|2,owned:OwnedPvpCharacter[]
    crit_dmg:effectiveStat(definition,"crit_dmg",level,ascension)
   };
   const equipment=Array.isArray(instance.equipment)?instance.equipment:[];
-  if(equipment.length>3||equipment.some(e=>!record(e)||!SLOTS.includes(e.slot as typeof SLOTS[number])||typeof e.item_id!=="string"||!e.item_id.trim()||!Number.isInteger(e.enhancement_level??0)||Number(e.enhancement_level??0)<0||Number(e.enhancement_level??0)>5||(e.reroll_stat!==undefined&&e.reroll_stat!==null&&![ "hp","atk","def","spd","crit","crit_dmg" ].includes(String(e.reroll_stat)))||(e.reroll_value!==undefined&&(!Number.isFinite(Number(e.reroll_value))||Number(e.reroll_value)<0||Number(e.reroll_value)>10000))||(e.reroll_stat!=null&&e.reroll_value===undefined))||
+  if(equipment.length>3||equipment.some(e=>!record(e)||!SLOTS.includes(e.slot as typeof SLOTS[number])||typeof e.item_id!=="string"||!e.item_id.trim()||!Number.isInteger(e.enhancement_level??0)||Number(e.enhancement_level??0)<0||Number(e.enhancement_level??0)>8||(e.reroll_stat!==undefined&&e.reroll_stat!==null&&![ "hp","atk","def","spd","crit","crit_dmg" ].includes(String(e.reroll_stat)))||(e.reroll_value!==undefined&&(!Number.isFinite(Number(e.reroll_value))||Number(e.reroll_value)<0||Number(e.reroll_value)>10000))||(e.reroll_stat!=null&&e.reroll_value===undefined))||
    new Set(equipment.map(e=>e.slot)).size!==equipment.length)return {ok:false,reason:"equipment_content_invalid"};
   const equipped=new Map(equipment.map(e=>[e.slot,e.item_id]));
   const sets:Record<string,number>={};
@@ -115,6 +117,8 @@ export function buildPvpRoster(ownerId:string,team:1|2,owned:OwnedPvpCharacter[]
    if(!equipmentElement&&typeof item.element==="string"&&item.element!=="neutral")equipmentElement=item.element;
    const itemStats=record(item.stats)?item.stats:{};
    const equippedEntry=equipment.find(e=>e.slot===slot);
+   const cap=({common:3,uncommon:4,rare:5,epic:6,legendary:7,mythic:8} as Record<string,number>)[String(item.rarity??"common")]??5;
+   if((equippedEntry?.enhancement_level??0)>cap)return {ok:false,reason:"equipment_content_invalid"};
    const enhancement=1+0.08*(equippedEntry?.enhancement_level??0);
    for(const key of ["hp","atk","def","spd","crit","crit_dmg"])stats[key]=finite(stats[key])+finite(itemStats[key])*enhancement;
    if(equippedEntry?.reroll_stat)stats[equippedEntry.reroll_stat]=finite(stats[equippedEntry.reroll_stat])+finite(equippedEntry.reroll_value);
@@ -136,13 +140,23 @@ export function buildPvpRoster(ownerId:string,team:1|2,owned:OwnedPvpCharacter[]
    if(!parsed)return {ok:false,reason:"skill_content_invalid"};
    skillbook[id]=parsed;
   }
+  const skillLevels=instance.skill_levels??{};
+  if(!record(skillLevels)||Object.entries(skillLevels).some(([id,n])=>![...skillIds,ultimateId].includes(id)||!Number.isInteger(n)||Number(n)<1||Number(n)>5))return {ok:false,reason:"skill_levels_invalid"};
   units.push({
    uid:"p_"+instance.id,ownerId,team,charId:instance.char_id,
    element:equipmentElement||String(definition.element??"neutral"),
    maxHp:stats.hp??0,hp:stats.hp??0,atk:stats.atk??0,defense:stats.def??0,speed:stats.spd??0,
    critChance:Math.max(0,Math.min(1,stats.crit??0)),critDamage:stats.crit_dmg??0,energy:0,shield:0,
-   skillIds,ultimateId,passiveId:record(definition.passive)&&typeof definition.passive.id==="string"?definition.passive.id:undefined,cooldowns:{},statuses:[]
+   skillIds,ultimateId,skillLevels,passiveId:record(definition.passive)&&typeof definition.passive.id==="string"?definition.passive.id:undefined,cooldowns:{},statuses:[]
   });
+ }
+ for(const bond of ascendedBonds){
+  if(!bond.members.every(id=>owned.some(c=>c.char_id===id&&c.ascension===3)))continue;
+  for(const unit of units){
+   if(!bond.members.includes(unit.charId))continue;
+   if(bond.stat==="def")unit.defense*=bond.multiplier;
+   if(bond.stat==="atk")unit.atk*=bond.multiplier;
+  }
  }
  return {ok:true,units,skillbook};
 }

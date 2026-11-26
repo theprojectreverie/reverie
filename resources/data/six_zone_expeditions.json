@@ -1,0 +1,142 @@
+{
+    "six_zone_royal_gardens":  {
+                                   "label":  "Royal Gardens",
+                                   "node":  "StandaloneZone01",
+                                   "scene":  "res://scenes/world/six_zone_reverie/individual_zones/zone_01_royal_gardens_standalone.tscn",
+                                   "bounds":  [
+                                                  -3138,
+                                                  12,
+                                                  3150,
+                                                  3185
+                                              ],
+                                   "spawn":  [
+                                                 -1320,
+                                                 2325
+                                             ],
+                                   "portals":  {
+                                                   "six_zone_royal_gate":  [
+                                                                               1576,
+                                                                               2380
+                                                                           ]
+                                               }
+                               },
+    "six_zone_royal_gate":  {
+                                "label":  "Royal Gate",
+                                "node":  "StandaloneZone02",
+                                "scene":  "res://scenes/world/six_zone_reverie/individual_zones/zone_02_royal_gate_standalone.tscn",
+                                "bounds":  [
+                                               -3020,
+                                               -70,
+                                               3280,
+                                               3080
+                                           ],
+                                "spawn":  [
+                                              0,
+                                              900
+                                          ],
+                                "portals":  {
+                                                "six_zone_willow_fields":  [
+                                                                               1664,
+                                                                               2432
+                                                                           ],
+                                                "six_zone_royal_gardens":  [
+                                                                               -521,
+                                                                               200
+                                                                           ]
+                                            }
+                            },
+    "six_zone_willow_fields":  {
+                                   "label":  "Willow Fields",
+                                   "node":  "StandaloneZone03",
+                                   "scene":  "res://scenes/world/six_zone_reverie/individual_zones/zone_03_willow_fields_standalone.tscn",
+                                   "bounds":  [
+                                                  -3168,
+                                                  0,
+                                                  3232,
+                                                  3200
+                                              ],
+                                   "spawn":  [
+                                                 -2450,
+                                                 1370
+                                             ],
+                                   "portals":  {
+                                                   "six_zone_royal_gate":  [
+                                                                               -2720,
+                                                                               1360
+                                                                           ],
+                                                   "six_zone_elderwood_grove":  [
+                                                                                    2624,
+                                                                                    1568
+                                                                                ]
+                                               }
+                               },
+    "six_zone_elderwood_grove":  {
+                                     "label":  "Elderwood Grove",
+                                     "node":  "StandaloneZone04",
+                                     "scene":  "res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn",
+                                     "bounds":  [
+                                                    -3200,
+                                                    -16,
+                                                    3200,
+                                                    3184
+                                                ],
+                                     "spawn":  [
+                                                   -1600,
+                                                   1050
+                                               ],
+                                     "portals":  {
+                                                     "six_zone_willow_fields":  [
+                                                                                    -1744,
+                                                                                    800
+                                                                                ],
+                                                     "six_zone_forsaken_ruins":  [
+                                                                                     1664,
+                                                                                     2432
+                                                                                 ]
+                                                 }
+                                 },
+    "six_zone_forsaken_ruins":  {
+                                    "label":  "Forsaken Ruins",
+                                    "node":  "StandaloneZone05",
+                                    "scene":  "res://scenes/world/six_zone_reverie/individual_zones/zone_05_forsaken_ruins_standalone.tscn",
+                                    "bounds":  [
+                                                   -3200,
+                                                   -16,
+                                                   3200,
+                                                   3184
+                                               ],
+                                    "spawn":  [
+                                                  -1600,
+                                                  1050
+                                              ],
+                                    "portals":  {
+                                                    "six_zone_ruined_tower":  [
+                                                                                  1664,
+                                                                                  2432
+                                                                              ],
+                                                    "six_zone_elderwood_grove":  [
+                                                                                     -1744,
+                                                                                     800
+                                                                                 ]
+                                                }
+                                },
+    "six_zone_ruined_tower":  {
+                                  "label":  "Ruined Tower",
+                                  "node":  "StandaloneZone06",
+                                  "scene":  "res://scenes/world/six_zone_reverie/individual_zones/zone_06_ruined_tower_standalone.tscn",
+                                  "bounds":  [
+                                                 -3200,
+                                                 -16,
+                                                 3200,
+                                                 3184
+                                             ],
+                                  "spawn":  [
+                                                0, 2460
+                                            ],
+                                  "portals":  {
+                                                  "six_zone_forsaken_ruins":  [
+                                                                                  0, 3050
+                                                                              ]
+                                              }
+                              }
+}

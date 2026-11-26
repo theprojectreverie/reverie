@@ -1,0 +1,157 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c2gucycfqc21e"]
+
+[ext_resource type="Texture2D" uid="uid://cu0phft3pgm3f" path="res://assets/enemies/gerald_fallen/gerald_fallen_idle_back_4x128.png" id="back"]
+[ext_resource type="Texture2D" uid="uid://fu13rcbedx88" path="res://assets/enemies/gerald_fallen/gerald_fallen_idle_front_4x128.png" id="front"]
+[ext_resource type="Texture2D" uid="uid://bqlia53vaxppt" path="res://assets/enemies/gerald_fallen/gerald_fallen_idle_left_4x128.png" id="left"]
+[ext_resource type="Texture2D" uid="uid://gxfliggi46yr" path="res://assets/enemies/gerald_fallen/gerald_fallen_idle_right_4x128.png" id="right"]
+
+[sub_resource type="AtlasTexture" id="back_0"]
+atlas = ExtResource("back")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="back_1"]
+atlas = ExtResource("back")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="back_2"]
+atlas = ExtResource("back")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="back_3"]
+atlas = ExtResource("back")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="front_0"]
+atlas = ExtResource("front")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="front_1"]
+atlas = ExtResource("front")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="front_2"]
+atlas = ExtResource("front")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="front_3"]
+atlas = ExtResource("front")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="left_0"]
+atlas = ExtResource("left")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="left_1"]
+atlas = ExtResource("left")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="left_2"]
+atlas = ExtResource("left")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="left_3"]
+atlas = ExtResource("left")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="right_0"]
+atlas = ExtResource("right")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="right_1"]
+atlas = ExtResource("right")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="right_2"]
+atlas = ExtResource("right")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="right_3"]
+atlas = ExtResource("right")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("back_0")
+}, {
+"duration": 2.6,
+"texture": SubResource("back_1")
+}, {
+"duration": 2.4,
+"texture": SubResource("back_2")
+}, {
+"duration": 3.0,
+"texture": SubResource("back_3")
+}],
+"loop": 1,
+"name": &"idle_back",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("front_0")
+}, {
+"duration": 2.6,
+"texture": SubResource("front_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("front_2")
+}, {
+"duration": 3.5,
+"texture": SubResource("front_3")
+}],
+"loop": 1,
+"name": &"idle_front",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("left_0")
+}, {
+"duration": 2.6,
+"texture": SubResource("left_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("left_2")
+}, {
+"duration": 3.5,
+"texture": SubResource("left_3")
+}],
+"loop": 1,
+"name": &"idle_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("right_0")
+}, {
+"duration": 2.6,
+"texture": SubResource("right_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("right_2")
+}, {
+"duration": 3.5,
+"texture": SubResource("right_3")
+}],
+"loop": 1,
+"name": &"idle_right",
+"speed": 10.0
+}]

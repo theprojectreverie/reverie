@@ -27,6 +27,10 @@ var _music_slider: HSlider
 var _sfx_slider: HSlider
 var _fullscreen_check: CheckButton
 var _resolution_option: OptionButton
+var _quality_option: OptionButton
+var _fps_option: OptionButton
+var _adaptive_check: CheckButton
+var _monitor_check: CheckButton
 var _apply_button: Button
 var _cancel_button: Button
 var _defaults_button: Button
@@ -56,19 +60,19 @@ func _ready() -> void:
 
 func _init() -> void:
 	screen_title = "Settings"
-	screen_subtitle = "Audio, display, controls, and general"
+	screen_subtitle = "Audio, display, graphics, and controls"
 
 
 func _update_columns_layout() -> void:
 	if _columns_layout == null:
 		return
-	_set_columns_for_width(float(DisplayServer.window_get_size().x))
+	_set_columns_for_width(get_viewport_rect().size.x)
 
 
 func _set_columns_for_width(viewport_width: float) -> void:
 	if _columns_layout != null:
 		# Stack the settings sections on narrow windows; retain two columns on desktop.
-		_columns_layout.columns = 1 if viewport_width < 1000.0 else 2
+		_columns_layout.columns = 1 if OS.has_feature("mobile") or viewport_width < 1000.0 else 2
 
 
 func _build_content() -> void:
@@ -101,6 +105,23 @@ func _build_content() -> void:
 	_sfx_slider = layout.get_node("Columns/Left/SFXSlider") as HSlider
 	_fullscreen_check = layout.get_node("Columns/Left/FullscreenCheck") as CheckButton
 	_resolution_option = layout.get_node("Columns/Left/ResolutionRow/ResolutionOption") as OptionButton
+	_quality_option = layout.get_node("Columns/Left/QualityOption") as OptionButton
+	_fps_option = layout.get_node("Columns/Left/FpsOption") as OptionButton
+	_adaptive_check = layout.get_node("Columns/Left/AdaptiveCheck") as CheckButton
+	_monitor_check = layout.get_node("Columns/Left/MonitorCheck") as CheckButton
+	_adaptive_check.toggled.connect(func(_v: bool) -> void: _mark_dirty())
+	_monitor_check.toggled.connect(func(_v: bool) -> void: _mark_dirty())
+	for title in GraphicsSettings.QUALITY_NAMES:
+		_quality_option.add_item(title)
+	for cap in GraphicsSettings.FPS_OPTIONS:
+		_fps_option.add_item("Preset default" if cap == 0 else ("Unlimited" if cap == -1 else "%d FPS" % cap))
+	_quality_option.item_selected.connect(func(_idx: int) -> void: _mark_dirty())
+	_fps_option.item_selected.connect(func(_idx: int) -> void: _mark_dirty())
+	_sync_graphics_options()
+	if OS.has_feature("mobile"):
+		_fullscreen_check.hide()
+		layout.get_node("Columns/Left/ResolutionRow").hide()
+		layout.get_node("Columns/Left/DisplayHint").hide()
 	_controls_box = layout.get_node("Columns/Right/ControlsScroll/ControlsBox") as VBoxContainer
 	_defaults_button = layout.get_node("Footer/DefaultsButton") as Button
 	_cancel_button = layout.get_node("Footer/CancelButton") as Button
@@ -137,6 +158,17 @@ func _build_content() -> void:
 	_cancel_button.pressed.connect(_cancel)
 	_rebuild_controls()
 	_apply_runtime(_saved, false)
+
+
+func _sync_graphics_options() -> void:
+	if _adaptive_check:
+		_adaptive_check.set_pressed_no_signal(bool(_working.get("adaptive_graphics", false)))
+	if _monitor_check:
+		_monitor_check.set_pressed_no_signal(bool(_working.get("performance_monitor", false)))
+	if _quality_option:
+		_quality_option.select(GraphicsSettings.normalize_quality(_working.get("graphics_quality", GraphicsSettings.default_quality())))
+	if _fps_option:
+		_fps_option.select(GraphicsSettings.FPS_OPTIONS.find(GraphicsSettings.normalize_fps(_working.get("fps_limit", 0))))
 
 
 func _populate_resolutions(current: String) -> void:

@@ -68,6 +68,42 @@ text = "Display changes can be applied safely. If a mode is unsupported, revert 
 size_flags_horizontal = 3
 autowrap_mode = 3
 
+[node name="GraphicsSeparator" type="HSeparator" parent="Columns/Left"]
+
+[node name="GraphicsTitle" type="Label" parent="Columns/Left"]
+text = "GRAPHICS & PERFORMANCE"
+
+[node name="QualityLabel" type="Label" parent="Columns/Left"]
+text = "Graphics quality"
+
+[node name="QualityOption" type="OptionButton" parent="Columns/Left"]
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+[node name="FpsLabel" type="Label" parent="Columns/Left"]
+text = "Frame rate limit"
+
+[node name="FpsOption" type="OptionButton" parent="Columns/Left"]
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+[node name="AdaptiveCheck" type="CheckButton" parent="Columns/Left"]
+custom_minimum_size = Vector2(0, 44)
+text = "Adaptive performance"
+
+[node name="MonitorCheck" type="CheckButton" parent="Columns/Left"]
+custom_minimum_size = Vector2(0, 44)
+text = "Show FPS and memory"
+
+[node name="AdaptiveHint" type="Label" parent="Columns/Left"]
+autowrap_mode = 3
+text = "Optional: reduce quality after sustained low FPS in exploration. Your chosen preset stays saved. Turn adaptive performance off to restore it."
+
+[node name="GraphicsHint" type="Label" parent="Columns/Left"]
+size_flags_horizontal = 3
+autowrap_mode = 3
+text = "Battery Saver disables optional particles and decorative lights. Balanced reduces particles and culls distant lights. High preserves full effects and native-resolution rendering."
+
 [node name="LeftSpacer" type="Control" parent="Columns/Left"]
 size_flags_vertical = 3
 

@@ -17,6 +17,14 @@ func configure() -> void:
 	_configure_action("ActionStack/InventoryButton", "INVENTORY", UITheme.TEAL, "inventory")
 	_configure_action("ActionStack/QuestsButton", "QUESTS", UITheme.GOLD, "quests")
 	_configure_action("ActionStack/MapButton", "WORLD MAP", UITheme.TEAL_DIM, "map")
+	_configure_action("ActionStack/ChatButton", "CHAT", UITheme.TEAL, "chat")
+	_configure_action("ActionStack/SocialButton", "FRIENDS", UITheme.GOLD, "social")
+	if not AuthGateway.social_summary_changed.is_connected(_update_friend_badge):
+		AuthGateway.social_summary_changed.connect(_update_friend_badge)
+	_update_friend_badge(AuthGateway.incoming_friend_requests)
+	if not AuthGateway.unread_messages_changed.is_connected(_update_chat_badge):
+		AuthGateway.unread_messages_changed.connect(_update_chat_badge)
+	_update_chat_badge(AuthGateway.unread_private_messages)
 	var menu_button := hud.get_node_or_null("ActionStack/MenuButton") as Button
 	if menu_button != null:
 		menu_button.text = "MENU"
@@ -29,6 +37,21 @@ func configure() -> void:
 		title_button.tooltip_text = "Save your journey and return to the title screen"
 		title_button.pressed.connect(_confirm_return_to_title)
 
+
+func _update_chat_badge(unread: int) -> void:
+	if not is_instance_valid(hud):return
+	var button:=hud.get_node_or_null("ActionStack/ChatButton") as Button
+	if button==null:return
+	button.text="CHAT (%s)" % ("99+" if unread>99 else str(unread)) if unread>0 else "CHAT"
+	button.tooltip_text="%d unread private messages" % unread if unread>0 else "World, party and private chat"
+
+func _update_friend_badge(incoming: int) -> void:
+	if not is_instance_valid(hud):
+		return
+	var button:=hud.get_node_or_null("ActionStack/SocialButton") as Button
+	if button==null:return
+	button.text="FRIENDS (%d)" % incoming if incoming>0 else "FRIENDS"
+	button.tooltip_text="%d incoming friend requests" % incoming if incoming>0 else "Friends and profile"
 
 func _configure_action(path: String, label: String, accent: Color, screen_id: String, primary: bool = false) -> void:
 	var button := hud.get_node_or_null(path) as Button

@@ -22,7 +22,7 @@ func _ready() -> void:
 	if not sequence_component.load_sequence():
 		return
 	playback_component.advance_requested.connect(_advance)
-	playback_component.shot_changed.connect(presentation_component.show_shot)
+	playback_component.shot_changed.connect(_present_shot)
 	playback_component.progress_changed.connect(presentation_component.update_progress)
 	playback_component.sequence_completed.connect(_finish)
 	input_component.advance_requested.connect(playback_component.request_advance)
@@ -30,6 +30,11 @@ func _ready() -> void:
 	input_component.skip_requested.connect(_finish)
 	audio_component.begin()
 	playback_component.configure(sequence_component.shots)
+
+func _present_shot(index: int, shot: Dictionary, total: int) -> void:
+	presentation_component.show_shot(index, shot, total)
+	if index + 1 < playback_component.shots.size():
+		presentation_component.prefetch_next(str(playback_component.shots[index + 1].get("image", "")))
 
 func _advance() -> void:
 	if _transitioning or _done:
@@ -46,5 +51,6 @@ func _finish() -> void:
 		return
 	_done = true
 	await presentation_component.finish_to_black()
+	presentation_component.release_prefetch()
 	audio_component.stop()
 	finished.emit()

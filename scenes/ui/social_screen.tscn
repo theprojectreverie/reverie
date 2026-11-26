@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/ui/screens/social_screen.gd" id="1"]
+[node name="SocialScreen" type="Control"]
+z_index = 120
+script = ExtResource("1")

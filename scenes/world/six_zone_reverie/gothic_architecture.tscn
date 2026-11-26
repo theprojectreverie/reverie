@@ -1,4 +1,6 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene load_steps=34 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/tilemaps/palace_foundations_tilemap.tscn" id="palace_floor_tilemap"]
 
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/rear_wall_rising_right.png" id="1"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/rear_wall_falling_right.png" id="2"]
@@ -35,13 +37,61 @@
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/connector_rising_right.png" id="terrace_join_l"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/approved_wall_candidates/connector_falling_right.png" id="terrace_join_r"]
 
+
+[ext_resource type="Texture2D" path="res://assets/reverie_pack_v01/Boss_Arena/Flooring/arena_floor_dark_01.png" id="palace_floor_texture"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/floor_tile_large.png" id="palace_edge_tile"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/foundation/masonry_left.png" id="foundation_l"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/foundation/masonry_right.png" id="foundation_r"]
+
+[sub_resource type="Animation" id="castle_light_cycle"]
+resource_name = "ambient_lights"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("LightFountain:energy")
+tracks/0/interp = 1
+tracks/0/keys = {"times": PackedFloat32Array(0, 1, 2, 3, 4), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.38, 0.3496, 0.38, 0.4028, 0.38]}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LightBoss:energy")
+tracks/1/interp = 1
+tracks/1/keys = {"times": PackedFloat32Array(0, 1, 2, 3, 4), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.3, 0.324, 0.3, 0.282, 0.3]}
+tracks/2/type = "value"
+tracks/2/path = NodePath("LightPoolL:energy")
+tracks/2/interp = 1
+tracks/2/keys = {"times": PackedFloat32Array(0, 1, 2, 3, 4), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.32, 0.2944, 0.32, 0.3392, 0.32]}
+tracks/3/type = "value"
+tracks/3/path = NodePath("LightPoolR:energy")
+tracks/3/interp = 1
+tracks/3/keys = {"times": PackedFloat32Array(0, 1, 2, 3, 4), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.32, 0.3456, 0.32, 0.3008, 0.32]}
+tracks/4/type = "value"
+tracks/4/path = NodePath("LightStairsL:energy")
+tracks/4/interp = 1
+tracks/4/keys = {"times": PackedFloat32Array(0, 1, 2, 3, 4), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.43, 0.3956, 0.43, 0.4558, 0.43]}
+tracks/5/type = "value"
+tracks/5/path = NodePath("LightStairsR:energy")
+tracks/5/interp = 1
+tracks/5/keys = {"times": PackedFloat32Array(0, 1, 2, 3, 4), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.43, 0.4644, 0.43, 0.4042, 0.43]}
+tracks/6/type = "value"
+tracks/6/path = NodePath("LightGateL:energy")
+tracks/6/interp = 1
+tracks/6/keys = {"times": PackedFloat32Array(0, 1, 2, 3, 4), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.35, 0.322, 0.35, 0.371, 0.35]}
+tracks/7/type = "value"
+tracks/7/path = NodePath("LightGateR:energy")
+tracks/7/interp = 1
+tracks/7/keys = {"times": PackedFloat32Array(0, 1, 2, 3, 4), "transitions": PackedFloat32Array(1, 1, 1, 1, 1), "update": 0, "values": [0.35, 0.378, 0.35, 0.329, 0.35]}
+
+[sub_resource type="AnimationLibrary" id="castle_light_library"]
+_data = {&"ambient_lights": SubResource("castle_light_cycle")}
+
 [node name="GothicArchitecture" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
 [node name="InteriorLeft" type="StaticBody2D" parent="."]
-position = Vector2(-1080, 870)
-scale = Vector2(2, 2)
+position = Vector2(-1080, 900)
+scale = Vector2(2.1, 2.1)
 
 [node name="Artwork" type="Sprite2D" parent="InteriorLeft"]
 centered = false
@@ -52,8 +102,8 @@ texture = ExtResource("1")
 polygon = PackedVector2Array(-260,8,260,-78,260,-51,-260,35)
 
 [node name="InteriorRight" type="StaticBody2D" parent="."]
-position = Vector2(1080, 870)
-scale = Vector2(2, 2)
+position = Vector2(1080, 900)
+scale = Vector2(2.1, 2.1)
 
 [node name="Artwork" type="Sprite2D" parent="InteriorRight"]
 centered = false
@@ -64,7 +114,7 @@ texture = ExtResource("2")
 polygon = PackedVector2Array(-260,-78,260,8,260,35,-260,-51)
 
 [node name="ThroneWall" type="StaticBody2D" parent="."]
-position = Vector2(0, 785)
+position = Vector2(0, 815)
 scale = Vector2(1.85, 1.85)
 
 [node name="Artwork" type="Sprite2D" parent="ThroneWall"]
@@ -76,7 +126,7 @@ texture = ExtResource("3")
 polygon = PackedVector2Array(-295.5, -51, 295.5, -51, 295.5, -15, -295.5, -15)
 
 [node name="ExteriorLeft" type="StaticBody2D" parent="."]
-position = Vector2(-1000, 1350)
+position = Vector2(-1000, 1440)
 scale = Vector2(1.6, 1.6)
 
 [node name="Artwork" type="Sprite2D" parent="ExteriorLeft"]
@@ -88,7 +138,7 @@ texture = ExtResource("new_terrace_left")
 polygon = PackedVector2Array(-280,-140,250,50,250,82,-280,-108)
 
 [node name="ExteriorRight" type="StaticBody2D" parent="."]
-position = Vector2(1000, 1350)
+position = Vector2(1000, 1440)
 scale = Vector2(1.6, 1.6)
 
 [node name="Artwork" type="Sprite2D" parent="ExteriorRight"]
@@ -119,6 +169,7 @@ position = Vector2(0, 1510)
 scale = Vector2(1.8, 1.8)
 
 [node name="Artwork" type="Sprite2D" parent="GrandStairs"]
+z_index = -1
 centered = false
 position = Vector2(-257, -237)
 texture = ExtResource("7")
@@ -232,226 +283,634 @@ offset = Vector2(0, -65)
 polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
 
 [node name="BossArenaCarpet" type="Sprite2D" parent="."]
-position = Vector2(0, 1060)
+position = Vector2(0, 1000)
 scale = Vector2(3, 3)
 z_index = -9
 texture = ExtResource("boss_carpet")
 
-[node name="PerimeterL0" type="StaticBody2D" parent="."]
-position = Vector2(-455, 2850)
+[node name="EdgeFrontL00" type="StaticBody2D" parent="."]
+position = Vector2(-455, 2912)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL0"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL00"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL0"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL00"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterL1" type="StaticBody2D" parent="."]
-position = Vector2(-625, 2770)
+[node name="EdgeFrontL01" type="StaticBody2D" parent="."]
+position = Vector2(-622, 2829)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL1"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL01"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL1"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL01"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterL2" type="StaticBody2D" parent="."]
-position = Vector2(-795, 2690)
+[node name="EdgeFrontL02" type="StaticBody2D" parent="."]
+position = Vector2(-788, 2746)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL2"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL02"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL2"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL02"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterL3" type="StaticBody2D" parent="."]
-position = Vector2(-965, 2610)
+[node name="EdgeFrontL03" type="StaticBody2D" parent="."]
+position = Vector2(-955, 2662)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL3"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL03"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL3"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL03"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterL4" type="StaticBody2D" parent="."]
-position = Vector2(-1135, 2530)
+[node name="EdgeFrontL04" type="StaticBody2D" parent="."]
+position = Vector2(-1121, 2580)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL4"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL04"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL4"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL04"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterL5" type="StaticBody2D" parent="."]
-position = Vector2(-1305, 2450)
+[node name="EdgeFrontL05" type="StaticBody2D" parent="."]
+position = Vector2(-1288, 2496)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL5"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL05"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL5"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL05"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterL6" type="StaticBody2D" parent="."]
-position = Vector2(-1475, 2370)
+[node name="EdgeFrontL06" type="StaticBody2D" parent="."]
+position = Vector2(-1455, 2412)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL6"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL06"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL6"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL06"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterL7" type="StaticBody2D" parent="."]
-position = Vector2(-1645, 2290)
+[node name="EdgeFrontL07" type="StaticBody2D" parent="."]
+position = Vector2(-1621, 2330)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL7"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL07"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL7"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL07"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterL8" type="StaticBody2D" parent="."]
-position = Vector2(-1815, 2210)
+[node name="EdgeFrontL08" type="StaticBody2D" parent="."]
+position = Vector2(-1788, 2246)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterL8"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL08"]
 centered = false
 position = Vector2(-79.5, -170)
 texture = ExtResource("13")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterL8"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL08"]
 polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
-[node name="PerimeterR0" type="StaticBody2D" parent="."]
-position = Vector2(455, 2850)
+[node name="EdgeFrontL09" type="StaticBody2D" parent="."]
+position = Vector2(-1954, 2163)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR0"]
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL09"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL09"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeFrontL10" type="StaticBody2D" parent="."]
+position = Vector2(-2121, 2080)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL10"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL10"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeFrontL11" type="StaticBody2D" parent="."]
+position = Vector2(-2288, 1996)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL11"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL11"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeFrontL12" type="StaticBody2D" parent="."]
+position = Vector2(-2454, 1913)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL12"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL12"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeFrontL13" type="StaticBody2D" parent="."]
+position = Vector2(-2621, 1830)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL13"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL13"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeFrontL14" type="StaticBody2D" parent="."]
+position = Vector2(-2787, 1746)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL14"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL14"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeFrontL15" type="StaticBody2D" parent="."]
+position = Vector2(-2954, 1663)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontL15"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontL15"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearL00" type="StaticBody2D" parent="."]
+position = Vector2(-2954, 1573)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL00"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR0"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL00"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
 
-[node name="PerimeterR1" type="StaticBody2D" parent="."]
-position = Vector2(625, 2770)
+[node name="EdgeRearL01" type="StaticBody2D" parent="."]
+position = Vector2(-2774, 1483)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR1"]
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL01"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR1"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL01"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
 
-[node name="PerimeterR2" type="StaticBody2D" parent="."]
-position = Vector2(795, 2690)
+[node name="EdgeRearL02" type="StaticBody2D" parent="."]
+position = Vector2(-2593, 1392)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR2"]
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL02"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR2"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL02"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
 
-[node name="PerimeterR3" type="StaticBody2D" parent="."]
-position = Vector2(965, 2610)
+[node name="EdgeRearL03" type="StaticBody2D" parent="."]
+position = Vector2(-2412, 1302)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR3"]
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL03"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR3"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL03"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
 
-[node name="PerimeterR4" type="StaticBody2D" parent="."]
-position = Vector2(1135, 2530)
+[node name="EdgeRearL04" type="StaticBody2D" parent="."]
+position = Vector2(-2232, 1212)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR4"]
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL04"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR4"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL04"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
 
-[node name="PerimeterR5" type="StaticBody2D" parent="."]
-position = Vector2(1305, 2450)
+[node name="EdgeRearL05" type="StaticBody2D" parent="."]
+position = Vector2(-2052, 1122)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR5"]
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL05"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR5"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL05"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
 
-[node name="PerimeterR6" type="StaticBody2D" parent="."]
-position = Vector2(1475, 2370)
+[node name="EdgeRearL06" type="StaticBody2D" parent="."]
+position = Vector2(-1871, 1032)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR6"]
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL06"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR6"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL06"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
 
-[node name="PerimeterR7" type="StaticBody2D" parent="."]
-position = Vector2(1645, 2290)
+[node name="EdgeRearL07" type="StaticBody2D" parent="."]
+position = Vector2(-1690, 941)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR7"]
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL07"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR7"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL07"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
 
-[node name="PerimeterR8" type="StaticBody2D" parent="."]
-position = Vector2(1815, 2210)
+[node name="EdgeRearL08" type="StaticBody2D" parent="."]
+position = Vector2(-1510, 851)
 scale = Vector2(2, 2)
 
-[node name="Artwork" type="Sprite2D" parent="PerimeterR8"]
+[node name="Artwork" type="Sprite2D" parent="EdgeRearL08"]
 centered = false
 position = Vector2(-131.5, -170)
 texture = ExtResource("12")
 
-[node name="Footprint" type="CollisionPolygon2D" parent="PerimeterR8"]
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearL08"]
 polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR00" type="StaticBody2D" parent="."]
+position = Vector2(455, 2976)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR00"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR00"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR01" type="StaticBody2D" parent="."]
+position = Vector2(619, 2894)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR01"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR01"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR02" type="StaticBody2D" parent="."]
+position = Vector2(783, 2812)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR02"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR02"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR03" type="StaticBody2D" parent="."]
+position = Vector2(948, 2730)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR03"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR03"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR04" type="StaticBody2D" parent="."]
+position = Vector2(1112, 2648)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR04"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR04"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR05" type="StaticBody2D" parent="."]
+position = Vector2(1276, 2566)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR05"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR05"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR06" type="StaticBody2D" parent="."]
+position = Vector2(1440, 2484)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR06"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR06"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR07" type="StaticBody2D" parent="."]
+position = Vector2(1604, 2402)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR07"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR07"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR08" type="StaticBody2D" parent="."]
+position = Vector2(1768, 2320)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR08"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR08"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR09" type="StaticBody2D" parent="."]
+position = Vector2(1933, 2238)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR09"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR09"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR10" type="StaticBody2D" parent="."]
+position = Vector2(2097, 2156)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR10"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR10"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR11" type="StaticBody2D" parent="."]
+position = Vector2(2261, 2074)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR11"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR11"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR12" type="StaticBody2D" parent="."]
+position = Vector2(2425, 1992)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR12"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR12"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR13" type="StaticBody2D" parent="."]
+position = Vector2(2589, 1910)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR13"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR13"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR14" type="StaticBody2D" parent="."]
+position = Vector2(2754, 1827)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR14"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR14"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR15" type="StaticBody2D" parent="."]
+position = Vector2(2918, 1745)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR15"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR15"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeFrontR16" type="StaticBody2D" parent="."]
+position = Vector2(3082, 1663)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeFrontR16"]
+centered = false
+position = Vector2(-131.5, -170)
+texture = ExtResource("12")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeFrontR16"]
+polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
+
+[node name="EdgeRearR00" type="StaticBody2D" parent="."]
+position = Vector2(3082, 1573)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR00"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR00"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR01" type="StaticBody2D" parent="."]
+position = Vector2(2907, 1486)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR01"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR01"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR02" type="StaticBody2D" parent="."]
+position = Vector2(2733, 1398)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR02"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR02"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR03" type="StaticBody2D" parent="."]
+position = Vector2(2558, 1311)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR03"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR03"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR04" type="StaticBody2D" parent="."]
+position = Vector2(2383, 1224)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR04"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR04"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR05" type="StaticBody2D" parent="."]
+position = Vector2(2209, 1136)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR05"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR05"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR06" type="StaticBody2D" parent="."]
+position = Vector2(2034, 1049)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR06"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR06"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR07" type="StaticBody2D" parent="."]
+position = Vector2(1859, 962)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR07"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR07"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR08" type="StaticBody2D" parent="."]
+position = Vector2(1685, 874)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR08"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR08"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
+
+[node name="EdgeRearR09" type="StaticBody2D" parent="."]
+position = Vector2(1510, 787)
+scale = Vector2(2, 2)
+
+[node name="Artwork" type="Sprite2D" parent="EdgeRearR09"]
+centered = false
+position = Vector2(-79.5, -170)
+texture = ExtResource("13")
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EdgeRearR09"]
+polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
 
 [node name="CourtyardPoolLeft" type="StaticBody2D" parent="."]
 position = Vector2(-1000, 2070)
@@ -477,7 +936,7 @@ flip_h = true
 polygon = PackedVector2Array(-305,-62,-210,-140,0,-181,210,-140,305,-62,290,40,120,115,-120,115,-290,40)
 
 [node name="RaisedBossTerrace" type="Node2D" parent="."]
-position = Vector2(0, 1100)
+position = Vector2(0, 1050)
 z_index = -8
 
 [node name="Artwork" type="Sprite2D" parent="RaisedBossTerrace"]
@@ -486,7 +945,7 @@ scale = Vector2(1.05, 1.05)
 offset = Vector2(0, -30)
 
 [node name="TerraceRailCollisions" type="StaticBody2D" parent="."]
-position = Vector2(0, 1100)
+position = Vector2(0, 1050)
 
 [node name="LeftRail" type="CollisionPolygon2D" parent="TerraceRailCollisions"]
 polygon = PackedVector2Array(-400,-135,-375,-146,-170,72,-195,100,-407,-80)
@@ -494,221 +953,14 @@ polygon = PackedVector2Array(-400,-135,-375,-146,-170,72,-195,100,-407,-80)
 [node name="RightRail" type="CollisionPolygon2D" parent="TerraceRailCollisions"]
 polygon = PackedVector2Array(400,-135,375,-146,170,72,195,100,407,-80)
 
-[node name="SideWallL0" type="StaticBody2D" parent="."]
-position = Vector2(-1985, 2130)
-scale = Vector2(2, 2)
+[node name="BackRail" type="CollisionPolygon2D" parent="TerraceRailCollisions"]
+polygon = PackedVector2Array(-185,-154,185,-154,185,-133,-185,-133)
 
-[node name="Artwork" type="Sprite2D" parent="SideWallL0"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
+[node name="BackLeftRail" type="CollisionPolygon2D" parent="TerraceRailCollisions"]
+polygon = PackedVector2Array(-360,-34,-195,-154,-180,-135,-345,-15)
 
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL0"]
-polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
-
-[node name="SideWallL1" type="StaticBody2D" parent="."]
-position = Vector2(-2155, 2050)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallL1"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL1"]
-polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
-
-[node name="SideWallL2" type="StaticBody2D" parent="."]
-position = Vector2(-2325, 1970)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallL2"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL2"]
-polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
-
-[node name="SideWallL3" type="StaticBody2D" parent="."]
-position = Vector2(-2490, 1890)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallL3"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL3"]
-polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
-
-[node name="SideWallL4" type="StaticBody2D" parent="."]
-position = Vector2(-2325, 1805)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallL4"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL4"]
-polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
-
-[node name="SideWallL5" type="StaticBody2D" parent="."]
-position = Vector2(-2155, 1720)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallL5"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL5"]
-polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
-
-[node name="SideWallL6" type="StaticBody2D" parent="."]
-position = Vector2(-1985, 1635)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallL6"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallL6"]
-polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
-
-[node name="SideWallR0" type="StaticBody2D" parent="."]
-position = Vector2(1985, 2130)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallR0"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR0"]
-polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
-
-[node name="SideWallR1" type="StaticBody2D" parent="."]
-position = Vector2(2155, 2050)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallR1"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR1"]
-polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
-
-[node name="SideWallR2" type="StaticBody2D" parent="."]
-position = Vector2(2325, 1970)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallR2"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR2"]
-polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
-
-[node name="SideWallR3" type="StaticBody2D" parent="."]
-position = Vector2(2490, 1890)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallR3"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR3"]
-polygon = PackedVector2Array(-50, 15, 50, -31, 50, -19, -50, 27)
-
-[node name="SideWallR4" type="StaticBody2D" parent="."]
-position = Vector2(2325, 1805)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallR4"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR4"]
-polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
-
-[node name="SideWallR5" type="StaticBody2D" parent="."]
-position = Vector2(2155, 1720)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallR5"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR5"]
-polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
-
-[node name="SideWallR6" type="StaticBody2D" parent="."]
-position = Vector2(1985, 1635)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="SideWallR6"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="SideWallR6"]
-polygon = PackedVector2Array(-50, -31, 50, 15, 50, 27, -50, -19)
-
-[node name="RearLinkL0" type="StaticBody2D" parent="."]
-position = Vector2(-1815, 1550)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="RearLinkL0"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="RearLinkL0"]
-polygon = PackedVector2Array(-50,15,50,-31,50,-19,-50,27)
-
-[node name="RearLinkL1" type="StaticBody2D" parent="."]
-position = Vector2(-1645, 1465)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="RearLinkL1"]
-centered = false
-position = Vector2(-131.5, -170)
-texture = ExtResource("12")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="RearLinkL1"]
-polygon = PackedVector2Array(-50,15,50,-31,50,-19,-50,27)
-
-[node name="RearLinkR0" type="StaticBody2D" parent="."]
-position = Vector2(1815, 1550)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="RearLinkR0"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="RearLinkR0"]
-polygon = PackedVector2Array(-50,-31,50,15,50,27,-50,-19)
-
-[node name="RearLinkR1" type="StaticBody2D" parent="."]
-position = Vector2(1645, 1465)
-scale = Vector2(2, 2)
-
-[node name="Artwork" type="Sprite2D" parent="RearLinkR1"]
-centered = false
-position = Vector2(-79.5, -170)
-texture = ExtResource("13")
-
-[node name="Footprint" type="CollisionPolygon2D" parent="RearLinkR1"]
-polygon = PackedVector2Array(-50,-31,50,15,50,27,-50,-19)
+[node name="BackRightRail" type="CollisionPolygon2D" parent="TerraceRailCollisions"]
+polygon = PackedVector2Array(360,-34,195,-154,180,-135,345,-15)
 
 [node name="PoolFlowersL" type="StaticBody2D" parent="."]
 position = Vector2(-1400, 2140)
@@ -858,61 +1110,61 @@ polygon = PackedVector2Array(-28, -16, 0, -30, 28, -16, 0, 0)
 color = Color(0.83, 0.78, 0.92, 1)
 
 [node name="LightFountain" type="PointLight2D" parent="."]
-position = Vector2(0, 1740)
+position = Vector2(0, 1870)
 texture = ExtResource("violet")
-texture_scale = 4
-energy = 0.65
+texture_scale = 2.3
+energy = 0.38
 
 [node name="LightBoss" type="PointLight2D" parent="."]
-position = Vector2(0, 980)
+position = Vector2(0, 1010)
 texture = ExtResource("violet")
-texture_scale = 5
-energy = 0.55
+texture_scale = 3.0
+energy = 0.3
 
 [node name="LightPoolL" type="PointLight2D" parent="."]
-position = Vector2(-1000, 1950)
+position = Vector2(-1000, 2030)
 texture = ExtResource("violet")
-texture_scale = 4
-energy = 0.5
+texture_scale = 2.8
+energy = 0.32
 
 [node name="LightPoolR" type="PointLight2D" parent="."]
-position = Vector2(1000, 1950)
+position = Vector2(1000, 2030)
 texture = ExtResource("violet")
-texture_scale = 4
-energy = 0.5
+texture_scale = 2.8
+energy = 0.32
 
 [node name="LightStairsL" type="PointLight2D" parent="."]
 position = Vector2(-390, 1350)
 texture = ExtResource("warm")
-texture_scale = 3
-energy = 0.7
+texture_scale = 2.1
+energy = 0.43
 
 [node name="LightStairsR" type="PointLight2D" parent="."]
 position = Vector2(390, 1350)
 texture = ExtResource("warm")
-texture_scale = 3
-energy = 0.7
+texture_scale = 2.1
+energy = 0.43
 
 [node name="LightGateL" type="PointLight2D" parent="."]
-position = Vector2(-230, 2750)
+position = Vector2(-230, 2800)
 texture = ExtResource("warm")
-texture_scale = 3
-energy = 0.65
+texture_scale = 2.1
+energy = 0.35
 
 [node name="LightGateR" type="PointLight2D" parent="."]
-position = Vector2(230, 2750)
+position = Vector2(230, 2800)
 texture = ExtResource("warm")
-texture_scale = 3
-energy = 0.65
+texture_scale = 2.1
+energy = 0.35
 
 [node name="SideHallRugL" type="Sprite2D" parent="."]
-position = Vector2(-870, 1110)
-scale = Vector2(2.1, 2.1)
+position = Vector2(-1020, 1020)
+scale = Vector2(3, 3)
 z_index = -10
 texture = ExtResource("boss_carpet")
 
 [node name="SideHallUrnL" type="StaticBody2D" parent="."]
-position = Vector2(-1160, 1190)
+position = Vector2(-1250, 1000)
 
 [node name="Artwork" type="Sprite2D" parent="SideHallUrnL"]
 texture = ExtResource("hall_urn")
@@ -923,13 +1175,13 @@ scale = Vector2(1.5, 1.5)
 polygon = PackedVector2Array(-30,-12,0,-28,30,-12,0,0)
 
 [node name="SideHallRugR" type="Sprite2D" parent="."]
-position = Vector2(870, 1110)
-scale = Vector2(2.1, 2.1)
+position = Vector2(1020, 1020)
+scale = Vector2(3, 3)
 z_index = -10
 texture = ExtResource("boss_carpet")
 
 [node name="SideHallUrnR" type="StaticBody2D" parent="."]
-position = Vector2(1160, 1190)
+position = Vector2(1250, 1000)
 
 [node name="Artwork" type="Sprite2D" parent="SideHallUrnR"]
 texture = ExtResource("hall_urn")
@@ -940,25 +1192,350 @@ scale = Vector2(1.5, 1.5)
 polygon = PackedVector2Array(-30,-12,0,-28,30,-12,0,0)
 
 [node name="TerraceJoinL" type="StaticBody2D" parent="."]
-position = Vector2(-1510, 1300)
+position = Vector2(-1590, 897)
 scale = Vector2(1.4, 1.4)
 
 [node name="Artwork" type="Sprite2D" parent="TerraceJoinL"]
 centered = false
-position = Vector2(-95, -165)
+position = Vector2(-72, -187)
+scale = Vector2(1, 1.1)
 texture = ExtResource("terrace_join_l")
 
 [node name="Footprint" type="CollisionPolygon2D" parent="TerraceJoinL"]
 polygon = PackedVector2Array(-70,35,70,-35,70,-10,-70,60)
 
 [node name="TerraceJoinR" type="StaticBody2D" parent="."]
-position = Vector2(1510, 1300)
+position = Vector2(1590, 865)
 scale = Vector2(1.4, 1.4)
 
 [node name="Artwork" type="Sprite2D" parent="TerraceJoinR"]
 centered = false
-position = Vector2(-95, -165)
+position = Vector2(-118, -187)
+scale = Vector2(1, 1.1)
 texture = ExtResource("terrace_join_r")
 
 [node name="Footprint" type="CollisionPolygon2D" parent="TerraceJoinR"]
 polygon = PackedVector2Array(-70,-35,70,35,70,60,-70,-10)
+
+
+[node name="PalaceWingFoundations" type="Node2D" parent="."]
+z_index = -12
+texture_filter = 1
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+modulate = Color(0.94, 0.91, 0.99, 1)
+
+[node name="EditablePalaceFloor" parent="PalaceWingFoundations" instance=ExtResource("palace_floor_tilemap")]
+
+[node name="PalaceFrontStoneLip" type="Node2D" parent="."]
+visible = false
+z_index = -11
+texture_filter = 1
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="LipL0" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-480, 1350)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL1" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-576, 1315)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL2" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-672, 1280)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL3" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-768, 1245)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL4" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-864, 1210)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL5" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-960, 1175)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL6" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-1056, 1140)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL7" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-1152, 1105)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL8" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-1248, 1070)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipL9" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(-1344, 1035)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR0" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(480, 1350)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR1" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(576, 1315)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR2" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(672, 1280)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR3" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(768, 1245)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR4" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(864, 1210)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR5" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(960, 1175)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR6" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(1056, 1140)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR7" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(1152, 1105)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR8" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(1248, 1070)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="LipR9" type="Sprite2D" parent="PalaceFrontStoneLip"]
+position = Vector2(1344, 1035)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("palace_edge_tile")
+
+[node name="AmbientLightAnimation" type="AnimationPlayer" parent="."]
+libraries = {"": SubResource("castle_light_library")}
+autoplay = "ambient_lights"
+
+[node name="ElevatedMasonry" type="Node2D" parent="."]
+z_index = -9
+texture_filter = 1
+
+[node name="Left0" type="Sprite2D" parent="ElevatedMasonry"]
+position = Vector2(-730, 1383)
+scale = Vector2(0.94, 0.70)
+texture = ExtResource("foundation_l")
+
+[node name="Left1" type="Sprite2D" parent="ElevatedMasonry"]
+position = Vector2(-1220, 1207)
+scale = Vector2(0.94, 0.70)
+texture = ExtResource("foundation_l")
+
+[node name="Right0" type="Sprite2D" parent="ElevatedMasonry"]
+position = Vector2(730, 1383)
+scale = Vector2(0.94, 0.70)
+texture = ExtResource("foundation_r")
+
+[node name="Right1" type="Sprite2D" parent="ElevatedMasonry"]
+position = Vector2(1220, 1207)
+scale = Vector2(0.94, 0.70)
+texture = ExtResource("foundation_r")
+
+[node name="CornerTreeL" type="StaticBody2D" parent="."]
+position = Vector2(-2450, 1615)
+scale = Vector2(1.85, 1.85)
+
+[node name="Artwork" type="Sprite2D" parent="CornerTreeL"]
+texture = ExtResource("cypress")
+offset = Vector2(0, -72)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerTreeL"]
+polygon = PackedVector2Array(-16,-8,0,-20,16,-8,0,0)
+
+[node name="CornerPlanterAL" type="StaticBody2D" parent="."]
+position = Vector2(-2170, 1470)
+scale = Vector2(1.45, 1.45)
+
+[node name="Artwork" type="Sprite2D" parent="CornerPlanterAL"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerPlanterAL"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="CornerPlanterBL" type="StaticBody2D" parent="."]
+position = Vector2(-2170, 1770)
+scale = Vector2(1.45, 1.45)
+
+[node name="Artwork" type="Sprite2D" parent="CornerPlanterBL"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerPlanterBL"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="CornerLampL" type="StaticBody2D" parent="."]
+position = Vector2(-2020, 1615)
+scale = Vector2(1.5, 1.5)
+
+[node name="Artwork" type="Sprite2D" parent="CornerLampL"]
+texture = ExtResource("terrace_lamp")
+offset = Vector2(0, -65)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerLampL"]
+polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
+
+[node name="CornerStandUrnL" type="StaticBody2D" parent="."]
+position = Vector2(-1320, 1120)
+scale = Vector2(0.9, 0.9)
+
+[node name="Artwork" type="Sprite2D" parent="CornerStandUrnL"]
+texture = ExtResource("hall_urn")
+offset = Vector2(0, -59)
+scale = Vector2(1.5, 1.5)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerStandUrnL"]
+polygon = PackedVector2Array(-30,-12,0,-28,30,-12,0,0)
+
+[node name="CornerTreeR" type="StaticBody2D" parent="."]
+position = Vector2(2450, 1615)
+scale = Vector2(1.85, 1.85)
+
+[node name="Artwork" type="Sprite2D" parent="CornerTreeR"]
+texture = ExtResource("cypress")
+offset = Vector2(0, -72)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerTreeR"]
+polygon = PackedVector2Array(-16,-8,0,-20,16,-8,0,0)
+
+[node name="CornerPlanterAR" type="StaticBody2D" parent="."]
+position = Vector2(2170, 1470)
+scale = Vector2(1.45, 1.45)
+
+[node name="Artwork" type="Sprite2D" parent="CornerPlanterAR"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerPlanterAR"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="CornerPlanterBR" type="StaticBody2D" parent="."]
+position = Vector2(2170, 1770)
+scale = Vector2(1.45, 1.45)
+
+[node name="Artwork" type="Sprite2D" parent="CornerPlanterBR"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerPlanterBR"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="CornerLampR" type="StaticBody2D" parent="."]
+position = Vector2(2020, 1615)
+scale = Vector2(1.5, 1.5)
+
+[node name="Artwork" type="Sprite2D" parent="CornerLampR"]
+texture = ExtResource("terrace_lamp")
+offset = Vector2(0, -65)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerLampR"]
+polygon = PackedVector2Array(-15,-7,0,-16,15,-7,0,0)
+
+[node name="CornerStandUrnR" type="StaticBody2D" parent="."]
+position = Vector2(1320, 1120)
+scale = Vector2(0.9, 0.9)
+
+[node name="Artwork" type="Sprite2D" parent="CornerStandUrnR"]
+texture = ExtResource("hall_urn")
+offset = Vector2(0, -59)
+scale = Vector2(1.5, 1.5)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="CornerStandUrnR"]
+polygon = PackedVector2Array(-30,-12,0,-28,30,-12,0,0)
+
+[node name="GardenClusterL0" type="StaticBody2D" parent="."]
+position = Vector2(-1250, 1740)
+scale = Vector2(1.15, 1.15)
+
+[node name="Artwork" type="Sprite2D" parent="GardenClusterL0"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenClusterL0"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="GardenClusterL1" type="StaticBody2D" parent="."]
+position = Vector2(-1510, 1880)
+scale = Vector2(1.2, 1.2)
+
+[node name="Artwork" type="Sprite2D" parent="GardenClusterL1"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenClusterL1"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="GardenClusterL2" type="StaticBody2D" parent="."]
+position = Vector2(-730, 2390)
+scale = Vector2(1.05, 1.05)
+
+[node name="Artwork" type="Sprite2D" parent="GardenClusterL2"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenClusterL2"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="GardenClusterR0" type="StaticBody2D" parent="."]
+position = Vector2(1250, 1740)
+scale = Vector2(1.15, 1.15)
+
+[node name="Artwork" type="Sprite2D" parent="GardenClusterR0"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenClusterR0"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="GardenClusterR1" type="StaticBody2D" parent="."]
+position = Vector2(1510, 1880)
+scale = Vector2(1.2, 1.2)
+
+[node name="Artwork" type="Sprite2D" parent="GardenClusterR1"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenClusterR1"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)
+
+[node name="GardenClusterR2" type="StaticBody2D" parent="."]
+position = Vector2(730, 2390)
+scale = Vector2(1.05, 1.05)
+
+[node name="Artwork" type="Sprite2D" parent="GardenClusterR2"]
+texture = ExtResource("10")
+offset = Vector2(0, -53)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenClusterR2"]
+polygon = PackedVector2Array(-62,-8,-62,-25,0,-38,62,-25,62,-8,0,0)

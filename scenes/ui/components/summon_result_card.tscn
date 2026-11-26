@@ -13,6 +13,7 @@ theme_override_constants/separation = 4
 
 [node name="Portrait" parent="Content" instance=ExtResource("2")]
 custom_minimum_size = Vector2(132, 198)
+fit_mode = "card"
 layout_mode = 2
 size_flags_horizontal = 4
 

@@ -53,7 +53,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_results")
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Header" type="HBoxContainer" parent="Center/Panel/Content"]
+[node name="Header" type="BoxContainer" parent="Center/Panel/Content"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -86,7 +86,7 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 5
 
-[node name="Footer" type="HBoxContainer" parent="Center/Panel/Content"]
+[node name="Footer" type="BoxContainer" parent="Center/Panel/Content"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -95,7 +95,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 11
 theme_override_colors/font_color = Color(0.68, 0.72, 0.8, 1)
-text = "Duplicates raise Awakening. This result is already saved locally."
+text = "Rewards are saved to your online account."
 autowrap_mode = 3
 
 [node name="SummonAgainButton" type="Button" parent="Center/Panel/Content/Footer"]

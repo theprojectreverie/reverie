@@ -1,0 +1,32 @@
+[gd_resource type="TileSet" format=3 uid="uid://b7vjfphlcg47v"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_battlement_x_2x1.tscn" id="1_58hlk"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_wall_y_1x2.tscn" id="2_qq53t"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_wall_y_damaged_1x2.tscn" id="3_wyo8x"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_battlement_y_1x2.tscn" id="4_yitm4"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_foundation_x_2x1.tscn" id="5_ttt60"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_foundation_y_1x2.tscn" id="6_3ot26"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_wall_corner_1x1.tscn" id="7_exqku"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_wall_tall_x_2x1.tscn" id="8_m0sh0"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_wall_tall_y_1x2.tscn" id="9_ctf4l"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_wall_x_2x1.tscn" id="10_ghfe0"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Gothic_Castle/Walls/gothic_wall_x_damaged_2x1.tscn" id="11_kgywg"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_gxw8f"]
+resource_name = "gothic_walls"
+scenes/1/scene = ExtResource("1_58hlk")
+scenes/2/scene = ExtResource("4_yitm4")
+scenes/3/scene = ExtResource("5_ttt60")
+scenes/4/scene = ExtResource("6_3ot26")
+scenes/5/scene = ExtResource("7_exqku")
+scenes/6/scene = ExtResource("8_m0sh0")
+scenes/7/scene = ExtResource("9_ctf4l")
+scenes/8/scene = ExtResource("10_ghfe0")
+scenes/9/scene = ExtResource("11_kgywg")
+scenes/10/scene = ExtResource("2_qq53t")
+scenes/11/scene = ExtResource("3_wyo8x")
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetScenesCollectionSource_gxw8f")

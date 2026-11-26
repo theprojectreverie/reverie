@@ -8,3 +8,13 @@ group_id = "crownling_garden_1"
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("art")]
 position = Vector2(0, -28)
 scale = Vector2(0.95, 0.95)
+
+[node name="WorldHealth" type="ProgressBar" parent="."]
+visible = false
+offset_left = -22.0
+offset_top = -52.0
+offset_right = 22.0
+offset_bottom = -47.0
+mouse_filter = 2
+show_percentage = false
+value = 100.0

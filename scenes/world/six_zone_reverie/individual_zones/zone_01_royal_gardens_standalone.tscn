@@ -1,5 +1,7 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=17 format=3]
 
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/reverie_exit_southeast.png" id="southeast_exit_art"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/crownling.tscn" id="crownling"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/rose_slime.tscn" id="rose_slime"]
 [ext_resource type="Script" path="res://scripts/game/game_combat_router_component.gd" id="combat_router"]
@@ -25,6 +27,8 @@
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_road_placement.tscn" id="paths"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
+
 [sub_resource type="SegmentShape2D" id="edge_1"]
 a = Vector2(3, 12)
 b = Vector2(3150, 1584)
@@ -43,6 +47,9 @@ b = Vector2(3, 12)
 
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
+
+[sub_resource type="RectangleShape2D" id="ExitTransferDetection"]
+size = Vector2(240, 180)
 
 [sub_resource type="Animation" id="FogDrift_ToNextZone"]
 resource_name = "drift"
@@ -93,7 +100,13 @@ position = Vector2(6, 1598)
 scale = Vector2(5.1010, 5.1010)
 texture = ExtResource("prepared_background")
 
+[node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
+position = Vector2(-1230.0, 2313.0)
+
 [node name="TransferPoints" type="Node2D" parent="."]
+
+[node name="FastTravelArrival" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-1320, 2325)
 
 [node name="GardenEntrance" type="Marker2D" parent="TransferPoints"]
 position = Vector2(-1320, 2325)
@@ -109,10 +122,13 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("transfer_script")
 destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_02_royal_gate_standalone.tscn"
+required_quest = "elathra_first_audience"
+previously_visited_zone = "StandaloneZone02"
+locked_route_text = "Speak to Elathra first"
 arrival_marker = &"ToPreviousZone"
 
 [node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger"]
-shape = SubResource("TransferDetection")
+shape = SubResource("ExitTransferDetection")
 
 [node name="GroundPerimeter" type="StaticBody2D" parent="."]
 collision_mask = 0
@@ -644,3 +660,32 @@ group_id = "crownling_garden_2"
 [node name="Crownling3" parent="." instance=ExtResource("crownling")]
 position = Vector2(1100, 1500)
 group_id = "crownling_garden_3"
+[node name="SoutheastRoadContinuation" type="Sprite2D" parent="TransferPoints/ToNextZone"]
+texture_filter = 1
+z_index = -5
+position = Vector2(-160, -130)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("southeast_exit_art")
+
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
+position = Vector2(-134, -67)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+visible = false
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = 0.463648
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Royal Gate"
+horizontal_alignment = 1

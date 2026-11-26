@@ -1,0 +1,181 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/village/imported_village/village_playable.tscn" id="area_0"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/zone_01_royal_gardens_standalone.tscn" id="area_1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/zone_02_royal_gate_standalone.tscn" id="area_2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/zone_03_willow_fields_standalone.tscn" id="area_3"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn" id="area_4"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/zone_05_forsaken_ruins_standalone.tscn" id="area_5"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/zone_06_ruined_tower_standalone.tscn" id="area_6"]
+
+[node name="ReverieEditableAreas" type="Node2D"]
+
+[node name="Village" parent="." instance=ExtResource("area_0")]
+position = Vector2(0, 0)
+script = null
+
+[node name="VillageTitle" type="Label" parent="."]
+offset_left = -1650.0
+offset_top = -1150.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 360
+text = "0  Village"
+
+[node name="UI" parent="Village"]
+visible = false
+
+[node name="RoyalGardens" parent="." instance=ExtResource("area_1")]
+position = Vector2(10500, 0)
+script = null
+
+[node name="RoyalGardensTitle" type="Label" parent="."]
+offset_left = 8850.0
+offset_top = -1150.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 360
+text = "1  Royal Gardens"
+
+[node name="ZoneCamera" parent="RoyalGardens"]
+enabled = false
+
+[node name="ScenicBackground" parent="RoyalGardens"]
+visible = false
+
+[node name="NPCDialogueLayer" parent="RoyalGardens"]
+visible = false
+
+[node name="UI" parent="RoyalGardens"]
+visible = false
+
+[node name="RoyalGate" parent="." instance=ExtResource("area_2")]
+position = Vector2(21000, 0)
+script = null
+
+[node name="RoyalGateTitle" type="Label" parent="."]
+offset_left = 19350.0
+offset_top = -1150.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 360
+text = "2  Royal Gate"
+
+[node name="ZoneCamera" parent="RoyalGate"]
+enabled = false
+
+[node name="ScenicBackground" parent="RoyalGate"]
+visible = false
+
+[node name="UI" parent="RoyalGate"]
+visible = false
+
+[node name="WillowFields" parent="." instance=ExtResource("area_3")]
+position = Vector2(0, 6500)
+script = null
+
+[node name="WillowFieldsTitle" type="Label" parent="."]
+offset_left = -1650.0
+offset_top = 5350.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 360
+text = "3  Willow Fields"
+
+[node name="ZoneCamera" parent="WillowFields"]
+enabled = false
+
+[node name="ScenicBackground" parent="WillowFields"]
+visible = false
+
+[node name="UI" parent="WillowFields"]
+visible = false
+
+[node name="ElderwoodGrove" parent="." instance=ExtResource("area_4")]
+position = Vector2(10500, 6500)
+script = null
+
+[node name="ElderwoodGroveTitle" type="Label" parent="."]
+offset_left = 8850.0
+offset_top = 5350.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 360
+text = "4  Elderwood Grove"
+
+[node name="ZoneCamera" parent="ElderwoodGrove"]
+enabled = false
+
+[node name="ScenicBackground" parent="ElderwoodGrove"]
+visible = false
+
+[node name="UI" parent="ElderwoodGrove"]
+visible = false
+
+[node name="ForsakenRuins" parent="." instance=ExtResource("area_5")]
+position = Vector2(21000, 6500)
+script = null
+
+[node name="ForsakenRuinsTitle" type="Label" parent="."]
+offset_left = 19350.0
+offset_top = 5350.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 360
+text = "5  Forsaken Ruins"
+
+[node name="ZoneCamera" parent="ForsakenRuins"]
+enabled = false
+
+[node name="ScenicBackground" parent="ForsakenRuins"]
+visible = false
+
+[node name="UI" parent="ForsakenRuins"]
+visible = false
+
+[node name="RitualCamera" parent="ForsakenRuins"]
+enabled = false
+
+[node name="RuinedTower" parent="." instance=ExtResource("area_6")]
+position = Vector2(0, 13000)
+script = null
+
+[node name="RuinedTowerTitle" type="Label" parent="."]
+offset_left = -1650.0
+offset_top = 11850.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 360
+text = "6  Ruined Tower"
+
+[node name="ZoneCamera" parent="RuinedTower"]
+enabled = false
+
+[node name="ScenicBackground" parent="RuinedTower"]
+visible = false
+
+[node name="UI" parent="RuinedTower"]
+visible = false
+
+[node name="EndingCamera" parent="RuinedTower"]
+enabled = false
+
+[editable path="Village"]
+[editable path="Village/VillageMap"]
+[editable path="RoyalGardens"]
+[editable path="RoyalGardens/Zone"]
+[editable path="RoyalGardens/Zone/GroundTiles/EditableGroundTileMap"]
+[editable path="RoyalGate"]
+[editable path="RoyalGate/Zone"]
+[editable path="RoyalGate/Zone/GroundTiles/EditableTileMap"]
+[editable path="RoyalGate/Zone/CentralStoneAvenue"]
+[editable path="RoyalGate/Zone/DiagonalCrossing"]
+[editable path="RoyalGate/Zone/JunctionCornerInfill"]
+[editable path="RoyalGate/Zone/RoyalGateArtLayout"]
+[editable path="WillowFields"]
+[editable path="WillowFields/Zone"]
+[editable path="WillowFields/Zone/GroundTiles/EditableTileMap"]
+[editable path="ElderwoodGrove"]
+[editable path="ElderwoodGrove/Zone"]
+[editable path="ElderwoodGrove/Zone/GroundTiles/EditableTileMap"]
+[editable path="ForsakenRuins"]
+[editable path="ForsakenRuins/Zone"]
+[editable path="ForsakenRuins/Zone/GroundTiles/EditableTileMap"]
+[editable path="RuinedTower"]
+[editable path="RuinedTower/Zone"]
+[editable path="RuinedTower/Zone/GroundTiles"]
+[editable path="RuinedTower/Zone/GroundTiles/EditableTileMap"]
+[editable path="RuinedTower/Zone/GothicArchitecture"]

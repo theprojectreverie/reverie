@@ -1,11 +1,7 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/components/summon_sigil.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/ui/components/summon_reveal_overlay.gd" id="2"]
-[ext_resource type="VideoStreamTheora" path="res://assets/cinematics/summoning/summoning_opening_fade.ogv" id="3"]
-[ext_resource type="VideoStreamTheora" path="res://assets/cinematics/summoning/summoning_standard_silver_blue.ogv" id="4"]
-[ext_resource type="VideoStreamTheora" path="res://assets/cinematics/summoning/summoning_rare_violet.ogv" id="5"]
-[ext_resource type="VideoStreamTheora" path="res://assets/cinematics/summoning/summoning_highest_gold_crimson.ogv" id="6"]
 
 [sub_resource type="Animation" id="standard"]
 resource_name = "standard"
@@ -61,7 +57,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-stream = ExtResource("3")
 autoplay = false
 loop = false
 expand = true
@@ -93,6 +88,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CloseSummonButton" type="Button" parent="."]
+custom_minimum_size = Vector2(92,48)
 z_index = 2
 layout_mode = 1
 anchor_left = 0.80

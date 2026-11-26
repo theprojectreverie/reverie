@@ -1,0 +1,100 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
+[ext_resource type="PackedScene" path="res://scenes/world/village/imported_village/village.tscn" id="1_map"]
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/standalone_zone_controller.gd" id="2_controller"]
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="3_transfer"]
+[ext_resource type="Script" path="res://scripts/game/game_overlay_router_component.gd" id="existing_overlay_router"]
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_ui_binding.gd" id="zone_ui_binding"]
+[ext_resource type="Script" path="res://scripts/game/game_combat_router_component.gd" id="combat_router"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_ui.tscn" id="existing_game_ui"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/village/imported_village/gerald_challenge.tscn" id="gerald_challenge"]
+
+[sub_resource type="RectangleShape2D" id="ExitShape"]
+size = Vector2(160, 128)
+
+[node name="StandaloneVillage" type="Node2D"]
+texture_filter = 1
+script = ExtResource("2_controller")
+player_size_multiplier = 1.1
+player_speed_multiplier = 0.56
+player_start_zoom = 1.7825
+
+[node name="VillageMap" parent="." instance=ExtResource("1_map")]
+position = Vector2(0, 0)
+
+[node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
+position = Vector2(-2030, 104)
+scale = Vector2(0.55, 0.55)
+
+[node name="TransferPoints" type="Node2D" parent="."]
+
+[node name="FastTravelArrival" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-2090, 112)
+
+[node name="SafeSpawnFromPreviousZone" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-2090, 112)
+
+[node name="ToNextZone" type="Marker2D" parent="TransferPoints"]
+position = Vector2(1200, 65)
+
+[node name="ToNextZoneTrigger" type="Area2D" parent="TransferPoints/ToNextZone"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_transfer")
+destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_01_royal_gardens_standalone.tscn"
+arrival_marker = &""
+required_story_flag = "village_gerald_defeated"
+
+[node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger"]
+shape = SubResource("ExitShape")
+
+[node name="ExitLabel" type="Label" parent="TransferPoints/ToNextZone"]
+offset_left = -100.0
+offset_top = -65.0
+offset_right = 100.0
+offset_bottom = -37.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.08, 0.05, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+text = "Royal Gardens"
+horizontal_alignment = 1
+
+[node name="Perimeter" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Bounds" type="CollisionPolygon2D" parent="Perimeter"]
+build_mode = 1
+polygon = PackedVector2Array(-2200, -850, 2350, -850, 2350, 3700, -2200, 3700)
+
+[node name="UI" parent="." instance=ExtResource("existing_game_ui")]
+
+[node name="OverlayRouter" type="Node" parent="."]
+script = ExtResource("existing_overlay_router")
+
+[node name="ZoneUIBinding" type="Node" parent="."]
+script = ExtResource("zone_ui_binding")
+
+[node name="CombatRouter" type="Node" parent="."]
+script = ExtResource("combat_router")
+
+[node name="GeraldChallenge" parent="VillageMap/GeraldBossSpawn" instance=ExtResource("gerald_challenge")]
+
+
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
+position = Vector2(-85, 12)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = 0.000000
+scale = Vector2(1.65, 1.65)
+
+[editable path="VillageMap"]

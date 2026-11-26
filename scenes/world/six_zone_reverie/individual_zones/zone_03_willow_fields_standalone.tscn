@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cof8wlsmuakxn"]
 
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/willow_fields_east_exit.png" id="custom_connection_art"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_03.png" id="perimeter_cloud_3"]
@@ -18,8 +20,16 @@
 [ext_resource type="PackedScene" uid="uid://dvdtele1xw3e1" path="res://scenes/world/six_zone_reverie/zone_03_willow_fields.tscn" id="zone"]
 [ext_resource type="Script" uid="uid://65mh0owy5t1y" path="res://scripts/world/six_zone_reverie/willow_fields_standalone_controller.gd" id="zone_controller"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/willow_explore_marker.gd" id="willow_explore"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/rose_slime.tscn" id="willow_slime"]
+
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
+
+[sub_resource type="RectangleShape2D" id="ExitTransferDetection"]
+size = Vector2(240, 180)
 
 [sub_resource type="Animation" id="FogDrift_ToPreviousZone"]
 resource_name = "drift"
@@ -66,7 +76,13 @@ script = ExtResource("zone_controller")
 [node name="Zone" parent="." unique_id=1016706536 instance=ExtResource("zone")]
 position = Vector2(32, 16)
 
+[node name="SharedWillowSlime" parent="." instance=ExtResource("willow_slime")]
+position = Vector2(-2350, 1370)
+group_id = "willow_slime_1"
+monster_name = "Willow Slime"
+
 [node name="ZoneCamera" type="Camera2D" parent="." unique_id=1798470455]
+process_callback = 0
 position = Vector2(2100, 1050)
 enabled = false
 zoom = Vector2(0.45, 0.45)
@@ -74,8 +90,11 @@ zoom = Vector2(0.45, 0.45)
 [node name="ExitRoadToZone04" parent="." unique_id=1759482280 instance=ExtResource("road")]
 position = Vector2(2400, 1392)
 
+[node name="ExitRoadExtension" parent="." instance=ExtResource("road")]
+position = Vector2(2656, 1520)
+
 [node name="EntryRoadFromZone02" parent="." unique_id=859250590 instance=ExtResource("road")]
-position = Vector2(-2656, 1328)
+position = Vector2(-2720, 1296)
 
 [node name="ScenicBackground" type="CanvasLayer" parent="."]
 layer = -1
@@ -92,7 +111,16 @@ texture = ExtResource("prepared_background")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
+position = Vector2(-2114, 1704)
+
 [node name="TransferPoints" type="Node2D" parent="." unique_id=1522657932]
+
+[node name="RoadSpawn" type="Marker2D" parent="TransferPoints"]
+position = Vector2(0, 2168)
+
+[node name="FastTravelArrival" type="Marker2D" parent="TransferPoints"]
+position = Vector2(-2204, 1716)
 
 [node name="ToPreviousZone" type="Marker2D" parent="TransferPoints" unique_id=502930986]
 position = Vector2(-2720, 1360)
@@ -111,7 +139,7 @@ arrival_marker = &"ToNextZone"
 shape = SubResource("TransferDetection")
 
 [node name="ToNextZone" type="Marker2D" parent="TransferPoints" unique_id=996846068]
-position = Vector2(2624, 1568)
+position = Vector2(3008, 1744)
 metadata/target_zone = 4
 metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn"
 metadata/connection = "exit"
@@ -121,9 +149,12 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("transfer_script")
 destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_04_elderwood_grove_standalone.tscn"
+required_quest = "willow_crossing"
+previously_visited_zone = "StandaloneZone04"
+locked_route_text = "Investigate the ruins first"
 
 [node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger" unique_id=202660149]
-shape = SubResource("TransferDetection")
+shape = SubResource("ExitTransferDetection")
 
 [node name="Flat22" type="Sprite2D" parent="." unique_id=1305146131]
 position = Vector2(-130.5, 290)
@@ -618,3 +649,98 @@ rotation = -0.444
 scale = Vector2(0.67, 0.67)
 modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_5")
+[node name="CustomRoadContinuation" type="Sprite2D" parent="TransferPoints/ToNextZone"]
+texture_filter = 1
+z_index = -5
+position = Vector2(-140, -99)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("custom_connection_art")
+
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
+position = Vector2(-150, 0)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+visible = false
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = 0.000000
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Elderwood Grove"
+horizontal_alignment = 1
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToPreviousZone"]
+position = Vector2(137, 61)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = -2.722786
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Royal Gate"
+horizontal_alignment = 1
+
+[node name="WillowObjectives" type="Node2D" parent="."]
+
+[node name="RiverCrossing" type="Marker2D" parent="WillowObjectives"]
+position = Vector2(900, 1700)
+script = ExtResource("willow_explore")
+objective_id = "willow_bridge"
+
+[node name="ObjectiveLabel" type="Label" parent="WillowObjectives/RiverCrossing"]
+offset_left = -160.0
+offset_top = -60.0
+offset_right = 160.0
+offset_bottom = -30.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1,0.93,0.72,1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+text = "River crossing"
+horizontal_alignment = 1
+
+[node name="EasternRuins" type="Marker2D" parent="WillowObjectives"]
+position = Vector2(1710, 1300)
+script = ExtResource("willow_explore")
+objective_id = "willow_ruins"
+
+[node name="ObjectiveLabel" type="Label" parent="WillowObjectives/EasternRuins"]
+offset_left = -160.0
+offset_top = -60.0
+offset_right = 160.0
+offset_bottom = -30.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1,0.93,0.72,1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+text = "Eastern ruins"
+horizontal_alignment = 1
+
+[node name="TerrainPerimeter" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="TerrainOutline" type="CollisionPolygon2D" parent="TerrainPerimeter"]
+build_mode = 1
+polygon = PackedVector2Array(-2688, 1328, -2592, 1376, 96, 32, 3296, 1632, 96, 3232, -3104, 1632, -2720, 1440, -2816, 1392)
+

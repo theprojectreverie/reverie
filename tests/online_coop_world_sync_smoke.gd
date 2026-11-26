@@ -12,7 +12,7 @@ func _initialize() -> void:
 func _run() -> void:
 	var packed := load("res://scenes/online/remote_player_avatar.tscn") as PackedScene
 	assert(packed != null, "Remote avatar scene must load")
-	var sync := CoopWorldSyncComponent.new()
+	var sync = load("res://scripts/online/coop_world_sync_component.gd").new()
 	root.add_child(sync)
 	await process_frame
 	var initial_remote_root := Node2D.new()
@@ -46,7 +46,7 @@ func _run() -> void:
 	root.add_child(layer)
 	sync.remote_root = layer
 	sync.entities = layer
-	var avatar := sync._ensure_remote("player-remote-1", "Friend", Vector2(120.0, 240.0))
+	var avatar = sync._ensure_remote("player-remote-1", "Friend", Vector2(120.0, 240.0))
 	assert(avatar != null, "Remote avatar should instantiate")
 	assert(sync.remote_players.has("player-remote-1"), "Remote avatar should be tracked by player ID")
 	assert(avatar.player_id == "player-remote-1", "Remote avatar should retain player ID")
@@ -68,7 +68,13 @@ func _run() -> void:
 	assert(sync.last_sequence == 306, "Snapshot recovery should resume cleanly from the snapshot sequence and apply newer buffered events")
 	assert(sync.remote_players.has("friend-3"), "Resync snapshot should recreate party members")
 	assert(sync.remote_players.has("friend-4"), "Events newer than the snapshot should be replayed after membership reconciliation")
-	assert((sync.remote_players["friend-3"] as RemotePlayerAvatar).target_position == Vector2(310.0, 420.0), "Resync snapshot should restore last known member positions")
+	assert((sync.remote_players["friend-3"]).target_position == Vector2(310.0, 420.0), "Resync snapshot should restore last known member positions")
+	# A delayed snapshot during recovery must not roll back an already applied state.
+	sync._snapshot_ready = false
+	sync._on_server_event({"type":"snapshot","members":[{"id":"local-player","x":0,"y":0}],"sequence":304})
+	assert(not sync._snapshot_ready and sync.last_sequence == 306)
+	assert(sync.remote_players.has("friend-3") and sync.remote_players.has("friend-4"))
+	print("STALE RECOVERY SNAPSHOT REJECTED")
 	# A future event must wait for the missing sequence instead of advancing the cursor.
 	sync.last_sequence = 10
 	sync._snapshot_ready = true
@@ -77,7 +83,7 @@ func _run() -> void:
 	assert(sync._out_of_order_events.has(12), "Future live event should be buffered by sequence")
 	sync._on_server_event({"type":"position","playerId":"friend-3","x":110.0,"y":110.0,"sequence":11})
 	assert(sync.last_sequence == 12, "Receiving the missing event should drain buffered contiguous events")
-	assert((sync.remote_players["friend-3"] as RemotePlayerAvatar).target_position == Vector2(120.0, 120.0), "Buffered event should apply after the missing sequence")
+	assert((sync.remote_players["friend-3"]).target_position == Vector2(120.0, 120.0), "Buffered event should apply after the missing sequence")
 	assert(sync._out_of_order_events.is_empty(), "Ordered event buffer should empty after contiguous drain")
 	# A prolonged gap must not allow unbounded client memory growth.
 	sync.last_sequence = 1000
@@ -107,16 +113,16 @@ func _run() -> void:
 	assert(sync.local_player_id == "local-player", "Persistent world snapshot should identify the local player")
 	assert(persistent_local_player.global_position == Vector2(44.0, 55.0), "Persistent world snapshot should restore the local player's authoritative position")
 	assert(sync.remote_players.has("friend-persistent"), "Persistent world snapshot should create remote party avatars")
-	assert((sync.remote_players["friend-persistent"] as RemotePlayerAvatar).target_position == Vector2(110.0, 220.0), "Persistent world snapshot should restore remote positions from camel-case playerId members")
+	assert((sync.remote_players["friend-persistent"]).target_position == Vector2(110.0, 220.0), "Persistent world snapshot should restore remote positions from camel-case playerId members")
 	sync._on_persistent_world_event({"type":"position","playerId":"friend-persistent","x":222.0,"y":333.0,"sequence":11})
-	assert((sync.remote_players["friend-persistent"] as RemotePlayerAvatar).target_position == Vector2(222.0, 333.0), "Persistent world positions should update remote interpolation")
+	assert((sync.remote_players["friend-persistent"]).target_position == Vector2(222.0, 333.0), "Persistent world positions should update remote interpolation")
 	assert(sync._persistent_last_sequence == 11, "Persistent-world event cursor should advance only after applying the next ordered event")
 	sync._on_persistent_world_event({"type":"position","playerId":"friend-persistent","x":999.0,"y":999.0,"sequence":11})
-	assert((sync.remote_players["friend-persistent"] as RemotePlayerAvatar).target_position == Vector2(222.0, 333.0), "Duplicate persistent-world events must not overwrite newer state")
+	assert((sync.remote_players["friend-persistent"]).target_position == Vector2(222.0, 333.0), "Duplicate persistent-world events must not overwrite newer state")
 	sync._on_persistent_world_event({"type":"position","playerId":"friend-persistent","x":888.0,"y":888.0,"sequence":13})
 	assert(sync._persistent_last_sequence == 11, "Persistent-world sequence gaps must not advance the local cursor")
 	sync._on_persistent_world_event({"type":"position","playerId":"friend-persistent","x":333.0,"y":444.0,"sequence":12})
-	assert(sync._persistent_last_sequence == 12 and (sync.remote_players["friend-persistent"] as RemotePlayerAvatar).target_position == Vector2(333.0, 444.0), "The missing ordered event should apply after the gap is filled")
+	assert(sync._persistent_last_sequence == 12 and (sync.remote_players["friend-persistent"]).target_position == Vector2(333.0, 444.0), "The missing ordered event should apply after the gap is filled")
 	sync._on_persistent_world_event({"type":"player_left","playerId":"friend-persistent","sequence":13})
 	assert(not sync.remote_players.has("friend-persistent"), "Persistent world departures should remove remote avatars")
 	sync._on_persistent_world_event({"type":"player_joined","playerId":"friend-persistent"})
@@ -134,7 +140,7 @@ func _run() -> void:
 	assert(sync._snapshot_ready, "A reconnect snapshot should re-enable movement after authoritative membership is restored")
 	assert(not persistent_local_player.network_recovery_paused, "Authoritative recovery snapshot should release the locomotion lock")
 	assert(persistent_local_player.global_position == Vector2(60.0, 70.0), "Reconnect snapshot should correct local position drift")
-	assert((sync.remote_players["friend-persistent"] as RemotePlayerAvatar).target_position == Vector2(330.0, 440.0), "Reconnect snapshot should replace stale remote positions")
+	assert((sync.remote_players["friend-persistent"]).target_position == Vector2(330.0, 440.0), "Reconnect snapshot should replace stale remote positions")
 	# A delayed older snapshot must not roll the world back after a newer reconciliation.
 	sync._on_persistent_world_event({"type":"world_joined","serverId":"server-a","eventSequence":19,"playerId":"local-player","members":[{"playerId":"local-player","name":"Local","x":1.0,"y":1.0}]})
 	assert(sync._snapshot_ready and persistent_local_player.global_position == Vector2(60.0, 70.0), "Older snapshots must not overwrite a newer recovered world")
@@ -160,6 +166,24 @@ func _run() -> void:
 	assert(sync._recovery_status.visible and sync._recovery_status.text.contains("restoring your party"), "Lobby recovery should explain that the party session is being restored")
 	sync._on_lobby_connection_failed("Reconnect attempts exhausted")
 	assert(persistent_local_player.network_recovery_paused and sync._recovery_status.text.contains("Reconnect attempts exhausted"), "Terminal lobby recovery failure must keep movement paused and explain why")
+	# Negotiated windows carry a contiguous range, not one event per distant peer.
+	sync.remote_root = persistent_layer
+	sync._persistent_interest_windows = true
+	sync._persistent_last_sequence = 2000
+	sync._snapshot_ready = true
+	sync.local_player_id = "local-player"
+	sync._on_persistent_world_event({"type":"world_position_window","fromSequence":2001,"sequence":2005,"members":[{"playerId":"near","name":"Near","x":123,"y":456}]})
+	assert(sync._persistent_last_sequence == 2005 and sync.remote_players.has("near"))
+	assert(sync.remote_players.size() == 1)
+	sync._on_persistent_world_event({"type":"world_position_window","fromSequence":2007,"sequence":2008,"members":[]})
+	assert(sync._persistent_last_sequence == 2005 and sync.remote_players.has("near"), "A window must not skip a missing durable event")
+	sync._on_persistent_world_event({"type":"world_position_window","fromSequence":2006,"sequence":2008,"members":[]})
+	assert(sync._persistent_last_sequence == 2008 and sync.remote_players.is_empty())
+	sync._on_persistent_world_event({"type":"world_position_window","fromSequence":2009,"sequence":2010,"members":[{"playerId":"near","name":"Near","x":500,"y":600}]})
+	assert(sync.remote_players.has("near") and sync.remote_players["near"].target_position == Vector2(500,600))
+	sync._on_persistent_world_event({"type":"world_position_window","fromSequence":2006,"sequence":2008,"members":[]})
+	assert(sync.remote_players.has("near"), "Stale window must not remove a newly visible avatar")
+	print("INTEREST_WINDOW_CLIENT_PASS")
 	sync.queue_free()
 	layer.queue_free()
 	persistent_local_player.queue_free()

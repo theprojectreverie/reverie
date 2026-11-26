@@ -1,0 +1,2 @@
+CREATE INDEX IF NOT EXISTS guild_mission_season_idx ON guild_mission_claims(mission_day,guild_id,player_id) WHERE guild_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS guild_raid_season_idx ON guild_raid_attempts(week_start,guild_id,player_id) WHERE guild_id IS NOT NULL AND damage>0;

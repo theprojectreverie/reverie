@@ -10,6 +10,10 @@ func _ready() -> void:
     if zone.has_node("CombatRouter"):
         EventBus.encounter_requested.connect(_encounter)
         zone.get_node("CombatRouter").combat_closed.connect(_resume)
+    var beacon := preload("res://scenes/world/quest_destination_marker.tscn").instantiate() as Node2D
+    beacon.name = "ChapterQuestBeacon"
+    beacon.visible = false
+    zone.add_child.call_deferred(beacon)
     hud.screen_requested.connect(_open_screen)
     hud.menu_requested.connect(_open_pause)
     hud.return_to_title_requested.connect(_return_to_title)
@@ -20,7 +24,9 @@ func _ready() -> void:
     router.navigate_requested.connect(_navigate)
     var names := ["Royal Gardens", "Royal Gate", "Willow Fields", "Elderwood Grove", "Forsaken Ruins", "Ruined Tower"]
     var index := int(str(zone.name).right(2)) - 1
-    if index >= 0 and index < names.size():
+    if zone.name == "StandaloneVillage":
+        hud.set_world_info("Village", "Exploration")
+    elif index >= 0 and index < names.size():
         hud.set_world_info(names[index], "Exploration")
     # Royal Gardens already owns the top-center interaction instruction.
     if zone.has_node("NPCDialogueLayer/InteractionPrompt"):
@@ -31,9 +37,13 @@ func _player() -> CharacterBody2D:
 
 func _dialogue_busy() -> bool:
     var dialogue := zone.get_node_or_null("NPCDialogueLayer/Dialogue") as Control
+    if dialogue == null:
+        dialogue = zone.get_node_or_null("UI/Dialogue") as Control
     return dialogue != null and dialogue.visible
 
 func _open_pause() -> void:
+    if _travel_or_combat_busy():
+        return
     if not _dialogue_busy() and router.open_pause_menu():
         _suspend()
         # Do not expose the legacy reset action in this checkpoint-based world.
@@ -44,6 +54,8 @@ func _open_pause() -> void:
                 button.hide()
 
 func _open_screen(id: String) -> void:
+    if _travel_or_combat_busy():
+        return
     if not _dialogue_busy() and router.open_screen(id):
         _suspend()
 
@@ -58,6 +70,8 @@ func _suspend() -> void:
     TouchInput.release()
 
 func _resume() -> void:
+    if _travel_or_combat_busy():
+        return
     var player := _player()
     if is_instance_valid(player) and not _dialogue_busy():
         player.set("input_enabled", true)
@@ -73,6 +87,10 @@ func _switch_avatar() -> void:
         player.call("cycle_avatar")
 
 func _return_to_title() -> void:
+    if bool(zone.get_meta("portal_load_pending", false)):
+        return
+    if bool(zone.get_meta("gerald_backstory_active", false)) or bool(zone.get_meta("cassien_ritual_active", false)) or bool(zone.get_meta("ravienna_ending_active", false)):
+        return
     CHECKPOINT.capture(zone, _player(), true)
     GameState.save_now()
     TouchInput.release()
@@ -94,9 +112,21 @@ func _unhandled_input(event: InputEvent) -> void:
         _open_pause()
         get_viewport().set_input_as_handled()
 
+func _travel_or_combat_busy() -> bool:
+    if bool(zone.get_meta("portal_load_pending", false)):
+        return true
+    if bool(zone.get_meta("gerald_backstory_active", false)) or bool(zone.get_meta("cassien_ritual_active", false)) or bool(zone.get_meta("ravienna_ending_active", false)):
+        return true
+    if bool(zone.get_meta("coop_boss_panel_open", false)):
+        return true
+    if bool(zone.get_meta("fast_travel_pending", false)) or bool(zone.get_meta("fast_travel_visual_pending", false)):
+        return true
+    var combat := zone.get_node_or_null("CombatRouter") as GameCombatRouterComponent
+    return combat != null and combat.active_combat != null
+
 func _encounter(group_id: String, source: Node) -> void:
     var combat := zone.get_node("CombatRouter") as GameCombatRouterComponent
-    if _dialogue_busy() or router.active_overlay != null or not combat.start_encounter(group_id):
+    if _travel_or_combat_busy() or _dialogue_busy() or router.active_overlay != null or not combat.start_encounter(group_id):
         if is_instance_valid(source):
             source.set("engaged", false)
         return

@@ -47,10 +47,18 @@ func process_events(events: Array) -> void:
 			"heal":
 				var heal_actor: BattlefieldActor = screen._actor_for_uid(str(event.get("target_uid", "")))
 				var heal_amount := int(event.get("amount", 0))
-				if heal_amount > 0:
+				var heal_delay := 0.16
+				var heal_source: Combatant = screen.engine.get_by_uid(str(event.get("actor_uid", ""))) if screen.engine != null else null
+				if str(event.get("status", "")) == "lifesteal" and _is_revienna(heal_source):
+					heal_delay = _revienna_impact_delay(str(event.get("skill_id", "")))
+					if heal_amount > 0:
+						screen.get_tree().create_timer(heal_delay).timeout.connect(func() -> void:
+							if is_instance_valid(screen) and screen.is_inside_tree() and not screen._resolved:
+								AudioDirector.play_variant("healing"))
+				elif heal_amount > 0:
 					AudioDirector.play_variant("healing")
-					screen._log("[color=#8fe3a0]%s recovers %d HP.[/color]" % [str(event.get("target_name", "Unit")), heal_amount])
-					screen._float_text(heal_actor, "+%d" % heal_amount, UITheme.GREEN)
+				screen._log("[color=#8fe3a0]%s recovers %d HP.[/color]" % [str(event.get("target_name", "Unit")), heal_amount])
+				screen._float_text(heal_actor, "+%d" % heal_amount, UITheme.GREEN, heal_delay)
 			"shield":
 				screen._log("[color=#7fe3e0]%s gains a %d shield.[/color]" % [str(event.get("target_name", "Unit")), int(event.get("amount", 0))])
 			"status":
@@ -90,6 +98,8 @@ func process_events(events: Array) -> void:
 				var phase_boss_id := str(event.get("boss_id", phase_boss.def_id if phase_boss != null else ""))
 				var phase_boss_name := str(event.get("boss_name", phase_boss.display_name if phase_boss != null else ""))
 				var phase_number := int(event.get("phase_number", 2))
+				if screen._hud_component != null:
+					screen._hud_component.refresh_boss_header(phase_number)
 				screen._log("[color=#ffc95e]%s[/color]" % phase_message)
 				screen._camera_shake(10.0, 0.5)
 				if phase_boss_id.is_empty():
@@ -98,6 +108,10 @@ func process_events(events: Array) -> void:
 					await screen._show_boss_phase_transition(phase_boss_id, phase_number, phase_message, phase_boss_name)
 				if not is_instance_valid(screen) or not screen.is_inside_tree() or screen._resolved:
 					return
+				if phase_boss_id == "revienna_boss":
+					var ravienna := screen._actor_for_uid(phase_uid)
+					if is_instance_valid(ravienna) and is_instance_valid(ravienna.ravienna_art):
+						ravienna.ravienna_art.get_node("PoseAnimation").play("phase")
 				if screen._battlefield != null and phase_boss_id == "fallen_matron":
 					screen._battlefield.play_matron_phase(phase_number)
 			"victory":
@@ -105,6 +119,9 @@ func process_events(events: Array) -> void:
 				if not is_instance_valid(screen) or not screen.is_inside_tree():
 					return
 				screen._flush_pending_deaths(pending_deaths)
+				await _wait_for_gerald_surrender()
+				if not is_instance_valid(screen) or not screen.is_inside_tree() or screen._resolved:
+					return
 				screen._refresh_cards()
 				if screen._battlefield != null:
 					screen._battlefield.play_victory_animations()
@@ -148,7 +165,7 @@ func _show_boss_telegraphs(boss_actor: BattlefieldActor, target_uids: Array) -> 
 		var target_actor: BattlefieldActor = screen._actor_for_uid(str(uid))
 		if target_actor != null and is_instance_valid(target_actor) and target_actor.unit != null:
 			if target_actor.unit.team != boss_actor.unit.team:
-				positions.append(rig.to_local(target_actor.global_position))
+				positions.append(rig.get_global_transform_with_canvas().affine_inverse() * target_actor.get_global_transform_with_canvas().origin)
 	if positions.is_empty():
 		return true
 	rig.call("show_target_telegraphs", positions, boss_actor.unit.def_id, 0.42)
@@ -160,6 +177,20 @@ func _show_boss_telegraphs(boss_actor: BattlefieldActor, target_uids: Array) -> 
 			rig.call("clear_target_telegraphs")
 		return false
 	return true
+
+
+static func _is_revienna(source: Combatant) -> bool:
+	return source != null and (source.def_id == "revienna_boss" or source.def_id == "ravienna" or source.def_id.begins_with("ravienna_"))
+
+
+static func _revienna_impact_delay(skill_id: String) -> float:
+	match BattlefieldActor.ravienna_visual_skill(skill_id):
+		"ravienna_eclipse": return 1.25
+		"corruption_bolt": return 0.885
+		"shadow_lash": return 0.76
+		"soul_drain": return 1.01
+		"hollow_wail": return 0.75
+		_: return 0.5
 
 
 func handle_damage(event: Dictionary) -> void:
@@ -200,7 +231,22 @@ func handle_damage(event: Dictionary) -> void:
 			# Matron's ~1.88s verdict choreography. Preserve the original total
 			# impact beat instead of stacking a second full windup.
 			impact_delay = 1.46
-			screen._cinematic_finish_delay = maxf(screen._cinematic_finish_delay, impact_delay)
+		if source != null and source.def_id == "kael":
+			var kael_actor := screen._actor_for_uid(str(event.get("actor_uid", "")))
+			if KaelAttackPresentationComponent.uses_boss_combo(kael_actor, str(event.get("skill_id", "")), bool(event.get("ultimate", false))):
+				impact_delay = KaelAttackPresentationComponent.BOSS_IMPACT_TIME
+		if _is_revienna(source):
+			impact_delay = _revienna_impact_delay(str(event.get("skill_id", "")))
+		if source != null and source.def_id == "fairy_spar":
+			impact_delay = BattlefieldActor.fairy_impact_time(str(event.get("skill_id", "")), bool(event.get("ultimate", false)))
+		if source != null and (source.def_id == "cassien_boss" or source.def_id == "cassien" or source.def_id.begins_with("cassien_")):
+			impact_delay = BattlefieldActor.cassien_impact_time(str(event.get("skill_id", "")), bool(event.get("ultimate", false)))
+		if source != null and source.def_id == "gerald_boss":
+			impact_delay = 0.88 if str(event.get("skill_id", "")) in ["gerald_earthquake", "gerald_village_earthquake"] else 0.98
+			var gerald_actor := screen._actor_for_uid(str(event.get("actor_uid", "")))
+			if is_instance_valid(gerald_actor) and gerald_actor.gerald_walk_sequence_active:
+				impact_delay += BattlefieldActor.GERALD_WALK_TIME
+		screen._cinematic_finish_delay = maxf(screen._cinematic_finish_delay, impact_delay)
 		screen.get_tree().create_timer(impact_delay).timeout.connect(func() -> void:
 			if not is_instance_valid(screen) or not screen.is_inside_tree() or screen._resolved or not is_instance_valid(actor):
 				return
@@ -209,19 +255,21 @@ func handle_damage(event: Dictionary) -> void:
 			if source != null and source.is_boss and screen._boss_presentation_rig != null:
 				var rig: Node = screen._boss_presentation_rig
 				if rig.has_method("play_impact"):
-					rig.call("play_impact", rig.to_local(actor.global_position), source.def_id, 1.0 if crit else 0.82)
+					rig.call("play_impact", rig.get_global_transform_with_canvas().affine_inverse() * actor.get_global_transform_with_canvas().origin, source.def_id, 1.0 if crit else 0.82)
 			if absorbed > 0:
 				AudioDirector.play_variant("shield_block")
 			if amount > 0:
 				var impact_skill: SkillDef = ContentDB.get_skill(str(event.get("skill_id", "")))
-				var impact_category := "critical_hit" if crit else ("magic_impact" if impact_skill != null and impact_skill.animation_key == "cast" else "sword_impact")
+				var impact_category := "critical_hit" if crit else ("magic_impact" if _is_revienna(source) or (impact_skill != null and impact_skill.animation_key == "cast") else "sword_impact")
 				if absorbed <= 0:
 					AudioDirector.play_variant(impact_category)
 				AudioDirector.play_damage_reaction(actor.unit)
 			actor.take_hit()
 			if screen._battlefield != null and is_instance_valid(screen._battlefield):
 				screen._battlefield.spawn_elemental_burst(actor.position + Vector2(0, -18.0), element)
-			if crit or amount > 50:
+			if source != null and source.def_id == "cassien_boss" and str(event.get("skill_id", "")) == "cassien_crimson_requiem":
+				screen._camera_shake(7.0, 0.35)
+			elif crit or amount > 50:
 				screen._camera_shake(4.0 if crit else 2.0, 0.2))
 		# Damage numbers share the exact same per-skill impact beat.
 		screen._float_text(actor, "-%d%s" % [amount, "!" if crit else ""], color, impact_delay)
@@ -238,14 +286,43 @@ func animate_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 			var source: Combatant = screen.engine.combatants[combat_index]
 			element = str(source.element)
 	var skill_definition: SkillDef = ContentDB.get_skill(skill_id) if not skill_id.is_empty() else null
-	if skill_definition != null and (skill_definition.ultimate or skill_definition.animation_key in ["cast", "heal", "guard"]):
+	if _is_revienna(attacker.unit):
+		AudioDirector.play_variant("magic_charge" if BattlefieldActor.ravienna_visual_skill(skill_id) == "ravienna_eclipse" else "magic_projectile")
+	elif skill_definition != null and (skill_definition.ultimate or skill_definition.animation_key in ["cast", "heal", "guard"]):
 		if skill_definition.animation_key == "cast":
 			AudioDirector.play_variant("magic_projectile")
 		else:
 			AudioDirector.play_spell_cast()
-	elif attacker.unit != null and attacker.unit.def_id.begins_with("kael"):
+	elif attacker.unit != null and (attacker.unit.def_id.begins_with("kael") or attacker.unit.def_id == "cassien_boss"):
 		AudioDirector.play_variant("sword_swing")
 	screen._battlefield.play_attack(attacker, target, element, skill_id, ultimate)
+	if KaelAttackPresentationComponent.uses_boss_combo(attacker, skill_id, ultimate):
+		screen._cinematic_finish_delay = maxf(screen._cinematic_finish_delay, KaelAttackPresentationComponent.BOSS_TOTAL_TIME + 0.06)
+	if is_instance_valid(attacker.ravienna_art):
+		skill_id = BattlefieldActor.ravienna_visual_skill(skill_id)
+		screen._cinematic_finish_delay = maxf(screen._cinematic_finish_delay, 2.1 if skill_id == "ravienna_eclipse" else 1.56 if skill_id in ["soul_drain", "hollow_wail"] else 1.06 if skill_id in ["shadow_lash", "corruption_bolt"] else 0.85)
+		if skill_id == "ravienna_eclipse":
+			screen.get_tree().create_timer(1.25).timeout.connect(func() -> void:
+				if is_instance_valid(screen) and screen.is_inside_tree() and not screen._resolved:
+					screen._camera_shake(6.0, 0.35))
+		return
+	if is_instance_valid(attacker.fairy_art):
+		screen._cinematic_finish_delay = maxf(screen._cinematic_finish_delay, attacker.fairy_action_duration(skill_id, ultimate) + 0.06)
+		return
+	if is_instance_valid(attacker.cassien_art):
+		screen._cinematic_finish_delay = maxf(screen._cinematic_finish_delay, attacker.cassien_action_duration(skill_id, ultimate) + 0.06)
+		return
+	if attacker.unit != null and attacker.unit.def_id == "gerald_boss":
+		# Hold the next turn through the full authored recovery.
+		screen._cinematic_finish_delay = maxf(screen._cinematic_finish_delay, 1.99 if ultimate else 1.74)
+		if attacker.gerald_walk_sequence_active:
+			screen._cinematic_finish_delay = maxf(screen._cinematic_finish_delay, BattlefieldActor.GERALD_STRIKE_TIME + 2.0 * BattlefieldActor.GERALD_WALK_TIME + 0.06)
+		if ultimate:
+			screen.get_tree().create_timer(0.88).timeout.connect(func() -> void:
+				if is_instance_valid(screen) and screen.is_inside_tree() and not screen._resolved and is_instance_valid(attacker) and not attacker.dead:
+					screen._camera_shake(10.0, 0.48)
+					screen._battlefield.shake_gerald_earthquake())
+		return
 	if attacker.unit != null and attacker.unit.def_id == "fallen_matron" and (ultimate or skill_id == "matron_verdict"):
 		screen._camera_shake(8.0, 0.42)
 	elif attacker.unit != null and attacker.unit.def_id == "kael" and ultimate:
@@ -257,3 +334,23 @@ func animate_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		)
 
 
+
+# Keep the victory overlay from covering the authored surrender.
+func _wait_for_gerald_surrender() -> void:
+	if screen._battlefield == null:
+		return
+	for actor in screen._battlefield.actors():
+		if is_instance_valid(actor) and actor.dead and is_instance_valid(actor.fairy_art):
+			if actor.fairy_art.animation == &"surrender" and actor.fairy_art.is_playing():
+				await actor.fairy_art.animation_finished
+			return
+		if is_instance_valid(actor) and actor.dead and is_instance_valid(actor.ravienna_art):
+			var sprite := actor.ravienna_art.get_node("AnimatedSprite2D") as AnimatedSprite2D
+			if sprite.animation == &"defeat" and sprite.is_playing():
+				await sprite.animation_finished
+			return
+		if is_instance_valid(actor) and actor.dead and (is_instance_valid(actor.gerald_art) or is_instance_valid(actor.cassien_art)):
+			var sprite: AnimatedSprite2D = actor.gerald_art if is_instance_valid(actor.gerald_art) else actor.cassien_art
+			if sprite.animation == &"defeat" and sprite.is_playing():
+				await sprite.animation_finished
+			return

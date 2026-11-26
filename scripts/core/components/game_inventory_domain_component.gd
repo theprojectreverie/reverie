@@ -60,6 +60,9 @@ func remove_item(item_id: String, amount: int = 1) -> bool:
 	if amount <= 0 or item_count(item_id) < amount:
 		return false
 	var remaining := item_count(item_id) - amount
+	# Generic sales, drops and material consumption must not destroy upgraded copies.
+	if remaining < GameState.roster_domain.stored_copies(item_id).size():
+		return false
 	if remaining <= 0:
 		inventory.erase(item_id)
 	else:

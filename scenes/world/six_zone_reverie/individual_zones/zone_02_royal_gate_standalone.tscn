@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dg7e5lvm8dgpe"]
 
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/reverie_exit_southeast.png" id="southeast_exit_art"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_03.png" id="perimeter_cloud_3"]
@@ -17,6 +19,11 @@
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_02_royal_gate.tscn" id="zone"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_transfer_road_connectors.tscn" id="connector_roads"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/royal_gate_patrol.gd" id="gate_patrol"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/crownling.tscn" id="gate_crownling"]
 
 [sub_resource type="SegmentShape2D" id="edge_1"]
 a = Vector2(130, -70)
@@ -72,6 +79,9 @@ b = Vector2(130, -70)
 
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
+
+[sub_resource type="RectangleShape2D" id="ExitTransferDetection"]
+size = Vector2(240, 180)
 
 [sub_resource type="Animation" id="FogDrift_ToPreviousZone"]
 resource_name = "drift"
@@ -151,7 +161,13 @@ texture = ExtResource("prepared_background")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
+position = Vector2(90.0, 888.0)
+
 [node name="TransferPoints" type="Node2D" parent="."]
+
+[node name="FastTravelArrival" type="Marker2D" parent="TransferPoints"]
+position = Vector2(0, 900)
 
 [node name="ToPreviousZone" type="Marker2D" parent="TransferPoints"]
 position = Vector2(-521, 200)
@@ -186,12 +202,16 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("transfer_script")
 destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_03_willow_fields_standalone.tscn"
+required_quest = "royal_gate_patrol"
+previously_visited_zone = "StandaloneZone03"
+locked_route_text = "Clear the royal avenue"
 arrival_marker = &"ToPreviousZone"
 
 [node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger"]
-shape = SubResource("TransferDetection")
+shape = SubResource("ExitTransferDetection")
 
 [node name="GroundPerimeter" type="StaticBody2D" parent="."]
+collision_layer = 0
 collision_mask = 0
 
 [node name="Edge1" type="CollisionShape2D" parent="GroundPerimeter"]
@@ -721,3 +741,78 @@ rotation = -0.515
 scale = Vector2(0.657, 0.657)
 modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_5")
+[node name="SoutheastRoadContinuation" type="Sprite2D" parent="TransferPoints/ToNextZone"]
+texture_filter = 1
+z_index = -5
+position = Vector2(-160, -130)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("southeast_exit_art")
+
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
+position = Vector2(-134, -67)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+visible = false
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = 0.463648
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToNextZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Willow Fields"
+horizontal_alignment = 1
+[node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToPreviousZone"]
+position = Vector2(134, 67)
+z_index = 35
+
+[node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
+texture_filter = 1
+texture = ExtResource("exit_chevrons")
+rotation = -2.677945
+scale = Vector2(1.65, 1.65)
+[node name="DestinationName" type="Label" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
+offset_left = -130.0
+offset_top = -69.0
+offset_right = 130.0
+offset_bottom = -41.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.13, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 22
+text = "Royal Gardens"
+horizontal_alignment = 1
+
+[node name="RoyalGatePatrol" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("gate_patrol")
+
+[node name="Crownling01" parent="RoyalGatePatrol" instance=ExtResource("gate_crownling")]
+position = Vector2(-65, 1200)
+group_id = "royal_gate_patrol_1"
+monster_name = "Royal Gate Crownling"
+max_world_hp = 120.0
+
+[node name="Crownling02" parent="RoyalGatePatrol" instance=ExtResource("gate_crownling")]
+position = Vector2(75, 1840)
+group_id = "royal_gate_patrol_2"
+monster_name = "Royal Gate Crownling"
+max_world_hp = 120.0
+
+[node name="TerrainPerimeter" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="TerrainOutline" type="CollisionPolygon2D" parent="TerrainPerimeter"]
+build_mode = 1
+polygon = PackedVector2Array(-398, 124, -292, 177, 194, -66, 3394, 1534, 1660, 2401, 1906, 2524, 1714, 2620, 1468, 2497, 194, 3134, -3006, 1534, -484, 273, -590, 220)
+

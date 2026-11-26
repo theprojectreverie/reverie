@@ -20,12 +20,12 @@ func _run() -> void:
 	get_root().add_child(intro)
 	await process_frame
 	var sequence: Node = intro.get_node("Sequence")
-	assert(sequence.shots.size() == 7, "Cinematic should contain seven shots.")
+	assert(sequence.shots.size() == 17, "Fallen Guardian cinematic should contain seventeen shots.")
 	for shot in sequence.shots:
 		var image_path := str(shot.get("image", ""))
 		var texture := load(image_path) as Texture2D
 		assert(texture != null, "Cinematic image failed to load: " + image_path)
 	assert(intro.get_node("Artwork").texture != null, "First Gerald story image was not displayed.")
-	print("[GeraldCinematicSmoke] PASS — all six scripts load; scene instantiates; all seven images load.")
+	print("[GeraldCinematicSmoke] PASS: all 17 images load.")
 	intro.queue_free()
 	quit(0)

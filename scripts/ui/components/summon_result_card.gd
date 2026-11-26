@@ -1,6 +1,8 @@
 class_name SummonResultCard
 extends PanelContainer
 
+const UPGRADE := preload("res://scripts/gacha/character_upgrade_card.gd")
+const MOB := preload("res://scripts/gacha/mob_summon_reward.gd")
 var premium: bool = false
 var _portrait: PortraitView
 var _name_label: Label
@@ -29,17 +31,35 @@ func setup(roll: Dictionary) -> void:
 	_rarity_label = get_node("Content/Rarity") as Label
 	_tier_label = get_node("Content/Tier") as Label
 	_status_label = get_node("Content/Status") as Label
-	if definition != null:
-		_portrait.setup_character(definition)
+	var upgrade := UPGRADE.definition(character_id)
+	var mob := MOB.definition(character_id)
+	var source_id := str(upgrade.get("portrait_id", character_id))
+	var base := preload("res://scripts/ui/portrait_framing.gd").base_id(source_id)
+	var authored: Texture2D = null
+	if not mob.is_empty():
+		authored = MOB.texture(mob)
+	elif base in ["kael", "gerald", "lilith"]:
+		authored = load("res://assets/portraits/summon/%s.png" % base) as Texture2D
 	else:
-		_portrait.setup({}, "Human", "neutral", rarity, 0)
-	var result_name := definition.display_name if definition != null else character_id
+		authored = preload("res://scripts/ui/portrait_framing.gd").authored_texture(source_id, "card")
+	# Resolve the source once, before the portrait enters the scene tree.
+	# Card-only IDs are not playable definitions and must not need one for art.
+	if definition != null:
+		_portrait.setup(definition.palette,definition.race,definition.element,rarity,definition.portrait_seed)
+	_portrait.character_id = source_id
+	_portrait.rarity = rarity
+	_portrait.fit_mode = "art"
+	_portrait.set_portrait_texture(authored)
+	_portrait.visible = authored != null
+	var result_name := str(mob.name) if not mob.is_empty() else (definition.display_name if definition != null else character_id)
 	# Variant copies share the original character identity; rarity is already
 	# shown on its own line, so remove the redundant aspect suffix here.
 	for aspect in ["Common", "Rare", "Epic", "Legendary", "Mythic"]:
 		result_name = result_name.trim_suffix(" (" + aspect + " Aspect)")
-	_name_label.text = result_name
-	_rarity_label.text = rarity.capitalize()
+	_name_label.text = str(upgrade.name) if not upgrade.is_empty() else result_name
+	_rarity_label.text = "Upgrade source" if not mob.is_empty() else rarity.capitalize()
+	if not upgrade.is_empty():
+		_rarity_label.text = rarity.capitalize() + " card"
 	_rarity_label.add_theme_color_override("font_color", color)
 	_tier_label.visible = premium
 	if premium:
@@ -48,6 +68,17 @@ func setup(roll: Dictionary) -> void:
 	# Keep every meaningful result tag visible. The old mutually-exclusive
 	# chain hid NEW / awakening / guaranteed whenever a unit was featured.
 	var tags: Array[String] = []
+	if not mob.is_empty():
+		tags.append(MOB.description(roll.get("items", mob.items)))
+		_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	if not upgrade.is_empty():
+		tags.append(UPGRADE.status(roll))
+		_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	if roll.has("mythic_count"):
+		var evolved: Array = roll.get("fusions", [])
+		tags.append("Fused: " + str(evolved.back().name) if not evolved.is_empty() else "Mythic %d/7" % int(roll.mythic_count))
+	if roll.has("ascended_count"):
+		tags.append("FULLY ASCENDED" if int(roll.ascended_count) >= 7 else "Ascension %d/7" % int(roll.ascended_count))
 	var status_color := UITheme.TEXT_DIM
 	if bool(roll.get("featured", false)):
 		tags.append("FEATURED")
@@ -60,6 +91,9 @@ func setup(roll: Dictionary) -> void:
 		tags.append("AWAKENING +%d" % int(roll.get("awakening_gain", 0)))
 		if not bool(roll.get("featured", false)):
 			status_color = UITheme.TEAL
+	if bool(roll.get("paid_guaranteed", false)):
+		tags.append("PAID MILESTONE")
+		status_color = UITheme.VIOLET
 	if bool(roll.get("guaranteed", false)):
 		tags.append("GUARANTEED")
 		if tags.size() == 1:

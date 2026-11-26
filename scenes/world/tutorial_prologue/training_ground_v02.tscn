@@ -1,20 +1,25 @@
 [gd_scene format=3 uid="uid://54n65hcnm8f7"]
 
+[ext_resource type="Texture2D" uid="uid://dc4l1ogco38b3" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/cleaned_props/stone_brazier.png" id="4_ms181"]
+[ext_resource type="Texture2D" uid="uid://d4a25tvpoxbxu" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/cleaned_props/barrels_and_sack.png" id="13_vao4a"]
+[ext_resource type="Texture2D" uid="uid://bafgykph6i0ov" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/cleaned_props/hanging_training_dummy.png" id="14_o3lbc"]
+[ext_resource type="Texture2D" uid="uid://buwfmgkn2rgut" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/cleaned_props/spear_stand.png" id="15_dmc1l"]
+[ext_resource type="Texture2D" uid="uid://caixcycuiw66o" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/cleaned_props/wooden_post_dummy.png" id="16_m1tfb"]
+[ext_resource type="Texture2D" uid="uid://ces1h5ql2xd8a" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/cleaned_props/crystal_shrine.png" id="19_obr1g"]
+[ext_resource type="Texture2D" uid="uid://bxmbl0k7cj2ai" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/cleaned_props/crystal_supply_table.png" id="20_aba3a"]
 [ext_resource type="Texture2D" uid="uid://1rncqgk65qfw" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/training_courtyard_backdrop.png" id="backdrop"]
+[ext_resource type="PackedScene" path="res://scenes/world/tutorial_prologue/companion_npc.tscn" id="companion"]
 [ext_resource type="Texture2D" uid="uid://bvnofeug78g8d" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/training_crates.png" id="Crates"]
 [ext_resource type="Script" uid="uid://dh1lda5efvny1" path="res://scripts/world/tutorial_prologue/tutorial_training_dummy.gd" id="dummy"]
 [ext_resource type="Script" uid="uid://0el4x0otn51c" path="res://scripts/world/tutorial_prologue/training_ground_flag.gd" id="flag"]
 [ext_resource type="Script" uid="uid://c1yy836g1ldc1" path="res://scripts/world/tutorial_prologue/training_ground_layout.gd" id="layout"]
 [ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="player"]
 [ext_resource type="Texture2D" uid="uid://dc1sil6w8aya4" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/straw_practice_dummy.png" id="PracticeDummy"]
+[ext_resource type="Texture2D" uid="uid://dm8ncem1kvnhk" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/training_courtyard_scenery.png" id="scenery"]
 [ext_resource type="Texture2D" uid="uid://csvo6b73giwjf" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/shield_rack.png" id="ShieldRack"]
 [ext_resource type="Texture2D" uid="uid://ejml3neittwk" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/standing_target_board.png" id="StandingTarget"]
 [ext_resource type="Texture2D" uid="uid://rbapkft63elc" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/royal_banner_stand.png" id="TutorialFlag"]
 [ext_resource type="Texture2D" uid="uid://lew6mnfxuknx" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/weapon_rack.png" id="WeaponRack"]
-
-[ext_resource type="Texture2D" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/training_courtyard_scenery.png" id="scenery"]
-
-[ext_resource type="PackedScene" path="res://scenes/world/tutorial_prologue/companion_npc.tscn" id="companion"]
 
 [sub_resource type="Shader" id="Shader_courtyard_matte"]
 code = "shader_type canvas_item;
@@ -31,17 +36,37 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_courtyard_matte"]
 shader = SubResource("Shader_courtyard_matte")
 
+[sub_resource type="StyleBoxFlat" id="SparPanel"]
+content_margin_left = 24.0
+content_margin_top = 16.0
+content_margin_right = 24.0
+content_margin_bottom = 16.0
+bg_color = Color(0.065, 0.045, 0.105, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.69, 0.49, 0.26, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [node name="TrainingGroundV02" type="Node2D" unique_id=863581439]
 y_sort_enabled = true
 script = ExtResource("layout")
 
-[node name="ScenicBackground" type="CanvasLayer" parent="."]
+[node name="ScenicBackground" type="CanvasLayer" parent="." unique_id=336883143]
 layer = -1
 
-[node name="Artwork" type="TextureRect" parent="ScenicBackground"]
+[node name="Artwork" type="TextureRect" parent="ScenicBackground" unique_id=1333713032]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -111.0
+offset_top = -138.0
+offset_right = -111.0
+offset_bottom = -138.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -50,8 +75,8 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="Backdrop" type="Sprite2D" parent="." unique_id=564047291]
-material = SubResource("ShaderMaterial_courtyard_matte")
 z_index = -20
+material = SubResource("ShaderMaterial_courtyard_matte")
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("backdrop")
 metadata/_edit_lock_ = true
@@ -83,6 +108,35 @@ polygon = PackedVector2Array(-99, 263.625, -76.5, 269.625, 0, 310.875, 0, 332.62
 
 [node name="StairEdgeEast" type="CollisionPolygon2D" parent="Boundaries" unique_id=790981086]
 polygon = PackedVector2Array(99, 263.625, 95.25, 284.625, 0, 332.625, 0, 310.875, 76.5, 269.625)
+
+[node name="OuterSafetyOutline" type="CollisionPolygon2D" parent="Boundaries" unique_id=1621041203]
+position = Vector2(0, 4)
+build_mode = 1
+polygon = PackedVector2Array(-638, -20, -500, -150, -160, -300, 0, -324, 160, -300, 500, -150, 638, -20, 98, 288, 0, 324, -98, 288)
+
+[node name="BarrelsAndSackFootprint" type="CollisionPolygon2D" parent="Boundaries" unique_id=1188639835]
+polygon = PackedVector2Array(-396, 33, -388, 38, -377.985, 41.447, -365, 35, -353, 37, -340, 32, -339.508, 46.179, -359.692, 51.501, -387.446, 49.136, -399.431, 46.179)
+
+[node name="HangingTrainingDummyFootprint" type="CollisionPolygon2D" parent="Boundaries" unique_id=110420361]
+polygon = PackedVector2Array(-268.676, -77.378, -252.235, -83.703, -235.794, -75.973, -216.494, -79.486, -197.194, -77.378, -190.761, -66.135, -202.198, -60.514, -225.072, -68.243, -250.091, -60.514, -268.676, -66.135)
+
+[node name="SpearStandFootprint" type="CollisionPolygon2D" parent="Boundaries" unique_id=1415735449]
+polygon = PackedVector2Array(188.891, -116.07, 238.047, -116.07, 242.963, -109.579, 241.622, -104.943, 233.578, -104.943, 231.791, -108.188, 193.359, -108.188, 192.019, -104.943, 185.316, -105.407, 185.316, -110.506)
+
+[node name="WoodenPostDummyFootprint" type="CollisionPolygon2D" parent="Boundaries" unique_id=1978149510]
+polygon = PackedVector2Array(-340, -84.078, -326.8, -86.757, -318.4, -86.311, -308.4, -83.631, -300.8, -76.039, -308.4, -73.359, -319.2, -77.379, -328, -76.039, -342.8, -74.699, -344, -79.165)
+
+[node name="CrystalShrineFootprint" type="CollisionPolygon2D" parent="Boundaries" unique_id=1574494841]
+polygon = PackedVector2Array(57.927, -116.057, 75.109, -121.17, 95.236, -116.45, 95.727, -112.123, 78.055, -107.01, 57.436, -112.517)
+
+[node name="CrystalSupplyTableFootprint" type="CollisionPolygon2D" parent="Boundaries" unique_id=1979797722]
+polygon = PackedVector2Array(-70.57, -171.222, -57.635, -176.401, -11.189, -176.872, -6.485, -168.396, -12.365, -165.1, -49.404, -160.392, -71.746, -165.571)
+
+[node name="StoneBrazierFootprint" type="CollisionPolygon2D" parent="Boundaries" unique_id=173768087]
+polygon = PackedVector2Array(-124.674, -117.092, -111.37, -121.438, -97.326, -116.657, -96.587, -111.876, -109.891, -106.66, -125.043, -111.876)
+
+[node name="StoneBrazier2Footprint" type="CollisionPolygon2D" parent="Boundaries" unique_id=996533199]
+polygon = PackedVector2Array(115.929, -120.551, 128.647, -124.332, 142.071, -120.173, 142.777, -116.013, 130.06, -111.476, 115.576, -116.013)
 
 [node name="TutorialProps" type="Node2D" parent="." unique_id=405199143]
 y_sort_enabled = true
@@ -184,6 +238,7 @@ script = ExtResource("dummy")
 
 [node name="Sprite" type="Sprite2D" parent="TutorialProps/PracticeDummy" unique_id=2082172674]
 texture_filter = 1
+position = Vector2(-2, 3)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("PracticeDummy")
 centered = false
@@ -198,6 +253,54 @@ position = Vector2(-1, -31)
 scale = Vector2(1, 3.9765625)
 polygon = PackedVector2Array(-22, 4.777996, 12, 3.7721024, 14, 7.2927313, 0, 7.795678, -17, 8)
 
+[node name="BarrelsAndSack" type="Sprite2D" parent="TutorialProps" unique_id=607032074]
+position = Vector2(-365.999900, 41.750500)
+scale = Vector2(0.63076925, 0.5914286)
+texture = ExtResource("13_vao4a")
+offset = Vector2(0, -30.012921)
+
+[node name="HangingTrainingDummy" type="Sprite2D" parent="TutorialProps" unique_id=1760150603]
+position = Vector2(-224.000000, -72.108500)
+scale = Vector2(0.71481484, 0.7027027)
+texture = ExtResource("14_o3lbc")
+offset = Vector2(0, -89.499443)
+
+[node name="SpearStand" type="Sprite2D" parent="TutorialProps" unique_id=251755068]
+position = Vector2(209.000000, -110.506500)
+scale = Vector2(0.446875, 0.46361506)
+texture = ExtResource("15_dmc1l")
+offset = Vector2(0, -89.499897)
+
+[node name="WoodenPostDummy" type="Sprite2D" parent="TutorialProps" unique_id=932553772]
+position = Vector2(-320.000000, -80.058000)
+scale = Vector2(0.4, 0.44660193)
+texture = ExtResource("16_m1tfb")
+offset = Vector2(0, -76.000567)
+
+[node name="CrystalShrine" type="Sprite2D" parent="TutorialProps" unique_id=968425351]
+position = Vector2(80.999990, -114.090000)
+scale = Vector2(0.4909091, 0.39333335)
+texture = ExtResource("19_obr1g")
+offset = Vector2(0, -73.500048)
+
+[node name="CrystalSupplyTable" type="Sprite2D" parent="TutorialProps" unique_id=1146160808]
+position = Vector2(-35.000000, -168.632000)
+scale = Vector2(0.58793104, 0.4708589)
+texture = ExtResource("20_aba3a")
+offset = Vector2(0, -55.999791)
+
+[node name="StoneBrazier" type="Sprite2D" parent="TutorialProps" unique_id=1417086277]
+position = Vector2(-111.000000, -114.049000)
+scale = Vector2(0.36956522, 0.43467337)
+texture = ExtResource("4_ms181")
+offset = Vector2(0, -50.499919)
+
+[node name="StoneBrazier2" type="Sprite2D" parent="TutorialProps" unique_id=544964239]
+position = Vector2(129.000000, -117.904000)
+scale = Vector2(0.35326087, 0.37814072)
+texture = ExtResource("4_ms181")
+offset = Vector2(0, -50.499719)
+
 [node name="Kael" parent="." unique_id=1100313546 instance=ExtResource("player")]
 position = Vector2(0, 245)
 scale = Vector2(0.5, 0.5)
@@ -205,47 +308,101 @@ scale = Vector2(0.5, 0.5)
 [node name="LocomotionComponent" parent="Kael" index="9"]
 movement_speed_multiplier = 0.45
 
-[node name="TutorialHUD" type="CanvasLayer" parent="."]
+[node name="DialogueCamera" type="Camera2D" parent="." unique_id=649163423]
+enabled = false
+process_callback = 0
 
-[node name="TutorialObjective" type="Label" parent="TutorialHUD"]
+[node name="TutorialHUD" type="CanvasLayer" parent="." unique_id=540594660]
+
+[node name="TutorialObjective" type="Label" parent="TutorialHUD" unique_id=1145067542]
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 16.0
 offset_bottom = 48.0
 grow_horizontal = 2
-mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.09, 1)
 theme_override_constants/outline_size = 7
 theme_override_font_sizes/font_size = 19
 text = "Face the practice dummy and press F twice for basic attacks."
 horizontal_alignment = 1
 
-[node name="SparringRoot" type="Control" parent="TutorialHUD"]
+[node name="SparringRoot" type="Control" parent="TutorialHUD" unique_id=1044876885]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 83.0
+offset_top = 184.0
+offset_right = 83.0
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
-[node name="CompanionNPC" parent="." instance=ExtResource("companion")]
-position = Vector2(140, 30)
-
-[node name="SparDialogue" type="PanelContainer" parent="TutorialHUD"]
+[node name="SparDialogue" type="PanelContainer" parent="TutorialHUD" unique_id=1741587281]
 visible = false
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 160.0
-offset_right = -160.0
-offset_top = -170.0
-offset_bottom = -30.0
+offset_left = 32.0
+offset_top = -230.0
+offset_right = -32.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("SparPanel")
 
-[node name="Content" type="VBoxContainer" parent="TutorialHUD/SparDialogue"]
-[node name="Line" type="Label" parent="TutorialHUD/SparDialogue/Content"]
-text = "Companion: Not bad, Kael. Shall we see how you fare against me?"
-horizontal_alignment = 1
-autowrap_mode = 2
-[node name="Continue" type="Button" parent="TutorialHUD/SparDialogue/Content"]
+[node name="Content" type="VBoxContainer" parent="TutorialHUD/SparDialogue" unique_id=733020957]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Speaker" type="Label" parent="TutorialHUD/SparDialogue/Content" unique_id=668056585]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.76, 0.88, 1)
+theme_override_font_sizes/font_size = 21
+text = "Mysterious Companion"
+
+[node name="DialogueProgress" type="Label" parent="TutorialHUD/SparDialogue/Content" unique_id=604507878]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.64, 0.84, 1)
+theme_override_font_sizes/font_size = 13
+text = "1 / 3"
+horizontal_alignment = 2
+
+[node name="Line" type="Label" parent="TutorialHUD/SparDialogue/Content" unique_id=55575165]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.94, 0.91, 0.97, 1)
+theme_override_font_sizes/font_size = 19
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="CompanionNameEntry" type="LineEdit" parent="TutorialHUD/SparDialogue/Content"]
+visible = false
+layout_mode = 2
+custom_minimum_size = Vector2(0,44)
+max_length = 24
+placeholder_text = "Choose her name"
+clear_button_enabled = true
+theme_override_font_sizes/font_size = 19
+
+[node name="Continue" type="Button" parent="TutorialHUD/SparDialogue/Content" unique_id=1602103361]
+custom_minimum_size = Vector2(240, 44)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 18
 text = "Accept challenge"
+
+[node name="TravelFade" type="ColorRect" parent="TutorialHUD" unique_id=1409230480]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="CompanionNPC" parent="." unique_id=1351025020 instance=ExtResource("companion")]
+position = Vector2(0, -82)
 
 [editable path="Kael"]

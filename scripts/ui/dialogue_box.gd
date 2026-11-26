@@ -4,6 +4,8 @@ extends Control
 ## from resources/data/dialogue.json; this script only presents them.
 
 signal closed(dialogue_id: String)
+signal node_shown(dialogue_id: String, node_id: String)
+signal choice_selected(dialogue_id: String, choice: Dictionary)
 
 const TYPE_SPEED := 52.0
 
@@ -15,6 +17,8 @@ var _target_text: String = ""
 var _typing: bool = false
 var _char_progress: float = 0.0
 var _closing: bool = false
+var ritual_portrait_layout := false
+var ending_landscape_layout := false
 
 var _portrait: PortraitView
 var _speaker_label: Label
@@ -109,7 +113,7 @@ func _show_node(node_id: String) -> void:
 	_node = nodes[node_id]
 	var speaker := str(_node.get("speaker", "???"))
 	_speaker_label.text = speaker
-	_name_label.text = _dialogue_id.replace("_", " ").to_upper()
+	_name_label.text = str(_data.get("caption", _dialogue_id.replace("_", " "))).to_upper()
 	var palette: Dictionary = _node.get("portrait", {})
 	_portrait.setup(palette, _race_for_speaker(speaker), "neutral", "legendary", _dialogue_id.hash())
 	# Named story NPCs may provide a real portrait asset per dialogue node.
@@ -128,6 +132,7 @@ func _show_node(node_id: String) -> void:
 	_continue_button.visible = true
 	_continue_button.text = "Skip"
 	_hint_label.text = ""
+	node_shown.emit(_dialogue_id, node_id)
 
 
 func _finish_typing() -> void:
@@ -148,7 +153,11 @@ func _build_choices() -> void:
 	_hint_label.text = "Choose a reply"
 	for choice in choices:
 		var button := UIFactory.button(str(choice.get("text", "...")), false)
-		button.custom_minimum_size = Vector2(0, 34)
+		button.custom_minimum_size = Vector2(0, 140 if ritual_portrait_layout else (84 if ending_landscape_layout else 34))
+		if ritual_portrait_layout:
+			button.add_theme_font_size_override("font_size", 40)
+		elif ending_landscape_layout:
+			button.add_theme_font_size_override("font_size", 26)
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var captured: Dictionary = choice
 		button.pressed.connect(func() -> void: _choose(captured))
@@ -156,6 +165,8 @@ func _build_choices() -> void:
 
 
 func _on_continue() -> void:
+	if not visible or _closing or _continue_button.disabled:
+		return
 	if _typing:
 		_finish_typing()
 		return
@@ -167,6 +178,7 @@ func _on_continue() -> void:
 
 
 func _choose(choice: Dictionary) -> void:
+	choice_selected.emit(_dialogue_id, choice)
 	_run_action(str(choice.get("action", "")))
 	var next := str(choice.get("next", ""))
 	if next.is_empty():
@@ -219,3 +231,18 @@ func _race_for_speaker(speaker: String) -> String:
 			return "Fae"
 		_:
 			return "Human"
+
+
+func set_ending_landscape_layout(active: bool) -> void:
+	if ending_landscape_layout == active:
+		return
+	ending_landscape_layout = active
+	_speaker_label.add_theme_font_size_override("font_size", 30 if active else 21)
+	_name_label.add_theme_font_size_override("font_size", 18 if active else 11)
+	_text_label.add_theme_font_size_override("normal_font_size", 26 if active else 16)
+	_continue_button.custom_minimum_size = Vector2(224, 84) if active else Vector2(150, 36)
+	if active:
+		_continue_button.add_theme_font_size_override("font_size", 26)
+	else:
+		_continue_button.remove_theme_font_size_override("font_size")
+	_hint_label.visible = not active

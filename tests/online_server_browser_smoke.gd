@@ -13,6 +13,13 @@ func _run() -> void:
 	assert(browser.get_node_or_null("Center/Panel/Margins/Content/Status") != null, "Directory status missing")
 	assert(browser.get_node_or_null("Center/Panel/Margins/Content/Actions/RefreshButton") != null, "Refresh control missing")
 	assert(browser.has_signal("closed"), "Browser close signal missing")
+	var fallback: CheckButton = browser.get_node("Center/Panel/Margins/Content/RegionFallback")
+	assert(not fallback.button_pressed, "Fallback must require explicit opt-in")
+	fallback.button_pressed = true
+	assert(fallback.button_pressed)
+	browser._on_request_failed("join", "region_full")
+	assert("full" in browser.status_label.text)
+
 	var lobby_script := load("res://scripts/online/coop_lobby_screen.gd")
 	assert(lobby_script != null, "Co-op lobby integration script must load")
 	browser.queue_free()

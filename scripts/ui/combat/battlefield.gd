@@ -214,3 +214,15 @@ func _positions() -> Array:
 			"position": actor.position,
 		})
 	return out
+
+# Shake the actor stage, never the combatant formation coordinates.
+var _gerald_quake_tween: Tween
+func shake_gerald_earthquake() -> void:
+	if not is_instance_valid(_stage):
+		return
+	if _gerald_quake_tween != null and _gerald_quake_tween.is_valid():
+		_gerald_quake_tween.kill()
+	_stage.position = Vector2.ZERO
+	_gerald_quake_tween = create_tween()
+	for displacement in [Vector2(-8, 5), Vector2(7, -4), Vector2(-5, 3), Vector2(4, -2), Vector2(-2, 1), Vector2.ZERO]:
+		_gerald_quake_tween.tween_property(_stage, "position", displacement, 0.08)

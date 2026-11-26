@@ -1,0 +1,20 @@
+[gd_resource type="TileSet" format=3 uid="uid://bbljafhfv44ml"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Borders/border_chain_post.tscn" id="1_mm87k"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Borders/border_edge_rock_01.tscn" id="2_kiyip"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Borders/border_post_01.tscn" id="3_x5nqg"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Borders/path_border_stone_x.tscn" id="4_aj3u1"]
+[ext_resource type="PackedScene" path="res://scenes/world/reverie_pack/Pathways/Borders/path_border_stone_y.tscn" id="5_3k8ra"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_yw6py"]
+resource_name = "path_borders"
+scenes/1/scene = ExtResource("1_mm87k")
+scenes/2/scene = ExtResource("2_kiyip")
+scenes/3/scene = ExtResource("3_x5nqg")
+scenes/4/scene = ExtResource("4_aj3u1")
+scenes/5/scene = ExtResource("5_3k8ra")
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetScenesCollectionSource_yw6py")

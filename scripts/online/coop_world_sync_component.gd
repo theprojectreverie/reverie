@@ -24,11 +24,15 @@ var _snapshot_event_overflow := false
 var _out_of_order_events: Dictionary = {}
 var _replay_request_pending := false
 var _active_lobby_id := ""
+var patrol_cleared: Dictionary = {}
+var exploration_cleared: Array[String] = []
+const SHARED_OBJECTIVES := {"six_zone_willow_fields": ["willow_bridge", "willow_ruins"], "six_zone_elderwood_grove": ["elderwood_memorial", "elderwood_pillar"], "six_zone_forsaken_ruins": ["ruins_western_brazier", "ruins_central_brazier", "ruins_eastern_brazier", "cassien_resurrection"]}
 var _gateway: Node
 var _pending_persistent_world_snapshot: Dictionary = {}
 var _recovery_status: Label
 var _world_recovering := false
 var _persistent_last_sequence := 0
+var _persistent_interest_windows := false
 var _persistent_world_server_id := ""
 
 func _ready() -> void:
@@ -128,6 +132,22 @@ func bind(owner_game: Node) -> void:
 		session.world_changed.connect(_on_world_changed)
 	_attach_world(game.get("world") as Node2D)
 
+func bind_standalone(world: Node2D, player: Node2D, region_id: String) -> void:
+	active_world = world
+	entities = world
+	local_player = player
+	active_region_id = region_id
+	_ensure_remote_root()
+
+func _ensure_remote_root() -> void:
+	if entities == null or is_instance_valid(remote_root):
+		return
+	remote_root = Node2D.new()
+	remote_root.name = "RemotePlayers"
+	entities.add_child(remote_root)
+	remote_root.top_level = true
+	remote_root.global_position = Vector2.ZERO
+
 func _process(delta: float) -> void:
 	if _gateway == null or not _snapshot_ready or local_player == null or not is_instance_valid(local_player):
 		return
@@ -193,6 +213,9 @@ func _on_lobby_connected(lobby_id: String) -> void:
 
 func _on_persistent_world_event(event: Dictionary) -> void:
 	var event_type := str(event.get("type", ""))
+	if event_type=="player_titles":
+		_apply_title_refresh(event)
+		return
 	if event_type == "world_joined":
 		var incoming_server_id := str(event.get("serverId", ""))
 		var incoming_player_id := str(event.get("playerId", ""))
@@ -200,7 +223,8 @@ func _on_persistent_world_event(event: Dictionary) -> void:
 		# A recovery snapshot is authoritative only when it identifies its world,
 		# local member, and sequence cursor. Never let an incomplete/stale packet
 		# reset the cursor or roll rendered party state backwards.
-		if incoming_server_id.is_empty() or incoming_player_id.is_empty() or snapshot_sequence <= 0:
+		var valid_empty_cursor := bool(event.get("interestWindows", false)) and event.has("eventSequence") and snapshot_sequence == 0
+		if incoming_server_id.is_empty() or incoming_player_id.is_empty() or (snapshot_sequence <= 0 and not valid_empty_cursor):
 			_snapshot_ready = false
 			_set_local_network_recovery_paused(true)
 			_world_recovering = true
@@ -213,12 +237,32 @@ func _on_persistent_world_event(event: Dictionary) -> void:
 		if snapshot_sequence < _persistent_last_sequence:
 			return
 		local_player_id = incoming_player_id
+		_persistent_interest_windows = bool(event.get("interestWindows", false))
 		_persistent_last_sequence = maxi(_persistent_last_sequence, snapshot_sequence)
 		if entities == null or remote_root == null:
 			_pending_persistent_world_snapshot = event.duplicate(true)
 			_snapshot_ready = false
 			return
 		_apply_persistent_world_snapshot(event)
+		return
+	if event_type == "world_position_window":
+		if not _persistent_interest_windows:
+			return
+		var first := int(event.get("fromSequence", 0))
+		var last := int(event.get("sequence", 0))
+		var members: Variant = event.get("members")
+		if last <= _persistent_last_sequence or first <= 0 or first > last or first > _persistent_last_sequence + 1 or not members is Array:
+			return
+		_persistent_last_sequence = last
+		if not _pending_persistent_world_snapshot.is_empty():
+			var local_members: Array = []
+			for member in _pending_persistent_world_snapshot.get("members", []):
+				if member is Dictionary and str(member.get("playerId","")) == local_player_id:
+					local_members.append(member)
+			_pending_persistent_world_snapshot["members"] = local_members + members
+			_pending_persistent_world_snapshot["eventSequence"] = last
+		elif _snapshot_ready and remote_root != null:
+			_apply_interest_members(members)
 		return
 	var sequence := int(event.get("sequence", 0))
 	if sequence > 0:
@@ -230,12 +274,31 @@ func _on_persistent_world_event(event: Dictionary) -> void:
 		_persistent_last_sequence = sequence
 	if event_type == "player_joined":
 		var joined_id := str(event.get("playerId", ""))
-		if not joined_id.is_empty() and joined_id != local_player_id:
-			_ensure_remote(joined_id, str(event.get("name", "Wanderer")), Vector2.ZERO)
+		if not _persistent_interest_windows and not joined_id.is_empty() and joined_id != local_player_id:
+			_ensure_remote(joined_id, str(event.get("name", "Wanderer")), Vector2.ZERO, event.get("title",null))
 	elif event_type == "player_left":
 		_remove_remote(str(event.get("playerId", "")))
 	elif event_type == "position":
 		_apply_position(str(event.get("playerId", "")), Vector2(float(event.get("x", 0.0)), float(event.get("y", 0.0))), 0)
+
+func _apply_interest_members(members: Array) -> void:
+	var present: Dictionary = {}
+	for member in members:
+		if not member is Dictionary:
+			continue
+		var player_id := str(member.get("playerId", ""))
+		if player_id.is_empty() or player_id == local_player_id:
+			continue
+		var position := Vector2(float(member.get("x", 0.0)), float(member.get("y", 0.0)))
+		if not position.is_finite():
+			continue
+		present[player_id] = true
+		var avatar := _ensure_remote(player_id, str(member.get("name", "Wanderer")), position, member.get("title", null))
+		if avatar != null:
+			avatar.set_authoritative_position(position)
+	for player_id in remote_players.keys():
+		if not present.has(player_id):
+			_remove_remote(str(player_id))
 
 func _apply_persistent_world_snapshot(event: Dictionary) -> void:
 	local_player_id = str(event.get("playerId", local_player_id))
@@ -256,7 +319,7 @@ func _apply_persistent_world_snapshot(event: Dictionary) -> void:
 				local_player.global_position = member_position
 			continue
 		present_ids[member_id] = true
-		var avatar := _ensure_remote(member_id, str(member.get("name", "Wanderer")), member_position)
+		var avatar := _ensure_remote(member_id, str(member.get("name", "Wanderer")), member_position, member.get("title",null))
 		if avatar != null and has_position:
 			avatar.set_authoritative_position(member_position)
 	for existing_id in remote_players.keys():
@@ -338,6 +401,15 @@ func _on_lobby_connection_failed(reason: String) -> void:
 
 func _on_server_event(event: Dictionary) -> void:
 	var event_type := str(event.get("type", ""))
+	if event_type=="player_titles":
+		_apply_title_refresh(event)
+		return
+	if event_type == "monster_motion":
+		if _snapshot_ready and active_region_id == str(event.get("regionId", "")):
+			for state in event.get("monsters", []):
+				if state is Dictionary:
+					_apply_coop_monster_motion(state)
+		return
 	if event_type == "connected":
 		local_player_id = str(event.get("playerId", ""))
 		if not _resume_requested:
@@ -345,7 +417,11 @@ func _on_server_event(event: Dictionary) -> void:
 			_gateway.resume_from_sequence(last_sequence)
 		return
 	if event_type == "snapshot":
+		if int(event.get("sequence", 0)) < last_sequence:
+			return
 		_snapshot_ready = _apply_snapshot(event)
+		if _snapshot_ready and active_region_id.begins_with("six_zone_"):
+			AuthGateway.refresh_online_wallet()
 		_world_recovering = not _snapshot_ready
 		_set_local_network_recovery_paused(not _snapshot_ready)
 		if _snapshot_ready:
@@ -357,7 +433,7 @@ func _on_server_event(event: Dictionary) -> void:
 		else:
 			_set_recovery_status("Party snapshot could not verify your player. Movement is paused — return to the co-op lobby to rejoin.")
 		return
-	if not _snapshot_ready and event_type in ["replay", "position", "player_joined", "player_left", "emote"]:
+	if not _snapshot_ready and event_type in ["replay", "position", "player_joined", "player_left", "emote", "interaction"]:
 		if _pending_snapshot_events.size() >= MAX_BUFFERED_WORLD_EVENTS:
 			_pending_snapshot_events.clear()
 			_snapshot_event_overflow = true
@@ -397,10 +473,22 @@ func _apply_live_event_now(event: Dictionary) -> void:
 	elif event_type == "player_joined":
 		var joined_id := str(event.get("playerId", ""))
 		if not joined_id.is_empty() and joined_id != local_player_id:
-			_ensure_remote(joined_id, "Wanderer", Vector2.ZERO)
+			_ensure_remote(joined_id, str(event.get("name","Wanderer")), Vector2.ZERO, event.get("title",null))
 		_advance_sequence(event_sequence)
 	elif event_type == "player_left":
 		_remove_remote(str(event.get("playerId", "")))
+		_advance_sequence(event_sequence)
+	elif event_type == "interaction":
+		_apply_monster_state(event, true)
+		_play_remote_monster_attack(event)
+		_apply_coop_counterattack(event, true)
+		for reward in event.get("rewards", []):
+			if reward is Dictionary and str(reward.get("playerId", "")) == local_player_id:
+				AuthGateway.refresh_online_wallet()
+				var message := "Expedition reward: +%d online gold, +%d online XP" % [int(reward.get("gold",0)),int(reward.get("xp",0))]
+				for item_id in reward.get("items", {}):
+					message += ", +%d %s" % [int(reward["items"][item_id]), str(ContentDB.get_item(item_id).get("name",item_id))]
+				EventBus.toast_requested.emit(message)
 		_advance_sequence(event_sequence)
 	elif event_type == "emote":
 		_advance_sequence(event_sequence)
@@ -448,9 +536,14 @@ func _flush_snapshot_events() -> void:
 			_apply_live_event(event)
 
 func _apply_snapshot(event: Dictionary) -> bool:
+	if active_region_id.begins_with("six_zone_"):
+		for member in event.get("members", []):
+			if member is Dictionary and str(member.get("region_id", "")) != active_region_id:
+				return false
+	_ensure_remote_root()
 	if entities == null or remote_root == null:
 		return false
-	var local_member_found := local_player_id.is_empty()
+	var local_member_found := local_player_id.is_empty() and not active_region_id.begins_with("six_zone_")
 	for member in event.get("members", []):
 		if member is Dictionary and str(member.get("id", "")) == local_player_id:
 			local_member_found = true
@@ -472,7 +565,7 @@ func _apply_snapshot(event: Dictionary) -> bool:
 				local_player.global_position = spawn_position
 			continue
 		present_ids[id] = true
-		var avatar := _ensure_remote(id, str(member.get("name", "Wanderer")), spawn_position)
+		var avatar := _ensure_remote(id, str(member.get("name", "Wanderer")), spawn_position, member.get("title",null))
 		if avatar != null and member.get("x") != null and member.get("y") != null:
 			avatar.set_authoritative_position(spawn_position)
 	for existing_id in remote_players.keys():
@@ -481,6 +574,20 @@ func _apply_snapshot(event: Dictionary) -> bool:
 			if is_instance_valid(stale):
 				stale.queue_free()
 			remote_players.erase(existing_id)
+	if SHARED_OBJECTIVES.has(active_region_id):
+		_apply_exploration_progress(event.get("explorationCleared", []))
+	if active_region_id == "six_zone_royal_gate":
+		patrol_cleared.clear()
+		for id in event.get("patrolCleared", []):
+			if str(id) in ["royal_gate_patrol_1", "royal_gate_patrol_2"]:
+				patrol_cleared[str(id)] = true
+		_update_patrol_hud()
+	for monster in event.get("monsters", []):
+		if monster is Dictionary:
+			_apply_monster_state(monster)
+	var health: Dictionary = event.get("combatHealth", {})
+	if is_instance_valid(local_player) and active_region_id in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_forsaken_ruins", "six_zone_ruined_tower"]:
+		local_player.get_node("WorldCombatComponent").apply_coop_health(float(health.get(local_player_id,100)))
 	var snapshot_sequence := int(event.get("sequence", last_sequence))
 	if snapshot_sequence > last_sequence:
 		last_sequence = snapshot_sequence
@@ -505,13 +612,139 @@ func _apply_replay_event_now(item: Dictionary) -> void:
 		_apply_position(actor_id, Vector2(float(payload.get("x", item.get("x", 0.0))), float(payload.get("y", item.get("y", 0.0)))), sequence)
 	elif event_type == "player_joined":
 		if not actor_id.is_empty() and actor_id != local_player_id:
-			_ensure_remote(actor_id, "Wanderer", Vector2.ZERO)
+			_ensure_remote(actor_id, str(payload.get("name","Wanderer")), Vector2.ZERO, payload.get("title",null))
 		_advance_sequence(sequence)
 	elif event_type == "player_left":
 		_remove_remote(actor_id)
 		_advance_sequence(sequence)
+	elif event_type == "interaction":
+		payload["playerId"] = actor_id
+		_apply_monster_state(payload)
+		_apply_coop_counterattack(payload, false)
+		if not payload.get("rewards", []).is_empty():
+			AuthGateway.refresh_online_wallet()
+		_advance_sequence(sequence)
 	else:
 		_advance_sequence(sequence)
+
+func _play_remote_monster_attack(event: Dictionary) -> void:
+	if str(event.get("kind", "")) != "monster_hit":
+		return
+	var attacker := str(event.get("playerId", ""))
+	if attacker == local_player_id or not remote_players.has(attacker):
+		return
+	var avatar = remote_players[attacker]
+	if not is_instance_valid(avatar):
+		return
+	for target in get_tree().get_nodes_in_group("world_action_targets"):
+		if str(target.get("group_id")) == str(event.get("monsterId", "")):
+			avatar.play_confirmed_attack(target.global_position)
+			return
+func _apply_coop_counterattack(event: Dictionary, animate: bool) -> void:
+	if active_region_id not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_forsaken_ruins", "six_zone_ruined_tower"] or not event.get("counterattack") is Dictionary:
+		return
+	var counter: Dictionary = event["counterattack"]
+	var victim := str(counter.get("playerId", ""))
+	var target_position := Vector2.ZERO
+	if victim == local_player_id and is_instance_valid(local_player):
+		local_player.get_node("WorldCombatComponent").apply_coop_health(float(counter.get("hp",100)),bool(counter.get("knockedOut",false)),animate)
+		target_position = local_player.global_position
+	elif remote_players.has(victim) and is_instance_valid(remote_players[victim]):
+		var avatar = remote_players[victim]
+		target_position = avatar.global_position
+		if animate:
+			avatar.visual.play(ActorVisual.S_DEFEAT if bool(counter.get("knockedOut",false)) else ActorVisual.S_DAMAGE)
+	else:
+		return
+	if animate:
+		for monster in get_tree().get_nodes_in_group("world_action_targets"):
+			if str(monster.get("group_id")) == str(event.get("monsterId", "")) and monster.has_method("play_coop_counterattack"):
+				monster.play_coop_counterattack(target_position)
+				return
+func _apply_coop_monster_motion(state: Dictionary) -> void:
+	for target in get_tree().get_nodes_in_group("world_action_targets"):
+		if is_instance_valid(target) and target.has_method("apply_coop_motion") and str(target.get("group_id")) == str(state.get("monsterId", "")):
+			target.apply_coop_motion(Vector2(float(state.get("x",0)),float(state.get("y",0))),str(state.get("mode","patrol")),str(state.get("targetId", "")) if state.get("targetId") != null else "")
+			return
+func _update_patrol_hud() -> void:
+	if not is_instance_valid(active_world):
+		return
+	var hud := active_world.get_node_or_null("UI/HUD") as HUD
+	if hud != null:
+		hud.set_world_info("Royal Gate", "Patrol cleared (2/2)" if patrol_cleared.size() == 2 else "Shared patrol %d/2" % patrol_cleared.size())
+
+func next_exploration_objective() -> String:
+	if active_region_id == "six_zone_forsaken_ruins":
+		var cassien = active_world.get_node_or_null("CassienRitual") if is_instance_valid(active_world) else null
+		if cassien == null or not cassien.coop_defeated:
+			return ""
+	for id in SHARED_OBJECTIVES.get(active_region_id, []):
+		if str(id) not in exploration_cleared:
+			return str(id)
+	return ""
+
+func _apply_exploration_progress(completed: Array) -> void:
+	var previous := exploration_cleared.size()
+	exploration_cleared.clear()
+	for id in SHARED_OBJECTIVES.get(active_region_id, []):
+		if id in completed:
+			exploration_cleared.append(str(id))
+	if not is_instance_valid(active_world):
+		return
+	var hud := active_world.get_node_or_null("UI/HUD") as HUD
+	if hud != null and SHARED_OBJECTIVES.has(active_region_id):
+		if active_region_id == "six_zone_forsaken_ruins":
+			var next := next_exploration_objective()
+			var message := "Challenge Cassien" if next.is_empty() and exploration_cleared.size() < 4 else "Purify braziers %d/3" % mini(3, exploration_cleared.size())
+			if next == "cassien_resurrection": message = "Return to Cassien at the tomb"
+			if exploration_cleared.size() == 4: message = "Ravienna resurrected"
+			hud.set_world_info("Forsaken Ruins", message)
+		else:
+			var title := "Willow Fields" if active_region_id == "six_zone_willow_fields" else "Elderwood Grove"
+			hud.set_world_info(title, "Shared exploration %d/2" % exploration_cleared.size() if exploration_cleared.size() < 2 else "Exploration complete (2/2)")
+	for objective in get_tree().get_nodes_in_group("quest_exploration_targets"):
+		if active_world.is_ancestor_of(objective) and objective.has_method("refresh_shared_objective"):
+			objective.refresh_shared_objective()
+	if exploration_cleared.size() > previous and _snapshot_ready:
+		EventBus.toast_requested.emit("Party exploration: %d/%d" % [exploration_cleared.size(), SHARED_OBJECTIVES[active_region_id].size()])
+
+func _apply_monster_state(event: Dictionary, live: bool = false) -> void:
+	if active_region_id == "six_zone_forsaken_ruins" and str(event.get("kind", "")) == "boss_guard" and str(event.get("monsterId", "")) == "cassien_encounter":
+		var cassien = active_world.get_node_or_null("CassienRitual")
+		if cassien != null:
+			cassien.apply_coop_guard_confirmation(event)
+		return
+	if active_region_id == "six_zone_forsaken_ruins" and str(event.get("monsterId", "")) == "cassien_encounter":
+		var cassien = active_world.get_node_or_null("CassienRitual")
+		if cassien != null:
+			cassien.apply_coop_boss_state(event, live)
+			_apply_exploration_progress(exploration_cleared.duplicate())
+		return
+	if str(event.get("kind", "")) == "exploration_objective":
+		if str(event.get("regionId", "")) == active_region_id and event.get("completed") is Array:
+			_apply_exploration_progress(event.completed)
+		return
+	if active_region_id == "six_zone_royal_gate" and str(event.get("kind", "")) == "monster_hit" and float(event.get("hp", 100)) <= 0.0:
+		var id := str(event.get("monsterId", ""))
+		if id in ["royal_gate_patrol_1", "royal_gate_patrol_2"]:
+			patrol_cleared[id] = true
+			_update_patrol_hud()
+	if active_region_id == "six_zone_ruined_tower" and str(event.get("kind", "")) == "boss_guard" and str(event.get("monsterId", "")) == "revienna_encounter":
+		var boss = active_world.get_node_or_null("ReviennaEncounter")
+		if boss != null:
+			boss.apply_coop_guard_confirmation(event)
+		return
+	if active_region_id == "six_zone_ruined_tower" and str(event.get("monsterId", "")) == "revienna_encounter":
+		var boss = active_world.get_node_or_null("ReviennaEncounter")
+		if boss != null:
+			boss.apply_coop_boss_state(event, live)
+		return
+	if active_region_id not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields"] or str(event.get("kind", "")) != "monster_hit":
+		return
+	for target in get_tree().get_nodes_in_group("world_action_targets"):
+		if is_instance_valid(target) and target.has_method("apply_coop_monster_state") and str(target.get("group_id")) == str(event.get("monsterId", "")):
+			target.apply_coop_monster_state(float(event.get("hp",100)),float(event.get("deadUntil",0)))
+			return
 
 func _apply_position(player_id: String, next_position: Vector2, sequence: int) -> void:
 	if sequence > 0 and sequence <= last_sequence:
@@ -524,15 +757,36 @@ func _apply_position(player_id: String, next_position: Vector2, sequence: int) -
 		avatar.set_authoritative_position(next_position)
 	_advance_sequence(sequence)
 
-func _ensure_remote(player_id: String, label: String, initial_position: Vector2) -> RemotePlayerAvatar:
+# Cosmetic-only data never participates in movement sequencing or creates avatars.
+func _apply_title_refresh(event:Dictionary) -> void:
+	if not _snapshot_ready:return
+	for entry in event.get("players",[]):
+		if not entry is Dictionary:continue
+		var id:=str(entry.get("playerId",""))
+		if not remote_players.has(id):continue
+		var avatar=remote_players[id]
+		if is_instance_valid(avatar):
+			avatar.set_display_title(str(entry.get("title","")))
+
+func _ensure_remote(player_id: String, label: String, initial_position: Vector2, title:Variant=null) -> RemotePlayerAvatar:
 	if remote_players.has(player_id) and is_instance_valid(remote_players[player_id]):
-		return remote_players[player_id] as RemotePlayerAvatar
+		var existing := remote_players[player_id] as RemotePlayerAvatar
+		if not label.is_empty() and label != "Wanderer" and existing.display_name != label:
+			existing.display_name = label
+			if is_instance_valid(existing.name_label):
+				existing.name_label.text = label
+		if title!=null and existing.display_title!=str(title):existing.set_display_title(str(title))
+		return existing
 	if remote_root == null:
 		return null
 	var avatar := REMOTE_AVATAR_SCENE.instantiate() as RemotePlayerAvatar
 	avatar.name = "Remote_" + player_id.replace("-", "").substr(0, 12)
+	avatar.expedition_kael = active_region_id.begins_with("six_zone_")
 	avatar.configure(player_id, label, initial_position)
+	if title!=null:avatar.set_display_title(str(title))
 	remote_root.add_child(avatar)
+	if active_region_id.begins_with("six_zone_") and is_instance_valid(local_player):
+		avatar.scale = local_player.scale
 	remote_players[player_id] = avatar
 	return avatar
 

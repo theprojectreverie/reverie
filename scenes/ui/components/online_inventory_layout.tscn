@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[node name="OnlineInventory" type="VBoxContainer"]
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="."]
+text = "ONLINE INVENTORY"
+theme_override_font_sizes/font_size = 22
+
+[node name="Description" type="Label" parent="."]
+text = "Server-owned currencies and items. Manage equipped gear in the online collection."
+autowrap_mode = 2
+
+[node name="Wallet" type="HFlowContainer" parent="."]
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 6
+
+[node name="Filters" type="HBoxContainer" parent="."]
+theme_override_constants/separation = 8
+
+[node name="Search" type="LineEdit" parent="Filters"]
+placeholder_text = "Search items"
+size_flags_horizontal = 3
+
+[node name="Category" type="OptionButton" parent="Filters"]
+custom_minimum_size = Vector2(130, 36)
+
+[node name="Refresh" type="Button" parent="Filters"]
+text = "Refresh"
+
+[node name="Status" type="Label" parent="."]
+autowrap_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Materials" type="VBoxContainer" parent="Scroll"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 8

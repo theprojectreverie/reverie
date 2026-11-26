@@ -1,0 +1,241 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/paid_moonstone.png" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="PackNormal"]
+bg_color = Color(0.12, 0.075, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.38, 0.71, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxFlat" id="PackHover"]
+bg_color = Color(0.21, 0.13, 0.31, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.92, 0.75, 0.43, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxFlat" id="PackDisabled"]
+bg_color = Color(0.08, 0.07, 0.13, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.26, 0.23, 0.34, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[node name="MoonstoneShopLayout" type="VBoxContainer"]
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="TestNotice" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.76, 0.4, 1)
+theme_override_font_sizes/font_size = 17
+text = "STRIPE SANDBOX - NO REAL MONEY"
+autowrap_mode = 3
+
+[node name="Balance" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Online Moonstone balance: --"
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 2
+text = "Test Moonstones are credited to the signed-in online wallet only after server verification. Prices are provisional. No card details are collected by Reverie."
+autowrap_mode = 3
+
+[node name="Packages" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Small" type="Button" parent="Packages"]
+custom_minimum_size = Vector2(0, 142)
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+icon = ExtResource("1")
+vertical_icon_alignment = 0
+icon_alignment = 1
+theme_override_constants/icon_max_width = 64
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("PackNormal")
+theme_override_styles/hover = SubResource("PackHover")
+theme_override_styles/pressed = SubResource("PackHover")
+theme_override_styles/focus = SubResource("PackHover")
+theme_override_styles/disabled = SubResource("PackDisabled")
+text = "120 Moonstones - EUR 1.20 (test)"
+
+[node name="Medium" type="Button" parent="Packages"]
+custom_minimum_size = Vector2(0, 142)
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+icon = ExtResource("1")
+vertical_icon_alignment = 0
+icon_alignment = 1
+theme_override_constants/icon_max_width = 64
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("PackNormal")
+theme_override_styles/hover = SubResource("PackHover")
+theme_override_styles/pressed = SubResource("PackHover")
+theme_override_styles/focus = SubResource("PackHover")
+theme_override_styles/disabled = SubResource("PackDisabled")
+text = "600 Moonstones - EUR 6.00 (test)"
+
+[node name="Large" type="Button" parent="Packages"]
+custom_minimum_size = Vector2(0, 142)
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+icon = ExtResource("1")
+vertical_icon_alignment = 0
+icon_alignment = 1
+theme_override_constants/icon_max_width = 64
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("PackNormal")
+theme_override_styles/hover = SubResource("PackHover")
+theme_override_styles/pressed = SubResource("PackHover")
+theme_override_styles/focus = SubResource("PackHover")
+theme_override_styles/disabled = SubResource("PackDisabled")
+text = "1200 Moonstones - EUR 12.00 (test)"
+
+[node name="Actions" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Refresh" type="Button" parent="Actions"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Refresh payment status"
+
+[node name="Resume" type="Button" parent="Actions"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Resume pending checkout"
+
+[node name="Cancel" type="Button" parent="Actions"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Cancel pending checkout"
+
+[node name="Status" type="Label" parent="."]
+layout_mode = 2
+text = "Connecting to the shop..."
+autowrap_mode = 3
+
+[node name="WalletActions" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LedgerButton" type="Button" parent="WalletActions"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+text = "Moonstone transactions"
+
+[node name="Spending" type="Button" parent="WalletActions"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+text = "Spending limits & summary"
+
+[node name="PurchaseConfirm" type="ConfirmationDialog" parent="."]
+title = "Confirm sandbox purchase"
+size = Vector2i(480, 230)
+ok_button_text = "Continue to Stripe"
+
+[node name="SpendingDialog" type="ConfirmationDialog" parent="."]
+title = "Sandbox spending controls"
+size = Vector2i(560, 360)
+ok_button_text = "Save limits"
+dialog_hide_on_ok = false
+
+[node name="Body" type="VBoxContainer" parent="SpendingDialog"]
+theme_override_constants/separation = 10
+
+[node name="Summary" type="Label" parent="SpendingDialog/Body"]
+layout_mode = 2
+autowrap_mode = 3
+text = "Loading..."
+
+[node name="DailyLabel" type="Label" parent="SpendingDialog/Body"]
+layout_mode = 2
+text = "Daily limit (EUR)"
+
+[node name="Daily" type="LineEdit" parent="SpendingDialog/Body"]
+layout_mode = 2
+placeholder_text = "Blank = no limit"
+max_length = 12
+
+[node name="MonthlyLabel" type="Label" parent="SpendingDialog/Body"]
+layout_mode = 2
+text = "Monthly limit (EUR)"
+
+[node name="Monthly" type="LineEdit" parent="SpendingDialog/Body"]
+layout_mode = 2
+placeholder_text = "Blank = no limit"
+max_length = 12
+
+[node name="Hint" type="Label" parent="SpendingDialog/Body"]
+layout_mode = 2
+autowrap_mode = 3
+text = "Optional self-managed limits. Blank means unlimited; 0 blocks new purchases. UTC periods; pending orders reserve budget. Refunds do not reset gross spending. Existing checkout orders are not cancelled by a new limit."
+
+[node name="Message" type="Label" parent="SpendingDialog/Body"]
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="HistoryTitle" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Purchase history"
+
+[node name="ReceiptActions" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Order" type="OptionButton" parent="ReceiptActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 40)
+text_overrun_behavior = 3
+
+[node name="Save" type="Button" parent="ReceiptActions"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 40)
+disabled = true
+text = "Save test receipt"
+
+[node name="HistoryScroll" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="History" type="Label" parent="HistoryScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No test purchases yet."
+autowrap_mode = 3

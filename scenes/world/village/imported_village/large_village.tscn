@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/village/imported_village/village.tscn" id="1_m81y8"]
+
+[node name="Node2D" type="Node2D" unique_id=1359876623]
+position = Vector2(-179, -50)
+
+[node name="village2" parent="." unique_id=1202786544 instance=ExtResource("1_m81y8")]
+
+[node name="village" parent="." unique_id=781796924 instance=ExtResource("1_m81y8")]
+position = Vector2(2273, -42)

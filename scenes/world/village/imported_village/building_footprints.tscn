@@ -1,0 +1,130 @@
+[gd_scene format=3]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bf4ac"]
+size = Vector2(124, 103.20001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwln8"]
+size = Vector2(124, 103.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ue046"]
+size = Vector2(124, 103.20001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i30jh"]
+size = Vector2(124, 103.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onvw8"]
+size = Vector2(124, 55.199997)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6edda"]
+size = Vector2(124, 103.20001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qc3hc"]
+size = Vector2(124, 103.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1toh"]
+size = Vector2(124, 103.20001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m07ps"]
+size = Vector2(124, 103.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g287q"]
+size = Vector2(108, 103.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsmu3"]
+size = Vector2(124, 103.20001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fn65j"]
+size = Vector2(124, 103.20001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_22jv7"]
+size = Vector2(124, 103.20001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6tex"]
+size = Vector2(124, 103.20001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4pvg"]
+size = Vector2(124, 103.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsttx"]
+size = Vector2(124, 103.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xfc0f"]
+size = Vector2(124, 103.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgy2p"]
+size = Vector2(124, 103.2)
+
+[node name="BuildingFootprints" type="StaticBody2D" unique_id=565646384]
+collision_mask = 0
+
+[node name="HouseFootprint00" type="CollisionShape2D" parent="." unique_id=1048046041]
+position = Vector2(-42, 435.4)
+shape = SubResource("RectangleShape2D_bf4ac")
+
+[node name="HouseFootprint01" type="CollisionShape2D" parent="." unique_id=1212929894]
+position = Vector2(214, -60.6)
+shape = SubResource("RectangleShape2D_wwln8")
+
+[node name="HouseFootprint02" type="CollisionShape2D" parent="." unique_id=155301006]
+position = Vector2(214, 435.4)
+shape = SubResource("RectangleShape2D_ue046")
+
+[node name="HouseFootprint03" type="CollisionShape2D" parent="." unique_id=1487560134]
+position = Vector2(470, -92.6)
+shape = SubResource("RectangleShape2D_i30jh")
+
+[node name="HouseFootprint04" type="CollisionShape2D" parent="." unique_id=85306944]
+position = Vector2(-250, 171.4)
+shape = SubResource("RectangleShape2D_onvw8")
+
+[node name="HouseFootprint05" type="CollisionShape2D" parent="." unique_id=866907606]
+position = Vector2(470, 435.4)
+shape = SubResource("RectangleShape2D_6edda")
+
+[node name="HouseFootprint06" type="CollisionShape2D" parent="." unique_id=1542488558]
+position = Vector2(726, -92.6)
+shape = SubResource("RectangleShape2D_qc3hc")
+
+[node name="HouseFootprint07" type="CollisionShape2D" parent="." unique_id=933351410]
+position = Vector2(726, 435.4)
+shape = SubResource("RectangleShape2D_f1toh")
+
+[node name="HouseFootprint08" type="CollisionShape2D" parent="." unique_id=332271958]
+position = Vector2(918, 211.4)
+shape = SubResource("RectangleShape2D_m07ps")
+
+[node name="HouseFootprint09" type="CollisionShape2D" parent="." unique_id=1319484143]
+position = Vector2(974, -76.6)
+shape = SubResource("RectangleShape2D_g287q")
+
+[node name="HouseFootprint10" type="CollisionShape2D" parent="." unique_id=2084576312]
+position = Vector2(-1306, 419.4)
+shape = SubResource("RectangleShape2D_gsmu3")
+
+[node name="HouseFootprint11" type="CollisionShape2D" parent="." unique_id=87089979]
+position = Vector2(-1050, 419.4)
+shape = SubResource("RectangleShape2D_fn65j")
+
+[node name="HouseFootprint12" type="CollisionShape2D" parent="." unique_id=1873230951]
+position = Vector2(-794, 419.4)
+shape = SubResource("RectangleShape2D_22jv7")
+
+[node name="HouseFootprint13" type="CollisionShape2D" parent="." unique_id=1014133806]
+position = Vector2(-538, 419.4)
+shape = SubResource("RectangleShape2D_u6tex")
+
+[node name="HouseFootprint14" type="CollisionShape2D" parent="." unique_id=469859837]
+position = Vector2(-1322, 67.4)
+shape = SubResource("RectangleShape2D_i4pvg")
+
+[node name="HouseFootprint15" type="CollisionShape2D" parent="." unique_id=1678526263]
+position = Vector2(-1066, 67.4)
+shape = SubResource("RectangleShape2D_dsttx")
+
+[node name="HouseFootprint16" type="CollisionShape2D" parent="." unique_id=712262324]
+position = Vector2(-810, 67.4)
+shape = SubResource("RectangleShape2D_xfc0f")
+
+[node name="HouseFootprint17" type="CollisionShape2D" parent="." unique_id=311411968]
+position = Vector2(-554, 67.4)
+shape = SubResource("RectangleShape2D_wgy2p")

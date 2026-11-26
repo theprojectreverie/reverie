@@ -1,0 +1,69 @@
+[gd_resource type="TileSet" format=3 uid="uid://c6yjxs80unwd0"]
+
+[ext_resource type="Texture2D" uid="uid://dvxpvnhhy0lsr" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/east_corner.png" id="1_ow5wu"]
+[ext_resource type="Texture2D" uid="uid://bklso04wqydv1" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/ne.png" id="2_cnmmk"]
+[ext_resource type="Texture2D" uid="uid://bmohmr0ssi676" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/north_corner.png" id="3_joy0n"]
+[ext_resource type="Texture2D" uid="uid://quwpi14xue1h" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/nw.png" id="4_xl3mj"]
+[ext_resource type="Texture2D" uid="uid://f7fp73pl0gmw" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/plain.png" id="5_737bj"]
+[ext_resource type="Texture2D" uid="uid://c58s7jtlrjiij" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/se.png" id="6_1kxhg"]
+[ext_resource type="Texture2D" uid="uid://cor4421u2qdij" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/south_corner.png" id="7_was8h"]
+[ext_resource type="Texture2D" uid="uid://bchqa6whucc5y" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/sw.png" id="8_ipv1m"]
+[ext_resource type="Texture2D" uid="uid://c76belqcaglcx" path="res://assets/environment/six_zone_reverie/royal_gardens/directional_tiles/west_corner.png" id="9_n7kuh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1moxe"]
+texture = ExtResource("1_ow5wu")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_slbcv"]
+texture = ExtResource("2_cnmmk")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66pij"]
+texture = ExtResource("3_joy0n")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1ut1"]
+texture = ExtResource("4_xl3mj")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_202sx"]
+texture = ExtResource("5_737bj")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rkypu"]
+texture = ExtResource("6_1kxhg")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_05vto"]
+texture = ExtResource("7_was8h")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w1o5o"]
+texture = ExtResource("8_ipv1m")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8md0l"]
+texture = ExtResource("9_n7kuh")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetAtlasSource_1moxe")
+sources/1 = SubResource("TileSetAtlasSource_slbcv")
+sources/2 = SubResource("TileSetAtlasSource_66pij")
+sources/3 = SubResource("TileSetAtlasSource_l1ut1")
+sources/4 = SubResource("TileSetAtlasSource_202sx")
+sources/5 = SubResource("TileSetAtlasSource_rkypu")
+sources/6 = SubResource("TileSetAtlasSource_05vto")
+sources/7 = SubResource("TileSetAtlasSource_w1o5o")
+sources/8 = SubResource("TileSetAtlasSource_8md0l")

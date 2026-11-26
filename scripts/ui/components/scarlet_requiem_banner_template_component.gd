@@ -63,6 +63,7 @@ func build(parent: VBoxContainer, banner: Dictionary, featured_def: CharacterDef
 	portrait_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	portrait_column.add_child(portrait_center)
 	var portrait := GachaScreen.PORTRAIT_VIEW_SCENE.instantiate() as PortraitView
+	portrait.fit_mode = "art"
 	portrait.custom_minimum_size = Vector2(220, 258)
 	portrait.show_frame = false
 	if featured_def != null:

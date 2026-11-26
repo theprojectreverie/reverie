@@ -26,6 +26,15 @@ for (const [regionId, region] of entries) {
   // Match IsoMath.grid_to_world: 64x32 isometric tiles.
   spawns[regionId] = { x: (grid[0] - grid[1]) * 32, y: (grid[0] + grid[1]) * 16 };
 }
+const expeditions = JSON.parse(await readFile(resolve(projectRoot, "resources/data/six_zone_expeditions.json"), "utf8"));
+for (const [id, entry] of Object.entries(expeditions)) {
+  const [minX,minY,maxX,maxY] = entry.bounds;
+  const [x,y] = entry.spawn;
+  if (![minX,minY,maxX,maxY,x,y].every(Number.isFinite) || x<minX || x>maxX || y<minY || y>maxY) throw new Error(`Invalid expedition geometry: ${id}`);
+  bounds[id] = {minX,minY,maxX,maxY};
+  spawns[id] = {x,y};
+}
+const portals = Object.fromEntries(Object.entries(expeditions).map(([id,e])=>[id,e.portals]));
 const generated = `// Generated from resources/data/regions.json. Do not edit by hand.\nexport const REGION_BOUNDS: Readonly<Record<string, { minX: number; minY: number; maxX: number; maxY: number }>> = Object.freeze(${JSON.stringify(bounds, null, 2)});\nexport const REGION_SPAWNS: Readonly<Record<string, { x: number; y: number }>> = Object.freeze(${JSON.stringify(spawns, null, 2)});\n`;
-await writeFile(outputPath, generated, "utf8");
+await writeFile(outputPath, generated + `export const EXPEDITION_PORTALS: Readonly<Record<string, Record<string, [number,number]>>> = ${JSON.stringify(portals,null,2)};\n`, "utf8");
 console.log(`Generated ${Object.keys(bounds).length} region bound entries and ${Object.keys(spawns).length} spawn entries from resources/data/regions.json.`);
