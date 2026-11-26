@@ -92,3 +92,8 @@ No artwork was generated or substituted. Existing approved resources and scene s
 - Approve any historical summon/economy compensation or rule migration after conflict review.
 - Supply/approve remaining character, NPC, enemy, portrait, VFX, environment and cinematic artwork; no procedural substitutes will be created.
 - Confirm owner authorization before commits, releases, deployment, or deletion of build/log/source artifacts.
+
+## Session log
+
+- 2026-11-26: Audit completed; isolated test-environment fix and tracker committed as `61cbb10` (`Make backend test environment reproducible`).
+- Unrelated pre-existing modifications and untracked live-content work remain unstaged and untouched.
