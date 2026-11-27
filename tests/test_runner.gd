@@ -5285,7 +5285,17 @@ func _test_gacha_presentation() -> void:
 	check(gacha != null and gacha._banner_content is GachaBannerContentComponent and gacha._banner_content.get_parent() == gacha, "GachaScreen binds its authored banner-content component")
 	check(gacha != null and gacha._summon_flow is GachaSummonFlowComponent and gacha._summon_flow.get_parent() == gacha, "GachaScreen binds its authored summon-flow component")
 	check(gacha != null and gacha.get_node_or_null("SummoningChamberAtmosphere") != null, "GachaScreen owns its authored chamber-atmosphere scene")
-	check(gacha != null and gacha._main.get_child_count() == (1 if gacha.compact_summon_layout() else 2) and gacha._main.get_child(0) is ScrollContainer and (gacha.compact_summon_layout() or gacha._main.get_child(1) is ScrollContainer), "Summon uses shared compact scrolling or independent desktop columns")
+	var summon_stage: Control = gacha._banner_content._stage if gacha != null else null
+	check(is_instance_valid(summon_stage) and summon_stage.get_parent() == gacha._main and gacha._main.get_child_count() == 1, "Summon uses one responsive banner stage")
+	if is_instance_valid(summon_stage):
+		var drawer_scroll := summon_stage.get_node_or_null("DrawerClip/Panel/Scroll") as ScrollContainer
+		var summon_footer := summon_stage.get_node_or_null("Footer") as Control
+		check(drawer_scroll != null and summon_footer != null and not summon_footer.is_ancestor_of(drawer_scroll), "Banner details scroll independently from summon footer")
+		check(not summon_stage.opened and not summon_stage.drawer.visible, "Summon information starts collapsed")
+		summon_stage.set_open(true, false)
+		check(summon_stage.drawer.visible and summon_stage.drawer.position.y + summon_stage.drawer.size.y <= summon_stage.footer.position.y + 1.0, "Expanded information stays above summon actions")
+		summon_stage.set_open(false, false)
+		check(not summon_stage.drawer.visible, "Banner information collapses without hiding summon actions")
 	var summon_currency_before: Variant = GameState.inventory_domain.currency("crystals")
 	if gacha != null:
 		gacha._summon_busy = true
