@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/broken_arch.png" id="1"]
+
+[node name="BrokenArch" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.65, 0.65)
+offset = Vector2(-147.50, -347.52)
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Foot0" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-82.2775,-10,-63.2775,-23,-44.2775,-10,-63.2775,5)
+
+[node name="Foot1" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(44.2775,-10,63.2775,-23,82.2775,-10,63.2775,5)

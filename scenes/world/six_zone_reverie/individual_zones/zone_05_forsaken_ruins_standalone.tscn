@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/reverie_exit_southeast.png" id="southeast_exit_art"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
@@ -36,6 +36,8 @@
 [ext_resource type="SpriteFrames" path="res://assets/characters/revienna/cinematic/walk_frames.tres" id="revienna_departure_walk"]
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/bird_mob.tscn" id="optional_new_mob"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/cemetery_dressing.tscn" id="cemetery_dressing"]
 
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
@@ -850,3 +852,5 @@ position = Vector2(1568, 2352)
 
 [node name="Waypoint09" type="Marker2D" parent="ReviennaDepartureRoute"]
 position = Vector2(1664, 2432)
+
+[node name="CemeteryDressing" parent="." instance=ExtResource("cemetery_dressing")]

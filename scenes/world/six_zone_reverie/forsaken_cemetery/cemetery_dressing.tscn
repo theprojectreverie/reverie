@@ -1,0 +1,155 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/burgundy_tree.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/crimson_tree.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/broken_arch.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/ruined_wall.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/mourning_statue.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/gothic_lantern.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/stone_bench.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/petal_rubble.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/dead_tree.tscn" id="9"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/ruined_pillar.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/petal_rubble.tscn" id="11"]
+
+[node name="ForsakenCemeteryDressing" type="Node2D"]
+y_sort_enabled = true
+
+[node name="WestCrimson" parent="." instance=ExtResource("1")]
+position = Vector2(-1568, 1392)
+
+[node name="NorthCrimson" parent="." instance=ExtResource("2")]
+position = Vector2(-992, 752)
+
+[node name="EastCrimson" parent="." instance=ExtResource("1")]
+position = Vector2(-576, 1216)
+
+[node name="CentralCrimson" parent="." instance=ExtResource("2")]
+position = Vector2(-256, 1248)
+
+[node name="LowerCrimson" parent="." instance=ExtResource("1")]
+position = Vector2(-736, 1840)
+
+[node name="EastGrove" parent="." instance=ExtResource("2")]
+position = Vector2(768, 1728)
+
+[node name="FarGrove" parent="." instance=ExtResource("1")]
+position = Vector2(1120, 2320)
+
+[node name="NorthRuinedArch" parent="." instance=ExtResource("3")]
+position = Vector2(-352, 1040)
+
+[node name="SouthRuinedArch" parent="." instance=ExtResource("3")]
+position = Vector2(-352, 2128)
+
+[node name="CentralBrokenWall" parent="." instance=ExtResource("4")]
+position = Vector2(320, 1408)
+
+[node name="FarBrokenWall" parent="." instance=ExtResource("4")]
+position = Vector2(1248, 2000)
+
+[node name="NorthMourningStatue" parent="." instance=ExtResource("5")]
+position = Vector2(-576, 704)
+
+[node name="EastMourningStatue" parent="." instance=ExtResource("5")]
+position = Vector2(1248, 1552)
+
+[node name="WestLantern" parent="." instance=ExtResource("6")]
+position = Vector2(-1312, 1520)
+
+[node name="EastLantern" parent="." instance=ExtResource("6")]
+position = Vector2(-640, 1376)
+
+[node name="CentralLantern" parent="." instance=ExtResource("6")]
+position = Vector2(-192, 1696)
+
+[node name="FarLantern" parent="." instance=ExtResource("6")]
+position = Vector2(960, 2304)
+
+[node name="RuinedBench" parent="." instance=ExtResource("7")]
+position = Vector2(-480, 1360)
+
+[node name="RubbleNorth" parent="." instance=ExtResource("8")]
+position = Vector2(-192, 1024)
+
+[node name="RubbleEast" parent="." instance=ExtResource("8")]
+position = Vector2(896, 1536)
+
+[node name="RubbleSouth" parent="." instance=ExtResource("8")]
+position = Vector2(-288, 2288)
+
+[node name="EastDeadTree" parent="." instance=ExtResource("9")]
+position = Vector2(1440, 1904)
+
+[node name="WestGroveA" parent="." instance=ExtResource("1")]
+position = Vector2(-1856, 1440)
+
+[node name="WestGroveB" parent="." instance=ExtResource("2")]
+position = Vector2(-1664, 1568)
+
+[node name="NorthGroveA" parent="." instance=ExtResource("1")]
+position = Vector2(-768, 544)
+
+[node name="NorthGroveB" parent="." instance=ExtResource("2")]
+position = Vector2(-416, 528)
+
+[node name="UpperRubble" parent="." instance=ExtResource("8")]
+position = Vector2(-128, 672)
+
+[node name="NorthPillarRemnant" parent="." instance=ExtResource("10")]
+position = Vector2(64, 864)
+
+[node name="EastUpperGrove" parent="." instance=ExtResource("1")]
+position = Vector2(800, 1008)
+
+[node name="EastUpperGroveB" parent="." instance=ExtResource("2")]
+position = Vector2(1024, 1088)
+
+[node name="EastMemorialBench" parent="." instance=ExtResource("7")]
+position = Vector2(1088, 1440)
+
+[node name="EastRuinPillar" parent="." instance=ExtResource("10")]
+position = Vector2(896, 1216)
+
+[node name="SouthGroveA" parent="." instance=ExtResource("1")]
+position = Vector2(-1280, 2016)
+
+[node name="SouthGroveB" parent="." instance=ExtResource("2")]
+position = Vector2(-1088, 2112)
+
+[node name="SouthWall" parent="." instance=ExtResource("4")]
+position = Vector2(-864, 2096)
+
+[node name="SouthRoses" parent="." instance=ExtResource("11")]
+position = Vector2(-608, 1968)
+
+[node name="LowerGroveA" parent="." instance=ExtResource("1")]
+position = Vector2(-64, 2624)
+
+[node name="LowerGroveB" parent="." instance=ExtResource("2")]
+position = Vector2(288, 2480)
+
+[node name="LowerRuinPillar" parent="." instance=ExtResource("10")]
+position = Vector2(480, 2416)
+
+[node name="FarGroveB" parent="." instance=ExtResource("1")]
+position = Vector2(1760, 1936)
+
+[node name="FarGroveC" parent="." instance=ExtResource("2")]
+position = Vector2(1920, 1792)
+
+[node name="FarWallRemnant" parent="." instance=ExtResource("4")]
+position = Vector2(1888, 2064)
+
+[node name="FarRoses" parent="." instance=ExtResource("11")]
+position = Vector2(1536, 2144)
+
+[node name="EastPetals" parent="." instance=ExtResource("8")]
+position = Vector2(2048, 1664)
+
+[node name="WestRoses" parent="." instance=ExtResource("11")]
+position = Vector2(-1856, 1248)
+
+[node name="UpperDeadTree" parent="." instance=ExtResource("9")]
+position = Vector2(352, 816)

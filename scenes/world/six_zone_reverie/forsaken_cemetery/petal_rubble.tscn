@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/petal_rubble.png" id="1"]
+
+[node name="PetalRubble" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.45, 0.45)
+offset = Vector2(-191.00, -283.20)
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-30,-13.8,0,-27.6,30,-13.8,0,4)

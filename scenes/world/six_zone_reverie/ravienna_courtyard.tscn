@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/structures/balustrade_stone.png" id="rail"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/ravienna_stone_tomb.tscn" id="tomb"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/rose_urns.tscn" id="memorial_urns"]
+
 [node name="RaviennaCourtyard" type="Node2D"]
 y_sort_enabled = true
 
@@ -410,3 +412,7 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthEast6/Footprint"]
 polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="MemorialOffering" parent="." instance=ExtResource("memorial_urns")]
+position = Vector2(0, -135)
+scale = Vector2(0.68, 0.68)

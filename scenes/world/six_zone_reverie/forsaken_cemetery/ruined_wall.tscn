@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/ruined_wall.png" id="1"]
+
+[node name="RuinedWall" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.53, 0.53)
+offset = Vector2(-176.00, -225.60)
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-42,-19.32,0,-38.64,42,-19.32,0,4)
