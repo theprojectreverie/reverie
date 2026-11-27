@@ -2,7 +2,7 @@
 [ext_resource type="SpriteFrames" path="res://assets/characters/companion_normal/companion_combat_frames.tres" id="1"]
 [node name="FairySparArt" type="AnimatedSprite2D"]
 texture_filter = 1
-position = Vector2(0, -64)
+position = Vector2(0, -58)
 sprite_frames = ExtResource("1")
 animation = &"left"
 autoplay = "left"

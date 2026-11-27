@@ -1,0 +1,19 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/optional_online_mob.gd" id="logic"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/mossling_mob_art.tscn" id="art"]
+[node name="MosslingMob" type="Node2D"]
+script = ExtResource("logic")
+monster_name = "Mossling"
+group_id = "willow_mossling_1"
+max_world_hp = 100.0
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("art")]
+scale = Vector2(0.65, 0.65)
+[node name="WorldHealth" type="ProgressBar" parent="."]
+visible = false
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -95.0
+mouse_filter = 2
+show_percentage = false
+value = 100.0

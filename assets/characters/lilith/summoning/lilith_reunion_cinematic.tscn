@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/lilith_reunion_cinematic.gd" id="1"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/kael_avatar/world_sheet.tres" id="2"]
+[ext_resource type="Texture2D" path="res://assets/characters/lilith/summoning/gerald_transfer.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/characters/fairy_companion/fairy_idle_west_64x64.png" id="4"]
+
+[node name="LilithReunionCinematic" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+z_index = 100
+script = ExtResource("1")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.035, 0.025, 0.06, 0.83)
+
+[node name="Stage" type="Node2D" parent="."]
+
+[node name="GeraldOpening" type="Sprite2D" parent="Stage"]
+texture_filter = 1
+texture = ExtResource("3")
+hframes = 9
+position = Vector2(275, 415)
+scale = Vector2(2.35, 2.35)
+
+[node name="Kael" type="AnimatedSprite2D" parent="Stage"]
+texture_filter = 1
+sprite_frames = ExtResource("2")
+animation = &"idle_6"
+position = Vector2(1030, 522)
+scale = Vector2(2.3, 2.3)
+
+[node name="Companion" type="Sprite2D" parent="Stage"]
+texture_filter = 1
+texture = ExtResource("4")
+hframes = 5
+position = Vector2(1110, 370)
+scale = Vector2(1.25, 1.25)
+

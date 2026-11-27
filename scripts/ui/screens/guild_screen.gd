@@ -45,7 +45,7 @@ func _build_content():
 	_body.get_node("Treasury/Donation/Donate").pressed.connect(_donate)
 	_body.get_node("Shop/Retry").pressed.connect(_retry_shop)
 	_body.get_node("Competition/Open").pressed.connect(func():_begin("competition","/competition"))
-	_body.get_node("Raid/Boss/Portrait").texture=PORTRAIT.texture("cassien")
+	_body.get_node("Raid/Boss/Portrait").texture=preload("res://scripts/art/approved_character_portraits.gd").texture("cassien_mythic")
 	_body.get_node("Raid/Buttons/Start").pressed.connect(_raid_start)
 	_body.get_node("Raid/Buttons/Claim").pressed.connect(_raid_claim)
 	_body.get_node("Raid/Battle/Abandon").pressed.connect(_raid_abandon)

@@ -90,6 +90,7 @@ func _refresh_portrait_fit() -> void:
 	portrait_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	var mode := _resolved_fit()
 	var source := portrait_texture
+	if preload("res://scripts/art/approved_character_portraits.gd").is_approved(source): mode = "art"
 	if mode == "card" and FRAMING.base_id(character_id) == "elathra":
 		source = FRAMING.authored_texture(character_id,"card") if portrait_texture != null else null
 	portrait_art.texture = FRAMING.fitted(source,character_id,area.size.x/maxf(1.0,area.size.y),mode)
@@ -131,7 +132,7 @@ func setup(
 	queue_redraw()
 
 
-func setup_character(definition: CharacterDef, p_rarity: String = "") -> void:
+func setup_character(definition: CharacterDef, p_rarity: String = "", ascension: int = 0) -> void:
 	if definition == null:
 		return
 	setup(
@@ -146,7 +147,11 @@ func setup_character(definition: CharacterDef, p_rarity: String = "") -> void:
 	# downloaded collection portrait. Only characters without any of those
 	# assets use the procedural fallback.
 	character_id = definition.id
-	portrait_texture = FRAMING.authored_texture(definition.id)
+	portrait_texture = LiveCharacterContent.portrait_for(definition.id)
+	if portrait_texture == null:
+		portrait_texture = preload("res://scripts/art/approved_character_portraits.gd").texture(definition.id, ascension)
+	if portrait_texture == null:
+		portrait_texture = FRAMING.authored_texture(definition.id)
 	if portrait_texture == null:
 		portrait_texture = MainCharacterRoster.portrait_texture(definition.id)
 	if is_node_ready():

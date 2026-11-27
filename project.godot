@@ -37,6 +37,7 @@ SaveService="*res://scripts/core/save_service.gd"
 GameState="*res://scenes/core/game_state.tscn"
 AudioDirector="*res://scenes/core/audio_director.tscn"
 AuthGateway="*res://scenes/online/auth_gateway.tscn"
+LiveCharacterContent="*res://scripts/online/live_character_content.gd"
 StoryMilestoneTelemetry="*res://scripts/online/story_milestone_telemetry.gd"
 MultiplayerGateway="*res://scenes/online/multiplayer_gateway.tscn"
 CoopGateway="*res://scenes/online/coop_gateway.tscn"
@@ -46,6 +47,7 @@ ApplicationShutdown="*res://scripts/core/application_shutdown.gd"
 
 [display]
 
+window/handheld/orientation=4
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/window_width_override=1280

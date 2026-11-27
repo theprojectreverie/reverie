@@ -15,7 +15,7 @@
 
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/standalone_zone_controller.gd" id="zone_controller"]
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_02_royal_gate.png" id="prepared_background"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_02_royal_gate_underlay.png" id="prepared_background"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_02_royal_gate.tscn" id="zone"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gate_transfer_road_connectors.tscn" id="connector_roads"]
@@ -24,6 +24,8 @@
 
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/royal_gate_patrol.gd" id="gate_patrol"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/crownling.tscn" id="gate_crownling"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/unicorn_mob.tscn" id="optional_new_mob"]
 
 [sub_resource type="SegmentShape2D" id="edge_1"]
 a = Vector2(130, -70)
@@ -132,6 +134,9 @@ player_start_zoom = 1.35
 [node name="Zone" parent="." unique_id=1537658586 instance=ExtResource("zone")]
 position = Vector2(130, -82)
 
+[node name="RainbowMob" parent="." instance=ExtResource("optional_new_mob")]
+position = Vector2(500, 1450)
+
 [node name="ZoneCamera" type="Camera2D" parent="." unique_id=1918233757]
 position = Vector2(0, 1584)
 process_callback = 0
@@ -146,20 +151,14 @@ position = Vector2(-430, 124)
 
 [node name="NativeTransferRoadConnectors" parent="." instance=ExtResource("connector_roads")]
 
-[node name="ScenicBackground" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="Artwork" type="TextureRect" parent="ScenicBackground"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-modulate = Color(0.38, 0.38, 0.38, 1)
+[node name="ScenicBackground" type="Sprite2D" parent="."]
+z_index = -100
+texture_repeat = 3
+position = Vector2(130, 1505)
+scale = Vector2(2.75, 2.75)
 texture = ExtResource("prepared_background")
-expand_mode = 1
-stretch_mode = 6
+region_enabled = true
+region_rect = Rect2(-3342, -1882, 8355, 4705)
 
 [node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
 position = Vector2(90.0, 888.0)

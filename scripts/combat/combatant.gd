@@ -10,6 +10,7 @@ var element: String = "neutral"
 var rarity: String = "common"
 var role: String = ""
 var level: int = 1
+var ascension: int = 0
 var combat_index: int = -1
 
 var max_hp: float = 100.0
@@ -23,6 +24,7 @@ var crit_mult: float = 1.6
 var energy: float = 0.0
 var max_energy: float = 100.0
 var shield: float = 0.0
+var bond_guardian: WeakRef
 var defending: bool = false
 
 var skills: Array = []
@@ -140,18 +142,34 @@ func cleanse() -> void:
 	var kept: Array = []
 	for status in statuses:
 		var status_id := str(status.get("id", ""))
-		if status_id in ["atk_up", "def_up", "spd_up", "regen"]:
+		if status_id in ["atk_up", "def_up", "spd_up", "regen", "bond_guard", "bond_survive"]:
 			kept.append(status)
 	statuses = kept
 
 
-func take_damage(amount: float) -> Dictionary:
+func take_damage(amount: float, allow_redirect: bool = true) -> Dictionary:
 	var incoming := maxf(0.0, amount)
+	var bond_events: Array = []
+	if allow_redirect and incoming > 0.0 and has_status("bond_guard") and bond_guardian != null:
+		var guardian := bond_guardian.get_ref() as Combatant
+		if guardian != null and guardian != self and guardian.is_alive():
+			var transfer := incoming * 0.35
+			incoming -= transfer
+			var redirected := guardian.take_damage(transfer, false)
+			bond_events.append({"type":"status_tick","status":"bond_guard","target_uid":guardian.uid,"target_name":guardian.display_name,"amount":roundi(redirected.damage)})
+			bond_events.append_array(redirected.get("bond_events", []))
+			if redirected.dead:
+				bond_events.append({"type":"death","target_uid":guardian.uid,"target_name":guardian.display_name})
 	var absorbed := minf(shield, incoming)
 	shield -= absorbed
 	incoming -= absorbed
+	var before := hp
 	hp = maxf(0.0, hp - incoming)
-	return { "damage": incoming, "absorbed": absorbed, "dead": hp <= 0.0 }
+	if hp <= 0.0 and before > 0.0 and has_status("bond_survive"):
+		hp = 1.0
+		statuses = statuses.filter(func(status): return str(status.get("id", "")) != "bond_survive")
+		bond_events.append({"type":"status","status":"bond_survive","target_uid":uid,"target_name":display_name,"turns":0})
+	return { "damage": incoming, "absorbed": absorbed, "dead": hp <= 0.0, "bond_events": bond_events }
 
 
 func heal(amount: float) -> float:

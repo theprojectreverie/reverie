@@ -33,7 +33,7 @@ func available_avatars() -> Array[String]:
 		if not character_id.is_empty() and not party_ids.has(character_id):
 			party_ids.append(character_id)
 	var ids: Array[String] = []
-	for character_id in ["kael", "lilith", "gerald", "ravienna", "ravienna_legendary", "ravienna_mythic"]:
+	for character_id in party_ids:
 		if not party_ids.has(character_id):
 			continue
 		var source := SpriteFramesActorSource.from_playable(character_id)

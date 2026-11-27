@@ -856,28 +856,28 @@ func _test_gacha_wallet_transactions() -> void:
 	var banner := ContentDB.get_banner("crimson_covenant")
 	var costs: Dictionary = banner.get("cost", {})
 	check(int(costs.get("single", -1)) == 120 and int(costs.get("ten", -1)) == 1200, "Both featured banners use the requested 120 / 1200 crystal costs")
-	var single := GameState.reward_domain.pull_banner("crimson_covenant", 1)
+	var single := GameState.reward_domain.pull_banner("lily_of_shadows", 1)
 	check(bool(single.get("ok", false)) and single.get("results", []).size() == 1, "A single summon succeeds through the live reward domain")
 	check(int(single.get("spent", 0)) == 120 and GameState.inventory_domain.currency("crystals") == 1380, "Single summon deducts exactly 120 crystals from the persistent wallet")
 
-	var ten := GameState.reward_domain.pull_banner("scarlet_requiem", 10)
+	var ten := GameState.reward_domain.pull_banner("crimson_oath", 10)
 	check(bool(ten.get("ok", false)) and ten.get("results", []).size() == 10, "A ten-summon succeeds through the live reward domain")
 	check(int(ten.get("spent", 0)) == 1200 and GameState.inventory_domain.currency("crystals") == 180, "Ten-summon deducts exactly 1200 crystals from the persistent wallet")
 	var ten_results: Array = ten.get("results", [])
 	var has_epic_or_better := false
 	var rarity_matches_definition := true
 	for result in ten_results:
-		if not _summon_result_matches_banner(ContentDB.get_banner("scarlet_requiem"), result):
+		if not _summon_result_matches_banner(ContentDB.get_banner("crimson_oath"), result):
 			rarity_matches_definition = false
 		if int(GachaService.RARITY_RANK.get(str(result.get("rarity", "common")), 0)) >= GachaService.RARITY_RANK["epic"]:
 			has_epic_or_better = true
 	check(rarity_matches_definition, "Ten-summon rarity and payload match the configured character, card or material reward")
 	check(has_epic_or_better, "Ten-summon guarantees an Epic-or-better reward")
 
-	var insufficient := GameState.reward_domain.pull_banner("crimson_covenant", 10)
+	var insufficient := GameState.reward_domain.pull_banner("lily_of_shadows", 10)
 	check(not bool(insufficient.get("ok", false)), "Ten-summon is rejected when the wallet is short")
 	check(GameState.inventory_domain.currency("crystals") == 180, "Rejected ten-summon leaves the wallet unchanged")
-	var invalid_count := GameState.reward_domain.pull_banner("crimson_covenant", 5)
+	var invalid_count := GameState.reward_domain.pull_banner("lily_of_shadows", 5)
 	check(not bool(invalid_count.get("ok", false)) and GameState.inventory_domain.currency("crystals") == 180, "Invalid summon count is rejected without spending currency")
 
 	GameState.profile["crystals"] = original_crystals
@@ -891,7 +891,7 @@ func _test_ui_regressions() -> void:
 	# Preserve both requested featured banners and their independent artwork paths.
 	var vesper_banner: Dictionary = ContentDB.get_banner("crimson_covenant")
 	var scarlet_banner: Dictionary = ContentDB.get_banner("scarlet_requiem")
-	check(ContentDB.banners.size() == 5 and ContentDB.banners.has_all(["crimson_covenant", "scarlet_requiem", "lily_of_shadows", "crimson_oath", "eclipse_sovereign"]), "All five configured summon banners are present")
+	check(ContentDB.banners.size() == 7 and ContentDB.banners.has_all(["crimson_covenant", "scarlet_requiem", "lily_of_shadows", "crimson_oath", "eclipse_sovereign", "flamebound_guardian", "moonlit_requiem"]), "All seven configured summon banners are present")
 	check(not vesper_banner.is_empty() and str(vesper_banner.get("name", "")) == "Hollow Moon Overture" and str((vesper_banner.get("featured", [""]) as Array)[0]) == "nyx", "Hollow Moon Overture features Nyx Vaelora")
 	check(not scarlet_banner.is_empty() and str(scarlet_banner.get("name", "")) == "Scarlet Requiem" and str((scarlet_banner.get("featured", [""]) as Array)[0]) == "crimson_witch_legendary", "Scarlet Requiem remains a separate Crimson Witch featured banner")
 	check(ResourceLoader.exists("res://assets/characters/crimson_witch/portrait_512.png"), "Scarlet Requiem banner uses the supplied portrait asset")
@@ -947,17 +947,17 @@ func _test_ui_regressions() -> void:
 	if gacha != null:
 		add_child(gacha)
 		await get_tree().process_frame
-		check(gacha._tabs != null and gacha._tabs.get_child_count() == ContentDB.banners.size() + 1, "All five summon tabs remain available beside the return control")
-		gacha._select_banner("scarlet_requiem")
+		check(gacha._tabs != null and gacha._tabs.get_child_count() == 5 and gacha.active_banner_catalog().size() == 5, "Only five active summon tabs remain available")
+		gacha._select_banner("lily_of_shadows")
 		await get_tree().process_frame
-		check(gacha._selected_banner == "scarlet_requiem" and gacha._featured_id == "crimson_witch_legendary", "Second summon page selects Scarlet Requiem and Crimson Witch")
+		check(gacha._selected_banner == "lily_of_shadows" and gacha._featured_id == "elathra_mythic", "Active summon page selects Elathra")
 		gacha._select_banner("crimson_oath")
 		await get_tree().process_frame
-		check(gacha._selected_banner == "crimson_oath" and gacha._featured_id == "cassien_legendary", "Crimson Oath selects Legendary Cassien")
+		check(gacha._selected_banner == "crimson_oath" and gacha._featured_id == "cassien_mythic", "Crimson Oath selects Mythic Cassien")
 		gacha._select_banner("eclipse_sovereign")
 		await get_tree().process_frame
-		check(gacha._selected_banner == "eclipse_sovereign" and gacha._featured_id == "ravienna", "Eclipse Sovereign selects Legendary Ravienna")
-		gacha._select_banner("scarlet_requiem")
+		check(gacha._selected_banner == "eclipse_sovereign" and gacha._featured_id == "ravienna_mythic", "Eclipse Sovereign selects Mythic Ravienna")
+		gacha._select_banner("lily_of_shadows")
 		await get_tree().process_frame
 		GameState.profile["crystals"] = 0
 		EventBus.currency_changed.emit()
@@ -5275,7 +5275,7 @@ func _test_gacha_presentation() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	check(gacha != null and gacha.content != null and gacha.content.get_child_count() > 0, "GachaScreen builds content from its authored component scene")
-	check(gacha != null and gacha._tabs.get_node_or_null("ReturnToGameButton") is Button, "GachaScreen exposes an explicit Return to Game close control")
+	check(gacha != null and gacha.find_child("ReturnToGameButton", true, false) is Button, "GachaScreen exposes an explicit Return to Game close control")
 	var results_close_test := GachaScreen.SUMMON_RESULTS_SCENE.instantiate() as Control
 	check(results_close_test.get_node_or_null("Center/Panel/Content/Footer/ExitSummonButton") is Button, "Summon results expose a Return to Game close control")
 	results_close_test.free()

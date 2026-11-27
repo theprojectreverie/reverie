@@ -11,11 +11,11 @@ const TYPE_SPEED := 52.0
 const STORY_PORTRAITS := {
 	"kael": preload("res://assets/portraits/summon/kael.png"),
 	"kael ashford": preload("res://assets/portraits/summon/kael.png"),
-	"gerald": preload("res://assets/portraits/summon/gerald.png"),
-	"lilith": preload("res://assets/portraits/summon/lilith.png"),
-	"cassien": preload("res://assets/portraits/summon/cassien.png"),
-	"ravienna": preload("res://assets/portraits/summon/ravienna.png"),
-	"revienna": preload("res://assets/portraits/summon/ravienna.png"),
+	"gerald": preload("res://assets/portraits/profile/gerald_mythic.jpg"),
+	"lilith": preload("res://assets/portraits/profile/lilith_legendary.png"),
+	"cassien": preload("res://assets/portraits/profile/cassien_mythic.png"),
+	"ravienna": preload("res://assets/portraits/profile/ravienna_mythic.png"),
+	"revienna": preload("res://assets/portraits/profile/ravienna_mythic.png"),
 	"elathra": preload("res://assets/portraits/summon/elathra.png"),
 }
 

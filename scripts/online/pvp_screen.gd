@@ -9,6 +9,59 @@ extends Control
 @onready var surrender_button: Button = $Center/Panel/Margins/Content/Buttons/SurrenderButton
 
 var _local_player_id := ""
+var _bond_match_id := ""
+var _last_bond_event := 0
+var _bond_queue: Array[String] = []
+var _bond_playing := false
+
+func _queue_bond_cinematics(state: Dictionary, events: Array) -> void:
+	var match_id := str(state.get("matchId",""))
+	if match_id != _bond_match_id:
+		_bond_match_id = match_id
+		_last_bond_event = 0
+		_bond_queue.clear()
+	for item in events:
+		if not item is Dictionary: continue
+		var seq := int(item.get("sequence",0))
+		if seq <= _last_bond_event: continue
+		_last_bond_event = seq
+		var event: Dictionary = item.get("event",{})
+		var id := str(event.get("bond_id",""))
+		if str(event.get("type","")) == "bond" and CombatEngine.BOND_PAIRS.has(id):
+			_bond_queue.append(id)
+	if not _bond_playing and not _bond_queue.is_empty():
+		_bond_playing = true
+		submit_button.disabled = true
+		_play_bond_queue.call_deferred()
+
+func _play_bond_queue() -> void:
+	while not _bond_queue.is_empty() and is_inside_tree():
+		var id: String = _bond_queue.pop_front()
+		var packed := load("res://assets/characters/bond_skills/%s/%s_preview.tscn" % [id,id]) as PackedScene
+		if packed == null: continue
+		var cinematic := packed.instantiate() as Node2D
+		var layer := CanvasLayer.new()
+		layer.layer = 50
+		add_child(layer)
+		var dim := ColorRect.new()
+		dim.size = get_viewport_rect().size
+		dim.color = Color(0.025,0.015,0.045,0.93)
+		dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		layer.add_child(dim)
+		layer.add_child(cinematic)
+		var factor := minf(dim.size.x / 1280.0,dim.size.y / 720.0)
+		cinematic.scale = Vector2.ONE * factor
+		cinematic.position = (dim.size - Vector2(1280,720)*factor)*0.5
+		var player := cinematic.get_node("AnimationPlayer") as AnimationPlayer
+		player.play(id)
+		await player.animation_finished
+		if not is_inside_tree(): return
+		layer.queue_free()
+	_bond_playing = false
+	if is_inside_tree():
+		var state := PvpGateway.match_state
+		submit_button.disabled = str(state.get("status","")) != "active" or str(state.get("turnPlayerId","")) != _local_player_id or actor_option.item_count == 0
+
 
 func _ready() -> void:
 	var player := AuthGateway.current_player()
@@ -81,6 +134,7 @@ func _on_pvp_result(operation: String, success: bool, payload: Dictionary) -> vo
 func _on_match_state_updated(state: Dictionary, _events: Array) -> void:
 	if not is_inside_tree() or state.is_empty():
 		return
+	_queue_bond_cinematics(state, _events)
 	var turn_owner := str(state.get("turnPlayerId", ""))
 	var turn_number := int(state.get("turn", 1))
 	var sequence := int(state.get("sequence", 0))
@@ -101,7 +155,7 @@ func _on_match_state_updated(state: Dictionary, _events: Array) -> void:
 	var my_turn := not _local_player_id.is_empty() and turn_owner == _local_player_id
 	status_label.text = "Your turn." if my_turn else "Opponent's turn — battle state synchronized."
 	_rebuild_action_options(state)
-	submit_button.disabled = not my_turn or actor_option.item_count == 0
+	submit_button.disabled = _bond_playing or not my_turn or actor_option.item_count == 0
 
 func _rebuild_action_options(state: Dictionary) -> void:
 	actor_option.clear()
@@ -144,6 +198,21 @@ func _fill_skills(actor: Dictionary) -> void:
 		var index := skill_option.item_count
 		skill_option.add_item(ultimate + " · ULTIMATE")
 		skill_option.set_item_metadata(index, ultimate)
+	for bond_id in CombatEngine.BOND_PAIRS:
+		var members: Array = CombatEngine.BOND_PAIRS[bond_id]
+		if str(actor.get("charId","")) not in members: continue
+		var count := 0
+		for u in PvpGateway.match_state.get("units",[]):
+			if int(u.get("team",0)) == int(actor.get("team",0)) and str(u.get("charId","")) in members and int(u.get("ascension",0)) == 3 and float(u.get("hp",0)) > 0:
+				count += 1
+		if count != 2: continue
+		var bond: Dictionary = PvpGateway.match_state.get("bonds",{}).get("%d:%s" % [int(actor.team),bond_id],{})
+		var gauge := int(bond.get("gauge",0))
+		var uses := int(bond.get("uses",0))
+		var index := skill_option.item_count
+		skill_option.add_item("%s | %d%% | %d/2" % [CombatEngine.BOND_NAMES[bond_id],gauge,2-uses])
+		skill_option.set_item_metadata(index,bond_id)
+		skill_option.set_item_disabled(index,gauge < 100 or uses >= 2)
 	if skill_option.item_count > 0:
 		skill_option.select(0)
 		_on_skill_selected(0)
@@ -177,17 +246,18 @@ func _on_skill_selected(index: int) -> void:
 		target_option.select(0)
 
 func _submit_action() -> void:
+	if _bond_playing: return
 	if actor_option.item_count == 0 or skill_option.item_count == 0:
 		status_label.text = "No available combat actions in the current snapshot."
 		return
 	var actor_uid := str(actor_option.get_item_metadata(actor_option.selected))
 	var skill_id := str(skill_option.get_item_metadata(skill_option.selected))
 	var definition: SkillDef = ContentDB.get_skill(skill_id)
-	if definition == null:
+	if definition == null and not CombatEngine.BOND_PAIRS.has(skill_id):
 		status_label.text = "This skill is missing from the local content database."
 		return
 	var targets: Array[String] = []
-	if definition.target in ["single_enemy", "single_ally"]:
+	if definition != null and definition.target in ["single_enemy", "single_ally"]:
 		if target_option.item_count == 0:
 			status_label.text = "Choose a valid target."
 			return

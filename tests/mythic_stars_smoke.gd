@@ -1,0 +1,26 @@
+extends SceneTree
+func _initialize(): call_deferred("_run")
+func _run():
+ var def = root.get_node("ContentDB").get_character("ravienna_mythic")
+ var factory = load("res://scripts/combat/combat_factory.gd")
+ var base = factory.build_from_character(CharacterInstance.create("ravienna_mythic","test"))
+ for n in range(1,10):
+  var inst = CharacterInstance.create("ravienna_mythic","test")
+  inst.awakening = int((n-1)/2)
+  inst.dupes = (n-1)%2
+  assert(inst.mythic_stars()==mini(n,7))
+  assert(is_equal_approx(inst.power_multiplier(true),1.0+0.04*(mini(n,7)-1)))
+  var unit = factory.build_from_character(inst)
+  var mult = 1.0+0.04*(mini(n,7)-1)
+  assert(is_equal_approx(unit.max_hp,base.max_hp*mult))
+  assert(is_equal_approx(unit.atk,base.atk*mult))
+  assert(is_equal_approx(unit.defense,base.defense*mult))
+  var card=load("res://scenes/ui/components/roster_character_card.tscn").instantiate()
+  root.add_child(card)
+  card.setup("test",def,1,false,true,Color.GOLD,"Mythic",3 if n>=7 else 0,mini(n,7))
+  assert(card._tier_label.text==CharacterInstance.star_text(mini(n,7)))
+  if n>=7: assert(card._portrait.portrait_texture.resource_path.ends_with("ravienna_ascended.png"))
+  card.free()
+  print("COPY STAR PASS ",n)
+ print("MYTHIC STARS PASS")
+ quit()

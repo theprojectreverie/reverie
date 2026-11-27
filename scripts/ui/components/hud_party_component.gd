@@ -31,7 +31,7 @@ func refresh_party() -> void:
 			continue
 		var row := HUD.PARTY_ENTRY_SCENE.instantiate() as HBoxContainer
 		var portrait := row.get_node("Portrait") as PortraitView
-		portrait.setup_character(definition)
+		portrait.setup_character(definition, "", instance.ascension)
 		(row.get_node("Details/CharacterName") as Label).text = definition.display_name
 		(row.get_node("Details/CharacterMeta") as Label).text = "Lv %d  ·  %s" % [instance.level, definition.role]
 		(row.get_node("ElementDot") as ColorRect).color = UITheme.element_color(definition.element)

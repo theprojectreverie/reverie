@@ -12,7 +12,7 @@ const ART := {
  "crimson_witch": "res://assets/ui/menu_characters/05_lily_witch.png",
  "elathra": "res://assets/ui/menu_characters/06_elathra.png"
 }
-const LABELS := {"default":"Ravienna (default)","ravienna":"Ravienna","kael_crouching":"Kael - Crouching","kael_seated":"Kael - Seated","kael_standing":"Kael - Standing","mirene":"Mirene","crimson_witch":"Elathra","elathra":"Companion"}
+const LABELS := {"default":"Ravienna (default)","ravienna":"Ravienna","kael_crouching":"Kael - Crouching","kael_seated":"Kael - Seated","kael_standing":"Kael - Standing","mirene":"Miréne","crimson_witch":"Elathra","elathra":"Companion"}
 const TILE := preload("res://scenes/ui/components/menu_character_gallery_tile.tscn")
 # Normalized artwork bounds: keep faces below currencies and feet above navigation.
 const FRAMES := {

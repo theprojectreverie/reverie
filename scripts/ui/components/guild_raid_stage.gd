@@ -55,8 +55,8 @@ func _art_for(unit:Dictionary)->Node2D:
 	if ResourceLoader.exists(path):art.texture=load(path) as Texture2D
 	else:
 		# Use the matching approved portrait only; never borrow another character.
-		if PORTRAIT.PATHS.has(id):art.texture=PORTRAIT.texture(id)
-		elif id=="kael":art.texture=PORTRAIT.texture("kael_avatar")
+		if PORTRAIT.PATHS.has(id):art.texture=PORTRAIT.legacy_texture(id)
+		elif id=="kael":art.texture=PORTRAIT.legacy_texture("kael_avatar")
 	art.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
 	return art
 

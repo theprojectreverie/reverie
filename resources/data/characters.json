@@ -409,7 +409,7 @@
     "gacha_enabled": false
   },
   "mirene": {
-    "name": "MirÃ©ne",
+    "name": "Miréne",
     "title": "The Crimson Fool",
     "race": "Demon",
     "element": "dark",
@@ -449,7 +449,7 @@
     "passive": {
       "id": "whisperstep",
       "name": "Masquerade Step",
-      "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+      "text": "Miréne moves with uncanny speed while she remains in the party."
     },
     "gacha_enabled": false
   },
@@ -2181,6 +2181,8 @@
     },
     "portrait_seed": 219,
     "assets": {
+      "world_sheet": "res://assets/characters/cassien/world_sheet.tres",
+      "art_status": "world_locomotion_provisional",
       "asset_folder": "res://assets/characters/cassien_legendary",
       "portrait_target": "res://assets/characters/cassien/portrait_512.png",
       "portrait_target_dimensions": [
@@ -2235,6 +2237,8 @@
     },
     "portrait_seed": 219,
     "assets": {
+      "world_sheet": "res://assets/characters/cassien/world_sheet.tres",
+      "art_status": "world_locomotion_provisional",
       "asset_folder": "res://assets/characters/cassien_mythic",
       "portrait_target": "res://assets/characters/cassien/portrait_512.png",
       "portrait_target_dimensions": [
@@ -2647,7 +2651,7 @@
     "variant_of": "crimson_witch"
   },
   "mirene_common": {
-    "name": "MirÃ©ne (Common Aspect)",
+    "name": "Miréne (Common Aspect)",
     "title": "The Crimson Fool Â· Common Aspect",
     "race": "Demon",
     "element": "dark",
@@ -2687,13 +2691,13 @@
     "passive": {
       "id": "whisperstep",
       "name": "Masquerade Step",
-      "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+      "text": "Miréne moves with uncanny speed while she remains in the party."
     },
     "gacha_enabled": false,
     "variant_of": "mirene"
   },
   "mirene_epic": {
-    "name": "MirÃ©ne (Epic Aspect)",
+    "name": "Miréne (Epic Aspect)",
     "title": "The Crimson Fool Â· Epic Aspect",
     "race": "Demon",
     "element": "dark",
@@ -2733,13 +2737,13 @@
     "passive": {
       "id": "whisperstep",
       "name": "Masquerade Step",
-      "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+      "text": "Miréne moves with uncanny speed while she remains in the party."
     },
     "gacha_enabled": false,
     "variant_of": "mirene"
   },
   "mirene_legendary": {
-    "name": "MirÃ©ne (Legendary Aspect)",
+    "name": "Miréne (Legendary Aspect)",
     "title": "The Crimson Fool Â· Legendary Aspect",
     "race": "Demon",
     "element": "dark",
@@ -2768,6 +2772,8 @@
     },
     "portrait_seed": 305,
     "assets": {
+      "world_sheet": "res://assets/characters/harlequin/world_sheet.tres",
+      "art_status": "world_walk_ready_shared_action_poses",
       "asset_folder": "res://assets/characters/mirene_legendary",
       "portrait_target": "res://assets/characters/mirene/portrait_512.png",
       "portrait_target_dimensions": [
@@ -2779,13 +2785,13 @@
     "passive": {
       "id": "whisperstep",
       "name": "Masquerade Step",
-      "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+      "text": "Miréne moves with uncanny speed while she remains in the party."
     },
     "gacha_enabled": true,
     "variant_of": "mirene"
   },
   "mirene_mythic": {
-    "name": "MirÃ©ne (Mythic Aspect)",
+    "name": "Miréne (Mythic Aspect)",
     "title": "The Crimson Fool Â· Mythic Aspect",
     "race": "Demon",
     "element": "dark",
@@ -2814,6 +2820,8 @@
     },
     "portrait_seed": 305,
     "assets": {
+      "world_sheet": "res://assets/characters/harlequin/world_sheet.tres",
+      "art_status": "world_walk_ready_shared_action_poses",
       "asset_folder": "res://assets/characters/mirene_mythic",
       "portrait_target": "res://assets/characters/mirene/portrait_512.png",
       "portrait_target_dimensions": [
@@ -2825,7 +2833,7 @@
     "passive": {
       "id": "whisperstep",
       "name": "Masquerade Step",
-      "text": "MirÃ©ne moves with uncanny speed while she remains in the party."
+      "text": "Miréne moves with uncanny speed while she remains in the party."
     },
     "gacha_enabled": true,
     "variant_of": "mirene"
@@ -3068,5 +3076,61 @@
       "art_status": "pending_art_import"
     },
     "gacha_enabled": true
+  },
+  "elathra_mythic": {
+    "name": "Elathra (Mythic Aspect)",
+    "title": "The Lily of Shadows · Mythic Aspect",
+    "race": "Witch",
+    "element": "dark",
+    "rarity": "mythic",
+    "role": "Control Mage",
+    "base": {
+      "hp": 58,
+      "atk": 21,
+      "def": 10,
+      "spd": 16,
+      "crit": 0.09,
+      "crit_dmg": 1.55
+    },
+    "growth": {
+      "hp": 3,
+      "atk": 2,
+      "def": 1,
+      "spd": 1,
+      "crit": 0.004,
+      "crit_dmg": 0.01
+    },
+    "skills": [
+      "lunar_wisp",
+      "crimson_binding"
+    ],
+    "ultimate": "hollow_wail",
+    "passive": {
+      "name": "Veil of Lilies",
+      "id": "hollow_crown",
+      "text": "Her dark skills deal 15% more damage to enemies suffering a debuff."
+    },
+    "lore": "A poised wanderer of the dusk gardens, Companion carries a lily-tipped staff and a quiet command over shadow. Beneath her ornate hat and silver-ash braids lies a patient will: she binds threats before they can reach those under her protection.",
+    "palette": {
+      "hair": "#d9d2d2",
+      "primary": "#22212a",
+      "secondary": "#243b59",
+      "accent": "#80b8e8",
+      "skin": "#eadbd7"
+    },
+    "portrait_seed": 413,
+    "assets": {
+      "asset_folder": "res://assets/characters/elathra",
+      "portrait_target": "res://assets/characters/elathra/portrait_512.png",
+      "portrait_target_dimensions": [
+        512,
+        683
+      ],
+      "portrait_status": "shared_character_art",
+      "full_body_illustration": "res://assets/characters/elathra/full_body_illustration.png",
+      "art_status": "pending_art_import"
+    },
+    "gacha_enabled": true,
+    "variant_of": "elathra"
   }
 }

@@ -99,6 +99,9 @@ z_index = -100
 position = Vector2(6, 1598)
 scale = Vector2(5.1010, 5.1010)
 texture = ExtResource("prepared_background")
+texture_repeat = 3
+region_enabled = true
+region_rect = Rect2(-1672, -941, 5016, 2823)
 
 [node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
 position = Vector2(-1230.0, 2313.0)

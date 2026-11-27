@@ -161,11 +161,26 @@ func apply_sprite_geometry() -> void:
 	var anchor: Vector2 = anchor_value if anchor_value is Vector2 else Vector2(0.5, 1.0)
 	visual._sprite.centered = false
 	visual._sprite.offset = Vector2(-float(texture.get_width()) * anchor.x, -float(texture.get_height()) * anchor.y)
-	visual._sprite.scale = Vector2.ONE * visual.visual_scale
+	visual._sprite.scale = Vector2.ONE * visual.visual_scale * combat_clip_scale()
 	visual._sprite.flip_h = visual.facing < 0.0 and mirrors_by_facing()
 	visual._sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if visual.animator.gerald_fallen_frames or visual.character_id.begins_with("ravienna") else CanvasItem.TEXTURE_FILTER_LINEAR
-	if visual.animator.gerald_fallen_frames:
+	if visual.animator.gerald_fallen_frames or visual.character_id.begins_with("mirene_") or visual.character_id.begins_with("cassien_"):
 		visual._sprite.flip_h = visual.animator.state in [4,5,7,8] and visual.animator.direction in [1,2,3]
+
+
+## Fixed uniform correction for measured art-source differences only. Do not
+## infer scale from individual pose bounds (weapons, crouches, defeat, etc.).
+func combat_clip_scale() -> float:
+	if visual == null or not visual.get_parent() is BattlefieldActor or visual.animator == null: return 1.0
+	var state: int=visual.animator.state
+	if visual.character_id=="kael":
+		if state==ActorVisual.S_ATTACK or state==ActorVisual.S_DAMAGE: return 1.40
+		if state==ActorVisual.S_CAST: return 1.04
+	elif visual.character_id=="gerald":
+		if state in [ActorVisual.S_ATTACK,ActorVisual.S_CAST,ActorVisual.S_DAMAGE]: return 1.06
+	elif visual.character_id=="lilith":
+		if state in [ActorVisual.S_ATTACK,ActorVisual.S_CAST,ActorVisual.S_DAMAGE,ActorVisual.S_VICTORY]: return 0.96
+	return 1.0
 
 
 func update_sprite_frame() -> void:

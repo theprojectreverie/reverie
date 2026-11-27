@@ -22,6 +22,9 @@ const PLATE_HEIGHT := 6.0
 const PLATE_OFFSET := 14.0
 
 
+var live_art: AnimatedSprite2D
+var _live_facing_right := true
+var _live_facings: Dictionary = {}
 var rose_art: AnimatedSprite2D
 var fairy_art: AnimatedSprite2D
 var _fairy_facing_right := false
@@ -98,6 +101,25 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 		if plate_fill != null:
 			plate_fill.bg_color = _hp_color
 
+	# The shared world idle clip writes an absolute FrameSprite scale of 1.0.
+	# Remove that track only from this combat instance; keep all world clips intact.
+	var locomotion_player := visual.animation_component.get_player()
+	if locomotion_player != null:
+		for library_name in locomotion_player.get_animation_library_list():
+			var library := locomotion_player.get_animation_library(library_name)
+			var local := AnimationLibrary.new()
+			for clip in library.get_animation_list():
+				var anim := library.get_animation(clip)
+				var has_scale := false
+				for i in anim.get_track_count():
+					if str(anim.track_get_path(i)) == "FrameSprite:scale": has_scale = true
+				if has_scale:
+					anim = anim.duplicate() as Animation
+					for i in range(anim.get_track_count()-1,-1,-1):
+						if str(anim.track_get_path(i)) == "FrameSprite:scale": anim.remove_track(i)
+				local.add_animation(clip,anim)
+			locomotion_player.remove_animation_library(library_name)
+			locomotion_player.add_animation_library(library_name,local)
 	visual.is_boss = unit.is_boss
 	if is_player:
 		var definition := ContentDB.get_character(unit.def_id)
@@ -128,7 +150,30 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 			rose_art.position.y = -44.0
 			visual.hide()
 			rose_art.animation_finished.connect(_rose_animation_finished)
-	if is_player and unit.def_id == "elathra":
+			rose_art.animation_changed.connect(_sync_monster_body_scale)
+			_sync_monster_body_scale()
+	if (is_player or unit.def_id.begins_with("livechar_")) and LiveCharacterContent.frames_for(unit.def_id) != null:
+		live_art = $LiveCombatArt
+		live_art.sprite_frames = LiveCharacterContent.frames_for(unit.def_id)
+		var pack: Dictionary=LiveCharacterContent.installed.get(unit.def_id,{})
+		_live_facings=pack.get("facings",{}).duplicate()
+		live_art.offset.y=64.0-float(pack.get("bottom",128.0))
+		live_art.animation_changed.connect(_sync_live_facing)
+		live_art.show()
+		live_art.play(&"idle")
+		live_art.animation_finished.connect(_live_return_idle)
+		visual.hide()
+	if live_art == null and is_player and unit.def_id.begins_with("mirene_"):
+		live_art = $LiveCombatArt
+		live_art.sprite_frames = preload("res://assets/characters/harlequin/combat_frames.tres")
+		_live_facings = {"idle":"left","basic_attack":"left","skill_1":"left","skill_2":"left","ultimate":"left","hit":"left","defeat":"left"}
+		live_art.offset.y = -64.0
+		live_art.animation_changed.connect(_sync_live_facing)
+		live_art.show()
+		live_art.play(&"idle")
+		live_art.animation_finished.connect(_live_return_idle)
+		visual.hide()
+	if live_art == null and is_player and unit.def_id in ["elathra", "elathra_mythic"]:
 		elathra_art = $ElathraArt
 		elathra_art.show()
 		elathra_art.play(&"idle")
@@ -138,15 +183,16 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 		gerald_art.show()
 		gerald_art.play("idle")
 		gerald_art.animation_finished.connect(_gerald_return_idle)
+		gerald_art.animation_changed.connect(_sync_gerald_body_scale)
 		gerald_art.get_node("WalkArt").frame_changed.connect(_on_gerald_walk_frame_changed)
 		visual.hide()
-	if unit.def_id == "cassien_boss" or (is_player and (unit.def_id == "cassien" or unit.def_id.begins_with("cassien_"))):
+	if live_art == null and (unit.def_id == "cassien_boss" or (is_player and (unit.def_id == "cassien" or unit.def_id.begins_with("cassien_")))):
 		cassien_art = $CassienArt
 		cassien_art.show()
 		cassien_art.play("idle")
 		cassien_art.animation_finished.connect(_cassien_return_idle)
 		visual.hide()
-	if unit.def_id == "revienna_boss" or (is_player and (unit.def_id == "ravienna" or unit.def_id.begins_with("ravienna_"))):
+	if live_art == null and (unit.def_id == "revienna_boss" or (is_player and (unit.def_id == "ravienna" or unit.def_id.begins_with("ravienna_")))):
 		ravienna_art = $ReviennaArt
 		if is_player:
 			var playable_sprite := ravienna_art.get_node("AnimatedSprite2D") as AnimatedSprite2D
@@ -171,7 +217,7 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 				_base_scale = 1.35
 			_:
 				_base_scale *= BOSS_MULTIPLIER
-	visual.visual_scale = _base_scale
+	visual.set_body_scale(_base_scale)
 	if unit.def_id == "fairy_spar":
 		fairy_art = visual.get_node("FairySparArt") as AnimatedSprite2D
 		fairy_art.reparent(self, false)
@@ -185,7 +231,7 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 		element_color = Color("#c6cad6")
 	_ground_fx.configure(is_player, unit.is_boss, unit.def_id == "fallen_matron", element_color)
 	_sync_ground_fx()
-	if is_instance_valid(cassien_art) or is_instance_valid(ravienna_art):
+	if is_instance_valid(live_art) or is_instance_valid(cassien_art) or is_instance_valid(ravienna_art):
 		face(Vector2.RIGHT if is_player else Vector2.LEFT)
 	else:
 		face(Vector2(-1.0, 0.0) if is_player else Vector2(1.0, 0.0))
@@ -200,6 +246,9 @@ func face(direction: Vector2) -> void:
 		return
 	visual.set_move_direction(direction.normalized())
 	visual.facing = 1.0 if direction.x >= 0.0 else -1.0
+	if is_instance_valid(live_art):
+		_live_facing_right=direction.x>=0.0
+		_sync_live_facing()
 	if is_instance_valid(fairy_art) and not dead:
 		_fairy_facing_right = direction.x > 0.0
 		if fairy_art.animation in [&"front", &"left", &"right"]:
@@ -215,6 +264,7 @@ func face(direction: Vector2) -> void:
 
 
 func enable_kael_boss_art() -> void:
+	if is_instance_valid(live_art): return
 	kael_boss_art_enabled = true
 	_sync_kael_boss_art()
 
@@ -227,7 +277,7 @@ func play_kael_boss_clip(clip: StringName) -> void:
 func _sync_kael_boss_art() -> void:
 	if not kael_boss_art_enabled or visual == null:
 		return
-	var show_art := not dead and (kael_boss_sequence_active or visual.animator.state == CharacterAnimator.State.IDLE)
+	var show_art := not dead
 	if show_art and not kael_boss_sequence_active and kael_boss_art.animation != &"idle":
 		kael_boss_art.play(&"idle")
 	elif show_art and not kael_boss_art.is_playing() and not kael_boss_sequence_active:
@@ -236,8 +286,15 @@ func _sync_kael_boss_art() -> void:
 	visual.visible = not show_art
 	kael_boss_art.flip_h = visual.facing < 0.0
 	var attack := kael_boss_art.animation == &"attack"
-	kael_boss_art.scale = Vector2.ONE * visual.visual_scale * (108.0 / 110.0)
-	kael_boss_art.offset = Vector2(10.0 * (-1.0 if kael_boss_art.flip_h else 1.0) if attack else 0.0, -55.0 if attack else -56.0)
+	# Scale the entire clip uniformly. The original attack standing poses are
+	# smaller than idle; the larger-headed travel drawings need a modest reduction.
+	var correction := 1.0
+	match kael_boss_art.animation:
+		&"attack": correction = 1.12
+		&"approach", &"retreat": correction = 0.96
+	kael_boss_art.scale = Vector2.ONE * visual.visual_scale * (108.0 / 110.0) * correction
+	# Keep the original lift during approach/withdrawal and the blade pivot at contact.
+	kael_boss_art.offset = Vector2(10.0 * (-1.0 if kael_boss_art.flip_h else 1.0) if attack else 0.0, -58.0 if attack else -57.0)
 
 func refresh() -> void:
 	if unit == null:
@@ -252,7 +309,7 @@ func refresh() -> void:
 	_name_label.text = ("◆  " if targetable else "") + unit.display_name
 	_name_label.add_theme_color_override("font_color",
 		UITheme.GOLD_BRIGHT if targetable else UITheme.TEXT if unit.is_alive() else UITheme.TEXT_DIM)
-	if not unit.is_alive() and not is_instance_valid(rose_art) and not is_instance_valid(fairy_art) and not is_instance_valid(gerald_art) and not is_instance_valid(cassien_art) and not is_instance_valid(ravienna_art):
+	if not unit.is_alive() and not is_instance_valid(rose_art) and not is_instance_valid(fairy_art) and not is_instance_valid(gerald_art) and not is_instance_valid(cassien_art) and not is_instance_valid(ravienna_art) and not is_instance_valid(live_art):
 		modulate = Color(1, 1, 1, 0.38)
 	queue_redraw()
 
@@ -428,6 +485,7 @@ func _cancel_hit_flash(restore_tint: bool = true) -> void:
 	_hit_flash_tween = null
 	if restore_tint and visual != null and is_instance_valid(visual):
 		visual.modulate = Color.WHITE
+	if restore_tint and is_instance_valid(kael_boss_art): kael_boss_art.modulate = Color.WHITE
 
 
 func _recover_combat_pose() -> void:
@@ -440,7 +498,15 @@ func _recover_combat_pose() -> void:
 
 ## Damage reaction: white flash + a short shake + the damage animation.
 func take_hit() -> void:
-	if kael_boss_sequence_active and not dead:
+	if is_instance_valid(live_art):
+		if not dead: live_art.play(&"hit")
+		return
+	if kael_boss_art_enabled and not dead:
+		if not kael_boss_sequence_active:
+			cancel_attack_motion()
+			cancel_recoil_motion()
+			_recover_combat_pose()
+			visual.hit()
 		# The server has already resolved damage; do not abort an active authored
 		# approach/strike/withdrawal because an earlier delayed visual lands.
 		_cancel_hit_flash()
@@ -526,6 +592,7 @@ func _show_gerald_walk(direction: Vector2) -> void:
 	gerald_art.pause()
 	gerald_art.self_modulate.a = 0.0
 	walk.show()
+	_sync_gerald_body_scale()
 	walk.play(StringName("walk_" + names[index]), 16.0 / (9.0 * GERALD_WALK_TIME))
 	walk.set_frame_and_progress(0, 0.0)
 
@@ -533,6 +600,7 @@ func _hide_gerald_walk() -> void:
 	var walk := gerald_art.get_node("WalkArt") as AnimatedSprite2D
 	walk.stop()
 	walk.hide()
+	_sync_gerald_body_scale()
 	gerald_art.self_modulate.a = 1.0
 	gerald_art.position.y = -57.0 * gerald_art.scale.y
 
@@ -589,10 +657,17 @@ func play_gerald_flame_approach(target: BattlefieldActor) -> bool:
 	motion.tween_callback(_end_gerald_walk)
 	return true
 
+func _sync_gerald_body_scale() -> void:
+	if not is_instance_valid(gerald_art): return
+	var walk := gerald_art.get_node("WalkArt") as AnimatedSprite2D
+	var correction := 1.0 if walk.visible else (1.06 if gerald_art.animation in [&"attack",&"hit"] else 1.0)
+	gerald_art.scale = Vector2.ONE * _base_scale * correction
+	gerald_art.position.y = (-50.0 if gerald_art.animation==&"earthquake" and not walk.visible else -57.0)*gerald_art.scale.y
+
+
 func play_gerald_action(ultimate: bool) -> void:
 	if not is_instance_valid(gerald_art) or dead:
 		return
-	gerald_art.position.y = (-50.0 if ultimate else -57.0) * gerald_art.scale.y
 	gerald_art.play("earthquake" if ultimate else "attack")
 	gerald_art.set_frame_and_progress(0, 0.0)
 
@@ -706,7 +781,26 @@ func _revienna_return_idle() -> void:
 		ravienna_art.get_node("AnimatedSprite2D").play("idle")
 
 
+func _sync_live_facing() -> void:
+	if is_instance_valid(live_art): live_art.flip_h = _live_facing_right != (str(_live_facings.get(str(live_art.animation),"right"))=="right")
+
+func _live_return_idle() -> void:
+	if is_instance_valid(live_art) and not dead: live_art.play(&"idle")
+
+func play_live_action(skill_id: String, ultimate: bool) -> void:
+	if not is_instance_valid(live_art) or dead: return
+	var def := ContentDB.get_character(unit.def_id)
+	var clip := &"basic_attack"
+	if ultimate or (def != null and skill_id==def.ultimate): clip=&"ultimate"
+	elif def != null and def.skills.size()>0 and skill_id==str(def.skills[0]): clip=&"skill_1"
+	elif def != null and def.skills.size()>1 and skill_id==str(def.skills[1]): clip=&"skill_2"
+	live_art.play(clip)
+	live_art.set_frame_and_progress(0,0.0)
+
 func play_attack() -> void:
+	if is_instance_valid(live_art):
+		play_live_action("",false)
+		return
 	if is_instance_valid(elathra_art):
 		elathra_art.get_node("PoseAnimation").play("cast")
 		return
@@ -737,6 +831,9 @@ func play_attack() -> void:
 
 
 func play_victory() -> void:
+	if is_instance_valid(live_art):
+		_live_return_idle()
+		return
 	if is_instance_valid(elathra_art):
 		if not dead:
 			elathra_art.get_node("PoseAnimation").stop()
@@ -766,6 +863,14 @@ func play_victory() -> void:
 
 
 func play_death() -> void:
+	if is_instance_valid(live_art):
+		if not dead:
+			dead=true
+			cancel_attack_motion()
+			cancel_recoil_motion()
+			live_art.play(&"defeat")
+			set_intent("")
+		return
 	if is_instance_valid(elathra_art):
 		if dead:
 			return
@@ -866,6 +971,19 @@ func _sync_ground_fx() -> void:
 func _on_hit_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		clicked.emit(self)
+
+func _sync_monster_body_scale() -> void:
+	if not is_instance_valid(rose_art): return
+	# Crownling attack cells use a smaller standing drawing; retain its crouch
+	# and crown motion using one uniform correction per authored clip.
+	var correction := 1.0
+	if unit.def_id == "crownling":
+		if rose_art.animation==&"attack": correction=1.20
+		elif rose_art.animation==&"hit": correction=1.08
+	rose_art.scale=Vector2.ONE*1.4*correction
+	# Keep the base center constant while adjusting the uniformly scaled cell.
+	rose_art.position.y=-44.0*correction
+
 
 func _rose_animation_finished() -> void:
 	if dead:

@@ -3,6 +3,7 @@ extends RefCounted
 ## Character identity, ownership, rarity and crop focus remain independent.
 ## Remove an alias and its export exclusion when authoring distinct art for that ID.
 const COLLECTION_FOLDERS := {
+	"elathra_mythic": "elathra",
 	"caelith_common": "caelith_mythic",
 	"caelith_epic": "caelith_mythic",
 	"caelith_legendary": "caelith_mythic",

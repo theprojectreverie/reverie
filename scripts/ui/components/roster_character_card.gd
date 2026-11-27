@@ -18,7 +18,9 @@ func setup(
 	in_party: bool,
 	premium: bool,
 	glow: Color,
-	tier_text: String
+	tier_text: String,
+	ascension: int = 0,
+	stars: int = 0
 ) -> void:
 	_uid = uid
 	_portrait = get_node("Content/PortraitSlot/Portrait") as PortraitView
@@ -27,7 +29,7 @@ func setup(
 	_tier_label = get_node("Content/Tier") as Label
 	_party_badge = get_node("Content/PartyBadge") as Label
 	if definition != null:
-		_portrait.setup_character(definition)
+		_portrait.setup_character(definition, "", ascension)
 		_name_label.text = definition.display_name
 		_subtitle_label.text = "Lv %d · %s" % [level, definition.rarity.capitalize()]
 	else:
@@ -35,6 +37,9 @@ func setup(
 		_subtitle_label.text = "Lv %d · ?" % level
 	_tier_label.text = "✦ " + tier_text
 	_tier_label.visible = premium and not tier_text.is_empty()
+	if definition != null and definition.rarity == "mythic" and stars > 0:
+		_tier_label.text = CharacterInstance.star_text(stars)
+		_tier_label.visible = true
 	_tier_label.add_theme_color_override("font_color", glow)
 	_party_badge.visible = in_party
 	custom_minimum_size = Vector2(126, 174)

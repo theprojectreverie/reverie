@@ -16,6 +16,12 @@ static func choose(engine: CombatEngine, actor_index: int) -> Dictionary:
 	var best: Dictionary = { "skill_id": "", "targets": [], "score": -INF }
 	var lowest_ally := _lowest_health(allies)
 	var lowest_enemy := _lowest_health(enemies)
+	var bond_id := engine.bond_for(actor)
+	if engine.bond_ready(actor, bond_id):
+		# Offensive bond is useful immediately; defensive bond waits for a wounded ally.
+		if bond_id == "eternal_eclipse" or (lowest_ally != null and lowest_ally.hp_ratio() <= 0.75):
+			return {"skill_id":bond_id,"targets":[],"score":2000.0}
+
 	# Village Gerald is a restrained Titan, not a support-buff loop.
 	# Prioritize the charged ultimate, otherwise use his authored flame strike.
 	if actor.def_id == "gerald_boss" and actor.ultimate == "gerald_village_earthquake":

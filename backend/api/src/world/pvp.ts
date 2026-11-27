@@ -1,6 +1,6 @@
 export type PvpStatus = { id: string; turns: number; potency: number };
 export type PvpUnit = {
-  uid: string; ownerId: string; team: 1 | 2; charId: string; element: string;
+  uid: string; ownerId: string; team: 1 | 2; charId: string; element: string; ascension?: number;
   maxHp: number; hp: number; atk: number; defense: number; speed: number;
   critChance: number; critDamage?: number; energy: number; shield: number;
   skillIds: string[]; ultimateId?: string; passiveId?: string; skillLevels?: Record<string,number>;
@@ -16,15 +16,15 @@ export type PvpSkill = {
 export type PvpState = {
   matchId: string; seed: number; sequence: number; turn: number;
   turnPlayerId: string; units: PvpUnit[]; status: "active" | "completed";
-  winnerId?: string; passiveFlags?: string[]; skillbook?: Record<string,PvpSkill>;
+  winnerId?: string; passiveFlags?: string[]; bonds?: Record<string,{gauge:number;uses:number}>; skillbook?: Record<string,PvpSkill>;
 };
 export type PvpAction = { playerId: string; actorUid: string; skillId: string; targetUids: string[]; sequence: number };
 export type PvpResult = { ok: true; state: PvpState; events: Array<Record<string, unknown>> } |
-  { ok: false; reason: "match_finished" | "wrong_turn" | "unknown_actor" | "not_owned" | "unknown_skill" | "skill_not_equipped" | "cooldown" | "ultimate_not_ready" | "invalid_targets" | "invalid_sequence" | "stunned" };
+  { ok: false; reason: "match_finished" | "wrong_turn" | "unknown_actor" | "not_owned" | "unknown_skill" | "skill_not_equipped" | "cooldown" | "ultimate_not_ready" | "invalid_targets" | "invalid_sequence" | "stunned" | "bond_not_ready" };
 
 const clamp = (n:number,min:number,max:number) => Math.max(min,Math.min(max,n));
-const SUPPORTED_STATUSES = new Set(["atk_up","atk_down","def_up","def_down","spd_up","spd_down","burn","poison","stun","blind","regen","shield"]);
-const CLEANSABLE_STATUSES = new Set(["burn","poison","stun","blind","atk_down","def_down","spd_down"]);
+const SUPPORTED_STATUSES = new Set(["atk_up","atk_down","def_up","def_down","spd_up","spd_down","burn","poison","stun","blind","regen","shield","bond_guard","bond_survive","eclipse_curse"]);
+const CLEANSABLE_STATUSES = new Set(["burn","poison","stun","blind","atk_down","def_down","spd_down","eclipse_curse"]);
 const MAX_STATUS_TURNS = 20;
 const MAX_STATUS_POTENCY = 1;
 function randomStream(seed:number, sequence:number): () => number {
@@ -58,6 +58,7 @@ function validNumbers(u:PvpUnit):boolean {
   return typeof u.uid==="string" && u.uid.length>0 && typeof u.ownerId==="string" && u.ownerId.length>0 &&
     (u.team===1||u.team===2) && typeof u.charId==="string" && u.charId.length>0 &&
     typeof u.element==="string" && u.element.length>0 &&
+    (u.ascension===undefined||(Number.isInteger(u.ascension)&&u.ascension>=0&&u.ascension<=3)) &&
     [u.maxHp,u.hp,u.atk,u.defense,u.speed,u.critChance,u.critDamage??1.6,u.energy,u.shield].every(Number.isFinite) &&
     u.maxHp>0 && u.hp>=0 && u.hp<=u.maxHp && u.atk>0 && u.defense>=0 && u.speed>0 &&
     u.critChance>=0 && u.critChance<=1 && (u.critDamage??1.6)>=1 && (u.critDamage??1.6)<=5 &&
@@ -81,7 +82,7 @@ function validSkill(skill:PvpSkill,key:string):boolean {
     !(skill.statuses??[]).every(s=>isRecord(s)&&typeof s.id==="string"&&s.id.length>0&&
       (s.chance===undefined||(Number.isFinite(s.chance)&&s.chance>=0&&s.chance<=1))&&
       (s.turns===undefined||(Number.isInteger(s.turns)&&s.turns>0&&s.turns<=MAX_STATUS_TURNS))&&
-      (s.potency===undefined||(Number.isFinite(s.potency)&&s.potency>=0&&s.potency<=MAX_STATUS_POTENCY))&&SUPPORTED_STATUSES.has(s.id))) return false;
+      (s.potency===undefined||(Number.isFinite(s.potency)&&s.potency>=0&&s.potency<=MAX_STATUS_POTENCY))&&SUPPORTED_STATUSES.has(s.id)&&!["bond_guard","bond_survive","eclipse_curse"].includes(s.id))) return false;
   const allyTarget=skill.target==="single_ally"||skill.target==="all_allies"||skill.target==="self";
   if((skill.kind==="heal"||skill.kind==="shield"||skill.kind==="buff")&&!allyTarget) return false;
   if((skill.kind==="damage"||skill.kind==="debuff")&&allyTarget) return false;
@@ -99,6 +100,61 @@ function targetsFor(state:PvpState, actor:PvpUnit, skill:PvpSkill, ids:string[])
   if(all && ids.length!==0) return null;
   return chosen.length?chosen:null;
 }
+const BOND_PAIRS:Record<string,readonly string[]>={beyond_death:["gerald_mythic","lilith_mythic"],eternal_eclipse:["cassien_mythic","ravienna_mythic"]};
+function bondPair(state:PvpState,actor:PvpUnit,id:string):PvpUnit[]{
+ const members=BOND_PAIRS[id];if(!members||!members.includes(actor.charId))return [];
+ const pair=members.map(charId=>state.units.find(u=>u.team===actor.team&&u.charId===charId&&u.ascension===3&&alive(u)));
+ return pair.every(u=>u!==undefined)?pair as PvpUnit[]:[];
+}
+function chargeBond(state:PvpState,actor:PvpUnit){
+ for(const id of Object.keys(BOND_PAIRS)){
+  if(bondPair(state,actor,id).length!==2)continue;
+  const key=actor.team+":"+id;state.bonds??={};const bond=state.bonds[key]??={gauge:0,uses:0};
+  if(bond.uses<2)bond.gauge=Math.min(100,bond.gauge+25);
+ }
+}
+function bondDamage(state:PvpState,unit:PvpUnit,amount:number,events:Record<string,unknown>[],redirect=true):{dealt:number;absorbed:number}{
+ if(redirect&&unit.statuses.some(s=>s.id==="bond_guard")){
+  const guardian=state.units.find(u=>u.team===unit.team&&u.charId==="gerald_mythic"&&alive(u)&&u.uid!==unit.uid);
+  if(guardian){const transfer=amount*0.35;amount-=transfer;const result=bondDamage(state,guardian,transfer,events,false);
+   events.push({type:"status_damage",targetUid:guardian.uid,status:"bond_guard",amount:result.dealt,absorbed:result.absorbed});
+   if(!alive(guardian))events.push({type:"defeat",targetUid:guardian.uid});
+  }
+ }
+ const before=unit.hp;const absorbed=Math.min(unit.shield,amount);unit.shield-=absorbed;unit.hp=Math.max(0,unit.hp-(amount-absorbed));
+ if(before>0&&!alive(unit)&&unit.statuses.some(s=>s.id==="bond_survive")){
+  unit.hp=1;unit.statuses=unit.statuses.filter(s=>s.id!=="bond_survive");
+  events.push({type:"status",targetUid:unit.uid,status:"bond_survive",turns:0});
+ }
+ return {dealt:before-unit.hp,absorbed};
+}
+function applyBond(state:PvpState,actor:PvpUnit,id:string,events:Record<string,unknown>[],fresh:Set<string>){
+ const pair=bondPair(state,actor,id);const key=actor.team+":"+id;const bond=state.bonds![key]!;
+ bond.gauge=0;bond.uses++;
+ events.push({type:"bond",bond_id:id,actorUid:actor.uid,memberUids:pair.map(u=>u.uid)});
+ const status=(u:PvpUnit,name:string,turns:number,potency:number)=>{applyStatus(u,name,turns,potency);fresh.add(u.uid+":"+name);events.push({type:"status",targetUid:u.uid,status:name,turns});};
+ const heal=(u:PvpUnit,amount:number)=>{const before=u.hp;u.hp=Math.min(u.maxHp,u.hp+amount);events.push({type:"heal",targetUid:u.uid,amount:Math.round(u.hp-before)});};
+ if(id==="beyond_death"){
+  for(const ally of state.units.filter(u=>u.team===actor.team&&alive(u))){
+   heal(ally,ally.maxHp*0.5);const amount=Math.min(ally.maxHp*10-ally.shield,ally.maxHp*0.3);ally.shield+=amount;
+   events.push({type:"shield",targetUid:ally.uid,amount:Math.round(amount)});
+   if(ally!==pair[0])status(ally,"bond_guard",2,0.35);
+  }
+  for(const sibling of pair)status(sibling,"bond_survive",2,1);
+ }else{
+  const combined=pair.reduce((sum,u)=>sum+stat(u,"atk"),0);let dealt=0;
+  for(const foe of state.units.filter(u=>u.team!==actor.team&&alive(u))){
+   if(!alive(foe))continue;
+   let multiplier=1;if(foe.passiveId==="rooted"&&foe.hp/foe.maxHp<0.5)multiplier*=0.9;
+   if(state.units.some(u=>u.team===foe.team&&u.uid!==foe.uid&&alive(u)&&u.passiveId==="hold_the_line"))multiplier*=0.94;
+   const result=bondDamage(state,foe,Math.max(1,Math.round(4.5*combined*combined/(combined+stat(foe,"def"))*multiplier)),events);
+   dealt+=result.dealt;events.push({type:"damage",actorUid:actor.uid,targetUid:foe.uid,amount:result.dealt,absorbed:result.absorbed,crit:false,skillId:id});
+   if(alive(foe)){status(foe,"def_down",2,0.4);status(foe,"eclipse_curse",3,0.05);}else events.push({type:"defeat",targetUid:foe.uid});
+  }
+  for(const ally of state.units.filter(u=>u.team===actor.team&&alive(u))){ally.statuses=ally.statuses.filter(s=>!CLEANSABLE_STATUSES.has(s.id));events.push({type:"status",targetUid:ally.uid,status:"cleanse",turns:0});}
+  for(const member of pair)if(alive(member))heal(member,dealt*0.125);
+ }
+}
 export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Record<string,PvpSkill>):PvpResult {
   if(state.status!=="active") return {ok:false,reason:"match_finished"};
   if(state.passiveFlags!==undefined&&(!Array.isArray(state.passiveFlags)||state.passiveFlags.length>64||state.passiveFlags.some(v=>typeof v!=="string"||v.length>160)||new Set(state.passiveFlags).size!==state.passiveFlags.length))return {ok:false,reason:"unknown_actor"};
@@ -113,22 +169,30 @@ export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Rec
   if(actor.ownerId!==action.playerId) return {ok:false,reason:"not_owned"};
   if(!validNumbers(actor)) return {ok:false,reason:"unknown_actor"};
   const isStunned=actor.statuses.some(s=>s.id==="stun");
+  const isBond=!isStunned&&Object.prototype.hasOwnProperty.call(BOND_PAIRS,action.skillId);
+  if(state.bonds!==undefined&&(!isRecord(state.bonds)||Object.entries(state.bonds).some(([key,b])=>!["1:beyond_death","1:eternal_eclipse","2:beyond_death","2:eternal_eclipse"].includes(key)||!isRecord(b)||!Number.isInteger(b.gauge)||Number(b.gauge)<0||Number(b.gauge)>100||!Number.isInteger(b.uses)||Number(b.uses)<0||Number(b.uses)>2)))return {ok:false,reason:"unknown_actor"};
+  if(isBond){
+   const bond=state.bonds?.[actor.team+":"+action.skillId];
+   if(bondPair(state,actor,action.skillId).length!==2||!bond||bond.gauge<100||bond.uses>=2)return {ok:false,reason:"bond_not_ready"};
+   if(action.targetUids.length!==0)return {ok:false,reason:"invalid_targets"};
+  }
   let skill:PvpSkill;
   if(isStunned) skill={id:"__stun_skip",kind:"buff",power:0,target:"self"};
+  else if(isBond) skill={id:action.skillId,kind:"buff",power:0,target:"self"};
   else {
     if(!isRecord(skillbook)||!Object.prototype.hasOwnProperty.call(skillbook,action.skillId)) return {ok:false,reason:"unknown_skill"};
     const selectedSkill=skillbook[action.skillId];
     if(!selectedSkill||!isRecord(selectedSkill)) return {ok:false,reason:"unknown_skill"};
     skill=selectedSkill;
   }
-  if(!isStunned){
+  if(!isStunned&&!isBond){
     const isEquippedUltimate=actor.ultimateId===skill.id;
     if(skill.ultimate ? !isEquippedUltimate : (!actor.skillIds.includes(skill.id) || isEquippedUltimate)) return {ok:false,reason:"skill_not_equipped"};
     if((actor.cooldowns[skill.id]??0)>0) return {ok:false,reason:"cooldown"};
     if(skill.ultimate && actor.energy<100) return {ok:false,reason:"ultimate_not_ready"};
     if(!validSkill(skill,action.skillId)) return {ok:false,reason:"unknown_skill"};
   }
-  const targets=isStunned ? [actor] : targetsFor(state,actor,skill,action.targetUids);
+  const targets=isStunned||isBond ? [actor] : targetsFor(state,actor,skill,action.targetUids);
   if(!targets) return {ok:false,reason:"invalid_targets"};
   const next: PvpState=structuredClone(state);
   const nextActor=next.units.find(u=>u.uid===actor.uid)!;
@@ -138,12 +202,13 @@ export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Rec
   const events:Array<Record<string,unknown>>=[];
   const newlyAppliedStatuses=new Set<string>();
   if(isStunned) events.push({type:"turn_skipped",playerId:action.playerId,actorUid:actor.uid,reason:"stun"});
+  else if(isBond) applyBond(next,nextActor,skill.id,events,newlyAppliedStatuses);
   else {
     if(skill.ultimate) nextActor.energy=0;
     else nextActor.energy=clamp(nextActor.energy+(skill.energyGain??20),0,100);
     if((skill.cooldownTurns??0)>0) nextActor.cooldowns[skill.id]=(skill.cooldownTurns??0)+1;
   }
-  for(const target of (isStunned ? [] : nextTargets)){
+  for(const target of (isStunned||isBond ? [] : nextTargets)){
     if(skill.kind==="damage"){
       const blind=nextActor.statuses.find(s=>s.id==="blind");
       if(blind&&rng()<0.3){events.push({type:"attack_missed",actorUid:actor.uid,targetUid:target.uid,reason:"blind",skillId:skill.id});continue;}
@@ -160,8 +225,7 @@ export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Rec
       const crit=rng()<clamp(nextActor.critChance+(skill.critBonus??0),0,1);
       if(crit) raw*=nextActor.critDamage??1.6;
       const damage=Math.max(1,Math.round(raw));
-      const absorbed=Math.min(target.shield,damage); target.shield-=absorbed;
-      const dealt=Math.min(target.hp,damage-absorbed); target.hp=Math.max(0,target.hp-dealt);
+      const {absorbed,dealt}=bondDamage(next,target,damage,events);
       target.energy=clamp(target.energy+8,0,100);
       nextActor.energy=clamp(nextActor.energy+6,0,100);
       events.push({type:"damage",actorUid:actor.uid,targetUid:target.uid,amount:dealt,absorbed,crit,skillId:skill.id});
@@ -193,20 +257,19 @@ export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Rec
       }
     }
   }
+  if(!isStunned&&!isBond)chargeBond(next,nextActor);
   // A status duration counts completed turns of its owner. Newly applied effects
   // are not shortened on the same action that created them.
   for(const unit of next.units.filter(u=>u.ownerId===action.playerId)) {
     const remaining:PvpStatus[]=[];
-    for(const status of unit.statuses) {
+    for(const status of [...unit.statuses]) {
+      if(!unit.statuses.some(s=>s.id===status.id))continue;
       if(newlyAppliedStatuses.has(unit.uid+":"+status.id)) { remaining.push(status); continue; }
       // Burn and poison deal flat authored damage at the end of their owner's
       // action. Shields absorb this damage before HP, just like direct attacks.
-      if((status.id==="burn"||status.id==="poison")&&alive(unit)&&status.potency>0) {
+      if((status.id==="burn"||status.id==="poison"||status.id==="eclipse_curse")&&alive(unit)&&status.potency>0) {
         const damage=Math.min(unit.maxHp,Math.max(1,Math.round(unit.maxHp*status.potency)));
-        const absorbed=Math.min(unit.shield,damage);
-        unit.shield-=absorbed;
-        const dealt=Math.min(unit.hp,damage-absorbed);
-        unit.hp=Math.max(0,unit.hp-dealt);
+        const {absorbed,dealt}=bondDamage(next,unit,damage,events);
         events.push({type:"status_damage",targetUid:unit.uid,status:status.id,amount:dealt,absorbed});
         if(unit.hp===0) events.push({type:"defeat",targetUid:unit.uid});
       } else if(status.id==="regen"&&alive(unit)&&status.potency>0) {
@@ -220,7 +283,7 @@ export function resolvePvpAction(state:PvpState, action:PvpAction, skillbook:Rec
       if(turns>0) remaining.push({...status,turns});
       else events.push({type:"status_expired",targetUid:unit.uid,status:status.id});
     }
-    unit.statuses=remaining;
+    unit.statuses=remaining.filter(s=>unit.statuses.some(old=>old.id===s.id));
   }
   if(!isStunned&&skill.kind==="heal"&&nextActor.passiveId==="dawnkeeper"){const flag=nextActor.uid+":dawnkeeper";next.passiveFlags??=[];if(!next.passiveFlags.includes(flag)){nextActor.energy=clamp(nextActor.energy+20,0,100);next.passiveFlags.push(flag);events.push({type:"passive_energy",actorUid:nextActor.uid,amount:20,passiveId:"dawnkeeper"});}}
   const nextPlayer=next.units.find(u=>u.ownerId!==action.playerId && alive(u))?.ownerId ?? action.playerId;

@@ -74,7 +74,7 @@ func _update_category_buttons(actor: Combatant) -> void:
 		var category_button := _category_buttons[category] as TextureButton
 		category_button.visible = true
 		category_button.disabled = screen._animating
-	_category_buttons["ultimate"].disabled = screen._animating or actor.ultimate.is_empty()
+	_category_buttons["ultimate"].disabled = screen._animating or (actor.ultimate.is_empty() and screen.engine.bond_for(actor).is_empty())
 	_category_buttons["defend"].disabled = screen._animating
 	_category_buttons["item"].disabled = screen._animating
 	_category_buttons["end_turn"].disabled = screen._animating
@@ -190,7 +190,7 @@ func build_roster(units: Array) -> void:
 		portrait.battle_frame_style = "tall"
 		var definition := ContentDB.get_character(unit.def_id)
 		if definition != null:
-			portrait.setup_character(definition)
+			portrait.setup_character(definition, "", unit.ascension)
 		else:
 			portrait.setup(unit.palette, "Human", unit.element, unit.rarity, unit.def_id.hash())
 		row.get_node("PortraitSlot").add_child(portrait)
@@ -252,6 +252,18 @@ func refresh_skills() -> void:
 		if ultimate != null:
 			add_skill_button(ultimate, actor)
 			shown += 1
+	var bond_id := screen.engine.bond_for(actor)
+	if not bond_id.is_empty() and _active_action_category == "ultimate":
+		var gauge := int(screen.engine.bond_gauges.get(bond_id, 0))
+		var uses := int(screen.engine.bond_uses.get(bond_id, 0))
+		var bond_button := Button.new()
+		bond_button.text = "%s  |  Bond %d%%  |  %d/2" % [CombatEngine.BOND_NAMES[bond_id], gauge, 2 - uses]
+		bond_button.custom_minimum_size = Vector2(242, 76) if _mobile_hud else Vector2(200, 56)
+		bond_button.disabled = screen._animating or not screen.engine.bond_ready(actor, bond_id)
+		bond_button.pressed.connect(func() -> void: screen._session_component.execute_action(bond_id, []))
+		AudioDirector.set_button_feedback(bond_button, "confirm")
+		screen._skills_box.add_child(bond_button)
+		shown += 1
 	if shown == 0:
 		screen._hint_label.text = _empty_category_hint(_active_action_category)
 	elif _active_action_category == "ultimate" and not actor.ultimate_ready():

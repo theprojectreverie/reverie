@@ -70,7 +70,7 @@ func _draw() -> void:
 ## so it stays coherent with the GreenwardStyle visual.palette; BOTH the Sprite2D path
 ## and the procedural fallback path render it while CAST (state 8) is active.
 func _draw_cast_aura(intensity: float) -> void:
-	if visual.character_id == "kael" or visual.character_id.begins_with("gerald") or visual.character_id.begins_with("lilith") or visual.character_id.begins_with("ravienna"):
+	if visual.character_id == "kael" or visual.character_id.begins_with("gerald") or visual.character_id.begins_with("lilith") or visual.character_id.begins_with("ravienna") or visual.character_id.begins_with("cassien") or visual.character_id.begins_with("mirene"):
 		return
 	var center := Vector2(0, -26.0 * visual.visual_scale)
 	var col := visual._accent

@@ -306,7 +306,7 @@ func validate_sheets() -> Array[String]:
 					errors.append("animation '%s' frame %d is null" % [label, i])
 				else:
 					# Every production actor frame uses the shared 96x128 world canvas.
-					var frame_width := 128 if fallen_gerald or (sheet_path.ends_with("/kael_avatar/world_sheet.tres") and s in [0, 4, 5]) else width
+					var frame_width := 128 if fallen_gerald or sheet_path.ends_with("/harlequin/world_sheet.tres") or sheet_path.ends_with("/cassien/world_sheet.tres") or (sheet_path.ends_with("/kael_avatar/world_sheet.tres") and s in [0, 4, 5]) else width
 					var frame_height := height
 					if tex.get_width() != frame_width or tex.get_height() != frame_height:
 						errors.append("animation '%s' frame %d is %dx%d, expected %dx%d" % [label, i, tex.get_width(), tex.get_height(), frame_width, frame_height])

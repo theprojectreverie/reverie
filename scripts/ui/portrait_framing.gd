@@ -22,6 +22,8 @@ static func base_id(id: String) -> String:
  return id
 
 static func authored_texture(id: String, mode: String = "icon") -> Texture2D:
+ var approved := preload("res://scripts/art/approved_character_portraits.gd").texture(id)
+ if approved != null: return approved
  var base := base_id(id)
  var folder := "kael_avatar" if base == "kael" else base
  var candidates: Array[String] = []

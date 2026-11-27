@@ -5,6 +5,7 @@ import {pool} from "../db.js";
 import {z} from "zod";
 import {expirePlayerMatches} from "../world/pvp-expiry.js";
 import {guildPartyPower,guildPowerCompatible,GUILD_DUEL_REMATCH_MINUTES} from "../world/guild-duel-policy.js";
+import {liveDefinitions} from "../world/live-character-packs.js";
 import {retiredPlayableIds} from "../world/summon.js";
 import {buildPvpRoster,createInitialPvpState,type OwnedPvpCharacter,type PvpRosterContent} from "../world/pvp-roster.js";
 
@@ -21,7 +22,7 @@ async function playerFromRequest(req:FastifyRequest,reply:FastifyReply):Promise<
 }
 async function loadPlayerRoster(client: import("pg").PoolClient,playerId:string,team:1|2){
  const party=await client.query<PartyRow>(
-  "SELECT oc.id,oc.char_id,oc.level,oc.ascension,oc.awakening,oc.bond,oc.skill_levels,pm.slot FROM party_members pm JOIN owned_characters oc ON oc.id=pm.character_id AND oc.player_id=pm.player_id WHERE pm.player_id=$1 AND NOT(oc.char_id=ANY($2::text[])) ORDER BY pm.slot FOR UPDATE OF pm,oc",
+  "SELECT oc.id,oc.char_id,oc.level,oc.ascension,oc.awakening,oc.bond,oc.dupes,oc.skill_levels,pm.slot FROM party_members pm JOIN owned_characters oc ON oc.id=pm.character_id AND oc.player_id=pm.player_id WHERE pm.player_id=$1 AND NOT(oc.char_id=ANY($2::text[])) ORDER BY pm.slot FOR UPDATE OF pm,oc",
   [playerId,retiredPlayableIds]);
  if(party.rows.length<1||party.rows.length>4)return {ok:false as const,reason:"party_required"};
  const ids=party.rows.map(row=>row.id);
@@ -36,7 +37,7 @@ async function loadPlayerRoster(client: import("pg").PoolClient,playerId:string,
  }
  const owned:OwnedPvpCharacter[]=party.rows.map(row=>({...row,equipment:byCharacter.get(row.id)??[]}));
  const count=await client.query<{count:string}>("SELECT count(DISTINCT char_id)::text AS count FROM owned_characters WHERE player_id=$1 AND NOT(char_id=ANY($2::text[]))",[playerId,retiredPlayableIds]);
- const roster=buildPvpRoster(playerId,team,owned,rosterContent,Number(count.rows[0]?.count??0));
+ const roster=buildPvpRoster(playerId,team,owned,{...rosterContent,characters:{...rosterContent.characters,...liveDefinitions()}},Number(count.rows[0]?.count??0));
  if(!roster.ok)return {ok:false as const,reason:roster.reason};
  return {ok:true as const,units:roster.units,skillbook:roster.skillbook};
 }

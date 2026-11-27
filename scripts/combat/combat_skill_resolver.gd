@@ -199,6 +199,7 @@ func deal_damage(actor: Combatant, skill: SkillDef, target: Combatant) -> Array:
 				"amount": int(round(healed)),
 			})
 
+	events.append_array(result.get("bond_events", []))
 	events.append_array(check_boss_phases(target))
 
 	if result.dead:

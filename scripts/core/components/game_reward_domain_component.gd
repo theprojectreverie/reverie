@@ -138,8 +138,8 @@ func _local_day_key() -> String:
 
 func pull_banner(banner_id: String, count: int, paid: bool = false) -> Dictionary:
 	var banner: Dictionary = ContentDB.get_banner(banner_id)
-	if banner.is_empty():
-		return {"ok": false, "error": "Unknown banner."}
+	if banner.is_empty() or bool(banner.get("retired", false)):
+		return {"ok": false, "error": "Unknown or retired banner."}
 	if count != 1 and count != 10:
 		return {"ok": false, "error": "Invalid summon count."}
 	var cost_data: Dictionary = banner.get("cost", {})

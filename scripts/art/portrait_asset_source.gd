@@ -47,6 +47,9 @@ static func expected_path(char_id: String, size_class: String = "hud") -> String
 ## procedural PortraitView art. For the canonical "hud" class the texture is
 ## additionally validated (dims / RGBA8 / alpha) before being returned.
 static func texture_for(char_id: String, size_class: String = "hud") -> Texture2D:
+	if size_class != "hud":
+		var approved := preload("res://scripts/art/approved_character_portraits.gd").texture(char_id)
+		if approved != null: return approved
 	var path := expected_path(char_id, size_class)
 	if size_class == "collection":
 		path = preload("res://scripts/art/portrait_texture_aliases.gd").collection_path(char_id)

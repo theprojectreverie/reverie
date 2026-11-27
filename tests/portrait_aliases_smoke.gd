@@ -19,9 +19,10 @@ func _run() -> void:
 			var original := load(old_path) as Texture2D
 			assert(original != null and original.get_size() == canonical.get_size())
 			assert(original.get_image().get_data() == canonical.get_image().get_data())
-		assert(PortraitAssetSource.texture_for(id, "collection") == canonical)
+		var approved := preload("res://scripts/art/approved_character_portraits.gd").texture(id)
+		assert(PortraitAssetSource.texture_for(id, "collection") == (approved if approved != null else canonical))
 		if SOCIAL.PATHS.get(id, "") == "portrait_512.png":
-			var crop := SOCIAL.texture(id) as AtlasTexture
+			var crop := SOCIAL.legacy_texture(id) as AtlasTexture
 			assert(crop != null and crop.atlas == canonical)
 			assert(crop.region == (FRAMING.fitted(canonical, id, 1.0, "icon") as AtlasTexture).region)
 			social_count += 1

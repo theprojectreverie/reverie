@@ -177,8 +177,8 @@ func execute_action(skill_id: String, targets: Array) -> void:
 	if is_authoritative_story():
 		var uids: Array = []
 		var skill := ContentDB.get_skill(skill_id)
-		if skill == null:return
-		if skill.target in ["single_ally","single_enemy"]:
+		if skill == null and not CombatEngine.BOND_PAIRS.has(skill_id):return
+		if skill != null and skill.target in ["single_ally","single_enemy"]:
 			for index in targets:
 				if int(index) >= 0 and int(index) < screen.engine.combatants.size():
 					uids.append(screen.engine.combatants[int(index)].uid)
@@ -327,6 +327,8 @@ func _apply_spar_view(view: Dictionary) -> bool:
 	_spar_actor = str(view.actorUid)
 	var engine := screen.engine
 	engine.round_number = int(view.round)
+	engine.bond_gauges = view.get("bondGauges", {}).duplicate(true)
+	engine.bond_uses = view.get("bondUses", {}).duplicate(true)
 	engine.finished = str(view.status)!="active"
 	engine.winner_team = CombatEngine.PLAYER_TEAM if str(view.status)=="victory" else (CombatEngine.ENEMY_TEAM if engine.finished else -1)
 	_spar_verified = str(view.status)=="victory"
@@ -334,6 +336,7 @@ func _apply_spar_view(view: Dictionary) -> bool:
 	for row in view.units:
 		var unit := engine.get_by_uid(str(row.uid)) as Combatant
 		if unit == null:continue
+		unit.ascension = clampi(int(row.get("ascension", 0)), 0, CharacterInstance.MAX_ASCENSION)
 		unit.max_hp = float(row.maxHp)
 		unit.hp = float(row.hp)
 		unit.atk = float(row.atk)

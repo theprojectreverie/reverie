@@ -37,7 +37,7 @@ func run():
  for slot in battle._turn_box.get_children():
   for item in slot.get_children():
    if item.tooltip_text==boss.display_name:
-    found=item.portrait_texture!=null and item.portrait_texture.resource_path.ends_with("turn_order_portrait.tres")
+    found=item.portrait_texture!=null and item.portrait_texture.resource_path.ends_with("/profile/cassien_mythic.png")
  check(found,"authored turn portrait")
  var actor=battle._actor_for_uid(boss.uid)
  actor.set_intent("Crimson Requiem")

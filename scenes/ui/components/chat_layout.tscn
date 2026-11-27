@@ -65,6 +65,11 @@ custom_minimum_size = Vector2(98,40)
 text = "Pin stickers"
 toggle_mode = true
 tooltip_text = "Choose favorite stickers"
+[node name="MobFilter" type="OptionButton" parent="EmotePicker/Tabs"]
+visible = false
+custom_minimum_size = Vector2(130, 40)
+tooltip_text = "Filter chat artwork by mob or size"
+
 [node name="Hint" type="Label" parent="EmotePicker/Tabs"]
 size_flags_horizontal = 3
 text = "Tap to insert"

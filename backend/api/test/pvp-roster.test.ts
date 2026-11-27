@@ -129,3 +129,25 @@ test("optional authored growth mirrors Godot zero-growth defaults",()=>{
  assert.deepEqual(omitted,empty);
  assert.deepEqual(buildPvpRoster("p",1,[character],{...contentData,characters:{kael:{...definition,growth:[]}}}),{ok:false,reason:"character_content_missing"});
 });
+
+
+test("Mythic copies increase combat stats immediately and preserve legacy copy counts",()=>{
+ const c={...contentData,characters:{...contentData.characters,ravienna_mythic:{...contentData.characters.kael,rarity:"mythic"}}};
+ for(let copies=1;copies<=7;copies++){
+  const result=buildPvpRoster("p",1,[{...owned,char_id:"ravienna_mythic",awakening:Math.floor((copies-1)/2),dupes:(copies-1)%2}],c);
+  assert.ok(result.ok);
+  if(result.ok)assert.ok(Math.abs(result.units[0]!.maxHp-43*(1+.04*(copies-1)))<1e-9);
+ }
+});
+
+test("Mythic combat HP ATK and DEF gain four percent per copy, capped at seven stars",()=>{
+ const mythic={...contentData,characters:{kael:{...contentData.characters.kael!,rarity:"mythic"}}};
+ for(let n=1;n<=10;n++){
+  const result=buildPvpRoster("p",1,[{...owned,awakening:Math.min(5,Math.floor((n-1)/2)),dupes:(n-1)%2}],mythic);
+  assert.ok(result.ok);
+  const unit=result.units[0]!,mult=1+Math.min(6,n-1)*0.04;
+  assert.ok(Math.abs(unit.maxHp-43*mult)<1e-9);
+  assert.ok(Math.abs(unit.atk-14*mult)<1e-9);
+  assert.ok(Math.abs(unit.defense-7*mult)<1e-9);
+ }
+});

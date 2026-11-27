@@ -56,12 +56,14 @@ const gardenMonsters: Record<string,[number,number]> = {
  rose_slime_garden_1:[-1100,2200],rose_slime_garden_2:[-800,1850],rose_slime_garden_3:[-1450,1500],rose_slime_garden_4:[700,2250],rose_slime_garden_5:[1200,1750],rose_slime_garden_6:[950,1000],crownling_garden_1:[-900,2100],crownling_garden_2:[550,2100],crownling_garden_3:[1100,1500]
 };
 const gateMonsters:Record<string,[number,number]>={royal_gate_patrol_1:[-65,1200],royal_gate_patrol_2:[75,1840]};
-const willowMonsters:Record<string,[number,number]>={willow_slime_1:[-2350,1370]};
-const worldMonsters={...gardenMonsters,...gateMonsters,...willowMonsters};
+const willowMonsters:Record<string,[number,number]>={willow_slime_1:[-2350,1370],willow_mossling_1:[-2020,1450]};
+const optionalGateMonsters:Record<string,[number,number]>={royal_gate_rainbow_1:[500,1450]};
+const forsakenMonsters:Record<string,[number,number]>={forsaken_bird_1:[600,1650]};
+const worldMonsters={...gardenMonsters,...gateMonsters,...willowMonsters,...optionalGateMonsters,...forsakenMonsters};
 function monstersForRegion(region:string):Record<string,[number,number]>{
- return region==="six_zone_royal_gardens"?gardenMonsters:region==="six_zone_royal_gate"?gateMonsters:region==="six_zone_willow_fields"?willowMonsters:{};
+ return region==="six_zone_royal_gardens"?gardenMonsters:region==="six_zone_royal_gate"?{...gateMonsters,...optionalGateMonsters}:region==="six_zone_willow_fields"?willowMonsters:region==="six_zone_forsaken_ruins"?forsakenMonsters:{};
 }
-function monsterMaxHp(id:string):number{return Object.hasOwn(gateMonsters,id)?120:100;}
+function monsterMaxHp(id:string):number{return Object.hasOwn(forsakenMonsters,id)?150:(Object.hasOwn(gateMonsters,id)||Object.hasOwn(optionalGateMonsters,id))?120:100;}
 // Small server-clock-driven patrols around the authored, collision-safe spawn areas.
 // The same position function is used for presentation and melee range checks.
 const lastMonsterMotion=new Map<string,number>();
@@ -112,6 +114,7 @@ function publishMonsterMotion(lobbyId:string,regionId:string,now:number){
 }
 const monsterAttackSchema=z.object({type:z.literal("monster_attack"),monsterId:z.string().max(64),guard:z.boolean().optional()});
 async function monsterSnapshot(lobbyId:string,regionId:string,sequence:number){
+ const bossResults:Record<string,unknown>[]=[];
  if(regionId==="six_zone_forsaken_ruins"||regionId==="six_zone_ruined_tower"){
   const monsterId=regionId==="six_zone_forsaken_ruins"?"cassien_encounter":"revienna_encounter";
   const boss=await pool.query<{payload:Record<string,unknown>}>("SELECT payload FROM co_op_world_events WHERE lobby_id=$1 AND event_type='interaction' AND payload->>'kind'='monster_hit' AND payload->>'monsterId'=$3 AND sequence<=$2 ORDER BY sequence DESC LIMIT 1",[lobbyId,sequence,monsterId]);
@@ -126,18 +129,18 @@ async function monsterSnapshot(lobbyId:string,regionId:string,sequence:number){
    }
    result.push({...r.payload,warning,rewards:[]});
   }
-  return result;
+  bossResults.push(...result);
  }
  const regionMonsters=monstersForRegion(regionId);
- if(!Object.keys(regionMonsters).length)return [];
+ if(!Object.keys(regionMonsters).length)return bossResults;
  const q=await pool.query<{payload:Record<string,unknown>}>("SELECT DISTINCT ON (payload->>'monsterId') payload FROM co_op_world_events WHERE lobby_id=$1 AND event_type='interaction' AND payload->>'kind'='monster_hit' AND sequence<=$2 AND sequence>COALESCE((SELECT max(sequence) FROM co_op_world_events WHERE lobby_id=$1 AND event_type='region_transition' AND sequence<=$2),0) ORDER BY payload->>'monsterId',sequence DESC",[lobbyId,sequence]);
  const now=Date.now();
- return q.rows.filter(({payload})=>typeof payload.monsterId==="string"&&Object.hasOwn(regionMonsters,payload.monsterId)).map(({payload})=>{
+ return [...bossResults,...q.rows.filter(({payload})=>typeof payload.monsterId==="string"&&Object.hasOwn(regionMonsters,payload.monsterId)).map(({payload})=>{
   if(Number(payload.hp)===0&&Number(payload.deadUntil)>now&&typeof payload.monsterId==="string"&&Object.hasOwn(regionMonsters,payload.monsterId)){const state=motionState(lobbyId,payload.monsterId);state.deadUntil=Number(payload.deadUntil);state.mode="defeated";state.targetId=null;}
   if(Number(payload.hp)===0 && Number(payload.deadUntil)<=now)
    return {...payload,hp:monsterMaxHp(String(payload.monsterId)),deadUntil:0,rewards:[]};
   return {...payload,rewards:[]};
- });
+ })];
 }
 const bossTimers=new Map<string,ReturnType<typeof setTimeout>>();
 function scheduleBossSpecial(lobbyId:string,resolveAt:number){
@@ -403,7 +406,7 @@ export const realtimeRoutes:FastifyPluginAsync=async app=>{
        await client.query("COMMIT");broadcast(lobbyId,{type:"interaction",playerId,sequence:seq,...payload});return;
       }
       if(pending){await client.query("ROLLBACK");send(socket,{type:"rejected",reason:"special_windup"});scheduleBossSpecial(lobbyId,pending.resolveAt);return;}
-      const gate=Object.hasOwn(gateMonsters,monsterId);
+      const gate=Object.hasOwn(gateMonsters,monsterId)||Object.hasOwn(optionalGateMonsters,monsterId);
       const maxHp=ravienna?1800:cassien?600:monsterMaxHp(monsterId);
       const hp=Math.max(0,(old&&old.hp>0?old.hp:maxHp)-(guard?0:boss?100:25));
       const phase=ravienna?(hp<=594?3:hp<=1188?2:1):1;

@@ -77,13 +77,13 @@ func refresh() -> void:
 		portrait.dim = not unit.is_alive()
 		var definition := ContentDB.get_character(unit.def_id) if unit.team == CombatEngine.PLAYER_TEAM else null
 		if definition != null:
-			portrait.setup_character(definition)
+			portrait.setup_character(definition, "", unit.ascension)
 		else:
 			portrait.setup(unit.palette, "Monster" if unit.team == CombatEngine.ENEMY_TEAM else "Human", unit.element, unit.rarity, unit.def_id.hash())
 			if unit.def_id == "gerald_boss":
-				portrait.set_portrait_texture(preload("res://assets/enemies/gerald_fallen/turn_order_portrait.tres"))
+				portrait.set_portrait_texture(preload("res://scripts/art/approved_character_portraits.gd").texture("gerald_mythic"))
 			elif unit.def_id == "cassien_boss":
-				portrait.set_portrait_texture(preload("res://assets/characters/cassien/combat/turn_order_portrait.tres"))
+				portrait.set_portrait_texture(preload("res://scripts/art/approved_character_portraits.gd").texture("cassien_mythic"))
 			elif unit.def_id == "fallen_matron":
 				var matron_phase := 1
 				if unit.hp_ratio() <= 0.33:

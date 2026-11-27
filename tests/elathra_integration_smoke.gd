@@ -21,13 +21,13 @@ func _run() -> void:
 		check_ok(def.passive_id == "hollow_crown", "supported passive resolves")
 	var banner: Dictionary = ContentDB.get_banner("lily_of_shadows")
 	check_ok(not banner.is_empty(), "featured banner loads")
-	check_ok((banner.get("featured", []) as Array).has("elathra"), "Élathra is featured on her banner")
+	check_ok((banner.get("featured", []) as Array).has("elathra_mythic"), "Élathra is featured on her banner")
 	check_ok((banner.get("pool", {}).get("legendary", []) as Array).has("elathra"), "Élathra is in the Legendary summon pool")
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 7
 	var forced := GachaService.pull(banner, rng, {"legendary": 79, "featured": 159, "epic_streak": 0}, 1)
 	var results: Array = forced.get("results", [])
-	check_ok(results.size() == 1 and str(results[0].get("character_id", "")) == "elathra" and bool(results[0].get("featured", false)), "featured pity guarantees Élathra at the configured threshold")
+	check_ok(results.size() == 1 and str(results[0].get("character_id", "")) == "elathra_mythic" and bool(results[0].get("featured", false)), "featured pity guarantees Élathra at the configured threshold")
 	var saved_roster: Array = GameState.roster.duplicate(true)
 	var grant := GameState.add_character("elathra")
 	var owned: CharacterInstance = grant.get("instance", null)
@@ -51,10 +51,15 @@ func _run() -> void:
 	if gacha != null:
 		add_child(gacha)
 		await get_tree().process_frame
-		check_ok(gacha._tabs != null and gacha._tabs.get_child_count() == 4, "return control and all three banner tabs render")
+		check_ok(gacha._tabs != null and gacha._tabs.get_child_count() == gacha.active_banner_catalog().size(), "return control and all three banner tabs render")
 		gacha._select_banner("lily_of_shadows")
 		await get_tree().process_frame
-		check_ok(gacha._selected_banner == "lily_of_shadows" and gacha._featured_id == "elathra", "Élathra summon page selects and binds featured character")
+		check_ok(gacha._selected_banner == "lily_of_shadows" and gacha._featured_id == "elathra_mythic", "Élathra summon page selects and binds featured character")
+		var hero := gacha.get_node("BannerHero") as PortraitView
+		var backdrop := gacha.get_node("SummoningChamberIllustration") as TextureRect
+		check_ok(hero.portrait_texture != null and hero.portrait_texture.resource_path == "res://assets/portraits/banners/elathra_character.png", "approved independent Elathra art is selected")
+		check_ok(backdrop.texture != null and backdrop.texture.resource_path == "res://assets/portraits/banners/lily_of_shadows_background.png", "independent conservatory background is selected")
+		check_ok(is_equal_approx(backdrop.anchor_left, 0.0) and is_equal_approx(backdrop.anchor_right, 1.0), "Cassien zoom does not affect Elathra")
 		gacha.queue_free()
 		await get_tree().process_frame
 	print("ELATHRA SMOKE: %d passed, %d failed" % [passed, failed])

@@ -120,6 +120,20 @@ func _roster_identity_changed(authenticated: bool, _identity: Dictionary) -> voi
  if authenticated:
   refresh_account_roster.call_deferred()
 
+# Reuse the already authenticated collection response instead of fetching /state twice.
+func accept_verified_collection_snapshot(payload: Dictionary) -> void:
+ var owner := str(_player.get("id",""))
+ if not is_authenticated() or owner.is_empty() or owner != str(payload.get("playerId","")) or not payload.get("roster") is Array or not payload.get("party") is Array:
+  return
+ _roster_next_at = Time.get_ticks_msec() + 10000
+ _roster_snapshot_revision += 1
+ var snapshot := {"playerId":owner,"roster":payload.roster,"party":payload.party}
+ if snapshot != account_roster:
+  account_roster = snapshot.duplicate(true)
+  account_roster_changed.emit()
+
+var _roster_snapshot_revision := 0
+
 func refresh_account_roster() -> bool:
  if not access_token_ready_for_connection():
   return false
@@ -131,6 +145,7 @@ func refresh_account_roster() -> bool:
   return waiting_generation == _roster_generation and _roster_last_success
  var owner := str(_player.get("id",""))
  var generation := _roster_generation
+ var snapshot_revision := _roster_snapshot_revision
  _roster_inflight = true
  _roster_last_success = false
  _roster_next_at = Time.get_ticks_msec() + 10000
@@ -139,7 +154,7 @@ func refresh_account_roster() -> bool:
  var request := HTTPRequest.new()
  request.timeout = 12.0
  add_child(request)
- var err := request.request(api_base_url+"/v1/summon/state",PackedStringArray(["Authorization: Bearer "+_access_token]))
+ var err := request.request(api_base_url+"/v1/summon/state",PackedStringArray(["Authorization: Bearer "+_access_token,"X-Reverie-Character-Content: 1"]))
  if err != OK:
   request.queue_free()
   _roster_inflight = false
@@ -148,11 +163,23 @@ func refresh_account_roster() -> bool:
  request.queue_free()
  if generation != _roster_generation:
   return false
- _roster_inflight = false
  var payload := _parse_body(result[3])
  var valid := int(result[0]) == HTTPRequest.RESULT_SUCCESS and int(result[1]) == 200 and owner == str(_player.get("id","")) and owner == str(payload.get("playerId","")) and payload.get("roster") is Array and payload.get("party") is Array
- _roster_last_success = valid
  if valid:
+  var missing := false
+  for row in payload.roster:
+   var id := str(row.get("char_id",""))
+   if id.begins_with("livechar_") and ContentDB.get_character(id)==null: missing=true
+  if missing:
+   await LiveCharacterContent.refresh(true)
+   if generation!=_roster_generation: return false
+   for row in payload.roster:
+    var id := str(row.get("char_id",""))
+    if id.begins_with("livechar_") and ContentDB.get_character(id)==null: valid=false
+ _roster_inflight = false
+ _roster_last_success = valid
+ if valid and snapshot_revision == _roster_snapshot_revision:
+  LiveCharacterContent.refresh.call_deferred()
   var snapshot := {"playerId":owner,"roster":payload.roster,"party":payload.party}
   if snapshot != account_roster:
    account_roster = snapshot.duplicate(true)

@@ -15,7 +15,7 @@
 
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/standalone_zone_controller.gd" id="zone_controller"]
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_04_elderwood_grove.png" id="prepared_background"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_04_elderwood_grove_underlay.png" id="prepared_background"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_04_elderwood_grove.tscn" id="zone"]
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
@@ -97,20 +97,14 @@ position = Vector2(1568, 2352)
 [node name="EntryRoadFromZone03" parent="." instance=ExtResource("road")]
 position = Vector2(-1648, 720)
 
-[node name="ScenicBackground" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="Artwork" type="TextureRect" parent="ScenicBackground"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-modulate = Color(0.38, 0.38, 0.38, 1)
+[node name="ScenicBackground" type="Sprite2D" parent="."]
+z_index = -100
+texture_repeat = 3
+position = Vector2(64, 1616)
+scale = Vector2(2.75, 2.75)
 texture = ExtResource("prepared_background")
-expand_mode = 1
-stretch_mode = 6
+region_enabled = true
+region_rect = Rect2(-3344, -1882, 8360, 4705)
 
 [node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
 position = Vector2(-1654.0, 968.0)

@@ -22,6 +22,8 @@ const PAUSE_MENU_PATH := "res://scenes/ui/pause_menu.tscn"
 
 var overlay_root: Control
 var active_overlay: OverlayScreen
+var _suspended_hud: Control
+var _hud_was_visible := false
 
 
 func _ready() -> void:
@@ -78,6 +80,7 @@ func _attach_overlay(screen: OverlayScreen, node_name: String) -> bool:
 	screen.closed.connect(_on_overlay_closed)
 	if screen.has_signal("private_chat_requested"):
 		screen.connect("private_chat_requested",_open_private_chat)
+	_suspend_world_hud()
 	overlay_root.add_child(screen)
 	return true
 
@@ -98,8 +101,28 @@ func _open_private_chat(player_id: String) -> void:
 		active_overlay=previous
 		previous.closed.connect(_on_overlay_closed)
 
+func _suspend_world_hud() -> void:
+	# Keep the original visibility through modal-to-modal navigation.
+	if is_instance_valid(_suspended_hud):
+		return
+	var candidate := overlay_root.get_parent().get_node_or_null("HUD") as Control
+	if candidate == null:
+		return
+	_suspended_hud = candidate
+	_hud_was_visible = candidate.visible
+	candidate.hide()
+	TouchInput.release()
+
+
+func _restore_world_hud() -> void:
+	if is_instance_valid(_suspended_hud):
+		_suspended_hud.visible = _hud_was_visible
+	_suspended_hud = null
+
+
 func _on_overlay_closed() -> void:
 	active_overlay = null
+	_restore_world_hud()
 	overlay_closed.emit()
 
 

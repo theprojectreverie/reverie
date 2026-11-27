@@ -1,4 +1,4 @@
-﻿extends SceneTree
+extends SceneTree
 func _initialize():call_deferred("run")
 func capture(name:String):
  await process_frame
@@ -11,7 +11,7 @@ func run():
  var social=load("res://scripts/ui/social_portrait.gd")
  var screen=load("res://scenes/ui/social_screen.tscn").instantiate();root.add_child(screen);await process_frame
  var opts=screen._layout.get_node("Profile/Pictures")
- for id in social.PATHS:
+ for id in social.PROFILE_IDS:
   var tex=social.texture(id);assert(tex!=null and tex.get_width()==tex.get_height(),id)
   opts.add_icon_item(tex,id);opts.set_item_metadata(opts.item_count-1,id)
   opts.get_popup().set_item_icon_max_width(opts.item_count-1,40)

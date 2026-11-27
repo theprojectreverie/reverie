@@ -3,7 +3,7 @@ import type {PvpSkill,PvpState,PvpUnit} from "./pvp.js";
 
 type JsonRecord=Record<string,unknown>;
 export type OwnedPvpCharacter={
- id:string;char_id:string;level:number;ascension:number;awakening:number;bond:number;skill_levels?:Record<string,number>;
+ id:string;char_id:string;level:number;ascension:number;awakening:number;bond:number;dupes?:number;skill_levels?:Record<string,number>;
  equipment?:Array<{slot:string;item_id:string;enhancement_level?:number;reroll_stat?:string|null;reroll_value?:number}>;
 };
 export type PvpRosterContent={characters:Record<string,JsonRecord>;skills:Record<string,JsonRecord>;items:Record<string,JsonRecord>};
@@ -93,7 +93,8 @@ export function buildPvpRoster(ownerId:string,team:1|2,owned:OwnedPvpCharacter[]
   const ascension=Math.max(0,Math.min(3,Math.trunc(instance.ascension)));
   const awakening=Math.max(0,Math.min(5,Math.trunc(instance.awakening)));
   const bond=Math.max(0,Math.trunc(instance.bond));
-  const power=(1+0.085*(level-1))*(1+0.10*ascension)*(1+0.04*awakening);
+  const rank=definition.rarity==="mythic"?Math.min(6,2*awakening+Math.max(0,Math.trunc(instance.dupes??0))):awakening;
+  const power=(1+0.085*(level-1))*(1+0.10*ascension)*(1+0.04*rank);
   const stats:Record<string,number>={
    hp:effectiveStat(definition,"hp",level,ascension)*power*collectionBonus,
    atk:effectiveStat(definition,"atk",level,ascension)*power*collectionBonus*(1+Math.floor(bond/10)*0.02),
@@ -143,7 +144,7 @@ export function buildPvpRoster(ownerId:string,team:1|2,owned:OwnedPvpCharacter[]
   const skillLevels=instance.skill_levels??{};
   if(!record(skillLevels)||Object.entries(skillLevels).some(([id,n])=>![...skillIds,ultimateId].includes(id)||!Number.isInteger(n)||Number(n)<1||Number(n)>5))return {ok:false,reason:"skill_levels_invalid"};
   units.push({
-   uid:"p_"+instance.id,ownerId,team,charId:instance.char_id,
+   uid:"p_"+instance.id,ownerId,team,charId:instance.char_id,ascension,
    element:equipmentElement||String(definition.element??"neutral"),
    maxHp:stats.hp??0,hp:stats.hp??0,atk:stats.atk??0,defense:stats.def??0,speed:stats.spd??0,
    critChance:Math.max(0,Math.min(1,stats.crit??0)),critDamage:stats.crit_dmg??0,energy:0,shield:0,

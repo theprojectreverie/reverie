@@ -104,6 +104,17 @@ test("chat sticker and emoji delivery respects channel access, blocks and rate l
   assert.ok((await read(b)).json().messages.some((m:any)=>m.text===marker));
   ownsMythic=false;
   assert.equal((await send(a,marker)).statusCode,403);
+  const mobManifest=JSON.parse((await import("node:fs")).readFileSync(new URL("../../../resources/data/mob_chat_stickers.json",import.meta.url),"utf8")) as {id:string}[];
+  assert.equal(new Set(mobManifest.map(x=>x.id)).size,102);
+  for(const {id} of mobManifest){
+   now+=12000;
+   const token=`[sticker:${id}]`;
+   const result=await send(a,token);
+   assert.equal(result.statusCode,201,result.body);
+   assert.equal(result.json().message.text,token);
+  }
+  now+=12000;
+  assert.equal((await send(a,"[sticker:emotes_fake_neutral]")).json().error,"unknown_sticker");
   assert.equal((await app.inject({method:"GET",url:"/v1/chat/messages"})).statusCode,401);
   assert.equal((await app.inject({method:"GET",url:"/v1/chat/messages",headers:headers(a,2)})).statusCode,401);
 });

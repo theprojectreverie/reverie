@@ -43,6 +43,15 @@ func _simulate(data: Variant) -> void:
 	if not data is Dictionary or not data.get("party") is Array or not data.get("actions") is Array:
 		_finish({"ok":false,"reason":"invalid_input"})
 		return
+	var raw_defs: Variant=data.get("definitions",{})
+	if not raw_defs is Dictionary:
+		_finish({"ok":false,"reason":"invalid_live_definitions"})
+		return
+	var defs:=ContentDB.validated_live_definitions(raw_defs)
+	if defs.size()!=raw_defs.size():
+		_finish({"ok":false,"reason":"invalid_live_definitions"})
+		return
+	ContentDB.install_live_definitions(defs)
 	var group := str(data.get("groupId",""))
 	var rows: Array = data.party
 	var actions: Array = data.actions
@@ -134,12 +143,13 @@ func _simulate(data: Variant) -> void:
 		elif kind == "skill":
 			var skill_id := str(action.get("skillId",""))
 			var skill := ContentDB.get_skill(skill_id)
-			if skill == null or (skill_id not in actor.skills and skill_id != actor.ultimate):
+			var is_bond := CombatEngine.BOND_PAIRS.has(skill_id)
+			if not is_bond and (skill == null or (skill_id not in actor.skills and skill_id != actor.ultimate)):
 				_finish({"ok":false,"reason":"skill_not_equipped","actionIndex":consumed})
 				return
 			var targets: Array = []
 			var requested: Array = action.get("targetUids",[])
-			if skill.target in ["single_ally","single_enemy"]:
+			if not is_bond and skill.target in ["single_ally","single_enemy"]:
 				if requested.size() != 1:
 					_finish({"ok":false,"reason":"invalid_target","actionIndex":consumed})
 					return
@@ -163,6 +173,6 @@ func _simulate(data: Variant) -> void:
 		return
 	var snapshot: Array = []
 	for unit in engine.combatants:
-		snapshot.append({"uid":unit.uid,"charId":unit.def_id,"team":unit.team,"hp":unit.hp,"maxHp":unit.max_hp,"atk":unit.atk,"defense":unit.defense,"energy":unit.energy,"shield":unit.shield,"skills":unit.skills,"ultimate":unit.ultimate,"cooldowns":unit.skill_cooldowns,"statuses":unit.statuses,"phases":unit.triggered_phases,"defending":unit.defending})
+		snapshot.append({"uid":unit.uid,"charId":unit.def_id,"team":unit.team,"hp":unit.hp,"maxHp":unit.max_hp,"atk":unit.atk,"defense":unit.defense,"energy":unit.energy,"shield":unit.shield,"skills":unit.skills,"ultimate":unit.ultimate,"cooldowns":unit.skill_cooldowns,"statuses":unit.statuses,"phases":unit.triggered_phases,"defending":unit.defending,"ascension":unit.ascension})
 	var current := "" if engine.finished else str(engine.combatants[engine.current_actor_index].uid)
-	_finish({"ok":true,"status":("victory" if engine.winner_team == CombatEngine.PLAYER_TEAM else "defeat") if engine.finished else "active","actorUid":current,"round":engine.round_number,"sequence":consumed,"units":snapshot,"events":last_events})
+	_finish({"ok":true,"status":("victory" if engine.winner_team == CombatEngine.PLAYER_TEAM else "defeat") if engine.finished else "active","actorUid":current,"round":engine.round_number,"sequence":consumed,"units":snapshot,"events":last_events,"bondGauges":engine.bond_gauges,"bondUses":engine.bond_uses})

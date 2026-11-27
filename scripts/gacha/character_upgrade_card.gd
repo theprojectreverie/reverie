@@ -1,11 +1,25 @@
 extends RefCounted
 
 static func definition(id: String) -> Dictionary:
+	if ContentDB.live_upgrade_cards.has(id): return ContentDB.live_upgrade_cards[id]
 	for banner in ContentDB.banners.values():
 		var card: Dictionary = banner.get("upgrade_cards", {}).get(id, {})
 		if not card.is_empty():
 			return card
 	return {}
+
+# Upgrade cards show the approved human form, not the playable Legendary aspect.
+static func portrait_id(id: String) -> String:
+	var card := definition(id)
+	var source := str(card.get("portrait_id", id))
+	if str(card.get("rarity", "")) in ["rare", "epic"]:
+		for base in preload("res://scripts/art/approved_character_portraits.gd").CHARACTERS:
+			if id == "upgrade_%s_rare_v1" % base or id == "upgrade_%s_epic_v1" % base:
+				var human: String = str(base) + "_human"
+				if ResourceLoader.exists(preload("res://scripts/art/approved_character_portraits.gd").path_for(human)):
+					return human
+	return source
+
 
 static func grant(id: String) -> Array:
 	var card := definition(id)
@@ -47,6 +61,7 @@ static func status(roll: Dictionary) -> String:
 
 
 static func mythic_recipe(id: String) -> Dictionary:
+	if ContentDB.live_mythic_fusion.has(id): return ContentDB.live_mythic_fusion[id]
 	for banner in ContentDB.banners.values():
 		var recipe: Dictionary = banner.get("mythic_fusion", {}).get(id, {})
 		if not recipe.is_empty():
@@ -72,6 +87,7 @@ static func record_legendary(id: String) -> Array:
 
 
 static func ascension_recipe(id: String) -> Dictionary:
+	if ContentDB.live_mythic_ascension.has(id): return ContentDB.live_mythic_ascension[id]
 	for banner in ContentDB.banners.values():
 		var recipe: Dictionary = banner.get("mythic_ascension", {}).get(id, {})
 		if not recipe.is_empty():

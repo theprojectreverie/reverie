@@ -810,7 +810,7 @@ func _apply_monster_state(event: Dictionary, live: bool = false) -> void:
 		if boss != null:
 			boss.apply_coop_boss_state(event, live)
 		return
-	if active_region_id not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields"] or str(event.get("kind", "")) != "monster_hit":
+	if active_region_id not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_forsaken_ruins"] or str(event.get("kind", "")) != "monster_hit":
 		return
 	for target in get_tree().get_nodes_in_group("world_action_targets"):
 		if is_instance_valid(target) and target.has_method("apply_coop_monster_state") and str(target.get("group_id")) == str(event.get("monsterId", "")):

@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://c1yy836g1ldc1" path="res://scripts/world/tutorial_prologue/training_ground_layout.gd" id="layout"]
 [ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="player"]
 [ext_resource type="Texture2D" uid="uid://dc1sil6w8aya4" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/straw_practice_dummy.png" id="PracticeDummy"]
-[ext_resource type="Texture2D" uid="uid://dm8ncem1kvnhk" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/training_courtyard_scenery.png" id="scenery"]
+[ext_resource type="Texture2D" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/training_forest_underlay.png" id="scenery"]
 [ext_resource type="Texture2D" uid="uid://csvo6b73giwjf" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/shield_rack.png" id="ShieldRack"]
 [ext_resource type="Texture2D" uid="uid://ejml3neittwk" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/standing_target_board.png" id="StandingTarget"]
 [ext_resource type="Texture2D" uid="uid://rbapkft63elc" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/royal_banner_stand.png" id="TutorialFlag"]
@@ -58,23 +58,14 @@ corner_radius_bottom_left = 12
 y_sort_enabled = true
 script = ExtResource("layout")
 
-[node name="ScenicBackground" type="CanvasLayer" parent="." unique_id=336883143]
-layer = -1
-
-[node name="Artwork" type="TextureRect" parent="ScenicBackground" unique_id=1333713032]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -111.0
-offset_top = -138.0
-offset_right = -111.0
-offset_bottom = -138.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="ScenicBackground" type="Sprite2D" parent="."]
+z_index = -100
+texture_repeat = 3
+position = Vector2(0, 0)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("scenery")
-expand_mode = 1
-stretch_mode = 6
+region_enabled = true
+region_rect = Rect2(-1672, -941, 5016, 2823)
 
 [node name="Backdrop" type="Sprite2D" parent="." unique_id=564047291]
 z_index = -20

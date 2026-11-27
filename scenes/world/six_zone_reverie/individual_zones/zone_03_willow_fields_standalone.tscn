@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_ui_binding.gd" id="zone_ui_binding"]
 
 [ext_resource type="Texture2D" uid="uid://lt5lt5hxq45n" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_flat_terrain/flat_22.png" id="6_lhisr"]
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_03_willow_fields.png" id="prepared_background"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_03_willow_fields_underlay.png" id="prepared_background"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/willow_dirt_road_4x10.tscn" id="road"]
 [ext_resource type="Script" uid="uid://cpi7hbov6wbyd" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
 [ext_resource type="PackedScene" uid="uid://dvdtele1xw3e1" path="res://scenes/world/six_zone_reverie/zone_03_willow_fields.tscn" id="zone"]
@@ -23,7 +23,9 @@
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
 
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/willow_explore_marker.gd" id="willow_explore"]
-[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/rose_slime.tscn" id="willow_slime"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_slime.tscn" id="willow_slime"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/mossling_mob.tscn" id="mossling_mob"]
 
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
@@ -81,6 +83,9 @@ position = Vector2(-2350, 1370)
 group_id = "willow_slime_1"
 monster_name = "Willow Slime"
 
+[node name="Mossling" parent="." instance=ExtResource("mossling_mob")]
+position = Vector2(-2020, 1450)
+
 [node name="ZoneCamera" type="Camera2D" parent="." unique_id=1798470455]
 process_callback = 0
 position = Vector2(2100, 1050)
@@ -96,20 +101,14 @@ position = Vector2(2656, 1520)
 [node name="EntryRoadFromZone02" parent="." unique_id=859250590 instance=ExtResource("road")]
 position = Vector2(-2720, 1296)
 
-[node name="ScenicBackground" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="Artwork" type="TextureRect" parent="ScenicBackground"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-modulate = Color(0.38, 0.38, 0.38, 1)
+[node name="ScenicBackground" type="Sprite2D" parent="."]
+z_index = -100
+texture_repeat = 3
+position = Vector2(96, 1632)
+scale = Vector2(2.75, 2.75)
 texture = ExtResource("prepared_background")
-expand_mode = 1
-stretch_mode = 6
+region_enabled = true
+region_rect = Rect2(-3344, -1882, 8360, 4705)
 
 [node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
 position = Vector2(-2114, 1704)

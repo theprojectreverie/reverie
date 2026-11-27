@@ -1,52 +1,54 @@
 {
+  "gerald_lilith_help": {"start":"01","nodes":{"01":{"speaker":"Companion","portrait_asset":"res://assets/portraits/summon/elathra.png","text":"Kael. Wait. Look at him. There must be something we can do.","next":"02"},"02":{"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"How can I help him? I cannot undo what happened.","next":"03"},"03":{"speaker":"Companion","portrait_asset":"res://assets/portraits/summon/elathra.png","text":"You do not have to undo it. Reach out to him. Trust what you feel.","next":"04"},"04":{"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Something... I can feel something. I do not know what it is.","next":"05"},"05":{"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Kael? What are you doing?","choices":[{"text":"Reach out","next":""}]}}},
+  "gerald_lilith_reunion": {"start":"01","nodes":{"01":{"speaker":"Companion","portrait_asset":"res://assets/portraits/summon/elathra.png","text":"Kael... what was that? I have never seen anything like it.","next":"02"},"02":{"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"I do not know. I just felt that I had to reach out.","next":"03"},"03":{"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Lilith...? Is that really you?","next":"04"},"04":{"speaker":"Lilith","portrait_asset":"res://assets/portraits/profile/lilith_legendary.png","text":"Brother...? Gerald...","next":"05"},"05":{"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"I am here. I am here, little one.","next":"06"},"06":{"speaker":"Lilith","portrait_asset":"res://assets/portraits/profile/lilith_legendary.png","text":"You found me.","next":"07"},"07":{"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Kael. I cannot repay what you have given me. We will lend you our strength.","next":"08"},"08":{"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"You do not need to. Stay together. If you wish, you can travel with us.","next":"09"},"09":{"speaker":"Companion","portrait_asset":"res://assets/portraits/summon/elathra.png","text":"We should continue to the Royal Gardens when you are ready.","choices":[{"text":"Continue journey","next":""}]}}},
   "gerald_kael_farewell": {
     "start": "01",
     "nodes": {
       "01": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"I understand now. You were not guarding the village. You were guarding what little remained of them.","next":"02"},
-      "02": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"I spent my life trying to become strong enough to protect her. In the end, all that strength meant nothing.","next":"03"},
+      "02": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"I spent my life trying to become strong enough to protect her. In the end, all that strength meant nothing.","next":"03"},
       "03": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Lilith never loved you for your strength. She loved you because you were her brother.","next":"04"},
-      "04": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"Sometimes I still turn around, expecting to hear her footsteps behind me.","next":"05"},
+      "04": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Sometimes I still turn around, expecting to hear her footsteps behind me.","next":"05"},
       "05": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"I cannot give you back what you lost. But you do not have to turn her memory into a reason to hurt everyone who comes here.","next":"06"},
-      "06": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"Perhaps. But I am not ready to leave her behind. Not yet.","next":"07"},
+      "06": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Perhaps. But I am not ready to leave her behind. Not yet.","next":"07"},
       "07": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Then stay as her brother, not as the monster they made you believe you were.","next":"08"},
-      "08": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"Go, Kael. The road to the Royal Gardens is yours. May you never have to return home to silence.","choices":[{"text":"Farewell, Gerald","next":""}]}
+      "08": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Go, Kael. The road to the Royal Gardens is yours. I will remain here with her memory.","choices":[{"text":"Stay a moment","next":""}]}
     }
   },
   "gerald_kael_after_the_fall": {
     "start": "01",
     "nodes": {
       "01": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"You left to fight in the war. You thought you were keeping them safe.","next":"02"},
-      "02": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"I thought that if I fought far enough from home, the flames would never reach her.","next":"03"},
+      "02": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"I thought that if I fought far enough from home, the flames would never reach her.","next":"03"},
       "03": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"And when you returned?","next":"04"},
-      "04": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"I saw smoke on the horizon. I told myself it could not be our village. Not our home.","next":"05"},
+      "04": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"I saw smoke on the horizon. I told myself it could not be our village. Not our home.","next":"05"},
       "05": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Gerald...","next":"06"},
-      "06": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"Do you know what it is to be strong enough to bring down a fortress, yet powerless when it matters most?","next":"07"},
+      "06": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Do you know what it is to be strong enough to bring down a fortress, yet powerless when it matters most?","next":"07"},
       "07": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"You do not have to tell me if it is too painful.","next":"08"},
-      "08": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"No. You asked why I became this. Now you must see what was left of me when I came home.","choices":[{"text":"Remember the fall","next":""}]}
+      "08": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"No. You asked why I became this. Now you must see what was left of me when I came home.","choices":[{"text":"Remember the fall","next":""}]}
     }
   },
   "gerald_kael_after_battle": {
     "start": "01",
     "nodes": {
-      "01": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"Go on, then. Finish what you started.","next":"02"},
+      "01": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Go on, then. Finish what you started.","next":"02"},
       "02": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Put down your weapon. I never came here to kill you.","next":"03"},
-      "03": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"Mercy? What use is mercy to a man who has nothing left to protect?","next":"04"},
+      "03": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Mercy? What use is mercy to a man who has nothing left to protect?","next":"04"},
       "04": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"You fought as though the whole world had come to take something from you. What happened here?","next":"05"},
-      "05": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"There was a time when I believed these hands could protect the people I loved.","next":"06"},
+      "05": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"There was a time when I believed these hands could protect the people I loved.","next":"06"},
       "06": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Who were you trying to protect?","next":"07"},
-      "07": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"My sister. Lilith. She was never afraid of me. Even when everyone else was.","next":"08"},
+      "07": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"My sister. Lilith. She was never afraid of me. Even when everyone else was.","next":"08"},
       "08": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Tell me about her.","next":"09"},
-      "09": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"Before these streets turned to ash... she made this place feel like home.","choices":[{"text":"Listen to Gerald","next":""}]}
+      "09": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Before these streets turned to ash... she made this place feel like home.","choices":[{"text":"Listen to Gerald","next":""}]}
     }
   },
   "gerald_kael_confrontation": {
     "start": "01",
     "nodes": {
-      "01": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"Not another step. Turn back, while you still can.","next":"02"},
+      "01": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"Not another step. Turn back, while you still can.","next":"02"},
       "02": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"I have no quarrel with you. But I need to pass through this village.","next":"03"},
-      "03": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"They all said that. They came with promises, and left nothing but ashes.","next":"04"},
+      "03": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"They all said that. They came with promises, and left nothing but ashes.","next":"04"},
       "04": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Whatever happened here, fighting me will not undo it.","next":"05"},
-      "05": {"speaker":"Gerald","portrait_asset":"res://assets/enemies/gerald_fallen/turn_order_portrait.tres","text":"You speak of things you know nothing about. I will not fail to protect this place again.","next":"06"},
+      "05": {"speaker":"Gerald","portrait_asset":"res://assets/portraits/profile/gerald_mythic.jpg","text":"You speak of things you know nothing about. I will not fail to protect this place again.","next":"06"},
       "06": {"speaker":"Kael","portrait_asset":"res://assets/characters/kael_avatar/portrait.png","text":"Then I will stop you. Not to take anything from you, but because this cannot continue.","choices":[{"text":"Stand your ground","next":""},{"text":"Step back for now","next":""}]}
     }
   },
@@ -1799,7 +1801,7 @@
       "greet": {
         "speaker": "Ravienna",
         "text": "Do not come any closer. I can still hear them... even here.",
-        "portrait_asset": "res://assets/portraits/summon/ravienna.png",
+        "portrait_asset": "res://assets/portraits/profile/ravienna_mythic.png",
         "next": "reply"
       },
       "reply": {
@@ -1811,7 +1813,7 @@
       "warning": {
         "speaker": "Ravienna",
         "text": "Stop saying his name. I cannot bear another voice!",
-        "portrait_asset": "res://assets/portraits/summon/ravienna.png",
+        "portrait_asset": "res://assets/portraits/profile/ravienna_mythic.png",
         "choices": [
           {
             "text": "Challenge Ravienna",
@@ -1832,7 +1834,7 @@
       "greet": {
         "speaker": "Ravienna",
         "text": "Cassien...? For a moment, I thought I heard him.",
-        "portrait_asset": "res://assets/portraits/summon/ravienna.png",
+        "portrait_asset": "res://assets/portraits/profile/ravienna_mythic.png",
         "next": "end"
       },
       "end": {
@@ -1849,6 +1851,6 @@
     }
   }
 ,
-"cassien_meeting": {"start":"greet","nodes":{"greet":{"speaker":"Cassien","portrait_asset":"res://assets/portraits/summon/cassien.png","text":"You came at a strange hour. I have waited here for someone who might help me bring her back.","next":"reply"},"reply":{"speaker":"Kael","portrait_asset":"res://assets/portraits/summon/kael.png","text":"Who are you trying to bring back?","next":"oath"},"oath":{"speaker":"Cassien","portrait_asset":"res://assets/portraits/summon/cassien.png","text":"Ravienna. I will not entrust her fate to a stranger without knowing your resolve. Face me first. Then we shall prepare the three braziers.","choices":[{"text":"I will help you prepare the ritual.","next":""},{"text":"Not yet","next":""}]}}},
-"cassien_ritual": {"start":"greet","nodes":{"greet":{"speaker":"Cassien","portrait_asset":"res://assets/portraits/summon/cassien.png","text":"The braziers are ready. Ravienna... come back to me.","next":"awakening"},"awakening":{"speaker":"Ravienna","portrait_asset":"res://assets/portraits/summon/revienna_human_ritual.png","text":"Cassien...? Why does everything hurt?","next":"fracture"},"fracture":{"speaker":"Ravienna","portrait_asset":"res://assets/portraits/summon/ravienna.png","text":"No. These voices... make them stop!","next":"departure"},"departure":{"speaker":"Cassien","portrait_asset":"res://assets/portraits/summon/cassien.png","text":"Ravienna! Wait! She is heading for the tower. Something has gone terribly wrong.","choices":[{"text":"Follow Ravienna to the tower","next":""}]}}}
+"cassien_meeting": {"start":"greet","nodes":{"greet":{"speaker":"Cassien","portrait_asset":"res://assets/portraits/profile/cassien_mythic.png","text":"You came at a strange hour. I have waited here for someone who might help me bring her back.","next":"reply"},"reply":{"speaker":"Kael","portrait_asset":"res://assets/portraits/summon/kael.png","text":"Who are you trying to bring back?","next":"oath"},"oath":{"speaker":"Cassien","portrait_asset":"res://assets/portraits/profile/cassien_mythic.png","text":"Ravienna. I will not entrust her fate to a stranger without knowing your resolve. Face me first. Then we shall prepare the three braziers.","choices":[{"text":"I will help you prepare the ritual.","next":""},{"text":"Not yet","next":""}]}}},
+"cassien_ritual": {"start":"greet","nodes":{"greet":{"speaker":"Cassien","portrait_asset":"res://assets/portraits/profile/cassien_mythic.png","text":"The braziers are ready. Ravienna... come back to me.","next":"awakening"},"awakening":{"speaker":"Ravienna","portrait_asset":"res://assets/portraits/profile/ravienna_human.png","text":"Cassien...? Why does everything hurt?","next":"fracture"},"fracture":{"speaker":"Ravienna","portrait_asset":"res://assets/portraits/profile/ravienna_mythic.png","text":"No. These voices... make them stop!","next":"departure"},"departure":{"speaker":"Cassien","portrait_asset":"res://assets/portraits/profile/cassien_mythic.png","text":"Ravienna! Wait! She is heading for the tower. Something has gone terribly wrong.","choices":[{"text":"Follow Ravienna to the tower","next":""}]}}}
 }

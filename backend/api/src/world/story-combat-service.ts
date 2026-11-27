@@ -9,6 +9,7 @@ import {fileURLToPath} from "node:url";
 import type {PoolClient} from "pg";
 import {z} from "zod";
 import {STARTER_PARTY} from "./character-xp.js";
+import {liveDefinitions} from "./live-character-packs.js";
 import {retiredPlayableIds} from "./summon.js";
 import {settleStoryVictory} from "./story-battle-rewards.js";
 import {StoryWorkerQueue} from "./story-worker-queue.js";
@@ -52,7 +53,7 @@ export function fingerprint(){
  }
  return hash.digest("hex");
 }
-type ReplayInput=Pick<Stored,"seed"|"party"|"collectionCount"|"actions"> & {groupId:string};
+type ReplayInput=Pick<Stored,"seed"|"party"|"collectionCount"|"actions"> & {groupId:string;definitions?:Record<string,unknown>};
 // Experimental opt-in. A failed process never commits any combat outcome.
 const batcher=new StoryWorkerBatcher<ReplayInput,WorkerResult>(async inputs=>{
  const exe=process.env.REVERIE_STORY_GODOT;if(!exe)throw new Error("story_worker_unconfigured");
@@ -76,14 +77,16 @@ export async function replayStoryCombat(groupId:string,state:Pick<Stored,"seed"|
  const exe=process.env.REVERIE_STORY_GODOT;
  if(!exe)return {ok:false,reason:"story_worker_unconfigured"};
  if(state.actions.length>MAX_ACTIONS)return {ok:false,reason:"action_limit"};
- if(process.env.REVERIE_STORY_BATCH_WORKERS==="1")return await batcher.submit({groupId,...state})??{ok:false,reason:"story_worker_busy"};
+ const live=liveDefinitions();const definitions=Object.fromEntries(state.party.filter(p=>p.char_id.startsWith("livechar_")&&Object.hasOwn(live,p.char_id)).map(p=>[p.char_id,live[p.char_id]]));
+ const trustedInput={groupId,...state,definitions};
+ if(process.env.REVERIE_STORY_BATCH_WORKERS==="1")return await batcher.submit(trustedInput)??{ok:false,reason:"story_worker_busy"};
  const release=await workerQueue.acquire();
  if(!release)return {ok:false,reason:"story_worker_busy"};
  let dir:string|undefined;
  try{
   dir=await mkdtemp(join(tmpdir(),"reverie-story-worker-"));
   const input=join(dir,"input.json");
-  await writeFile(input,JSON.stringify({groupId,...state}),{mode:0o600});
+  await writeFile(input,JSON.stringify(trustedInput),{mode:0o600});
   // Do not forward DB credentials or auth tokens into the child process.
   const env:NodeJS.ProcessEnv={REVERIE_E2E_DISABLE_LOCAL_SAVE:"1",REVERIE_STORY_WORKER:"1",APPDATA:dir,XDG_DATA_HOME:dir,XDG_CONFIG_HOME:dir,HOME:dir,USERPROFILE:dir,TEMP:dir,TMP:dir};
   for(const key of ["PATH","SystemRoot","WINDIR","LD_LIBRARY_PATH"])if(process.env[key])env[key]=process.env[key];

@@ -47,7 +47,28 @@ const PATHS = {
     "caelith_legendary": "portrait_512.png",
     "caelith_mythic": "portrait_512.png"
 }
+const PROFILE_HEAD_DIR = "res://assets/portraits/profile_heads/"
+const PROFILE_HEAD_SIZE = 512
+const PROFILE_IDS = ["kael_avatar","ravienna_legendary","ravienna_mythic","ravienna_ascended","ravienna_human","gerald_legendary","gerald_mythic","gerald_ascended","gerald_human","lilith_legendary","lilith_mythic","lilith_ascended","lilith_human","cassien_legendary","cassien_mythic","cassien_ascended","cassien_human"]
+static var _profile_cache: Dictionary = {}
+
+static func has_profile_art(id: String) -> bool:
+	return id in PROFILE_IDS and ResourceLoader.exists(PROFILE_HEAD_DIR + id + ".png")
+
 static func texture(id: String) -> Texture2D:
+	if not id in PROFILE_IDS: id = "kael_avatar"
+	if _profile_cache.has(id): return _profile_cache[id]
+	# Authored, pre-framed square assets; no per-character crop or zoom.
+	if has_profile_art(id):
+		var path := PROFILE_HEAD_DIR + id + ".png"
+		if ResourceLoader.exists(path):
+			var source := load(path) as Texture2D
+			if source != null and source.get_size() == Vector2(PROFILE_HEAD_SIZE, PROFILE_HEAD_SIZE):
+				_profile_cache[id] = source
+				return source
+	return legacy_texture("kael_avatar")
+
+static func legacy_texture(id: String) -> Texture2D:
 	if not PATHS.has(id):id="kael_avatar"
 	var path := "res://assets/characters/%s/%s" % [id,PATHS[id]]
 	if PATHS[id] == "portrait_512.png":

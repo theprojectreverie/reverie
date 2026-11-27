@@ -59,7 +59,7 @@ func make_card(instance: CharacterInstance) -> PanelContainer:
 	var glow: Color = effect.get("glow", UITheme.GOLD_BRIGHT)
 	var tier_text := UITheme.rarity_tier_label(rarity) if premium else ""
 	var card := CollectionScreen.ROSTER_CARD_SCENE.instantiate() as RosterCharacterCard
-	card.setup(instance.uid, definition, instance.level, GameState.roster_domain.effective_party_ids().has(instance.uid), premium, glow, tier_text)
+	card.setup(instance.uid, definition, instance.level, GameState.roster_domain.effective_party_ids().has(instance.uid), premium, glow, tier_text, instance.ascension, instance.mythic_stars())
 	card.set_meta("premium", premium)
 	card.set_meta("rarity", rarity)
 	if premium:

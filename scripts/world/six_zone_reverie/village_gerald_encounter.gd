@@ -8,6 +8,9 @@ const BEFORE_TRAGEDY_DIALOGUE = "gerald_kael_after_the_fall"
 const FINAL_DIALOGUE = "gerald_kael_farewell"
 const STORY_PENDING = "village_gerald_backstory_pending"
 const STORY_SEEN = "village_gerald_backstory_seen"
+const MEMORIES_COMPLETE = "village_gerald_memories_complete"
+const LILITH_AWAKENED = "village_lilith_awakened"
+const REUNION_SCENE = preload("res://assets/characters/lilith/summoning/lilith_reunion_cinematic.tscn")
 var engaged := false
 var _fight_confirmed := false
 var _story_running := false
@@ -44,7 +47,7 @@ func _refresh() -> void:
   zone = get_parent().get_parent().get_parent()
  var exit_label := zone.get_node_or_null("TransferPoints/ToNextZone/ExitLabel") as Label
  if exit_label != null:
-  exit_label.text = "Defeat Gerald first" if enabled else "Royal Gardens"
+  exit_label.text = "Defeat Gerald first" if enabled else ("Finish Gerald?s story" if GameState.quest_domain.flags.get(STORY_PENDING, false) else "Royal Gardens")
 
 func can_interact() -> bool:
  return super.can_interact() and not engaged and not _story_running and not bool(GameState.quest_domain.flags.get(FLAG, false))
@@ -203,58 +206,92 @@ func _play_backstory() -> void:
   player.input_enabled = false
   player.velocity = Vector2.ZERO
  TouchInput.release()
- # The world dialogue is shown only after combat has closed, while Gerald
- # remains kneeling. Memories cannot start until the dialogue is dismissed.
  var dialogue := zone.get_node_or_null("UI/Dialogue") as DialogueBox
- if dialogue != null:
-  dialogue.open(AFTER_BATTLE_DIALOGUE)
-  if dialogue.visible:
-   await dialogue.closed
- if not is_instance_valid(zone) or not is_inside_tree():
-  return
  var layer := zone.get_node("UI/Overlays")
  var previous_music: String = AudioDirector.requested_music_track()
- var memory_track := ""
- for path in ["res://scenes/enemies/boss/gerald_before_the_fall.tscn", "res://scenes/enemies/boss/gerald_boss_intro.tscn"]:
-  var packed := load(path) as PackedScene
-  if packed == null or not packed.can_instantiate():
-   push_warning("[Gerald] Backstory scene unavailable: " + path)
-   continue
-  var story := packed.instantiate() as Control
-  story.name = "GeraldPostVictoryStory"
-  story.z_index = 100
-  var childhood: bool = str(path).contains("before_the_fall")
-  memory_track = "gerald_childhood" if childhood else "gerald_tragedy"
-  if AudioDirector.play_track(memory_track, 1.4):
-   story.set("music_track_id", memory_track)
-  layer.add_child(story)
-  await story.finished
-  story.queue_free()
-  await get_tree().process_frame
-  if childhood:
-   # Let the first chapter end completely before returning to the conversation.
-   # Neither soundtrack should advance while the player reads the dialogue.
-   AudioDirector.stop_music(0.8)
-   if dialogue != null:
-    dialogue.open(BEFORE_TRAGEDY_DIALOGUE)
-    if dialogue.visible:
-     await dialogue.closed
-   if not is_instance_valid(zone) or not is_inside_tree():
-    return
- # Return from the last memory to the kneeling guardian. Keep movement and
- # travel locked until the farewell is finished; restore exploration afterward.
- AudioDirector.stop_music(0.8)
- if dialogue != null:
-  dialogue.open(FINAL_DIALOGUE)
-  if dialogue.visible:
-   await dialogue.closed
- if not is_instance_valid(zone) or not is_inside_tree():
-  return
+ if not bool(GameState.quest_domain.flags.get(MEMORIES_COMPLETE, false)):
+  # The world dialogue is shown only after combat has closed, while Gerald
+  # remains kneeling. Memories cannot start until the dialogue is dismissed.
+  if dialogue != null:
+   dialogue.open(AFTER_BATTLE_DIALOGUE)
+   if dialogue.visible:
+    await dialogue.closed
+  if not is_instance_valid(zone) or not is_inside_tree():
+   return
+  var memory_track := ""
+  for path in ["res://scenes/enemies/boss/gerald_before_the_fall.tscn", "res://scenes/enemies/boss/gerald_boss_intro.tscn"]:
+   var packed := load(path) as PackedScene
+   if packed == null or not packed.can_instantiate():
+    push_warning("[Gerald] Backstory scene unavailable: " + path)
+    continue
+   var story := packed.instantiate() as Control
+   story.name = "GeraldPostVictoryStory"
+   story.z_index = 100
+   var childhood: bool = str(path).contains("before_the_fall")
+   memory_track = "gerald_childhood" if childhood else "gerald_tragedy"
+   if AudioDirector.play_track(memory_track, 1.4):
+    story.set("music_track_id", memory_track)
+   layer.add_child(story)
+   await story.finished
+   story.queue_free()
+   await get_tree().process_frame
+   if childhood:
+    # Let the first chapter end completely before returning to the conversation.
+    # Neither soundtrack should advance while the player reads the dialogue.
+    AudioDirector.stop_music(0.8)
+    if dialogue != null:
+     dialogue.open(BEFORE_TRAGEDY_DIALOGUE)
+     if dialogue.visible:
+      await dialogue.closed
+    if not is_instance_valid(zone) or not is_inside_tree():
+     return
+  # Return from the last memory to the kneeling guardian. Keep movement and
+  # travel locked until the farewell is finished; restore exploration afterward.
+  AudioDirector.stop_music(0.8)
+  if dialogue != null:
+   dialogue.open(FINAL_DIALOGUE)
+   if dialogue.visible:
+    await dialogue.closed
+  if not is_instance_valid(zone) or not is_inside_tree():
+   return
+  GameState.quest_domain.flags[MEMORIES_COMPLETE] = true
+  GameState.save_now()
+ if not bool(GameState.quest_domain.flags.get(LILITH_AWAKENED, false)):
+  if dialogue != null:
+   dialogue.open("gerald_lilith_help")
+   if dialogue.visible:
+    await dialogue.closed
+  if not is_instance_valid(zone) or not is_inside_tree():
+   return
+  var reunion := REUNION_SCENE.instantiate() as Control
+  layer.add_child(reunion)
+  await reunion.finished
+  if not is_instance_valid(zone) or not is_inside_tree():
+   return
+  reunion.z_index = 0
+  var previous_dialogue_z := dialogue.z_index if dialogue != null else 0
+  if dialogue != null:
+   dialogue.z_index = 101
+  reunion.mouse_filter = Control.MOUSE_FILTER_IGNORE
+  if dialogue != null:
+   dialogue.open("gerald_lilith_reunion")
+   if dialogue.visible:
+    await dialogue.closed
+  if not is_instance_valid(zone) or not is_inside_tree():
+   return
+  if dialogue != null:
+   dialogue.z_index = previous_dialogue_z
+  reunion.queue_free()
+  # Existing starter roster owns Lilith; do not grant duplicates or mutate online inventory.
+  GameState.quest_domain.flags[LILITH_AWAKENED] = true
+  EventBus.party_changed.emit()
+  EventBus.toast_requested.emit("Lilith awakened. Party deployment unlocked.")
  if AudioDirector.requested_music_track().is_empty() and not previous_music.is_empty():
   AudioDirector.play_track(previous_music, 1.2)
  GameState.quest_domain.flags[STORY_PENDING] = false
  GameState.quest_domain.flags[STORY_SEEN] = true
  GameState.save_now()
+ _refresh()
  zone.set_meta("gerald_backstory_active", false)
  _story_running = false
  if is_instance_valid(player):

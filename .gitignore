@@ -46,3 +46,6 @@ backend/api/dist/
 /outputs/
 /tests/artifacts/
 /failure.json
+
+# Server-local published content
+/backend/api/live-content/

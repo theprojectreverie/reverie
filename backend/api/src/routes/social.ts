@@ -8,7 +8,7 @@ import {readFile} from "node:fs/promises";
 import {join} from "node:path";
 import {localDevelopmentRegistration} from "../config.js";
 import {onlineQuestSummary,onlineAchievementReady,profileTitles,titleName,playerTitles,verifiedTitleSql} from "./daily-quests.js";
-export const PROFILE_PICTURES=["kael_avatar","elathra","gerald","lilith","cassien","caelith","ravienna","nyx","crimson_witch","mirene","kael_epic","kael_legendary","kael_mythic","lilith_epic","lilith_legendary","lilith_mythic","gerald_epic","gerald_legendary","gerald_mythic","ravienna_rare","ravienna_epic","ravienna_mythic","cassien_epic","cassien_legendary","cassien_mythic","nyx_rare","nyx_epic","nyx_mythic","crimson_witch_epic","crimson_witch_legendary","crimson_witch_mythic","mirene_epic","mirene_legendary","mirene_mythic","caelith_epic","caelith_legendary","caelith_mythic"] as const;
+export const PROFILE_PICTURES=["kael_avatar","ravienna_legendary","ravienna_mythic","ravienna_ascended","ravienna_human","gerald_legendary","gerald_mythic","gerald_ascended","gerald_human","lilith_legendary","lilith_mythic","lilith_ascended","lilith_human","cassien_legendary","cassien_mythic","cassien_ascended","cassien_human"] as const;
 export function profilePicture(value:unknown):string{return PROFILE_PICTURES.includes(value as any)?String(value):"kael_avatar";}
 
 const STARTER_PORTRAITS = ["kael_avatar","gerald","lilith"] as const;
@@ -27,10 +27,21 @@ async function localDevelopmentCharacters(playerId:string):Promise<string[]> {
  }
  return [];
 }
-export async function unlockedProfilePictures(playerId:string):Promise<string[]> {
- const owned=await pool.query<{char_id:string}>("SELECT char_id FROM owned_characters WHERE player_id=$1",[playerId]);
- const ids=new Set<string>([...STARTER_PORTRAITS,...owned.rows.map(r=>portraitForCharacter(r.char_id)),...(await localDevelopmentCharacters(playerId)).map(portraitForCharacter)]);
+export type PortraitOwnership={char_id:string;ascension:number};
+export function profilePortraitUnlocks(owned:PortraitOwnership[],local:string[]=[]):string[] {
+ const ids=new Set<string>([...STARTER_PORTRAITS,...owned.map(r=>portraitForCharacter(r.char_id)),...local.map(portraitForCharacter)]);
+ for(const name of ["ravienna","gerald","lilith","cassien"]){
+  const legendary=name==="ravienna"?name:name+"_legendary";
+  const mythic=name+"_mythic";
+  if(ids.has(legendary))ids.add(name+"_legendary");
+  if(ids.has(legendary)||ids.has(mythic)||owned.some(r=>r.char_id===name))ids.add(name+"_human");
+  if(owned.some(r=>r.char_id===mythic&&r.ascension===3))ids.add(name+"_ascended");
+ }
  return PROFILE_PICTURES.filter(id=>ids.has(id)&&!retiredPlayableIds.includes(id));
+}
+export async function unlockedProfilePictures(playerId:string):Promise<string[]> {
+ const owned=await pool.query<PortraitOwnership>("SELECT char_id,ascension FROM owned_characters WHERE player_id=$1",[playerId]);
+ return profilePortraitUnlocks(owned.rows,await localDevelopmentCharacters(playerId));
 }
 export async function ownedProfilePicture(playerId:string,value:unknown):Promise<string> {
  const unlocked=await unlockedProfilePictures(playerId);

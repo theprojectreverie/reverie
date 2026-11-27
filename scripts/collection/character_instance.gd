@@ -74,10 +74,24 @@ func is_max_level() -> bool:
 	return level >= level_cap()
 
 
-func power_multiplier() -> float:
+# Legacy duplicates are conserved: each awakening consumed exactly two copies.
+static func copy_stars(dupe_count: int, awakening_tier: int) -> int:
+	return clampi(1 + maxi(0, dupe_count) + 2 * maxi(0, awakening_tier), 1, 7)
+
+
+static func star_text(stars: int) -> String:
+	return "\u2605".repeat(clampi(stars, 0, 7)) + "\u2606".repeat(7 - clampi(stars, 0, 7))
+
+
+func mythic_stars() -> int:
+	return copy_stars(dupes, awakening)
+
+
+func power_multiplier(is_mythic: bool = false) -> float:
+	var rank := mythic_stars() - 1 if is_mythic else awakening
 	return (1.0 + 0.085 * (level - 1)) \
 		* (1.0 + 0.10 * ascension) \
-		* (1.0 + 0.04 * awakening)
+		* (1.0 + 0.04 * rank)
 
 
 func equipped_item(slot: String) -> String:

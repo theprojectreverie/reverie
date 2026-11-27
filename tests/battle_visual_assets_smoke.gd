@@ -215,7 +215,7 @@ func _ready() -> void:
 			kael_animation_player.play("kael_basic")
 			kael_animation_player.advance(0.30)
 			check(kael_animation_player.is_playing(), "Kael combo pose plays through AnimationPlayer")
-			check(kael_probe.visual.scale.x > 1.0, "Kael AnimationPlayer keyframes animate the actual character visual")
+			check(kael_probe.visual.scale.is_equal_approx(Vector2.ONE) and not is_zero_approx(kael_probe.visual.rotation), "Kael authored attack preserves body scale with rotation")
 			kael_animation_player.play("kael_recover")
 
 			kael_animation_player.advance(0.12)
@@ -291,7 +291,7 @@ func _ready() -> void:
 			battle_pose_player.play("battle_basic")
 			battle_pose_player.advance(0.14)
 			var ordinary_visual := actor_probe.get_node_or_null("ActorVisual") as Node2D
-			check(ordinary_visual != null and not ordinary_visual.scale.is_equal_approx(Vector2.ONE), "Ordinary attack clip animates the actual character visual")
+			check(ordinary_visual != null and ordinary_visual.scale.is_equal_approx(Vector2.ONE) and not is_zero_approx(ordinary_visual.rotation), "Ordinary attack keeps body scale while retaining authored rotation")
 			battle_pose_player.play("battle_recover")
 			battle_pose_player.advance(0.12)
 			check(ordinary_visual != null and ordinary_visual.scale.is_equal_approx(Vector2.ONE) and is_zero_approx(ordinary_visual.rotation), "Ordinary authored recovery restores the visual to neutral")
@@ -303,7 +303,7 @@ func _ready() -> void:
 			actor_animation_player.advance(0.15)
 			var actor_probe_visual := actor_probe.get_node_or_null("ActorVisual") as Node2D
 			check(actor_animation_player.is_playing(), "Boss attack plays through AnimationPlayer")
-			check(actor_probe_visual != null and not actor_probe_visual.scale.is_equal_approx(Vector2.ONE), "Boss attack keyframes animate the actual actor visual")
+			check(actor_probe_visual != null and actor_probe_visual.scale.is_equal_approx(Vector2.ONE) and not is_zero_approx(actor_probe_visual.rotation), "Boss attack retains movement without stretching the body")
 		actor_probe.queue_free()
 
 	var matron_scene := load("res://scenes/ui/combat/components/fallen_matron_presentation_component.tscn") as PackedScene
@@ -873,7 +873,8 @@ func _ready() -> void:
 		check(not is_instance_valid(verdict_overlay), "Matron Verdict overlay completes its authored exit and self-cleans")
 		var kael_attack_component := matron_battle.get_node("KaelAttackPresentation") as KaelAttackPresentationComponent
 		kael_attack_component.play_attack(matron_ally_actor, matron_boss, "ember_lance", false)
-		await get_tree().create_timer(0.06).timeout
+		# The authored approach now precedes the original travelling projectile.
+		await get_tree().create_timer(0.98).timeout
 		var launched_spear: Node = null
 		for effect in kael_attack_component.get_children():
 			if effect.has_node("Shaft") and effect.has_node("Core"):

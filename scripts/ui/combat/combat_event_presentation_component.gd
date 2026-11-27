@@ -15,6 +15,32 @@ func process_events(events: Array) -> void:
 	for event in events:
 		var event_type := str(event.get("type", ""))
 		match event_type:
+			"bond":
+				var bond_id := str(event.get("bond_id", ""))
+				if CombatEngine.BOND_PAIRS.has(bond_id):
+					screen._log("[color=#d8afff]%s[/color]" % str(event.get("skill_name", "")))
+					var path := "res://assets/characters/bond_skills/%s/%s_preview.tscn" % [bond_id,bond_id]
+					var packed := load(path) as PackedScene
+					if packed != null:
+						var cinematic := packed.instantiate() as Node2D
+						var layer := CanvasLayer.new()
+						layer.layer = 50
+						screen.add_child(layer)
+						var dim := ColorRect.new()
+						dim.size = screen.get_viewport_rect().size
+						dim.color = Color(0.025, 0.015, 0.045, 0.93)
+						dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+						layer.add_child(dim)
+						layer.add_child(cinematic)
+						var factor := minf(dim.size.x / 1280.0, dim.size.y / 720.0)
+						cinematic.scale = Vector2.ONE * factor
+						cinematic.position = (dim.size - Vector2(1280,720) * factor) * 0.5
+						var player := cinematic.get_node("AnimationPlayer") as AnimationPlayer
+						player.speed_scale = maxf(1.0, screen._speed)
+						player.play(bond_id)
+						await player.animation_finished
+						if not is_instance_valid(screen) or not screen.is_inside_tree(): return
+						layer.queue_free()
 			"defend":
 				var defending_actor := screen._actor_for_uid(str(event.get("actor_uid", "")))
 				screen._log("[color=#7fe3e0]%s takes a defensive stance. Incoming damage is halved until their next turn.[/color]" % str(event.get("actor_name", "Unit")))
@@ -28,6 +54,13 @@ func process_events(events: Array) -> void:
 			"turn":
 				screen._log("[color=#e9eef9]%s's turn.[/color]" % str(event.get("actor_name", "Unit")))
 			"action":
+				# Authoritative replies may bundle the player action and subsequent enemy actions.
+				# Let the authored withdrawal finish before presenting the next action.
+				if _kael_sequence_running():
+					await screen._wait_for_cinematic_impact()
+					if not is_instance_valid(screen) or not screen.is_inside_tree() or screen._resolved: return
+					screen._flush_pending_deaths(pending_deaths)
+					pending_deaths.clear()
 				var actor_name := str(event.get("actor_name", "Unit"))
 				var skill_name := str(event.get("skill_name", "skill"))
 				screen._log("[color=#7fe3e0]%s uses %s.[/color]" % [actor_name, skill_name])
@@ -62,6 +95,14 @@ func process_events(events: Array) -> void:
 			"shield":
 				screen._log("[color=#7fe3e0]%s gains a %d shield.[/color]" % [str(event.get("target_name", "Unit")), int(event.get("amount", 0))])
 			"status":
+				var status_id := str(event.get("status",""))
+				var status_actor := screen._actor_for_uid(str(event.get("target_uid","")))
+				if status_id == "cleanse":
+					screen._float_text(status_actor,"CLEANSED",UITheme.TEAL)
+				elif status_id == "bond_guard":
+					screen._float_text(status_actor,"GUARDED",UITheme.TEAL)
+				elif status_id == "bond_survive" and int(event.get("turns",0)) == 0:
+					screen._float_text(status_actor,"BEYOND DEATH",UITheme.GREEN)
 				screen._log("[color=#b78bff]%s: %s[/color]" % [str(event.get("target_name", "Unit")), str(event.get("status", "")).replace("_", " ").capitalize()])
 			"status_tick":
 				screen._log("[color=#ff9f9f]%s takes %d %s damage.[/color]" % [
@@ -92,6 +133,11 @@ func process_events(events: Array) -> void:
 				elif screen._battlefield != null:
 					screen._battlefield.play_death(fallen)
 			"phase":
+				if _kael_sequence_running():
+					await screen._wait_for_cinematic_impact()
+					if not is_instance_valid(screen) or not screen.is_inside_tree() or screen._resolved: return
+					screen._flush_pending_deaths(pending_deaths)
+					pending_deaths.clear()
 				var phase_message := str(event.get("message", "The boss changes."))
 				var phase_uid := str(event.get("actor_uid", ""))
 				var phase_boss: Combatant = screen.engine.get_by_uid(phase_uid) if screen.engine != null else null
@@ -153,6 +199,13 @@ func process_events(events: Array) -> void:
 		screen._schedule_enemy_turn()
 	elif screen._auto:
 		screen._schedule_auto_player()
+
+
+func _kael_sequence_running() -> bool:
+	if not is_instance_valid(screen._battlefield): return false
+	for actor in screen._battlefield.actors():
+		if is_instance_valid(actor) and actor.kael_boss_sequence_active: return true
+	return false
 
 
 func _show_boss_telegraphs(boss_actor: BattlefieldActor, target_uids: Array) -> bool:
@@ -231,7 +284,7 @@ func handle_damage(event: Dictionary) -> void:
 			# Matron's ~1.88s verdict choreography. Preserve the original total
 			# impact beat instead of stacking a second full windup.
 			impact_delay = 1.46
-		if source != null and source.def_id == "kael":
+		if source != null and KaelAttackPresentationComponent.is_kael(source.def_id):
 			var kael_actor := screen._actor_for_uid(str(event.get("actor_uid", "")))
 			if KaelAttackPresentationComponent.uses_boss_combo(kael_actor, str(event.get("skill_id", "")), bool(event.get("ultimate", false))):
 				impact_delay = KaelAttackPresentationComponent.BOSS_IMPACT_TIME

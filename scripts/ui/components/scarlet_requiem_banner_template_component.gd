@@ -71,7 +71,7 @@ func build(parent: VBoxContainer, banner: Dictionary, featured_def: CharacterDef
 		var summon_path := "res://assets/portraits/summon/%s.png" % featured_def.id
 		if featured_def.id == "crimson_witch":
 			summon_path = "res://assets/characters/crimson_witch/portrait_512.png"
-		if ResourceLoader.exists(summon_path):
+		if not preload("res://scripts/art/approved_character_portraits.gd").is_approved(portrait.portrait_texture) and ResourceLoader.exists(summon_path):
 			var texture := load(summon_path) as Texture2D
 			if texture != null:
 				portrait.set_portrait_texture(texture)

@@ -12,7 +12,11 @@ import {summonAdmission} from "../world/summon-admission.js";
 import {auditPaidGuarantees} from "../world/paid-guarantee-audit.js";
 import {STARTER_PARTY,xpToNext} from "../world/character-xp.js";
 import {banners,contentHash,contentId,emptyPity,rollBanner,describeRoll,retiredPlayableIds,upgradeCard,mythicRecipe,ascensionRecipe,type Pity,type Roll,PAID_MILESTONE,PAID_CURRENCY,PAID_GUARANTEE_POLICY} from "../world/summon.js";
-const input=z.object({bannerId:z.string().min(1).max(80),count:z.union([z.literal(1),z.literal(10)]),requestId:z.string().uuid(),currency:z.enum(["crystals","paid_moonstones"]).optional(),expectedPaidTotal:z.string().regex(/^(0|[1-9][0-9]{0,18})$/).optional()}).strict();
+import {publishedCharacterPacks,publishedCharacterArtwork,liveDefinition} from "../world/live-character-packs.js";
+import {activeEvents,eventProgress} from "../world/live-events.js";
+import {readArtwork} from "../world/live-content-store.js";
+import {currentBannerCatalog,historicalBannerName} from "../world/live-banners.js";
+const input=z.object({catalogRevision:z.string().regex(/^[a-f0-9]{64}$/).optional(),bannerId:z.string().min(1).max(80),count:z.union([z.literal(1),z.literal(10)]),requestId:z.string().uuid(),currency:z.enum(["crystals","paid_moonstones"]).optional(),expectedPaidTotal:z.string().regex(/^(0|[1-9][0-9]{0,18})$/).optional()}).strict();
 async function paidTotal(db: Pick<typeof pool,"query">,id:string):Promise<string>{
  const q=await db.query("SELECT COALESCE(sum(pull_count),0)::text AS total FROM gacha_pulls WHERE player_id=$1 AND currency_id=$2",[id,PAID_CURRENCY]);
  return q.rows[0].total;
@@ -22,7 +26,7 @@ async function paidProgress(db: Pick<typeof pool,"query">,id:string):Promise<num
 }
 export const summonRoutes:FastifyPluginAsync=async app=>{
  app.addHook("onSend",async(_req,reply,payload)=>{reply.header("Cache-Control","no-store");return payload;});
- app.get("/state",async(req,reply)=>{
+ app.get("/state",{config:{rateLimit:{max:120,timeWindow:"1 minute"}}},async(req,reply)=>{
   try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}
   const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};
   if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
@@ -41,7 +45,43 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
   if(!row)return reply.code(401).send({error:"authentication_required"});
   const characters=new Map<string,Record<string,unknown>>(row.roster.map((r:Record<string,unknown>)=>[String(r.char_id),r]));
   for(const id of STARTER_PARTY)if(!characters.has(id))characters.set(id,{char_id:id,level:1,xp:"0",dupes:0,awakening:0,ascension:0,bond:0,skill_levels:{}});
-  return {playerId:c.playerId,paidTotal:row.paid_total,paidProgress:Number(BigInt(row.paid_total)%BigInt(PAID_MILESTONE)),paidMilestone:PAID_MILESTONE,paidGuaranteePolicy:PAID_GUARANTEE_POLICY,currencies:row.currencies,pity:row.pity,partyLocked:row.partyLocked,party:row.party.length?row.party:STARTER_PARTY,roster:[...characters.values()].map(character=>({...character,equipment:row.equipment.filter((e:{char_id:string})=>e.char_id===character.char_id)})),cards:Object.fromEntries(Object.entries(row.inventory).filter(([id])=>id.startsWith("upgrade_")).map(([id,quantity])=>[id,Number(quantity)])),inventory:row.inventory};
+  let catalog;try{catalog=currentBannerCatalog();if(req.headers["x-reverie-character-content"]!=="1")catalog=Object.fromEntries(Object.entries(catalog).filter(([,b])=>!b.featured.some(id=>id.startsWith("livechar_"))));}catch(e){req.log.error(e);return reply.code(503).send({error:"summon_catalog_unavailable"});}
+  let events;try{events=activeEvents();}catch(e){req.log.error(e);return reply.code(503).send({error:"event_catalog_unavailable"});}
+  const receipts=events.length?(await pool.query("SELECT ref_id,reason FROM currency_ledger WHERE player_id=$1 AND reason IN ('live_event_reward','live_event_shop') AND ref_type='live_event' AND ref_id=ANY($2::text[])",[c.playerId,events.map(e=>e.id)])).rows:[];
+  const claimed=receipts.filter(r=>r.reason==='live_event_reward').map(r=>r.ref_id),purchased=receipts.filter(r=>r.reason==='live_event_shop').map(r=>r.ref_id);
+  const eventViews=await Promise.all(events.map(async e=>({...e,...await eventProgress(pool,c.playerId!,e),claimed:claimed.includes(e.id),purchased:purchased.includes(e.id)})));
+  return {liveEvents:eventViews,bannerCatalog:catalog,playerId:c.playerId,paidTotal:row.paid_total,paidProgress:Number(BigInt(row.paid_total)%BigInt(PAID_MILESTONE)),paidMilestone:PAID_MILESTONE,paidGuaranteePolicy:PAID_GUARANTEE_POLICY,currencies:row.currencies,pity:row.pity,partyLocked:row.partyLocked,party:row.party.length?row.party:STARTER_PARTY,roster:[...characters.values()].map(character=>({...character,equipment:row.equipment.filter((e:{char_id:string})=>e.char_id===character.char_id)})),cards:Object.fromEntries(Object.entries(row.inventory).filter(([id])=>id.startsWith("upgrade_")).map(([id,quantity])=>[id,Number(quantity)])),inventory:row.inventory};
+ });
+
+ app.get("/character-content",async(req,reply)=>{try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion)||!(await pool.query("SELECT p.id FROM players p JOIN accounts a ON a.id=p.account_id WHERE p.id=$1 AND a.id=$2 AND a.status='active' AND a.token_version=$3",[c.playerId,c.sub,c.tokenVersion])).rowCount)return reply.code(401).send({error:"authentication_required"});return {schema:1,playerId:c.playerId,packs:publishedCharacterPacks()};});
+ app.get("/artwork/:hash",{config:{rateLimit:{max:80,timeWindow:"1 minute"}}},async(req,reply)=>{
+  const params=z.object({hash:z.string().regex(/^[a-f0-9]{64}$/)}).safeParse(req.params);if(!params.success)return reply.code(404).send({error:"artwork_not_found"});
+  try{if(!Object.values(currentBannerCatalog()).some(b=>b.artwork===params.data.hash)&&!publishedCharacterArtwork(params.data.hash))return reply.code(404).send({error:"artwork_not_found"});return reply.type("image/png").header("X-Content-Type-Options","nosniff").send(readArtwork(params.data.hash));}catch{return reply.code(404).send({error:"artwork_not_found"});}
+ });
+ app.post("/event-claim",{config:{rateLimit:{max:12,timeWindow:"1 minute"}}},async(req,reply)=>{
+  try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
+  const body=z.object({eventId:z.string().regex(/^event_[a-z0-9_]{1,60}$/)}).strict().safeParse(req.body);if(!body.success)return reply.code(400).send({error:"invalid_event_claim"});const id=body.data.eventId,db=await pool.connect();
+  try{await db.query("BEGIN");const fail=async(code:number,error:string)=>{await db.query("ROLLBACK");return reply.code(code).send({error});};
+   const account=await db.query("SELECT id FROM accounts WHERE id=$1 AND status='active' AND token_version=$2 FOR UPDATE",[c.sub,c.tokenVersion]);const player=await db.query("SELECT id FROM players WHERE id=$1 AND account_id=$2 FOR UPDATE",[c.playerId,c.sub]);if(!account.rowCount||!player.rowCount)return await fail(401,"authentication_required");
+   const prior=(await db.query("SELECT currency_id,delta::text,balance_after::text FROM currency_ledger WHERE player_id=$1 AND reason='live_event_reward' AND ref_type='live_event' AND ref_id=$2",[c.playerId,id])).rows[0];if(prior){await db.query("COMMIT");return {ok:true,eventId:id,currency:prior.currency_id,amount:Number(prior.delta),balance:prior.balance_after,replayed:true};}
+   const event=activeEvents().find(e=>e.id===id);if(!event)return await fail(409,"event_not_active");if(!(await eventProgress(db,c.playerId,event)).eligible)return await fail(409,"event_objective_incomplete");const {currency,amount}=event.reward;
+   const wallet=(await db.query("UPDATE player_currencies SET balance=balance+$3::bigint,updated_at=now() WHERE player_id=$1 AND currency_id=$2 AND balance<=9007199254740991-$3::bigint RETURNING balance::text",[c.playerId,currency,amount])).rows[0];if(!wallet)return await fail(409,"wallet_unavailable_or_limit");
+   await db.query("INSERT INTO currency_ledger(player_id,currency_id,delta,balance_after,reason,ref_type,ref_id,idempotency_key) VALUES($1,$2,$3,$4,'live_event_reward','live_event',$5,$6)",[c.playerId,currency,amount,wallet.balance,id,"live-event:"+id]);await db.query("COMMIT");return {ok:true,eventId:id,currency,amount,balance:wallet.balance,replayed:false};
+  }catch(e){await db.query("ROLLBACK");throw e;}finally{db.release();}
+ });
+
+ app.post("/event-shop-buy",{config:{rateLimit:{max:12,timeWindow:"1 minute"}}},async(req,reply)=>{
+  try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
+  const body=z.object({eventId:z.string().regex(/^event_[a-z0-9_]{1,60}$/)}).strict().safeParse(req.body);if(!body.success)return reply.code(400).send({error:"invalid_event_shop_request"});const id=body.data.eventId,db=await pool.connect();
+  try{await db.query("BEGIN");const fail=async(code:number,error:string)=>{await db.query("ROLLBACK");return reply.code(code).send({error});};
+   const account=await db.query("SELECT id FROM accounts WHERE id=$1 AND status='active' AND token_version=$2 FOR UPDATE",[c.sub,c.tokenVersion]);const player=await db.query("SELECT id FROM players WHERE id=$1 AND account_id=$2 FOR UPDATE",[c.playerId,c.sub]);if(!account.rowCount||!player.rowCount)return await fail(401,"authentication_required");
+   const prior=(await db.query("SELECT currency_id,delta::text,balance_after::text FROM currency_ledger WHERE player_id=$1 AND reason='live_event_shop' AND ref_type='live_event' AND ref_id=$2",[c.playerId,id])).rows[0];if(prior){await db.query("COMMIT");return {ok:true,eventId:id,currency:prior.currency_id,spent:-Number(prior.delta),replayed:true};}
+   const event=activeEvents().find(e=>e.id===id);if(!event?.shop)return await fail(409,"event_shop_not_active");if(!(await eventProgress(db,c.playerId,event)).eligible)return await fail(409,"event_objective_incomplete");const {item,quantity,currency,price}=event.shop;
+   if(!(await db.query("SELECT 1 FROM items WHERE id=$1 AND category='material'",[item])).rowCount)return await fail(409,"event_item_unavailable");
+   const wallet=(await db.query("UPDATE player_currencies SET balance=balance-$3::bigint,updated_at=now() WHERE player_id=$1 AND currency_id=$2 AND balance >= $3::bigint RETURNING balance::text",[c.playerId,currency,price])).rows[0];if(!wallet)return await fail(409,"insufficient_currency");
+   const grant=await db.query("INSERT INTO inventory_items(player_id,item_id,quantity) VALUES($1,$2,$3) ON CONFLICT(player_id,item_id) DO UPDATE SET quantity=inventory_items.quantity+EXCLUDED.quantity WHERE inventory_items.quantity<=9007199254740991-EXCLUDED.quantity RETURNING quantity::text",[c.playerId,item,quantity]);if(!grant.rowCount)return await fail(409,"inventory_limit");
+   await db.query("INSERT INTO currency_ledger(player_id,currency_id,delta,balance_after,reason,ref_type,ref_id,idempotency_key) VALUES($1,$2,$3,$4,'live_event_shop','live_event',$5,$6)",[c.playerId,currency,-price,wallet.balance,id,"live-event-shop:"+id]);await db.query("COMMIT");return {ok:true,eventId:id,item,quantity,currency,spent:price,balance:wallet.balance,replayed:false};
+  }catch(e){await db.query("ROLLBACK");throw e;}finally{db.release();}
  });
 
  // Read-only, account-scoped history. Keyset cursor keeps older pages stable as new pulls arrive.
@@ -59,13 +99,13 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
    if(!cursor.rowCount)return reply.code(400).send({error:"invalid_history_cursor"});
   }
   const page=await pool.query(`WITH selected AS (
-   SELECT p.id,p.banner_id,p.pull_count,p.currency_id,p.cost::text,p.created_at
+   SELECT p.id,p.banner_id,p.pull_count,p.currency_id,p.cost::text,p.created_at,(SELECT manifest->'banner'->>'name' FROM content_versions WHERE id=p.content_version_id) AS recorded_banner_name
    FROM gacha_pulls p WHERE p.player_id=$1 AND ($2::text IS NULL OR p.currency_id=$2)
    AND ($3::uuid IS NULL OR (p.created_at,p.id)<(SELECT created_at,id FROM gacha_pulls WHERE player_id=$1 AND id=$3))
    ORDER BY p.created_at DESC,p.id DESC LIMIT $4
   ) SELECT s.*,COALESCE((SELECT jsonb_agg(jsonb_build_object('character_id',r.character_id,'rarity',r.rarity,'featured',r.featured,'is_new',r.is_new,'index',r.roll_index,'kind',r.reward_kind,'reward_items',r.reward_items,'paid_guaranteed',COALESCE(r.reward_items->'paid_guaranteed','false'::jsonb)) ORDER BY r.roll_index) FROM gacha_pull_results r WHERE r.pull_id=s.id),'[]'::jsonb) AS results FROM selected s ORDER BY s.created_at DESC,s.id DESC`,[c.playerId,currency??null,before??null,limit+1]);
   const more=page.rows.length>limit;
-  const entries=page.rows.slice(0,limit).map(r=>({id:r.id,bannerId:r.banner_id,bannerName:(banners[r.banner_id] as {name?:string}|undefined)?.name??r.banner_id,count:r.pull_count,currency:r.currency_id,spent:r.cost,createdAt:r.created_at,results:r.results}));
+  const entries=page.rows.slice(0,limit).map(r=>({id:r.id,bannerId:r.banner_id,bannerName:r.recorded_banner_name??historicalBannerName(r.banner_id)??r.banner_id,count:r.pull_count,currency:r.currency_id,spent:r.cost,createdAt:r.created_at,results:r.results}));
   return {playerId:c.playerId,paidProgress:await paidProgress(pool,c.playerId),paidMilestone:PAID_MILESTONE,paidGuaranteePolicy:PAID_GUARANTEE_POLICY,entries,nextCursor:more?entries.at(-1)?.id??null:null};
  });
 
@@ -100,13 +140,13 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
   }catch(e){await db.query("ROLLBACK");throw e;}finally{db.release();}
  });
 
- const trainingInput=z.object({characterId:z.string().regex(/^[a-z0-9_]{1,80}$/),expectedLevel:z.number().int().min(1).max(80),expectedXp:z.number().int().min(0).max(10000)}).strict();
+ const trainingInput=z.object({characterId:z.string().regex(/^[a-z0-9_]{1,80}$/),expectedLevel:z.number().int().min(1).max(80),expectedXp:z.number().int().min(0).max(10000),targetLevel:z.number().int().min(2).max(80).optional()}).strict();
  app.post("/train",{config:{rateLimit:{max:30,timeWindow:"1 minute"}}},async(req,reply)=>{
   try{await req.jwtVerify()}catch{return reply.code(401).send({error:"authentication_required"})}
   const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};
   if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
   const parsed=trainingInput.safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:"invalid_training"});
-  const {characterId,expectedLevel,expectedXp}=parsed.data,db=await pool.connect();
+  const {characterId,expectedLevel,expectedXp,targetLevel}=parsed.data,db=await pool.connect();
   try{
    await db.query("BEGIN");
    const reject=async(code:number,error:string)=>{await db.query("ROLLBACK");return reply.code(code).send({error})};
@@ -119,12 +159,21 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
    if(!row)return await reject(404,"character_not_owned");
    if(row.level!==expectedLevel||Number(row.xp)!==expectedXp)return await reject(409,"progression_changed_refresh");
    if(row.level>=20*(row.ascension+1))return await reject(409,"level_cap_reached");
-   const cost=Math.max(1,xpToNext(row.level)-expectedXp);
+   const target=targetLevel??row.level+1;
+   if(target<=row.level||target>20*(row.ascension+1))return await reject(409,"invalid_training_target");
+   const charges:number[]=[];
+   for(let level=row.level;level<target;level++)charges.push(Math.max(1,xpToNext(level)-(level===row.level?expectedXp:0)));
+   const cost=charges.reduce((sum,charge)=>sum+charge,0);
    const wallet=(await db.query("UPDATE player_currencies SET balance=balance-$2 WHERE player_id=$1 AND currency_id='gold' AND balance >= $2 RETURNING balance::text",[c.playerId,cost])).rows[0];
    if(!wallet)return await reject(409,"insufficient_gold");
-   await db.query("INSERT INTO currency_ledger(player_id,currency_id,delta,balance_after,reason,ref_type,ref_id,idempotency_key) VALUES($1,'gold',$2,$3,'character_training','character',$4,$5)",[c.playerId,-cost,wallet.balance,row.id,"train:"+row.id+":"+row.level]);
-   await db.query("UPDATE owned_characters SET level=level+1,xp=0 WHERE id=$1",[row.id]);
-   await db.query("COMMIT");return {ok:true,characterId,level:row.level+1,goldSpent:cost,balance:wallet.balance};
+   // One atomic wallet update, with per-level ledger entries for existing audit semantics.
+   let remaining=BigInt(wallet.balance)+BigInt(cost);
+   for(let i=0;i<charges.length;i++){
+    const charge=charges[i]!;remaining-=BigInt(charge);
+    await db.query("INSERT INTO currency_ledger(player_id,currency_id,delta,balance_after,reason,ref_type,ref_id,idempotency_key) VALUES($1,'gold',$2,$3,'character_training','character',$4,$5)",[c.playerId,-charge,remaining.toString(),row.id,"train:"+row.id+":"+(row.level+i)]);
+   }
+   await db.query("UPDATE owned_characters SET level=$2,xp=0 WHERE id=$1",[row.id,target]);
+   await db.query("COMMIT");return {ok:true,characterId,level:target,levelsGained:target-row.level,goldSpent:cost,balance:wallet.balance};
   }catch(e){await db.query("ROLLBACK");req.log.error(e);return reply.code(500).send({error:"training_unavailable"})}finally{db.release()}
  });
  const upgradeInput=z.object({characterId:z.string().regex(/^[a-z0-9_]{1,80}$/),action:z.enum(["ascend","awaken"]),expectedTier:z.number().int().min(0).max(5)}).strict();
@@ -169,6 +218,42 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
   }catch(e){await db.query("ROLLBACK");req.log.error(e);return reply.code(500).send({error:"upgrade_unavailable"});}
   finally{db.release();}
  });
+ // Exchange only copies in excess of the seven-star threshold.
+ const exchangeInput=z.object({characterId:z.string().regex(/^[a-z0-9_]{1,80}$/),expectedCopies:z.number().int().min(8).max(1000000),quantity:z.number().int().min(1).max(999993).optional(),requestId:z.string().uuid()}).strict();
+ app.post("/exchange-mythic-copies",{config:{rateLimit:{max:20,timeWindow:"1 minute"}}},async(req,reply)=>{
+  try{await req.jwtVerify()}catch{return reply.code(401).send({error:"authentication_required"})}
+  const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};
+  if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
+  const parsed=exchangeInput.safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:"invalid_copy_exchange"});
+  const {characterId,expectedCopies,requestId}=parsed.data;
+  const quantity=parsed.data.quantity??expectedCopies-7;
+  if(quantity>expectedCopies-7)return reply.code(400).send({error:"protected_copies"});
+  const db=await pool.connect();
+  try{
+   await db.query("BEGIN");
+   const reject=async(code:number,error:string)=>{await db.query("ROLLBACK");return reply.code(code).send({error});};
+   const account=await db.query("SELECT id FROM accounts WHERE id=$1 AND status='active' AND token_version=$2 FOR UPDATE",[c.sub,c.tokenVersion]);
+   const player=await db.query("SELECT id FROM players WHERE id=$1 AND account_id=$2 FOR UPDATE",[c.playerId,c.sub]);
+   if(!account.rowCount||!player.rowCount)return await reject(401,"authentication_required");
+   if(!ascensionRecipe(characterId))return await reject(400,"mythic_only");
+   const row=(await db.query("SELECT id,dupes,awakening FROM owned_characters WHERE player_id=$1 AND char_id=$2 FOR UPDATE",[c.playerId,characterId])).rows[0];
+   if(!row)return await reject(404,"character_not_owned");
+   const key="mythic-exchange:"+requestId;
+   const old=(await db.query("SELECT delta::text,balance_after::text,ref_id FROM currency_ledger WHERE player_id=$1 AND idempotency_key=$2",[c.playerId,key])).rows[0];
+   if(old){
+    if(String(old.ref_id)!==String(row.id)||Number(old.delta)!==quantity*5000)return await reject(409,"exchange_request_mismatch");
+    await db.query("COMMIT");return {ok:true,replayed:true,exchanged:Number(old.delta)/5000,goldGranted:Number(old.delta),balance:old.balance_after};
+   }
+   const copies=1+row.dupes+2*row.awakening;
+   if(copies!==expectedCopies)return await reject(409,"progression_changed_refresh");
+   if(copies<=7)return await reject(409,"no_extra_copies");
+   const excess=quantity,reward=excess*5000;
+   const wallet=(await db.query("INSERT INTO player_currencies(player_id,currency_id,balance) VALUES($1,'gold',$2) ON CONFLICT(player_id,currency_id) DO UPDATE SET balance=player_currencies.balance+EXCLUDED.balance RETURNING balance::text",[c.playerId,reward])).rows[0];
+   await db.query("UPDATE owned_characters SET awakening=3,dupes=$2 WHERE id=$1",[row.id,copies-7-excess]);
+   await db.query("INSERT INTO currency_ledger(player_id,currency_id,delta,balance_after,reason,ref_type,ref_id,idempotency_key) VALUES($1,'gold',$2,$3,'mythic_copy_exchange','character',$4,$5)",[c.playerId,reward,wallet.balance,row.id,key]);
+   await db.query("COMMIT");return {ok:true,exchanged:excess,goldGranted:reward,balance:wallet.balance};
+  }catch(e){await db.query("ROLLBACK");req.log.error(e);return reply.code(500).send({error:"exchange_unavailable"});}finally{db.release();}
+ });
  const skillInput=z.object({characterId:z.string().regex(/^[a-z0-9_]{1,80}$/),skillId:z.string().regex(/^[a-z0-9_]{1,80}$/),expectedLevel:z.number().int().min(1).max(5)}).strict();
  app.post("/skill-upgrade",{config:{rateLimit:{max:30,timeWindow:"1 minute"}}},async(req,reply)=>{
   try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}
@@ -176,7 +261,7 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
   if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
   const parsed=skillInput.safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:"invalid_skill_upgrade"});
   const {characterId,skillId,expectedLevel}=parsed.data;
-  const def=Object.hasOwn(progressionCharacters,characterId)?progressionCharacters[characterId]:undefined;
+  const def=Object.hasOwn(progressionCharacters,characterId)?progressionCharacters[characterId]:liveDefinition(characterId);
   const skill=Object.hasOwn(progressionSkills,skillId)?progressionSkills[skillId]:undefined;
   if(!def||!skill||retiredPlayableIds.includes(characterId)||![...(def.skills??[]),def.ultimate].includes(skillId)||!["damage","heal","shield","buff","debuff"].includes(skill.kind))return reply.code(400).send({error:"skill_not_available"});
   const db=await pool.connect();
@@ -297,7 +382,8 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
   const parsed=partyInput.safeParse(req.body);
   if(!parsed.success||new Set(parsed.data.characterIds).size!==parsed.data.characterIds.length)return reply.code(400).send({error:"invalid_party"});
   const ids=parsed.data.characterIds;
-  if(ids.some(id=>retiredPlayableIds.includes(id)||!Object.hasOwn(progressionCharacters,id)))return reply.code(400).send({error:"invalid_party_character"});
+  if(ids.some(id=>id.startsWith("livechar_"))&&req.headers["x-reverie-character-content"]!=="1")return reply.code(400).send({error:"compatible_client_required"});
+  if(ids.some(id=>retiredPlayableIds.includes(id)||!Object.hasOwn(progressionCharacters,id)&&!liveDefinition(id)))return reply.code(400).send({error:"invalid_party_character"});
   const db=await pool.connect();
   try{
    await db.query("BEGIN");
@@ -325,10 +411,7 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
   if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
   const parsed=input.safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:"invalid_summon"});
   const {bannerId,count,requestId}=parsed.data;
-  const banner=Object.hasOwn(banners,bannerId)?banners[bannerId]:undefined;
-  if(!banner)return reply.code(400).send({error:"unknown_banner"});
-  const currency=parsed.data.currency??banner.cost.currency;
-  if(currency!==PAID_CURRENCY&&currency!==banner.cost.currency)return reply.code(400).send({error:"invalid_currency"});
+  const currency=parsed.data.currency??"crystals";
   const release=await summonAdmission.acquire(c.playerId);
   if(!release)return reply.code(503).header("Retry-After","2").send({error:"summon_server_busy"});
   const db=await pool.connect().catch(e=>{req.log.error(e);return null;});
@@ -347,6 +430,15 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
     const wallet=await db.query("SELECT balance::text FROM player_currencies WHERE player_id=$1 AND currency_id=$2",[id,old.currency_id]); const progress=await paidProgress(db,id);
     await db.query("COMMIT");return {ok:true,results:previous.rows.map(({reward_kind,reward_items,...r})=>reward_kind==="mob_reward"?{...r,kind:reward_kind,items:reward_items}:reward_kind==="upgrade_card"?{...r,kind:reward_kind,...reward_items}:{...describeRoll(r),...reward_items}),pity:old.pity_after,paidProgress:progress,spent:Number(old.cost),currency:old.currency_id,balance:wallet.rows[0]?.balance??"0",requestId,replayed:true};
    }
+   // Resolve committed retries before checking a current schedule or revision.
+   let catalog;try{catalog=currentBannerCatalog();}catch(e){req.log.error(e);await db.query("ROLLBACK");return reply.code(503).send({error:"summon_catalog_unavailable"});}
+   const banner=catalog[bannerId];
+   if(!banner){await db.query("ROLLBACK");return reply.code(400).send({error:"unknown_banner"});}
+   if(banner.featured.some(id=>id.startsWith("livechar_"))&&req.headers["x-reverie-character-content"]!=="1"){await db.query("ROLLBACK");return reply.code(400).send({error:"compatible_client_required"});}
+   if((bannerId.startsWith("live_")||parsed.data.catalogRevision!==undefined)&&parsed.data.catalogRevision!==banner.revision){await db.query("ROLLBACK");return reply.code(409).send({error:"banner_changed_refresh"});}
+   if(currency!==PAID_CURRENCY&&currency!==banner.cost.currency){await db.query("ROLLBACK");return reply.code(400).send({error:"invalid_currency"});}
+   // Paid live banners require historical compensation support before activation.
+   if(bannerId.startsWith("live_")&&currency===PAID_CURRENCY){await db.query("ROLLBACK");return reply.code(400).send({error:"live_banner_crystals_only"});}
    // Replays resolve before this check: stale new paid requests must not spend.
    const totalBefore=await paidTotal(db,id);
    if(currency===PAID_CURRENCY&&parsed.data.expectedPaidTotal!==undefined&&parsed.data.expectedPaidTotal!==totalBefore){
@@ -376,9 +468,10 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
     }
     const {guaranteed:_guaranteed,...stored}=r; results.push({...stored,is_new:!!added.rowCount,awakening_gain:gain});
    }
-   await db.query("INSERT INTO content_versions(id,manifest_hash,manifest) VALUES($1,$2,$3::jsonb) ON CONFLICT DO NOTHING",[contentId,contentHash,JSON.stringify({kind:"summon"})]);
+   const pullContentId=bannerId.startsWith("live_")?"summon-live-"+banner.revision.slice(0,32):contentId;
+   await db.query("INSERT INTO content_versions(id,manifest_hash,manifest) VALUES($1,$2,$3::jsonb) ON CONFLICT DO NOTHING",[pullContentId,bannerId.startsWith("live_")?banner.revision:contentHash,JSON.stringify(bannerId.startsWith("live_")?{kind:"summon",bannerId,banner}:{kind:"summon"})]);
    const hash=createHash("sha256").update(JSON.stringify(results)).digest("hex");
-   const pull=(await db.query("INSERT INTO gacha_pulls(player_id,banner_id,content_version_id,pull_count,currency_id,cost,pity_before,pity_after,result_hash,idempotency_key) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id",[id,bannerId,contentId,count,currency,cost,JSON.stringify(pity),JSON.stringify(outcome.pity),hash,requestId])).rows[0].id;
+   const pull=(await db.query("INSERT INTO gacha_pulls(player_id,banner_id,content_version_id,pull_count,currency_id,cost,pity_before,pity_after,result_hash,idempotency_key) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id",[id,bannerId,pullContentId,count,currency,cost,JSON.stringify(pity),JSON.stringify(outcome.pity),hash,requestId])).rows[0].id;
 
    // Material rewards and summon history commit together. A replay returns
    // the stored result ID without repeating this inventory mutation.
@@ -482,6 +575,7 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
        (r.fusions??=[]).push({id:mythic,name:mythic.replace(/_/g," ")+" - Fully Ascended",fully_ascended:true});
       }
      }
+     if(count>=recipe.cost)await db.query("UPDATE owned_characters SET ascension=3 WHERE player_id=$1 AND char_id=$2 AND ascension<3",[id,mythic]);
      if(r.rarity==="mythic")r.ascended_count=count;
     }
     if(r.ascended_count!==undefined)r.fusions??=[];

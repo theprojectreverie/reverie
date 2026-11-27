@@ -28,6 +28,84 @@ var log: Array = []
 var rng := RandomNumberGenerator.new()
 
 var _dawnkeeper_used: Dictionary = {}
+const BOND_PAIRS := {"beyond_death": ["gerald_mythic", "lilith_mythic"], "eternal_eclipse": ["cassien_mythic", "ravienna_mythic"]}
+const BOND_NAMES := {"beyond_death": "Beyond Death", "eternal_eclipse": "Eternal Eclipse"}
+var bond_gauges: Dictionary = {}
+var bond_uses: Dictionary = {}
+
+func bond_pair(id: String) -> Array:
+	var pair: Array = []
+	if not BOND_PAIRS.has(id): return pair
+	for member in BOND_PAIRS[id]:
+		for unit in living(PLAYER_TEAM):
+			if unit.def_id == member and unit.ascension == CharacterInstance.MAX_ASCENSION:
+				pair.append(unit)
+				break
+	return pair if pair.size() == 2 else []
+
+func bond_for(actor: Combatant) -> String:
+	if actor == null or actor.team != PLAYER_TEAM: return ""
+	for id in BOND_PAIRS:
+		if actor.def_id in BOND_PAIRS[id] and bond_pair(id).size() == 2: return id
+	return ""
+
+func bond_ready(actor: Combatant, id: String) -> bool:
+	return not finished and actor != null and actor.combat_index == current_actor_index and bond_for(actor) == id and not id.is_empty() and int(bond_gauges.get(id, 0)) >= 100 and int(bond_uses.get(id, 0)) < 2
+
+func _charge_bond(actor: Combatant) -> void:
+	var id := bond_for(actor)
+	if not id.is_empty() and int(bond_uses.get(id, 0)) < 2:
+		bond_gauges[id] = mini(100, int(bond_gauges.get(id, 0)) + 25)
+
+func execute_bond(actor: Combatant, id: String) -> Array:
+	if not bond_ready(actor, id): return []
+	var pair := bond_pair(id)
+	bond_gauges[id] = 0
+	bond_uses[id] = int(bond_uses.get(id, 0)) + 1
+	var events: Array = [{"type":"bond", "bond_id":id, "skill_name":BOND_NAMES[id], "actor_uid":actor.uid, "member_uids":_uids_of(pair)}]
+	_append_log(str(BOND_NAMES[id]))
+	if id == "beyond_death":
+		for ally in living(actor.team):
+			var healed: float = ally.heal(ally.max_hp * 0.5)
+			var added: float = ally.max_hp * 0.3
+			ally.shield += added
+			events.append({"type":"heal","target_uid":ally.uid,"target_name":ally.display_name,"amount":roundi(healed)})
+			events.append({"type":"shield","target_uid":ally.uid,"target_name":ally.display_name,"amount":roundi(added)})
+			if ally != pair[0]:
+				ally.bond_guardian = weakref(pair[0])
+				ally.apply_status("bond_guard", 2, 0.35)
+				events.append({"type":"status","target_uid":ally.uid,"target_name":ally.display_name,"status":"bond_guard","turns":2})
+		for sibling in pair:
+			sibling.apply_status("bond_survive", 2, 1.0)
+			events.append({"type":"status","target_uid":sibling.uid,"target_name":sibling.display_name,"status":"bond_survive","turns":2})
+	else:
+		var combined: float = pair[0].effective_atk() + pair[1].effective_atk()
+		var dealt := 0.0
+		for foe in living(1 - actor.team):
+			if not foe.is_alive(): continue
+			var before: float = foe.hp
+			var raw: float = 4.5 * combined * combined / (combined + unit_defense(foe))
+			var result: Dictionary = foe.take_damage(maxf(1.0, roundf(raw * incoming_multiplier(foe))))
+			dealt += before - foe.hp
+			events.append({"type":"damage","actor_uid":actor.uid,"target_uid":foe.uid,"target_name":foe.display_name,"amount":roundi(result.damage),"absorbed":roundi(result.absorbed),"crit":false,"element":"neutral","skill_id":id,"element_mult":1.0,"advantage":""})
+			events.append_array(result.get("bond_events", []))
+			if foe.is_alive():
+				foe.apply_status("def_down", 2, 0.4)
+				foe.apply_status("eclipse_curse", 3, 0.05)
+				for status in ["def_down","eclipse_curse"]:
+					events.append({"type":"status","target_uid":foe.uid,"target_name":foe.display_name,"status":status,"turns":2 if status == "def_down" else 3})
+				events.append_array(_check_boss_phases(foe))
+			else:
+				events.append({"type":"death","target_uid":foe.uid,"target_name":foe.display_name})
+		for ally in living(actor.team):
+			ally.cleanse()
+			events.append({"type":"status","target_uid":ally.uid,"target_name":ally.display_name,"status":"cleanse","turns":0})
+		for member in pair:
+			var healed: float = member.heal(dealt * 0.125)
+			events.append({"type":"heal","target_uid":member.uid,"target_name":member.display_name,"amount":roundi(healed)})
+	if _check_finish(): return events + _finish_events()
+	return events + advance_turn()
+
 var skill_resolver := CombatSkillResolver.new()
 
 func _init() -> void:
@@ -60,12 +138,16 @@ func setup(player_units: Array, enemy_units: Array, battle_seed: int = 12345) ->
 		combatants[index].triggered_phases.clear()
 		combatants[index].skill_cooldowns.clear()
 		combatants[index].defending = false
+		combatants[index].bond_guardian = null
+		combatants[index].statuses = combatants[index].statuses.filter(func(status): return str(status.get("id","")) not in ["bond_guard","bond_survive","eclipse_curse"])
 	rng.seed = battle_seed
 	finished = false
 	winner_team = -1
 	round_number = 1
 	log.clear()
 	_dawnkeeper_used.clear()
+	bond_gauges.clear()
+	bond_uses.clear()
 	_apply_battle_start_passives()
 	_build_order()
 	turn_pointer = -1
@@ -140,6 +222,8 @@ func execute(actor_index: int, skill_id: String, target_indices: Array = []) -> 
 	var actor: Combatant = combatants[actor_index]
 	if not actor.is_alive():
 		return events
+	if BOND_PAIRS.has(skill_id):
+		return execute_bond(actor, skill_id) if target_indices.is_empty() else []
 	var skill: SkillDef = ContentDB.get_skill(skill_id)
 	if skill == null:
 		_append_log("Unknown skill: " + skill_id)
@@ -179,6 +263,7 @@ func execute(actor_index: int, skill_id: String, target_indices: Array = []) -> 
 			continue
 		events.append_array(_apply_skill(actor, skill, target))
 
+	_charge_bond(actor)
 	if _check_finish():
 		return events + _finish_events()
 	events.append_array(advance_turn())

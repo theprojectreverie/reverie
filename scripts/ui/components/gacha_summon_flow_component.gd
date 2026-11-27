@@ -34,6 +34,7 @@ func pull(count: int, paid: bool = false) -> void:
 
 
 func play_summon_reveal(results: Array) -> void:
+	screen._banner_content.close_drawer()
 	if screen._results_layer != null and is_instance_valid(screen._results_layer):
 		screen._results_layer.queue_free()
 	screen._results_layer = GachaScreen.SUMMON_REVEAL_SCENE.instantiate() as Control
@@ -193,7 +194,7 @@ func show_results(results: Array, currency_id: String = "crystals", banner_id: S
 		footer.get_node("Message").hide()
 	var again := footer.get_node("SummonAgainButton") as Button
 	var next_count := 10 if results.size() >= 10 else 1
-	var banner: Dictionary = ContentDB.get_banner(banner_id)
+	var banner: Dictionary = screen.active_banner(banner_id)
 	var cost_data: Dictionary = banner.get("cost", {})
 	var next_cost := int(cost_data.get("ten" if next_count == 10 else "single", 0))
 	var available_currency := screen.summon_currency(currency_id)
@@ -205,6 +206,12 @@ func show_results(results: Array, currency_id: String = "crystals", banner_id: S
 	else:
 		again.tooltip_text = "Spend %d %s (balance: %d)." % [next_cost, "Paid Moon Stones" if paid else "crystals", available_currency]
 	again.pressed.connect(func() -> void:
+		# A scheduled banner may expire while the results overlay is open.
+		var current := screen.active_banner(banner_id)
+		if current.is_empty() or current.get("revision", "") != banner.get("revision", "") or screen._selected_banner != banner_id or not screen.summon_available(next_count, next_cost, currency_id):
+			again.disabled = true
+			EventBus.toast_requested.emit("Banner or account state changed. Close results and review the current banner.")
+			return
 		if screen._results_layer != null:
 			screen._results_layer.queue_free()
 			screen._results_layer = null
@@ -228,6 +235,7 @@ func show_results(results: Array, currency_id: String = "crystals", banner_id: S
 # Online summons use a separate server wallet/roster. Local progress is never imported.
 var online_state: Dictionary = {}
 var online_state_fresh := false
+var state_retry_at := 0
 var pending_online: Dictionary = {}
 var _online_http: HTTPRequest
 var _online_identity := ""
@@ -244,6 +252,7 @@ func online_bind() -> void:
 func _online_identity_changed(_authenticated: bool, _player: Dictionary) -> void:
 	var current := str(AuthGateway.current_player().get("id", ""))
 	session_generation += 1
+	state_retry_at = 0
 	online_state_fresh = false
 	online_state = {}
 	pending_online.clear()
@@ -298,7 +307,7 @@ func _online_call(path: String, body: Dictionary = {}) -> Dictionary:
 		return {"code": 0, "error": "Sign in or reconnect, then retry."}
 	var identity := str(AuthGateway.current_player().get("id", ""))
 	var generation := session_generation
-	var err := _online_http.request(AuthGateway.api_base_url + "/v1/summon" + path, PackedStringArray(["Authorization: Bearer " + AuthGateway.access_token_for_request(), "Content-Type: application/json"]), HTTPClient.METHOD_GET if body.is_empty() else HTTPClient.METHOD_POST, "" if body.is_empty() else JSON.stringify(body))
+	var err := _online_http.request(AuthGateway.api_base_url + "/v1/summon" + path, PackedStringArray(["Authorization: Bearer " + AuthGateway.access_token_for_request(), "Content-Type: application/json","X-Reverie-Character-Content: 1"]), HTTPClient.METHOD_GET if body.is_empty() else HTTPClient.METHOD_POST, "" if body.is_empty() else JSON.stringify(body))
 	if err != OK: return {"code": 0, "error": "Connection busy. Try again."}
 	online_request_busy = true
 	var response: Array = await _online_http.request_completed
@@ -312,10 +321,17 @@ func _online_call(path: String, body: Dictionary = {}) -> Dictionary:
 		return {"code": 0, "error": "Unexpected server response. Retry when connected."}
 	var parsed: Dictionary = decoder.data
 	parsed["code"] = int(response[1])
+	if path == "/state" and int(response[1]) == 429:
+		var retry_seconds := 15
+		for header in response[2]:
+			var line := str(header)
+			if line.to_lower().begins_with("retry-after:"):
+				retry_seconds = clampi(int(line.get_slice(":",1).strip_edges()),1,120)
+		state_retry_at = Time.get_ticks_msec() + retry_seconds * 1000
 	return parsed
 
 func refresh_online_state() -> bool:
-	if online_loading or online_request_busy: return false
+	if online_loading or online_request_busy or Time.get_ticks_msec() < state_retry_at: return false
 	if not AuthGateway.access_token_ready_for_connection():
 		online_state_fresh = false
 		return false
@@ -329,6 +345,18 @@ func refresh_online_state() -> bool:
 		_online_identity = identity
 	_load_pending()
 	var response := await _online_call("/state")
+	if int(response.get("code",0))==200 and str(response.get("playerId",""))==identity:
+		var missing := false
+		for row in response.get("roster",[]):
+			var id:=str(row.get("char_id",""))
+			if id.begins_with("livechar_") and ContentDB.get_character(id)==null: missing=true
+		for banner in response.get("bannerCatalog",{}).values():
+			for id in banner.get("featured",[]):
+				if str(id).begins_with("livechar_") and ContentDB.get_character(str(id))==null: missing=true
+		if missing: await LiveCharacterContent.refresh(true)
+		for row in response.get("roster",[]):
+			var id:=str(row.get("char_id",""))
+			if id.begins_with("livechar_") and ContentDB.get_character(id)==null: response={"code":0,"error":"Character content download incomplete"};break
 	online_loading = false
 	if generation != session_generation or identity != _online_identity or identity != str(AuthGateway.current_player().get("id", "")): return false
 	return _apply_online_snapshot(response, identity)
@@ -344,7 +372,8 @@ func _apply_online_snapshot(response: Dictionary, identity: String) -> bool:
 		return false
 	online_state = response
 	online_state_fresh = true
-	AuthGateway.refresh_account_roster()
+	state_retry_at = 0
+	AuthGateway.accept_verified_collection_snapshot(response)
 	return true
 
 func pull_online(banner: String, count: int, currency: String = "crystals") -> Dictionary:
@@ -354,6 +383,8 @@ func pull_online(banner: String, count: int, currency: String = "crystals") -> D
 		return {"ok": false, "error": "Paid guarantee not verified. Reconnect to an updated server."}
 	if pending_online.is_empty():
 		pending_online = {"bannerId": banner, "count": count, "requestId": _uuid(), "currency": currency}
+		var revision := str(screen.active_banner(banner).get("revision", ""))
+		if not revision.is_empty(): pending_online["catalogRevision"] = revision
 		if currency == "paid_moonstones" and online_state.has("paidTotal"):
 			pending_online["expectedPaidTotal"] = str(online_state.paidTotal)
 		if not _store_pending():
@@ -388,7 +419,8 @@ func pull_online(banner: String, count: int, currency: String = "crystals") -> D
 			pending_online = rejected_request
 			return {"ok": false, "error": "Paid summons are unavailable in public alpha. Could not clear the rejected request; retry recovery."}
 		return {"ok": false, "error": "Paid summons are unavailable in public alpha. No charge for this rejected request. Use ordinary crystals."}
-	if code == 400 or (code == 409 and result.get("error") == "insufficient_currency"):
+	if code == 400 or (code == 409 and result.get("error") in ["insufficient_currency", "banner_changed_refresh"]):
 		pending_online.clear()
 		_store_pending()
+		if result.get("error") in ["unknown_banner", "banner_changed_refresh"]: await refresh_online_state()
 	return {"ok": false, "error": str(result.get("error", "Summon interrupted. Retry the same summon.")).replace("_", " ")}

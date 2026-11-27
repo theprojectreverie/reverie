@@ -11,8 +11,11 @@ const BOSS_RETREAT_TIME := 6.0 / 9.0
 const BOSS_IMPACT_TIME := BOSS_APPROACH_TIME + 5.0 / 12.0
 const BOSS_TOTAL_TIME := BOSS_APPROACH_TIME + BOSS_ATTACK_TIME + BOSS_RETREAT_TIME
 
-static func uses_boss_combo(attacker: BattlefieldActor, skill_id: String, ultimate: bool) -> bool:
-	return is_instance_valid(attacker) and attacker.kael_boss_art_enabled and not ultimate and skill_id not in ["rally_cry", "ember_lance", "blazing_charge"]
+static func is_kael(id: String) -> bool:
+	return id in ["kael", "kael_common", "kael_epic", "kael_legendary", "kael_mythic"]
+
+static func uses_boss_combo(attacker: BattlefieldActor, skill_id: String, _ultimate: bool) -> bool:
+	return is_instance_valid(attacker) and attacker.kael_boss_art_enabled and skill_id != "rally_cry"
 
 func bind(owner: Battlefield) -> void:
 	battlefield = owner
@@ -22,7 +25,7 @@ func bind(owner: Battlefield) -> void:
 func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		skill_id: String, ultimate: bool) -> void:
 	if uses_boss_combo(attacker, skill_id, ultimate):
-		_play_boss_combo(attacker, target)
+		_play_boss_combo(attacker, target, skill_id, ultimate)
 		return
 	var origin := attacker.home_position
 	var has_target := target != null and is_instance_valid(target)
@@ -127,7 +130,7 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 	combo.tween_property(attacker, "position", attacker.home_position, 0.30).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 
-func _play_boss_combo(attacker: BattlefieldActor, target: BattlefieldActor) -> void:
+func _play_boss_combo(attacker: BattlefieldActor, target: BattlefieldActor, skill_id: String, ultimate: bool) -> void:
 	attacker.cancel_attack_motion()
 	var target_ref: WeakRef = weakref(target) if is_instance_valid(target) else null
 	attacker.play_kael_boss_clip(&"approach")
@@ -137,7 +140,31 @@ func _play_boss_combo(attacker: BattlefieldActor, target: BattlefieldActor) -> v
 	motion.tween_callback(func() -> void:
 		attacker.play_kael_boss_clip(&"attack")
 	)
-	motion.tween_method(func(_elapsed: float): _place_boss_combo(1.0, attacker, target_ref), 0.0, 1.0, BOSS_ATTACK_TIME)
+	# Ember Lance travels for 0.34s and reaches the target on the existing impact beat.
+	var launch_delay := 5.0 / 12.0 - 0.34
+	motion.tween_method(func(_elapsed: float): _place_boss_combo(1.0, attacker, target_ref), 0.0, 1.0, launch_delay)
+	motion.tween_callback(func() -> void:
+		if skill_id != "ember_lance" or attacker.dead: return
+		var current_target := target_ref.get_ref() as BattlefieldActor if target_ref != null else null
+		if not is_instance_valid(current_target): return
+		var side := 1.0 if current_target.home_position.x >= attacker.position.x else -1.0
+		_spawn_kael_lance(attacker, attacker.position + Vector2(14.0 * side, -58.0), current_target.home_position + Vector2(0,-34.0), Color("#ff563f"), Color("#ffc16a"), Color("#fff0d0"))
+	)
+	motion.tween_method(func(_elapsed: float): _place_boss_combo(1.0, attacker, target_ref), 0.0, 1.0, 0.34)
+	motion.tween_callback(func() -> void:
+		if not is_instance_valid(attacker) or attacker.dead: return
+		var current_target := target_ref.get_ref() as BattlefieldActor if target_ref != null else null
+		if not is_instance_valid(current_target): return
+		var impact := current_target.home_position + Vector2(0, -34.0)
+		var fire := Color("#ff563f")
+		var gold := Color("#ffc16a")
+		var pale := Color("#fff0d0")
+		if ultimate or skill_id == "blazing_charge":
+			_spawn_kael_ultimate_burst(attacker, impact, fire, gold, pale)
+			battlefield.cinematic_impact.emit(1.0, 0.48)
+
+	)
+	motion.tween_method(func(_elapsed: float): _place_boss_combo(1.0, attacker, target_ref), 0.0, 1.0, BOSS_ATTACK_TIME - 5.0 / 12.0)
 	motion.tween_callback(func() -> void:
 		attacker.play_kael_boss_clip(&"retreat")
 	)

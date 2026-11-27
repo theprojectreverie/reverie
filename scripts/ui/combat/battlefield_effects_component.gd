@@ -18,6 +18,10 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		element: String = "neutral", skill_id: String = "", ultimate: bool = false) -> void:
 	if attacker == null or not is_instance_valid(attacker):
 		return
+	if is_instance_valid(attacker.live_art):
+		if is_instance_valid(target) and target != attacker: attacker.face(target.home_position-attacker.home_position)
+		attacker.play_live_action(skill_id,ultimate)
+		return
 	if is_instance_valid(attacker.fairy_art):
 		if is_instance_valid(target) and target != attacker:
 			attacker.face(target.home_position - attacker.home_position)
@@ -37,7 +41,7 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		if matron_attack_component != null:
 			matron_attack_component.play_attack(attacker, target, skill_id, ultimate)
 		return
-	if attacker.unit != null and attacker.unit.def_id == "kael":
+	if attacker.unit != null and KaelAttackPresentationComponent.is_kael(attacker.unit.def_id):
 		kael_attack_component.play_attack(attacker, target, skill_id, ultimate)
 		return
 	if generic_attack_component != null:

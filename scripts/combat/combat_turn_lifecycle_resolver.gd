@@ -40,10 +40,10 @@ static func begin_actor_turn(actor: Combatant) -> Dictionary:
 
 static func _tick_statuses(actor: Combatant, log_messages: Array[String]) -> Array:
 	var events: Array = []
-	for status in actor.statuses:
+	for status in actor.statuses.duplicate():
 		var status_id := str(status.get("id", ""))
 		var potency := float(status.get("potency", 0.0))
-		if status_id in ["burn", "poison"]:
+		if status_id in ["burn", "poison", "eclipse_curse"]:
 			var amount := maxf(1.0, roundf(actor.max_hp * potency))
 			var result := actor.take_damage(amount)
 			events.append({
@@ -56,6 +56,7 @@ static func _tick_statuses(actor: Combatant, log_messages: Array[String]) -> Arr
 			log_messages.append("%s suffers %d %s damage." % [
 				actor.display_name, int(round(result.damage)), status_id
 			])
+			events.append_array(result.get("bond_events", []))
 			if result.dead:
 				events.append({"type": "death", "target_uid": actor.uid, "target_name": actor.display_name})
 				break

@@ -94,7 +94,7 @@ func _build_content() -> void:
 		if definition == null:
 			continue
 		var member := PAUSE_PARTY_MEMBER_SCENE.instantiate() as VBoxContainer
-		member.setup(definition, int(instance.level))
+		member.setup(definition, int(instance.level), int(instance.ascension))
 		party_row.add_child(member)
 
 	var footer := overview.get_node("Footer") as HBoxContainer

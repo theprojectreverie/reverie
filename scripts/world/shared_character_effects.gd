@@ -16,7 +16,7 @@ func _ready() -> void:
 	cast_particles.emitting = false
 
 func _process(_delta: float) -> void:
-	if owner_visual == null or owner_visual.animator == null or owner_visual.character_id == "kael" or owner_visual.character_id.begins_with("gerald") or owner_visual.character_id.begins_with("lilith") or owner_visual.character_id.begins_with("ravienna"):
+	if owner_visual == null or owner_visual.animator == null or owner_visual.character_id == "kael" or owner_visual.character_id.begins_with("gerald") or owner_visual.character_id.begins_with("lilith") or owner_visual.character_id.begins_with("ravienna") or owner_visual.character_id.begins_with("cassien") or owner_visual.character_id.begins_with("mirene"):
 		visible = false
 		if _last_state != -1:
 			player.stop()

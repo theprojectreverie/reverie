@@ -5,12 +5,12 @@ var _name_label: Label
 var _level_label: Label
 
 
-func setup(definition: CharacterDef, level: int) -> void:
+func setup(definition: CharacterDef, level: int, ascension: int = 0) -> void:
 	_portrait = get_node("Portrait") as PortraitView
 	_name_label = get_node("Name") as Label
 	_level_label = get_node("Level") as Label
 	if definition != null:
-		_portrait.setup_character(definition)
+		_portrait.setup_character(definition, "", ascension)
 		_name_label.text = definition.display_name
 	else:
 		_name_label.text = "Unknown"

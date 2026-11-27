@@ -197,7 +197,7 @@
     "color": "#638fdf"
   },
   "upgrade_mirene_rare_v1": {
-    "name": "MirÃ©ne Rare Card",
+    "name": "Miréne Rare Card",
     "category": "material",
     "rarity": "rare",
     "description": "Collect 20 matching cards to receive one Epic card.",
@@ -260,7 +260,7 @@
     "color": "#ad7bdc"
   },
   "upgrade_mirene_epic_v1": {
-    "name": "MirÃ©ne Epic Card",
+    "name": "Miréne Epic Card",
     "category": "material",
     "rarity": "epic",
     "description": "Collect 10 matching cards to receive the matching Legendary character.",
@@ -323,7 +323,7 @@
     "color": "#dca948"
   },
   "legendary_progress_mirene_legendary": {
-    "name": "MirÃ©ne Mythic Progress",
+    "name": "Miréne Mythic Progress",
     "category": "material",
     "rarity": "legendary",
     "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
@@ -386,7 +386,7 @@
     "color": "#df5275"
   },
   "mythic_ascension_mirene_mythic": {
-    "name": "MirÃ©ne Mythic Ascension Progress",
+    "name": "Miréne Mythic Ascension Progress",
     "category": "material",
     "rarity": "mythic",
     "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
@@ -394,6 +394,20 @@
   },
   "mythic_ascension_caelith_mythic": {
     "name": "Caelith Mythic Ascension Progress",
+    "category": "material",
+    "rarity": "mythic",
+    "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",
+    "color": "#df5275"
+  },
+  "legendary_progress_elathra": {
+    "name": "Elathra Mythic Progress",
+    "category": "material",
+    "rarity": "legendary",
+    "description": "Seven matching Legendary acquisitions grant the Mythic version. The Legendary character is retained.",
+    "color": "#dca948"
+  },
+  "mythic_ascension_elathra_mythic": {
+    "name": "Elathra Mythic Ascension Progress",
     "category": "material",
     "rarity": "mythic",
     "description": "Seven matching Mythic acquisitions unlock maximum ascension. Current level and equipment are retained.",

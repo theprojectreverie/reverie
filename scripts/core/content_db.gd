@@ -6,6 +6,11 @@ extends Node
 const DATA_DIR := "res://resources/data/"
 
 var characters: Dictionary = {}
+var live_character_definitions: Dictionary = {}
+var live_character_items: Dictionary = {}
+var live_upgrade_cards: Dictionary = {}
+var live_mythic_fusion: Dictionary = {}
+var live_mythic_ascension: Dictionary = {}
 var skills: Dictionary = {}
 var enemies: Dictionary = {}
 var enemy_groups: Dictionary = {}
@@ -102,6 +107,20 @@ func _enemy_def(enemy_id: String, data: Dictionary) -> Dictionary:
 	return copy
 
 
+func validated_live_definitions(raw: Dictionary) -> Dictionary:
+	if raw.size()>8: return {}
+	for id in raw:
+		if not str(id).begins_with("livechar_") or (characters.has(id) and not live_character_definitions.has(id)) or not raw[id] is Dictionary or raw[id].get("rarity") not in ["legendary","mythic"] or not bool(raw[id].get("gacha_enabled",false)): return {}
+	if not ContentValidator.validate_document("characters.json",raw,{"skills.json":_read_json("skills.json")}).is_empty(): return {}
+	var defs: Dictionary = {}
+	for id in raw: defs[id]=CharacterDef.from_dict(str(id),raw[id])
+	return defs
+
+func install_live_definitions(defs: Dictionary) -> void:
+	for id in live_character_definitions: characters.erase(id)
+	live_character_definitions=defs.duplicate()
+	characters.merge(live_character_definitions,true)
+
 func get_character(character_id: String) -> CharacterDef:
 	return characters.get(character_id, null)
 
@@ -111,7 +130,7 @@ func get_skill(skill_id: String) -> SkillDef:
 
 
 func get_item(item_id: String) -> Dictionary:
-	return items.get(item_id, {})
+	return items.get(item_id, live_character_items.get(item_id, {}))
 
 
 func get_enemy(enemy_id: String) -> Dictionary:

@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://assets/enemies/mossling/idle_pass_02/mossling_idle_preview.tres" id="idle"]
+
+[node name="MosslingPreview" type="Node2D"]
+metadata/preview_only = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+offset = Vector2(0, -55)
+scale = Vector2(0.65, 0.65)
+sprite_frames = ExtResource("idle")
+animation = &"idle_0"
+autoplay = "idle_0"
+

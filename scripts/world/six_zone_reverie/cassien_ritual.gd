@@ -272,7 +272,7 @@ func _ritual_cue(id: String, node_id: String) -> void:
 			AudioDirector.play_variant("magic_impact", -7.0)
 			_play_ritual_clip(&"resurrection")
 		"fracture":
-			dialogue.get_node("DialoguePanel/ContentRow/Portrait").set_portrait_texture(preload("res://assets/portraits/summon/revienna_human_ritual.png"))
+			dialogue.get_node("DialoguePanel/ContentRow/Portrait").set_portrait_texture(preload("res://assets/portraits/profile/ravienna_human.png"))
 			tomb_animation.play("fracture")
 			_play_ritual_clip(&"possession")
 		"departure":
@@ -352,7 +352,7 @@ func _on_ritual_clip_finished() -> void:
 		return
 	ritual_clip_active = false
 	if ritual_visual.animation == &"possession":
-		dialogue.get_node("DialoguePanel/ContentRow/Portrait").set_portrait_texture(preload("res://assets/portraits/summon/ravienna.png"))
+		dialogue.get_node("DialoguePanel/ContentRow/Portrait").set_portrait_texture(preload("res://assets/portraits/profile/ravienna_mythic.png"))
 	_ritual_continue_button().disabled = false
 
 

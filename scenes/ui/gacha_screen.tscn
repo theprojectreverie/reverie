@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/screens/gacha_screen.gd" id="1"]
 [ext_resource type="Texture2D" path="res://assets/ui/backgrounds/gothic_moonlit_summoning_cathedral.png" id="2"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/components/online_roster_dialog.tscn" id="6_online_roster"]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/components/summon_history_dialog.tscn" id="7_history"]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/components/portrait_view.tscn" id="8_hero"]
 
 [node name="GachaScreen" type="Control"]
 script = ExtResource("1")
@@ -25,6 +27,20 @@ mouse_filter = 2
 texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="BannerHero" parent="." instance=ExtResource("8_hero")]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 55.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+fit_mode = "art"
 
 [node name="SummoningChamberAtmosphere" parent="." instance=ExtResource("5_atmosphere")]
 z_index = -1

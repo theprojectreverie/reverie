@@ -498,6 +498,7 @@ func _completed(result: int,code: int,_headers: PackedStringArray,bytes: PackedB
 			var options: OptionButton=_layout.get_node("Profile/Pictures")
 			options.clear()
 			for id in data.choices:
+				if not PORTRAIT.has_profile_art(str(id)):continue
 				var tex=PORTRAIT.texture(str(id))
 				if tex==null:continue
 				options.add_icon_item(tex,str(id).replace("_avatar","").replace("ravienna","queen_ravienna").capitalize())
@@ -977,7 +978,7 @@ func _render_gallery() -> void:
 		tile.name = id
 		var unlocked := _unlocked_portraits.has(id)
 		tile.text = label if unlocked else label + "\nLocked"
-		tile.tooltip_text = label if unlocked else "Obtain this character to unlock its portrait."
+		tile.tooltip_text = label if unlocked else ("Fully ascend the Mythic character to unlock." if id.ends_with("_ascended") else "Obtain the corresponding character to unlock.")
 		tile.disabled = not unlocked
 		if not unlocked: tile.modulate = Color(0.65, 0.65, 0.65, 1.0)
 		tile.icon = options.get_item_icon(i)

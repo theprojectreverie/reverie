@@ -93,12 +93,14 @@ func add_character(character_id: String) -> Dictionary:
 func story_solo_active() -> bool:
 	var scene := get_tree().current_scene
 	if scene != null:
-		if scene.name == &"StandaloneVillage" or scene.scene_file_path.begins_with("res://scenes/world/tutorial_prologue/"):
+		if scene.name == &"StandaloneVillage":
+			return not bool(GameState.quest_domain.flags.get("village_lilith_awakened", false))
+		if scene.scene_file_path.begins_with("res://scenes/world/tutorial_prologue/"):
 			return true
 		if str(scene.name).begins_with("StandaloneZone"):
 			return false
 	var checkpoint: Dictionary = GameState.quest_domain.flags.get("six_zone_checkpoint", {})
-	return str(checkpoint.get("zone", "")) == "StandaloneVillage"
+	return str(checkpoint.get("zone", "")) == "StandaloneVillage" and not bool(GameState.quest_domain.flags.get("village_lilith_awakened", false))
 
 
 func effective_party_ids() -> Array:

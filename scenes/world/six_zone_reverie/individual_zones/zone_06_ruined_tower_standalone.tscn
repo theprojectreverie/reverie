@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dlu2mcsc7d0qk" path="res://scripts/game/game_overlay_router_component.gd" id="existing_overlay_router"]
 [ext_resource type="Texture2D" uid="uid://cvf036mpcmp7p" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
 [ext_resource type="Texture2D" uid="uid://iqs0topeqx3g" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
-[ext_resource type="Texture2D" uid="uid://dj4nnh2hov1tm" path="res://assets/environment/six_zone_reverie/backgrounds/zone_06_ruined_tower.png" id="prepared_background"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_06_ruined_tower_underlay.png" id="prepared_background"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/stone_road_6x10.tscn" id="road"]
 [ext_resource type="Texture2D" uid="uid://c8idr0l46n2sl" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_05.png" id="road_fog_ToPreviousZone"]
 [ext_resource type="Script" uid="uid://cpi7hbov6wbyd" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
@@ -60,24 +60,14 @@ process_callback = 0
 position = Vector2(0, 2460)
 zoom = Vector2(0.45, 0.45)
 
-[node name="ScenicBackground" type="CanvasLayer" parent="." unique_id=588492171]
-layer = -1
-
-[node name="Artwork" type="TextureRect" parent="ScenicBackground" unique_id=1923126262]
-modulate = Color(0.38, 0.38, 0.38, 1)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1649.0
-offset_top = -493.0
-offset_right = 1649.0
-offset_bottom = -493.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="ScenicBackground" type="Sprite2D" parent="."]
+z_index = -100
+texture_repeat = 3
+position = Vector2(64, 1616)
+scale = Vector2(2.75, 2.75)
 texture = ExtResource("prepared_background")
-expand_mode = 1
-stretch_mode = 6
+region_enabled = true
+region_rect = Rect2(-3344, -1882, 8360, 4705)
 
 [node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
 position = Vector2(100, 2420)

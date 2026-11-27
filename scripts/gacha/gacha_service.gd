@@ -18,7 +18,7 @@ static func empty_pity() -> Dictionary:
 static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionary, count: int, paid_progress: int = -1) -> Dictionary:
 	var state := empty_pity()
 	state.merge(pity, true)
-	var rates: Dictionary = banner.get("rates", {})
+	var rates: Dictionary = banner.get("paid_rates", banner.get("rates", {})) if paid_progress >= 0 else banner.get("rates", {})
 	var featured: Array = banner.get("featured", [])
 	var featured_rate := float(banner.get("featured_rate", 0.5))
 	var hard_pity := int(banner.get("hard_pity", 70))
@@ -39,9 +39,16 @@ static func pull(banner: Dictionary, rng: RandomNumberGenerator, pity: Dictionar
 			rarity = _roll_rarity(rates, rng)
 
 		var milestone := paid_progress >= 0 and (paid_progress + index + 1) % 100 == 0
-		if milestone and RARITY_RANK[rarity] < RARITY_RANK["legendary"]:
+		var mythic_pool: Array = banner.get("pool", {}).get("mythic", [])
+		var mythic_featured_only := not featured.is_empty()
+		for featured_id in featured:
+			if not mythic_pool.has(featured_id):
+				mythic_featured_only = false
+		if mythic_featured_only and (state.featured >= featured_pity or milestone):
+			rarity = "mythic"
+		elif milestone and RARITY_RANK[rarity] < RARITY_RANK["legendary"]:
 			rarity = "legendary"
-		var pick := _pick_character(banner, rarity, featured, featured_rate, state, featured_pity, rng)
+		var pick := _pick_character(banner, rarity, featured, 1.0 if milestone and mythic_featured_only else featured_rate, state, featured_pity, rng)
 		var is_featured: bool = pick.featured
 
 		if RARITY_RANK.get(rarity, 0) >= RARITY_RANK["legendary"]:

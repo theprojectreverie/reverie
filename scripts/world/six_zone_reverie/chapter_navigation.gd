@@ -4,7 +4,7 @@ const TRAVEL = preload("res://scripts/world/six_zone_reverie/fast_travel.gd")
 const SHARED_NAV = preload("res://scripts/world/six_zone_reverie/expedition_navigation.gd")
 const IDS = ["elathra_first_audience","royal_gate_patrol","willow_crossing","elderwood_relics","cassien_resurrection","forsaken_braziers"]
 const STORY_ENTRIES = {
-	"gerald_story": {"name":"The Fallen Guardian","region":"Village","summary":"Confront Gerald and discover the memories behind his fall.","steps":[{"text":"Defeat Gerald"},{"text":"Witness Gerald's memories and farewell"}]},
+	"gerald_story": {"name":"The Fallen Guardian","region":"Village","summary":"Confront Gerald and discover the memories behind his fall.","steps":[{"text":"Defeat Gerald"},{"text":"Witness Gerald's memories and Lilith's awakening"}]},
 	"ravienna_finale": {"name":"The Eclipse Sovereign","region":"Ruined Tower","summary":"Face Ravienna and witness the end of the chapter.","steps":[{"text":"Defeat Ravienna"},{"text":"Witness the ending"}]},
 }
 const JOURNAL_IDS = ["gerald_story","elathra_first_audience","royal_gate_patrol","willow_crossing","elderwood_relics","cassien_resurrection","forsaken_braziers","ravienna_finale"]

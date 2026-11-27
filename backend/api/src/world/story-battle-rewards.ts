@@ -2,6 +2,7 @@ import {randomInt} from "node:crypto";
 import {readFileSync} from "node:fs";
 import type {PoolClient} from "pg";
 import {gainCharacterXp} from "./character-xp.js";
+import {liveDefinition} from "./live-character-packs.js";
 import {retiredPlayableIds} from "./summon.js";
 import {isOneTimeStoryEncounter} from "./story-progression-proof.js";
 import {recordOnlineDailyVictory} from "../routes/daily-quests.js";
@@ -51,7 +52,7 @@ export async function settleStoryVictory(db:PoolClient,playerId:string,battleId:
   const prior=await db.query("SELECT 1 FROM story_battle_sessions WHERE player_id=$1 AND group_id=$2 AND settled_at IS NOT NULL",[playerId,row.group_id]);
   if(prior.rowCount)return {ok:false,reason:"already_claimed"};
  }
- if(row.party_ids.length<1||row.party_ids.length>4||new Set(row.party_ids).size!==row.party_ids.length||row.party_ids.some(id=>!characters[id]||retiredPlayableIds.includes(id)))return {ok:false,reason:"invalid_battle_party"};
+ if(row.party_ids.length<1||row.party_ids.length>4||new Set(row.party_ids).size!==row.party_ids.length||row.party_ids.some(id=>(!characters[id]&&!liveDefinition(id))||retiredPlayableIds.includes(id)))return {ok:false,reason:"invalid_battle_party"};
  const owned=await db.query<{id:string;char_id:string;level:number;xp:string;ascension:number}>("SELECT id,char_id,level,xp::text,ascension FROM owned_characters WHERE player_id=$1 AND char_id=ANY($2::text[]) FOR UPDATE",[playerId,row.party_ids]);
  if(owned.rows.length!==row.party_ids.length)return {ok:false,reason:"battle_party_not_owned"};
  const reward=storyReward(row.group_id);

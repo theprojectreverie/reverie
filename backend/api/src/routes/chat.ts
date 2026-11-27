@@ -1,6 +1,7 @@
 import type {FastifyPluginAsync,FastifyRequest,FastifyReply} from "fastify";
 import {z} from "zod";
 import {randomUUID} from "node:crypto";
+import {readFileSync} from "node:fs";
 import {pool} from "../db.js";
 import {createChatRetention,RECENT_CHAT_CLEANUP_SQL} from "../world/chat-retention.js";
 import type {PoolClient} from "pg";
@@ -15,6 +16,12 @@ const query=z.object({channel:channel.default("world"),recipientId:z.string().uu
 const body=z.object({channel,recipientId:z.string().uuid().optional(),replyTo:z.string().uuid().optional(),guildId:z.string().uuid().optional(),text:z.string().trim().min(1).max(200).refine(s=>!/\p{Cc}|\p{Cf}/u.test(s),"Invalid characters")}).strict().refine(v=>(v.channel==="private")===Boolean(v.recipientId)&&(v.channel==="guild")===Boolean(v.guildId));
 const blockBody=z.object({playerId:z.string().uuid()}).strict();
 const CHARACTER_STICKERS=["kael_mythic","lilith_mythic","gerald_mythic","ravienna_mythic","cassien_mythic","nyx_mythic","crimson_witch_mythic","mirene_mythic","caelith_mythic"] as const;
+const mobChatManifest=JSON.parse(readFileSync(new URL("../../../../resources/data/mob_chat_stickers.json",import.meta.url),"utf8")) as {id:string}[];
+const MOB_CHAT_IDS=new Set(mobChatManifest.map(row=>row.id));
+function unknownMobSticker(text:string):boolean {
+ const match=/^\[sticker:((?:stickers|emotes)_[^\]]*)\]$/.exec(text);
+ return !!match&&!MOB_CHAT_IDS.has(match[1]!);
+}
 function characterSticker(text:string):string|undefined {
  const match=/^\[sticker:([a-z_]+)\]$/.exec(text);
  return match&&CHARACTER_STICKERS.some(id=>id===match[1])?match[1]:undefined;
@@ -172,6 +179,7 @@ export const chatRoutes:FastifyPluginAsync=async app=>{
   const since=c==="private"?await friendshipSince(me.id,recipient!):undefined;
   if(c==="private"&&!since)return reply.code(403).send({error:"friendship_required"});
   if(c==="guild"&&parsed.data.guildId!==guild?.guild_id)return reply.code(403).send({error:"guild_membership_required"});
+  if(unknownMobSticker(parsed.data.text))return reply.code(400).send({error:"unknown_sticker"});
   const sticker=characterSticker(parsed.data.text);
   if(sticker&&!(await unlockedStickers(me.id)).includes(sticker))return reply.code(403).send({error:"sticker_locked"});
   const replyTo=parsed.data.replyTo;

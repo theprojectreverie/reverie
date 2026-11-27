@@ -40,8 +40,9 @@ static func build_from_character(instance: CharacterInstance, collection_bonus: 
 	unit.rarity = definition.rarity
 	unit.role = definition.role
 	unit.level = instance.level
+	unit.ascension = instance.ascension
 	unit.palette = definition.palette
-	var mult := instance.power_multiplier() * collection_bonus
+	var mult := instance.power_multiplier(definition.rarity == "mythic") * collection_bonus
 	unit.max_hp = definition.effective_stat("hp", instance.level, instance.ascension) * mult * PLAYER_HP_SCALE
 	unit.atk = definition.effective_stat("atk", instance.level, instance.ascension) * mult
 	unit.defense = definition.effective_stat("def", instance.level, instance.ascension) * mult

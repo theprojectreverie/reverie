@@ -33,11 +33,13 @@ func setup(roll: Dictionary) -> void:
 	_status_label = get_node("Content/Status") as Label
 	var upgrade := UPGRADE.definition(character_id)
 	var mob := MOB.definition(character_id)
-	var source_id := str(upgrade.get("portrait_id", character_id))
+	var source_id := UPGRADE.portrait_id(character_id)
 	var base := preload("res://scripts/ui/portrait_framing.gd").base_id(source_id)
 	var authored: Texture2D = null
 	if not mob.is_empty():
 		authored = MOB.texture(mob)
+	elif not preload("res://scripts/art/approved_character_portraits.gd").path_for(source_id).is_empty():
+		authored = preload("res://scripts/art/approved_character_portraits.gd").texture(source_id)
 	elif base in ["kael", "gerald", "lilith"]:
 		authored = load("res://assets/portraits/summon/%s.png" % base) as Texture2D
 	else:
@@ -78,7 +80,8 @@ func setup(roll: Dictionary) -> void:
 		var evolved: Array = roll.get("fusions", [])
 		tags.append("Fused: " + str(evolved.back().name) if not evolved.is_empty() else "Mythic %d/7" % int(roll.mythic_count))
 	if roll.has("ascended_count"):
-		tags.append("FULLY ASCENDED" if int(roll.ascended_count) >= 7 else "Ascension %d/7" % int(roll.ascended_count))
+		tags.append(CharacterInstance.star_text(int(roll.ascended_count)) + " | +%d%% power" % (4 * clampi(int(roll.ascended_count)-1,0,6)))
+		if int(roll.ascended_count) >= 7: tags.append("FULLY ASCENDED")
 	var status_color := UITheme.TEXT_DIM
 	if bool(roll.get("featured", false)):
 		tags.append("FEATURED")

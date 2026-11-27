@@ -34,6 +34,15 @@ try{
  assert.equal((await req("/v1/developer/payments",{headers})).status,404);
  assert.equal((await req("/v1/realtime",{headers})).status,404);
  assert.equal(calls,1);
+ const bearer='Bearer a.'+Buffer.from(JSON.stringify({sub:'11111111-1111-4111-8111-111111111111'})).toString('base64url')+'.c';
+ assert.equal((await req('/v1/developer/live-content',{headers})).status,403);
+ assert.equal((await req('/v1/developer/live-content',{headers:{...headers,authorization:bearer}})).status,200);
+ assert.equal((await req('/v1/developer/live-content/publish',{method:'POST',headers:{...headers,authorization:bearer,origin:'https://evil.test'},body:'{}'})).status,403);
+ assert.equal((await req('/v1/developer/live-content/artwork',{method:'POST',headers:{...headers,authorization:bearer},body:JSON.stringify({png:'A'.repeat(50000)})})).status,200);
+ assert.equal((await req('/v1/developer/live-content/publish',{method:'POST',headers:{...headers,authorization:bearer},body:JSON.stringify({draft:'A'.repeat(50000)})})).status,400);
+ assert.equal((await req('/v1/developer/live-content/control',{method:'POST',headers:{...headers,authorization:bearer},body:'{}'})).status,200);
+ assert.equal(calls,4);
+
  writeFileSync(file,JSON.stringify({entries:[]}));
  assert.equal((await req("/v1/developer/rewards/history",{headers})).status,401);
  assert.match(await (await req("/developer",{headers})).text(),/Private access code/);

@@ -1,0 +1,17 @@
+import {z} from "zod";
+import {join} from "node:path";
+import {readFileSync} from "node:fs";
+import {contentDirectory,readDocument,withPublishLock,atomicDocument,readArtwork} from "./live-content-store.js";
+export const bundledCharacterDefinitions=JSON.parse(readFileSync(new URL("../../../../resources/data/characters.json",import.meta.url),"utf8")) as Record<string,{name:string;rarity:string;gacha_enabled?:boolean;skills?:string[];ultimate?:string;[key:string]:unknown}>;
+const characters=bundledCharacterDefinitions;
+export const characterTemplates=Object.entries(characters).filter(([,v])=>["legendary","mythic"].includes(v.rarity)&&v.gacha_enabled!==false).map(([id,v])=>({id,name:v.name,rarity:v.rarity}));
+export const animationSlots=["idle","basic_attack","skill_1","skill_2","ultimate","hit","defeat"] as const;
+const hash=z.string().regex(/^[a-f0-9]{64}$/);
+const animation=z.object({slot:z.enum(animationSlots),artwork:hash,columns:z.number().int().min(1).max(8),rows:z.number().int().min(1).max(8),frames:z.number().int().min(1).max(64),fps:z.number().int().min(1).max(24),facing:z.enum(["left","right"])}).strict().refine(a=>a.frames<=a.columns*a.rows,"frame_count_exceeds_atlas");
+const draft=z.object({id:z.string().regex(/^draft_[a-z0-9_]{1,60}$/),mode:z.enum(["new_character","animation_update"]),characterId:z.string().regex(/^[a-z0-9_]{1,64}$/),template:z.string().min(1).max(64),name:z.string().trim().min(1).max(60),title:z.string().trim().max(80),lore:z.string().trim().max(800),heightCm:z.number().int().min(80).max(500).optional(),portrait:hash.optional(),animations:z.array(animation).min(1).max(7)}).strict();
+const entry=draft.extend({stagedBy:z.string().uuid(),stagedAt:z.string().datetime()});
+export type CharacterDraft=z.infer<typeof entry>;
+const manifest=z.object({schema:z.literal(1),drafts:z.array(entry).max(100)}).strict();const path=()=>join(contentDirectory(),"character-drafts.json");
+export function characterDrafts(){const raw=readDocument(path());return raw===undefined?[]:manifest.parse(raw).drafts;}
+export function stageCharacter(value:unknown,actor:string,save:boolean){const d=draft.parse(value);if(!characterTemplates.some(t=>t.id===d.template))throw Error("unknown_character_template");if(d.mode==="new_character"){if(!d.characterId.startsWith("livechar_")||Object.hasOwn(characters,d.characterId)||!d.portrait)throw Error("new_character_identity_or_portrait_required");}else if(d.characterId!==d.template)throw Error("animation_update_requires_matching_character");if(d.portrait)readArtwork(d.portrait);const slots=new Set<string>();for(const a of d.animations){if(slots.has(a.slot))throw Error("duplicate_animation_slot");slots.add(a.slot);const png=readArtwork(a.artwork);if(png.readUInt32BE(16)!==a.columns*128||png.readUInt32BE(20)!==a.rows*128||png[25]!==6)throw Error("atlas_requires_exact_rgba_128_grid");}
+ const run=()=>{const rows=characterDrafts();if(rows.length>=100)throw Error("character_draft_limit");if(rows.some(r=>r.id===d.id))throw Error("character_draft_exists");const row={...d,stagedBy:actor,stagedAt:new Date().toISOString()};if(save)atomicDocument(path(),{schema:1,drafts:[...rows,row]});const t=characters[d.template]!;return {draft:row,missingAnimations:animationSlots.filter(a=>!slots.has(a)),template:{rarity:t.rarity,skills:t.skills??[],ultimate:t.ultimate??null},staged:save,playable:false};};return save?withPublishLock(path(),run):run();}

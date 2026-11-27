@@ -31,7 +31,7 @@ func show_detail(uid: String) -> void:
 	else:
 		portrait.custom_minimum_size = Vector2(168, 196)
 	portrait.fit_mode = "card"
-	portrait.setup_character(definition)
+	portrait.setup_character(definition, "", instance.ascension)
 	screen._detail.add_child(portrait_slot)
 
 	var name_label := UIFactory.heading(definition.display_name, 23, UITheme.TEXT)
@@ -77,7 +77,7 @@ func show_detail(uid: String) -> void:
 	var recipe: Dictionary = fusion.ascension_recipe(instance.char_id)
 	if not recipe.is_empty():
 		var count: int = GameState.inventory_domain.item_count(str(recipe.item))
-		screen._detail.add_child(UIFactory.wrapped("Mythic ascension: %d / %d acquisitions" % [count, int(recipe.cost)], 12, UITheme.GOLD))
+		screen._detail.add_child(UIFactory.wrapped(CharacterInstance.star_text(instance.mythic_stars()) + " | +%d%% HP / ATK / DEF | %d/%d ascension acquisitions" % [(instance.mythic_stars()-1)*4,count,int(recipe.cost)], 12, UITheme.GOLD))
 		for bond in fusion.bonds():
 			if instance.char_id in bond.members:
 				var active: bool = fusion.active_bonds(GameState.roster_domain.party_instances()).has(bond)
@@ -91,7 +91,7 @@ func show_detail(uid: String) -> void:
 	screen._detail.add_child(xp_bar)
 	screen._detail.add_child(UIFactory.label("XP %d / %d" % [instance.xp, xp_needed], 10, UITheme.TEXT_FAINT))
 
-	var multiplier := instance.power_multiplier() * GameState.roster_domain.collection_bonus()
+	var multiplier := instance.power_multiplier(definition.rarity == "mythic") * GameState.roster_domain.collection_bonus()
 	var combat_stats := CombatFactory.build_from_character(instance, GameState.roster_domain.collection_bonus())
 	var stats := UIFactory.grid(2, 4)
 	stats.add_child(stat_row("HP", int(round(combat_stats.max_hp))))

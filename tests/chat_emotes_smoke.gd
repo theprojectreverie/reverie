@@ -9,7 +9,7 @@ func _ready() -> void:
 	var history: RichTextLabel = layout.get_node("History")
 	var errors: Array[String] = []
 	if layout.get_node("EmotePicker/EmojiScroll/EmojiGrid").get_child_count()!=16:errors.append("emoji count")
-	if layout.get_node("EmotePicker/StickerScroll/StickerGrid").get_child_count()!=16:errors.append("sticker count")
+	if layout.get_node("EmotePicker/StickerScroll/StickerGrid").get_child_count()!=118:errors.append("sticker count")
 	if not layout.get_node("Composer/Emotes").disabled:errors.append("anonymous picker enabled")
 	screen._emote_tab(true)
 	if not layout.get_node("EmotePicker/StickerScroll").visible:errors.append("sticker tab")
@@ -36,6 +36,23 @@ func _ready() -> void:
 		var marker: String = "[sticker:"+str(id)+"]"
 		screen._render_message_body(history,marker)
 		if history.get_parsed_text().contains(marker):errors.append("artwork missing: "+id)
+	var mob_art = load("res://scripts/ui/components/mob_chat_art.gd")
+	for id in mob_art.IDS:
+		var texture: Texture2D = screen._sticker_texture(id)
+		var expected := 128 if str(id).begins_with("emotes_") else 256
+		if texture == null or texture.get_size() != Vector2(expected,expected):errors.append("mob art size: "+id)
+		if not screen._sticker_unlocked(id):errors.append("mob sticker locked: "+id)
+		history.clear()
+		var token: String = "[sticker:"+id+"]"
+		screen._render_message_body(history,token)
+		if history.get_parsed_text().contains(token):errors.append("mob art rendering: "+id)
+	for filter in [2,3,4,5,6,7,8,9]:
+		screen._filter_stickers(filter)
+		var visible_count := 0
+		for button in layout.get_node("EmotePicker/StickerScroll/StickerGrid").get_children():
+			if button.visible:visible_count+=1
+		if visible_count != (54 if filter==2 else (48 if filter==3 else 17)):errors.append("filter count: "+str(filter))
+	screen._filter_stickers(0)
 	history.clear()
 	screen._render_message_body(history,"[sticker:unknown]")
 	if not history.get_parsed_text().contains("[sticker:unknown]"):errors.append("unknown sticker fallback")

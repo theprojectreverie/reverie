@@ -20,7 +20,7 @@ async function authenticatedPlayer(req:FastifyRequest,reply:FastifyReply):Promis
 }
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 function publicState(state:PvpState){
- return {matchId:state.matchId,sequence:state.sequence,turn:state.turn,turnPlayerId:state.turnPlayerId,status:state.status,winnerId:state.winnerId??null,units:state.units};
+ return {matchId:state.matchId,sequence:state.sequence,turn:state.turn,turnPlayerId:state.turnPlayerId,status:state.status,winnerId:state.winnerId??null,units:state.units,bonds:state.bonds??{}};
 }
 async function isParticipant(matchId:string,playerId:string){
  return pool.query("SELECT 1 FROM pvp_match_players WHERE match_id=$1 AND player_id=$2",[matchId,playerId]);

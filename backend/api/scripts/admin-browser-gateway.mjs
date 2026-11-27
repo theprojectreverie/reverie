@@ -6,8 +6,8 @@ import {pathToFileURL} from "node:url";
 const digest=x=>createHash("sha256").update(x).digest("hex");
 const publicOrigin="https://reverie.tailad29fa.ts.net:10000";
 const uuid="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-const getPaths=new Set(["/developer","/v1/developer/activity","/v1/developer/server-health","/v1/developer/staff/","/v1/developer/staff/statistics","/v1/developer/moderation/","/v1/developer/moderation/players","/v1/developer/moderation/suspensions","/v1/developer/moderation/appeals","/v1/developer/moderation/reports","/v1/developer/rewards/players","/v1/developer/rewards/history"]);
-const postPaths=new Set(["/v1/auth/login","/v1/auth/refresh","/v1/auth/logout","/v1/developer/staff/","/v1/developer/moderation/","/v1/developer/moderation/suspensions","/v1/developer/moderation/appeals","/v1/developer/moderation/reports","/v1/developer/rewards/grant"]);
+const getPaths=new Set(["/v1/developer/live-content","/developer","/v1/developer/activity","/v1/developer/server-health","/v1/developer/staff/","/v1/developer/staff/statistics","/v1/developer/moderation/","/v1/developer/moderation/players","/v1/developer/moderation/suspensions","/v1/developer/moderation/appeals","/v1/developer/moderation/reports","/v1/developer/rewards/players","/v1/developer/rewards/history"]);
+const postPaths=new Set(["/v1/developer/live-content/character-pack","/v1/developer/live-content/character-draft","/v1/developer/live-content/control","/v1/developer/live-content/publish","/v1/developer/live-content/artwork","/v1/auth/login","/v1/auth/refresh","/v1/auth/logout","/v1/developer/staff/","/v1/developer/moderation/","/v1/developer/moderation/suspensions","/v1/developer/moderation/appeals","/v1/developer/moderation/reports","/v1/developer/rewards/grant"]);
 const valid=(method,path)=>method==="GET"?(getPaths.has(path)||new RegExp("^/v1/developer/moderation/players/"+uuid+"$").test(path)):method==="POST"&&(postPaths.has(path)||/^\/v1\/developer\/server-incidents\/[0-9]{1,19}\/acknowledge$/.test(path));
 const gateHtml='<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reverie staff access</title><style>body{background:#17131e;color:#eee7df;font:16px system-ui;margin:0;padding:24px}main{max-width:440px;margin:12vh auto;background:#25202d;border:1px solid #65536c;border-radius:16px;padding:24px}input,button{box-sizing:border-box;width:100%;padding:14px;margin-top:12px;border-radius:8px;font:inherit}input{background:#16131c;color:#fff;border:1px solid #78668b}button{background:#d2af79;color:#18131c;border:0;font-weight:600}</style><main><h1>Reverie staff access</h1><p>Enter your individual administration access code, then sign in with your assigned Reverie account.</p><form method="post" action="/admin-access"><label for="code">Private access code</label><input id="code" name="code" type="password" autocomplete="off" required maxlength="64"><button>Continue</button></form><p>Keep your access code private. Request a replacement from the owner if needed.</p></main></html>';
 function json(res,status,data){res.writeHead(status,{"content-type":"application/json","cache-control":"no-store","x-content-type-options":"nosniff"});res.end(JSON.stringify(data))}
@@ -51,7 +51,7 @@ export function createAdminGateway({accessFile,origin=publicOrigin,upstreamPort=
    let payload;
    if(req.method==="POST"){
     if(!/^application\/json(?:;|$)/i.test(req.headers["content-type"]??""))return json(res,415,{error:"json_required"});
-    payload=await body(req);
+    payload=await body(req,path==="/v1/developer/live-content/artwork"?1400000:16384);
     if(path==="/v1/auth/login"){
      const data=JSON.parse(payload.toString("utf8"));
      if(typeof data.playerName!=="string"||data.playerName.trim().toLowerCase()!==s.entry.name.toLowerCase())return json(res,403,{error:"assigned_account_required"});

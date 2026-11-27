@@ -134,6 +134,8 @@ func _story_unlocked() -> bool:
         return zone.get_node("StoryGardenCombatSync").audience_state() == "complete"
     if zone != null and zone.has_node("StoryGardenCombatSync") and required_quest == "royal_gate_patrol":
         return zone.get_node("StoryGardenCombatSync").patrol_state() == "complete"
+    if required_story_flag == "village_gerald_defeated" and bool(GameState.quest_domain.flags.get("village_gerald_backstory_pending", false)):
+        return false
     if not required_story_flag.is_empty() and not bool(GameState.quest_domain.flags.get(required_story_flag, false)):
         return false
     if required_quest.is_empty() or not MultiplayerGateway.standalone_expedition_id.is_empty():

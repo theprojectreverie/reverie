@@ -1,0 +1,1124 @@
+[
+  {
+    "id": "stickers_rose_slime_neutral",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "neutral",
+    "file": "stickers/rose_slime/01_neutral.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rose_slime_happy",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "happy",
+    "file": "stickers/rose_slime/02_happy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rose_slime_love",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "love",
+    "file": "stickers/rose_slime/03_love.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rose_slime_sleepy",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "sleepy",
+    "file": "stickers/rose_slime/04_sleepy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rose_slime_surprised",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "surprised",
+    "file": "stickers/rose_slime/05_surprised.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rose_slime_upset",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "upset",
+    "file": "stickers/rose_slime/06_upset.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rose_slime_confused",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "confused",
+    "file": "stickers/rose_slime/07_confused.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rose_slime_heart_eyes",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "heart_eyes",
+    "file": "stickers/rose_slime/08_heart_eyes.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rose_slime_flattened",
+    "type": "stickers",
+    "mob": "rose_slime",
+    "expression": "flattened",
+    "file": "stickers/rose_slime/09_flattened.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_neutral",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "neutral",
+    "file": "stickers/crownling/01_neutral.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_happy",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "happy",
+    "file": "stickers/crownling/02_happy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_love",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "love",
+    "file": "stickers/crownling/03_love.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_sleepy",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "sleepy",
+    "file": "stickers/crownling/04_sleepy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_surprised",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "surprised",
+    "file": "stickers/crownling/05_surprised.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_upset",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "upset",
+    "file": "stickers/crownling/06_upset.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_confused",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "confused",
+    "file": "stickers/crownling/07_confused.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_sparkling",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "sparkling",
+    "file": "stickers/crownling/08_sparkling.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_crownling_flattened",
+    "type": "stickers",
+    "mob": "crownling",
+    "expression": "flattened",
+    "file": "stickers/crownling/09_flattened.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_neutral",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "neutral",
+    "file": "stickers/mossling/01_neutral.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_happy",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "happy",
+    "file": "stickers/mossling/02_happy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_love",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "love",
+    "file": "stickers/mossling/03_love.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_sleepy",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "sleepy",
+    "file": "stickers/mossling/04_sleepy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_surprised",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "surprised",
+    "file": "stickers/mossling/05_surprised.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_upset",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "upset",
+    "file": "stickers/mossling/06_upset.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_confused",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "confused",
+    "file": "stickers/mossling/07_confused.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_sparkling",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "sparkling",
+    "file": "stickers/mossling/08_sparkling.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_mossling_flattened",
+    "type": "stickers",
+    "mob": "mossling",
+    "expression": "flattened",
+    "file": "stickers/mossling/09_flattened.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_neutral",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "neutral",
+    "file": "stickers/rainbow_unicorn/01_neutral.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_happy",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "happy",
+    "file": "stickers/rainbow_unicorn/02_happy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_love",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "love",
+    "file": "stickers/rainbow_unicorn/03_love.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_sleepy",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "sleepy",
+    "file": "stickers/rainbow_unicorn/04_sleepy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_surprised",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "surprised",
+    "file": "stickers/rainbow_unicorn/05_surprised.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_upset",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "upset",
+    "file": "stickers/rainbow_unicorn/06_upset.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_confused",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "confused",
+    "file": "stickers/rainbow_unicorn/07_confused.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_sparkling",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "sparkling",
+    "file": "stickers/rainbow_unicorn/08_sparkling.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_rainbow_unicorn_flattened",
+    "type": "stickers",
+    "mob": "rainbow_unicorn",
+    "expression": "flattened",
+    "file": "stickers/rainbow_unicorn/09_flattened.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_neutral",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "neutral",
+    "file": "stickers/willow_slime/01_neutral.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_happy",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "happy",
+    "file": "stickers/willow_slime/02_happy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_love",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "love",
+    "file": "stickers/willow_slime/03_love.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_sleepy",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "sleepy",
+    "file": "stickers/willow_slime/04_sleepy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_surprised",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "surprised",
+    "file": "stickers/willow_slime/05_surprised.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_upset",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "upset",
+    "file": "stickers/willow_slime/06_upset.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_confused",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "confused",
+    "file": "stickers/willow_slime/07_confused.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_sparkling",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "sparkling",
+    "file": "stickers/willow_slime/08_sparkling.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_willow_slime_flattened",
+    "type": "stickers",
+    "mob": "willow_slime",
+    "expression": "flattened",
+    "file": "stickers/willow_slime/09_flattened.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_neutral",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "neutral",
+    "file": "stickers/bird/01_neutral.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_happy",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "happy",
+    "file": "stickers/bird/02_happy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_love",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "love",
+    "file": "stickers/bird/03_love.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_sleepy",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "sleepy",
+    "file": "stickers/bird/04_sleepy.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_surprised",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "surprised",
+    "file": "stickers/bird/05_surprised.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_upset",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "upset",
+    "file": "stickers/bird/06_upset.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_confused",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "confused",
+    "file": "stickers/bird/07_confused.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_sparkling",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "sparkling",
+    "file": "stickers/bird/08_sparkling.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "stickers_bird_flattened",
+    "type": "stickers",
+    "mob": "bird",
+    "expression": "flattened",
+    "file": "stickers/bird/09_flattened.png",
+    "size": [
+      256,
+      256
+    ]
+  },
+  {
+    "id": "emotes_rose_slime_neutral",
+    "type": "emotes",
+    "mob": "rose_slime",
+    "expression": "neutral",
+    "file": "emotes/rose_slime/01_neutral.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rose_slime_joy",
+    "type": "emotes",
+    "mob": "rose_slime",
+    "expression": "joy",
+    "file": "emotes/rose_slime/02_joy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rose_slime_surprised",
+    "type": "emotes",
+    "mob": "rose_slime",
+    "expression": "surprised",
+    "file": "emotes/rose_slime/03_surprised.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rose_slime_angry",
+    "type": "emotes",
+    "mob": "rose_slime",
+    "expression": "angry",
+    "file": "emotes/rose_slime/04_angry.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rose_slime_sleepy",
+    "type": "emotes",
+    "mob": "rose_slime",
+    "expression": "sleepy",
+    "file": "emotes/rose_slime/05_sleepy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rose_slime_excited",
+    "type": "emotes",
+    "mob": "rose_slime",
+    "expression": "excited",
+    "file": "emotes/rose_slime/06_excited.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rose_slime_crying",
+    "type": "emotes",
+    "mob": "rose_slime",
+    "expression": "crying",
+    "file": "emotes/rose_slime/07_crying.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rose_slime_defeated",
+    "type": "emotes",
+    "mob": "rose_slime",
+    "expression": "defeated",
+    "file": "emotes/rose_slime/08_defeated.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_crownling_neutral",
+    "type": "emotes",
+    "mob": "crownling",
+    "expression": "neutral",
+    "file": "emotes/crownling/01_neutral.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_crownling_joy",
+    "type": "emotes",
+    "mob": "crownling",
+    "expression": "joy",
+    "file": "emotes/crownling/02_joy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_crownling_surprised",
+    "type": "emotes",
+    "mob": "crownling",
+    "expression": "surprised",
+    "file": "emotes/crownling/03_surprised.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_crownling_angry",
+    "type": "emotes",
+    "mob": "crownling",
+    "expression": "angry",
+    "file": "emotes/crownling/04_angry.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_crownling_sleepy",
+    "type": "emotes",
+    "mob": "crownling",
+    "expression": "sleepy",
+    "file": "emotes/crownling/05_sleepy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_crownling_excited",
+    "type": "emotes",
+    "mob": "crownling",
+    "expression": "excited",
+    "file": "emotes/crownling/06_excited.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_crownling_crying",
+    "type": "emotes",
+    "mob": "crownling",
+    "expression": "crying",
+    "file": "emotes/crownling/07_crying.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_crownling_defeated",
+    "type": "emotes",
+    "mob": "crownling",
+    "expression": "defeated",
+    "file": "emotes/crownling/08_defeated.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_mossling_neutral",
+    "type": "emotes",
+    "mob": "mossling",
+    "expression": "neutral",
+    "file": "emotes/mossling/01_neutral.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_mossling_joy",
+    "type": "emotes",
+    "mob": "mossling",
+    "expression": "joy",
+    "file": "emotes/mossling/02_joy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_mossling_confused",
+    "type": "emotes",
+    "mob": "mossling",
+    "expression": "confused",
+    "file": "emotes/mossling/03_confused.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_mossling_angry",
+    "type": "emotes",
+    "mob": "mossling",
+    "expression": "angry",
+    "file": "emotes/mossling/04_angry.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_mossling_sleepy",
+    "type": "emotes",
+    "mob": "mossling",
+    "expression": "sleepy",
+    "file": "emotes/mossling/05_sleepy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_mossling_excited",
+    "type": "emotes",
+    "mob": "mossling",
+    "expression": "excited",
+    "file": "emotes/mossling/06_excited.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_mossling_worried",
+    "type": "emotes",
+    "mob": "mossling",
+    "expression": "worried",
+    "file": "emotes/mossling/07_worried.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_mossling_flattened",
+    "type": "emotes",
+    "mob": "mossling",
+    "expression": "flattened",
+    "file": "emotes/mossling/08_flattened.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rainbow_unicorn_neutral",
+    "type": "emotes",
+    "mob": "rainbow_unicorn",
+    "expression": "neutral",
+    "file": "emotes/rainbow_unicorn/01_neutral.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rainbow_unicorn_joy",
+    "type": "emotes",
+    "mob": "rainbow_unicorn",
+    "expression": "joy",
+    "file": "emotes/rainbow_unicorn/02_joy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rainbow_unicorn_surprised",
+    "type": "emotes",
+    "mob": "rainbow_unicorn",
+    "expression": "surprised",
+    "file": "emotes/rainbow_unicorn/03_surprised.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rainbow_unicorn_angry",
+    "type": "emotes",
+    "mob": "rainbow_unicorn",
+    "expression": "angry",
+    "file": "emotes/rainbow_unicorn/04_angry.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rainbow_unicorn_sleepy",
+    "type": "emotes",
+    "mob": "rainbow_unicorn",
+    "expression": "sleepy",
+    "file": "emotes/rainbow_unicorn/05_sleepy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rainbow_unicorn_excited",
+    "type": "emotes",
+    "mob": "rainbow_unicorn",
+    "expression": "excited",
+    "file": "emotes/rainbow_unicorn/06_excited.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rainbow_unicorn_crying",
+    "type": "emotes",
+    "mob": "rainbow_unicorn",
+    "expression": "crying",
+    "file": "emotes/rainbow_unicorn/07_crying.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_rainbow_unicorn_defeated",
+    "type": "emotes",
+    "mob": "rainbow_unicorn",
+    "expression": "defeated",
+    "file": "emotes/rainbow_unicorn/08_defeated.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_willow_slime_neutral",
+    "type": "emotes",
+    "mob": "willow_slime",
+    "expression": "neutral",
+    "file": "emotes/willow_slime/01_neutral.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_willow_slime_joy",
+    "type": "emotes",
+    "mob": "willow_slime",
+    "expression": "joy",
+    "file": "emotes/willow_slime/02_joy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_willow_slime_surprised",
+    "type": "emotes",
+    "mob": "willow_slime",
+    "expression": "surprised",
+    "file": "emotes/willow_slime/03_surprised.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_willow_slime_angry",
+    "type": "emotes",
+    "mob": "willow_slime",
+    "expression": "angry",
+    "file": "emotes/willow_slime/04_angry.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_willow_slime_sleepy",
+    "type": "emotes",
+    "mob": "willow_slime",
+    "expression": "sleepy",
+    "file": "emotes/willow_slime/05_sleepy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_willow_slime_love",
+    "type": "emotes",
+    "mob": "willow_slime",
+    "expression": "love",
+    "file": "emotes/willow_slime/06_love.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_willow_slime_crying",
+    "type": "emotes",
+    "mob": "willow_slime",
+    "expression": "crying",
+    "file": "emotes/willow_slime/07_crying.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_willow_slime_defeated",
+    "type": "emotes",
+    "mob": "willow_slime",
+    "expression": "defeated",
+    "file": "emotes/willow_slime/08_defeated.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_bird_neutral",
+    "type": "emotes",
+    "mob": "bird",
+    "expression": "neutral",
+    "file": "emotes/bird/01_neutral.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_bird_love",
+    "type": "emotes",
+    "mob": "bird",
+    "expression": "love",
+    "file": "emotes/bird/02_love.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_bird_surprised",
+    "type": "emotes",
+    "mob": "bird",
+    "expression": "surprised",
+    "file": "emotes/bird/03_surprised.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_bird_angry",
+    "type": "emotes",
+    "mob": "bird",
+    "expression": "angry",
+    "file": "emotes/bird/04_angry.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_bird_sleepy",
+    "type": "emotes",
+    "mob": "bird",
+    "expression": "sleepy",
+    "file": "emotes/bird/05_sleepy.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_bird_excited",
+    "type": "emotes",
+    "mob": "bird",
+    "expression": "excited",
+    "file": "emotes/bird/06_excited.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_bird_crying",
+    "type": "emotes",
+    "mob": "bird",
+    "expression": "crying",
+    "file": "emotes/bird/07_crying.png",
+    "size": [
+      128,
+      128
+    ]
+  },
+  {
+    "id": "emotes_bird_defeated",
+    "type": "emotes",
+    "mob": "bird",
+    "expression": "defeated",
+    "file": "emotes/bird/08_defeated.png",
+    "size": [
+      128,
+      128
+    ]
+  }
+]

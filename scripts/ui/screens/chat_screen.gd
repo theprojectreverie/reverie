@@ -60,7 +60,9 @@ const STICKERS = {
 }
 const FREE_STICKER_IDS = ["lilith_ghost_plush","revienna_fallen_matron","red_cloak_character","lilith_playful","gerald_chibi","elathra","rose_slime"]
 const CHARACTER_STICKER_IDS = ["kael_mythic","lilith_mythic","gerald_mythic","ravienna_mythic","cassien_mythic","nyx_mythic","crimson_witch_mythic","mirene_mythic","caelith_mythic"]
-const STICKER_PICKER_IDS = FREE_STICKER_IDS + CHARACTER_STICKER_IDS
+const MOB_ART = preload("res://scripts/ui/components/mob_chat_art.gd")
+const STICKER_PICKER_IDS = FREE_STICKER_IDS + CHARACTER_STICKER_IDS + MOB_ART.IDS
+const STICKER_FILTERS = ["all","characters","stickers","emotes","rose_slime","crownling","mossling","rainbow_unicorn","willow_slime","bird"]
 const STICKER_LABELS = {
 	"lilith_ghost_plush": "Lilith - Ghost plush",
 	"revienna_fallen_matron": "Ravienna - Fallen Matron",
@@ -76,13 +78,15 @@ const STICKER_LABELS = {
 	"cassien_mythic": "Cassien - Mythic Aspect",
 	"nyx_mythic": "Nyx - Mythic Aspect",
 	"crimson_witch_mythic": "Crimson Witch - Mythic Aspect",
-	"mirene_mythic": "Mirene - Mythic Aspect",
+	"mirene_mythic": "Miréne - Mythic Aspect",
 	"caelith_mythic": "Caelith - Mythic Aspect"
 }
 var _emoji_font: FontVariation
 var _recent_emojis: Array[String] = []
 var _favorite_stickers: Array[String] = []
 var _pin_mode := false
+var _sticker_filter := "all"
+var _mob_sticker_textures: Dictionary = {}
 var _unlocked_stickers: Array[String] = []
 var _sticker_request: HTTPRequest
 var _sticker_request_player := ""
@@ -546,7 +550,32 @@ func _render_blocks(blocks: Array) -> void:
 	_layout.get_node("Status").text = "Manage blocked players"
 
 
+func _has_sticker(id: String) -> bool:
+	return STICKERS.has(id) or MOB_ART.PATHS.has(id)
+
+func _sticker_texture(id: String) -> Texture2D:
+	if STICKERS.has(id):return STICKERS[id]
+	if not MOB_ART.PATHS.has(id):return null
+	if not _mob_sticker_textures.has(id):
+		_mob_sticker_textures[id] = load(MOB_ART.PATHS[id]) as Texture2D
+	return _mob_sticker_textures[id]
+
+func _sticker_label(id: String) -> String:
+	return str(MOB_ART.LABELS.get(id,STICKER_LABELS.get(id,id)))
+
+func _filter_stickers(index: int) -> void:
+	if index < 0 or index >= STICKER_FILTERS.size():return
+	_sticker_filter = STICKER_FILTERS[index]
+	for button in _layout.get_node("EmotePicker/StickerScroll/StickerGrid").get_children():
+		var id := str(button.get_meta("sticker_id",""))
+		button.visible = _sticker_filter == "all" or (_sticker_filter == "characters" and not MOB_ART.PATHS.has(id)) or (_sticker_filter == "stickers" and id.begins_with("stickers_")) or (_sticker_filter == "emotes" and id.begins_with("emotes_")) or MOB_ART.MOBS.get(id,"") == _sticker_filter
+	_layout.get_node("EmotePicker/StickerScroll").scroll_horizontal = 0
+
 func _setup_emotes() -> void:
+	var filter: OptionButton = _layout.get_node("EmotePicker/Tabs/MobFilter")
+	for i in range(STICKER_FILTERS.size()):
+		filter.add_item(str(STICKER_FILTERS[i]).replace("_"," ").capitalize(),i)
+	filter.item_selected.connect(_filter_stickers)
 	var toggle: Button = _layout.get_node("Composer/Emotes")
 	toggle.toggled.connect(_toggle_emote_picker)
 	_layout.get_node("EmotePicker/Tabs/Favorites").toggled.connect(_set_pin_mode)
@@ -574,17 +603,18 @@ func _setup_emotes() -> void:
 	for id in STICKER_PICKER_IDS:
 		var button := Button.new()
 		button.custom_minimum_size = Vector2(84,84)
-		button.icon = STICKERS[id]
+		button.icon = _sticker_texture(str(id))
 		button.set_meta("sticker_id",str(id))
 		button.expand_icon = true
 		button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		button.tooltip_text = "Send "+str(STICKER_LABELS.get(id,id))+" sticker"
+		button.tooltip_text = "Send "+_sticker_label(str(id))+" sticker"
 		button.pressed.connect(_sticker_pressed.bind(str(id)))
 		_layout.get_node("EmotePicker/StickerScroll/StickerGrid").add_child(button)
 
 func _emote_tab(stickers: bool) -> void:
 	if not stickers:_set_pin_mode(false)
 	_layout.get_node("EmotePicker/Tabs/Favorites").visible=stickers
+	_layout.get_node("EmotePicker/Tabs/MobFilter").visible=stickers
 	_layout.get_node("EmotePicker/Tabs/Emoji").set_pressed_no_signal(not stickers)
 	_layout.get_node("EmotePicker/Tabs/Stickers").set_pressed_no_signal(stickers)
 	_layout.get_node("EmotePicker/Tabs/Hint").text = "Tap to send | swipe for more" if stickers else "Tap to insert | swipe for more"
@@ -619,16 +649,19 @@ func _insert_emoji(emoji: String) -> void:
 		_save_emote_preferences()
 
 func _send_sticker(id: String) -> void:
-	if STICKERS.has(id) and _sticker_unlocked(id):_send_message("[sticker:"+id+"]",false)
+	if _has_sticker(id) and _sticker_unlocked(id):_send_message("[sticker:"+id+"]",false)
 
 func _render_message_body(history: RichTextLabel, message: String) -> void:
 	if message.begins_with("[sticker:") and message.ends_with("]"):
 		var id := message.substr(9,message.length()-10)
-		if STICKERS.has(id):
-			var texture: Texture2D = STICKERS[id]
+		if _has_sticker(id):
+			var texture: Texture2D = _sticker_texture(id)
+			if texture == null:
+				history.add_text(message+"\n")
+				return
 			history.add_text("\n")
 			var art_size := texture.get_size()
-			var scale_factor := 124.0/maxf(art_size.x,art_size.y)
+			var scale_factor := (48.0 if id.begins_with("emotes_") else 124.0)/maxf(art_size.x,art_size.y)
 			history.add_image(texture,maxi(1,roundi(art_size.x*scale_factor)),maxi(1,roundi(art_size.y*scale_factor)),Color.WHITE,INLINE_ALIGNMENT_CENTER)
 			history.add_text("\n")
 			return
@@ -693,7 +726,7 @@ func _reply_preview(message: Dictionary) -> String:
 	var body := str(message.get("text",""))
 	if body.begins_with("[sticker:") and body.ends_with("]"):
 		var sticker := body.substr(9,body.length()-10)
-		if STICKERS.has(sticker):body="[Sticker: "+str(STICKER_LABELS.get(sticker,sticker))+"]"
+		if _has_sticker(sticker):body="[Sticker: "+_sticker_label(sticker)+"]"
 	if body.length()>64:body=body.left(64)+"..."
 	return str(message.get("name","Player"))+": "+body
 
@@ -818,7 +851,7 @@ func _contact_preview(entry: Dictionary) -> String:
 	var preview: String=value
 	if preview.begins_with("[sticker:") and preview.ends_with("]"):
 		var id := preview.substr(9,preview.length()-10)
-		if STICKERS.has(id):preview="Sticker: "+str(STICKER_LABELS.get(id,id))
+		if _has_sticker(id):preview="Sticker: "+_sticker_label(str(id))
 	if str(entry.get("preview_sender",""))==_identity:preview="You: "+preview
 	if preview.length()>42:preview=preview.left(42)+"..."
 	return preview
@@ -888,12 +921,12 @@ func _refresh_pin_buttons() -> void:
 		var id:=str(button.get_meta("sticker_id",""))
 		var pinned:=_favorite_stickers.has(id)
 		button.text=String.chr(0x2605) if pinned else (String.chr(0x2606) if _pin_mode else "")
-		button.tooltip_text=("Pinned | " if pinned else "")+str(STICKER_LABELS.get(id,id))
+		button.tooltip_text=("Pinned | " if pinned else "")+_sticker_label(str(id))
 		button.add_theme_color_override("font_color",UITheme.GOLD)
 		button.modulate=Color.WHITE if _sticker_unlocked(id) else Color(0.62,0.62,0.62,1.0)
 		if not _sticker_unlocked(id):
 			button.text="Locked"
-			button.tooltip_text="Obtain "+str(STICKER_LABELS.get(id,id))+" to unlock"
+			button.tooltip_text="Obtain "+_sticker_label(str(id))+" to unlock"
 
 func _set_pin_mode(enabled: bool, refresh_controls: bool = true) -> void:
 	_pin_mode=enabled
@@ -909,7 +942,7 @@ func _set_pin_mode(enabled: bool, refresh_controls: bool = true) -> void:
 
 func _sticker_pressed(id: String) -> void:
 	if not _sticker_unlocked(id):
-		_layout.get_node("EmotePicker/Tabs/Hint").text="Obtain "+str(STICKER_LABELS.get(id,id))+" to unlock"
+		_layout.get_node("EmotePicker/Tabs/Hint").text="Obtain "+_sticker_label(str(id))+" to unlock"
 		return
 	if _pin_mode:
 		if _identity.is_empty() or not id in STICKER_PICKER_IDS:return

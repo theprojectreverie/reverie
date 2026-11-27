@@ -24,7 +24,7 @@ func update_locomotion_pose(delta: float) -> void:
 	if not locomotion and not idle:
 		visual._sprite.position = Vector2.ZERO
 		visual._sprite.rotation = 0.0
-		visual._sprite.scale = Vector2.ONE * visual._base_visual_scale
+		visual._sprite.scale = Vector2.ONE * visual._base_visual_scale * visual.sprite_component.combat_clip_scale()
 		return
 	var phase := 0.0
 	if locomotion:

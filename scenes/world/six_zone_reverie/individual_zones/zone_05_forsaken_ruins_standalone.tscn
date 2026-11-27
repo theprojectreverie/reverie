@@ -15,7 +15,7 @@
 
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/standalone_zone_controller.gd" id="zone_controller"]
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_05_forsaken_ruins.png" id="prepared_background"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_05_forsaken_ruins_underlay.png" id="prepared_background"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_05_forsaken_ruins.tscn" id="zone"]
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/forsaken_stone_road_6x10.tscn" id="road"]
@@ -34,6 +34,8 @@
 [ext_resource type="Script" path="res://scripts/game/game_combat_router_component.gd" id="cassien_combat_router"]
 
 [ext_resource type="SpriteFrames" path="res://assets/characters/revienna/cinematic/walk_frames.tres" id="revienna_departure_walk"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/bird_mob.tscn" id="optional_new_mob"]
 
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
@@ -86,6 +88,9 @@ script = ExtResource("zone_controller")
 
 [node name="Zone" parent="." instance=ExtResource("zone")]
 
+[node name="BirdMob" parent="." instance=ExtResource("optional_new_mob")]
+position = Vector2(600, 1650)
+
 [node name="ZoneCamera" type="Camera2D" parent="."]
 process_callback = 0
 position = Vector2(2100, 1050)
@@ -97,20 +102,14 @@ position = Vector2(1568, 2352)
 [node name="EntryRoadFromZone04" parent="." instance=ExtResource("road")]
 position = Vector2(-1648, 720)
 
-[node name="ScenicBackground" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="Artwork" type="TextureRect" parent="ScenicBackground"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-modulate = Color(0.38, 0.38, 0.38, 1)
+[node name="ScenicBackground" type="Sprite2D" parent="."]
+z_index = -100
+texture_repeat = 3
+position = Vector2(64, 1616)
+scale = Vector2(2.75, 2.75)
 texture = ExtResource("prepared_background")
-expand_mode = 1
-stretch_mode = 6
+region_enabled = true
+region_rect = Rect2(-3344, -1882, 8360, 4705)
 
 [node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
 position = Vector2(-1654.0, 968.0)

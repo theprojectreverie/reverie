@@ -1,0 +1,41 @@
+import Fastify from 'fastify';
+import jwt from '@fastify/jwt';
+import assert from 'node:assert/strict';
+import {randomBytes,randomUUID} from 'node:crypto';
+import {config} from '../src/config.ts';
+import {pool} from '../src/db.ts';
+import {authRoutes} from '../src/routes/auth.ts';
+import {summonRoutes} from '../src/routes/summon.ts';
+import {banners} from '../src/world/summon.ts';
+assert.equal(config.NODE_ENV,'development');assert.ok(['localhost','127.0.0.1','[::1]'].includes(new URL(config.DATABASE_URL).hostname));
+const app=Fastify({logger:false}),name='LegendQA'+randomBytes(4).toString('hex'),email=name.toLowerCase()+'@example.test',password=randomBytes(16).toString('hex');let token='',id='';
+const b=banners.eclipse_sovereign, oldRates=b.rates,oldPool=b.pool.legendary;
+const call=(method,url,payload)=>app.inject({method,url,headers:token?{authorization:'Bearer '+token}:{},...(payload?{payload}:{})});
+const post=async(path,payload)=>{const r=await call('POST','/v1/summon/'+path,payload);assert.equal(r.statusCode,200,r.body);return r.json()};
+const state=async()=>{const r=await call('GET','/v1/summon/state');assert.equal(r.statusCode,200,r.body);return r.json()};
+try{await app.register(jwt,{secret:config.JWT_SECRET});await app.register(authRoutes,{prefix:'/v1/auth'});await app.register(summonRoutes,{prefix:'/v1/summon'});await app.ready();assert.equal((await call('POST','/v1/auth/register',{playerName:name,email,password})).statusCode,201);const login=(await call('POST','/v1/auth/login',{playerName:name,password})).json();token=login.accessToken;id=login.player.id;
+await pool.query("INSERT INTO player_currencies(player_id,currency_id,balance) VALUES($1,'gold',100000),($1,'crystals',5000) ON CONFLICT(player_id,currency_id) DO UPDATE SET balance=EXCLUDED.balance",[id]);await pool.query("INSERT INTO inventory_items(player_id,item_id,quantity) VALUES($1,'dew_of_awakening',10) ON CONFLICT(player_id,item_id) DO UPDATE SET quantity=EXCLUDED.quantity",[id]);
+b.rates={common:0,rare:0,epic:0,legendary:0,mythic:1};
+for(let i=1;i<=9;i++){
+ const requestId=randomUUID(), body={bannerId:'eclipse_sovereign',count:1,currency:'crystals',requestId};
+ const result=await post('pull',body);assert.equal(result.results[0].character_id,'ravienna_mythic');assert.equal(result.results[0].ascended_count,Math.min(i,7));
+ const replay=await post('pull',body);assert.equal(replay.results[0].ascended_count,Math.min(i,7));assert.equal(replay.replayed,true);
+ const s=await state();const row=s.roster.find(r=>r.char_id==='ravienna_mythic');assert.equal(1+row.dupes+2*row.awakening,i);
+ assert.equal(row.ascension,i>=7?3:0);
+}
+const before=await state(), beforeGold=Number(before.currencies.gold);
+const protect=await call('POST','/v1/summon/exchange-mythic-copies',{characterId:'ravienna_mythic',expectedCopies:9,quantity:3,requestId:randomUUID()});assert.equal(protect.statusCode,400);
+const one={characterId:'ravienna_mythic',expectedCopies:9,quantity:1,requestId:randomUUID()};
+const partial=await post('exchange-mythic-copies',one);assert.equal(partial.exchanged,1);assert.equal(partial.goldGranted,5000);
+assert.equal((await post('exchange-mythic-copies',one)).replayed,true);
+const mid=await state();const midRow=mid.roster.find(r=>r.char_id==='ravienna_mythic');assert.equal(1+midRow.dupes+2*midRow.awakening,8);
+const stale=await call('POST','/v1/summon/exchange-mythic-copies',{...one,requestId:randomUUID()});assert.equal(stale.statusCode,409);
+const body={characterId:'ravienna_mythic',expectedCopies:8,requestId:randomUUID()};
+const competing={...body,requestId:randomUUID()};const results=await Promise.all([body,competing].map(x=>call('POST','/v1/summon/exchange-mythic-copies',x)));assert.deepEqual(results.map(x=>x.statusCode).sort(),[200,409]);const winner=results[0].statusCode===200?body:competing;const r=results.find(x=>x.statusCode===200).json();assert.equal(r.exchanged,1);assert.equal(r.goldGranted,5000);
+const replay=await post('exchange-mythic-copies',winner);assert.equal(replay.replayed,true);
+const s=await state(),row=s.roster.find(r=>r.char_id==='ravienna_mythic');
+assert.equal(1+row.dupes+2*row.awakening,7);assert.equal(row.ascension,3);assert.equal(row.level,1);
+assert.equal(Number(s.currencies.gold),beforeGold+10000);assert.equal(Number(s.inventory.mythic_ascension_ravienna_mythic),7);
+const invalid=await call('POST','/v1/summon/exchange-mythic-copies',{...body,requestId:randomUUID()});assert.equal(invalid.statusCode,409);
+console.log('PASS partial and concurrent exchange, seven retained, 10000 gold total, replay and invalid exchange guarded');
+}finally{b.rates=oldRates;b.pool.legendary=oldPool;await app.close();await pool.query('DELETE FROM accounts WHERE email=$1',[email]);await pool.end()}

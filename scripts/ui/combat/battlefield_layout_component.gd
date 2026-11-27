@@ -95,10 +95,10 @@ func setup(party: Array, enemies: Array) -> void:
 		_add_actor(unit, true)
 	for unit in enemies:
 		_add_actor(unit, false)
-	if battlefield.arena_id in ["gerald_boss_encounter", "cassien_encounter", "revienna_encounter"] or enemies.any(func(enemy): return enemy != null and enemy.is_boss):
-		for actor in actors:
-			if actor.is_player and actor.unit.def_id == "kael":
-				actor.enable_kael_boss_art()
+	# Use the same authored combat model in ordinary and boss encounters.
+	for actor in actors:
+		if actor.is_player and KaelAttackPresentationComponent.is_kael(actor.unit.def_id):
+			actor.enable_kael_boss_art()
 	layout()
 	battlefield.call_deferred("_layout")
 	face_opponents()
@@ -159,8 +159,7 @@ func layout() -> void:
 		elif is_instance_valid(actor.gerald_art):
 			# Leave space for the full 384px authored earthquake cell.
 			actor._base_scale = boss_titan_scale
-			actor.gerald_art.scale = Vector2.ONE * boss_titan_scale
-			actor.gerald_art.position.y = (-50.0 if actor.gerald_art.animation == &"earthquake" else -57.0) * boss_titan_scale
+			actor._sync_gerald_body_scale()
 			var right_margin := 192.0 * boss_titan_scale + 16.0
 			actor.set_home(Vector2(minf(width * 0.74, width - right_margin), height * 0.84))
 			var hitbox := actor.get_node("Hitbox") as Control
@@ -223,6 +222,22 @@ func layout() -> void:
 				width * (Battlefield.ENEMY_X + Battlefield.ENEMY_DX * float(enemy_slot)),
 				height * (Battlefield.ENEMY_Y + Battlefield.ENEMY_DY * float(enemy_slot))))
 			enemy_slot += 1
+		if is_instance_valid(actor.live_art):
+			var id := actor.unit.def_id
+			var cm := float(LiveCharacterContent.installed.get(id,{}).get("heightCm",0))
+			if cm<=0.0: cm=170.0
+			if id.begins_with("gerald"): cm=GERALD_HEIGHT_CM
+			elif id.begins_with("cassien"): cm=CASSIEN_HEIGHT_CM
+			elif id.begins_with("ravienna"): cm=RAVIENNA_HEIGHT_CM
+			elif id.begins_with("lilith"): cm=LILITH_HEIGHT_CM
+			elif id.begins_with("kael"): cm=KAEL_HEIGHT_CM
+			var size_px := maxf(1.0,float(LiveCharacterContent.installed.get(id,{}).get("height",128.0)))
+			var fit := queen_scale * cm / RAVIENNA_HEIGHT_CM * RAVIENNA_IDLE_PX / size_px
+			actor.live_art.scale=Vector2.ONE*fit
+			actor._base_scale=fit
+			var hitbox := actor.get_node("Hitbox") as Control
+			hitbox.position=Vector2(-36.0,-size_px*fit)
+			hitbox.size=Vector2(72.0,size_px*fit+8.0)
 		actor.scale = Vector2.ONE
 		if battlefield.arena_id == "revienna_encounter" and battlefield.get_window().size.x < 1000 and battlefield.get_window().size.x > battlefield.get_window().size.y:
 			actor.scale = Vector2.ONE * minf(1.0, height / 270.0)

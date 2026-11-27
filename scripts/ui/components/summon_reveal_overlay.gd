@@ -119,7 +119,7 @@ func _show_character(roll: Dictionary, index: int, total: int) -> void:
 	var art := $CardStage/CharacterArtwork as TextureRect
 	var mob := MOB.definition(character_id)
 	var upgrade := UPGRADE.definition(character_id)
-	art.texture = MOB.texture(mob) if not mob.is_empty() else _character_art(str(upgrade.get("portrait_id", character_id)))
+	art.texture = MOB.texture(mob) if not mob.is_empty() else _character_art(UPGRADE.portrait_id(character_id))
 	stage.show()
 	$CardStage/Progress.text = "%d / %d" % [index + 1, total]
 	$CardStage/Intro.text = rarity.to_upper()
@@ -136,7 +136,7 @@ func _show_character(roll: Dictionary, index: int, total: int) -> void:
 		var evolved: Array = roll.get("fusions", [])
 		$CardStage/CharacterTitle.text += "\n" + ("Fused: " + str(evolved.back().name) if not evolved.is_empty() else "Mythic progress %d/7" % int(roll.mythic_count))
 	if roll.has("ascended_count"):
-		$CardStage/CharacterTitle.text += "\n" + ("FULLY ASCENDED" if int(roll.ascended_count) >= 7 else "Mythic ascension %d/7" % int(roll.ascended_count))
+		$CardStage/CharacterTitle.text += "\n" + (CharacterInstance.star_text(int(roll.ascended_count)) + " | +%d%% power" % (4 * clampi(int(roll.ascended_count)-1,0,6)))
 	$CardStage/CharacterTitle.modulate = UITheme.rarity_color(rarity)
 	$CardStage/NextButton.text = "View all results" if index + 1 == total else "Next reward"
 	reveal_count += 1
@@ -158,6 +158,8 @@ func _show_character(roll: Dictionary, index: int, total: int) -> void:
 	art.texture = null
 
 func _character_art(character_id: String) -> Texture2D:
+	var approved := preload("res://scripts/art/approved_character_portraits.gd").texture(character_id)
+	if approved != null: return approved
 	var base := character_id
 	for suffix in ["_common", "_rare", "_epic", "_legendary", "_mythic"]:
 		base = base.trim_suffix(suffix)

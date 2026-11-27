@@ -36,7 +36,7 @@ func setup(p_unit: Combatant) -> void:
 	portrait.custom_minimum_size = Vector2(122, 104)
 	var definition: CharacterDef = ContentDB.get_character(unit.def_id)
 	if definition != null:
-		portrait.setup_character(definition)
+		portrait.setup_character(definition, "", unit.ascension)
 	else:
 		var enemy: Dictionary = ContentDB.get_enemy(unit.def_id)
 		portrait.setup(

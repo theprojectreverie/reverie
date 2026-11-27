@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/rose_slime.gd" id="logic"]
+[ext_resource type="SpriteFrames" path="res://assets/monsters/willow_slime/sprite_frames.tres" id="frames"]
+
+[node name="WillowSlime" type="Node2D"]
+script = ExtResource("logic")
+group_id = "willow_slime_1"
+monster_name = "Willow Slime"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+offset = Vector2(0, -46)
+scale = Vector2(0.55, 0.55)
+sprite_frames = ExtResource("frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="WorldHealth" type="ProgressBar" parent="."]
+visible = false
+offset_left = -25.0
+offset_top = -68.0
+offset_right = 25.0
+offset_bottom = -63.0
+mouse_filter = 2
+show_percentage = false
+value = 100.0
+
