@@ -57,6 +57,8 @@
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/tilemaps/03_willow_fields_tilemap.tscn" id="editable_ground_map"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/willow_farming_village.tscn" id="willow_farming_village"]
+
 [node name="WillowFields" type="Node2D" unique_id=296258190]
 y_sort_enabled = true
 
@@ -555,3 +557,5 @@ texture_filter = 1
 z_index = -19
 tile_set = ExtResource("paint_roads")
 
+
+[node name="WillowFarmingVillage" parent="." instance=ExtResource("willow_farming_village")]

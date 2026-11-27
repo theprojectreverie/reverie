@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_009.png" id="1"]
+
+[node name="RuralCrates" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.44, 0.44)
+offset = Vector2(-151.0, -186.11999999999998)
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-31, -17, 0, -34, 31, -17, 0, 0)

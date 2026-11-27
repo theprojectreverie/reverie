@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/farming_pack/farm_corner_fence.png" id="1"]
+
+[node name="FarmCornerFence" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.26, 0.26)
+offset = Vector2(-39, -385)
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(2.20, 3.34, 59.40, -34.36, 55.00, -41.04, -2.20, -3.34)
+
+[node name="Footprint2" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(54.87, -34.45, 99.07, -2.73, 103.73, -9.23, 59.53, -40.95)
+
+[node name="Footprint3" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-6.00, 0.00, 0.00, -4.00, 6.00, 0.00, 0.00, 4.00)
+
+[node name="Footprint4" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(51.20, -37.70, 57.20, -41.70, 63.20, -37.70, 57.20, -33.70)
+
+[node name="Footprint5" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(95.40, -5.98, 101.40, -9.98, 107.40, -5.98, 101.40, -1.98)

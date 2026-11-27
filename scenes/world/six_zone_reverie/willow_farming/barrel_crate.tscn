@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/farming_pack/barrel_crate.png" id="1"]
+
+[node name="BarrelCrate" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.28, 0.28)
+offset = Vector2(-219, -303)
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-61.60, -33.60, -22.96, -54.04, 31.92, -25.76, 0.00, 0.00)

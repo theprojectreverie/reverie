@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/farm_straight_rail.tscn" id="1"]
+
+[node name="VegetableGardenBoundaries" type="Node2D"]
+y_sort_enabled = true
+
+[node name="GardenRail01" parent="." instance=ExtResource("1")]
+position = Vector2(-1330, 1603)
+
+[node name="GardenRail02" parent="." instance=ExtResource("1")]
+position = Vector2(-1260, 1638)
+
+[node name="GardenRail03" parent="." instance=ExtResource("1")]
+position = Vector2(-1120, 1498)
+
+[node name="GardenRail04" parent="." instance=ExtResource("1")]
+position = Vector2(-1260, 1568)
+scale = Vector2(-1, 1)
+
+[node name="GardenRail05" parent="." instance=ExtResource("1")]
+position = Vector2(-1190, 1533)
+scale = Vector2(-1, 1)
+
+[node name="GardenRail06" parent="." instance=ExtResource("1")]
+position = Vector2(-1120, 1498)
+scale = Vector2(-1, 1)
+
+[node name="GardenRail07" parent="." instance=ExtResource("1")]
+position = Vector2(-980, 1638)
+scale = Vector2(-1, 1)
+
+[node name="GardenRail08" parent="." instance=ExtResource("1")]
+position = Vector2(-910, 1603)
+scale = Vector2(-1, 1)
+
+[node name="GardenRail09" parent="." instance=ExtResource("1")]
+position = Vector2(-470, 1433)
+
+[node name="GardenRail10" parent="." instance=ExtResource("1")]
+position = Vector2(-260, 1328)
+
+[node name="GardenRail11" parent="." instance=ExtResource("1")]
+position = Vector2(-190, 1363)
+
+[node name="GardenRail12" parent="." instance=ExtResource("1")]
+position = Vector2(-400, 1398)
+scale = Vector2(-1, 1)
+
+[node name="GardenRail13" parent="." instance=ExtResource("1")]
+position = Vector2(-330, 1363)
+scale = Vector2(-1, 1)
+
+[node name="GardenRail14" parent="." instance=ExtResource("1")]
+position = Vector2(-260, 1328)
+scale = Vector2(-1, 1)

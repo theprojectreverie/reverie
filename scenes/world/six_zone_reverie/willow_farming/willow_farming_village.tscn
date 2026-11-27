@@ -1,0 +1,154 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/windmill.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/hay_bales.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/hay_cart.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/farmhouse.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/cottage.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/stone_well.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/wooden_shed.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/wheat_farmhouse.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/golden_wheat.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/vegetable_garden.tscn" id="10"]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/flowers/white_flower_patch_clean.png" id="flower"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/farm_corner_fence.tscn" id="yard1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/feeding_trough.tscn" id="yard2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/carrot_wheelbarrow.tscn" id="yard3"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/barrel_crate.tscn" id="yard4"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/farm_chickens.tscn" id="yard5"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/wheat_field_boundary.tscn" id="wheat_boundary"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/vegetable_garden_boundaries.tscn" id="garden_boundaries"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_landscape_dressing.tscn" id="rural_dressing"]
+
+[node name="WillowFarmingVillage" type="Node2D"]
+y_sort_enabled = true
+
+[node name="NorthWindmill" parent="." instance=ExtResource("1")]
+position = Vector2(-300, 680)
+
+[node name="MillHay" parent="." instance=ExtResource("2")]
+position = Vector2(-490, 795)
+
+[node name="MillCart" parent="." instance=ExtResource("3")]
+position = Vector2(-310, 840)
+
+[node name="WestFarmhouse" parent="." instance=ExtResource("4")]
+position = Vector2(-1590, 1540)
+
+[node name="VillageCottage" parent="." instance=ExtResource("5")]
+position = Vector2(-1270, 1450)
+
+[node name="VillageWell" parent="." instance=ExtResource("6")]
+position = Vector2(-1450, 1670)
+
+[node name="FarmStorage" parent="." instance=ExtResource("7")]
+position = Vector2(470, 800)
+
+[node name="WestHay" parent="." instance=ExtResource("2")]
+position = Vector2(650, 900)
+
+[node name="FarmCart" parent="." instance=ExtResource("3")]
+position = Vector2(-1310, 1830)
+
+[node name="SouthFarmhouse" parent="." instance=ExtResource("8")]
+position = Vector2(-170, 2030)
+
+[node name="WheatNorth" parent="." instance=ExtResource("9")]
+position = Vector2(-810, 1880)
+
+[node name="WheatSouth" parent="." instance=ExtResource("9")]
+position = Vector2(-635, 1968)
+
+[node name="WheatEast" parent="." instance=ExtResource("9")]
+position = Vector2(-460, 2056)
+
+[node name="VegetableGarden" parent="." instance=ExtResource("10")]
+position = Vector2(-1120, 1680)
+
+[node name="GardenSecond" parent="." instance=ExtResource("10")]
+position = Vector2(-260, 1510)
+
+[node name="SouthernHay" parent="." instance=ExtResource("2")]
+position = Vector2(40, 1980)
+
+[node name="WheatRow2A" parent="." instance=ExtResource("9")]
+position = Vector2(-985, 1968)
+
+[node name="WheatRow2B" parent="." instance=ExtResource("9")]
+position = Vector2(-810, 2056)
+
+[node name="WheatRow2C" parent="." instance=ExtResource("9")]
+position = Vector2(-635, 2144)
+
+[node name="FarmFlowers1" type="Sprite2D" parent="."]
+position = Vector2(-1690, 1575)
+texture_filter = 1
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("flower")
+
+[node name="FarmFlowers2" type="Sprite2D" parent="."]
+position = Vector2(-1490, 1540)
+texture_filter = 1
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("flower")
+
+[node name="FarmFlowers3" type="Sprite2D" parent="."]
+position = Vector2(-1210, 1490)
+texture_filter = 1
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("flower")
+
+[node name="FarmFlowers4" type="Sprite2D" parent="."]
+position = Vector2(-1460, 1730)
+texture_filter = 1
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("flower")
+
+[node name="FarmFlowers5" type="Sprite2D" parent="."]
+position = Vector2(-225, 845)
+texture_filter = 1
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("flower")
+
+[node name="FarmFlowers6" type="Sprite2D" parent="."]
+position = Vector2(-25, 2140)
+texture_filter = 1
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("flower")
+
+[node name="FarmFlowers7" type="Sprite2D" parent="."]
+position = Vector2(530, 890)
+texture_filter = 1
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("flower")
+
+
+
+[node name="MillTrough" parent="." instance=ExtResource("yard2")]
+position = Vector2(-425, 910)
+
+[node name="GardenBarrow" parent="." instance=ExtResource("yard3")]
+position = Vector2(-1020, 1580)
+
+[node name="FarmhouseSupplies" parent="." instance=ExtResource("yard4")]
+position = Vector2(-1680, 1500)
+
+[node name="VillageHens" parent="." instance=ExtResource("yard5")]
+position = Vector2(-1500, 1710)
+
+[node name="ShedCrates" parent="." instance=ExtResource("yard4")]
+position = Vector2(590, 810)
+
+[node name="ShedTrough" parent="." instance=ExtResource("yard2")]
+position = Vector2(380, 870)
+
+[node name="WheatFieldBoundary" parent="." instance=ExtResource("wheat_boundary")]
+
+[node name="VegetableGardenBoundaries" parent="." instance=ExtResource("garden_boundaries")]
+
+[node name="RuralLandscapeDressing" parent="." instance=ExtResource("rural_dressing")]

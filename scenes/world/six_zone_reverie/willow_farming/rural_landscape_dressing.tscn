@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_tree.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_crates.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_logs.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_shrub.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_flowers.tscn" id="5"]
+
+[node name="RuralLandscapeDressing" type="Node2D"]
+y_sort_enabled = true
+
+[node name="OrchardNorth" parent="." instance=ExtResource("1")]
+position = Vector2(-450, 470)
+
+[node name="ShedOrchard" parent="." instance=ExtResource("1")]
+position = Vector2(760, 690)
+
+[node name="EastOrchard" parent="." instance=ExtResource("1")]
+position = Vector2(1840, 1660)
+
+[node name="EastPasture" parent="." instance=ExtResource("1")]
+position = Vector2(1550, 1850)
+
+[node name="EastFarmSupplies" parent="." instance=ExtResource("2")]
+position = Vector2(1030, 1870)
+
+[node name="WestFarmSupplies" parent="." instance=ExtResource("2")]
+position = Vector2(-1740, 1590)
+
+[node name="NorthLogPile" parent="." instance=ExtResource("3")]
+position = Vector2(260, 560)
+
+[node name="EastLogPile" parent="." instance=ExtResource("3")]
+position = Vector2(2140, 1570)
+
+[node name="FieldShrubs" parent="." instance=ExtResource("4")]
+position = Vector2(-870, 2156)
+
+[node name="CottageShrubs" parent="." instance=ExtResource("4")]
+position = Vector2(-1496, 1410)
+
+[node name="RiversideShrubs" parent="." instance=ExtResource("4")]
+position = Vector2(870, 1030)
+
+[node name="EastWildflowers" parent="." instance=ExtResource("5")]
+position = Vector2(1910, 1920)
+
+[node name="EastWildflowers2" parent="." instance=ExtResource("5")]
+position = Vector2(1670, 1990)
+
+[node name="WestWildflowers" parent="." instance=ExtResource("5")]
+position = Vector2(-1904, 1610)
+
+[node name="OrchardWildflowers" parent="." instance=ExtResource("5")]
+position = Vector2(-254, 490)
+
+[node name="SouthShrubs" parent="." instance=ExtResource("4")]
+position = Vector2(-320, 2580)
+
+[node name="SouthLogPile" parent="." instance=ExtResource("3")]
+position = Vector2(100, 2470)

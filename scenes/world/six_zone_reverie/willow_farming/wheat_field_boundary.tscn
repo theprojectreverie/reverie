@@ -1,0 +1,89 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/farm_straight_rail.tscn" id="1"]
+
+[node name="WheatFieldBoundary" type="Node2D"]
+y_sort_enabled = true
+
+
+[node name="Rail02" parent="." instance=ExtResource("1")]
+position = Vector2(-1150, 1960.0)
+
+[node name="Rail03" parent="." instance=ExtResource("1")]
+position = Vector2(-1080, 1995.0)
+
+[node name="Rail04" parent="." instance=ExtResource("1")]
+position = Vector2(-1010, 2030.0)
+
+[node name="Rail05" parent="." instance=ExtResource("1")]
+position = Vector2(-940, 2065.0)
+
+[node name="Rail06" parent="." instance=ExtResource("1")]
+position = Vector2(-870, 2100.0)
+
+[node name="Rail07" parent="." instance=ExtResource("1")]
+position = Vector2(-800, 2135.0)
+
+[node name="Rail08" parent="." instance=ExtResource("1")]
+position = Vector2(-730, 2170.0)
+
+[node name="Rail09" parent="." instance=ExtResource("1")]
+position = Vector2(-800, 1715.0)
+
+[node name="Rail10" parent="." instance=ExtResource("1")]
+position = Vector2(-730, 1750.0)
+
+[node name="Rail11" parent="." instance=ExtResource("1")]
+position = Vector2(-660, 1785.0)
+
+[node name="Rail12" parent="." instance=ExtResource("1")]
+position = Vector2(-590, 1820.0)
+
+[node name="Rail13" parent="." instance=ExtResource("1")]
+position = Vector2(-520, 1855.0)
+
+[node name="Rail14" parent="." instance=ExtResource("1")]
+position = Vector2(-450, 1890.0)
+
+[node name="Rail15" parent="." instance=ExtResource("1")]
+position = Vector2(-380, 1925.0)
+
+[node name="Rail16" parent="." instance=ExtResource("1")]
+position = Vector2(-310, 1960.0)
+
+
+[node name="Rail18" parent="." instance=ExtResource("1")]
+position = Vector2(-940, 1785.0)
+scale = Vector2(-1, 1)
+
+[node name="Rail19" parent="." instance=ExtResource("1")]
+position = Vector2(-870, 1750.0)
+scale = Vector2(-1, 1)
+
+[node name="Rail20" parent="." instance=ExtResource("1")]
+position = Vector2(-800, 1715.0)
+scale = Vector2(-1, 1)
+
+[node name="Rail21" parent="." instance=ExtResource("1")]
+position = Vector2(-590, 2170.0)
+scale = Vector2(-1, 1)
+
+[node name="Rail22" parent="." instance=ExtResource("1")]
+position = Vector2(-520, 2135.0)
+scale = Vector2(-1, 1)
+
+[node name="Rail23" parent="." instance=ExtResource("1")]
+position = Vector2(-450, 2100.0)
+scale = Vector2(-1, 1)
+
+[node name="Rail24" parent="." instance=ExtResource("1")]
+position = Vector2(-380, 2065.0)
+scale = Vector2(-1, 1)
+
+[node name="Rail25" parent="." instance=ExtResource("1")]
+position = Vector2(-310, 2030.0)
+scale = Vector2(-1, 1)
+
+[node name="Rail26" parent="." instance=ExtResource("1")]
+position = Vector2(-240, 1995.0)
+scale = Vector2(-1, 1)
