@@ -22,14 +22,32 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor, element: 
 		direction = (target_home - origin).normalized()
 	attacker.face(direction)
 	if is_instance_valid(attacker.elathra_art):
-		attacker.play_attack()
-		if is_instance_valid(target) and target != attacker:
-			var cast_timer := create_tween()
+		attacker.cancel_attack_motion()
+		attacker.face(direction)
+		if skill_id.is_empty() and not ultimate and is_instance_valid(target) and target != attacker:
+			var step := direction * minf(42.0, maxf(0.0, origin.distance_to(target_home) - 70.0))
+			var motion := attacker.create_tween()
+			attacker.track_attack_motion(motion)
+			attacker.play_elathra_walk(direction)
+			motion.tween_property(attacker, "position", origin + step, 0.25)
+			motion.tween_callback(func() -> void:
+				attacker.play_elathra_action("", false))
+			motion.tween_interval(0.44)
+			motion.tween_callback(func() -> void:
+				attacker.play_elathra_walk(-direction))
+			motion.tween_property(attacker, "position", attacker.home_position, 0.25)
+			motion.tween_callback(func() -> void:
+				attacker.face(direction)
+				attacker._elathra_return_idle())
+		else:
+			attacker.play_elathra_action(skill_id, ultimate)
+		if is_instance_valid(target) and target != attacker and not ultimate and skill_id != "hollow_wail":
+			var cast_timer := attacker.create_tween()
 			attacker.track_attack_sequence(cast_timer)
-			cast_timer.tween_interval(0.12)
+			cast_timer.tween_interval(0.58 if skill_id.is_empty() else 0.55)
 			cast_timer.tween_callback(func() -> void:
-				if is_instance_valid(target):
-					_spawn_attack_trail(attacker, origin + Vector2(0, -38), target_home + Vector2(0, -28), element))
+				if is_instance_valid(target) and not attacker.dead:
+					_spawn_attack_trail(attacker, attacker.position + Vector2(0, -38), target_home + Vector2(0, -28), element))
 		return
 	if is_instance_valid(attacker.ravienna_art):
 		var lunar_wisp := attacker.is_player and skill_id == "lunar_wisp"

@@ -511,9 +511,84 @@
       "secondary": "#7c4a9c",
       "accent": "#e08cff"
     }
+  },
+  "gate_crownling": {"name":"Royal Gate Crownling","element":"earth","rarity":"common","role":"Minion","base":{"hp":50,"atk":8,"def":5,"spd":10,"crit":0.03},"skills":["moss_slam"],"ultimate":"","lore":"A Crownling roaming the abandoned royal avenue.","palette":{"primary":"#c99154","secondary":"#ffe0a0","accent":"#b52d50"}},
+  "cassien_boss": {"name":"Cassien, the Crimson Oath","element":"dark","rarity":"mythic","role":"Boss","base":{"hp":450,"atk":2.125,"def":7.5,"spd":14.8,"crit":0.03,"crit_dmg":1.5},"skills":["cassien_sword_slash","cassien_heavy_cleave","cassien_crimson_crescent"],"ultimate":"cassien_crimson_requiem","lore":"A crimson-eyed noble bound by an old oath.","palette":{"hair":"#791f30","primary":"#211b20","secondary":"#5b1825","accent":"#c52d43","skin":"#e5c6c4"}},
+  "mirene_boss": {
+    "name": "Mirène",
+    "element": "dark",
+    "rarity": "legendary",
+    "role": "Trickster",
+    "base": {
+      "hp": 180,
+      "atk": 12,
+      "def": 8,
+      "spd": 16,
+      "crit": 0.06
+    },
+    "skills": [
+      "shadow_feint",
+      "corruption_bolt"
+    ],
+    "ultimate": "hollow_wail",
+    "palette": {
+      "hair": "#eee3e7",
+      "primary": "#25131d",
+      "secondary": "#8f263e",
+      "accent": "#d94b61",
+      "skin": "#f0d7d9"
+    }
+  },
+  "crimson_witch_rival": {
+    "name": "Crimson Witch",
+    "element": "dark",
+    "rarity": "rare",
+    "role": "Assassin",
+    "base": {
+      "hp": 68,
+      "atk": 2,
+      "def": 5,
+      "spd": 9,
+      "crit": 0.1,
+      "crit_dmg": 1.5
+    },
+    "skills": [
+      "reapers_waltz",
+      "crimson_binding"
+    ],
+    "palette": {
+      "hair": "#26141c",
+      "primary": "#24131c",
+      "secondary": "#7c2036",
+      "accent": "#e34259",
+      "skin": "#e8c8cb"
+    },
+    "ultimate": ""
+  },
+  "nyx_rival": {
+    "name": "Nyx Vaelora",
+    "element": "dark",
+    "rarity": "legendary",
+    "role": "Mage",
+    "base": {
+      "hp": 100,
+      "atk": 3,
+      "def": 6,
+      "spd": 10,
+      "crit": 0.1,
+      "crit_dmg": 1.5
+    },
+    "skills": [
+      "lunar_wisp",
+      "velvet_hex"
+    ],
+    "palette": {
+      "hair": "#2a1533",
+      "primary": "#3b1f4e",
+      "secondary": "#a87bd4",
+      "accent": "#ff6fae",
+      "skin": "#e8cdd8"
+    },
+    "ultimate": ""
   }
-,
-"gate_crownling": {"name":"Royal Gate Crownling","element":"earth","rarity":"common","role":"Minion","base":{"hp":50,"atk":8,"def":5,"spd":10,"crit":0.03},"skills":["moss_slam"],"ultimate":"","lore":"A Crownling roaming the abandoned royal avenue.","palette":{"primary":"#c99154","secondary":"#ffe0a0","accent":"#b52d50"}}
-,
-"cassien_boss": {"name":"Cassien, the Crimson Oath","element":"dark","rarity":"mythic","role":"Boss","base":{"hp":450,"atk":2.125,"def":7.5,"spd":14.8,"crit":0.03,"crit_dmg":1.5},"skills":["cassien_sword_slash","cassien_heavy_cleave","cassien_crimson_crescent"],"ultimate":"cassien_crimson_requiem","lore":"A crimson-eyed noble bound by an old oath.","palette":{"hair":"#791f30","primary":"#211b20","secondary":"#5b1825","accent":"#c52d43","skin":"#e5c6c4"}}
 }

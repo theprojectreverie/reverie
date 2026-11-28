@@ -2,9 +2,9 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {buildBannerCatalog} from "../src/world/live-banners.js";
 import {rollBanner,emptyPity,mythicRecipe} from "../src/world/summon.js";
-test("Caelith is Legendary in the five current banners; Mythic reserved from off-banner draws",()=>{
+test("Caelith is Legendary in the six current banners; Mythic reserved from off-banner draws",()=>{
  const catalog=buildBannerCatalog([]);
- assert.equal(Object.keys(catalog).length,5);
+ assert.equal(Object.keys(catalog).length,6);
  for(const [id,b] of Object.entries(catalog)){
   assert.ok(b.pool.legendary.includes("caelith_legendary"),id);
   assert.ok(!b.pool.mythic.includes("caelith_mythic"),id);

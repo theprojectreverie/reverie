@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=6 format=3]
 
 [sub_resource type="Animation" id="Animation_ripple"]
 resource_name = "ripple"
@@ -7,21 +7,92 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
-tracks/0/keys = {"times": PackedFloat32Array(0, 0.9, 1.8), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(0.35, 0.68, 0.86, 0.42), Color(0.45, 0.78, 0.94, 0.66), Color(0.35, 0.68, 0.86, 0.42)]}
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.9, 1.8), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(0.68, 0.88, 1, 0.62), Color(0.85, 0.96, 1, 0.9), Color(0.68, 0.88, 1, 0.62)]}
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:scale")
-tracks/1.interp = 1
+tracks/1/interp = 1
 tracks/1/keys = {"times": PackedFloat32Array(0, 0.9, 1.8), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(46, 4.6), Vector2(46, 5.4), Vector2(46, 4.6)]}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_water"]
 _data = {"ripple": SubResource("Animation_ripple")}
 
+[sub_resource type="Animation" id="Animation_step"]
+resource_name = "step"
+length = 0.62
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.24, 0.62), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(0.65, 0.65), Vector2(1.15, 1.15), Vector2(1.65, 1.65)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.12, 0.62), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.8), Color(1, 1, 1, 0)]}
+
+[sub_resource type="Animation" id="Animation_entry"]
+resource_name = "entry"
+length = 0.85
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.25, 0.85), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector2(0.75, 0.75), Vector2(1.4, 1.4), Vector2(2.0, 2.0)]}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/keys = {"times": PackedFloat32Array(0, 0.10, 0.85), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_splash"]
+_data = {"entry": SubResource("Animation_entry"), "step": SubResource("Animation_step")}
+
 [node name="WaterSurface" type="Sprite2D"]
 visible = false
-position = Vector2(0, -20)
+position = Vector2(0, 0)
+self_modulate = Color(1, 1, 1, 0)
 scale = Vector2(46, 5)
-modulate = Color(0.35, 0.68, 0.86, 0.58)
+modulate = Color(0.68, 0.88, 1, 0.62)
 z_index = 5
+
+[node name="RippleGeometry" type="Node2D" parent="."]
+scale = Vector2(0.02173913, 0.2)
+
+[node name="Waterline" type="Line2D" parent="RippleGeometry"]
+points = PackedVector2Array(-19, 0, -17, 2.3, -13, 4.2, -7, 5.5, 0, 6, 7, 5.5, 13, 4.2, 17, 2.3, 19, 0)
+width = 1.2
+default_color = Color(0.76, 0.95, 1, 0.86)
+antialiased = true
+
+[node name="SideRippleLeft" type="Line2D" parent="RippleGeometry"]
+points = PackedVector2Array(-26, 0, -23, 3.8, -17, 6.2, -9, 7.5)
+width = 0.9
+default_color = Color(0.56, 0.86, 0.97, 0.48)
+antialiased = true
+
+[node name="SideRippleRight" type="Line2D" parent="RippleGeometry"]
+points = PackedVector2Array(9, 7.5, 17, 6.2, 23, 3.8, 26, 0)
+width = 0.9
+default_color = Color(0.56, 0.86, 0.97, 0.48)
+antialiased = true
+
+[node name="SplashWake" type="Node2D" parent="RippleGeometry"]
+modulate = Color(1, 1, 1, 0)
+
+[node name="OuterRing" type="Line2D" parent="RippleGeometry/SplashWake"]
+points = PackedVector2Array(-22, 0, -19, -3.5, -11, -6, 0, -7, 11, -6, 19, -3.5, 22, 0, 19, 3.5, 11, 6, 0, 7, -11, 6, -19, 3.5)
+width = 1.1
+default_color = Color(0.67, 0.92, 1, 0.7)
+closed = true
+antialiased = true
+
+[node name="SplashLeft" type="Line2D" parent="RippleGeometry/SplashWake"]
+points = PackedVector2Array(-14, 2, -20, -3, -22, -7)
+width = 1.1
+default_color = Color(0.82, 0.97, 1, 0.9)
+antialiased = true
+
+[node name="SplashRight" type="Line2D" parent="RippleGeometry/SplashWake"]
+points = PackedVector2Array(13, 2, 19, -2, 21, -6)
+width = 1.1
+default_color = Color(0.82, 0.97, 1, 0.9)
+antialiased = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RippleGeometry/SplashWake"]
+root_node = NodePath("..")
+libraries = {"": SubResource("AnimationLibrary_splash")}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("..")

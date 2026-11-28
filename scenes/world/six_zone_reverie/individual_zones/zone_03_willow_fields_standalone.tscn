@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cof8wlsmuakxn"]
 
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/willow_fields_east_exit.png" id="custom_connection_art"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/willow_fields_exit_gate_reimport.png" id="custom_connection_art"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_ui_binding.gd" id="zone_ui_binding"]
 
 [ext_resource type="Texture2D" uid="uid://lt5lt5hxq45n" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_flat_terrain/flat_22.png" id="6_lhisr"]
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_03_willow_fields_underlay.png" id="prepared_background"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/zone_03_willow_fields_picsart_wide.jpg" id="prepared_background"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/willow_dirt_road_4x10.tscn" id="road"]
 [ext_resource type="Script" uid="uid://cpi7hbov6wbyd" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
 [ext_resource type="PackedScene" uid="uid://dvdtele1xw3e1" path="res://scenes/world/six_zone_reverie/zone_03_willow_fields.tscn" id="zone"]
@@ -73,6 +73,7 @@ tracks/0/keys = {
 _data = {&"drift": SubResource("FogDrift_ToNextZone")}
 
 [node name="StandaloneZone03" type="Node2D" unique_id=203861547]
+y_sort_enabled = true
 script = ExtResource("zone_controller")
 
 [node name="Zone" parent="." unique_id=1016706536 instance=ExtResource("zone")]
@@ -103,12 +104,12 @@ position = Vector2(-2720, 1296)
 
 [node name="ScenicBackground" type="Sprite2D" parent="."]
 z_index = -100
-texture_repeat = 3
+texture_repeat = 1
 position = Vector2(96, 1632)
-scale = Vector2(2.75, 2.75)
+scale = Vector2(7.2, 7.2)
 texture = ExtResource("prepared_background")
 region_enabled = true
-region_rect = Rect2(-3344, -1882, 8360, 4705)
+region_rect = Rect2(0, 0, 1280, 768)
 
 [node name="Waystone" parent="." instance=ExtResource("travel_waypoint")]
 position = Vector2(-2114, 1704)
@@ -650,10 +651,23 @@ modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_5")
 [node name="CustomRoadContinuation" type="Sprite2D" parent="TransferPoints/ToNextZone"]
 texture_filter = 1
-z_index = -5
-position = Vector2(-140, -99)
-scale = Vector2(1.25, 1.25)
+z_index = 1
+position = Vector2(-232, -114)
+scale = Vector2(0.44, 0.59)
 texture = ExtResource("custom_connection_art")
+centered = false
+offset = Vector2(-363, -567)
+
+[node name="WillowExitGateFootprints" type="StaticBody2D" parent="TransferPoints/ToNextZone"]
+position = Vector2(-232, -114)
+collision_layer = 1
+collision_mask = 0
+
+[node name="NearPillar" type="CollisionPolygon2D" parent="TransferPoints/ToNextZone/WillowExitGateFootprints"]
+polygon = PackedVector2Array(-155, 53, -108, 29, -61, 53, -108, 77)
+
+[node name="FarPillar" type="CollisionPolygon2D" parent="TransferPoints/ToNextZone/WillowExitGateFootprints"]
+polygon = PackedVector2Array(61, -54, 108, -78, 155, -54, 108, -30)
 
 [node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
 position = Vector2(-150, 0)
@@ -741,5 +755,5 @@ collision_mask = 0
 
 [node name="TerrainOutline" type="CollisionPolygon2D" parent="TerrainPerimeter"]
 build_mode = 1
-polygon = PackedVector2Array(-2688, 1328, -2592, 1376, 96, 32, 3296, 1632, 96, 3232, -3104, 1632, -2720, 1440, -2816, 1392)
+polygon = PackedVector2Array(-2698, 1308, -2592, 1376, 96, 32, 3296, 1632, 3080, 1760, 2952, 1824, 96, 3232, -3104, 1632, -2720, 1440, -2826, 1372)
 

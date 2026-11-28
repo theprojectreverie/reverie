@@ -17,6 +17,8 @@ const STORY_PORTRAITS := {
 	"ravienna": preload("res://assets/portraits/profile/ravienna_mythic.png"),
 	"revienna": preload("res://assets/portraits/profile/ravienna_mythic.png"),
 	"elathra": preload("res://assets/portraits/summon/elathra.png"),
+	"mirene": preload("res://assets/portraits/profile/mirene_base.jpg"),
+	"mir\u00e9ne": preload("res://assets/portraits/profile/mirene_base.jpg"),
 }
 
 var _dialogue_id: String = ""

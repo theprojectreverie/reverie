@@ -50,7 +50,21 @@ func _refresh() -> void:
   exit_label.text = "Defeat Gerald first" if enabled else ("Finish Gerald?s story" if GameState.quest_domain.flags.get(STORY_PENDING, false) else "Royal Gardens")
 
 func can_interact() -> bool:
- return super.can_interact() and not engaged and not _story_running and not bool(GameState.quest_domain.flags.get(FLAG, false))
+ return super.can_interact() and not engaged and not _story_running and not bool(GameState.quest_domain.flags.get(FLAG, false)) and _village_recruits_ready()
+
+func _village_recruits_ready() -> bool:
+ # Existing online pilot remains server-authoritative; this local questline is not deployed there yet.
+ var current := get_tree().current_scene
+ if current != null:
+  var sync := current.get_node_or_null("StoryVillageProgressionSync")
+  if sync != null:
+   return sync.ready_for_group(GROUP_ID, "village_gerald_trial") or sync.won(GROUP_ID)
+ if AuthGateway.is_authenticated() or preload("res://scripts/online/story_opening_world_sync.gd").pilot_enabled():
+  return true
+ var zone := get_tree().current_scene
+ if zone == null or zone.name != &"StandaloneVillage":
+  return true
+ return GameState.quest_domain.quest_state("village_nyx_duel") == "complete"
 
 func interact() -> void:
  if not can_interact(): return
@@ -58,7 +72,7 @@ func interact() -> void:
  if zone == null or zone.name != &"StandaloneVillage": return
  var story_sync := zone.get_node_or_null("StoryOpeningWorldSync")
  if story_sync != null:
-  if OS.get_environment("REVERIE_GERALD_STORY_PILOT") != "1" or not story_sync.is_story_ready():
+  if (OS.get_environment("REVERIE_GERALD_STORY_PILOT") != "1" and OS.get_environment("REVERIE_VILLAGE_PROGRESSION_PILOT") != "1") or not story_sync.is_story_ready():
    EventBus.toast_requested.emit("Online Gerald combat is unavailable. Reconnect and try again.")
    return
  var player := zone.get("checkpoint_player") as CharacterBody2D
@@ -176,6 +190,8 @@ func _on_battle_finished(result: Dictionary) -> void:
  if zone == null or zone.name != &"StandaloneVillage":
   return
  zone.set_meta("gerald_backstory_active", true)
+ if GameState.quest_domain.quest_ready("village_gerald_trial"):
+  GameState.quest_domain.complete_quest("village_gerald_trial")
  GameState.quest_domain.flags[FLAG] = true
  GameState.quest_domain.flags[STORY_PENDING] = true
  _refresh()

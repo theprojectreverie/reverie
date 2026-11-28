@@ -1,0 +1,1375 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/fallen_leaf_carpet.png" id="1"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/cracked_paving_patch.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/dark_grass_patch.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/ivy_rubble_patch.png" id="4"]
+
+[node name="ForsakenGroundDressing" type="Node2D"]
+z_index = -15
+
+[node name="Patch01" type="Node2D" parent="."]
+position = Vector2(-2016, 1555)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch01"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.42656, 0.42656)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("2")
+
+[node name="Patch02" type="Node2D" parent="."]
+position = Vector2(-2216, 1690)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch02"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.37258, 0.37258)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch03" type="Node2D" parent="."]
+position = Vector2(-1836, 1670)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch03"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.28060, 0.28060)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("3")
+
+[node name="Patch04" type="Node2D" parent="."]
+position = Vector2(-2136, 1845)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch04"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.25927, 0.25927)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("4")
+
+[node name="Patch05" type="Node2D" parent="."]
+position = Vector2(-1881, 1860)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch05"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.29331, 0.29331)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch06" type="Node2D" parent="."]
+position = Vector2(160, 460)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch06"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.42656, 0.42656)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("2")
+
+[node name="Patch07" type="Node2D" parent="."]
+position = Vector2(-50, 585)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch07"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.34880, 0.34880)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch08" type="Node2D" parent="."]
+position = Vector2(350, 595)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch08"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.29663, 0.29663)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("3")
+
+[node name="Patch09" type="Node2D" parent="."]
+position = Vector2(35, 710)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch09"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.24356, 0.24356)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("4")
+
+[node name="Patch10" type="Node2D" parent="."]
+position = Vector2(2080, 1324)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch10"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.42656, 0.42656)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("2")
+
+[node name="Patch11" type="Node2D" parent="."]
+position = Vector2(1900, 1454)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch11"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.33294, 0.33294)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch12" type="Node2D" parent="."]
+position = Vector2(2270, 1444)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch12"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.30465, 0.30465)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("3")
+
+[node name="Patch13" type="Node2D" parent="."]
+position = Vector2(2200, 1574)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch13"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.25927, 0.25927)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("4")
+
+[node name="Patch14" type="Node2D" parent="."]
+position = Vector2(-1152, 2246)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch14"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.36094, 0.36094)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("2")
+
+[node name="Patch15" type="Node2D" parent="."]
+position = Vector2(-1312, 2376)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch15"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.30123, 0.30123)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch16" type="Node2D" parent="."]
+position = Vector2(-1272, 2476)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch16"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.25142, 0.25142)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("4")
+
+[node name="Patch17" type="Node2D" parent="."]
+position = Vector2(1152, 720)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch17"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.36094, 0.36094)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("2")
+
+[node name="Patch18" type="Node2D" parent="."]
+position = Vector2(992, 825)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch18"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.30123, 0.30123)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch19" type="Node2D" parent="."]
+position = Vector2(1312, 835)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch19"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.28862, 0.28862)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("3")
+
+[node name="Patch20" type="Node2D" parent="."]
+position = Vector2(-1698, 1482)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch20"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.23250, 0.23250)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("3")
+
+[node name="Patch21" type="Node2D" parent="."]
+position = Vector2(-576, 1198)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch21"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.28538, 0.28538)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch22" type="Node2D" parent="."]
+position = Vector2(-736, 1830)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch22"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.36465, 0.36465)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch23" type="Node2D" parent="."]
+position = Vector2(-866, 1935)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch23"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.24051, 0.24051)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("3")
+
+[node name="Patch24" type="Node2D" parent="."]
+position = Vector2(768, 1718)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch24"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.30123, 0.30123)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+[node name="Patch25" type="Node2D" parent="."]
+position = Vector2(868, 1633)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch25"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.23250, 0.23250)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("3")
+
+[node name="Patch26" type="Node2D" parent="."]
+position = Vector2(1020, 2390)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch26"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.24051, 0.24051)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("3")
+
+[node name="Patch27" type="Node2D" parent="."]
+position = Vector2(-1088, 2102)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="Patch27"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.29331, 0.29331)
+modulate = Color(0.85, 0.79, 0.88, 0.85)
+texture = ExtResource("1")
+
+
+
+[node name="TreeGrass001" type="Node2D" parent="."]
+position = Vector2(-1568, 1392)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass001"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass002" type="Node2D" parent="."]
+position = Vector2(-1658, 1414)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass002"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass003" type="Node2D" parent="."]
+position = Vector2(-1623, 1344)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass003"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass004" type="Node2D" parent="."]
+position = Vector2(-992, 752)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass004"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass005" type="Node2D" parent="."]
+position = Vector2(-1082, 774)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass005"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass006" type="Node2D" parent="."]
+position = Vector2(-904, 768)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass006"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass007" type="Node2D" parent="."]
+position = Vector2(-666, 1238)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass007"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass008" type="Node2D" parent="."]
+position = Vector2(-488, 1232)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass008"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass009" type="Node2D" parent="."]
+position = Vector2(-576, 1298)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass009"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass010" type="Node2D" parent="."]
+position = Vector2(-256, 1248)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass010"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass011" type="Node2D" parent="."]
+position = Vector2(-346, 1270)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass011"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass012" type="Node2D" parent="."]
+position = Vector2(-168, 1264)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass012"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass013" type="Node2D" parent="."]
+position = Vector2(-826, 1862)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass013"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass014" type="Node2D" parent="."]
+position = Vector2(-648, 1856)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass014"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass015" type="Node2D" parent="."]
+position = Vector2(-791, 1792)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass015"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass016" type="Node2D" parent="."]
+position = Vector2(678, 1750)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass016"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass017" type="Node2D" parent="."]
+position = Vector2(856, 1744)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass017"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass018" type="Node2D" parent="."]
+position = Vector2(713, 1680)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass018"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass019" type="Node2D" parent="."]
+position = Vector2(1120, 2320)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass019"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass020" type="Node2D" parent="."]
+position = Vector2(1208, 2336)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass020"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass021" type="Node2D" parent="."]
+position = Vector2(1065, 2272)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass021"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass022" type="Node2D" parent="."]
+position = Vector2(-1856, 1440)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass022"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass023" type="Node2D" parent="."]
+position = Vector2(-1911, 1392)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass023"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass024" type="Node2D" parent="."]
+position = Vector2(-768, 544)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass024"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass025" type="Node2D" parent="."]
+position = Vector2(-858, 566)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass025"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass026" type="Node2D" parent="."]
+position = Vector2(-680, 560)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass026"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass027" type="Node2D" parent="."]
+position = Vector2(-416, 528)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass027"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass028" type="Node2D" parent="."]
+position = Vector2(-506, 550)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass028"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass029" type="Node2D" parent="."]
+position = Vector2(-328, 544)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass029"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass030" type="Node2D" parent="."]
+position = Vector2(-1335, 1968)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass030"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass031" type="Node2D" parent="."]
+position = Vector2(-64, 2624)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass031"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass032" type="Node2D" parent="."]
+position = Vector2(-154, 2646)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass032"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass033" type="Node2D" parent="."]
+position = Vector2(24, 2640)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass033"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass034" type="Node2D" parent="."]
+position = Vector2(288, 2480)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass034"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass035" type="Node2D" parent="."]
+position = Vector2(198, 2502)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass035"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass036" type="Node2D" parent="."]
+position = Vector2(376, 2496)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass036"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass037" type="Node2D" parent="."]
+position = Vector2(-2423, 1520)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass037"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass038" type="Node2D" parent="."]
+position = Vector2(-2231, 1424)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass038"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass039" type="Node2D" parent="."]
+position = Vector2(-2272, 1890)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass039"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass040" type="Node2D" parent="."]
+position = Vector2(-576, 480)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass040"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass041" type="Node2D" parent="."]
+position = Vector2(-631, 432)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass041"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass042" type="Node2D" parent="."]
+position = Vector2(-576, 562)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass042"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass043" type="Node2D" parent="."]
+position = Vector2(-416, 368)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass043"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass044" type="Node2D" parent="."]
+position = Vector2(-506, 390)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass044"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass045" type="Node2D" parent="."]
+position = Vector2(-328, 384)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass045"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass046" type="Node2D" parent="."]
+position = Vector2(-192, 480)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass046"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass047" type="Node2D" parent="."]
+position = Vector2(-247, 432)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass047"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass048" type="Node2D" parent="."]
+position = Vector2(-192, 562)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass048"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass049" type="Node2D" parent="."]
+position = Vector2(-602, 630)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass049"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass050" type="Node2D" parent="."]
+position = Vector2(-424, 624)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass050"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass051" type="Node2D" parent="."]
+position = Vector2(-512, 690)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass051"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass052" type="Node2D" parent="."]
+position = Vector2(585, 624)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass052"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass053" type="Node2D" parent="."]
+position = Vector2(832, 576)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass053"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass054" type="Node2D" parent="."]
+position = Vector2(742, 598)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass054"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass055" type="Node2D" parent="."]
+position = Vector2(920, 592)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass055"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass056" type="Node2D" parent="."]
+position = Vector2(1024, 672)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass056"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass057" type="Node2D" parent="."]
+position = Vector2(934, 694)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass057"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass058" type="Node2D" parent="."]
+position = Vector2(1074, 724)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass058"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass059" type="Node2D" parent="."]
+position = Vector2(736, 784)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass059"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass060" type="Node2D" parent="."]
+position = Vector2(646, 806)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass060"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass061" type="Node2D" parent="."]
+position = Vector2(824, 800)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass061"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass062" type="Node2D" parent="."]
+position = Vector2(800, 880)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass062"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass063" type="Node2D" parent="."]
+position = Vector2(710, 902)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass063"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass064" type="Node2D" parent="."]
+position = Vector2(2144, 1666)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass064"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass065" type="Node2D" parent="."]
+position = Vector2(2418, 1524)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass065"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass066" type="Node2D" parent="."]
+position = Vector2(2528, 1584)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass066"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass067" type="Node2D" parent="."]
+position = Vector2(2438, 1606)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass067"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass068" type="Node2D" parent="."]
+position = Vector2(2616, 1600)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass068"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass069" type="Node2D" parent="."]
+position = Vector2(2272, 1712)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass069"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass070" type="Node2D" parent="."]
+position = Vector2(2182, 1734)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass070"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass071" type="Node2D" parent="."]
+position = Vector2(2360, 1728)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass071"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass072" type="Node2D" parent="."]
+position = Vector2(2278, 1814)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass072"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass073" type="Node2D" parent="."]
+position = Vector2(2456, 1808)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass073"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass074" type="Node2D" parent="."]
+position = Vector2(2368, 1874)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass074"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass075" type="Node2D" parent="."]
+position = Vector2(-1370, 2454)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass075"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass076" type="Node2D" parent="."]
+position = Vector2(-1184, 2512)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass076"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass077" type="Node2D" parent="."]
+position = Vector2(-1134, 2564)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass077"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass078" type="Node2D" parent="."]
+position = Vector2(-384, 2816)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass078"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass079" type="Node2D" parent="."]
+position = Vector2(-474, 2838)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass079"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass080" type="Node2D" parent="."]
+position = Vector2(-296, 2832)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass080"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass081" type="Node2D" parent="."]
+position = Vector2(-282, 2710)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass081"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass082" type="Node2D" parent="."]
+position = Vector2(-104, 2704)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass082"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass083" type="Node2D" parent="."]
+position = Vector2(-247, 2640)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass083"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass084" type="Node2D" parent="."]
+position = Vector2(0, 2784)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass084"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass085" type="Node2D" parent="."]
+position = Vector2(-90, 2806)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass085"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass086" type="Node2D" parent="."]
+position = Vector2(88, 2800)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass086"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass087" type="Node2D" parent="."]
+position = Vector2(-378, 2918)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass087"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass088" type="Node2D" parent="."]
+position = Vector2(-200, 2912)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass088"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass089" type="Node2D" parent="."]
+position = Vector2(-288, 2978)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass089"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass090" type="Node2D" parent="."]
+position = Vector2(-104, 2992)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass090"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass091" type="Node2D" parent="."]
+position = Vector2(-192, 3058)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass091"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass092" type="Node2D" parent="."]
+position = Vector2(512, 1344)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass092"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass093" type="Node2D" parent="."]
+position = Vector2(422, 1366)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass093"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass094" type="Node2D" parent="."]
+position = Vector2(600, 1360)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass094"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass095" type="Node2D" parent="."]
+position = Vector2(64, 2240)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass095"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.240513, 0.240513)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass096" type="Node2D" parent="."]
+position = Vector2(-26, 2262)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass096"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")
+
+[node name="TreeGrass097" type="Node2D" parent="."]
+position = Vector2(152, 2256)
+scale = Vector2(1, 0.5)
+
+[node name="Artwork" type="Sprite2D" parent="TreeGrass097"]
+texture_filter = 1
+rotation = 0.785398
+scale = Vector2(0.179583, 0.179583)
+modulate = Color(1, 1, 1, 0.96)
+texture = ExtResource("3")

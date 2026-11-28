@@ -16,4 +16,4 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="Body"]
-polygon = PackedVector2Array(-35,-16.1,0,-32.2,35,-16.1,0,4)
+polygon = PackedVector2Array(-59, -21, -33, -42, 14, -48, 63, -24, 53, -8, 8, 6, -37, -6)

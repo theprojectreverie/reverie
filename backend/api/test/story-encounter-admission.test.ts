@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import {isOneTimeStoryEncounter} from "../src/world/story-progression-proof.js";
 import {evaluateStoryEncounter} from "../src/world/story-encounter-admission.js";
 const id="rose_slime_garden_1";
 const proof={region:"story_royal_gardens",x:-1100,y:2200,live:true,fresh:true,victories:["tutorial_fairy_spar","gerald_boss_encounter"],coolingDown:false};
@@ -27,4 +28,16 @@ test("Crownling authored locations are independently admitted only in the story 
   assert.deepEqual(evaluateStoryEncounter(id,{...proof,x,y,region:"six_zone_royal_gardens"}),{ok:false,reason:"wrong_encounter_region"});
   assert.deepEqual(evaluateStoryEncounter(id,{...proof,x,y,coolingDown:true}),{ok:false,reason:"encounter_respawning"});
  }
+});
+
+test("Mirene requires verified opening and audience, live nearby position, and is one-time",()=>{
+ const boss={...proof,x:2179,y:1080,audienceComplete:true};
+ assert.deepEqual(evaluateStoryEncounter("mirene_encounter",boss),{ok:true});
+ assert.deepEqual(evaluateStoryEncounter("mirene_encounter",{...boss,audienceComplete:false}),{ok:false,reason:"encounter_progression_required"});
+ assert.deepEqual(evaluateStoryEncounter("mirene_encounter",{...boss,x:2000}),{ok:false,reason:"encounter_out_of_range"});
+ assert.deepEqual(evaluateStoryEncounter("mirene_encounter",{...boss,victories:[]}),{ok:false,reason:"encounter_progression_required"});
+ assert.equal(isOneTimeStoryEncounter("mirene_encounter"),true);
+ const gate={...boss,x:-65,y:1200,region:"story_royal_gate"};
+ assert.deepEqual(evaluateStoryEncounter("royal_gate_patrol_1",gate),{ok:false,reason:"encounter_progression_required"});
+ assert.deepEqual(evaluateStoryEncounter("royal_gate_patrol_1",{...gate,victories:[...gate.victories,"mirene_encounter"]}),{ok:true});
 });

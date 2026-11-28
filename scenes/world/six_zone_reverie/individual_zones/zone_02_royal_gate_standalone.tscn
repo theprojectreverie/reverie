@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://dg7e5lvm8dgpe"]
 
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/reverie_exit_southeast.png" id="southeast_exit_art"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
@@ -144,12 +143,15 @@ enabled = false
 zoom = Vector2(0.2, 0.2)
 
 [node name="ExitRoadToZone03" parent="." unique_id=205168932 instance=ExtResource("road")]
+visible = false
 position = Vector2(1554, 2364)
 
 [node name="EntryRoadFromZone01" parent="." unique_id=522841456 instance=ExtResource("road")]
+visible = false
 position = Vector2(-430, 124)
 
 [node name="NativeTransferRoadConnectors" parent="." instance=ExtResource("connector_roads")]
+visible = false
 
 [node name="ScenicBackground" type="Sprite2D" parent="."]
 z_index = -100
@@ -740,15 +742,8 @@ rotation = -0.515
 scale = Vector2(0.657, 0.657)
 modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_5")
-[node name="SoutheastRoadContinuation" type="Sprite2D" parent="TransferPoints/ToNextZone"]
-texture_filter = 1
-z_index = -5
-position = Vector2(-160, -130)
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("southeast_exit_art")
-
 [node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
-position = Vector2(-134, -67)
+position = Vector2(-75, -210)
 z_index = 35
 
 [node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToNextZone/ContinuationMarker"]
@@ -770,13 +765,13 @@ theme_override_font_sizes/font_size = 22
 text = "Willow Fields"
 horizontal_alignment = 1
 [node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToPreviousZone"]
-position = Vector2(134, 67)
+position = Vector2(-39, 220)
 z_index = 35
 
 [node name="DirectionArrow" type="Sprite2D" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
 texture_filter = 1
 texture = ExtResource("exit_chevrons")
-rotation = -2.677945
+rotation = -1.05
 scale = Vector2(1.65, 1.65)
 [node name="DestinationName" type="Label" parent="TransferPoints/ToPreviousZone/ContinuationMarker"]
 offset_left = -130.0
@@ -813,5 +808,5 @@ collision_mask = 0
 
 [node name="TerrainOutline" type="CollisionPolygon2D" parent="TerrainPerimeter"]
 build_mode = 1
-polygon = PackedVector2Array(-398, 124, -292, 177, 194, -66, 3394, 1534, 1660, 2401, 1906, 2524, 1714, 2620, 1468, 2497, 194, 3134, -3006, 1534, -484, 273, -590, 220)
+polygon = PackedVector2Array(-418, 84, -292, 177, 194, -66, 3394, 1534, 1660, 2401, 1906, 2524, 1714, 2620, 1468, 2497, 194, 3134, -3006, 1534, -484, 273, -610, 180)
 

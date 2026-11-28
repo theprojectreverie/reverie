@@ -1,7 +1,7 @@
 extends Node
 ## World sprites display per-account server cooldowns; world attacks open the
 ## existing authoritative turn-based HUD. No client-supplied damage is sent.
-const GROUPS := ["rose_slime_garden_1", "rose_slime_garden_2", "rose_slime_garden_3", "rose_slime_garden_4", "rose_slime_garden_5", "rose_slime_garden_6", "crownling_garden_1", "crownling_garden_2", "crownling_garden_3"]
+const GROUPS := ["rose_slime_garden_1", "rose_slime_garden_2", "rose_slime_garden_3", "rose_slime_garden_4", "rose_slime_garden_5", "rose_slime_garden_6", "crownling_garden_1", "crownling_garden_2", "crownling_garden_3", "mirene_encounter"]
 const GATE_GROUPS := ["royal_gate_patrol_1", "royal_gate_patrol_2"]
 var _groups: Array = GROUPS
 var _gate := false
@@ -91,11 +91,14 @@ func apply_status(data: Dictionary, owner: String) -> bool:
 	if restored:EventBus.quest_updated.emit("royal_gate_patrol" if _gate else "elathra_first_audience")
 	for group in _groups:
 		var mob = _monsters.get(group)
-		if is_instance_valid(mob):mob.apply_story_respawn_ms(next[group])
+		if is_instance_valid(mob):
+			if group == "mirene_encounter": mob.apply_boss_status(_audience)
+			else: mob.apply_story_respawn_ms(next[group])
 	return true
 
 func request_encounter(group: String) -> bool:
 	if not _fresh or _pending or _opened or _audience_busy or group not in _groups or int(_remaining.get(group,-1)) != 0 or not _world.is_story_ready() or not _player.input_enabled or _player.network_recovery_paused:return false
+	if group == "mirene_encounter" and (audience_state() != "complete" or bool(_audience.get("mireneDefeated", false))): return false
 	if not _active_group.is_empty() and _active_group != group:
 		EventBus.toast_requested.emit("Finish your previous story battle first.")
 		return false
@@ -129,16 +132,21 @@ static func valid_audience(value: Variant) -> bool:
 	if not value is Dictionary or value.get("questId") != "elathra_first_audience":return false
 	var state: String = str(value.get("state",""))
 	var steps := {"not_started":0,"active":1,"complete":2}
-	return steps.has(state) and value.get("step")==steps.get(state) and value.get("royalGateUnlocked")== (state=="complete")
+	return steps.has(state) and value.get("step")==steps.get(state) and typeof(value.get("mireneDefeated")) == TYPE_BOOL and value.get("royalGateUnlocked")== (state=="complete" and value.get("mireneDefeated"))
 
 func _apply_audience(value: Dictionary) -> void:
 	var changed := _audience != value
 	_audience = value.duplicate(true)
+	var boss = _monsters.get("mirene_encounter")
+	if is_instance_valid(boss): boss.apply_boss_status(_audience)
 	if changed:EventBus.quest_updated.emit("royal_gate_patrol" if _gate else "elathra_first_audience")
 
 func audience_state() -> String:
 	if _gate:return "complete" if _fresh and _world.is_story_ready() else "not_started"
 	return str(_audience.get("state","not_started")) if _fresh and _world.is_story_ready() else "not_started"
+
+func royal_gate_unlocked() -> bool:
+	return not _gate and audience_state() == "complete" and bool(_audience.get("royalGateUnlocked", false))
 
 func can_open_audience() -> bool:
 	return not _gate and _fresh and not _opened and not _audience_busy and _active_group.is_empty() and _world.is_story_ready() and _player.input_enabled and not _player.network_recovery_paused

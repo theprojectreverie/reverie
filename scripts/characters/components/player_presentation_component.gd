@@ -11,6 +11,10 @@ const HERO_PALETTE := {
 }
 
 var actor: Node2D
+const WADE_SHADER = preload("res://shaders/player_wade.gdshader")
+var _wade_material: ShaderMaterial
+var _dry_material: Material
+var _wade_sprite: Sprite2D
 
 
 func _ready() -> void:
@@ -55,15 +59,41 @@ func configure_visual_nodes() -> ActorVisual:
 	water_surface.visible = false
 	return visual
 
-func update_water_visual(in_water: bool) -> void:
+func update_water_visual(in_water: bool, depth: float = 1.0) -> void:
 	if actor == null:
 		return
 	var visual := actor.get_node_or_null("ActorVisual") as ActorVisual
 	if visual != null:
-		visual.position = Vector2(0, 44) if in_water else Vector2.ZERO
+		var sprite := visual.get_node_or_null("FrameSprite") as Sprite2D
+		if in_water and sprite != null and sprite.texture != null:
+			if _wade_sprite != sprite or _wade_material == null or sprite.material != _wade_material:
+				_dry_material = sprite.material
+				_wade_sprite = sprite
+				_wade_material = ShaderMaterial.new()
+				_wade_material.shader = WADE_SHADER
+				sprite.material = _wade_material
+			var sink := sprite.get_rect().size.y * 0.46 * clampf(depth, 0.08, 1.0)
+			_wade_material.set_shader_parameter("sink_pixels", sink)
+			_wade_material.set_shader_parameter("waterline_strength", clampf(depth * 1.5, 0.15, 1.0))
+		elif not in_water and is_instance_valid(_wade_sprite):
+			if _wade_sprite.material == _wade_material:
+				_wade_sprite.material = _dry_material
+			_wade_sprite = null
+			_wade_material = null
+			_dry_material = null
 	var surface := actor.get_node_or_null("WaterSurface") as Sprite2D
 	if surface != null:
 		surface.visible = in_water
+		surface.position = Vector2.ZERO
+		var ripples := surface.get_node_or_null("RippleGeometry") as Node2D
+		if ripples != null and visual != null:
+			var size_factor := clampf(visual.visual_scale, 0.7, 1.5)
+			ripples.scale = Vector2(size_factor / 46.0, size_factor / 5.0)
+			ripples.modulate.a = clampf(depth * 1.6, 0.25, 1.0) if in_water else 0.0
+		if not in_water:
+			var burst := surface.get_node_or_null("RippleGeometry/SplashWake/AnimationPlayer") as AnimationPlayer
+			if burst != null:
+				burst.stop()
 		var ripple_player := surface.get_node_or_null("AnimationPlayer") as AnimationPlayer
 		if ripple_player != null and ripple_player.has_animation(&"ripple"):
 			if in_water:
@@ -73,6 +103,15 @@ func update_water_visual(in_water: bool) -> void:
 				ripple_player.stop()
 				surface.scale = Vector2(46.0, 5.0)
 				surface.modulate = Color(0.35, 0.68, 0.86, 0.58)
+
+
+func play_water_splash(entry: bool = false) -> void:
+	if actor == null:
+		return
+	var burst := actor.get_node_or_null("WaterSurface/RippleGeometry/SplashWake/AnimationPlayer") as AnimationPlayer
+	if burst != null:
+		burst.stop()
+		burst.play(&"entry" if entry else &"step")
 
 
 func restore_facing(facing: Vector2) -> Vector2:

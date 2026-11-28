@@ -1,0 +1,222 @@
+[gd_resource type="TileSet" format=3]
+
+[ext_resource type="Texture2D" uid="uid://1i1l0acqmvbq" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_01.png" id="1_b1kj7"]
+[ext_resource type="Texture2D" uid="uid://cww4xrapnwsq5" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_flat_terrain/flat_02.png" id="2_s0sxk"]
+[ext_resource type="Texture2D" uid="uid://bjtex2cj0u6ia" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_0_1.png" id="3_j6t7h"]
+[ext_resource type="Texture2D" uid="uid://c6x75uj4oos4n" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/approved_native/dirt_edge_s.png" id="4_sqnrf"]
+[ext_resource type="Texture2D" uid="uid://d26wlfad0arnh" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_2_1.png" id="5_3le7u"]
+[ext_resource type="Texture2D" uid="uid://c3ba0lkg8jlsk" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/approved_native/dirt_edge_n.png" id="6_nouis"]
+[ext_resource type="Texture2D" uid="uid://disny8o8uxhk2" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_1_1.png" id="7_3gxo6"]
+[ext_resource type="Texture2D" uid="uid://hftbj0625so0" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v3/handdrawn_direction_1.png" id="8_4iqxv"]
+[ext_resource type="Texture2D" uid="uid://bs3bthc214s5k" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/approved_native/dirt_edge_nw.png" id="9_nkei7"]
+[ext_resource type="Texture2D" uid="uid://3vfrpw2wibra" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_3_1.png" id="10_444ug"]
+[ext_resource type="Texture2D" uid="uid://bsl2r6qhh56sv" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_dark_01.png" id="11_4s5my"]
+[ext_resource type="Texture2D" uid="uid://bnuv354440d1t" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/mossy_stone_01.png" id="12_tq66o"]
+[ext_resource type="Texture2D" uid="uid://b355hcq7jbb7x" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v1/transition_01_0.png" id="13_2dnge"]
+[ext_resource type="Texture2D" uid="uid://c7bqf3kac1q5w" path="res://assets/reverie_pack_v01/Pathways/Ground/path_cobble_02.png" id="14_n7oix"]
+[ext_resource type="Texture2D" uid="uid://yd0hv5yc5aqt" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/cracked_stone_01.png" id="15_hd2gl"]
+[ext_resource type="Texture2D" uid="uid://dhqynmklh4eop" path="res://assets/reverie_pack_v01/Pathways/Ground/path_ruined_02.png" id="16_xj2vl"]
+[ext_resource type="Texture2D" uid="uid://0getg85v8f2y" path="res://assets/reverie_pack_v01/Pathways/Ground/path_ruined_01.png" id="17_o4y0n"]
+[ext_resource type="Texture2D" uid="uid://dnjn68qn6a24w" path="res://assets/reverie_pack_v01/Pathways/Ground/gothic_courtyard_floor_02.png" id="18_w43y6"]
+[ext_resource type="Texture2D" uid="uid://cfamfv64hudr5" path="res://assets/reverie_pack_v01/Pathways/Ground/gothic_courtyard_floor_01.png" id="19_c10wv"]
+[ext_resource type="Texture2D" uid="uid://cdpk5hljobim8" path="res://assets/reverie_pack_v01/Boss_Arena/Flooring/arena_floor_dark_01.png" id="20_j5lhr"]
+[ext_resource type="Texture2D" uid="uid://cssypk2ijw43d" path="res://assets/environment/royal_gardens_ground_64x32/garden_stone_path.png" id="21_e4sje"]
+[ext_resource type="Texture2D" uid="uid://ddnujmuw5su8i" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v3/handdrawn_direction_0.png" id="22_wfg14"]
+[ext_resource type="Texture2D" uid="uid://37ua3e5hpm30" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_1_0.png" id="23_40dyo"]
+[ext_resource type="Texture2D" uid="uid://dbtf1r6p6e7n1" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/soil_garden_01.png" id="24_w3y4w"]
+[ext_resource type="Texture2D" uid="uid://byosn4abwkyx1" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v1/transition_02_0.png" id="25_epu8g"]
+[ext_resource type="Texture2D" uid="uid://vdefrgb213v8" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_2_0.png" id="26_pf4im"]
+[ext_resource type="Texture2D" uid="uid://b2js7jk1ym1c0" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_3_0.png" id="27_8ow4c"]
+[ext_resource type="Texture2D" uid="uid://c6u6uoisemv1x" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_0_0.png" id="28_aqtj2"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/road_transitions/forsaken_transition_atlas.png" id="ruin_transition_art"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5cche"]
+texture = ExtResource("1_b1kj7")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qn6g3"]
+texture = ExtResource("2_s0sxk")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ymkd3"]
+texture = ExtResource("3_j6t7h")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qc601"]
+texture = ExtResource("4_sqnrf")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bif2y"]
+texture = ExtResource("5_3le7u")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vlao8"]
+texture = ExtResource("6_nouis")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6m8f4"]
+texture = ExtResource("7_3gxo6")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xgmun"]
+texture = ExtResource("8_4iqxv")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hk5kd"]
+texture = ExtResource("9_nkei7")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbbsk"]
+texture = ExtResource("10_444ug")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iodnh"]
+texture = ExtResource("11_4s5my")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_il7mo"]
+texture = ExtResource("12_tq66o")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k0erp"]
+texture = ExtResource("13_2dnge")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f4pnd"]
+texture = ExtResource("14_n7oix")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gv50u"]
+texture = ExtResource("15_hd2gl")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0vit5"]
+texture = ExtResource("16_xj2vl")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g74x5"]
+texture = ExtResource("17_o4y0n")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vhtd0"]
+texture = ExtResource("18_w43y6")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_46ayi"]
+texture = ExtResource("19_c10wv")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s2oo3"]
+texture = ExtResource("20_j5lhr")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2xg8o"]
+texture = ExtResource("21_e4sje")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_padl2"]
+texture = ExtResource("22_wfg14")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c8ks6"]
+texture = ExtResource("23_40dyo")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b8osl"]
+texture = ExtResource("24_w3y4w")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixh1h"]
+texture = ExtResource("25_epu8g")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ur7f"]
+texture = ExtResource("26_pf4im")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c2uoi"]
+texture = ExtResource("27_8ow4c")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4haqn"]
+texture = ExtResource("28_aqtj2")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="ForsakenTransitions"]
+texture = ExtResource("ruin_transition_art")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetAtlasSource_5cche")
+sources/1 = SubResource("TileSetAtlasSource_qn6g3")
+sources/2 = SubResource("TileSetAtlasSource_k0erp")
+sources/3 = SubResource("TileSetAtlasSource_padl2")
+sources/4 = SubResource("TileSetAtlasSource_c8ks6")
+sources/5 = SubResource("TileSetAtlasSource_b8osl")
+sources/6 = SubResource("TileSetAtlasSource_ixh1h")
+sources/7 = SubResource("TileSetAtlasSource_8ur7f")
+sources/8 = SubResource("TileSetAtlasSource_c2uoi")
+sources/9 = SubResource("TileSetAtlasSource_4haqn")
+sources/10 = SubResource("TileSetAtlasSource_ymkd3")
+sources/11 = SubResource("TileSetAtlasSource_qc601")
+sources/12 = SubResource("TileSetAtlasSource_bif2y")
+sources/13 = SubResource("TileSetAtlasSource_vlao8")
+sources/14 = SubResource("TileSetAtlasSource_6m8f4")
+sources/15 = SubResource("TileSetAtlasSource_xgmun")
+sources/16 = SubResource("TileSetAtlasSource_hk5kd")
+sources/17 = SubResource("TileSetAtlasSource_qbbsk")
+sources/18 = SubResource("TileSetAtlasSource_iodnh")
+sources/19 = SubResource("TileSetAtlasSource_il7mo")
+sources/20 = SubResource("TileSetAtlasSource_f4pnd")
+sources/21 = SubResource("TileSetAtlasSource_gv50u")
+sources/22 = SubResource("TileSetAtlasSource_0vit5")
+sources/23 = SubResource("TileSetAtlasSource_g74x5")
+sources/24 = SubResource("TileSetAtlasSource_vhtd0")
+sources/25 = SubResource("TileSetAtlasSource_46ayi")
+sources/26 = SubResource("TileSetAtlasSource_s2oo3")
+sources/27 = SubResource("TileSetAtlasSource_2xg8o")
+
+sources/28 = SubResource("ForsakenTransitions")

@@ -35,22 +35,42 @@ static func battle_background_path_for_group(group_id: String) -> String:
 	var group_data: Dictionary = ContentDB.get_enemy_group(group_id)
 	var region_id := str(group_data.get("region", "greenward"))
 	match group_id:
-		"gerald_boss_encounter":
+		"royal_gate_patrol_1", "royal_gate_patrol_2", "royal_gate_rainbow_1":
+			return "res://assets/ui/battle/backgrounds/royal_gate_silver_passage.jpg"
+		"willow_slime_1", "willow_mossling_1":
+			return "res://assets/ui/battle/backgrounds/willow_fields.jpg"
+		"cassien_encounter":
+			return "res://assets/ui/battle/backgrounds/cassien_guarded_tomb.jpg"
+		"mirene_encounter":
+			return "res://assets/ui/battle/backgrounds/mirene_illusion_domain.jpg"
+		"gerald_boss_encounter", "village_slime_1", "village_slime_2", "village_crimson_encounter", "village_crownling_1", "village_crownling_2", "village_crownling_3", "village_nyx_encounter":
 			return "res://assets/ui/battle/backgrounds/gerald_twilight_battlefield.png"
 		"tutorial_fairy_spar":
-			return "res://assets/ui/battle/backgrounds/frozen_castle_courtyard.png"
+			return "res://assets/ui/battle/backgrounds/companion_fragmented_memories.jpg"
 		"fallen_matron_encounter":
 			return "res://assets/backgrounds/withered_estate_battle.svg"
 		"corrupted_treant":
 			return "res://assets/ui/battle/backgrounds/crimson_castle_ruins.png"
 		"elder_hollow":
 			return "res://assets/backgrounds/greenward_battle.svg"
-		"baltoria_encounter", "revienna_encounter":
+		"revienna_encounter":
+			return "res://assets/ui/battle/backgrounds/ravienna_eternal_eclipse.jpg"
+		"baltoria_encounter":
 			return "res://assets/ui/battle/backgrounds/gothic_cathedral_hall.png"
+	return battle_background_path_for_region(region_id)
+
+
+static func battle_background_path_for_region(region_id: String) -> String:
 	match region_id:
 		"castle_royal_gardens":
 			return "res://assets/ui/battle/backgrounds/moonlit_royal_garden.png"
-		"gothic_castle_boss_zone", "royal_gate", "training_ground":
+		"royal_gate", "six_zone_royal_gate":
+			return "res://assets/ui/battle/backgrounds/royal_gate_silver_passage.jpg"
+		"willow_fields", "six_zone_willow_fields":
+			return "res://assets/ui/battle/backgrounds/willow_fields.jpg"
+		"elderwood_grove", "six_zone_elderwood_grove":
+			return "res://assets/ui/battle/backgrounds/elderwood_cascades.jpg"
+		"gothic_castle_boss_zone", "training_ground":
 			return "res://assets/ui/battle/backgrounds/frozen_castle_courtyard.png"
 		"forsaken_ruins", "ruined_tower":
 			return "res://assets/ui/battle/backgrounds/crimson_castle_ruins.png"
@@ -146,6 +166,7 @@ func layout() -> void:
 	var knight_scale := queen_scale * (CASSIEN_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / CASSIEN_IDLE_PX
 	var lilith_scale := queen_scale * (LILITH_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / LILITH_IDLE_PX
 	var kael_scale := queen_scale * (KAEL_HEIGHT_CM / RAVIENNA_HEIGHT_CM) * RAVIENNA_IDLE_PX / KAEL_IDLE_PX
+	var village_formation := (battlefield.arena_id.begins_with("village_") or battlefield.arena_id=="gerald_boss_encounter") and actors.any(func(a):return a.is_player and a.is_minor_duo())
 	var party_slot := 0
 	var front_titan := actors.any(func(a):return is_playable_gerald(a))
 	var titan_placed := false
@@ -238,6 +259,10 @@ func layout() -> void:
 			var hitbox := actor.get_node("Hitbox") as Control
 			hitbox.position=Vector2(-36.0,-size_px*fit)
 			hitbox.size=Vector2(72.0,size_px*fit+8.0)
+		if village_formation and actor.is_player:
+			var slot_x := 0.32 if actor.unit.def_id=="kael" else (0.19 if actor.is_crimson_witch() else 0.075)
+			var slot_y := 0.82 if actor.unit.def_id=="kael" else (0.69 if actor.is_crimson_witch() else 0.56)
+			actor.set_home(Vector2(width*slot_x,height*slot_y))
 		actor.scale = Vector2.ONE
 		if battlefield.arena_id == "revienna_encounter" and battlefield.get_window().size.x < 1000 and battlefield.get_window().size.x > battlefield.get_window().size.y:
 			actor.scale = Vector2.ONE * minf(1.0, height / 270.0)

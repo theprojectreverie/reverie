@@ -1,0 +1,114 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/burgundy_tree.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/crimson_tree.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/petal_rubble.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/dead_tree.tscn" id="4"]
+
+[node name="CrimsonWoodlandClusters" type="Node2D"]
+y_sort_enabled = true
+
+[node name="WesternWoodland1" parent="." instance=ExtResource("1")]
+position = Vector2(-2368, 1568)
+
+[node name="WesternWoodland2" parent="." instance=ExtResource("2")]
+position = Vector2(-2176, 1472)
+
+[node name="WesternWoodland3" parent="." instance=ExtResource("1")]
+position = Vector2(-1952, 1520)
+
+[node name="WesternWoodland4" parent="." instance=ExtResource("2")]
+position = Vector2(-2304, 1696)
+
+[node name="WesternWoodland5" parent="." instance=ExtResource("3")]
+position = Vector2(-2144, 1808)
+
+[node name="WesternWoodland6" parent="." instance=ExtResource("4")]
+position = Vector2(-2272, 1808)
+
+[node name="NorthernWoodland1" parent="." instance=ExtResource("1")]
+position = Vector2(-576, 480)
+
+[node name="NorthernWoodland2" parent="." instance=ExtResource("2")]
+position = Vector2(-416, 368)
+
+[node name="NorthernWoodland3" parent="." instance=ExtResource("1")]
+position = Vector2(-192, 480)
+
+[node name="NorthernWoodland4" parent="." instance=ExtResource("2")]
+position = Vector2(-512, 608)
+
+[node name="NorthernWoodland5" parent="." instance=ExtResource("3")]
+position = Vector2(-288, 592)
+
+[node name="UpperWoodland1" parent="." instance=ExtResource("1")]
+position = Vector2(640, 672)
+
+[node name="UpperWoodland2" parent="." instance=ExtResource("2")]
+position = Vector2(832, 576)
+
+[node name="UpperWoodland3" parent="." instance=ExtResource("1")]
+position = Vector2(1024, 672)
+
+[node name="UpperWoodland4" parent="." instance=ExtResource("2")]
+position = Vector2(736, 784)
+
+[node name="UpperWoodland5" parent="." instance=ExtResource("3")]
+position = Vector2(896, 800)
+
+[node name="UpperWoodland6" parent="." instance=ExtResource("4")]
+position = Vector2(800, 880)
+
+[node name="EasternWoodland1" parent="." instance=ExtResource("1")]
+position = Vector2(2144, 1584)
+
+[node name="EasternWoodland2" parent="." instance=ExtResource("2")]
+position = Vector2(2368, 1472)
+
+[node name="EasternWoodland3" parent="." instance=ExtResource("1")]
+position = Vector2(2528, 1584)
+
+[node name="EasternWoodland4" parent="." instance=ExtResource("2")]
+position = Vector2(2272, 1712)
+
+[node name="EasternWoodland5" parent="." instance=ExtResource("3")]
+position = Vector2(2432, 1696)
+
+[node name="EasternWoodland6" parent="." instance=ExtResource("4")]
+position = Vector2(2368, 1792)
+
+[node name="SouthWoodland1" parent="." instance=ExtResource("1")]
+position = Vector2(-1376, 2288)
+
+[node name="SouthWoodland2" parent="." instance=ExtResource("2")]
+position = Vector2(-1184, 2192)
+
+[node name="SouthWoodland3" parent="." instance=ExtResource("1")]
+position = Vector2(-1056, 2224)
+
+[node name="SouthWoodland4" parent="." instance=ExtResource("2")]
+position = Vector2(-1280, 2432)
+
+[node name="SouthWoodland5" parent="." instance=ExtResource("3")]
+position = Vector2(-1056, 2448)
+
+[node name="SouthWoodland6" parent="." instance=ExtResource("4")]
+position = Vector2(-1184, 2512)
+
+[node name="LowerWoodland1" parent="." instance=ExtResource("1")]
+position = Vector2(-384, 2816)
+
+[node name="LowerWoodland2" parent="." instance=ExtResource("2")]
+position = Vector2(-192, 2688)
+
+[node name="LowerWoodland3" parent="." instance=ExtResource("1")]
+position = Vector2(0, 2784)
+
+[node name="LowerWoodland4" parent="." instance=ExtResource("2")]
+position = Vector2(-288, 2896)
+
+[node name="LowerWoodland5" parent="." instance=ExtResource("3")]
+position = Vector2(-96, 2896)
+
+[node name="LowerWoodland6" parent="." instance=ExtResource("4")]
+position = Vector2(-192, 2976)

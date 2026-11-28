@@ -1,0 +1,147 @@
+[gd_resource type="SpriteFrames" load_steps=33 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/characters/crimson_witch/minor_combat/idle.png" id="t0"]
+[ext_resource type="Texture2D" path="res://assets/characters/crimson_witch/minor_combat/basic_attack.png" id="t1"]
+[ext_resource type="Texture2D" path="res://assets/characters/crimson_witch/minor_combat/skill_1.png" id="t2"]
+[ext_resource type="Texture2D" path="res://assets/characters/crimson_witch/minor_combat/skill_2.png" id="t3"]
+[ext_resource type="Texture2D" path="res://assets/characters/crimson_witch/minor_combat/approach.png" id="t4"]
+[ext_resource type="Texture2D" path="res://assets/characters/crimson_witch/minor_combat/retreat.png" id="t5"]
+
+[sub_resource type="AtlasTexture" id="f0_0"]
+atlas = ExtResource("t0")
+region = Rect2(0, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f0_1"]
+atlas = ExtResource("t0")
+region = Rect2(160, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f0_2"]
+atlas = ExtResource("t0")
+region = Rect2(320, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f0_3"]
+atlas = ExtResource("t0")
+region = Rect2(480, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1_0"]
+atlas = ExtResource("t1")
+region = Rect2(0, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1_1"]
+atlas = ExtResource("t1")
+region = Rect2(160, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1_2"]
+atlas = ExtResource("t1")
+region = Rect2(320, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f1_3"]
+atlas = ExtResource("t1")
+region = Rect2(480, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2_0"]
+atlas = ExtResource("t2")
+region = Rect2(0, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2_1"]
+atlas = ExtResource("t2")
+region = Rect2(160, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2_2"]
+atlas = ExtResource("t2")
+region = Rect2(320, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2_3"]
+atlas = ExtResource("t2")
+region = Rect2(480, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f2_4"]
+atlas = ExtResource("t2")
+region = Rect2(640, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3_0"]
+atlas = ExtResource("t3")
+region = Rect2(0, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3_1"]
+atlas = ExtResource("t3")
+region = Rect2(160, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3_2"]
+atlas = ExtResource("t3")
+region = Rect2(320, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3_3"]
+atlas = ExtResource("t3")
+region = Rect2(480, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f3_4"]
+atlas = ExtResource("t3")
+region = Rect2(640, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4_0"]
+atlas = ExtResource("t4")
+region = Rect2(0, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4_1"]
+atlas = ExtResource("t4")
+region = Rect2(160, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4_2"]
+atlas = ExtResource("t4")
+region = Rect2(320, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f4_3"]
+atlas = ExtResource("t4")
+region = Rect2(480, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5_0"]
+atlas = ExtResource("t5")
+region = Rect2(0, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5_1"]
+atlas = ExtResource("t5")
+region = Rect2(160, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5_2"]
+atlas = ExtResource("t5")
+region = Rect2(320, 0, 160, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="f5_3"]
+atlas = ExtResource("t5")
+region = Rect2(480, 0, 160, 128)
+filter_clip = true
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f0_0")}, {"duration": 1.0, "texture": SubResource("f0_1")}, {"duration": 1.0, "texture": SubResource("f0_2")}, {"duration": 1.0, "texture": SubResource("f0_3")}], "loop": true, "name": &"idle", "speed": 4.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f1_0")}, {"duration": 1.0, "texture": SubResource("f1_1")}, {"duration": 1.0, "texture": SubResource("f1_2")}, {"duration": 1.0, "texture": SubResource("f1_3")}], "loop": false, "name": &"basic_attack", "speed": 8.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f2_0")}, {"duration": 1.0, "texture": SubResource("f2_1")}, {"duration": 1.0, "texture": SubResource("f2_2")}, {"duration": 1.0, "texture": SubResource("f2_3")}, {"duration": 1.0, "texture": SubResource("f2_4")}], "loop": false, "name": &"skill_1", "speed": 8.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f3_0")}, {"duration": 1.0, "texture": SubResource("f3_1")}, {"duration": 1.0, "texture": SubResource("f3_2")}, {"duration": 1.0, "texture": SubResource("f3_3")}, {"duration": 1.0, "texture": SubResource("f3_4")}], "loop": false, "name": &"skill_2", "speed": 8.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f4_0")}, {"duration": 1.0, "texture": SubResource("f4_1")}, {"duration": 1.0, "texture": SubResource("f4_2")}, {"duration": 1.0, "texture": SubResource("f4_3")}], "loop": true, "name": &"approach", "speed": 10.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f5_0")}, {"duration": 1.0, "texture": SubResource("f5_1")}, {"duration": 1.0, "texture": SubResource("f5_2")}, {"duration": 1.0, "texture": SubResource("f5_3")}], "loop": true, "name": &"retreat", "speed": 10.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f3_0")}, {"duration": 1.0, "texture": SubResource("f3_1")}, {"duration": 1.0, "texture": SubResource("f3_2")}, {"duration": 1.0, "texture": SubResource("f3_3")}, {"duration": 1.0, "texture": SubResource("f3_4")}], "loop": false, "name": &"ultimate", "speed": 8.0}]

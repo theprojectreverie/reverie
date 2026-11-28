@@ -13,6 +13,12 @@
 
 [ext_resource type="PackedScene" path="res://scenes/world/village/imported_village/gerald_challenge.tscn" id="gerald_challenge"]
 
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/village_witch_duo_encounter.gd" id="village_stage"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/rose_slime_art.tscn" id="village_slime"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/crownling_art.tscn" id="village_crownling"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/crimson_witch/minor_combat/combat_frames.tres" id="village_crimson"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/nyx/minor_combat/combat_frames.tres" id="village_nyx"]
+
 [sub_resource type="RectangleShape2D" id="ExitShape"]
 size = Vector2(160, 128)
 
@@ -96,5 +102,188 @@ texture_filter = 1
 texture = ExtResource("exit_chevrons")
 rotation = 0.000000
 scale = Vector2(1.65, 1.65)
+
+[node name="VillageSlime1" type="Node2D" parent="VillageMap"]
+position = Vector2(-1910, 192)
+script = ExtResource("village_stage")
+group_id = "village_slime_1"
+quest_id = "village_clear_approach"
+requires_quest = ""
+recruit_id = ""
+label_text = "Rose Slime"
+
+[node name="Art" parent="VillageMap/VillageSlime1" instance=ExtResource("village_slime")]
+scale = Vector2(0.55, 0.55)
+position = Vector2(0, -17)
+
+[node name="NameLabel" type="Label" parent="VillageMap/VillageSlime1"]
+offset_left = -90.0
+offset_top = -65.0
+offset_right = 90.0
+offset_bottom = -43.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.79, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Rose Slime"
+horizontal_alignment = 1
+
+[node name="VillageSlime2" type="Node2D" parent="VillageMap"]
+position = Vector2(-1740, 220)
+script = ExtResource("village_stage")
+group_id = "village_slime_2"
+quest_id = "village_clear_approach"
+requires_quest = ""
+recruit_id = ""
+label_text = "Rose Slime"
+
+[node name="Art" parent="VillageMap/VillageSlime2" instance=ExtResource("village_slime")]
+scale = Vector2(0.55, 0.55)
+position = Vector2(0, -17)
+
+[node name="NameLabel" type="Label" parent="VillageMap/VillageSlime2"]
+offset_left = -90.0
+offset_top = -65.0
+offset_right = 90.0
+offset_bottom = -43.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.79, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Rose Slime"
+horizontal_alignment = 1
+
+[node name="CrimsonEncounter" type="Node2D" parent="VillageMap"]
+position = Vector2(-1550, 260)
+script = ExtResource("village_stage")
+group_id = "village_crimson_encounter"
+quest_id = "village_crimson_duel"
+requires_quest = "village_clear_approach"
+recruit_id = "crimson_witch_legendary"
+label_text = "Crimson Witch"
+
+[node name="Art" type="AnimatedSprite2D" parent="VillageMap/CrimsonEncounter"]
+scale = Vector2(0.38, 0.38)
+offset = Vector2(0, -60)
+texture_filter = 1
+sprite_frames = ExtResource("village_crimson")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="VillageMap/CrimsonEncounter"]
+offset_left = -90.0
+offset_top = -65.0
+offset_right = 90.0
+offset_bottom = -43.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.79, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Crimson Witch"
+horizontal_alignment = 1
+
+[node name="VillageCrownling1" type="Node2D" parent="VillageMap"]
+position = Vector2(-1300, 500)
+script = ExtResource("village_stage")
+group_id = "village_crownling_1"
+quest_id = "village_clear_ruins"
+requires_quest = "village_crimson_duel"
+recruit_id = ""
+label_text = "Crownling"
+
+[node name="Art" parent="VillageMap/VillageCrownling1" instance=ExtResource("village_crownling")]
+scale = Vector2(0.55, 0.55)
+position = Vector2(0, -17)
+
+[node name="NameLabel" type="Label" parent="VillageMap/VillageCrownling1"]
+offset_left = -90.0
+offset_top = -65.0
+offset_right = 90.0
+offset_bottom = -43.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.79, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Crownling"
+horizontal_alignment = 1
+
+[node name="VillageCrownling2" type="Node2D" parent="VillageMap"]
+position = Vector2(-1000, 800)
+script = ExtResource("village_stage")
+group_id = "village_crownling_2"
+quest_id = "village_clear_ruins"
+requires_quest = "village_crimson_duel"
+recruit_id = ""
+label_text = "Crownling"
+
+[node name="Art" parent="VillageMap/VillageCrownling2" instance=ExtResource("village_crownling")]
+scale = Vector2(0.55, 0.55)
+position = Vector2(0, -17)
+
+[node name="NameLabel" type="Label" parent="VillageMap/VillageCrownling2"]
+offset_left = -90.0
+offset_top = -65.0
+offset_right = 90.0
+offset_bottom = -43.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.79, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Crownling"
+horizontal_alignment = 1
+
+[node name="VillageCrownling3" type="Node2D" parent="VillageMap"]
+position = Vector2(-750, 1100)
+script = ExtResource("village_stage")
+group_id = "village_crownling_3"
+quest_id = "village_clear_ruins"
+requires_quest = "village_crimson_duel"
+recruit_id = ""
+label_text = "Crownling"
+
+[node name="Art" parent="VillageMap/VillageCrownling3" instance=ExtResource("village_crownling")]
+scale = Vector2(0.55, 0.55)
+position = Vector2(0, -17)
+
+[node name="NameLabel" type="Label" parent="VillageMap/VillageCrownling3"]
+offset_left = -90.0
+offset_top = -65.0
+offset_right = 90.0
+offset_bottom = -43.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.79, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Crownling"
+horizontal_alignment = 1
+
+[node name="NyxEncounter" type="Node2D" parent="VillageMap"]
+position = Vector2(-500, 1500)
+script = ExtResource("village_stage")
+group_id = "village_nyx_encounter"
+quest_id = "village_nyx_duel"
+requires_quest = "village_clear_ruins"
+recruit_id = "nyx"
+label_text = "Nyx Vaelora"
+
+[node name="Art" type="AnimatedSprite2D" parent="VillageMap/NyxEncounter"]
+scale = Vector2(0.38, 0.38)
+offset = Vector2(0, -60)
+texture_filter = 1
+sprite_frames = ExtResource("village_nyx")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="NameLabel" type="Label" parent="VillageMap/NyxEncounter"]
+offset_left = -90.0
+offset_top = -65.0
+offset_right = 90.0
+offset_bottom = -43.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.79, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Nyx Vaelora"
+horizontal_alignment = 1
 
 [editable path="VillageMap"]

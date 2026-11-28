@@ -1,6 +1,6 @@
 import type {PoolClient} from "pg";
 import {readFileSync} from "node:fs";
-import {readVerifiedOpeningProgress} from "./story-progression-proof.js";
+import {readVerifiedOpeningProgress,verifiedStoryVictories,MIRENE_GROUP} from "./story-progression-proof.js";
 import {openingContains} from "./story-opening-geometry.js";
 import {grantPartyXp} from "./character-xp.js";
 const questId="elathra_first_audience";
@@ -15,7 +15,8 @@ export function audienceTransition(state:AudienceStep,operation:"hear"|"accept")
 export async function readElathraAudience(db:PoolClient,id:string){
  const row=(await db.query<{completed_at:Date|null}>("SELECT completed_at FROM story_elathra_audience WHERE player_id=$1",[id])).rows[0];
  const state:AudienceStep=!row?"not_started":row.completed_at?"complete":"active";
- return {questId,state,step:state==="complete"?2:state==="active"?1:0,royalGateUnlocked:state==="complete"};
+ const mireneDefeated=(await verifiedStoryVictories(db,id,[MIRENE_GROUP])).includes(MIRENE_GROUP);
+ return {questId,state,step:state==="complete"?2:state==="active"?1:0,mireneDefeated,royalGateUnlocked:state==="complete"&&mireneDefeated};
 }
 // Caller holds authenticated player lock. Neither client quest flags nor telemetry count.
 export async function advanceElathraAudience(db:PoolClient,id:string,operation:"hear"|"accept"){

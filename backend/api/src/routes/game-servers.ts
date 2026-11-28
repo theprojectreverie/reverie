@@ -4,12 +4,13 @@ import {createHash,randomBytes,randomUUID,timingSafeEqual} from "node:crypto";
 import {z} from "zod";
 import {pool} from "../db.js";
 import {readVerifiedOpeningProgress,eligibleOpeningRegions,openingRegionAllowed} from "../world/story-progression-proof.js";
+import {readElathraAudience} from "../world/story-elathra.js";
 import {openingRegion} from "../world/story-opening-geometry.js";
 import type {PoolClient} from "pg";
 const gardensPilotEnabled=()=>config.NODE_ENV!=="production"&&process.env.REVERIE_GARDENS_STORY_PILOT==="1";
 async function directoryProgress(db:PoolClient,id:string){
  const opening=await readVerifiedOpeningProgress(db,id);
- const royalGateUnlocked=gardensPilotEnabled()&&opening.geraldDefeated&&!!(await db.query("SELECT 1 FROM story_elathra_audience WHERE player_id=$1 AND completed_at IS NOT NULL",[id])).rowCount;
+ const royalGateUnlocked=gardensPilotEnabled()&&opening.geraldDefeated&&(await readElathraAudience(db,id)).royalGateUnlocked;
  return {...opening,royalGateUnlocked};
 }
 async function canEnterOpeningRegion(db:PoolClient,id:string,region:string):Promise<boolean>{

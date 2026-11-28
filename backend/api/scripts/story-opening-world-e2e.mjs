@@ -299,6 +299,8 @@ try {
       assert(!(await requestJson(progressPath,{headers:authHeaders(tokens[0])})).body.servers.some(s=>s.id===serverId),"locked Royal Gate excluded from directory");
       // Disposable fixture represents prior completed audience; its actual quest transaction has a separate E2E.
       for(const player of playerRows)await pool.query("UPDATE story_elathra_audience SET completed_at=now() WHERE player_id=$1",[player.id]);
+      assert((await join()).status===403,"completed audience alone does not unlock the Royal Gate");
+      for(const player of playerRows)await pool.query("INSERT INTO story_battle_sessions(player_id,group_id,party_ids,status,finished_at,settled_at,rewards,state) VALUES($1,'mirene_encounter',ARRAY['kael'],'victory',now(),now(),'{}'::jsonb,$2::jsonb)",[player.id,JSON.stringify({view:{status:"victory"},actions:[{kind:"skill"}]})]);
       const unlocked=await requestJson(progressPath,{headers:authHeaders(tokens[0])});
       assert(unlocked.body.progress.royalGateUnlocked&&unlocked.body.servers.some(s=>s.id===serverId),"verified audience unlocks Royal Gate directory");
     }else{

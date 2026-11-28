@@ -52,6 +52,6 @@ func _finish() -> void:
 	if _done:
 		return
 	_done = true
-	await presentation_component.finish_to_black()
+	await presentation_component.finish_to_black(not playback_component.active)
 	presentation_component.release_prefetch()
 	finished.emit()

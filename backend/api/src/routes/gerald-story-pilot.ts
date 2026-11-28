@@ -1,3 +1,4 @@
+import {villageProgressionEnabled} from "../world/village-progression.js";
 import type {FastifyPluginAsync} from "fastify";
 import {z} from "zod";
 import {actionSchema,startStoryBattle,actStoryBattle,resumeStoryBattle,abandonStoryBattle,storyTransactionAdmission} from "../world/story-combat-service.js";
@@ -28,6 +29,7 @@ export const geraldStoryPilotRoutes:FastifyPluginAsync=async app=>{
    const identity=await db.query("SELECT p.id FROM players p JOIN accounts a ON a.id=p.account_id WHERE p.id=$1 AND a.id=$2 AND a.status='active' AND a.token_version=$3 FOR UPDATE OF p",[id,c.sub,c.tokenVersion]);
    if(!identity.rowCount)return {ok:false,reason:"authentication_required"};
    if(op.operation==="start"){
+    if(villageProgressionEnabled())return {ok:false,reason:"use_village_progression"};
     const wins=await verifiedStoryVictories(db,id,[TUTORIAL_GROUP,VILLAGE_GROUP]);
     if(!wins.includes(TUTORIAL_GROUP))return {ok:false,reason:"story_progression_required"};
     if(wins.includes(VILLAGE_GROUP)){

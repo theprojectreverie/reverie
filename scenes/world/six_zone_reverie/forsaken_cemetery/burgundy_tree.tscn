@@ -1,19 +1,20 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://dip7jc4rjipli"]
 
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/burgundy_tree.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://8t0m21d27eqb" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/burgundy_tree.png" id="1"]
 
-[node name="BurgundyTree" type="Node2D"]
+[node name="BurgundyTree" type="Node2D" unique_id=1001138027]
 
-[node name="Artwork" type="Sprite2D" parent="."]
+[node name="Artwork" type="Sprite2D" parent="." unique_id=1528989573]
 texture_filter = 1
-centered = false
-texture = ExtResource("1")
+position = Vector2(4.7683716e-07, -1.9999999)
 scale = Vector2(0.83, 0.83)
-offset = Vector2(-187.00, -365.76)
+texture = ExtResource("1")
+centered = false
+offset = Vector2(-187, -365.76)
 
-[node name="Body" type="StaticBody2D" parent="."]
-collision_layer = 1
+[node name="Body" type="StaticBody2D" parent="." unique_id=911464597]
 collision_mask = 0
 
-[node name="Footprint" type="CollisionPolygon2D" parent="Body"]
-polygon = PackedVector2Array(-25,-11.5,0,-23.0,25,-11.5,0,4)
+[node name="Footprint" type="CollisionPolygon2D" parent="Body" unique_id=623309558]
+position = Vector2(-1, -1)
+polygon = PackedVector2Array(-43, -12, -52, -13, -43, -22, -23, -30, -17, -45, -1, -47, 19, -42, 40, -25, 49, -18, 50, -15, 55, -12, 54, -3, 29, -14, 28, 5, 2, -5, -13, 11, -18, -6, -48, -2)

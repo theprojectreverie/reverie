@@ -77,6 +77,7 @@ func new_game(player_name: String = "Wanderer") -> void:
 	state.player_facing = Vector2(0.0, 1.0)
 	state.player_region = "greenward"
 	state.active_world_id = "greenward"
+	state.session_domain.active_avatar_id = ""
 	state.region_positions = {}
 	state.roster_domain.reset_uid_counter()
 	for character_id in state.STARTING_CHARACTERS:

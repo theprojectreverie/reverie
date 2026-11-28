@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/elderwood_props/mossy_stepping_stones.png" id="1"]
+
+[node name="MossySteppingStones" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.34, 0.34)
+offset = Vector2(-202, -307)
+z_index = -1

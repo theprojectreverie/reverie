@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/elderwood_fences/woodland_post.png" id="1"]
+
+[node name="WoodlandPost" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.25, 0.25)
+offset = Vector2(-63.00, -332.00)
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-9.00, 0.00, 0.00, -4.95, 9.00, 0.00, 0.00, 4.95)

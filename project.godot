@@ -47,17 +47,17 @@ ApplicationShutdown="*res://scripts/core/application_shutdown.gd"
 
 [display]
 
-window/handheld/orientation=4
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=4
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gerald_storyboard/plugin.cfg", "res://addons/net.yarvis.pixel_pen/plugin.cfg")
+enabled=PackedStringArray("res://addons/gerald_storyboard/plugin.cfg", "res://addons/crimson_oath_storyboard/plugin.cfg", "res://addons/net.yarvis.pixel_pen/plugin.cfg")
 
 [gui]
 

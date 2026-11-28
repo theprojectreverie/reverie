@@ -55,7 +55,7 @@ const STICKERS = {
 	"cassien_mythic": preload("res://assets/characters/cassien/portrait_512.png"),
 	"nyx_mythic": preload("res://assets/characters/nyx_mythic/portrait_512.png"),
 	"crimson_witch_mythic": preload("res://assets/characters/crimson_witch_mythic/portrait_512.png"),
-	"mirene_mythic": preload("res://assets/characters/mirene/portrait_512.png"),
+	"mirene_mythic": preload("res://assets/characters/mirene_mythic/portrait_512.png"),
 	"caelith_mythic": preload("res://assets/characters/caelith_mythic/portrait_512.png")
 }
 const FREE_STICKER_IDS = ["lilith_ghost_plush","revienna_fallen_matron","red_cloak_character","lilith_playful","gerald_chibi","elathra","rose_slime"]

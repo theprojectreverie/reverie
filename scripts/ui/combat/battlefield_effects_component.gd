@@ -18,6 +18,9 @@ func play_attack(attacker: BattlefieldActor, target: BattlefieldActor,
 		element: String = "neutral", skill_id: String = "", ultimate: bool = false) -> void:
 	if attacker == null or not is_instance_valid(attacker):
 		return
+	if is_instance_valid(attacker.live_art) and attacker.is_minor_duo():
+		attacker.play_minor_duo_action(target, skill_id, ultimate)
+		return
 	if is_instance_valid(attacker.live_art):
 		if is_instance_valid(target) and target != attacker: attacker.face(target.home_position-attacker.home_position)
 		attacker.play_live_action(skill_id,ultimate)

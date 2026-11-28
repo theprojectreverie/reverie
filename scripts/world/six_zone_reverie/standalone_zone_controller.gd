@@ -58,6 +58,12 @@ func _ready() -> void:
         sync.name = "StoryOpeningWorldSync"
         add_child(sync)
         sync.bind_player(player, "story_village")
+        if OS.get_environment("REVERIE_VILLAGE_PROGRESSION_PILOT") == "1":
+            var village_sync = preload("res://scripts/online/story_village_progression_sync.gd").new()
+            village_sync.name = "StoryVillageProgressionSync"
+            add_child(village_sync)
+            village_sync.bind(sync)
+
     elif (is_royal_gardens or name == &"StandaloneZone02") and story_sync.pilot_enabled() and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") == "1" and MultiplayerGateway.standalone_expedition_id.is_empty():
         var sync = story_sync.new()
         sync.name = "StoryOpeningWorldSync"
@@ -98,8 +104,6 @@ func _ready() -> void:
         player.scale = Vector2(0.34, 0.34) * player_size_multiplier
         var locomotion := player.get_node("LocomotionComponent") as PlayerLocomotionComponent
         locomotion.movement_speed_multiplier = player_speed_multiplier
-        if player.avatar_id != "kael":
-            player.set_avatar("kael")
         var player_camera := player.get_node("Camera2D") as PlayerCameraRig
         player_camera.scene_min_zoom = 0.86
         player_camera.offset = Vector2(0, 0) if name == "StandaloneVillage" else Vector2(0, 160)

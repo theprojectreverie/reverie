@@ -25,7 +25,7 @@ func _run() -> void:
 	assert(bg.texture.resource_path == "res://assets/portraits/banners/moonlit_requiem_background.png")
 	assert(is_equal_approx(bg.anchor_right, 1.0))
 	assert(gacha._tabs.get_child_count() == gacha.active_banner_catalog().size())
-	assert(gacha.active_banner_catalog().size() == 5)
+	assert(gacha.active_banner_catalog().size() == 6)
 	assert(not gacha.active_banner_catalog().has("scarlet_requiem") and not gacha.active_banner_catalog().has("crimson_covenant"))
 	var stage = gacha._banner_content._stage
 	assert(not stage.opened and stage.actions.get_child_count() == 2)

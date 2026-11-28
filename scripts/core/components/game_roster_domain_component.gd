@@ -105,10 +105,17 @@ func story_solo_active() -> bool:
 
 func effective_party_ids() -> Array:
 	if story_solo_active():
-		for instance in roster:
-			if instance.char_id == "kael":
-				return [instance.uid]
-		return []
+		var ids: Array = ["kael"]
+		for id in ["crimson_witch_legendary", "nyx"]:
+			if bool(GameState.quest_domain.flags.get("village_recruited_" + id, false)):
+				ids.append(id)
+		var selected: Array = []
+		for id in ids:
+			for instance in roster:
+				if instance.char_id == id:
+					selected.append(instance.uid)
+					break
+		return selected
 	return party.duplicate()
 
 
@@ -155,6 +162,9 @@ func party_instances() -> Array:
 	if AuthGateway.is_authenticated():
 		var result: Array = []
 		var ids: Array = ["kael"] if story_solo_active() else AuthGateway.account_roster.get("party", [])
+		var zone := get_tree().current_scene
+		if story_solo_active() and zone != null and zone.has_node("StoryVillageProgressionSync"):
+			ids = zone.get_node("StoryVillageProgressionSync").party_ids()
 		var owned := account_instances()
 		for id in ids:
 			for instance in owned:
@@ -176,7 +186,7 @@ func local_party_instances() -> Array:
 
 func set_party(uids: Array) -> bool:
 	if story_solo_active():
-		EventBus.toast_requested.emit("Kael travels alone during this chapter.")
+		EventBus.toast_requested.emit("The story determines your active party during this chapter.")
 		return false
 	var cleaned: Array = []
 	for uid in uids:
@@ -590,3 +600,20 @@ func enhance_gear(uid: String, slot: String) -> bool:
 
 
 
+
+# Keep the opening roster intact, but deploy only Kael and earned village allies.
+func deploy_village_recruits() -> void:
+	if AuthGateway.is_authenticated():
+		return
+	var selected: Array = []
+	for id in ["kael", "crimson_witch_legendary", "nyx"]:
+		if id != "kael" and not bool(GameState.quest_domain.flags.get("village_recruited_" + id, false)):
+			continue
+		for instance in roster:
+			if instance.char_id == id:
+				selected.append(instance.uid)
+				break
+	if not selected.is_empty():
+		party = selected
+		EventBus.party_changed.emit()
+		GameState.queue_save()

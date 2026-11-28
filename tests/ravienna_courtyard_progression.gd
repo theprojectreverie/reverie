@@ -23,13 +23,13 @@ func _run():
  var shape_query=PhysicsShapeQueryParameters2D.new()
  shape_query.shape=collider.shape
  shape_query.collision_mask=1
- assert(cassien.global_position==courtyard.get_node("EastEntrance").global_position)
- for x in [-250,-224,-192,-160,-135]:
-  shape_query.transform=Transform2D(0,courtyard.to_global(Vector2(x, (x+384)*0.5-10)))
-  assert(not space.intersect_shape(shape_query,8).is_empty(),"West fence gap at "+str(x))
+ assert(cassien.global_position==courtyard.get_node("WestEntrance").global_position)
+ for x in [135,160,192,224,250]:
+  shape_query.transform=Transform2D(0,courtyard.to_global(Vector2(x, (384-x)*0.5-10)))
+  assert(not space.intersect_shape(shape_query,8).is_empty(),"East fence gap at "+str(x))
  shape_query.transform=Transform2D(0,cassien.global_position+Vector2(0,80))
  assert(space.intersect_shape(shape_query,8).is_empty(),"Cassien approach blocked")
- print("WEST FENCE CLOSED AND CASSIEN AT EAST GATE PASS")
+ print("EAST FENCE CLOSED AND CASSIEN AT WEST GATE PASS")
 
  assert(tomb.get_node("Artwork").texture.get_size()==Vector2(256,224))
  var probe=PhysicsPointQueryParameters2D.new()
@@ -106,14 +106,14 @@ func _run():
  await physics_frame
  shape_query.transform=Transform2D(0,cassien.global_position+Vector2(0,80))
  assert(space.intersect_shape(shape_query,8).is_empty(),"Ritual approach blocked")
- var east_route=[Vector2(330,260),Vector2(330,190),Vector2(192,96),Vector2(90,110),Vector2(0,95)]
- for i in range(east_route.size()-1):
+ var west_route=[Vector2(-330,260),Vector2(-330,190),Vector2(-192,96),Vector2(-90,110),Vector2(0,95)]
+ for i in range(west_route.size()-1):
   for j in range(25):
-   var point:Vector2=courtyard.to_global(east_route[i].lerp(east_route[i+1],float(j)/24))
+   var point:Vector2=courtyard.to_global(west_route[i].lerp(west_route[i+1],float(j)/24))
    assert(point.distance_to(cassien.global_position)>cassien.interaction_radius)
    shape_query.transform=Transform2D(0,point+Vector2(0,-10))
    assert(space.intersect_shape(shape_query,8).is_empty())
- print("TOMB-SIDE RITUAL POSITION AND INDEPENDENT EAST ENTRANCE PASS")
+ print("TOMB-SIDE RITUAL POSITION AND INDEPENDENT WEST ENTRANCE PASS")
  player.global_position=cassien.global_position+Vector2(0,90)
  cassien.interact()
  assert(dialog._dialogue_id=="cassien_ritual")

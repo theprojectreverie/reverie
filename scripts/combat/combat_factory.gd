@@ -99,6 +99,8 @@ static func _apply_equipment(unit: Combatant, instance: CharacterInstance) -> vo
 static func enemy_units(group_id: String, profile: String = "") -> Array:
 	var group: Dictionary = ContentDB.get_enemy_group(group_id)
 	var units: Array = []
+	if profile.is_empty() and group.get("combat_profiles", {}).has("village_mob"):
+		profile = "village_mob"
 	if group.is_empty():
 		return units
 	var level := maxi(1, int(group.get("level", 1)))

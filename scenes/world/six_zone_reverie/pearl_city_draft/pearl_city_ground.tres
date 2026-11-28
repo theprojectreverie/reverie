@@ -1,0 +1,128 @@
+[gd_resource type="TileSet" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/pearl_courtyard_clean.png" id="1_8o2lf"]
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/grass_tile.png" id="2_vi7oo"]
+[ext_resource type="Texture2D" path="res://assets/environment/royal_gardens_ground_64x32/garden_grass_flowers.png" id="3_i3v2m"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_curve_1.png" id="3_jfkfh"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/avenue_flagstone_clean.png" id="4_avenue"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_curve_2.png" id="4_hr52m"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_curve_3.png" id="5_j2517"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_inner_0.png" id="6_ch8s2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_inner_1.png" id="7_ui1ox"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_inner_2.png" id="8_wbr04"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_inner_3.png" id="9_b2rgo"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/market_stone.png" id="12_h45jx"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_trim_0.png" id="13_x0fw5"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_trim_1.png" id="14_4s7bv"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_trim_2.png" id="15_dj3h2"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_trim_3.png" id="16_d471i"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/pearl_city_draft/road_curve_0.png" id="17_vkpar"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t6kf7"]
+texture = ExtResource("1_8o2lf")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+0:0/0/modulate = Color(0.84, 0.85, 0.92, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wg7l"]
+texture = ExtResource("4_avenue")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5kxjl"]
+texture = ExtResource("3_jfkfh")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_leq6j"]
+texture = ExtResource("4_hr52m")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfqid"]
+texture = ExtResource("5_j2517")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_467aa"]
+texture = ExtResource("6_ch8s2")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l073y"]
+texture = ExtResource("7_ui1ox")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_08a7t"]
+texture = ExtResource("8_wbr04")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fsrtq"]
+texture = ExtResource("9_b2rgo")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3m50g"]
+texture = ExtResource("2_vi7oo")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+0:0/0/modulate = Color(0.88, 0.96, 0.95, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gmchb"]
+texture = ExtResource("3_i3v2m")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+0:0/0/modulate = Color(0.73, 0.88, 0.85, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_07axs"]
+texture = ExtResource("12_h45jx")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h5bep"]
+texture = ExtResource("13_x0fw5")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mqljo"]
+texture = ExtResource("14_4s7bv")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_68ktt"]
+texture = ExtResource("15_dj3h2")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmicp"]
+texture = ExtResource("16_d471i")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rd3rn"]
+texture = ExtResource("17_vkpar")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetAtlasSource_t6kf7")
+sources/1 = SubResource("TileSetAtlasSource_0wg7l")
+sources/2 = SubResource("TileSetAtlasSource_3m50g")
+sources/3 = SubResource("TileSetAtlasSource_gmchb")
+sources/4 = SubResource("TileSetAtlasSource_07axs")
+sources/5 = SubResource("TileSetAtlasSource_h5bep")
+sources/6 = SubResource("TileSetAtlasSource_mqljo")
+sources/7 = SubResource("TileSetAtlasSource_68ktt")
+sources/8 = SubResource("TileSetAtlasSource_jmicp")
+sources/9 = SubResource("TileSetAtlasSource_rd3rn")
+sources/10 = SubResource("TileSetAtlasSource_5kxjl")
+sources/11 = SubResource("TileSetAtlasSource_leq6j")
+sources/12 = SubResource("TileSetAtlasSource_cfqid")
+sources/13 = SubResource("TileSetAtlasSource_467aa")
+sources/14 = SubResource("TileSetAtlasSource_l073y")
+sources/15 = SubResource("TileSetAtlasSource_08a7t")
+sources/16 = SubResource("TileSetAtlasSource_fsrtq")

@@ -10,6 +10,9 @@ const TRACKS := {
 	"kael_prologue": "res://assets/audio/music/fading_into_the_void.mp3",
 	"gerald_childhood": "res://assets/audio/music/before_the_ashes.mp3",
 	"gerald_tragedy": "res://assets/audio/music/the_guardian_who_failed.mp3",
+	"ravienna_story_1": "res://assets/audio/music/forbidden_blossoms.mp3",
+	"ravienna_story_2": "res://assets/audio/music/the_adagio_of_unresolved_grief.ogg",
+	"ravienna_boss": "res://assets/audio/music/wrath_of_the_fallen.mp3",
 }
 const SFX_STREAMS := {
 	"ui_crystal_click": preload("res://assets/audio/sfx/ui_crystal_click.mp3"),
@@ -34,7 +37,10 @@ const EXTENDED_SFX := {
 	"critical_hit": 2,
 	"crystal_shatter": 2,
 	"defeat": 3,
-	"dirt_step": 4,
+	"dirt_step": 3,
+	"wood_step": 4,
+	"water_step": 4,
+	"water_entry": 3,
 	"female_hurt": 4,
 	"grass_step": 4,
 	"healing": 2,
@@ -56,6 +62,401 @@ const EXTENDED_SFX := {
 	"sword_impact": 3,
 	"sword_swing": 3,
 }
+
+const LILITH_VOICES := {
+	"summon_greeting": preload("res://assets/audio/voice/lilith/summon_greeting.wav"),
+	"gerald_tease": preload("res://assets/audio/voice/lilith/gerald_tease.wav"),
+	"ghosts_call": preload("res://assets/audio/voice/lilith/ghosts_call.wav"),
+	"gerald_distress": preload("res://assets/audio/voice/lilith/gerald_distress.wav"),
+	"battle/entrance": preload("res://assets/audio/voice/lilith/battle/entrance.wav"),
+	"battle/basic_attack": preload("res://assets/audio/voice/lilith/battle/basic_attack.wav"),
+	"battle/special_attack": preload("res://assets/audio/voice/lilith/battle/special_attack.wav"),
+	"battle/hurt": preload("res://assets/audio/voice/lilith/battle/hurt.wav"),
+	"battle/low_health": preload("res://assets/audio/voice/lilith/battle/low_health.wav"),
+	"battle/victory": preload("res://assets/audio/voice/lilith/battle/victory.wav"),
+	"exploration/next_destination": preload("res://assets/audio/voice/lilith/exploration/next_destination.wav"),
+	"exploration/wait_for_me": preload("res://assets/audio/voice/lilith/exploration/wait_for_me.wav"),
+	"exploration/shiny_discovery": preload("res://assets/audio/voice/lilith/exploration/shiny_discovery.wav"),
+	"exploration/curiosity": preload("res://assets/audio/voice/lilith/exploration/curiosity.wav"),
+	"exploration/quiet_surroundings": preload("res://assets/audio/voice/lilith/exploration/quiet_surroundings.wav"),
+	"exploration/remember_gerald": preload("res://assets/audio/voice/lilith/exploration/remember_gerald.wav"),
+}
+const GERALD_VOICES := {
+	"battle/entrance": "res://assets/audio/voice/gerald/battle/entrance.wav",
+	"battle/basic_attack": "res://assets/audio/voice/gerald/battle/basic_attack.wav",
+	"battle/special_attack": "res://assets/audio/voice/gerald/battle/special_attack.wav",
+	"battle/hurt": "res://assets/audio/voice/gerald/battle/hurt.wav",
+	"battle/low_health": "res://assets/audio/voice/gerald/battle/low_health.wav",
+	"battle/victory": "res://assets/audio/voice/gerald/battle/victory.wav",
+	"exploration/stay_close": "res://assets/audio/voice/gerald/exploration/stay_close.wav",
+	"exploration/keep_moving": "res://assets/audio/voice/gerald/exploration/keep_moving.wav",
+	"exploration/unease": "res://assets/audio/voice/gerald/exploration/unease.wav",
+	"exploration/quiet": "res://assets/audio/voice/gerald/exploration/quiet.wav",
+	"exploration/watch_step": "res://assets/audio/voice/gerald/exploration/watch_step.wav",
+	"exploration/find_way": "res://assets/audio/voice/gerald/exploration/find_way.wav",
+	"protect_lilith": "res://assets/audio/voice/gerald/protect_lilith.wav",
+	"summon_greeting": "res://assets/audio/voice/gerald/summon_greeting.wav",
+	"comfort": "res://assets/audio/voice/gerald/comfort.wav",
+}
+const MIRENE_VOICES := {
+	"battle/entrance": "res://assets/audio/voice/mirene/battle/entrance.wav",
+	"battle/basic_attack": "res://assets/audio/voice/mirene/battle/basic_attack.wav",
+	"battle/hurt": "res://assets/audio/voice/mirene/battle/hurt.wav",
+	"battle/low_health": "res://assets/audio/voice/mirene/battle/low_health.wav",
+	"battle/defeat": "res://assets/audio/voice/mirene/battle/defeat.wav",
+	"battle/victory": "res://assets/audio/voice/mirene/battle/victory.wav",
+	"exploration/bored": "res://assets/audio/voice/mirene/exploration/bored.wav",
+	"exploration/trouble": "res://assets/audio/voice/mirene/exploration/trouble.wav",
+	"exploration/new_stage": "res://assets/audio/voice/mirene/exploration/new_stage.wav",
+	"exploration/curiosity": "res://assets/audio/voice/mirene/exploration/curiosity.wav",
+	"exploration/trick": "res://assets/audio/voice/mirene/exploration/trick.wav",
+	"exploration/surprises": "res://assets/audio/voice/mirene/exploration/surprises.wav",
+	"summon_greeting": "res://assets/audio/voice/mirene/summon_greeting.wav",
+	"illusion": "res://assets/audio/voice/mirene/illusion.wav",
+	"ultimate": "res://assets/audio/voice/mirene/ultimate.wav",
+}
+var _mirene_walk_remaining := 0.0
+var _mirene_last_walk := ""
+const CASSIEN_VOICES := {
+	"battle/basic_attack": "res://assets/audio/voice/cassien/battle/basic_attack.wav",
+	"battle/special_attack": "res://assets/audio/voice/cassien/battle/special_attack.wav",
+	"battle/ultimate": "res://assets/audio/voice/cassien/battle/ultimate.wav",
+	"battle/hurt": "res://assets/audio/voice/cassien/battle/hurt.wav",
+	"battle/low_health": "res://assets/audio/voice/cassien/battle/low_health.wav",
+	"battle/victory": "res://assets/audio/voice/cassien/battle/victory.wav",
+	"exploration/wounds": "res://assets/audio/voice/cassien/exploration/wounds.wav",
+	"exploration/onward": "res://assets/audio/voice/cassien/exploration/onward.wav",
+	"exploration/silence": "res://assets/audio/voice/cassien/exploration/silence.wav",
+	"exploration/memory": "res://assets/audio/voice/cassien/exploration/memory.wav",
+	"exploration/loyalty": "res://assets/audio/voice/cassien/exploration/loyalty.wav",
+	"exploration/duty": "res://assets/audio/voice/cassien/exploration/duty.wav",
+	"summon_greeting": "res://assets/audio/voice/cassien/summon_greeting.wav",
+	"boss_entrance": "res://assets/audio/voice/cassien/boss_entrance.wav",
+	"defeat": "res://assets/audio/voice/cassien/defeat.wav",
+}
+var _cassien_walk_remaining := 0.0
+var _cassien_last_walk := ""
+const KAEL_VOICES := {
+	"battle/entrance": "res://assets/audio/voice/kael/battle/entrance.wav",
+	"battle/basic_attack": "res://assets/audio/voice/kael/battle/basic_attack.wav",
+	"battle/special_attack": "res://assets/audio/voice/kael/battle/special_attack.wav",
+	"battle/hurt": "res://assets/audio/voice/kael/battle/hurt.wav",
+	"battle/low_health": "res://assets/audio/voice/kael/battle/low_health.wav",
+	"battle/victory": "res://assets/audio/voice/kael/battle/victory.wav",
+	"exploration/ahead": "res://assets/audio/voice/kael/exploration/ahead.wav",
+	"exploration/keep_going": "res://assets/audio/voice/kael/exploration/keep_going.wav",
+	"exploration/curiosity": "res://assets/audio/voice/kael/exploration/curiosity.wav",
+	"exploration/memory": "res://assets/audio/voice/kael/exploration/memory.wav",
+	"exploration/companion": "res://assets/audio/voice/kael/exploration/companion.wav",
+	"exploration/resolve": "res://assets/audio/voice/kael/exploration/resolve.wav",
+	"journey": "res://assets/audio/voice/kael/journey.wav",
+	"ultimate": "res://assets/audio/voice/kael/ultimate.wav",
+	"defeat": "res://assets/audio/voice/kael/defeat.wav",
+}
+var _kael_walk_remaining := 0.0
+var _kael_last_walk := ""
+const RAVIENNA_VOICES := {
+	"battle/entrance": "res://assets/audio/voice/ravienna/battle/entrance.wav",
+	"battle/basic_attack": "res://assets/audio/voice/ravienna/battle/basic_attack.wav",
+	"battle/special_attack": "res://assets/audio/voice/ravienna/battle/special_attack.wav",
+	"battle/hurt": "res://assets/audio/voice/ravienna/battle/hurt.wav",
+	"battle/low_health": "res://assets/audio/voice/ravienna/battle/low_health.wav",
+	"battle/defeat": "res://assets/audio/voice/ravienna/battle/defeat.wav",
+	"battle/victory": "res://assets/audio/voice/ravienna/battle/victory.wav",
+	"exploration/fleeting": "res://assets/audio/voice/ravienna/exploration/fleeting.wav",
+	"exploration/proceed": "res://assets/audio/voice/ravienna/exploration/proceed.wav",
+	"exploration/secrets": "res://assets/audio/voice/ravienna/exploration/secrets.wav",
+	"exploration/sky": "res://assets/audio/voice/ravienna/exploration/sky.wav",
+	"exploration/time": "res://assets/audio/voice/ravienna/exploration/time.wav",
+	"exploration/silence": "res://assets/audio/voice/ravienna/exploration/silence.wav",
+	"summon_greeting": "res://assets/audio/voice/ravienna/summon_greeting.wav",
+	"ultimate": "res://assets/audio/voice/ravienna/ultimate.wav",
+	"cassien": "res://assets/audio/voice/ravienna/cassien.wav",
+}
+const ELATHRA_VOICES := {
+	"battle/entrance": "res://assets/audio/voice/elathra/battle/entrance.wav",
+	"battle/basic_attack": "res://assets/audio/voice/elathra/battle/basic_attack.wav",
+	"battle/special_attack": "res://assets/audio/voice/elathra/battle/special_attack.wav",
+	"battle/hurt": "res://assets/audio/voice/elathra/battle/hurt.wav",
+	"battle/low_health": "res://assets/audio/voice/elathra/battle/low_health.wav",
+	"battle/victory": "res://assets/audio/voice/elathra/battle/victory.wav",
+	"exploration/bloom": "res://assets/audio/voice/elathra/exploration/bloom.wav",
+	"exploration/still": "res://assets/audio/voice/elathra/exploration/still.wav",
+	"exploration/memory": "res://assets/audio/voice/elathra/exploration/memory.wav",
+	"exploration/further": "res://assets/audio/voice/elathra/exploration/further.wav",
+	"exploration/orchid": "res://assets/audio/voice/elathra/exploration/orchid.wav",
+	"exploration/wish": "res://assets/audio/voice/elathra/exploration/wish.wav",
+	"summon_greeting": "res://assets/audio/voice/elathra/summon_greeting.wav",
+	"ultimate": "res://assets/audio/voice/elathra/ultimate.wav",
+	"defeat": "res://assets/audio/voice/elathra/defeat.wav",
+}
+var _final_voice_walk_remaining := {}
+var _final_voice_last_walk := {}
+var _voice_character := ""
+var _voice_queue: Array = []
+var _gerald_walk_remaining := 0.0
+var _gerald_last_walk := ""
+var _voice_player: AudioStreamPlayer
+var _voice_owner: Node
+var _voice_next_ms := 0
+var _lilith_walk_remaining := 0.0
+var _lilith_last_walk := ""
+
+
+func is_lilith_voice_id(id: String) -> bool:
+	return id == "lilith" or id.begins_with("lilith_")
+
+
+func is_gerald_voice_id(id: String) -> bool:
+	return id == "gerald" or (id.begins_with("gerald_") and not id.begins_with("gerald_boss"))
+
+
+func is_mirene_voice_id(id: String) -> bool:
+	return id == "mirene" or id.begins_with("mirene_")
+
+
+func play_mirene_voice(line: String, owner: Node, priority: bool = false) -> bool:
+	return play_character_voice("mirene", line, owner, priority)
+
+
+func is_cassien_voice_id(id: String) -> bool:
+	return id == "cassien" or id.begins_with("cassien_")
+
+
+func play_cassien_voice(line: String, owner: Node, priority: bool = false) -> bool:
+	return play_character_voice("cassien", line, owner, priority)
+
+
+func is_kael_voice_id(id: String) -> bool:
+	return id == "kael" or (id.begins_with("kael_") and id != "kael_boss")
+
+
+func play_kael_voice(line: String, owner: Node, priority: bool = false) -> bool:
+	return play_character_voice("kael", line, owner, priority)
+
+
+func final_voice_character(id: String) -> String:
+	if id == "ravienna" or id.begins_with("ravienna_") or id == "revienna" or id.begins_with("revienna_"):
+		return "ravienna"
+	if id == "elathra" or id.begins_with("elathra_"):
+		return "elathra"
+	return ""
+
+
+func _character_voice_registry(character: String) -> Dictionary:
+	match character:
+		"gerald": return GERALD_VOICES
+		"lilith": return LILITH_VOICES
+		"mirene": return MIRENE_VOICES
+		"cassien": return CASSIEN_VOICES
+		"kael": return KAEL_VOICES
+		"ravienna": return RAVIENNA_VOICES
+		"elathra": return ELATHRA_VOICES
+	return {}
+
+
+func play_lilith_voice(line: String, owner: Node, priority: bool = false) -> bool:
+	return play_character_voice("lilith", line, owner, priority)
+
+
+func play_gerald_voice(line: String, owner: Node, priority: bool = false) -> bool:
+	return play_character_voice("gerald", line, owner, priority)
+
+
+func play_character_voice(character: String, line: String, owner: Node, priority: bool = false) -> bool:
+	if not is_instance_valid(_voice_player) or not is_instance_valid(owner) or not owner.is_inside_tree():
+		return false
+	var registry: Dictionary = _character_voice_registry(character)
+	if not registry.has(line):
+		return false
+	if not priority and (_voice_player.playing or Time.get_ticks_msec() < _voice_next_ms):
+		return false
+	_voice_queue.clear()
+	return _start_character_voice(character, line, owner)
+
+
+func _start_character_voice(character: String, line: String, owner: Node) -> bool:
+	var registry: Dictionary = _character_voice_registry(character)
+	if not is_instance_valid(owner) or not owner.is_inside_tree() or not registry.has(line):
+		return false
+	var stream: AudioStream = load(str(registry[line])) as AudioStream if character != "lilith" else registry[line]
+	if stream == null:
+		return false
+	_voice_player.stop()
+	_voice_owner = owner
+	_voice_character = character
+	_voice_player.stream = stream
+	_voice_player.play()
+	_voice_next_ms = Time.get_ticks_msec() + 2500
+	return true
+
+
+func play_sibling_voice_sequence(cues: Array, owner: Node) -> bool:
+	if cues.is_empty():
+		return false
+	var first: Array = cues[0]
+	if not play_character_voice(str(first[0]), str(first[1]), owner, true):
+		return false
+	_voice_queue = cues.slice(1)
+	return true
+
+
+func _on_character_voice_finished() -> void:
+	if _voice_player.playing:
+		return
+	_voice_player.stream = null
+	if not _voice_queue.is_empty() and is_instance_valid(_voice_owner) and _voice_owner.is_inside_tree():
+		var next: Array = _voice_queue.pop_front()
+		_start_character_voice(str(next[0]), str(next[1]), _voice_owner)
+	else:
+		stop_lilith_voice()
+
+
+func stop_lilith_voice(owner: Node = null) -> void:
+	if owner != null and _voice_owner != owner:
+		return
+	if is_instance_valid(_voice_player):
+		_voice_player.stop()
+		_voice_player.stream = null
+	_voice_owner = null
+	_voice_character = ""
+	_voice_queue.clear()
+
+
+func _process(_delta: float) -> void:
+	if _voice_player != null and _voice_player.playing and (not is_instance_valid(_voice_owner) or not _voice_owner.is_inside_tree()):
+		stop_lilith_voice()
+
+
+func tick_lilith_exploration(body: CharacterBody2D, delta: float, walking: bool) -> void:
+	var id := str(body.get("avatar_id"))
+	var character := "gerald" if is_gerald_voice_id(id) else "lilith" if is_lilith_voice_id(id) else "mirene" if is_mirene_voice_id(id) and id != "mirene_boss" else "cassien" if is_cassien_voice_id(id) and id != "cassien_boss" else "kael" if is_kael_voice_id(id) else final_voice_character(id) if not id.ends_with("_boss") else ""
+	if character.is_empty() or not bool(body.get("input_enabled")) or bool(body.get("network_recovery_paused")):
+		stop_lilith_voice(body)
+		return
+	if _voice_owner == body and _voice_character != character:
+		stop_lilith_voice(body)
+	if not walking:
+		return
+	if character == "gerald":
+		_tick_gerald_exploration(body, delta)
+		return
+	if character == "mirene":
+		_tick_mirene_exploration(body, delta)
+		return
+	if character == "cassien":
+		_tick_cassien_exploration(body, delta)
+		return
+	if character == "kael":
+		_tick_kael_exploration(body, delta)
+		return
+	if character in ["ravienna", "elathra"]:
+		_tick_final_voice_exploration(character, body, delta)
+		return
+	if _lilith_walk_remaining <= 0.0:
+		_lilith_walk_remaining = randf_range(45.0, 90.0)
+	_lilith_walk_remaining -= delta
+	if _lilith_walk_remaining > 0.0:
+		return
+	var lines: Array[String] = ["exploration/next_destination", "exploration/curiosity", "exploration/quiet_surroundings", "exploration/remember_gerald", "exploration/wait_for_me"]
+	for member in GameState.roster_domain.party_instances():
+		if str(member.char_id) == "gerald" or str(member.char_id).begins_with("gerald_"):
+			lines.append("gerald_tease")
+			break
+	lines.erase(_lilith_last_walk)
+	var line: String = lines.pick_random()
+	if play_lilith_voice(line, body):
+		_lilith_last_walk = line
+	_lilith_walk_remaining = randf_range(45.0, 90.0)
+
+
+func _tick_gerald_exploration(body: CharacterBody2D, delta: float) -> void:
+	if _gerald_walk_remaining <= 0.0:
+		_gerald_walk_remaining = randf_range(45.0, 90.0)
+	_gerald_walk_remaining -= delta
+	if _gerald_walk_remaining > 0.0:
+		return
+	var lines: Array[String] = ["exploration/stay_close", "exploration/keep_moving", "exploration/unease", "exploration/quiet", "exploration/find_way"]
+	for member in GameState.roster_domain.party_instances():
+		if is_lilith_voice_id(str(member.char_id)):
+			lines.append("exploration/watch_step")
+			break
+	lines.erase(_gerald_last_walk)
+	var line: String = lines.pick_random()
+	if play_gerald_voice(line, body):
+		_gerald_last_walk = line
+	_gerald_walk_remaining = randf_range(45.0, 90.0)
+
+
+func _tick_mirene_exploration(body: CharacterBody2D, delta: float) -> void:
+	if _mirene_walk_remaining <= 0.0:
+		_mirene_walk_remaining = randf_range(45.0, 90.0)
+	_mirene_walk_remaining -= delta
+	if _mirene_walk_remaining > 0.0:
+		return
+	var lines: Array[String] = ["exploration/bored", "exploration/trouble", "exploration/new_stage", "exploration/curiosity", "exploration/trick", "exploration/surprises"]
+	lines.erase(_mirene_last_walk)
+	var line: String = lines.pick_random()
+	if play_mirene_voice(line, body):
+		_mirene_last_walk = line
+	_mirene_walk_remaining = randf_range(45.0, 90.0)
+
+
+func _tick_cassien_exploration(body: CharacterBody2D, delta: float) -> void:
+	if _cassien_walk_remaining <= 0.0:
+		_cassien_walk_remaining = randf_range(45.0, 90.0)
+	_cassien_walk_remaining -= delta
+	if _cassien_walk_remaining > 0.0:
+		return
+	var lines: Array[String] = ["exploration/wounds", "exploration/onward", "exploration/silence", "exploration/memory", "exploration/duty"]
+	for member in GameState.roster_domain.party_instances():
+		if str(member.char_id).begins_with("ravienna") or str(member.char_id).begins_with("revienna"):
+			lines.append("exploration/loyalty")
+			break
+	lines.erase(_cassien_last_walk)
+	var line: String = lines.pick_random()
+	if play_cassien_voice(line, body):
+		_cassien_last_walk = line
+	_cassien_walk_remaining = randf_range(45.0, 90.0)
+
+
+func _tick_kael_exploration(body: CharacterBody2D, delta: float) -> void:
+	if _kael_walk_remaining <= 0.0:
+		_kael_walk_remaining = randf_range(45.0, 90.0)
+	_kael_walk_remaining -= delta
+	if _kael_walk_remaining > 0.0:
+		return
+	var lines: Array[String] = ["exploration/ahead", "exploration/keep_going", "exploration/curiosity", "exploration/resolve"]
+	if body.has_node("FairyCompanion"):
+		lines.append("exploration/companion")
+	lines.erase(_kael_last_walk)
+	var line: String = lines.pick_random()
+	if play_kael_voice(line, body):
+		_kael_last_walk = line
+	_kael_walk_remaining = randf_range(45.0, 90.0)
+
+
+func _tick_final_voice_exploration(character: String, body: CharacterBody2D, delta: float) -> void:
+	var remaining := float(_final_voice_walk_remaining.get(character, 0.0))
+	if remaining <= 0.0:
+		remaining = randf_range(45.0, 90.0)
+	remaining -= delta
+	_final_voice_walk_remaining[character] = remaining
+	if remaining > 0.0:
+		return
+	var lines: Array = ["exploration/fleeting", "exploration/proceed", "exploration/secrets", "exploration/sky", "exploration/time", "exploration/silence"] if character == "ravienna" else ["exploration/bloom", "exploration/still", "exploration/memory", "exploration/further", "exploration/wish"]
+	if character == "ravienna":
+		for member in GameState.roster_domain.party_instances():
+			if is_cassien_voice_id(str(member.char_id)):
+				lines.append("cassien")
+				break
+	lines.erase(str(_final_voice_last_walk.get(character, "")))
+	var line: String = lines.pick_random()
+	if play_character_voice(character, line, body):
+		_final_voice_last_walk[character] = line
+	_final_voice_walk_remaining[character] = randf_range(45.0, 90.0)
+
+
 var _last_sfx_variant: Dictionary = {}
 const SFX_POOL_SIZE := 8
 
@@ -77,6 +478,12 @@ func _ready() -> void:
 	AudioServer.set_bus_layout(BUS_LAYOUT)
 	_player.bus = "Music"
 	_create_sfx_players()
+	_voice_player = AudioStreamPlayer.new()
+	_voice_player.name = "CharacterVoicePlayer"
+	_voice_player.bus = "SFX"
+	_voice_player.volume_db = -3.0
+	add_child(_voice_player)
+	_voice_player.finished.connect(_on_character_voice_finished)
 	if not get_tree().node_added.is_connected(_on_scene_node_added):
 		get_tree().node_added.connect(_on_scene_node_added)
 	call_deferred("_bind_existing_buttons")
@@ -182,9 +589,9 @@ func _start_track(track_id: String, fade_duration: float) -> void:
 		push_warning("[AudioDirector] Could not load music track: " + TRACKS[track_id])
 		return
 	if stream is AudioStreamMP3:
-		(stream as AudioStreamMP3).loop = true
+		(stream as AudioStreamMP3).loop = not track_id.begins_with("ravienna_story_")
 	elif stream is AudioStreamOggVorbis:
-		(stream as AudioStreamOggVorbis).loop = true
+		(stream as AudioStreamOggVorbis).loop = not track_id.begins_with("ravienna_story_")
 	_player.stop()
 	_player.stream = stream
 	_player.volume_db = -48.0
@@ -469,6 +876,19 @@ func stop_music_immediately() -> void:
 
 
 func stop_all_audio_immediately() -> void:
+	stop_lilith_voice()
+	_lilith_walk_remaining = 0.0
+	_lilith_last_walk = ""
+	_gerald_walk_remaining = 0.0
+	_gerald_last_walk = ""
+	_mirene_walk_remaining = 0.0
+	_mirene_last_walk = ""
+	_cassien_walk_remaining = 0.0
+	_cassien_last_walk = ""
+	_kael_walk_remaining = 0.0
+	_kael_last_walk = ""
+	_final_voice_walk_remaining.clear()
+	_final_voice_last_walk.clear()
 	_ambience_requested = ""
 	_region_ambience_id = ""
 	stop_music_immediately()

@@ -1,0 +1,432 @@
+[gd_resource type="TileSet" format=3 uid="uid://cwid2shakoiwm"]
+
+[ext_resource type="Texture2D" uid="uid://1i1l0acqmvbq" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_01.png" id="1_b1kj7"]
+[ext_resource type="Texture2D" uid="uid://cww4xrapnwsq5" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/qa_flat_terrain/flat_02.png" id="2_s0sxk"]
+[ext_resource type="Texture2D" uid="uid://bjtex2cj0u6ia" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_0_1.png" id="3_j6t7h"]
+[ext_resource type="Texture2D" uid="uid://c6x75uj4oos4n" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/approved_native/dirt_edge_s.png" id="4_sqnrf"]
+[ext_resource type="Texture2D" uid="uid://d26wlfad0arnh" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_2_1.png" id="5_3le7u"]
+[ext_resource type="Texture2D" uid="uid://c3ba0lkg8jlsk" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/approved_native/dirt_edge_n.png" id="6_nouis"]
+[ext_resource type="Texture2D" uid="uid://disny8o8uxhk2" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_1_1.png" id="7_3gxo6"]
+[ext_resource type="Texture2D" uid="uid://hftbj0625so0" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v3/handdrawn_direction_1.png" id="8_4iqxv"]
+[ext_resource type="Texture2D" uid="uid://bs3bthc214s5k" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/approved_native/dirt_edge_nw.png" id="9_nkei7"]
+[ext_resource type="Texture2D" uid="uid://3vfrpw2wibra" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_3_1.png" id="10_444ug"]
+[ext_resource type="Texture2D" uid="uid://bsl2r6qhh56sv" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/grass_dark_01.png" id="11_4s5my"]
+[ext_resource type="Texture2D" uid="uid://bnuv354440d1t" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/mossy_stone_01.png" id="12_tq66o"]
+[ext_resource type="Texture2D" uid="uid://b355hcq7jbb7x" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v1/transition_01_0.png" id="13_2dnge"]
+[ext_resource type="Texture2D" uid="uid://cfamfv64hudr5" path="res://assets/reverie_pack_v01/Pathways/Ground/gothic_courtyard_floor_01.png" id="19_c10wv"]
+[ext_resource type="Texture2D" uid="uid://cssypk2ijw43d" path="res://assets/environment/royal_gardens_ground_64x32/garden_stone_path.png" id="21_e4sje"]
+[ext_resource type="Texture2D" uid="uid://ddnujmuw5su8i" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v3/handdrawn_direction_0.png" id="22_wfg14"]
+[ext_resource type="Texture2D" uid="uid://37ua3e5hpm30" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_1_0.png" id="23_40dyo"]
+[ext_resource type="Texture2D" uid="uid://dbtf1r6p6e7n1" path="res://assets/reverie_pack_v01/Royal_Gardens/Terrain/soil_garden_01.png" id="24_w3y4w"]
+[ext_resource type="Texture2D" uid="uid://byosn4abwkyx1" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v1/transition_02_0.png" id="25_epu8g"]
+[ext_resource type="Texture2D" uid="uid://vdefrgb213v8" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_2_0.png" id="26_pf4im"]
+[ext_resource type="Texture2D" uid="uid://b2js7jk1ym1c0" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_3_0.png" id="27_8ow4c"]
+[ext_resource type="Texture2D" uid="uid://c6u6uoisemv1x" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/artist_road_transitions_v4/straight_edge_0_0.png" id="28_aqtj2"]
+[ext_resource type="Texture2D" uid="uid://bkd5tfulpj4qn" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/border_leaves.png" id="decor_border_leaves"]
+[ext_resource type="Texture2D" uid="uid://bcnpqpdp3bs28" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/broken_border.png" id="decor_broken_border"]
+[ext_resource type="Texture2D" uid="uid://ifjwstno8nav" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/broken_foundation.png" id="decor_broken_foundation"]
+[ext_resource type="Texture2D" uid="uid://c2aumh7npnocd" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/carved_border.png" id="decor_carved_border"]
+[ext_resource type="Texture2D" uid="uid://c2rnyxnr184cv" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/chapel_mosaic.png" id="decor_chapel_mosaic"]
+[ext_resource type="Texture2D" uid="uid://c5r3tlik1j60o" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/cracked_slate.png" id="decor_cracked_slate"]
+[ext_resource type="Texture2D" uid="uid://bfil8mh54qlpr" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/eroded_mosaic.png" id="decor_eroded_mosaic"]
+[ext_resource type="Texture2D" uid="uid://dhq3oc1hsvqju" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/fallen_leaves.png" id="decor_fallen_leaves"]
+[ext_resource type="Texture2D" uid="uid://b27u70eugg3fy" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/fractured_earth.png" id="decor_fractured_earth"]
+[ext_resource type="Texture2D" uid="uid://bvfsl68vhh3ao" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/leaf_carpet.png" id="decor_leaf_carpet"]
+[ext_resource type="Texture2D" uid="uid://b2nlcw7t7yuv" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/memorial_earth.png" id="decor_memorial_earth"]
+[ext_resource type="Texture2D" uid="uid://bh683xlf6vvbp" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/memorial_inlay.png" id="decor_memorial_inlay"]
+[ext_resource type="Texture2D" uid="uid://cwe3fksfi8nwv" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/memorial_leaves.png" id="decor_memorial_leaves"]
+[ext_resource type="Texture2D" uid="uid://du51sflyd80hm" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/memorial_rose.png" id="decor_memorial_rose"]
+[ext_resource type="Texture2D" uid="uid://3u873xtf2s3v" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/moss_roots.png" id="decor_moss_roots"]
+[ext_resource type="Texture2D" uid="uid://bk1k2nmsiokxe" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/root_paving.png" id="decor_root_paving"]
+[ext_resource type="Texture2D" uid="uid://cswa58ys7yxy3" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/rose_medallion.png" id="decor_rose_medallion"]
+[ext_resource type="Texture2D" uid="uid://df2q77j67m46u" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/royal_inlay.png" id="decor_royal_inlay"]
+[ext_resource type="Texture2D" uid="uid://evktffqro7g5" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/worn_border.png" id="decor_worn_border"]
+[ext_resource type="Texture2D" uid="uid://ql1ber2jshnd" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/cool_slate.png" id="palette_cool_slate"]
+[ext_resource type="Texture2D" uid="uid://bxrw1uyjk1nkt" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/eroded_slate.png" id="palette_eroded_slate"]
+[ext_resource type="Texture2D" uid="uid://bnnjivcnfeakx" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/plum_ground_flat.png" id="palette_plum_ground_flat"]
+[ext_resource type="Texture2D" uid="uid://787dkavujk5k" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/plum_ground_weathered.png" id="palette_plum_ground_weathered"]
+[ext_resource type="Texture2D" uid="uid://doe56b41w43bg" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/violet_grass_crimson.png" id="violet_grass_crimson"]
+[ext_resource type="Texture2D" uid="uid://cni78gumafy3w" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/violet_grass_dense.png" id="violet_grass_dense"]
+[ext_resource type="Texture2D" uid="uid://c2a63iqy4fjas" path="res://assets/environment/six_zone_reverie/forsaken_ruins/decorative_terrain/violet_grass_tufts.png" id="violet_grass_tufts"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5cche"]
+texture = ExtResource("1_b1kj7")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qn6g3"]
+texture = ExtResource("2_s0sxk")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ymkd3"]
+texture = ExtResource("3_j6t7h")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_edge_0"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_edge_1"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_edge_2"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_edge_3"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_outer_0"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_outer_1"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_outer_2"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_outer_3"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_inner_0"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_inner_1"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qc601"]
+texture = ExtResource("4_sqnrf")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_inner_2"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Tile_inner_3"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bif2y"]
+texture = ExtResource("5_3le7u")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_rose_medallion"]
+texture = ExtResource("decor_rose_medallion")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_royal_inlay"]
+texture = ExtResource("decor_royal_inlay")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_chapel_mosaic"]
+texture = ExtResource("decor_chapel_mosaic")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_eroded_mosaic"]
+texture = ExtResource("decor_eroded_mosaic")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_leaf_carpet"]
+texture = ExtResource("decor_leaf_carpet")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_plain_plum"]
+texture = ExtResource("palette_plum_ground_flat")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_root_paving"]
+texture = ExtResource("decor_root_paving")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_moss_roots"]
+texture = ExtResource("decor_moss_roots")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_fallen_leaves"]
+texture = ExtResource("decor_fallen_leaves")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_fractured_earth"]
+texture = ExtResource("decor_fractured_earth")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vlao8"]
+texture = ExtResource("6_nouis")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_broken_foundation"]
+texture = ExtResource("decor_broken_foundation")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_cracked_slate"]
+texture = ExtResource("decor_cracked_slate")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_border_leaves"]
+texture = ExtResource("decor_border_leaves")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_carved_border"]
+texture = ExtResource("decor_carved_border")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_broken_border"]
+texture = ExtResource("decor_broken_border")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_worn_border"]
+texture = ExtResource("decor_worn_border")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_memorial_leaves"]
+texture = ExtResource("decor_memorial_leaves")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_memorial_earth"]
+texture = ExtResource("decor_memorial_earth")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_memorial_rose"]
+texture = ExtResource("decor_memorial_rose")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Decor_memorial_inlay"]
+texture = ExtResource("decor_memorial_inlay")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6m8f4"]
+texture = ExtResource("7_3gxo6")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Purple_violet_grass_dense"]
+texture = ExtResource("violet_grass_dense")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Purple_violet_grass_tufts"]
+texture = ExtResource("violet_grass_tufts")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="Purple_violet_grass_crimson"]
+texture = ExtResource("violet_grass_crimson")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xgmun"]
+texture = ExtResource("8_4iqxv")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hk5kd"]
+texture = ExtResource("9_nkei7")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbbsk"]
+texture = ExtResource("10_444ug")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iodnh"]
+texture = ExtResource("11_4s5my")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_il7mo"]
+texture = ExtResource("12_tq66o")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k0erp"]
+texture = ExtResource("13_2dnge")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f4pnd"]
+texture = ExtResource("palette_cool_slate")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gv50u"]
+texture = ExtResource("palette_cool_slate")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0vit5"]
+texture = ExtResource("palette_eroded_slate")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g74x5"]
+texture = ExtResource("decor_cracked_slate")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vhtd0"]
+texture = ExtResource("palette_plum_ground_flat")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_46ayi"]
+texture = ExtResource("19_c10wv")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s2oo3"]
+texture = ExtResource("palette_plum_ground_weathered")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2xg8o"]
+texture = ExtResource("21_e4sje")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_padl2"]
+texture = ExtResource("22_wfg14")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c8ks6"]
+texture = ExtResource("23_40dyo")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b8osl"]
+texture = ExtResource("24_w3y4w")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixh1h"]
+texture = ExtResource("25_epu8g")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ur7f"]
+texture = ExtResource("26_pf4im")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c2uoi"]
+texture = ExtResource("27_8ow4c")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4haqn"]
+texture = ExtResource("28_aqtj2")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetAtlasSource_5cche")
+sources/1 = SubResource("TileSetAtlasSource_qn6g3")
+sources/2 = SubResource("TileSetAtlasSource_k0erp")
+sources/3 = SubResource("TileSetAtlasSource_padl2")
+sources/4 = SubResource("TileSetAtlasSource_c8ks6")
+sources/5 = SubResource("TileSetAtlasSource_b8osl")
+sources/6 = SubResource("TileSetAtlasSource_ixh1h")
+sources/7 = SubResource("TileSetAtlasSource_8ur7f")
+sources/8 = SubResource("TileSetAtlasSource_c2uoi")
+sources/9 = SubResource("TileSetAtlasSource_4haqn")
+sources/10 = SubResource("TileSetAtlasSource_ymkd3")
+sources/11 = SubResource("TileSetAtlasSource_qc601")
+sources/12 = SubResource("TileSetAtlasSource_bif2y")
+sources/13 = SubResource("TileSetAtlasSource_vlao8")
+sources/14 = SubResource("TileSetAtlasSource_6m8f4")
+sources/15 = SubResource("TileSetAtlasSource_xgmun")
+sources/16 = SubResource("TileSetAtlasSource_hk5kd")
+sources/17 = SubResource("TileSetAtlasSource_qbbsk")
+sources/18 = SubResource("TileSetAtlasSource_iodnh")
+sources/19 = SubResource("TileSetAtlasSource_il7mo")
+sources/20 = SubResource("TileSetAtlasSource_f4pnd")
+sources/21 = SubResource("TileSetAtlasSource_gv50u")
+sources/22 = SubResource("TileSetAtlasSource_0vit5")
+sources/23 = SubResource("TileSetAtlasSource_g74x5")
+sources/24 = SubResource("TileSetAtlasSource_vhtd0")
+sources/25 = SubResource("TileSetAtlasSource_46ayi")
+sources/26 = SubResource("TileSetAtlasSource_s2oo3")
+sources/27 = SubResource("TileSetAtlasSource_2xg8o")
+sources/100 = SubResource("Tile_edge_0")
+sources/101 = SubResource("Tile_edge_1")
+sources/102 = SubResource("Tile_edge_2")
+sources/103 = SubResource("Tile_edge_3")
+sources/104 = SubResource("Tile_outer_0")
+sources/105 = SubResource("Tile_outer_1")
+sources/106 = SubResource("Tile_outer_2")
+sources/107 = SubResource("Tile_outer_3")
+sources/108 = SubResource("Tile_inner_0")
+sources/109 = SubResource("Tile_inner_1")
+sources/110 = SubResource("Tile_inner_2")
+sources/111 = SubResource("Tile_inner_3")
+sources/120 = SubResource("Decor_rose_medallion")
+sources/121 = SubResource("Decor_royal_inlay")
+sources/122 = SubResource("Decor_chapel_mosaic")
+sources/123 = SubResource("Decor_eroded_mosaic")
+sources/124 = SubResource("Decor_leaf_carpet")
+sources/125 = SubResource("Decor_plain_plum")
+sources/126 = SubResource("Decor_root_paving")
+sources/127 = SubResource("Decor_moss_roots")
+sources/128 = SubResource("Decor_fallen_leaves")
+sources/129 = SubResource("Decor_fractured_earth")
+sources/130 = SubResource("Decor_broken_foundation")
+sources/131 = SubResource("Decor_cracked_slate")
+sources/132 = SubResource("Decor_border_leaves")
+sources/133 = SubResource("Decor_carved_border")
+sources/134 = SubResource("Decor_broken_border")
+sources/135 = SubResource("Decor_worn_border")
+sources/136 = SubResource("Decor_memorial_leaves")
+sources/137 = SubResource("Decor_memorial_earth")
+sources/138 = SubResource("Decor_memorial_rose")
+sources/139 = SubResource("Decor_memorial_inlay")
+sources/140 = SubResource("Purple_violet_grass_dense")
+sources/141 = SubResource("Purple_violet_grass_tufts")
+sources/142 = SubResource("Purple_violet_grass_crimson")

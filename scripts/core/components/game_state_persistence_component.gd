@@ -33,6 +33,7 @@ func to_dict() -> Dictionary:
 		"player_facing": {"x": state.player_facing.x, "y": state.player_facing.y},
 		"region": state.player_region,
 		"active_world_id": state.active_world_id,
+		"active_avatar_id": state.session_domain.active_avatar_id,
 		"region_positions": state.region_positions.duplicate(true),
 	}
 
@@ -148,6 +149,7 @@ func load_from_dict(data: Dictionary) -> void:
 	if state.active_world_id.is_empty():
 		state.active_world_id = state.player_region
 	state.player_region = state.active_world_id
+	state.session_domain.active_avatar_id = str(data.get("active_avatar_id", ""))
 	var region_positions_value: Variant = data.get("region_positions", {})
 	state.region_positions = region_positions_value.duplicate(true) if typeof(region_positions_value) == TYPE_DICTIONARY else {}
 	if state.has_player_position and not state.region_positions.has(state.player_region):

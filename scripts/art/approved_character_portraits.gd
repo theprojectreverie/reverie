@@ -1,6 +1,6 @@
 extends RefCounted
 const DIRECTORY = "res://assets/portraits/profile/"
-const CHARACTERS = ["ravienna", "gerald", "lilith", "cassien"]
+const CHARACTERS = ["ravienna", "gerald", "lilith", "cassien", "mirene"]
 
 static func path_for(id: String, ascension: int = 0) -> String:
 	var base := id
@@ -15,6 +15,8 @@ static func path_for(id: String, ascension: int = 0) -> String:
 		return ""
 	if tier == "mythic" and ascension >= 3:
 		tier = "ascended"
+	if base == "mirene" and id in ["mirene", "mirene_common", "mirene_rare", "mirene_epic"]:
+		return DIRECTORY + "mirene_base.jpg"
 	var key := base + "_" + tier
 	return DIRECTORY + key + (".jpg" if key == "gerald_mythic" else ".png")
 

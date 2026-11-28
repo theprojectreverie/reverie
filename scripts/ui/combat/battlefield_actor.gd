@@ -86,7 +86,7 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 	hit.mouse_filter = Control.MOUSE_FILTER_STOP
 	if not hit.gui_input.is_connected(_on_hit_input):
 		hit.gui_input.connect(_on_hit_input)
-	_name_label.text = unit.display_name
+	_name_label.text = "Crimson Witch" if is_crimson_witch() else unit.display_name
 	_name_label.add_theme_color_override("font_color", UITheme.TEXT)
 	_intent_label.visible = false
 
@@ -163,7 +163,18 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 		live_art.play(&"idle")
 		live_art.animation_finished.connect(_live_return_idle)
 		visual.hide()
-	if live_art == null and is_player and unit.def_id.begins_with("mirene_"):
+	if live_art == null and is_minor_duo():
+		live_art = $LiveCombatArt
+		live_art.sprite_frames = preload("res://assets/characters/crimson_witch/minor_combat/combat_frames.tres") if is_crimson_witch() else preload("res://assets/characters/nyx/minor_combat/combat_frames.tres")
+		for clip in live_art.sprite_frames.get_animation_names():
+			_live_facings[str(clip)] = "left"
+		live_art.offset.y = -60.0
+		live_art.animation_changed.connect(_sync_live_facing)
+		live_art.animation_finished.connect(_live_return_idle)
+		live_art.show()
+		live_art.play(&"idle")
+		visual.hide()
+	if live_art == null and (unit.def_id == "mirene_boss" or (is_player and unit.def_id.begins_with("mirene_"))):
 		live_art = $LiveCombatArt
 		live_art.sprite_frames = preload("res://assets/characters/harlequin/combat_frames.tres")
 		_live_facings = {"idle":"left","basic_attack":"left","skill_1":"left","skill_2":"left","ultimate":"left","hit":"left","defeat":"left"}
@@ -177,6 +188,7 @@ func setup(p_unit: Combatant, p_is_player: bool) -> void:
 		elathra_art = $ElathraArt
 		elathra_art.show()
 		elathra_art.play(&"idle")
+		elathra_art.animation_finished.connect(_elathra_return_idle)
 		visual.hide()
 	if unit.def_id == "gerald_boss":
 		gerald_art = get_node("GeraldFallenArt") as AnimatedSprite2D
@@ -306,7 +318,7 @@ func refresh() -> void:
 		if plate_fill != null:
 			plate_fill.bg_color = _hp_color
 	_matron_presentation.refresh_phase(_hp_ratio)
-	_name_label.text = ("◆  " if targetable else "") + unit.display_name
+	_name_label.text = ("◆  " if targetable else "") + ("Crimson Witch" if is_crimson_witch() else unit.display_name)
 	_name_label.add_theme_color_override("font_color",
 		UITheme.GOLD_BRIGHT if targetable else UITheme.TEXT if unit.is_alive() else UITheme.TEXT_DIM)
 	if not unit.is_alive() and not is_instance_valid(rose_art) and not is_instance_valid(fairy_art) and not is_instance_valid(gerald_art) and not is_instance_valid(cassien_art) and not is_instance_valid(ravienna_art) and not is_instance_valid(live_art):
@@ -446,6 +458,10 @@ func cancel_attack_motion(restore_formation: bool = true) -> void:
 		_end_gerald_walk()
 	if kael_boss_art_enabled and kael_boss_sequence_active:
 		play_kael_boss_clip(&"idle")
+	if is_instance_valid(live_art) and is_minor_duo() and not dead:
+		_live_return_idle()
+	if is_instance_valid(elathra_art) and not dead:
+		_elathra_return_idle()
 	if is_instance_valid(cassien_art) and not dead:
 		cassien_art.play(&"idle")
 	if is_instance_valid(fairy_art) and not dead:
@@ -499,7 +515,14 @@ func _recover_combat_pose() -> void:
 ## Damage reaction: white flash + a short shake + the damage animation.
 func take_hit() -> void:
 	if is_instance_valid(live_art):
-		if not dead: live_art.play(&"hit")
+		if not dead:
+			if is_minor_duo():
+				_cancel_hit_flash()
+				live_art.modulate = Color(1.5, 0.65, 0.75)
+				_hit_flash_tween = create_tween()
+				_hit_flash_tween.tween_property(live_art, "modulate", Color.WHITE, 0.28)
+			else:
+				live_art.play(&"hit")
 		return
 	if kael_boss_art_enabled and not dead:
 		if not kael_boss_sequence_active:
@@ -515,8 +538,9 @@ func take_hit() -> void:
 		_hit_flash_tween.tween_property(kael_boss_art, "modulate", Color.WHITE, 0.28)
 		return
 	if is_instance_valid(elathra_art):
-		if not dead:
-			elathra_art.get_node("PoseAnimation").play("hit")
+		if not dead and elathra_art.animation in [&"idle", &"hit"]:
+			elathra_art.play(&"hit")
+			elathra_art.set_frame_and_progress(0, 0.0)
 		return
 	if is_instance_valid(ravienna_art):
 		if not dead:
@@ -789,7 +813,12 @@ func _live_return_idle() -> void:
 
 func play_live_action(skill_id: String, ultimate: bool) -> void:
 	if not is_instance_valid(live_art) or dead: return
-	var def := ContentDB.get_character(unit.def_id)
+	if is_minor_duo():
+		var minor_clip := minor_action_clip(skill_id, ultimate)
+		live_art.play(minor_clip)
+		live_art.set_frame_and_progress(0, 0.0)
+		return
+	var def := ContentDB.get_character("mirene_legendary" if unit.def_id == "mirene_boss" else unit.def_id)
 	var clip := &"basic_attack"
 	if ultimate or (def != null and skill_id==def.ultimate): clip=&"ultimate"
 	elif def != null and def.skills.size()>0 and skill_id==str(def.skills[0]): clip=&"skill_1"
@@ -802,7 +831,7 @@ func play_attack() -> void:
 		play_live_action("",false)
 		return
 	if is_instance_valid(elathra_art):
-		elathra_art.get_node("PoseAnimation").play("cast")
+		play_elathra_action("", false)
 		return
 	if is_instance_valid(ravienna_art):
 		ravienna_art.get_node("PoseAnimation").play("cast")
@@ -868,7 +897,14 @@ func play_death() -> void:
 			dead=true
 			cancel_attack_motion()
 			cancel_recoil_motion()
-			live_art.play(&"defeat")
+			if is_minor_duo():
+				_cancel_hit_flash()
+				live_art.play(&"idle")
+				live_art.pause()
+				var fade := create_tween()
+				fade.tween_property(live_art, "modulate", Color(0.65, 0.65, 0.7, 0.25), 0.45)
+			else:
+				live_art.play(&"defeat")
 			set_intent("")
 		return
 	if is_instance_valid(elathra_art):
@@ -877,8 +913,11 @@ func play_death() -> void:
 		dead = true
 		cancel_attack_motion()
 		cancel_recoil_motion()
-		elathra_art.stop()
-		elathra_art.get_node("PoseAnimation").play("defeat")
+		elathra_art.get_node("PoseAnimation").stop()
+		elathra_art.modulate = Color.WHITE
+		elathra_art.play(&"defeat")
+		elathra_art.set_frame_and_progress(0, 0.0)
+		set_intent("")
 		return
 	if is_instance_valid(ravienna_art):
 		if dead:
@@ -990,3 +1029,77 @@ func _rose_animation_finished() -> void:
 		rose_art.hide()
 	else:
 		rose_art.play("idle")
+
+# Elathra's authored combat sprites share a fixed 128px cell and ground anchor.
+func _elathra_return_idle() -> void:
+	if is_instance_valid(elathra_art) and not dead:
+		elathra_art.modulate = Color.WHITE
+		elathra_art.play(&"idle")
+
+
+func play_elathra_action(skill_id: String, ultimate: bool = false) -> void:
+	if not is_instance_valid(elathra_art) or dead:
+		return
+	var clip := &"attack"
+	if ultimate or skill_id == "hollow_wail":
+		clip = &"hollow_wail"
+	elif skill_id == "lunar_wisp":
+		clip = &"lunar_wisp"
+	elif skill_id == "crimson_binding":
+		clip = &"crimson_binding"
+	elathra_art.get_node("PoseAnimation").stop()
+	elathra_art.modulate = Color.WHITE
+	elathra_art.play(clip)
+	elathra_art.set_frame_and_progress(0, 0.0)
+
+
+func play_elathra_walk(direction: Vector2) -> void:
+	if is_instance_valid(elathra_art) and not dead:
+		face(direction)
+		elathra_art.play(&"walk")
+		elathra_art.set_frame_and_progress(0, 0.0)
+
+# Shared art for the recruitable duo and their encounter opponents.
+func is_crimson_witch() -> bool:
+	return unit != null and (unit.def_id == "crimson_witch" or unit.def_id.begins_with("crimson_witch_"))
+
+
+func is_minor_duo() -> bool:
+	return unit != null and (is_crimson_witch() or unit.def_id == "nyx" or unit.def_id.begins_with("nyx_"))
+
+
+func minor_action_clip(skill_id: String, ultimate: bool = false) -> StringName:
+	if ultimate or (not skill_id.is_empty() and skill_id == unit.ultimate):
+		return &"ultimate"
+	if unit.skills.size() > 0 and skill_id == str(unit.skills[0]):
+		return &"skill_1"
+	if unit.skills.size() > 1 and skill_id == str(unit.skills[1]):
+		return &"skill_2"
+	return &"basic_attack"
+
+
+func play_minor_duo_action(target: BattlefieldActor, skill_id: String, ultimate: bool) -> void:
+	if not is_instance_valid(live_art) or dead:
+		return
+	cancel_attack_motion()
+	var direction := Vector2.RIGHT if is_player else Vector2.LEFT
+	if is_instance_valid(target) and target != self:
+		direction = (target.home_position - home_position).normalized()
+	face(direction)
+	if not is_crimson_witch() or not is_instance_valid(target) or target == self:
+		play_live_action(skill_id, ultimate)
+		return
+	var gap := 100.0 if target.unit != null and target.unit.is_boss else 64.0
+	var reach := maxf(0.0, home_position.distance_to(target.home_position) - gap)
+	var destination := home_position + direction * reach
+	var clip := minor_action_clip(skill_id, ultimate)
+	var duration := float(live_art.sprite_frames.get_frame_count(clip)) / live_art.sprite_frames.get_animation_speed(clip)
+	var motion := create_tween()
+	track_attack_motion(motion)
+	live_art.play(&"approach")
+	motion.tween_property(self, "position", destination, 0.30)
+	motion.tween_callback(func() -> void: play_live_action(skill_id, ultimate))
+	motion.tween_interval(duration)
+	motion.tween_callback(func() -> void: live_art.play(&"retreat"))
+	motion.tween_property(self, "position", home_position, 0.30)
+	motion.tween_callback(_live_return_idle)

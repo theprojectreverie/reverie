@@ -23,7 +23,7 @@ func _run():
  var label=zone.get_node("TransferPoints/ToNextZone/ContinuationMarker/DestinationName")
  var npc=zone.get_node("Zone/RoyalGardenV3Decorations/Elathra")
  var dialogue=zone.get_node("NPCDialogueLayer/Dialogue")
- check(not exit._story_unlocked() and label.text=="Speak to Elathra first","initial quest gate locked")
+ check(not exit._story_unlocked() and label.text=="Speak to Elathra and defeat Mirène","initial quest gate locked")
  exit._on_body_entered(player)
  check(not exit.transferring,"cannot bypass by road")
  player.global_position=npc.global_position+Vector2(0,65)
@@ -45,12 +45,8 @@ func _run():
  check(not exit.transferring,"no travel during dialogue")
  dialogue._choose(dialogue._node.choices[0])
  for i in range(5): await physics_frame
- check(player.input_enabled and exit._story_unlocked() and label.text=="Royal Gate","route unlocks after dialogue")
+ check(player.input_enabled and not exit._story_unlocked() and label.text=="Speak to Elathra and defeat Mirène","dialogue completion does not bypass Mirène")
  exit._on_body_entered(player)
- await scene_changed
- for i in range(5): await physics_frame
- check(current_scene.name==&"StandaloneZone02","Royal Gate loaded")
- check(current_scene.get("checkpoint_player").has_node("FairyCompanion"),"companion retained")
- check(gs.quest_domain.quest_state("elathra_first_audience")=="complete","completed quest retained")
+ check(not exit.transferring and current_scene.name==&"StandaloneZone01","Royal Gate remains locked after dialogue")
  print("RESULT ",failures)
  quit(0 if failures.is_empty() else 1)

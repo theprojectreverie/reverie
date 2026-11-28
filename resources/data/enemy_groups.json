@@ -519,7 +519,40 @@
     ]
   },
   "gerald_boss_encounter": {
-    "combat_profiles": {"village_solo": {"gerald_boss": {"hp": 330, "atk": 1.0, "def": 6, "spd": 10, "crit": 0.03, "level": 1, "starting_energy": 65, "skills": ["gerald_village_flame", "cinder_veil"], "ultimate": "gerald_village_earthquake"}}},
+    "combat_profiles": {
+      "village_solo": {
+        "gerald_boss": {
+          "hp": 330,
+          "atk": 1.0,
+          "def": 6,
+          "spd": 10,
+          "crit": 0.03,
+          "level": 1,
+          "starting_energy": 65,
+          "skills": [
+            "gerald_village_flame",
+            "cinder_veil"
+          ],
+          "ultimate": "gerald_village_earthquake"
+        }
+      },
+      "village_recruited": {
+        "gerald_boss": {
+          "hp": 850,
+          "atk": 4,
+          "def": 9,
+          "spd": 17,
+          "crit": 0.05,
+          "level": 5,
+          "starting_energy": 65,
+          "skills": [
+            "gerald_village_flame",
+            "cinder_veil"
+          ],
+          "ultimate": "gerald_village_earthquake"
+        }
+      }
+    },
     "name": "Gerald, the Fallen Guardian",
     "boss": true,
     "level": 8,
@@ -561,10 +594,206 @@
     "quest_kills": {
       "revienna_boss": 1
     }
+  },
+  "royal_gate_patrol_1": {"name":"Royal Gate Crownling","region":"royal_gate","level":3,"enemies":["gate_crownling"],"rewards":{"gold":25,"xp":18,"crystals":0},"quest_kills":{"gate_crownling":1},"drops":[]},
+  "royal_gate_patrol_2": {"name":"Royal Gate Crownling","region":"royal_gate","level":3,"enemies":["gate_crownling"],"rewards":{"gold":25,"xp":18,"crystals":0},"quest_kills":{"gate_crownling":1},"drops":[]},
+  "cassien_encounter": {"name":"Cassien, the Crimson Oath","region":"forsaken_ruins","level":5,"boss":true,"enemies":["cassien_boss"],"rewards":{"gold":180,"xp":140,"crystals":20},"quest_kills":{"cassien_boss":1}},
+  "mirene_encounter": {
+    "name": "Mirène ? The Crimson Fool",
+    "region": "castle_royal_gardens",
+    "level": 3,
+    "boss": true,
+    "enemies": [
+      "mirene_boss"
+    ],
+    "rewards": {
+      "gold": 120,
+      "xp": 100,
+      "crystals": 0
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "village_slime_1": {
+    "name": "Village Rose Slime",
+    "region": "greenward",
+    "level": 1,
+    "enemies": [
+      "rose_slime"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 35
+    },
+    "quest_kills": {
+      "rose_slime": 1
+    },
+    "drops": [],
+    "combat_profiles": {
+      "village_mob": {
+        "rose_slime": {
+          "hp": 98,
+          "atk": 1,
+          "spd": 10,
+          "crit": 0.03
+        }
+      }
+    }
+  },
+  "village_slime_2": {
+    "name": "Village Rose Slime",
+    "region": "greenward",
+    "level": 1,
+    "enemies": [
+      "rose_slime"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 35
+    },
+    "quest_kills": {
+      "rose_slime": 1
+    },
+    "drops": [],
+    "combat_profiles": {
+      "village_mob": {
+        "rose_slime": {
+          "hp": 125,
+          "atk": 1.3,
+          "spd": 11,
+          "crit": 0.03
+        }
+      }
+    }
+  },
+  "village_crimson_encounter": {
+    "name": "Crimson Witch",
+    "region": "greenward",
+    "level": 2,
+    "enemies": [
+      "crimson_witch_rival"
+    ],
+    "rewards": {
+      "gold": 30,
+      "xp": 75
+    },
+    "quest_kills": {
+      "crimson_witch_rival": 1
+    },
+    "drops": [],
+    "combat_profiles": {
+      "village_mob": {
+        "crimson_witch_rival": {
+          "hp": 145,
+          "atk": 1.4,
+          "spd": 11,
+          "crit": 0.03
+        }
+      }
+    }
+  },
+  "village_crownling_1": {
+    "name": "Village Crownling",
+    "region": "greenward",
+    "level": 2,
+    "enemies": [
+      "crownling"
+    ],
+    "rewards": {
+      "gold": 20,
+      "xp": 45
+    },
+    "quest_kills": {
+      "crownling": 1
+    },
+    "drops": [],
+    "combat_profiles": {
+      "village_mob": {
+        "crownling": {
+          "hp": 190,
+          "atk": 2,
+          "spd": 12,
+          "crit": 0.03
+        }
+      }
+    }
+  },
+  "village_crownling_2": {
+    "name": "Village Crownling",
+    "region": "greenward",
+    "level": 2,
+    "enemies": [
+      "crownling"
+    ],
+    "rewards": {
+      "gold": 20,
+      "xp": 45
+    },
+    "quest_kills": {
+      "crownling": 1
+    },
+    "drops": [],
+    "combat_profiles": {
+      "village_mob": {
+        "crownling": {
+          "hp": 240,
+          "atk": 2.4,
+          "spd": 14,
+          "crit": 0.03
+        }
+      }
+    }
+  },
+  "village_crownling_3": {
+    "name": "Village Crownling",
+    "region": "greenward",
+    "level": 3,
+    "enemies": [
+      "crownling"
+    ],
+    "rewards": {
+      "gold": 25,
+      "xp": 55
+    },
+    "quest_kills": {
+      "crownling": 1
+    },
+    "drops": [],
+    "combat_profiles": {
+      "village_mob": {
+        "crownling": {
+          "hp": 290,
+          "atk": 2.8,
+          "spd": 15,
+          "crit": 0.03
+        }
+      }
+    }
+  },
+  "village_nyx_encounter": {
+    "name": "Nyx Vaelora",
+    "region": "greenward",
+    "level": 3,
+    "enemies": [
+      "nyx_rival"
+    ],
+    "rewards": {
+      "gold": 40,
+      "xp": 100
+    },
+    "quest_kills": {
+      "nyx_rival": 1
+    },
+    "drops": [],
+    "combat_profiles": {
+      "village_mob": {
+        "nyx_rival": {
+          "hp": 175,
+          "atk": 2,
+          "spd": 12,
+          "crit": 0.03
+        }
+      }
+    }
   }
-,
-"royal_gate_patrol_1": {"name":"Royal Gate Crownling","region":"royal_gate","level":3,"enemies":["gate_crownling"],"rewards":{"gold":25,"xp":18,"crystals":0},"quest_kills":{"gate_crownling":1},"drops":[]},
-"royal_gate_patrol_2": {"name":"Royal Gate Crownling","region":"royal_gate","level":3,"enemies":["gate_crownling"],"rewards":{"gold":25,"xp":18,"crystals":0},"quest_kills":{"gate_crownling":1},"drops":[]}
-,
-"cassien_encounter": {"name":"Cassien, the Crimson Oath","region":"forsaken_ruins","level":5,"boss":true,"enemies":["cassien_boss"],"rewards":{"gold":180,"xp":140,"crystals":20},"quest_kills":{"cassien_boss":1}}
 }

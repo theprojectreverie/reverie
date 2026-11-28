@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/reverie_exit_southeast.png" id="southeast_exit_art"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/mirene_encounter.tscn" id="mirene_boss"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/crownling.tscn" id="crownling"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/rose_slime.tscn" id="rose_slime"]
 [ext_resource type="Script" path="res://scripts/game/game_combat_router_component.gd" id="combat_router"]
@@ -20,6 +21,8 @@
 [ext_resource type="Script" path="res://scripts/world/six_zone_reverie/zone_transfer_trigger.gd" id="transfer_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/backgrounds/royal_gardens_world_landscape.png" id="prepared_background"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/zone_01_royal_gardens.tscn" id="zone"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/mirene_moonrose_sanctuary.tscn" id="mirene_sanctuary"]
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_garden_marble_road_6x10.tscn" id="road"]
 
@@ -80,6 +83,15 @@ player_start_zoom = 1.55
 
 [node name="Zone" parent="." instance=ExtResource("zone")]
 
+[node name="WisteriaGazebo" parent="Zone/RoyalGardenV3Decorations" index="0"]
+visible = false
+
+[node name="CollisionPolygon2D" parent="Zone/RoyalGardenV3Decorations/WisteriaGazebo/FootprintCollision" index="0"]
+disabled = true
+
+[node name="MireneMoonroseSanctuary" parent="." instance=ExtResource("mirene_sanctuary")]
+position = Vector2(2179, 1080)
+
 [node name="ZoneCamera" type="Camera2D" parent="."]
 position = Vector2(0, 1450)
 process_callback = 0
@@ -127,7 +139,7 @@ script = ExtResource("transfer_script")
 destination_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_02_royal_gate_standalone.tscn"
 required_quest = "elathra_first_audience"
 previously_visited_zone = "StandaloneZone02"
-locked_route_text = "Speak to Elathra first"
+locked_route_text = "Speak to Elathra and defeat Mirène"
 arrival_marker = &"ToPreviousZone"
 
 [node name="DetectionShape" type="CollisionShape2D" parent="TransferPoints/ToNextZone/ToNextZoneTrigger"]
@@ -624,6 +636,9 @@ rotation = -0.366
 scale = Vector2(0.644, 0.644)
 modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_5")
+
+[node name="MireneEncounter" parent="." instance=ExtResource("mirene_boss")]
+position = Vector2(2179, 1080)
 
 [node name="CombatRouter" type="Node" parent="."]
 script = ExtResource("combat_router")

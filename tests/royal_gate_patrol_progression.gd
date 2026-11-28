@@ -38,6 +38,8 @@ func _run():
  exit._on_body_entered(player)
  await scene_changed
  assert(current_scene.name==&"StandaloneZone03")
+ for frame in range(5): await process_frame
+ assert(current_scene.has_node("ChapterQuestBeacon"))
  print("WILLOW FIELDS TRANSITION PASS")
  if is_instance_valid(current_scene): current_scene.queue_free()
  for frame in range(3): await process_frame

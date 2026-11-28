@@ -1,10 +1,12 @@
+import {villageGroups} from "./village-progression.js";
 import type {PoolClient} from "pg";
 
 export const TUTORIAL_GROUP="tutorial_fairy_spar";
 export const VILLAGE_GROUP="gerald_boss_encounter";
 export const FINALE_GROUP="revienna_encounter";
+export const MIRENE_GROUP="mirene_encounter";
 export function isOneTimeStoryEncounter(groupId:string):boolean{
- return [TUTORIAL_GROUP,VILLAGE_GROUP,FINALE_GROUP].includes(groupId);
+ return [TUTORIAL_GROUP,VILLAGE_GROUP,MIRENE_GROUP,FINALE_GROUP,...villageGroups].includes(groupId);
 }
 /** A server-produced terminal view is required. Tutorial has no reward ledger. */
 export async function verifiedStoryVictories(db:PoolClient,playerId:string,groups:readonly string[]):Promise<string[]>{

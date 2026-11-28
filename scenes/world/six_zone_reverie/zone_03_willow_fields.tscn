@@ -1,5 +1,9 @@
 [gd_scene format=3 uid="uid://dvdtele1xw3e1"]
 
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/willow_bridge_elevation.gd" id="bridge_elevation"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/corrected/wooden_bridge_foreground_rail.png" id="bridge_foreground"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/willow_estate_and_meadows.tscn" id="willow_estate_meadow"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forgotten_pavilion/forgotten_pavilion.tscn" id="forgotten_pavilion"]
 [ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/road_paint_tileset.tres" id="paint_roads"]
 
 [ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/water_tileset.tres" id="paint_water"]
@@ -59,6 +63,14 @@
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/willow_farming_village.tscn" id="willow_farming_village"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/willow_south_orchard.tscn" id="willow_south_orchard"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/willow_community_homestead.tscn" id="willow_community_homestead"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_river_collision.tscn" id="willow_river_collision"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/willow_meadow_garden.tscn" id="willow_meadow_garden"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/willow_meadow_grove.tscn" id="willow_meadow_grove"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_environment_footprint.tscn" id="willow_environment_footprint"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_ruins_pillar_collision.tscn" id="willow_ruins_pillars"]
+
 [node name="WillowFields" type="Node2D" unique_id=296258190]
 y_sort_enabled = true
 
@@ -85,41 +97,146 @@ texture = ExtResource("wf4")
 offset = Vector2(0, -228)
 
 [node name="WillowNorthWest" type="Sprite2D" parent="WillowScenery" unique_id=1776643800]
-position = Vector2(-710, 660)
+position = Vector2(-681.500, 582.100)
 scale = Vector2(0.95, 0.95)
 texture = ExtResource("wf1")
-offset = Vector2(0, -261.5)
+offset = Vector2(-30, -179.5)
 
 [node name="WillowNorthEast" type="Sprite2D" parent="WillowScenery" unique_id=420413920]
-position = Vector2(850, 800)
+position = Vector2(877.000, 740.600)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("wf3")
-offset = Vector2(0, -206.5)
+offset = Vector2(-30, -140.5)
 
 [node name="WillowWest" type="Sprite2D" parent="WillowScenery" unique_id=175681789]
-position = Vector2(-1988, 1570)
+position = Vector2(-2010, 1420)
 scale = Vector2(1.05, 1.05)
 texture = ExtResource("wf1")
-offset = Vector2(0, -261.5)
+offset = Vector2(-30, -179.5)
 
 [node name="WillowEast" type="Sprite2D" parent="WillowScenery" unique_id=1651325925]
-position = Vector2(2180, 1610)
+position = Vector2(2216.300, 1534.100)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("wf2")
-offset = Vector2(0, -222.5)
+offset = Vector2(-33, -153.5)
 
 [node name="WillowSouth" type="Sprite2D" parent="WillowScenery" unique_id=2074920944]
-position = Vector2(-600, 2580)
+position = Vector2(-645, 2575)
 scale = Vector2(1.05, 1.05)
 texture = ExtResource("wf3")
-offset = Vector2(0, -206.5)
+offset = Vector2(-30, -140.5)
+
+[node name="WaterfallRockCollision" parent="WillowScenery" instance=ExtResource("willow_environment_footprint")]
+position = Vector2(18, 239)
+scale = Vector2(1.6, 1.15)
+
+[node name="WillowNorthWestTrunk" type="StaticBody2D" parent="WillowScenery"]
+position = Vector2(-681.500, 582.100)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/WillowNorthWestTrunk"]
+polygon = PackedVector2Array(-46.55, 0, 0, -29.45, 46.55, 0, 0, 16.20)
+
+[node name="WillowNorthEastTrunk" type="StaticBody2D" parent="WillowScenery"]
+position = Vector2(877.000, 740.600)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/WillowNorthEastTrunk"]
+polygon = PackedVector2Array(-35.10, 0, 0, -23.40, 35.10, 0, 0, 12.87)
+
+[node name="WillowWestTrunk" type="StaticBody2D" parent="WillowScenery"]
+position = Vector2(-2010, 1420)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/WillowWestTrunk"]
+polygon = PackedVector2Array(-51.45, 0, 0, -32.55, 51.45, 0, 0, 17.90)
+
+[node name="WillowEastTrunk" type="StaticBody2D" parent="WillowScenery"]
+position = Vector2(2216.300, 1534.100)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/WillowEastTrunk"]
+polygon = PackedVector2Array(-48.40, 0, 0, -30.80, 48.40, 0, 0, 16.94)
+
+[node name="WillowSouthTrunk" type="StaticBody2D" parent="WillowScenery"]
+position = Vector2(-645, 2575)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/WillowSouthTrunk"]
+polygon = PackedVector2Array(-40.95, 0, 0, -27.30, 40.95, 0, 0, 15.02)
+
+[node name="RockFlowersNorthWestFootprint" parent="WillowScenery" instance=ExtResource("willow_environment_footprint")]
+position = Vector2(1098, 849)
+scale = Vector2(1.13, 0.78)
+
+[node name="StoneClusterSouthWestFootprint" parent="WillowScenery" instance=ExtResource("willow_environment_footprint")]
+position = Vector2(-2036, 2100)
+scale = Vector2(0.98, 0.82)
+
+[node name="OldStumpSouthWestFootprint" parent="WillowScenery" instance=ExtResource("willow_environment_footprint")]
+position = Vector2(514, 2850)
+scale = Vector2(0.98, 0.82)
+
+[node name="FallenLogSouthEastFootprint" parent="WillowScenery" instance=ExtResource("willow_environment_footprint")]
+position = Vector2(814, 2700)
+scale = Vector2(1.35, 0.62)
+
+[node name="MeadowStoneFlowersFootprint" parent="WillowScenery" instance=ExtResource("willow_environment_footprint")]
+position = Vector2(-1100, 1640)
+scale = Vector2(0.78, 0.65)
+
+[node name="LanternPostWestFootprint" parent="WillowScenery" instance=ExtResource("willow_environment_footprint")]
+position = Vector2(400, 450)
+scale = Vector2(0.34, 0.52)
+
+[node name="FenceWestFootprint" parent="WillowScenery" instance=ExtResource("willow_environment_footprint")]
+position = Vector2(-1736, 2100)
+scale = Vector2(1.2, 0.82)
+
+[node name="RuinsEastBankPillarCollision" parent="WillowScenery" instance=ExtResource("willow_ruins_pillars")]
+position = Vector2(1710, 1110)
+scale = Vector2(0.65, 0.65)
+
+[node name="WesternAbutmentRock" type="Sprite2D" parent="WillowScenery"]
+z_index = -2
+texture_filter = 1
+position = Vector2(985, 1694)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("wf_prop_017")
+offset = Vector2(0, -67)
+
+[node name="EasternAbutmentRock" type="Sprite2D" parent="WillowScenery"]
+z_index = -2
+texture_filter = 1
+position = Vector2(1217, 1566)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("wf_prop_017")
+offset = Vector2(0, -67)
 
 [node name="BridgeRiver" type="Sprite2D" parent="WillowScenery" unique_id=1404890062]
 z_index = -1
-position = Vector2(1128, 1732)
-scale = Vector2(0.85, 0.85)
+position = Vector2(859.75000, 1364.24605)
+rotation = 0.171968691
+scale = Vector2(0.862725381, 0.85)
+skew = -0.171968691
+centered = false
+texture_filter = 1
 texture = ExtResource("wf5")
-offset = Vector2(0, -211.5)
+
+[node name="BridgeFrontRail" type="Sprite2D" parent="WillowScenery"]
+z_index = 1
+position = Vector2(859.75000, 1364.24605)
+rotation = 0.171968691
+scale = Vector2(0.862725381, 0.85)
+skew = -0.171968691
+centered = false
+texture_filter = 1
+texture = ExtResource("bridge_foreground")
 
 [node name="RuinsEastBank" type="Sprite2D" parent="WillowScenery" unique_id=1298084022]
 position = Vector2(1710, 1110)
@@ -267,33 +384,63 @@ texture = ExtResource("38_0glh6")
 
 [node name="MeadowWillow" type="Sprite2D" parent="WillowScenery"]
 texture_filter = 1
-position = Vector2(-960, 1530)
-scale = Vector2(0.9, 0.9)
+position = Vector2(1760, 1840)
+scale = Vector2(0.82, 0.82)
 texture = ExtResource("wf2")
-offset = Vector2(0, -222.5)
+offset = Vector2(-33, -153.5)
 
 [node name="MeadowWillowFootprint" type="StaticBody2D" parent="WillowScenery"]
-position = Vector2(-960, 1530)
+position = Vector2(1760, 1840)
 collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/MeadowWillowFootprint"]
-polygon = PackedVector2Array(-34,-12,0,-28,34,-12,0,10)
+polygon = PackedVector2Array(-36.08, 0, 0, -22.96, 36.08, 0, 0, 12.63)
 
 [node name="MeadowYoungWillow" type="Sprite2D" parent="WillowScenery"]
 texture_filter = 1
-position = Vector2(-430, 1690)
+position = Vector2(-407.500, 1640.500)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("wf3")
-offset = Vector2(0, -206.5)
+offset = Vector2(-30, -140.5)
 
 [node name="MeadowYoungWillowFootprint" type="StaticBody2D" parent="WillowScenery"]
-position = Vector2(-430, 1690)
+position = Vector2(-407.500, 1640.500)
 collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/MeadowYoungWillowFootprint"]
-polygon = PackedVector2Array(-34,-12,0,-28,34,-12,0,10)
+polygon = PackedVector2Array(-29.25, 0, 0, -19.50, 29.25, 0, 0, 10.73)
+
+[node name="SouthOrchardWillowWest" type="Sprite2D" parent="WillowScenery"]
+texture_filter = 1
+position = Vector2(153, 2427)
+scale = Vector2(0.88, 0.88)
+texture = ExtResource("wf2")
+offset = Vector2(-33, -153.5)
+
+[node name="SouthOrchardWillowWestFootprint" type="StaticBody2D" parent="WillowScenery"]
+position = Vector2(153, 2427)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/SouthOrchardWillowWestFootprint"]
+polygon = PackedVector2Array(-38.72, 0, 0, -24.64, 38.72, 0, 0, 13.55)
+
+[node name="SouthOrchardWillowEast" type="Sprite2D" parent="WillowScenery"]
+texture_filter = 1
+position = Vector2(1423.400, 2368.520)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("wf3")
+offset = Vector2(-30, -140.5)
+
+[node name="SouthOrchardWillowEastFootprint" type="StaticBody2D" parent="WillowScenery"]
+position = Vector2(1423.400, 2368.520)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="WillowScenery/SouthOrchardWillowEastFootprint"]
+polygon = PackedVector2Array(-30.42, 0, 0, -20.28, 30.42, 0, 0, 11.15)
 
 [node name="MeadowStoneFlowers" type="Sprite2D" parent="WillowScenery"]
 texture_filter = 1
@@ -359,8 +506,19 @@ z_index = -10
 texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("wf_surface_river")
+color = Color(1.18, 1.50, 1.40, 1)
 polygon = PackedVector2Array(-132, 267, -108, 314, -95, 385, -119, 470, -144, 560, -118, 675, 55, 875, 220, 1035, 360, 1170, 538, 1292, 700, 1430, 870, 1590, 1040, 1690, 1115, 1818, 1175, 1970, 1300, 2110, 1460, 2285, 1574, 2381, 1785, 2275, 1694, 2210, 1540, 2050, 1390, 1930, 1306, 1775, 1240, 1570, 1067, 1440, 858, 1264, 675, 1135, 494, 987, 274, 816, 143, 637, 104, 550, 119, 465, 130, 385, 109, 319, 88, 266, 30, 251, -38, 251)
 uv = PackedVector2Array(-132, 267, -108, 314, -95, 385, -119, 470, -144, 560, -118, 675, 55, 875, 220, 1035, 360, 1170, 538, 1292, 700, 1430, 870, 1590, 1040, 1690, 1115, 1818, 1175, 1970, 1300, 2110, 1460, 2285, 1574, 2381, 1785, 2275, 1694, 2210, 1540, 2050, 1390, 1930, 1306, 1775, 1240, 1570, 1067, 1440, 858, 1264, 675, 1135, 494, 987, 274, 816, 143, 637, 104, 550, 119, 465, 130, 385, 109, 319, 88, 266, 30, 251, -38, 251)
+
+[node name="RiverDeepChannel" type="Polygon2D" parent="WillowStream"]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("wf_surface_river")
+color = Color(0.91, 1.03, 1.08, 1)
+polygon = PackedVector2Array(-132, 267, -80, 314, -67, 385, -91, 470, -116, 560, -90, 675, 83, 875, 248, 1035, 388, 1170, 566, 1292, 728, 1430, 898, 1590, 1068, 1690, 1143, 1818, 1203, 1970, 1328, 2110, 1488, 2285, 1574, 2381, 1813, 2275, 1666, 2210, 1512, 2050, 1362, 1930, 1278, 1775, 1212, 1570, 1039, 1440, 830, 1264, 647, 1135, 466, 987, 246, 816, 115, 637, 76, 550, 91, 465, 102, 385, 81, 319, 88, 266, 30, 251, -38, 251)
+uv = PackedVector2Array(-132, 267, -80, 314, -67, 385, -91, 470, -116, 560, -90, 675, 83, 875, 248, 1035, 388, 1170, 566, 1292, 728, 1430, 898, 1590, 1068, 1690, 1143, 1818, 1203, 1970, 1328, 2110, 1488, 2285, 1574, 2381, 1813, 2275, 1666, 2210, 1512, 2050, 1362, 1930, 1278, 1775, 1212, 1570, 1039, 1440, 830, 1264, 647, 1135, 466, 987, 246, 816, 115, 637, 76, 550, 91, 465, 102, 385, 81, 319, 88, 266, 30, 251, -38, 251)
+
+[node name="RiverCollision" parent="WillowStream" instance=ExtResource("willow_river_collision")]
 
 [node name="WillowFlowerPatches" type="Node2D" parent="." unique_id=627684582]
 y_sort_enabled = true
@@ -559,3 +717,69 @@ tile_set = ExtResource("paint_roads")
 
 
 [node name="WillowFarmingVillage" parent="." instance=ExtResource("willow_farming_village")]
+
+[node name="VillageSecondHomestead" parent="." instance=ExtResource("willow_community_homestead")]
+position = Vector2(-740, 1210)
+
+[node name="SouthOrchardClearing" parent="." instance=ExtResource("willow_south_orchard")]
+position = Vector2(900, 2300)
+
+[node name="UpstreamRiverbankGarden" parent="." instance=ExtResource("willow_meadow_garden")]
+position = Vector2(240, 1200)
+scale = Vector2(0.86, 0.86)
+
+[node name="EasternMeadowGarden" parent="." instance=ExtResource("willow_meadow_garden")]
+position = Vector2(1800, 2150)
+scale = Vector2(-0.94, 0.94)
+
+[node name="WesternSouthWillowGrove" parent="." instance=ExtResource("willow_meadow_grove")]
+position = Vector2(-1480, 2280)
+scale = Vector2(0.96, 0.96)
+
+[node name="EasternRiverMeadowGrove" parent="." instance=ExtResource("willow_meadow_grove")]
+position = Vector2(1190, 2260)
+scale = Vector2(-0.88, 0.88)
+
+[node name="SouthernPathsideGarden" parent="." instance=ExtResource("willow_meadow_garden")]
+position = Vector2(-420, 2580)
+scale = Vector2(0.82, 0.82)
+
+[node name="SoutheastMeadowWillowGrove" parent="." instance=ExtResource("willow_meadow_grove")]
+position = Vector2(720, 2490)
+scale = Vector2(0.86, 0.86)
+
+[node name="CentralMeadowGarden" parent="." instance=ExtResource("willow_meadow_garden")]
+position = Vector2(110, 2060)
+scale = Vector2(0.8, 0.8)
+
+[node name="WestMeadowWildflowerGarden" parent="." instance=ExtResource("willow_meadow_garden")]
+position = Vector2(-940, 2080)
+scale = Vector2(-0.72, 0.72)
+
+
+[node name="ForgottenPavilion" parent="." instance=ExtResource("forgotten_pavilion")]
+position = Vector2(1200, 1150)
+
+[node name="WillowEstateAndMeadows" parent="." instance=ExtResource("willow_estate_meadow")]
+
+[node name="BridgeElevation" type="Node2D" parent="."]
+position = Vector2(-32, -16)
+script = ExtResource("bridge_elevation")
+
+[node name="DeckStart" type="Marker2D" parent="BridgeElevation"]
+position = Vector2(998, 1669)
+
+[node name="DeckEnd" type="Marker2D" parent="BridgeElevation"]
+position = Vector2(1240.25, 1547.875)
+
+[node name="FarRail" type="StaticBody2D" parent="BridgeElevation"]
+collision_layer = 1
+collision_mask = 0
+[node name="Footprint" type="CollisionPolygon2D" parent="BridgeElevation/FarRail"]
+polygon = PackedVector2Array(1010, 1617.0, 1228, 1508.0, 1228, 1516.0, 1010, 1625.0)
+
+[node name="NearRail" type="StaticBody2D" parent="BridgeElevation"]
+collision_layer = 1
+collision_mask = 0
+[node name="Footprint" type="CollisionPolygon2D" parent="BridgeElevation/NearRail"]
+polygon = PackedVector2Array(1010, 1701.0, 1228, 1592.0, 1228, 1600.0, 1010, 1709.0)

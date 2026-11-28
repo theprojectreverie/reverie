@@ -30,7 +30,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="WestTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+polygon = PackedVector2Array(-7,-2,0,-8,7,-2,0,4)
 
 [node name="NorthTree" type="Node2D" parent="."]
 position = Vector2(-660, 800)
@@ -45,7 +45,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="NorthTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+polygon = PackedVector2Array(-7,-2,0,-8,7,-2,0,4)
 
 [node name="CentralTree" type="Node2D" parent="."]
 position = Vector2(180, 1450)
@@ -60,22 +60,11 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="CentralTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+polygon = PackedVector2Array(-7,-2,0,-8,7,-2,0,4)
 
-[node name="EastTree" type="Node2D" parent="."]
-position = Vector2(1180, 1840)
 
-[node name="Artwork" type="Sprite2D" parent="EastTree"]
-texture_filter = 1
-texture = ExtResource("tree")
-position = Vector2(0, -58)
 
-[node name="Body" type="StaticBody2D" parent="EastTree"]
-collision_layer = 1
-collision_mask = 0
 
-[node name="Footprint" type="CollisionPolygon2D" parent="EastTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
 
 [node name="FarTree" type="Node2D" parent="."]
 position = Vector2(570, 2330)
@@ -90,7 +79,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="FarTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+polygon = PackedVector2Array(-7,-2,0,-8,7,-2,0,4)
 
 [node name="NorthPillar" type="Node2D" parent="."]
 position = Vector2(-1210, 790)
@@ -105,7 +94,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="NorthPillar/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+polygon = PackedVector2Array(-32,-3,0,-20,32,-3,0,15)
 
 [node name="EastPillar" type="Node2D" parent="."]
 position = Vector2(-575, 1040)
@@ -120,7 +109,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="EastPillar/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+polygon = PackedVector2Array(-32,-3,0,-20,32,-3,0,15)
 
 [node name="SouthPillar" type="Node2D" parent="."]
 position = Vector2(-1000, 1600)
@@ -135,7 +124,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="SouthPillar/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+polygon = PackedVector2Array(-32,-3,0,-20,32,-3,0,15)
 
 [node name="MidPillar" type="Node2D" parent="."]
 position = Vector2(160, 1920)
@@ -150,22 +139,11 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="MidPillar/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+polygon = PackedVector2Array(-32,-3,0,-20,32,-3,0,15)
 
-[node name="FarPillar" type="Node2D" parent="."]
-position = Vector2(1120, 2000)
 
-[node name="Artwork" type="Sprite2D" parent="FarPillar"]
-texture_filter = 1
-texture = ExtResource("pillar")
-position = Vector2(0, -64)
 
-[node name="Body" type="StaticBody2D" parent="FarPillar"]
-collision_layer = 1
-collision_mask = 0
 
-[node name="Footprint" type="CollisionPolygon2D" parent="FarPillar/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
 
 [node name="NorthRubble" type="Node2D" parent="."]
 position = Vector2(-1150, 805)
@@ -175,6 +153,13 @@ texture_filter = 1
 texture = ExtResource("rubble")
 position = Vector2(0, -3)
 
+[node name="Body" type="StaticBody2D" parent="NorthRubble"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="NorthRubble/Body"]
+polygon = PackedVector2Array(-17, -3, -11, -8, 2, -5, 12, -7, 22, -3, 21, 5, 10, 9, -5, 8, -16, 4)
+
 [node name="EastRubble" type="Node2D" parent="."]
 position = Vector2(-525, 1070)
 
@@ -182,6 +167,13 @@ position = Vector2(-525, 1070)
 texture_filter = 1
 texture = ExtResource("rubble")
 position = Vector2(0, -3)
+
+[node name="Body" type="StaticBody2D" parent="EastRubble"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="EastRubble/Body"]
+polygon = PackedVector2Array(-17, -3, -11, -8, 2, -5, 12, -7, 22, -3, 21, 5, 10, 9, -5, 8, -16, 4)
 
 [node name="SouthRubble" type="Node2D" parent="."]
 position = Vector2(-925, 1620)
@@ -191,6 +183,13 @@ texture_filter = 1
 texture = ExtResource("rubble")
 position = Vector2(0, -3)
 
+[node name="Body" type="StaticBody2D" parent="SouthRubble"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthRubble/Body"]
+polygon = PackedVector2Array(-17, -3, -11, -8, 2, -5, 12, -7, 22, -3, 21, 5, 10, 9, -5, 8, -16, 4)
+
 [node name="MidRubble" type="Node2D" parent="."]
 position = Vector2(235, 1900)
 
@@ -199,13 +198,14 @@ texture_filter = 1
 texture = ExtResource("rubble")
 position = Vector2(0, -3)
 
-[node name="FarRubble" type="Node2D" parent="."]
-position = Vector2(1200, 2010)
 
-[node name="Artwork" type="Sprite2D" parent="FarRubble"]
-texture_filter = 1
-texture = ExtResource("rubble")
-position = Vector2(0, -3)
+
+[node name="Body" type="StaticBody2D" parent="MidRubble"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="MidRubble/Body"]
+polygon = PackedVector2Array(-17, -3, -11, -8, 2, -5, 12, -7, 22, -3, 21, 5, 10, 9, -5, 8, -16, 4)
 
 [node name="NorthMemorial" type="Node2D" parent="."]
 position = Vector2(-300, 790)
@@ -235,7 +235,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="NorthRemnant/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+polygon = PackedVector2Array(-32,-3,0,-20,32,-3,0,15)
 
 [node name="NorthRubbleA" type="Node2D" parent="."]
 position = Vector2(-348, 845)
@@ -258,7 +258,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="NorthDeadTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+polygon = PackedVector2Array(-7,-2,0,-8,7,-2,0,4)
 
 [node name="NorthRoots" type="Node2D" parent="."]
 position = Vector2(-130, 835)
@@ -304,7 +304,10 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="EastArch/Body"]
-polygon = PackedVector2Array(-58,0,0,-29,58,0,0,29)
+polygon = PackedVector2Array(-64, -39, -36, -53, -29, -29, -39, -18, -64, -34)
+
+[node name="SecondFoot" type="CollisionPolygon2D" parent="EastArch/Body"]
+polygon = PackedVector2Array(10, -10, 39, -24, 59, -12, 59, 2, 33, 15, 10, 3)
 
 [node name="EastFountainPillar" type="Node2D" parent="."]
 position = Vector2(1200, 1165)
@@ -319,7 +322,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="EastFountainPillar/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+polygon = PackedVector2Array(-32,-3,0,-20,32,-3,0,15)
 
 [node name="EastRubbleA" type="Node2D" parent="."]
 position = Vector2(1260, 1240)
@@ -350,7 +353,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="EastDeadTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+polygon = PackedVector2Array(-7,-2,0,-8,7,-2,0,4)
 
 [node name="EastRoots" type="Node2D" parent="."]
 position = Vector2(1495, 1225)
@@ -388,7 +391,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="SouthPillarA/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+polygon = PackedVector2Array(-32,-3,0,-20,32,-3,0,15)
 
 [node name="SouthPillarB" type="Node2D" parent="."]
 position = Vector2(-510, 2350)
@@ -403,7 +406,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="SouthPillarB/Body"]
-polygon = PackedVector2Array(-26,0,0,-13,26,0,0,13)
+polygon = PackedVector2Array(-32,-3,0,-20,32,-3,0,15)
 
 [node name="SouthDeadTree" type="Node2D" parent="."]
 position = Vector2(-850, 2430)
@@ -418,7 +421,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="SouthDeadTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+polygon = PackedVector2Array(-7,-2,0,-8,7,-2,0,4)
 
 [node name="SouthRubbleA" type="Node2D" parent="."]
 position = Vector2(-725, 2400)
@@ -457,7 +460,10 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="FarArch/Body"]
-polygon = PackedVector2Array(-58,0,0,-29,58,0,0,29)
+polygon = PackedVector2Array(-64, -39, -36, -53, -29, -29, -39, -18, -64, -34)
+
+[node name="SecondFoot" type="CollisionPolygon2D" parent="FarArch/Body"]
+polygon = PackedVector2Array(10, -10, 39, -24, 59, -12, 59, 2, 33, 15, 10, 3)
 
 [node name="FarDeadTree" type="Node2D" parent="."]
 position = Vector2(530, 2750)
@@ -472,7 +478,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Footprint" type="CollisionPolygon2D" parent="FarDeadTree/Body"]
-polygon = PackedVector2Array(-12,0,0,-7,12,0,0,7)
+polygon = PackedVector2Array(-7,-2,0,-8,7,-2,0,4)
 
 [node name="FarArchRubble" type="Node2D" parent="."]
 position = Vector2(450, 2735)
@@ -483,7 +489,7 @@ texture = ExtResource("rubble2")
 position = Vector2(0, -4)
 
 [node name="TombCandleWest" type="Node2D" parent="."]
-position = Vector2(-1280, 1092)
+position = Vector2(1408, 1828)
 
 [node name="Artwork" type="Sprite2D" parent="TombCandleWest"]
 texture_filter = 1
@@ -500,7 +506,7 @@ collision_mask = 0
 polygon = PackedVector2Array(-9,0,0,-5,9,0,0,5)
 
 [node name="TombCandleEast" type="Node2D" parent="."]
-position = Vector2(-920, 1092)
+position = Vector2(1768, 1828)
 
 [node name="Artwork" type="Sprite2D" parent="TombCandleEast"]
 texture_filter = 1

@@ -5,16 +5,18 @@
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/rose_urns.tscn" id="memorial_urns"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/memorial_sanctuary.tscn" id="memorial_sanctuary"]
+
 [node name="RaviennaCourtyard" type="Node2D"]
 y_sort_enabled = true
 
 [node name="RaviennaStoneTomb" parent="." instance=ExtResource("tomb")]
 
-[node name="ClosedWestFence" type="Marker2D" parent="."]
-position = Vector2(-192, 96)
-
-[node name="EastEntrance" type="Marker2D" parent="."]
+[node name="ClosedEastFence" type="Marker2D" parent="."]
 position = Vector2(192, 96)
+
+[node name="WestEntrance" type="Marker2D" parent="."]
+position = Vector2(-192, 96)
 
 [node name="NorthWest1" type="Node2D" parent="."]
 position = Vector2(-352, -16)
@@ -268,43 +270,6 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest2/Footprint"]
 polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
 
-[node name="SouthWest3" type="Node2D" parent="."]
-position = Vector2(-224, 80)
-
-[node name="Railing" type="Sprite2D" parent="SouthWest3"]
-texture_filter = 1
-texture = ExtResource("rail")
-position = Vector2(0,-24)
-scale = Vector2(1.28,1.28)
-flip_h = true
-modulate = Color(0.58,0.57,0.67,1)
-
-[node name="Footprint" type="StaticBody2D" parent="SouthWest3"]
-collision_layer = 1
-collision_mask = 0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest3/Footprint"]
-polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
-
-[node name="SouthWest4" type="Node2D" parent="."]
-position = Vector2(-160, 112)
-
-[node name="Railing" type="Sprite2D" parent="SouthWest4"]
-texture_filter = 1
-texture = ExtResource("rail")
-position = Vector2(0,-24)
-scale = Vector2(1.28,1.28)
-flip_h = true
-modulate = Color(0.58,0.57,0.67,1)
-
-[node name="Footprint" type="StaticBody2D" parent="SouthWest4"]
-collision_layer = 1
-collision_mask = 0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthWest4/Footprint"]
-polygon = PackedVector2Array(-34,-24, -34,-10, 34,24, 34,10)
-
-
 [node name="SouthWest5" type="Node2D" parent="."]
 position = Vector2(-96, 144)
 
@@ -377,6 +342,43 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthEast2/Footprint"]
 polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
 
+[node name="SouthEast3" type="Node2D" parent="."]
+position = Vector2(160, 112)
+
+[node name="Railing" type="Sprite2D" parent="SouthEast3"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthEast3"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthEast3/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+[node name="SouthEast4" type="Node2D" parent="."]
+position = Vector2(224, 80)
+
+[node name="Railing" type="Sprite2D" parent="SouthEast4"]
+texture_filter = 1
+texture = ExtResource("rail")
+position = Vector2(0,-24)
+scale = Vector2(1.28,1.28)
+flip_h = false
+modulate = Color(0.58,0.57,0.67,1)
+
+[node name="Footprint" type="StaticBody2D" parent="SouthEast4"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SouthEast4/Footprint"]
+polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
+
+
 [node name="SouthEast5" type="Node2D" parent="."]
 position = Vector2(288, 48)
 
@@ -416,3 +418,5 @@ polygon = PackedVector2Array(-34,10, -34,24, 34,-10, 34,-24)
 [node name="MemorialOffering" parent="." instance=ExtResource("memorial_urns")]
 position = Vector2(0, -135)
 scale = Vector2(0.68, 0.68)
+
+[node name="MemorialSanctuary" parent="." instance=ExtResource("memorial_sanctuary")]

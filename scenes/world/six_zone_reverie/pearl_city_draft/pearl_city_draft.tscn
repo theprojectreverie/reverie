@@ -1,0 +1,156 @@
+﻿[gd_scene format=3]
+
+[node name="PearlCityDraft" type="Node2D"]
+y_sort_enabled = true
+metadata/status = "editor-only draft; not connected to live zone"
+
+[node name="RouteAnchors" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="EntryTransfer" type="Marker2D" parent="RouteAnchors"]
+position = Vector2(-521, 200)
+
+[node name="GateThreshold" type="Marker2D" parent="RouteAnchors"]
+position = Vector2(-360, 360)
+
+[node name="Arrival" type="Marker2D" parent="RouteAnchors"]
+position = Vector2(0, 900)
+
+[node name="ParkJunction" type="Marker2D" parent="RouteAnchors"]
+position = Vector2(0, 1250)
+
+[node name="MarketJunction" type="Marker2D" parent="RouteAnchors"]
+position = Vector2(650, 1580)
+
+[node name="ExitApproach" type="Marker2D" parent="RouteAnchors"]
+position = Vector2(1100, 2000)
+
+[node name="ExitTransfer" type="Marker2D" parent="RouteAnchors"]
+position = Vector2(1664, 2432)
+
+[node name="RoyalGate" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Gate" type="Marker2D" parent="RoyalGate"]
+position = Vector2(-360, 360)
+
+[node name="WallLeft" type="Marker2D" parent="RoyalGate"]
+position = Vector2(-640, 500)
+
+[node name="WallRight" type="Marker2D" parent="RoyalGate"]
+position = Vector2(-80, 220)
+
+[node name="CentralPark" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Fountain" type="Marker2D" parent="CentralPark"]
+position = Vector2(-800, 1450)
+
+[node name="LilyBed" type="Marker2D" parent="CentralPark"]
+position = Vector2(-1040, 1290)
+
+[node name="RoseBed" type="Marker2D" parent="CentralPark"]
+position = Vector2(-570, 1310)
+
+[node name="LilacBed" type="Marker2D" parent="CentralPark"]
+position = Vector2(-1020, 1610)
+
+[node name="BlueFlowerBed" type="Marker2D" parent="CentralPark"]
+position = Vector2(-570, 1610)
+
+[node name="BenchWest" type="Marker2D" parent="CentralPark"]
+position = Vector2(-1130, 1480)
+
+[node name="BenchEast" type="Marker2D" parent="CentralPark"]
+position = Vector2(-470, 1480)
+
+[node name="NorthEntrance" type="Marker2D" parent="CentralPark"]
+position = Vector2(-800, 1160)
+
+[node name="EastEntrance" type="Marker2D" parent="CentralPark"]
+position = Vector2(-380, 1450)
+
+[node name="SouthEntrance" type="Marker2D" parent="CentralPark"]
+position = Vector2(-800, 1740)
+
+[node name="MarketStreet" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Stall01" type="Marker2D" parent="MarketStreet"]
+position = Vector2(300, 1270)
+
+[node name="Stall02" type="Marker2D" parent="MarketStreet"]
+position = Vector2(560, 1400)
+
+[node name="Stall03" type="Marker2D" parent="MarketStreet"]
+position = Vector2(820, 1530)
+
+[node name="Stall04" type="Marker2D" parent="MarketStreet"]
+position = Vector2(-40, 1490)
+
+[node name="Stall05" type="Marker2D" parent="MarketStreet"]
+position = Vector2(220, 1620)
+
+[node name="Stall06" type="Marker2D" parent="MarketStreet"]
+position = Vector2(480, 1750)
+
+[node name="Florist" type="Marker2D" parent="MarketStreet"]
+position = Vector2(110, 1120)
+
+[node name="PotionShop" type="Marker2D" parent="MarketStreet"]
+position = Vector2(900, 1350)
+
+[node name="Jeweler" type="Marker2D" parent="MarketStreet"]
+position = Vector2(1140, 1500)
+
+[node name="ResidentialOutskirts" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="House01" type="Marker2D" parent="ResidentialOutskirts"]
+position = Vector2(1490, 990)
+
+[node name="House02" type="Marker2D" parent="ResidentialOutskirts"]
+position = Vector2(1770, 1130)
+
+[node name="House03" type="Marker2D" parent="ResidentialOutskirts"]
+position = Vector2(2050, 1270)
+
+[node name="StreetEntrance" type="Marker2D" parent="ResidentialOutskirts"]
+position = Vector2(1260, 1180)
+
+[node name="Sanctuary" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="CourtCenter" type="Marker2D" parent="Sanctuary"]
+position = Vector2(-1550, 1980)
+
+[node name="Approach" type="Marker2D" parent="Sanctuary"]
+position = Vector2(-1130, 1840)
+
+[node name="ElathraCandidate" type="Marker2D" parent="Sanctuary"]
+position = Vector2(-1680, 1930)
+
+[node name="CitizenWaypoints" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="MarketA" type="Marker2D" parent="CitizenWaypoints"]
+position = Vector2(200, 1370)
+
+[node name="MarketB" type="Marker2D" parent="CitizenWaypoints"]
+position = Vector2(460, 1500)
+
+[node name="MarketC" type="Marker2D" parent="CitizenWaypoints"]
+position = Vector2(720, 1630)
+
+[node name="ParkA" type="Marker2D" parent="CitizenWaypoints"]
+position = Vector2(-380, 1450)
+
+[node name="ParkB" type="Marker2D" parent="CitizenWaypoints"]
+position = Vector2(-800, 1740)
+
+[node name="ResidentialA" type="Marker2D" parent="CitizenWaypoints"]
+position = Vector2(1260, 1180)
+
+[node name="ResidentialB" type="Marker2D" parent="CitizenWaypoints"]
+position = Vector2(1550, 1325)
+

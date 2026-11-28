@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/burgundy_tree.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/crimson_tree.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/ruined_wall.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/petal_rubble.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/ruined_pillar.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/rose_urns.tscn" id="12"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/broken_arch.tscn" id="3"]
+
+[node name="CentralRuinsClusters" type="Node2D"]
+y_sort_enabled = true
+
+[node name="WestWall" parent="." instance=ExtResource("4")]
+position = Vector2(-672, 1488)
+
+[node name="WestColumn" parent="." instance=ExtResource("10")]
+position = Vector2(-544, 1424)
+
+[node name="WestRoses" parent="." instance=ExtResource("12")]
+position = Vector2(-736, 1776)
+
+[node name="WestTree" parent="." instance=ExtResource("1")]
+position = Vector2(-416, 1616)
+
+[node name="CentralWall" parent="." instance=ExtResource("4")]
+position = Vector2(288, 1264)
+
+[node name="CentralColumn" parent="." instance=ExtResource("10")]
+position = Vector2(416, 1200)
+
+[node name="CentralTree" parent="." instance=ExtResource("1")]
+position = Vector2(512, 1344)
+
+[node name="CentralPetals" parent="." instance=ExtResource("8")]
+position = Vector2(448, 1440)
+
+[node name="EastWall" parent="." instance=ExtResource("4")]
+position = Vector2(480, 1968)
+
+[node name="EastColumn" parent="." instance=ExtResource("10")]
+position = Vector2(608, 2032)
+
+[node name="EastTree" parent="." instance=ExtResource("2")]
+position = Vector2(352, 1968)
+
+[node name="EastPetals" parent="." instance=ExtResource("8")]
+position = Vector2(480, 2096)
+
+[node name="SouthWall" parent="." instance=ExtResource("4")]
+position = Vector2(-192, 2080)
+
+[node name="SouthColumn" parent="." instance=ExtResource("10")]
+position = Vector2(-64, 2144)
+
+[node name="SouthTree" parent="." instance=ExtResource("1")]
+position = Vector2(64, 2240)
+
+[node name="SouthRoses" parent="." instance=ExtResource("12")]
+position = Vector2(-192, 2208)
+
+[node name="OldSquareNorthWall" parent="." instance=ExtResource("4")]
+position = Vector2(-1152, 960)
+
+[node name="OldSquarePillar" parent="." instance=ExtResource("10")]
+position = Vector2(-1024, 896)
+
+[node name="OldSquareArch" parent="." instance=ExtResource("3")]
+position = Vector2(-960, 1040)
+
+[node name="ChapelAnnexWall" parent="." instance=ExtResource("4")]
+position = Vector2(-64, 784)
+
+[node name="ChapelAnnexWallB" parent="." instance=ExtResource("4")]
+position = Vector2(64, 720)
+
+[node name="SouthCourtWall" parent="." instance=ExtResource("4")]
+position = Vector2(-448, 2256)

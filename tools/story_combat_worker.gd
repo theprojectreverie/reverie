@@ -102,7 +102,7 @@ func _simulate(data: Variant) -> void:
 			if unit.def_id in bond.members:
 				if bond.stat == "def": unit.defense *= float(bond.multiplier)
 				elif bond.stat == "atk": unit.atk *= float(bond.multiplier)
-	var profile := "village_solo" if group == "gerald_boss_encounter" else ("story_tower" if group == "revienna_encounter" else "")
+	var profile := ("village_recruited" if ids.has("crimson_witch_legendary") and ids.has("nyx") else "village_solo") if group == "gerald_boss_encounter" else ("story_tower" if group == "revienna_encounter" else "")
 	var enemies := CombatFactory.enemy_units(group,profile)
 	if enemies.is_empty():
 		_finish({"ok":false,"reason":"invalid_enemy_group"})

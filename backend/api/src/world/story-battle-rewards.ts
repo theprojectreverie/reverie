@@ -1,3 +1,5 @@
+import {villageProgressionEnabled,villageRecruit,villageGroups,villageStageFor,villageStages,villageParty} from "./village-progression.js";
+import {verifiedStoryVictories} from "./story-progression-proof.js";
 import {randomInt} from "node:crypto";
 import {readFileSync} from "node:fs";
 import type {PoolClient} from "pg";
@@ -56,6 +58,16 @@ export async function settleStoryVictory(db:PoolClient,playerId:string,battleId:
  const owned=await db.query<{id:string;char_id:string;level:number;xp:string;ascension:number}>("SELECT id,char_id,level,xp::text,ascension FROM owned_characters WHERE player_id=$1 AND char_id=ANY($2::text[]) FOR UPDATE",[playerId,row.party_ids]);
  if(owned.rows.length!==row.party_ids.length)return {ok:false,reason:"battle_party_not_owned"};
  const reward=storyReward(row.group_id);
+ const village=villageProgressionEnabled()&&villageGroups.includes(row.group_id);
+ if(village){
+  const stage=villageStages[villageStageFor(row.group_id)]!;
+  const wins=await verifiedStoryVictories(db,playerId,[...stage.groups]);
+  if(stage.groups.every(g=>g===row.group_id||wins.includes(g))){
+   const quest=content("quests")[stage.quest]?.rewards;
+   reward.xp+=Number(quest?.xp??0);reward.gold+=Number(quest?.gold??0);
+  }
+ }
+
  const ref=row.id;
  for(const currency of rewardKeys){
   const amount=reward[currency];
@@ -74,6 +86,17 @@ export async function settleStoryVictory(db:PoolClient,playerId:string,battleId:
  for(const member of owned.rows){
   const next=reward.xp?gainCharacterXp(member.level,Number(member.xp),member.ascension,reward.xp):{level:member.level,xp:Number(member.xp)};
   await db.query("UPDATE owned_characters SET level=$2,xp=$3,bond=bond+2 WHERE id=$1",[member.id,next.level,next.xp]);
+ }
+ if(village){
+  const recruit=villageRecruit(row.group_id);
+  if(recruit){
+   await db.query("INSERT INTO owned_characters(player_id,char_id) VALUES($1,$2) ON CONFLICT DO NOTHING",[playerId,recruit]);
+   const ids=recruit==="nyx"?villageParty("gerald_boss_encounter"):villageParty("village_crownling_1");
+   const members=(await db.query<{id:string;char_id:string}>("SELECT id,char_id FROM owned_characters WHERE player_id=$1 AND char_id=ANY($2::text[])",[playerId,ids])).rows;
+   if(members.length!==ids.length)throw new Error("village_recruitment_party_missing");
+   await db.query("DELETE FROM party_members WHERE player_id=$1",[playerId]);
+   for(let i=0;i<ids.length;i++)await db.query("INSERT INTO party_members(player_id,slot,character_id) VALUES($1,$2,$3)",[playerId,i+1,members.find(m=>m.char_id===ids[i])!.id]);
+  }
  }
  await db.query("UPDATE players SET xp=xp+$2 WHERE id=$1",[playerId,Math.floor(reward.xp/2)]);
  await recordOnlineDailyVictory(db,playerId,false,groups[row.group_id]!.region,row.group_id);

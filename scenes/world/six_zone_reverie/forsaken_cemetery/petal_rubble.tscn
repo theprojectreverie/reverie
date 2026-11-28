@@ -1,19 +1,19 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://dsxkpx21hxhm6"]
 
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/petal_rubble.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dvs7newyawvgr" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/petal_rubble.png" id="1"]
 
-[node name="PetalRubble" type="Node2D"]
+[node name="PetalRubble" type="Node2D" unique_id=948727036]
 
-[node name="Artwork" type="Sprite2D" parent="."]
+[node name="Artwork" type="Sprite2D" parent="." unique_id=1866308886]
 texture_filter = 1
-centered = false
-texture = ExtResource("1")
 scale = Vector2(0.45, 0.45)
-offset = Vector2(-191.00, -283.20)
+texture = ExtResource("1")
+centered = false
+offset = Vector2(-191, -283.2)
 
-[node name="Body" type="StaticBody2D" parent="."]
-collision_layer = 1
+[node name="Body" type="StaticBody2D" parent="." unique_id=1307083373]
 collision_mask = 0
 
-[node name="Footprint" type="CollisionPolygon2D" parent="Body"]
-polygon = PackedVector2Array(-30,-13.8,0,-27.6,30,-13.8,0,4)
+[node name="Footprint" type="CollisionPolygon2D" parent="Body" unique_id=1797940082]
+position = Vector2(5, -5)
+polygon = PackedVector2Array(-94, -33, -44, -63, 1, -95, 80, -52, 81, -37, 23, -4, -5, 7, -42, -16)

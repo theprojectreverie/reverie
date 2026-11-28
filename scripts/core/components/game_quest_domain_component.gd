@@ -14,12 +14,25 @@ func _story_patrol_sync(quest_id: String) -> Node:
 	var sync := get_tree().current_scene.get_node_or_null("StoryGardenCombatSync")
 	return sync if sync != null and bool(sync.get("_gate")) else null
 
+func _village_sync(quest_id: String = "") -> Node:
+	var zone := get_tree().current_scene
+	if zone == null:
+		return null
+	var sync := zone.get_node_or_null("StoryVillageProgressionSync")
+	if sync != null and (quest_id.is_empty() or quest_id in preload("res://scripts/online/story_village_progression_sync.gd").QUESTS):
+		return sync
+	return null
+
 func quest_progress(quest_id: String) -> int:
+	var village := _village_sync(quest_id)
+	if village != null:return village.quest_progress(quest_id)
 	var patrol := _story_patrol_sync(quest_id)
 	if patrol != null:return patrol.patrol_progress()
 	return int(quests.get(quest_id,{}).get("progress",0))
 
 func quest_state(quest_id: String) -> String:
+	var village := _village_sync(quest_id)
+	if village != null:return village.quest_state(quest_id)
 	var patrol := _story_patrol_sync(quest_id)
 	if patrol != null:return patrol.patrol_state()
 	var sync := _story_audience_sync(quest_id)
@@ -29,6 +42,8 @@ func quest_state(quest_id: String) -> String:
 
 
 func quest_step_index(quest_id: String) -> int:
+	var village := _village_sync(quest_id)
+	if village != null:return 1 if village.quest_state(quest_id)=="complete" else 0
 	var patrol := _story_patrol_sync(quest_id)
 	if patrol != null:return 1 if patrol.patrol_state()=="complete" else 0
 	var sync := _story_audience_sync(quest_id)
@@ -47,6 +62,8 @@ func quest_step(quest_id: String) -> Dictionary:
 
 
 func tracked_quest() -> String:
+	var village := _village_sync()
+	if village != null:return village.active_quest()
 	return str(flags.get("tracked_quest", ""))
 
 
@@ -153,7 +170,7 @@ func _find_player_position() -> Vector2:
 
 
 func start_quest(quest_id: String, giver_id: String = "") -> bool:
-	if _story_audience_sync(quest_id) != null or _story_patrol_sync(quest_id) != null:return false
+	if _village_sync(quest_id) != null or _story_audience_sync(quest_id) != null or _story_patrol_sync(quest_id) != null:return false
 	var definition: Dictionary = ContentDB.get_quest(quest_id)
 	if definition.is_empty() or quest_state(quest_id) != "not_started":
 		return false
@@ -218,7 +235,7 @@ func advance_quest(quest_id: String) -> void:
 
 
 func complete_quest(quest_id: String) -> bool:
-	if _story_audience_sync(quest_id) != null or _story_patrol_sync(quest_id) != null:return false
+	if _village_sync(quest_id) != null or _story_audience_sync(quest_id) != null or _story_patrol_sync(quest_id) != null:return false
 	if not quest_ready(quest_id):
 		return false
 	var definition: Dictionary = ContentDB.get_quest(quest_id)
@@ -276,6 +293,8 @@ func quest_marker_for_npc(npc_id: String) -> String:
 
 func active_quests() -> Array:
 	var result: Array = []
+	var village := _village_sync()
+	if village != null and not str(village.active_quest()).is_empty():result.append(village.active_quest())
 	for quest_id in quests.keys():
 		if _story_patrol_sync(str(quest_id)) != null or _story_audience_sync(str(quest_id)) != null:continue
 		if quest_state(str(quest_id)) == "active":

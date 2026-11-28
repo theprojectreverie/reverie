@@ -72,7 +72,7 @@ func run():
    if clear_at(p.lerp(r,.25)) and clear_at(p.lerp(r,.5)) and clear_at(p.lerp(r,.75)):graph.connect_points(a,b)
  print("NAV GRID ",graph.get_point_count()," spawn ",player.global_position)
  Engine.time_scale=2.0
- var goals=[Vector2(-908,1280),Vector2(-950,1365),Vector2(0,1665),Vector2(930,2145),Vector2(-908,1280),Vector2(1500,2350)]
+ var goals=[Vector2(1344,2016),Vector2(-950,1365),Vector2(0,1665),Vector2(930,2145),Vector2(1344,2016),Vector2(1500,2350)]
  for goal in goals:
   if not await visit(goal,65):
    push_error("TRAVERSAL FAILED "+str(goal))

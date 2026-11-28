@@ -1,0 +1,1 @@
+﻿Kryuu approved; English; battle take 1, exploration take 1, audition take 1. 44.1 kHz mono PCM, +5 dB battle/exploration and +3 dB audition for quiet source levels, no added effects. Split boundaries require listening verification.

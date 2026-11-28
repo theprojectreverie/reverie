@@ -1,0 +1,262 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/castle_pack_v02/effects/glow_warm.png" id="glow"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/crimson_tree.tscn" id="tree"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/rose_urns.tscn" id="urn"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/memorial_rose_bed.png" id="roses"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/memorial_candle_offering.png" id="offering"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/memorial_hanging_lantern.png" id="lantern"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/memorial_rose_planter.png" id="planter"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/forsaken_ruins/cemetery_pack/memorial_remembrance_bench.png" id="bench"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/gothic_castle/candelabrum.png" id="extra_candle"]
+
+[node name="MemorialSanctuary" type="Node2D"]
+y_sort_enabled = true
+
+[node name="SanctuaryLight" type="PointLight2D" parent="."]
+position = Vector2(0,-30)
+texture = ExtResource("glow")
+texture_scale = 9.5
+color = Color(1,0.82,0.68,1)
+energy = 0.85
+
+[node name="CandleLightWest" type="PointLight2D" parent="."]
+position = Vector2(-180,-36)
+texture = ExtResource("glow")
+texture_scale = 3.2
+color = Color(1,0.72,0.48,1)
+energy = 0.65
+
+[node name="CandleLightEast" type="PointLight2D" parent="."]
+position = Vector2(180,-36)
+texture = ExtResource("glow")
+texture_scale = 3.2
+color = Color(1,0.72,0.48,1)
+energy = 0.65
+
+
+[node name="RoseBed2" type="Sprite2D" parent="."]
+position = Vector2(238, 0)
+texture_filter = 1
+scale = Vector2(0.116667, 0.116667)
+texture = ExtResource("roses")
+
+
+
+[node name="RoseBed5" type="Sprite2D" parent="."]
+position = Vector2(164, 75)
+texture_filter = 1
+scale = Vector2(0.098485, 0.098485)
+texture = ExtResource("roses")
+
+[node name="RoseBed6" type="Sprite2D" parent="."]
+position = Vector2(65, 112)
+texture_filter = 1
+scale = Vector2(0.090909, 0.090909)
+texture = ExtResource("roses")
+
+[node name="WestMemorialTree" parent="." instance=ExtResource("tree")]
+position = Vector2(-310, -115)
+scale = Vector2(0.77, 0.77)
+
+[node name="EastMemorialTree" parent="." instance=ExtResource("tree")]
+position = Vector2(310, -115)
+scale = Vector2(0.77, 0.77)
+
+[node name="RemembranceBench" type="Node2D" parent="."]
+position = Vector2(-235, 1)
+
+[node name="Artwork" type="Sprite2D" parent="RemembranceBench"]
+texture_filter = 1
+centered = false
+texture = ExtResource("bench")
+scale = Vector2(0.257732, 0.257732)
+offset = Vector2(-194.00, -386.65)
+
+[node name="Body" type="StaticBody2D" parent="RemembranceBench"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RemembranceBench/Body"]
+polygon = PackedVector2Array(-39, -15, 0, -35, 39, -15, 0, 3)
+
+[node name="RearPlanterWest" type="Node2D" parent="."]
+position = Vector2(-112, -91)
+
+[node name="Artwork" type="Sprite2D" parent="RearPlanterWest"]
+texture_filter = 1
+centered = false
+texture = ExtResource("planter")
+scale = Vector2(0.190583, 0.190583)
+offset = Vector2(-223.00, -361.00)
+
+[node name="Body" type="StaticBody2D" parent="RearPlanterWest"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RearPlanterWest/Body"]
+polygon = PackedVector2Array(-31, -11, 0, -26, 31, -11, 0, 3)
+
+[node name="RearPlanterEast" type="Node2D" parent="."]
+position = Vector2(112, -91)
+
+[node name="Artwork" type="Sprite2D" parent="RearPlanterEast"]
+texture_filter = 1
+centered = false
+texture = ExtResource("planter")
+scale = Vector2(0.190583, 0.190583)
+offset = Vector2(-223.00, -361.00)
+
+[node name="Body" type="StaticBody2D" parent="RearPlanterEast"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RearPlanterEast/Body"]
+polygon = PackedVector2Array(-31, -11, 0, -26, 31, -11, 0, 3)
+
+[node name="OfferingAtTomb" type="Node2D" parent="."]
+position = Vector2(-90, 60)
+
+[node name="Artwork" type="Sprite2D" parent="OfferingAtTomb"]
+texture_filter = 1
+centered = false
+texture = ExtResource("offering")
+scale = Vector2(0.173669, 0.173669)
+offset = Vector2(-178.50, -297.35)
+
+[node name="WarmLight" type="PointLight2D" parent="OfferingAtTomb"]
+position = Vector2(0, -30)
+texture = ExtResource("glow")
+texture_scale = 2.1
+color = Color(1,0.76,0.52,1)
+energy = 0.43
+
+[node name="OfferingEast" type="Node2D" parent="."]
+position = Vector2(95, 13)
+
+[node name="Artwork" type="Sprite2D" parent="OfferingEast"]
+texture_filter = 1
+centered = false
+texture = ExtResource("offering")
+scale = Vector2(0.173669, 0.173669)
+offset = Vector2(-178.50, -297.35)
+
+[node name="WarmLight" type="PointLight2D" parent="OfferingEast"]
+position = Vector2(0, -30)
+texture = ExtResource("glow")
+texture_scale = 2.1
+color = Color(1,0.76,0.52,1)
+energy = 0.43
+
+[node name="LanternWest" type="Node2D" parent="."]
+position = Vector2(-263, -61)
+
+[node name="Artwork" type="Sprite2D" parent="LanternWest"]
+texture_filter = 1
+centered = false
+texture = ExtResource("lantern")
+scale = Vector2(0.252747, 0.252747)
+offset = Vector2(-167.44, -373.35)
+
+[node name="Body" type="StaticBody2D" parent="LanternWest"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="LanternWest/Body"]
+polygon = PackedVector2Array(-6, -3, 0, -8, 6, -3, 0, 2)
+
+[node name="WarmLight" type="PointLight2D" parent="LanternWest"]
+position = Vector2(-20, -65)
+texture = ExtResource("glow")
+texture_scale = 2.1
+color = Color(1,0.76,0.52,1)
+energy = 0.43
+
+[node name="LanternEast" type="Node2D" parent="."]
+position = Vector2(263, -61)
+
+[node name="Artwork" type="Sprite2D" parent="LanternEast"]
+texture_filter = 1
+centered = false
+texture = ExtResource("lantern")
+scale = Vector2(0.252747, 0.252747)
+offset = Vector2(-167.44, -373.35)
+
+[node name="Body" type="StaticBody2D" parent="LanternEast"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="LanternEast/Body"]
+polygon = PackedVector2Array(-6, -3, 0, -8, 6, -3, 0, 2)
+
+[node name="WarmLight" type="PointLight2D" parent="LanternEast"]
+position = Vector2(-20, -65)
+texture = ExtResource("glow")
+texture_scale = 2.1
+color = Color(1,0.76,0.52,1)
+energy = 0.43
+
+[node name="ExtraCandleWest" type="Node2D" parent="."]
+position = Vector2(-132, -38)
+
+[node name="Artwork" type="Sprite2D" parent="ExtraCandleWest"]
+texture_filter = 1
+texture = ExtResource("extra_candle")
+position = Vector2(0, -28)
+scale = Vector2(0.46, 0.46)
+modulate = Color(0.88, 0.79, 0.73, 1)
+
+[node name="WarmLight" type="PointLight2D" parent="ExtraCandleWest"]
+position = Vector2(0, -34)
+texture = ExtResource("glow")
+texture_scale = 1.8
+color = Color(1, 0.76, 0.52, 1)
+energy = 0.40
+
+[node name="ExtraCandleFront" type="Node2D" parent="."]
+position = Vector2(32, 91)
+
+[node name="Artwork" type="Sprite2D" parent="ExtraCandleFront"]
+texture_filter = 1
+texture = ExtResource("extra_candle")
+position = Vector2(0, -28)
+scale = Vector2(0.46, 0.46)
+modulate = Color(0.88, 0.79, 0.73, 1)
+
+[node name="WarmLight" type="PointLight2D" parent="ExtraCandleFront"]
+position = Vector2(0, -34)
+texture = ExtResource("glow")
+texture_scale = 1.8
+color = Color(1, 0.76, 0.52, 1)
+energy = 0.40
+
+[node name="Body" type="StaticBody2D" parent="ExtraCandleWest"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="ExtraCandleWest/Body"]
+polygon = PackedVector2Array(-9, 0, 0, -5, 9, 0, 0, 5)
+
+[node name="Body" type="StaticBody2D" parent="ExtraCandleFront"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="ExtraCandleFront/Body"]
+polygon = PackedVector2Array(-9, 0, 0, -5, 9, 0, 0, 5)
+
+[node name="Body" type="StaticBody2D" parent="OfferingAtTomb"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="OfferingAtTomb/Body"]
+polygon = PackedVector2Array(-23, -5, 0, -17, 23, -5, 0, 7)
+
+[node name="Body" type="StaticBody2D" parent="OfferingEast"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="OfferingEast/Body"]
+polygon = PackedVector2Array(-23, -5, 0, -17, 23, -5, 0, 7)

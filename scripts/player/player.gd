@@ -76,7 +76,7 @@ func _ready() -> void:
 		return
 	if not interaction_component.interactable_changed.is_connected(_on_interactable_changed):
 		interaction_component.interactable_changed.connect(_on_interactable_changed)
-	set_avatar("kael")
+	set_avatar(avatar_component.initial_avatar_id())
 
 # ------------------------------------------------------------ avatar switching
 
@@ -102,9 +102,9 @@ func _set_zoom(value: float) -> void:
 		camera.zoom = Vector2.ONE * clampf(value, 0.64, 1.85)
 
 
-func _update_water_visual(in_water: bool) -> void:
+func _update_water_visual(in_water: bool, depth: float = 1.0) -> void:
 	if presentation_component != null:
-		presentation_component.update_water_visual(in_water)
+		presentation_component.update_water_visual(in_water, depth)
 
 
 func _scan_for_interactable() -> void:

@@ -1,0 +1,102 @@
+﻿[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/royal_gate_isometric_cleaned/garden/white_planter.png" id="white"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_isometric_cleaned/garden/pink_planter.png" id="rose"]
+[ext_resource type="Texture2D" path="res://assets/royal_gate_isometric_cleaned/garden/purple_planter.png" id="lilac"]
+[ext_resource type="Texture2D" path="res://assets/reverie_custom/royal_gardens/production/ornate_stone_bench.png" id="bench"]
+
+[node name="ParkDecor" type="Node2D"]
+y_sort_enabled = true
+texture_filter = 1
+metadata/status = "temporary existing artist assets; replace after new art approval"
+
+[node name="LilyBedWest" type="Node2D" parent="."]
+position = Vector2(-1050, 1240)
+
+[node name="Artwork" type="Sprite2D" parent="LilyBedWest"]
+position = Vector2(0, -35)
+scale = Vector2(1, 1)
+texture = ExtResource("white")
+
+[node name="Footprint" type="StaticBody2D" parent="LilyBedWest"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Collision" type="CollisionPolygon2D" parent="LilyBedWest/Footprint"]
+polygon = PackedVector2Array(-75, 0, 0, -24, 75, 0, 0, 24)
+
+[node name="RoseBedNorth" type="Node2D" parent="."]
+position = Vector2(-560, 1210)
+
+[node name="Artwork" type="Sprite2D" parent="RoseBedNorth"]
+position = Vector2(0, -31)
+scale = Vector2(1, 1)
+texture = ExtResource("rose")
+
+[node name="Footprint" type="StaticBody2D" parent="RoseBedNorth"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Collision" type="CollisionPolygon2D" parent="RoseBedNorth/Footprint"]
+polygon = PackedVector2Array(-65, 0, 0, -24, 65, 0, 0, 24)
+
+[node name="LilacBedWest" type="Node2D" parent="."]
+position = Vector2(-1120, 1605)
+
+[node name="Artwork" type="Sprite2D" parent="LilacBedWest"]
+position = Vector2(0, -37)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("lilac")
+
+[node name="Footprint" type="StaticBody2D" parent="LilacBedWest"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Collision" type="CollisionPolygon2D" parent="LilacBedWest/Footprint"]
+polygon = PackedVector2Array(-54, 0, 0, -22, 54, 0, 0, 22)
+
+[node name="LilacBedSouth" type="Node2D" parent="."]
+position = Vector2(-560, 1620)
+
+[node name="Artwork" type="Sprite2D" parent="LilacBedSouth"]
+position = Vector2(0, -37)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("lilac")
+
+[node name="Footprint" type="StaticBody2D" parent="LilacBedSouth"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Collision" type="CollisionPolygon2D" parent="LilacBedSouth/Footprint"]
+polygon = PackedVector2Array(-54, 0, 0, -22, 54, 0, 0, 22)
+
+[node name="BenchWest" type="Node2D" parent="."]
+position = Vector2(-1200, 1450)
+
+[node name="Artwork" type="Sprite2D" parent="BenchWest"]
+position = Vector2(0, -20)
+scale = Vector2(1, 1)
+texture = ExtResource("bench")
+
+[node name="Footprint" type="StaticBody2D" parent="BenchWest"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Collision" type="CollisionPolygon2D" parent="BenchWest/Footprint"]
+polygon = PackedVector2Array(-55, 0, 0, -20, 55, 0, 0, 20)
+
+[node name="BenchEast" type="Node2D" parent="."]
+position = Vector2(-520, 1555)
+
+[node name="Artwork" type="Sprite2D" parent="BenchEast"]
+position = Vector2(0, -20)
+scale = Vector2(1, 1)
+texture = ExtResource("bench")
+
+[node name="Footprint" type="StaticBody2D" parent="BenchEast"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Collision" type="CollisionPolygon2D" parent="BenchEast/Footprint"]
+polygon = PackedVector2Array(-55, 0, 0, -20, 55, 0, 0, 20)
+

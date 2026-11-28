@@ -1,0 +1,1 @@
+﻿Seraphina approved; English; battle take 1, exploration take 2, audition take 1. 44.1 kHz mono PCM, -1.5 dB attenuation, no added effects. Split boundaries need listening verification; laugh retained in ultimate.

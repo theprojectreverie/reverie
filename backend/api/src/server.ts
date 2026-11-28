@@ -1,3 +1,4 @@
+import {villageStoryPilotRoutes} from "./routes/village-story-pilot.js";
 import Fastify from "fastify";
 import helmet from "@fastify/helmet";
 import jwt from "@fastify/jwt";
@@ -61,6 +62,7 @@ await app.register(gameServerRoutes,{prefix:"/v1/game-servers"});
 await app.register(persistentWorldRealtimeRoutes,{prefix:"/v1"});
 await app.register(storyProgressionRoutes,{prefix:"/v1/progression"});
 await app.register(tutorialSparRoutes,{prefix:"/v1/tutorial-spar"});
+if(config.NODE_ENV!=="production"&&process.env.REVERIE_VILLAGE_PROGRESSION_PILOT==="1")await app.register(villageStoryPilotRoutes,{prefix:"/v1/village-story"});
 if(config.NODE_ENV!=="production"&&process.env.REVERIE_GERALD_STORY_PILOT==="1")await app.register(geraldStoryPilotRoutes,{prefix:"/v1/gerald-story"});
 if(config.NODE_ENV!=="production"&&process.env.REVERIE_GARDENS_STORY_PILOT==="1")await app.register(gardensStoryPilotRoutes,{prefix:"/v1/gardens-story"});
 if(config.NODE_ENV!=="production"&&process.env.REVERIE_GARDENS_STORY_PILOT==="1")await app.register(royalGateStoryPilotRoutes,{prefix:"/v1/royal-gate-story"});

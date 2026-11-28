@@ -19,6 +19,10 @@ var _needs_story_recovery := false
 
 var _gerald_authoritative := false
 var _garden_authoritative := false
+var _village_authoritative := false
+
+func is_online_village() -> bool:
+	return _village_authoritative
 
 func is_online_garden() -> bool:
 	return _garden_authoritative
@@ -27,7 +31,7 @@ func is_online_gerald() -> bool:
 	return _gerald_authoritative
 
 func is_authoritative_story() -> bool:
-	return is_online_spar() or is_online_gerald() or is_online_garden()
+	return is_online_spar() or is_online_gerald() or is_online_garden() or is_online_village()
 
 func is_online_spar() -> bool:
 	return screen != null and screen.group_id == "tutorial_fairy_spar"
@@ -38,12 +42,15 @@ func bind(owner_screen: CombatScreen) -> void:
 	# Latch authority for the lifetime of the battle. Scene teardown must never
 	# turn an online encounter into a local reward or local damage path.
 	_gerald_authoritative = screen.group_id == "gerald_boss_encounter" and world != null and world.has_node("StoryOpeningWorldSync")
-	_garden_authoritative = world != null and world.has_node("StoryGardenCombatSync") and screen.group_id in ["rose_slime_garden_1", "rose_slime_garden_2", "rose_slime_garden_3", "rose_slime_garden_4", "rose_slime_garden_5", "rose_slime_garden_6", "crownling_garden_1", "crownling_garden_2", "crownling_garden_3", "royal_gate_patrol_1", "royal_gate_patrol_2"]
+	_village_authoritative = world != null and world.has_node("StoryVillageProgressionSync") and screen.group_id in preload("res://scripts/online/story_village_progression_sync.gd").GROUPS
+	_garden_authoritative = world != null and world.has_node("StoryGardenCombatSync") and screen.group_id in ["rose_slime_garden_1", "rose_slime_garden_2", "rose_slime_garden_3", "rose_slime_garden_4", "rose_slime_garden_5", "rose_slime_garden_6", "crownling_garden_1", "crownling_garden_2", "crownling_garden_3", "mirene_encounter", "royal_gate_patrol_1", "royal_gate_patrol_2"]
 
 func start_battle() -> void:
 	if screen == null or not is_instance_valid(screen):
 		return
 	screen._resolved = false
+	AudioDirector.stop_lilith_voice()
+	screen._event_presentation_component.reset_character_voice()
 	screen._targeting_component.reset()
 	screen._turn_token += 1
 	if screen._feedback != null:
@@ -60,7 +67,7 @@ func start_battle() -> void:
 		if is_online_garden() and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") != "1":
 			screen._claim(false)
 			return
-		if is_online_gerald() and OS.get_environment("REVERIE_GERALD_STORY_PILOT") != "1":
+		if is_online_gerald() and not is_online_village() and OS.get_environment("REVERIE_GERALD_STORY_PILOT") != "1":
 			EventBus.toast_requested.emit("Online Gerald combat is unavailable.")
 			screen._claim(false)
 			return
@@ -76,14 +83,25 @@ func start_battle() -> void:
 			screen._claim(false)
 			return
 	var player_units := CombatFactory.player_units()
-	if screen.group_id == "tutorial_fairy_spar":
+	if SaveService.story_preview_mode and screen.group_id == "revienna_encounter":
+		player_units = []
+		for character_id in ["kael", "gerald", "lilith"]:
+			var instance := CharacterInstance.create(character_id, "preview_" + character_id)
+			instance.level = 15
+			var unit := CombatFactory.build_from_character(instance)
+			if unit != null:
+				player_units.append(unit)
+	if screen.group_id in ["tutorial_fairy_spar", "village_crimson_encounter", "village_nyx_encounter"]:
 		player_units = player_units.filter(func(unit): return unit.def_id == "kael")
 	var profile := ""
 	var world := screen.get_tree().current_scene
 	if screen.group_id == "gerald_boss_encounter" and world != null and world.name == &"StandaloneVillage":
-		profile = "village_solo"
-		player_units = player_units.filter(func(unit): return unit.def_id == "kael")
-	if screen.group_id == "revienna_encounter" and world != null and world.name == &"StandaloneZone06":
+		if not AuthGateway.is_authenticated() and GameState.quest_domain.quest_state("village_nyx_duel") == "complete":
+			profile = "village_recruited"
+		else:
+			profile = "village_solo"
+			player_units = player_units.filter(func(unit): return unit.def_id == "kael")
+	if screen.group_id == "revienna_encounter" and (SaveService.story_preview_mode or (world != null and world.name == &"StandaloneZone06")):
 		profile = "story_tower"
 	var enemy_units := CombatFactory.enemy_units(screen.group_id, profile)
 	if player_units.is_empty() or enemy_units.is_empty():
@@ -216,6 +234,10 @@ func _spar_request(payload: Dictionary) -> Dictionary:
 		route = "/v1/royal-gate-story/" if screen.group_id in ["royal_gate_patrol_1", "royal_gate_patrol_2"] else "/v1/gardens-story/"
 		payload = payload.duplicate(true)
 		payload["groupId"] = screen.group_id
+	if is_online_village():
+		route = "/v1/village-story/"
+		payload = payload.duplicate(true)
+		payload["groupId"] = screen.group_id
 	var error := _spar_http.request(AuthGateway.api_base_url+route,PackedStringArray(["Authorization: Bearer "+AuthGateway.access_token_for_request(),"Content-Type: application/json"]),HTTPClient.METHOD_POST,JSON.stringify(payload))
 	if error != OK:
 		_spar_busy = false
@@ -239,6 +261,7 @@ func _start_online_spar() -> void:
 		# abandon path (which correctly requires a server-owned battle ID).
 		# Close without rewards and leave the tutorial state unchanged.
 		screen._claimed = true
+		EventBus.battle_finished.emit({"group_id":screen.group_id,"victory":false,"rewards":{}})
 		screen.closed.emit()
 		screen.queue_free()
 		return
@@ -252,7 +275,10 @@ func _start_online_spar() -> void:
 	if not is_instance_valid(screen) or not screen.is_inside_tree():return
 	if data.is_empty():
 		EventBus.toast_requested.emit("Could not connect to the battle server. Please retry.")
-		screen._claim(false)
+		screen._claimed = true
+		EventBus.battle_finished.emit({"group_id":screen.group_id,"victory":false,"rewards":{}})
+		screen.closed.emit()
+		screen.queue_free()
 		return
 	_spar_id = str(data.battleId)
 	_spar_unlock_notice = bool(data.get("unlockNoticePending",false))

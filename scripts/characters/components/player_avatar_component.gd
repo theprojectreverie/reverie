@@ -42,6 +42,19 @@ func available_avatars() -> Array[String]:
 	return ids
 
 
+func initial_avatar_id() -> String:
+	# Co-op encounters intentionally keep the shared expedition avatar fixed.
+	if not MultiplayerGateway.standalone_expedition_id.is_empty():
+		return "kael"
+	var ids := available_avatars()
+	var saved_id := str(GameState.session_domain.active_avatar_id)
+	if ids.has(saved_id):
+		return saved_id
+	if ids.has("kael"):
+		return "kael"
+	return ids[0] if not ids.is_empty() else "kael"
+
+
 func cycle_avatar() -> String:
 	if actor == null:
 		return ""
@@ -57,11 +70,14 @@ func cycle_avatar() -> String:
 
 
 func set_avatar(character_id: String) -> bool:
-	if not MultiplayerGateway.standalone_expedition_id.is_empty() and character_id != "kael":
+	var in_shared_expedition := not MultiplayerGateway.standalone_expedition_id.is_empty()
+	if in_shared_expedition and character_id != "kael":
 		return false
 	if character_id != "kael" and GameState.roster_domain.story_solo_active():
 		return false
 	if actor == null or character_id.is_empty():
+		return false
+	if not in_shared_expedition and not available_avatars().has(character_id):
 		return false
 	var previous_id := str(actor.get("avatar_id"))
 	var visual := actor.get("visual") as ActorVisual
@@ -84,6 +100,9 @@ func set_avatar(character_id: String) -> bool:
 	if not bool(report.get("registered", false)):
 		return false
 	actor.set("avatar_id", character_id)
+	if GameState.session_domain.active_avatar_id != character_id:
+		GameState.session_domain.active_avatar_id = character_id
+		GameState.queue_save()
 	visual.set_body_scale(float(AVATAR_HEIGHT_SCALE.get(character_id, 1.0)))
 	var camera := actor.get_node_or_null("Camera2D") as PlayerCameraRig
 	if camera != null:

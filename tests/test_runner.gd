@@ -947,7 +947,7 @@ func _test_ui_regressions() -> void:
 	if gacha != null:
 		add_child(gacha)
 		await get_tree().process_frame
-		check(gacha._tabs != null and gacha._tabs.get_child_count() == 5 and gacha.active_banner_catalog().size() == 5, "Only five active summon tabs remain available")
+		check(gacha._tabs != null and gacha._tabs.get_child_count() == 6 and gacha.active_banner_catalog().size() == 6, "Only six active summon tabs remain available")
 		gacha._select_banner("lily_of_shadows")
 		await get_tree().process_frame
 		check(gacha._selected_banner == "lily_of_shadows" and gacha._featured_id == "elathra_mythic", "Active summon page selects Elathra")

@@ -7,14 +7,13 @@ signal reveal_finished
 signal stream_completed
 signal advance_requested
 var skipped := false
+var ravienna_cinematic: Control
 var waiting_for_card := false
 var reveal_count := 0
 var cinematic_count := 0
 var _quality_at_start := 2
 
 
-const OPENING_PATH := "res://assets/cinematics/summoning/summoning_opening_fade.ogv"
-const HIGHEST_PATH := "res://assets/cinematics/summoning/summoning_highest_gold_crimson.ogv"
 
 @onready var cinematic_player: VideoStreamPlayer = $CinematicPlayer
 
@@ -65,6 +64,8 @@ func skip_all() -> void:
 	if skipped:
 		return
 	skipped = true
+	if is_instance_valid(ravienna_cinematic):
+		ravienna_cinematic.call("cancel")
 	stream_completed.emit()
 	advance_requested.emit()
 
@@ -84,36 +85,143 @@ func play_batch(results: Array) -> void:
 	_quality_at_start = GraphicsSettings.quality
 	$SigilCenter/SummonSigil.set_process(false)
 	cinematic_player.hide()
-	if not skipped and _quality_at_start > 0:
-		AudioDirector.play_variant("magic_charge", -5.0)
-		await _play_stream(OPENING_PATH,12.0)
-	var premium_played := false
 	for index in results.size():
 		if skipped:
 			break
 		var roll: Dictionary = results[index]
-		var rarity := str(roll.get("rarity", "common")).to_lower()
-		if rarity in ["legendary", "mythic"] and (_quality_at_start == 2 or (_quality_at_start == 1 and not premium_played)):
-			premium_played = true
-			await _play_stream(HIGHEST_PATH,8.0)
+		var rarity := _presentation_rarity(roll)
+		var played_tarot := await _play_tarot(roll, rarity)
 		if skipped:
 			break
 		cinematic_player.hide()
-		AudioDirector.play_variant("summon_swoosh")
-		if rarity in ["legendary", "mythic"]:
-			AudioDirector.play_variant(rarity + "_reveal", -2.0)
+		if not played_tarot:
+			AudioDirector.play_sfx("summon_reveal", -1.0)
 		await _show_character(roll, index, results.size())
 	cinematic_player.stop()
 	cinematic_player.stream = null
 	cinematic_player.hide()
 	reveal_finished.emit()
 
+
+const TAROT_FACES := {
+	"ravienna": "ravienna_the_empress", "mirene": "mirene_the_fool",
+	"gerald": "gerald_strength", "lilith": "lilith_six_of_cups",
+	"elathra": "elathra_four_of_cups", "cassien": "cassien_the_chariot",
+	"kael": "kael_ace_of_swords"
+}
+const CINEMATIC_ART := {
+	"ravienna": ["ravienna_character.png", "eclipse_sovereign_background.png"],
+	"gerald": ["gerald_mythic_character.png", "flamebound_guardian_background.png"],
+	"cassien": ["cassien_legendary_character.png", "crimson_oath_background.png"],
+	"elathra": ["elathra_character.png", "lily_of_shadows_background.png"]
+}
+var _voice_in_cinematic := false
+
+func _tarot_base(id: String) -> String:
+	if id == "revienna" or id.begins_with("revienna_"):
+		return "ravienna"
+	for base: String in TAROT_FACES:
+		if id == base or id.begins_with(base + "_"):
+			return base
+	return ""
+
+func _texture_if_exists(path: String) -> Texture2D:
+	return load(path) as Texture2D if ResourceLoader.exists(path) else null
+
+# Presentation only: never modify the server reward or its ownership.
+# On a mismatch prefer the lower tier, never advertise a higher rarity.
+func _presentation_rarity(roll: Dictionary) -> String:
+	var ranks := ["common", "rare", "epic", "legendary", "mythic"]
+	var declared := str(roll.get("rarity", "common")).strip_edges().to_lower()
+	if not declared in ranks:
+		return "common"
+	var id := str(roll.get("character_id", ""))
+	if id.is_empty():
+		return declared
+	var card := UPGRADE.definition(id)
+	var mob := MOB.definition(id)
+	var actual := ""
+	if not card.is_empty():
+		actual = str(card.get("rarity", "")).to_lower()
+	elif not mob.is_empty():
+		actual = "common"
+	else:
+		var definition: CharacterDef = ContentDB.get_character(id)
+		if definition != null:
+			actual = str(definition.rarity).to_lower()
+		elif id.ends_with("_epic") or id.ends_with("_rare") or id.ends_with("_common"):
+			actual = id.get_slice("_", id.get_slice_count("_") - 1)
+	if actual in ranks and actual != declared:
+		push_warning("Summon presentation rarity mismatch: %s declared=%s catalog=%s" % [id, declared, actual])
+		return ranks[mini(ranks.find(declared), ranks.find(actual))]
+	return declared
+
+
+func _play_tarot(roll: Dictionary, rarity: String) -> bool:
+	rarity = _presentation_rarity(roll) if roll.has("rarity") else _presentation_rarity({"character_id": roll.get("character_id", ""), "rarity": rarity})
+	_voice_in_cinematic = false
+	var id := str(roll.get("character_id", ""))
+	if id.is_empty() or skipped:
+		return false
+	var mob := MOB.definition(id)
+	var upgrade := UPGRADE.definition(id)
+	var portrait: Texture2D = MOB.texture(mob) if not mob.is_empty() else _character_art(UPGRADE.portrait_id(id))
+	var face := portrait
+	var base := _tarot_base(id) if mob.is_empty() and upgrade.is_empty() else ""
+	var premium := rarity in ["legendary", "mythic"] and not base.is_empty() and _quality_at_start > 0
+	var background: Texture2D
+	var speech: AudioStream
+	if premium:
+		face = _texture_if_exists("res://assets/ui/tarot/%s.png" % TAROT_FACES[base])
+		if face == null or portrait == null:
+			premium = false
+			face = portrait
+		if CINEMATIC_ART.has(base):
+			var paths: Array = CINEMATIC_ART[base]
+			var layered := _texture_if_exists("res://assets/portraits/banners/" + str(paths[0]))
+			if layered != null:
+				portrait = layered
+			background = _texture_if_exists("res://assets/portraits/banners/" + str(paths[1]))
+		elif base == "lilith":
+			background = _texture_if_exists("res://assets/portraits/banners/moonlit_requiem_background.png")
+		var voice_path := "res://assets/audio/voice/%s/%s.wav" % [base, "journey" if base == "kael" else "summon_greeting"]
+		if ResourceLoader.exists(voice_path):
+			speech = load(voice_path) as AudioStream
+		_voice_in_cinematic = premium and speech != null
+	if face == null:
+		return false
+	var definition: CharacterDef = ContentDB.get_character(id)
+	var display_name := definition.display_name if definition != null else id.capitalize()
+	ravienna_cinematic = preload("res://scenes/ui/components/ravienna_summon.tscn").instantiate()
+	ravienna_cinematic.z_index = 1
+	add_child(ravienna_cinematic)
+	ravienna_cinematic.call("configure", rarity, face, display_name, portrait, background, speech, premium)
+	var callback := Callable(self, "_on_stream_finished")
+	ravienna_cinematic.connect("finished", callback, CONNECT_ONE_SHOT)
+	var watchdog := get_tree().create_timer(10.0 if premium else 3.0)
+	var timeout_callback := Callable(self, "_on_stream_timeout")
+	watchdog.timeout.connect(timeout_callback, CONNECT_ONE_SHOT)
+	if premium:
+		cinematic_count += 1
+	ravienna_cinematic.call("play")
+	await stream_completed
+	if watchdog.timeout.is_connected(timeout_callback):
+		watchdog.timeout.disconnect(timeout_callback)
+	if is_instance_valid(ravienna_cinematic):
+		if ravienna_cinematic.is_connected("finished", callback):
+			ravienna_cinematic.disconnect("finished", callback)
+		ravienna_cinematic.call("cancel")
+		ravienna_cinematic.queue_free()
+	ravienna_cinematic = null
+	return true
+
+
 const UPGRADE := preload("res://scripts/gacha/character_upgrade_card.gd")
 const MOB := preload("res://scripts/gacha/mob_summon_reward.gd")
 
 func _show_character(roll: Dictionary, index: int, total: int) -> void:
 	var stage := $CardStage
-	var rarity := str(roll.get("rarity", "common")).to_lower()
+	var rarity := _presentation_rarity(roll)
 	var character_id := str(roll.get("character_id", ""))
 	var definition: CharacterDef = ContentDB.get_character(character_id)
 	var art := $CardStage/CharacterArtwork as TextureRect
@@ -121,6 +229,20 @@ func _show_character(roll: Dictionary, index: int, total: int) -> void:
 	var upgrade := UPGRADE.definition(character_id)
 	art.texture = MOB.texture(mob) if not mob.is_empty() else _character_art(UPGRADE.portrait_id(character_id))
 	stage.show()
+	if _voice_in_cinematic:
+		pass
+	elif AudioDirector.is_lilith_voice_id(character_id) and mob.is_empty() and upgrade.is_empty():
+		AudioDirector.play_lilith_voice("summon_greeting", self, true)
+	elif AudioDirector.is_gerald_voice_id(character_id) and mob.is_empty() and upgrade.is_empty():
+		AudioDirector.play_gerald_voice("summon_greeting", self, true)
+	elif AudioDirector.is_mirene_voice_id(character_id) and character_id != "mirene_boss" and mob.is_empty() and upgrade.is_empty():
+		AudioDirector.play_mirene_voice("summon_greeting", self, true)
+	elif AudioDirector.is_cassien_voice_id(character_id) and character_id != "cassien_boss" and mob.is_empty() and upgrade.is_empty():
+		AudioDirector.play_cassien_voice("summon_greeting", self, true)
+	elif AudioDirector.is_kael_voice_id(character_id) and mob.is_empty() and upgrade.is_empty():
+		AudioDirector.play_kael_voice("journey", self, true)
+	elif not AudioDirector.final_voice_character(character_id).is_empty() and not character_id.ends_with("_boss") and mob.is_empty() and upgrade.is_empty():
+		AudioDirector.play_character_voice(AudioDirector.final_voice_character(character_id), "summon_greeting", self, true)
 	$CardStage/Progress.text = "%d / %d" % [index + 1, total]
 	$CardStage/Intro.text = rarity.to_upper()
 	if bool(roll.get("paid_guaranteed",false)):
@@ -153,6 +275,7 @@ func _show_character(roll: Dictionary, index: int, total: int) -> void:
 	waiting_for_card = true
 	await advance_requested
 	waiting_for_card = false
+	AudioDirector.stop_lilith_voice(self)
 	if fade != null: fade.kill()
 	stage.hide()
 	art.texture = null

@@ -1,0 +1,74 @@
+{
+    "shots":  [
+                  {
+                      "duration":  12,
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/01_first_meeting_rose.png",
+                      "dissolve":  1.1
+                  },
+                  {
+                      "duration":  12,
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/02_childhood_garden_chase.png",
+                      "dissolve":  1.5
+                  },
+                  {
+                      "duration":  14,
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/03_rest_beneath_tree.png",
+                      "dissolve":  1.8
+                  },
+                  {
+                      "duration":  13,
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/04_pinky_promise.png",
+                      "dissolve":  1.8
+                  },
+                  {
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/young_couple_flower_wreath.png",
+                      "duration":  14,
+                      "dissolve":  1.7
+                  },
+                  {
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/young_couple_laughing.png",
+                      "duration":  13,
+                      "dissolve":  1.8
+                  },
+                  {
+                      "duration":  17,
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/05_adult_foreheads_together.png",
+                      "dissolve":  2
+                  },
+                  {
+                      "duration":  18,
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/06_moonlit_embrace.png",
+                      "dissolve":  2
+                  },
+                  {
+                      "duration":  12,
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/07_news_of_war_corridor.png",
+                      "dissolve":  1.2
+                  },
+                  {
+                      "duration":  12,
+                      "image":  "res://assets/cinematics/crimson_oath/part_1/08_war_report_to_king.png",
+                      "dissolve":  1.3
+                  },
+                  {
+                      "duration":  14,
+                      "image":  "res://assets/cinematics/crimson_oath/part_2/01_king_discovers_couple.png",
+                      "dissolve":  1.1
+                  },
+                  {
+                      "duration":  16,
+                      "image":  "res://assets/cinematics/crimson_oath/part_2/02_summoned_before_king.png",
+                      "dissolve":  1.3
+                  },
+                  {
+                      "duration":  20,
+                      "image":  "res://assets/cinematics/crimson_oath/part_2/03_ravienna_protests_orders.png",
+                      "dissolve":  1.5
+                  },
+                  {
+                      "duration":  21,
+                      "image":  "res://assets/cinematics/crimson_oath/part_2/04_decision_to_escape.png",
+                      "dissolve":  1.4
+                  }
+              ]
+}

@@ -125,15 +125,24 @@ func _select(id: String) -> void:
 	$Status.text = "Travel to " + str(TRAVEL.NAMES[id]) + "?"
 	$Confirm.text = "Teleport to " + str(TRAVEL.NAMES[id])
 	_refresh_destinations()
+	# A destination card is the primary travel action. Keep the confirm button
+	# for keyboard/controller users and for the explicit preview workflow, while
+	# also making a direct click on a discovered destination actually travel.
+	_start_travel(id)
 
 func _confirm() -> void:
 	if TRAVEL.unavailable_reason(zone, selected).is_empty():
-		var tree := get_tree()
-		if tree.root.has_node("FastTravelTransition"):
-			return
-		var transition = load(TRANSITION_PATH).instantiate()
-		tree.root.add_child(transition)
-		transition.begin(zone, selected)
+		_start_travel(selected)
 		return
 	$Status.text = "Travel unavailable. " + TRAVEL.unavailable_reason(zone, selected)
 	_refresh_destinations()
+
+func _start_travel(id: String) -> void:
+	if TRAVEL.unavailable_reason(zone, id) != "":
+		return
+	var tree := get_tree()
+	if tree.root.has_node("FastTravelTransition"):
+		return
+	var transition = load(TRANSITION_PATH).instantiate()
+	tree.root.add_child(transition)
+	transition.begin(zone, id)

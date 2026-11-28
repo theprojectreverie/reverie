@@ -151,6 +151,7 @@ func _resume_movement(text: String) -> void:
 func _on_practice_hit(heavy: bool) -> void:
  if not practice_ready or finishing or sparring or dummy_complete or not dialogue_stage.is_empty():
   return
+ AudioDirector.play_kael_voice("battle/special_attack" if heavy else "battle/basic_attack", self)
  if heavy:
   if light_hits >= REQUIRED_LIGHT_HITS:
    dummy_complete = true
@@ -187,6 +188,7 @@ func _finish_training() -> void:
  flight.tween_property(tiny,"scale",Vector2.ONE * 0.8 * player.scale.x,0.85)
  await flight.finished
  player.add_child(follower)
+ AudioDirector.play_kael_voice("exploration/companion", self)
  tiny.hide()
  tiny.stop()
  await get_tree().create_timer(0.65).timeout

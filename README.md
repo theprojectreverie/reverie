@@ -52,7 +52,7 @@ Export pack smoke build (after a one-time editor import; see CI):
 godot --headless --path . --export-pack "Linux/X11" build/project-fantasy.pck
 ```
 
-Expected test output: 0 failed and exit code 0; the latest isolated verbose run on 2026-11-17 is **2238 passed, 0 failed**. See `artifacts/qa/chunk_region_layout_regression_2026-11-17.log` and `documentation/NODE_ARCHITECTURE_MIGRATION.md`. 1374 is the Phase 5 checkpoint, not the current total. The current suite also covers playable protagonist art, persistent gathering rewards, monster bonus drops, crafting, merchant purchases, shop-overlay routing, settings rebinding and save-replacement recovery and malformed-save validation and corruption backups. See documentation/TESTING.md for focused scene-verification commands.
+Expected test output: 0 failed and exit code 0. The 2026-11-17 isolated verbose run is historical (2238 passed); the latest local run on 2026-11-27 reported **2807 passed, 0 failed**. See `documentation/TESTING.md` for the current suite count and focused scene-verification commands. 1374 is the Phase 5 checkpoint, not the current total. The suite also covers playable protagonist art, persistent gathering rewards, monster bonus drops, crafting, merchant purchases, shop-overlay routing, settings rebinding and save-replacement recovery and malformed-save validation and corruption backups.
 
 The runner snapshots and restores the local save, so tests do not destroy a real journey.
 
@@ -134,7 +134,7 @@ All input actions are registered at runtime in `scripts/core/input_setup.gd`, so
 
 - Data-driven content: characters, skills, enemies, enemy groups, items, banners, quests, dialogue and regions are JSON.
 - Pure gameplay classes (`GachaService`, `CombatEngine`, `CombatAI`, `CombatFactory`, `ChunkStreamer`, `IsoMath`) suitable for headless tests and future server reuse.
-- 236 headless assertions (Phase 1 baseline) covering content integrity, math, gacha, combat, state, save and UI/scene instantiation — the Phase 1 baseline is preserved and Phases 2–5 add coverage on top (8 Phase 3 + 11 Phase 4 + 9 Phase 5 test groups). **236 is the Phase 1 baseline, not the current total**; see [Testing](documentation/TESTING.md) for the exact current total (**2238 passed, 0 failed**) and the 236 + 111 + 203 + 404 + 420 breakdown.
+- 236 headless assertions (Phase 1 baseline) covering content integrity, math, gacha, combat, state, save and UI/scene instantiation — the Phase 1 baseline is preserved and Phases 2–5 add coverage on top (8 Phase 3 + 11 Phase 4 + 9 Phase 5 test groups). **236 is the Phase 1 baseline, not the current total**; see [Testing](documentation/TESTING.md) for the exact current total (**2807 passed, 0 failed**) and the 236 + 111 + 203 + 404 + 420 breakdown.
 - No copyrighted assets, names, music or characters.
 
 ---
@@ -206,7 +206,7 @@ Still one `MultiMesh` draw call per terrain/water/detail layer per chunk; no per
 
 ### Testing
 
-8 new Phase 3 test groups (visual style, character animator, actor frame source, procedural variety, chunk visual quality, weather director, animated/interactive props, world visual integration) add 203 checks. Suite at the Phase 3 checkpoint: **550 passed, 0 failed** = 236 Phase 1 + 111 Phase 2 + 203 Phase 3 (a past checkpoint; the current total is **2238 passed, 0 failed** — see the Phase 5 section / [Testing](documentation/TESTING.md)).
+8 new Phase 3 test groups (visual style, character animator, actor frame source, procedural variety, chunk visual quality, weather director, animated/interactive props, world visual integration) add 203 checks. Suite at the Phase 3 checkpoint: **550 passed, 0 failed** = 236 Phase 1 + 111 Phase 2 + 203 Phase 3 (a past checkpoint; the current total is **2807 passed, 0 failed** — see the Phase 5 section / [Testing](documentation/TESTING.md)).
 
 > **Asset status: THREE final playable characters (Gerald, Lilith, Kael); the rest are placeholders.** Their world sheets, portraits, combat sprites and full-body illustrations are final imported art under `assets/characters/<id>/` (see each character's SPEC). Everything else shipped in Phase 3-5 is **procedural placeholder art** generated in code at runtime — no final painted sprites, sprite sheets, textures, portraits or VFX for the 12 collectible characters. Audio integration was added later; see the Limitations section. `ProceduralActorFrames` / `ProceduralArt.character_frame()` are explicitly TEMPORARY; real art plugs in via `ActorVisual.set_frame_source()` / an `ActorFrameSource` subclass. See [Art pipeline](documentation/ART_PIPELINE.md).
 
@@ -302,15 +302,16 @@ this phase built the *pipeline* and honest status, not finished artwork.
 - **11 new Phase 4 test groups (404 checks)** brought the suite to
   **954 passed, 0 failed** = 236 Phase 1 + 111 Phase 2 + 203 Phase 3 + 404
   Phase 4; all 550 prior tests preserved. **954 is the Phase 4 checkpoint, not
-  the current total** — later integration and architecture regression work brings the current suite to **2238 passed, 0 failed**. See
+  the current total** — later integration and architecture regression work brings the current suite to **2807 passed, 0 failed**. See
   [Testing](documentation/TESTING.md).
 - All 6 verification commands exit `0` (editor import, content validator →
   `[validate] OK — 9 content files parsed and validated.`, test suite, title
   smoke `--quit-after 180`, game smoke `--quit-after 240`, and
   `--export-pack "Linux/X11"` → a non-empty `.pck` smoke build). The latest
-  isolated verbose regression reports **2238 passed, 0 failed**, with no
-  ObjectDB/RID/resource cleanup diagnostics; only the intentional malformed-save
-  recovery warning remains. No exact byte size is documented here; the smoke
+  historical isolated verbose regression reported **2238 passed, 0 failed** on
+  2026-11-17; the latest local suite reports **2807 passed, 0 failed**. The
+  historical run had no ObjectDB/RID/resource cleanup diagnostics, only the
+  intentional malformed-save recovery warning. No exact byte size is documented here; the smoke
   build is verified by the non-empty `.pck` it produces.
 
 > **Asset status: ZERO assets are final.** Everything shipped in Phase 4 is

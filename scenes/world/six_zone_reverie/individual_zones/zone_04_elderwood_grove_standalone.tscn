@@ -82,6 +82,7 @@ region = Rect2(0, 0, 125, 122)
 filter_clip = true
 
 [node name="StandaloneZone04" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("zone_controller")
 
 [node name="Zone" parent="." instance=ExtResource("zone")]
@@ -695,6 +696,7 @@ horizontal_alignment = 1
 y_sort_enabled = true
 
 [node name="ExposedRoots" type="Sprite2D" parent="GroveDecorations"]
+z_index = -1
 position = Vector2(-799, 1352)
 texture_filter = 1
 scale = Vector2(1.4, 1.4)
@@ -702,24 +704,40 @@ texture = ExtResource("grove_roots")
 offset = Vector2(0, -14)
 
 [node name="StoneRubble" type="Sprite2D" parent="GroveDecorations"]
-position = Vector2(866, 1942)
+position = Vector2(866, 1948)
 texture_filter = 1
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("grove_rubble")
-offset = Vector2(0, -12)
+offset = Vector2(0, -18)
+
+[node name="StoneRubbleFootprint" type="StaticBody2D" parent="GroveDecorations"]
+position = Vector2(866, 1948)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroveDecorations/StoneRubbleFootprint"]
+polygon = PackedVector2Array(-24, 0, 0, -12, 24, 0, 0, 12)
 
 [node name="MossyRockCluster" type="Sprite2D" parent="GroveDecorations"]
-position = Vector2(32, 1600)
+position = Vector2(32, 1614)
 texture_filter = 1
 scale = Vector2(1.3, 1.3)
 texture = SubResource("AtlasTexture_grove_mossy_rock")
-offset = Vector2(0, -47)
+offset = Vector2(0, -61)
+
+[node name="MossyRockClusterFootprint" type="StaticBody2D" parent="GroveDecorations"]
+position = Vector2(32, 1614)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroveDecorations/MossyRockClusterFootprint"]
+polygon = PackedVector2Array(-62, 0, -46, -13, 34, -13, 62, 0, 40, 13, -42, 13)
 
 [node name="ElderwoodRelics" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="BrokenMemorial" type="Node2D" parent="ElderwoodRelics"]
-position = Vector2(-700, 1370)
+position = Vector2(-700, 1392)
 script = ExtResource("relic_logic")
 objective_id = "elderwood_memorial"
 relic_name = "broken memorial"
@@ -728,13 +746,21 @@ inscription = "The names carved into the memorial have worn away."
 [node name="Artwork" type="Sprite2D" parent="ElderwoodRelics/BrokenMemorial"]
 texture_filter = 1
 texture = ExtResource("memorial_art")
-position = Vector2(0,-36)
+position = Vector2(0,-58)
+
+[node name="Body" type="StaticBody2D" parent="ElderwoodRelics/BrokenMemorial"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="ElderwoodRelics/BrokenMemorial/Body"]
+polygon = PackedVector2Array(-30, 0, 0, -15, 30, 0, 0, 15)
 
 [node name="ObjectiveLabel" type="Label" parent="ElderwoodRelics/BrokenMemorial"]
+z_index = 10
 offset_left = -120.0
 offset_right = 120.0
-offset_top = -125.0
-offset_bottom = -100.0
+offset_top = -147.0
+offset_bottom = -122.0
 mouse_filter = 2
 theme_override_font_sizes/font_size = 18
 theme_override_constants/outline_size = 6
@@ -742,7 +768,7 @@ text = "Examine memorial"
 horizontal_alignment = 1
 
 [node name="WeatheredPillar" type="Node2D" parent="ElderwoodRelics"]
-position = Vector2(760, 1960)
+position = Vector2(760, 1990)
 script = ExtResource("relic_logic")
 objective_id = "elderwood_pillar"
 relic_name = "weathered pillar"
@@ -751,13 +777,21 @@ inscription = "An old royal seal points toward the Forsaken Ruins."
 [node name="Artwork" type="Sprite2D" parent="ElderwoodRelics/WeatheredPillar"]
 texture_filter = 1
 texture = ExtResource("pillar_art")
-position = Vector2(0,-52)
+position = Vector2(0,-82)
+
+[node name="Body" type="StaticBody2D" parent="ElderwoodRelics/WeatheredPillar"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="ElderwoodRelics/WeatheredPillar/Body"]
+polygon = PackedVector2Array(-30, 0, 0, -15, 30, 0, 0, 15)
 
 [node name="ObjectiveLabel" type="Label" parent="ElderwoodRelics/WeatheredPillar"]
+z_index = 10
 offset_left = -120.0
 offset_right = 120.0
-offset_top = -145.0
-offset_bottom = -120.0
+offset_top = -175.0
+offset_bottom = -150.0
 mouse_filter = 2
 theme_override_font_sizes/font_size = 18
 theme_override_constants/outline_size = 6

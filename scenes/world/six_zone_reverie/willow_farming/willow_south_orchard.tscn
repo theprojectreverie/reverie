@@ -1,0 +1,96 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_tree.tscn" id="tree"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/stone_well.tscn" id="well"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_shrub.tscn" id="shrub"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_flowers.tscn" id="flowers"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_logs.tscn" id="logs"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/vegetable_garden.tscn" id="garden"]
+
+[node name="WillowSouthOrchard" type="Node2D"]
+y_sort_enabled = true
+
+[node name="OrchardTreeNorthWest" parent="." instance=ExtResource("tree")]
+position = Vector2(-300, -170)
+scale = Vector2(0.84, 0.84)
+
+[node name="OrchardTreeNorthEast" parent="." instance=ExtResource("tree")]
+position = Vector2(300, -205)
+scale = Vector2(0.78, 0.78)
+
+[node name="OrchardTreeSouthWest" parent="." instance=ExtResource("tree")]
+position = Vector2(-330, 245)
+scale = Vector2(0.82, 0.82)
+
+[node name="OrchardTreeSouthEast" parent="." instance=ExtResource("tree")]
+position = Vector2(335, 225)
+scale = Vector2(0.78, 0.78)
+
+[node name="OrchardWell" parent="." instance=ExtResource("well")]
+position = Vector2(5, 48)
+
+[node name="WesternHarvestPlot" parent="." instance=ExtResource("garden")]
+position = Vector2(-440, 15)
+scale = Vector2(0.68, 0.68)
+
+[node name="EasternHarvestPlot" parent="." instance=ExtResource("garden")]
+position = Vector2(440, 55)
+scale = Vector2(0.58, 0.58)
+
+[node name="OrchardRestingLog" parent="." instance=ExtResource("logs")]
+position = Vector2(-150, 170)
+scale = Vector2(0.76, 0.76)
+
+[node name="FlowersNorth" parent="." instance=ExtResource("flowers")]
+position = Vector2(-55, -250)
+
+[node name="FlowersWest" parent="." instance=ExtResource("flowers")]
+position = Vector2(-410, 0)
+
+[node name="FlowersEast" parent="." instance=ExtResource("flowers")]
+position = Vector2(420, -15)
+
+[node name="FlowersSouth" parent="." instance=ExtResource("flowers")]
+position = Vector2(155, 335)
+
+[node name="FlowerBedNorthwest" parent="." instance=ExtResource("flowers")]
+position = Vector2(-435, -250)
+scale = Vector2(0.68, 0.68)
+
+[node name="FlowerBedNortheast" parent="." instance=ExtResource("flowers")]
+position = Vector2(430, -290)
+scale = Vector2(0.68, 0.68)
+
+[node name="FlowerBedWest" parent="." instance=ExtResource("flowers")]
+position = Vector2(-505, 95)
+scale = Vector2(0.64, 0.64)
+
+[node name="FlowerBedEast" parent="." instance=ExtResource("flowers")]
+position = Vector2(510, 75)
+scale = Vector2(0.64, 0.64)
+
+[node name="FlowerBedSouthwest" parent="." instance=ExtResource("flowers")]
+position = Vector2(-455, 380)
+scale = Vector2(0.70, 0.70)
+
+[node name="FlowerBedSoutheast" parent="." instance=ExtResource("flowers")]
+position = Vector2(365, 275)
+scale = Vector2(0.70, 0.70)
+
+[node name="ShrubsWest" parent="." instance=ExtResource("shrub")]
+position = Vector2(-220, 60)
+
+[node name="ShrubsEast" parent="." instance=ExtResource("shrub")]
+position = Vector2(230, 120)
+
+[node name="OrchardEdgeShrubWest" parent="." instance=ExtResource("shrub")]
+position = Vector2(-500, 240)
+scale = Vector2(0.62, 0.62)
+
+[node name="OrchardEdgeShrubEast" parent="." instance=ExtResource("shrub")]
+position = Vector2(500, 245)
+scale = Vector2(0.62, 0.62)
+
+[node name="OrchardEdgeShrubSouth" parent="." instance=ExtResource("shrub")]
+position = Vector2(15, 440)
+scale = Vector2(0.62, 0.62)

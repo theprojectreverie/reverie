@@ -440,10 +440,7 @@
     "assets": {
       "asset_folder": "res://assets/characters/mirene",
       "portrait_target": "res://assets/characters/mirene/portrait_512.png",
-      "portrait_target_dimensions": [
-        512,
-        683
-      ],
+      "portrait_target_dimensions": [512, 560],
       "portrait_status": "final"
     },
     "passive": {
@@ -2682,11 +2679,8 @@
     "assets": {
       "asset_folder": "res://assets/characters/mirene_common",
       "portrait_target": "res://assets/characters/mirene/portrait_512.png",
-      "portrait_target_dimensions": [
-        512,
-        768
-      ],
-      "portrait_status": "shared_character_art"
+      "portrait_target_dimensions": [512, 560],
+      "portrait_status": "final"
     },
     "passive": {
       "id": "whisperstep",
@@ -2728,11 +2722,8 @@
     "assets": {
       "asset_folder": "res://assets/characters/mirene_epic",
       "portrait_target": "res://assets/characters/mirene/portrait_512.png",
-      "portrait_target_dimensions": [
-        512,
-        768
-      ],
-      "portrait_status": "shared_character_art"
+      "portrait_target_dimensions": [512, 560],
+      "portrait_status": "final"
     },
     "passive": {
       "id": "whisperstep",
@@ -2775,12 +2766,9 @@
       "world_sheet": "res://assets/characters/harlequin/world_sheet.tres",
       "art_status": "world_walk_ready_shared_action_poses",
       "asset_folder": "res://assets/characters/mirene_legendary",
-      "portrait_target": "res://assets/characters/mirene/portrait_512.png",
-      "portrait_target_dimensions": [
-        512,
-        768
-      ],
-      "portrait_status": "shared_character_art"
+      "portrait_target": "res://assets/characters/mirene_legendary/portrait_512.png",
+      "portrait_target_dimensions": [512, 683],
+      "portrait_status": "final"
     },
     "passive": {
       "id": "whisperstep",
@@ -2823,12 +2811,9 @@
       "world_sheet": "res://assets/characters/harlequin/world_sheet.tres",
       "art_status": "world_walk_ready_shared_action_poses",
       "asset_folder": "res://assets/characters/mirene_mythic",
-      "portrait_target": "res://assets/characters/mirene/portrait_512.png",
-      "portrait_target_dimensions": [
-        512,
-        768
-      ],
-      "portrait_status": "shared_character_art"
+      "portrait_target": "res://assets/characters/mirene_mythic/portrait_512.png",
+      "portrait_target_dimensions": [512, 560],
+      "portrait_status": "final"
     },
     "passive": {
       "id": "whisperstep",

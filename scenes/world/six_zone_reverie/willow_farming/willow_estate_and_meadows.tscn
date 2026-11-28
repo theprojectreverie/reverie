@@ -1,0 +1,810 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/farmhouse.tscn" id="farmhouse"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/vegetable_garden.tscn" id="vegetables"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/stone_well.tscn" id="well"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_shrub.tscn" id="shrub"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_flowers.tscn" id="flowers"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/hay_cart.tscn" id="cart"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_crates.tscn" id="crate"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_tree.tscn" id="tree"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_037.png" id="white"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_038.png" id="violet"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_028.png" id="pink"]
+[ext_resource type="Texture2D" path="res://assets/environment/royal_gardens_ground_64x32/garden_stone_path.png" id="stone"]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/lavender_bed.png" id="lavender_bed"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/rose_bed.png" id="rose_bed"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/flowering_hedge.png" id="flowering_hedge"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/riverbank_reeds.png" id="riverbank_reeds"]
+
+[node name="WillowEstateAndMeadows" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CentralFlowerFarm" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="FloristFarmhouse" parent="CentralFlowerFarm" instance=ExtResource("farmhouse")]
+position = Vector2(210, 1655)
+scale = Vector2(0.88, 0.88)
+
+[node name="KitchenGarden" parent="CentralFlowerFarm" instance=ExtResource("vegetables")]
+position = Vector2(10, 1835)
+scale = Vector2(0.8, 0.8)
+
+[node name="EastKitchenGarden" parent="CentralFlowerFarm" instance=ExtResource("vegetables")]
+position = Vector2(350, 1795)
+scale = Vector2(0.68, 0.68)
+
+[node name="FarmSupplies" parent="CentralFlowerFarm" instance=ExtResource("crate")]
+position = Vector2(75, 1660)
+scale = Vector2(0.65, 0.65)
+
+[node name="HarvestCart" parent="CentralFlowerFarm" instance=ExtResource("cart")]
+position = Vector2(435, 1655)
+scale = Vector2(0.6, 0.6)
+
+[node name="FarmWalk" type="Node2D" parent="CentralFlowerFarm"]
+z_index = -18
+
+[node name="Stone_0_0" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(240, 1670)
+texture = ExtResource("stone")
+
+[node name="Stone_0_1" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(208, 1686)
+texture = ExtResource("stone")
+
+[node name="Stone_1_0" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(272, 1686)
+texture = ExtResource("stone")
+
+[node name="Stone_1_1" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(240, 1702)
+texture = ExtResource("stone")
+
+[node name="Stone_2_0" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(304, 1702)
+texture = ExtResource("stone")
+
+[node name="Stone_2_1" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(272, 1718)
+texture = ExtResource("stone")
+
+[node name="Stone_3_0" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(336, 1718)
+texture = ExtResource("stone")
+
+[node name="Stone_3_1" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(304, 1734)
+texture = ExtResource("stone")
+
+[node name="Stone_4_0" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(368, 1734)
+texture = ExtResource("stone")
+
+[node name="Stone_4_1" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(336, 1750)
+texture = ExtResource("stone")
+
+[node name="Stone_5_0" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(400, 1750)
+texture = ExtResource("stone")
+
+[node name="Stone_5_1" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(368, 1766)
+texture = ExtResource("stone")
+
+[node name="Stone_6_0" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(432, 1766)
+texture = ExtResource("stone")
+
+[node name="Stone_6_1" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(400, 1782)
+texture = ExtResource("stone")
+
+[node name="Stone_7_0" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(464, 1782)
+texture = ExtResource("stone")
+
+[node name="Stone_7_1" type="Sprite2D" parent="CentralFlowerFarm/FarmWalk"]
+texture_filter = 1
+position = Vector2(432, 1798)
+texture = ExtResource("stone")
+
+[node name="FarmBloom0" type="Sprite2D" parent="CentralFlowerFarm"]
+texture_filter = 1
+position = Vector2(-85, 1660)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("pink")
+offset = Vector2(0, -61.0)
+
+[node name="FarmBloom1" type="Sprite2D" parent="CentralFlowerFarm"]
+texture_filter = 1
+position = Vector2(30, 1595)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="FarmBloom2" type="Sprite2D" parent="CentralFlowerFarm"]
+texture_filter = 1
+position = Vector2(360, 1580)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("violet")
+offset = Vector2(0, -54.0)
+
+[node name="FarmBloom3" type="Sprite2D" parent="CentralFlowerFarm"]
+texture_filter = 1
+position = Vector2(450, 1700)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("pink")
+offset = Vector2(0, -61.0)
+
+[node name="FarmBloom4" type="Sprite2D" parent="CentralFlowerFarm"]
+texture_filter = 1
+position = Vector2(-125, 1795)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="FarmBloom5" type="Sprite2D" parent="CentralFlowerFarm"]
+texture_filter = 1
+position = Vector2(-30, 1870)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("violet")
+offset = Vector2(0, -54.0)
+
+[node name="FarmBloom6" type="Sprite2D" parent="CentralFlowerFarm"]
+texture_filter = 1
+position = Vector2(430, 1835)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("pink")
+offset = Vector2(0, -61.0)
+
+[node name="SouthernFlowerMeadow" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="MeadowBed3_0" type="Sprite2D" parent="SouthernFlowerMeadow"]
+texture_filter = 1
+position = Vector2(90, 2660)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("violet")
+offset = Vector2(0, -54.0)
+
+[node name="MeadowBed3_1" type="Sprite2D" parent="SouthernFlowerMeadow"]
+texture_filter = 1
+position = Vector2(164, 2623)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("violet")
+offset = Vector2(0, -54.0)
+
+[node name="MeadowBed3_2" type="Sprite2D" parent="SouthernFlowerMeadow"]
+texture_filter = 1
+position = Vector2(238, 2586)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("violet")
+offset = Vector2(0, -54.0)
+
+[node name="MeadowBed3_3" type="Sprite2D" parent="SouthernFlowerMeadow"]
+texture_filter = 1
+position = Vector2(312, 2549)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("violet")
+offset = Vector2(0, -54.0)
+
+[node name="MeadowBed4_0" type="Sprite2D" parent="SouthernFlowerMeadow"]
+texture_filter = 1
+position = Vector2(220, 2730)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="MeadowBed4_1" type="Sprite2D" parent="SouthernFlowerMeadow"]
+texture_filter = 1
+position = Vector2(294, 2693)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="MeadowBed4_2" type="Sprite2D" parent="SouthernFlowerMeadow"]
+texture_filter = 1
+position = Vector2(368, 2656)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="MeadowBed4_3" type="Sprite2D" parent="SouthernFlowerMeadow"]
+texture_filter = 1
+position = Vector2(442, 2619)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="MeadowShrubWest" parent="SouthernFlowerMeadow" instance=ExtResource("shrub")]
+position = Vector2(-470, 2695)
+scale = Vector2(0.88, 0.88)
+
+[node name="MeadowShrubEast" parent="SouthernFlowerMeadow" instance=ExtResource("shrub")]
+position = Vector2(365, 2780)
+scale = Vector2(0.8, 0.8)
+
+[node name="EastRoadsideGarden" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="RoadFlower0" type="Sprite2D" parent="EastRoadsideGarden"]
+texture_filter = 1
+position = Vector2(2130, 1470)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="RoadFlower1" type="Sprite2D" parent="EastRoadsideGarden"]
+texture_filter = 1
+position = Vector2(2230, 1530)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("pink")
+offset = Vector2(0, -61.0)
+
+[node name="RoadFlower2" type="Sprite2D" parent="EastRoadsideGarden"]
+texture_filter = 1
+position = Vector2(2330, 1590)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("violet")
+offset = Vector2(0, -54.0)
+
+[node name="RoadFlower3" type="Sprite2D" parent="EastRoadsideGarden"]
+texture_filter = 1
+position = Vector2(2260, 1700)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="RoadFlower4" type="Sprite2D" parent="EastRoadsideGarden"]
+texture_filter = 1
+position = Vector2(2160, 1640)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("pink")
+offset = Vector2(0, -61.0)
+
+[node name="RoadFlower5" type="Sprite2D" parent="EastRoadsideGarden"]
+texture_filter = 1
+position = Vector2(2060, 1580)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("violet")
+offset = Vector2(0, -54.0)
+
+[node name="RoadFlower6" type="Sprite2D" parent="EastRoadsideGarden"]
+texture_filter = 1
+position = Vector2(2350, 1770)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("white")
+offset = Vector2(0, -54.0)
+
+[node name="RoadFlower7" type="Sprite2D" parent="EastRoadsideGarden"]
+texture_filter = 1
+position = Vector2(2440, 1815)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("pink")
+offset = Vector2(0, -61.0)
+
+[node name="LavenderPlotA" type="StaticBody2D" parent="SouthernFlowerMeadow"]
+position = Vector2(-380, 2680)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="SouthernFlowerMeadow/LavenderPlotA"]
+texture_filter = 1
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("lavender_bed")
+offset = Vector2(0, -194.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthernFlowerMeadow/LavenderPlotA"]
+polygon = PackedVector2Array(-107.28, -45.59, 0, -91.18, 107.28, -45.59, 0, 0)
+
+[node name="LavenderPlotB" type="StaticBody2D" parent="SouthernFlowerMeadow"]
+position = Vector2(-180, 2780)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="SouthernFlowerMeadow/LavenderPlotB"]
+texture_filter = 1
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("lavender_bed")
+offset = Vector2(0, -194.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthernFlowerMeadow/LavenderPlotB"]
+polygon = PackedVector2Array(-107.28, -45.59, 0, -91.18, 107.28, -45.59, 0, 0)
+
+[node name="RosePlotA" type="StaticBody2D" parent="SouthernFlowerMeadow"]
+position = Vector2(40, 2890)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="SouthernFlowerMeadow/RosePlotA"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("rose_bed")
+offset = Vector2(0, -192.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthernFlowerMeadow/RosePlotA"]
+polygon = PackedVector2Array(-93.87, -39.89, 0, -79.79, 93.87, -39.89, 0, 0)
+
+[node name="RosePlotB" type="StaticBody2D" parent="SouthernFlowerMeadow"]
+position = Vector2(250, 2790)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="SouthernFlowerMeadow/RosePlotB"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("rose_bed")
+offset = Vector2(0, -192.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthernFlowerMeadow/RosePlotB"]
+polygon = PackedVector2Array(-93.87, -39.89, 0, -79.79, 93.87, -39.89, 0, 0)
+
+[node name="MeadowHedgeA" type="StaticBody2D" parent="SouthernFlowerMeadow"]
+position = Vector2(-550, 2770)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="SouthernFlowerMeadow/MeadowHedgeA"]
+texture_filter = 1
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("flowering_hedge")
+offset = Vector2(0, -176.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthernFlowerMeadow/MeadowHedgeA"]
+polygon = PackedVector2Array(-56.45, -23.99, 0, -47.98, 56.45, -23.99, 0, 0)
+
+[node name="MeadowHedgeB" type="StaticBody2D" parent="SouthernFlowerMeadow"]
+position = Vector2(390, 2750)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="SouthernFlowerMeadow/MeadowHedgeB"]
+texture_filter = 1
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("flowering_hedge")
+offset = Vector2(0, -176.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="SouthernFlowerMeadow/MeadowHedgeB"]
+polygon = PackedVector2Array(-56.45, -23.99, 0, -47.98, 56.45, -23.99, 0, 0)
+
+[node name="BankReeds0" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-190, 750)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("riverbank_reeds")
+offset = Vector2(0, -180.5)
+
+[node name="BankReeds1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-80, 945)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("riverbank_reeds")
+offset = Vector2(0, -180.5)
+
+[node name="BankReeds2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(285, 1230)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("riverbank_reeds")
+offset = Vector2(0, -180.5)
+
+[node name="BankReeds3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(520, 1350)
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("riverbank_reeds")
+offset = Vector2(0, -180.5)
+
+[node name="BankReeds4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1880, 2135)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("riverbank_reeds")
+offset = Vector2(0, -180.5)
+
+[node name="BankReeds5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1330, 2080)
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("riverbank_reeds")
+offset = Vector2(0, -180.5)
+
+[node name="MeadowPedestrianPaths" type="Node2D" parent="."]
+z_index = -18
+
+[node name="Walk_61_49" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(448, 1792)
+texture = ExtResource("stone")
+
+[node name="Walk_61_50" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(416, 1808)
+texture = ExtResource("stone")
+
+[node name="Walk_62_49" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(480, 1808)
+texture = ExtResource("stone")
+
+[node name="Walk_62_50" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(448, 1824)
+texture = ExtResource("stone")
+
+[node name="Walk_68_48" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(704, 1888)
+texture = ExtResource("stone")
+
+[node name="Walk_68_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-288, 2384)
+texture = ExtResource("stone")
+
+[node name="Walk_68_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-320, 2400)
+texture = ExtResource("stone")
+
+[node name="Walk_69_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-256, 2400)
+texture = ExtResource("stone")
+
+[node name="Walk_69_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-288, 2416)
+texture = ExtResource("stone")
+
+[node name="Walk_70_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-224, 2416)
+texture = ExtResource("stone")
+
+[node name="Walk_70_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-256, 2432)
+texture = ExtResource("stone")
+
+[node name="Walk_71_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-192, 2432)
+texture = ExtResource("stone")
+
+[node name="Walk_71_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-224, 2448)
+texture = ExtResource("stone")
+
+[node name="Walk_72_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-160, 2448)
+texture = ExtResource("stone")
+
+[node name="Walk_72_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-192, 2464)
+texture = ExtResource("stone")
+
+[node name="Walk_73_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-128, 2464)
+texture = ExtResource("stone")
+
+[node name="Walk_73_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-160, 2480)
+texture = ExtResource("stone")
+
+[node name="Walk_74_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-96, 2480)
+texture = ExtResource("stone")
+
+[node name="Walk_74_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-128, 2496)
+texture = ExtResource("stone")
+
+[node name="Walk_75_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-64, 2496)
+texture = ExtResource("stone")
+
+[node name="Walk_75_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-96, 2512)
+texture = ExtResource("stone")
+
+[node name="Walk_76_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-32, 2512)
+texture = ExtResource("stone")
+
+[node name="Walk_76_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-64, 2528)
+texture = ExtResource("stone")
+
+[node name="Walk_77_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(0, 2528)
+texture = ExtResource("stone")
+
+[node name="Walk_77_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-32, 2544)
+texture = ExtResource("stone")
+
+[node name="Walk_78_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(32, 2544)
+texture = ExtResource("stone")
+
+[node name="Walk_78_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(0, 2560)
+texture = ExtResource("stone")
+
+[node name="Walk_79_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(64, 2560)
+texture = ExtResource("stone")
+
+[node name="Walk_79_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(32, 2576)
+texture = ExtResource("stone")
+
+[node name="Walk_80_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(96, 2576)
+texture = ExtResource("stone")
+
+[node name="Walk_80_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(64, 2592)
+texture = ExtResource("stone")
+
+[node name="Walk_81_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(128, 2592)
+texture = ExtResource("stone")
+
+[node name="Walk_81_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(96, 2608)
+texture = ExtResource("stone")
+
+[node name="Walk_82_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(160, 2608)
+texture = ExtResource("stone")
+
+[node name="Walk_82_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(128, 2624)
+texture = ExtResource("stone")
+
+[node name="Walk_83_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(192, 2624)
+texture = ExtResource("stone")
+
+[node name="Walk_83_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(160, 2640)
+texture = ExtResource("stone")
+
+[node name="Walk_84_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(224, 2640)
+texture = ExtResource("stone")
+
+[node name="Walk_84_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(192, 2656)
+texture = ExtResource("stone")
+
+[node name="Walk_84_81" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(160, 2672)
+texture = ExtResource("stone")
+
+[node name="Walk_84_82" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(128, 2688)
+texture = ExtResource("stone")
+
+[node name="Walk_84_83" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(96, 2704)
+texture = ExtResource("stone")
+
+[node name="Walk_84_84" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(64, 2720)
+texture = ExtResource("stone")
+
+[node name="Walk_84_85" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(32, 2736)
+texture = ExtResource("stone")
+
+[node name="Walk_84_86" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(0, 2752)
+texture = ExtResource("stone")
+
+[node name="Walk_84_87" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-32, 2768)
+texture = ExtResource("stone")
+
+[node name="Walk_84_88" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-64, 2784)
+texture = ExtResource("stone")
+
+[node name="Walk_84_89" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-96, 2800)
+texture = ExtResource("stone")
+
+[node name="Walk_84_90" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-128, 2816)
+texture = ExtResource("stone")
+
+[node name="Walk_84_91" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-160, 2832)
+texture = ExtResource("stone")
+
+[node name="Walk_84_92" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-192, 2848)
+texture = ExtResource("stone")
+
+[node name="Walk_85_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(256, 2656)
+texture = ExtResource("stone")
+
+[node name="Walk_85_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(224, 2672)
+texture = ExtResource("stone")
+
+[node name="Walk_85_81" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(192, 2688)
+texture = ExtResource("stone")
+
+[node name="Walk_85_82" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(160, 2704)
+texture = ExtResource("stone")
+
+[node name="Walk_85_83" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(128, 2720)
+texture = ExtResource("stone")
+
+[node name="Walk_85_84" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(96, 2736)
+texture = ExtResource("stone")
+
+[node name="Walk_85_85" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(64, 2752)
+texture = ExtResource("stone")
+
+[node name="Walk_85_86" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(32, 2768)
+texture = ExtResource("stone")
+
+[node name="Walk_85_87" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(0, 2784)
+texture = ExtResource("stone")
+
+[node name="Walk_85_88" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-32, 2800)
+texture = ExtResource("stone")
+
+[node name="Walk_85_89" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-64, 2816)
+texture = ExtResource("stone")
+
+[node name="Walk_85_90" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-96, 2832)
+texture = ExtResource("stone")
+
+[node name="Walk_85_91" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(-128, 2848)
+texture = ExtResource("stone")
+
+[node name="Walk_86_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(288, 2672)
+texture = ExtResource("stone")
+
+[node name="Walk_86_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(256, 2688)
+texture = ExtResource("stone")
+
+[node name="Walk_87_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(320, 2688)
+texture = ExtResource("stone")
+
+[node name="Walk_87_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(288, 2704)
+texture = ExtResource("stone")
+
+[node name="Walk_88_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(352, 2704)
+texture = ExtResource("stone")
+
+[node name="Walk_88_80" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(320, 2720)
+texture = ExtResource("stone")
+
+[node name="Walk_89_79" type="Sprite2D" parent="MeadowPedestrianPaths"]
+texture_filter = 1
+position = Vector2(384, 2720)
+texture = ExtResource("stone")
+
+[node name="GardenWell" parent="SouthernFlowerMeadow" instance=ExtResource("well")]
+position = Vector2(-455, 2580)
+scale = Vector2(0.8, 0.8)
+
+[node name="FlowerHarvestCart" parent="SouthernFlowerMeadow" instance=ExtResource("cart")]
+position = Vector2(-530, 2520)
+scale = Vector2(0.66, 0.66)
+
+[node name="GardenSupplyCrates" parent="SouthernFlowerMeadow" instance=ExtResource("crate")]
+position = Vector2(-590, 2585)
+scale = Vector2(0.7, 0.7)
+
+[node name="FlowerGardenShade" parent="SouthernFlowerMeadow" instance=ExtResource("tree")]
+position = Vector2(-400, 2470)
+scale = Vector2(0.74, 0.74)
+
+[node name="MillWorkersCottage" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Cottage" parent="MillWorkersCottage" instance=ExtResource("farmhouse")]
+position = Vector2(-1460, 1320)
+scale = Vector2(0.72, 0.72)
+
+[node name="CottageShrub" parent="MillWorkersCottage" instance=ExtResource("shrub")]
+position = Vector2(-1590, 1340)
+scale = Vector2(0.73, 0.73)
+
+[node name="CottageFlowers" parent="MillWorkersCottage" instance=ExtResource("flowers")]
+position = Vector2(-1355, 1348)
+scale = Vector2(0.86, 0.86)
+
+[node name="SmallGarden" parent="MillWorkersCottage" instance=ExtResource("vegetables")]
+position = Vector2(-1200, 1310)
+scale = Vector2(0.55, 0.55)

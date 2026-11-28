@@ -1,3 +1,4 @@
+import {villageProgressionEnabled,villageGroups,villageParty} from "./village-progression.js";
 import {execFile} from "node:child_process";
 import {promisify} from "node:util";
 import {randomInt,createHash} from "node:crypto";
@@ -116,7 +117,7 @@ export async function startStoryBattle(db:PoolClient,id:string,groupId:string):P
  await db.query("INSERT INTO owned_characters(player_id,char_id) SELECT $1,unnest($2::text[]) ON CONFLICT DO NOTHING",[id,STARTER_PARTY]);
  const roster=(await db.query<PartyRow>("SELECT char_id,level,xp::text,ascension,awakening,bond,dupes,skill_levels FROM owned_characters WHERE player_id=$1 AND NOT(char_id=ANY($2::text[])) ORDER BY char_id FOR UPDATE",[id,retiredPlayableIds])).rows;
  const selected=(await db.query<{char_id:string}>("SELECT oc.char_id FROM party_members pm JOIN owned_characters oc ON oc.id=pm.character_id AND oc.player_id=pm.player_id WHERE pm.player_id=$1 AND NOT(oc.char_id=ANY($2::text[])) ORDER BY pm.slot",[id,retiredPlayableIds])).rows.map(r=>r.char_id);
- const ids=groupId==="gerald_boss_encounter"||groupId==="tutorial_fairy_spar"?["kael"]:selected.length?selected:STARTER_PARTY;
+ const ids=villageProgressionEnabled()&&villageGroups.includes(groupId)?villageParty(groupId):groupId==="gerald_boss_encounter"||groupId==="tutorial_fairy_spar"?["kael"]:selected.length?selected:STARTER_PARTY;
  const gear=(await db.query("SELECT oc.char_id,e.slot,e.item_id,e.enhancement_level,e.reroll_stat,e.reroll_value FROM character_equipment e JOIN owned_characters oc ON oc.id=e.character_id AND oc.player_id=e.player_id WHERE e.player_id=$1",[id])).rows;
  const party=ids.map(char_id=>{const row=roster.find(r=>r.char_id===char_id);return row?{...row,equipment:gear.filter(e=>e.char_id===char_id)}:null;});
  if(party.some(r=>r===null)||party.length<1||party.length>4)return {ok:false,reason:"invalid_party"};

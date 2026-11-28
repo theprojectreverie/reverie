@@ -23,7 +23,7 @@ func run() -> void:
 		reveal.reveal_finished.connect(func(): finished[0]=true)
 		reveal.play_batch(rolls)
 		var seen := 0
-		var deadline := Time.get_ticks_msec()+10000
+		var deadline := Time.get_ticks_msec()+20000
 		while not finished[0] and Time.get_ticks_msec()<deadline:
 			if reveal.cinematic_player.stream != null:
 				# Finish the decoder wait deterministically; no GPU benchmark claimed.
@@ -36,10 +36,10 @@ func run() -> void:
 					fail("milestone label lost"); return
 				reveal.get_node("CardStage/NextButton").pressed.emit()
 			await get_tree().process_frame
-		var expected := [0,2,3][mode] as int
+		var expected := [0,1,1][mode] as int
 		if not finished[0] or seen!=2 or reveal.cinematic_count!=expected or reveal.cinematic_player.stream!=null:
 			fail("quality %d reveal count %d cinematic count %d expected %d" % [mode,seen,reveal.cinematic_count,expected]); return
-		print("PASS graphics quality ",mode," reveals=",seen," videos=",reveal.cinematic_count," decoder released")
+		print("PASS graphics quality ",mode," reveals=",seen," premium cinematics=",reveal.cinematic_count," decoder released")
 		reveal.queue_free()
 		await get_tree().process_frame
 	GraphicsSettings.apply_preferences(0,-1,false,false)

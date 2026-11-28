@@ -1,16 +1,13 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://c5havc2261khd"]
 
 [ext_resource type="Texture2D" uid="uid://kkavqnb10dhl" path="res://assets/characters/revienna/combat/Revienna_Combat_Idle_Left_128.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://df3bn74dowsl4" path="res://assets/characters/revienna/combat/Revienna_Combat_Shadow_Lash_Left_128.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://6hlx7ctcuye0" path="res://assets/characters/revienna/combat/Revienna_Combat_Corruption_Bolt_Left_128.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://bu6ftjs6ihfal" path="res://assets/characters/revienna/combat/Revienna_Combat_Soul_Drain_Left_128.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://0fphj324pbu8" path="res://assets/characters/revienna/combat/Revienna_Combat_Hollow_Wail_Left_128.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://b6ldrjxelbn38" path="res://assets/characters/revienna/combat/Revienna_Combat_Ultimate_Left_128.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://c8vriiioax6xw" path="res://assets/characters/revienna/combat/Revienna_Combat_Hit_Left_128.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://d2705utoikh6h" path="res://assets/characters/revienna/combat/Revienna_Combat_Defeat_Left_128.png" id="8"]
-
-[ext_resource type="Texture2D" path="res://assets/characters/ravienna/playable_combat/ravienna_lunar_wisp.png" id="play_lunar_wisp"]
-[ext_resource type="Texture2D" path="res://assets/characters/ravienna/playable_combat/ravienna_velvet_hex.png" id="play_velvet_hex"]
+[ext_resource type="Texture2D" uid="uid://clvp3kqnot72a" path="res://assets/characters/ravienna/playable_combat/ravienna_lunar_wisp.png" id="play_lunar_wisp"]
+[ext_resource type="Texture2D" uid="uid://due0vsmmpww57" path="res://assets/characters/ravienna/playable_combat/ravienna_velvet_hex.png" id="play_velvet_hex"]
 
 [sub_resource type="AtlasTexture" id="play_lunar_wisp_0"]
 atlas = ExtResource("play_lunar_wisp")
@@ -40,76 +37,6 @@ filter_clip = true
 [sub_resource type="AtlasTexture" id="play_lunar_wisp_5"]
 atlas = ExtResource("play_lunar_wisp")
 region = Rect2(640, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="play_velvet_hex_0"]
-atlas = ExtResource("play_velvet_hex")
-region = Rect2(0, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="play_velvet_hex_1"]
-atlas = ExtResource("play_velvet_hex")
-region = Rect2(128, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="play_velvet_hex_2"]
-atlas = ExtResource("play_velvet_hex")
-region = Rect2(256, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="play_velvet_hex_3"]
-atlas = ExtResource("play_velvet_hex")
-region = Rect2(384, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="play_velvet_hex_4"]
-atlas = ExtResource("play_velvet_hex")
-region = Rect2(512, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="play_velvet_hex_5"]
-atlas = ExtResource("play_velvet_hex")
-region = Rect2(640, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="corruption_bolt_0"]
-atlas = ExtResource("3")
-region = Rect2(0, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="corruption_bolt_1"]
-atlas = ExtResource("3")
-region = Rect2(128, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="corruption_bolt_2"]
-atlas = ExtResource("3")
-region = Rect2(256, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="corruption_bolt_3"]
-atlas = ExtResource("3")
-region = Rect2(384, 0, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="corruption_bolt_4"]
-atlas = ExtResource("3")
-region = Rect2(0, 128, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="corruption_bolt_5"]
-atlas = ExtResource("3")
-region = Rect2(128, 128, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="corruption_bolt_6"]
-atlas = ExtResource("3")
-region = Rect2(256, 128, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="corruption_bolt_7"]
-atlas = ExtResource("3")
-region = Rect2(384, 128, 128, 128)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="defeat_0"]
@@ -392,44 +319,34 @@ atlas = ExtResource("6")
 region = Rect2(384, 384, 128, 128)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="shadow_lash_0"]
-atlas = ExtResource("2")
+[sub_resource type="AtlasTexture" id="play_velvet_hex_0"]
+atlas = ExtResource("play_velvet_hex")
 region = Rect2(0, 0, 128, 128)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="shadow_lash_1"]
-atlas = ExtResource("2")
+[sub_resource type="AtlasTexture" id="play_velvet_hex_1"]
+atlas = ExtResource("play_velvet_hex")
 region = Rect2(128, 0, 128, 128)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="shadow_lash_2"]
-atlas = ExtResource("2")
+[sub_resource type="AtlasTexture" id="play_velvet_hex_2"]
+atlas = ExtResource("play_velvet_hex")
 region = Rect2(256, 0, 128, 128)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="shadow_lash_3"]
-atlas = ExtResource("2")
+[sub_resource type="AtlasTexture" id="play_velvet_hex_3"]
+atlas = ExtResource("play_velvet_hex")
 region = Rect2(384, 0, 128, 128)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="shadow_lash_4"]
-atlas = ExtResource("2")
-region = Rect2(0, 128, 128, 128)
+[sub_resource type="AtlasTexture" id="play_velvet_hex_4"]
+atlas = ExtResource("play_velvet_hex")
+region = Rect2(512, 0, 128, 128)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="shadow_lash_5"]
-atlas = ExtResource("2")
-region = Rect2(128, 128, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="shadow_lash_6"]
-atlas = ExtResource("2")
-region = Rect2(256, 128, 128, 128)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="shadow_lash_7"]
-atlas = ExtResource("2")
-region = Rect2(384, 128, 128, 128)
+[sub_resource type="AtlasTexture" id="play_velvet_hex_5"]
+atlas = ExtResource("play_velvet_hex")
+region = Rect2(640, 0, 128, 128)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="soul_drain_0"]
@@ -493,7 +410,30 @@ region = Rect2(384, 256, 128, 128)
 filter_clip = true
 
 [resource]
-animations = [{"frames": [{"duration": 1.0, "texture": SubResource("play_lunar_wisp_0")}, {"duration": 1.0, "texture": SubResource("play_lunar_wisp_1")}, {"duration": 2.0, "texture": SubResource("play_lunar_wisp_2")}, {"duration": 2.0, "texture": SubResource("play_lunar_wisp_3")}, {"duration": 1.0, "texture": SubResource("play_lunar_wisp_4")}, {"duration": 1.0, "texture": SubResource("play_lunar_wisp_5")}], "loop": 0, "name": &"corruption_bolt", "speed": 8.0}, {
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("play_lunar_wisp_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("play_lunar_wisp_1")
+}, {
+"duration": 2.0,
+"texture": SubResource("play_lunar_wisp_2")
+}, {
+"duration": 2.0,
+"texture": SubResource("play_lunar_wisp_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("play_lunar_wisp_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("play_lunar_wisp_5")
+}],
+"loop": 0,
+"name": &"corruption_bolt",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("defeat_0")
@@ -686,7 +626,30 @@ animations = [{"frames": [{"duration": 1.0, "texture": SubResource("play_lunar_w
 "loop": 0,
 "name": &"ravienna_eclipse",
 "speed": 8.0
-}, {"frames": [{"duration": 1.0, "texture": SubResource("play_velvet_hex_0")}, {"duration": 1.0, "texture": SubResource("play_velvet_hex_1")}, {"duration": 2.0, "texture": SubResource("play_velvet_hex_2")}, {"duration": 2.0, "texture": SubResource("play_velvet_hex_3")}, {"duration": 1.0, "texture": SubResource("play_velvet_hex_4")}, {"duration": 1.0, "texture": SubResource("play_velvet_hex_5")}], "loop": 0, "name": &"shadow_lash", "speed": 8.0}, {
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("play_velvet_hex_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("play_velvet_hex_1")
+}, {
+"duration": 2.0,
+"texture": SubResource("play_velvet_hex_2")
+}, {
+"duration": 2.0,
+"texture": SubResource("play_velvet_hex_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("play_velvet_hex_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("play_velvet_hex_5")
+}],
+"loop": 0,
+"name": &"shadow_lash",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("soul_drain_0")

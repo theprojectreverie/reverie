@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[node name="EnvironmentFootprint" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-42, -12, 0, -32, 42, -12, 0, 8)

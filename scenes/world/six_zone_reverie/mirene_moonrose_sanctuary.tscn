@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens/mirene_masked_circus_arena_grass.jpg" id="sanctuary_art"]
+
+[sub_resource type="Shader" id="ArenaGrassKey"]
+code = "shader_type canvas_item;\nvoid fragment() {\n\tvec4 texel = texture(TEXTURE, UV);\n\tfloat green_chroma = texel.g - max(texel.r, texel.b);\n\tfloat grass_background = smoothstep(0.22, 0.40, green_chroma) * smoothstep(0.60, 0.78, texel.g);\n\tCOLOR = vec4(texel.rgb, texel.a * (1.0 - grass_background));\n}\n"
+
+[sub_resource type="ShaderMaterial" id="ArenaGrassKeyMaterial"]
+shader = SubResource("ArenaGrassKey")
+
+[node name="MireneMoonroseSanctuary" type="Node2D"]
+y_sort_enabled = true
+
+[node name="SanctuaryGroundArt" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("sanctuary_art")
+y_sort_origin = 0
+material = SubResource("ArenaGrassKeyMaterial")

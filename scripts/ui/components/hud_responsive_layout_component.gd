@@ -44,8 +44,9 @@ func _apply_touch_layout(viewport_size: Vector2, portrait: bool) -> void:
 	var left_margin := margin + safe.x
 	var right_margin := margin + safe.y
 	var bottom_margin := margin + safe.z
-	var height := 44.0 * unit
-	var width := 70.0 * unit
+	var target_unit := maxf(unit, viewport_size.x / 390.0) if portrait else unit
+	var height := 44.0 * target_unit
+	var width := 70.0 * target_unit
 	var combat := hud._touch_combat
 	if combat != null:
 		combat.offset_left = -(width * 3.0 + margin * 2.0 + 16.0 + safe.y)

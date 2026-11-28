@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/collapsed_chapel.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/abandoned_manor.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/ruined_terrace.tscn" id="3"]
+
+[node name="ForsakenArchitecturalDistricts" type="Node2D"]
+y_sort_enabled = true
+
+
+
+[node name="EasternCollapsedChapel" parent="." instance=ExtResource("1")]
+position = Vector2(1792, 1184)
+
+[node name="SouthernRockyTerrace" parent="." instance=ExtResource("3")]
+position = Vector2(-448, 2688)
+

@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_017.png" id="stone_flowers"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_028.png" id="pink_flowers"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_029.png" id="grass_tuft"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_037.png" id="white_flowers"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_038.png" id="violet_flowers"]
+
+[sub_resource type="ConvexPolygonShape2D" id="RockFootprint"]
+points = PackedVector2Array(-42, -18, 0, -34, 42, -18, 0, 2)
+
+[node name="WillowMeadowGarden" type="Node2D"]
+y_sort_enabled = true
+
+[node name="StoneFlowerAnchor" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("stone_flowers")
+scale = Vector2(0.72, 0.72)
+offset = Vector2(0, -48)
+
+[node name="StoneFootprint" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StoneFootprint"]
+position = Vector2(0, -12)
+shape = SubResource("RockFootprint")
+
+[node name="DaisiesWest" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-88, 28)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("white_flowers")
+offset = Vector2(0, -39)
+
+[node name="LavenderEast" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(86, 24)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("violet_flowers")
+offset = Vector2(0, -37)
+
+[node name="BlushSouth" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(12, 90)
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("pink_flowers")
+offset = Vector2(0, -40)
+
+[node name="MeadowGrass" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(148, -22)
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("grass_tuft")
+offset = Vector2(0, -37)

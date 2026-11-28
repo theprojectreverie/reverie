@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/elderwood_fences/woodland_corner.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/elderwood_fences/woodland_enclosure.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/elderwood_fences/woodland_post.tscn" id="3"]
+
+[node name="ElderwoodFencePreview" type="Node2D"]
+y_sort_enabled = true
+
+[node name="woodland_corner" parent="." instance=ExtResource("1")]
+position = Vector2(220, 300)
+
+[node name="woodland_enclosure" parent="." instance=ExtResource("2")]
+position = Vector2(440, 300)
+
+[node name="woodland_post" parent="." instance=ExtResource("3")]
+position = Vector2(660, 300)

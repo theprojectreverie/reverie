@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/fallen_chapel.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/abandoned_manor.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/ruined_terrace.tscn" id="3"]
+
+[node name="RuinedKingdomLandmarks" type="Node2D"]
+y_sort_enabled = true
+
+[node name="NorthChapel" parent="." instance=ExtResource("1")]
+position = Vector2(160, 560)
+
+[node name="WesternManor" parent="." instance=ExtResource("2")]
+position = Vector2(-2016, 1680)
+
+[node name="EasternManor" parent="." instance=ExtResource("2")]
+position = Vector2(2080, 1424)
+
+[node name="SouthernTerrace" parent="." instance=ExtResource("3")]
+position = Vector2(-1152, 2336)
+
+[node name="UpperTerrace" parent="." instance=ExtResource("3")]
+position = Vector2(1152, 800)

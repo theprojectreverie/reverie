@@ -31,7 +31,9 @@ func finish_battle(victory: bool) -> void:
 	UIFactory.clear(screen._skills_box)
 	screen._actor_label.text = "Victory" if victory else "Defeat"
 	screen._hint_label.text = ""
-	if screen._session_component.is_authoritative_story():
+	if SaveService.story_preview_mode:
+		screen._pending_rewards = {}
+	elif screen._session_component.is_authoritative_story():
 		screen._pending_rewards = screen._session_component._server_rewards.duplicate(true) if victory else {}
 	else:
 		screen._pending_rewards = GameState.reward_domain.build_battle_rewards(screen.group_id, true) if victory else {}
@@ -94,8 +96,8 @@ func show_result(victory: bool) -> void:
 	var rewards_row := content.get_node("RewardsRow") as HBoxContainer
 	var details := content.get_node("Details") as VBoxContainer
 	var defeat_details := content.get_node("DefeatDetails") as Label
-	rewards_caption.visible = victory and screen.group_id != "tutorial_fairy_spar"
-	rewards_row.visible = victory and screen.group_id != "tutorial_fairy_spar"
+	rewards_caption.visible = victory and not SaveService.story_preview_mode and screen.group_id != "tutorial_fairy_spar"
+	rewards_row.visible = victory and not SaveService.story_preview_mode and screen.group_id != "tutorial_fairy_spar"
 	defeat_details.visible = not victory
 	if victory and screen._session_component.is_online_spar() and screen._session_component._spar_unlock_notice:
 		var unlock := UIFactory.label("NEW MAIN MENU ILLUSTRATION UNLOCKED", 15, UITheme.GOLD_BRIGHT)
@@ -123,7 +125,7 @@ func show_result(victory: bool) -> void:
 
 	var actions := content.get_node("Actions") as HBoxContainer
 	if victory:
-		var claim_button := UIFactory.button("Continue" if screen.group_id == "tutorial_fairy_spar" else ("Speak to Gerald" if screen.group_id == "gerald_boss_encounter" and screen.get_tree().current_scene != null and screen.get_tree().current_scene.name == &"StandaloneVillage" else "Claim Rewards"), true)
+		var claim_button := UIFactory.button("Return to Preview" if SaveService.story_preview_mode else "Continue" if screen.group_id == "tutorial_fairy_spar" else ("Speak to Gerald" if screen.group_id == "gerald_boss_encounter" and screen.get_tree().current_scene != null and screen.get_tree().current_scene.name == &"StandaloneVillage" else "Claim Rewards"), true)
 		claim_button.custom_minimum_size = Vector2(220, 46)
 		claim_button.pressed.connect(func() -> void: claim(true))
 		actions.add_child(claim_button)
@@ -180,6 +182,11 @@ func confirm_retreat() -> void:
 func claim(victory: bool) -> void:
 	if screen == null or screen._claimed:
 		return
+	if SaveService.story_preview_mode:
+		screen._claimed = true
+		screen.closed.emit()
+		screen.queue_free()
+		return
 	if screen._session_component.is_authoritative_story():
 		if screen._session_component._spar_busy:return
 		if victory and (not screen._session_component._spar_verified or not screen._session_component.spar_owner_is_current()):return
@@ -203,7 +210,7 @@ func claim(victory: bool) -> void:
 		screen._result_layer.queue_free()
 		screen._result_layer = null
 	if victory:
-		if screen._session_component.is_online_gerald() or screen._session_component.is_online_garden():
+		if screen._session_component.is_online_gerald() or screen._session_component.is_online_garden() or screen._session_component.is_online_village():
 			AuthGateway.refresh_online_wallet()
 			await AuthGateway.refresh_account_roster()
 			if not is_instance_valid(screen) or not screen.is_inside_tree():return

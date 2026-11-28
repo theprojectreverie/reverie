@@ -2,6 +2,14 @@ extends Interactable
 const QUEST := "cassien_resurrection"
 const PREP := "forsaken_braziers"
 const objective_id := "cassien_altar"
+const MEMORY_ONE := "cassien_crimson_oath_part_1_seen"
+const MEMORY_TWO := "cassien_crimson_oath_part_2_seen"
+const MEMORY_PENDING := "cassien_crimson_oath_part_2_pending"
+const MEMORY_SCENES := [
+	"res://scenes/world/six_zone_reverie/crimson_oath_part_1.tscn",
+	"res://scenes/world/six_zone_reverie/crimson_oath_part_2.tscn"
+]
+var memory_running := false
 var chosen := false
 var owns_dialogue := false
 var awakened := false
@@ -51,6 +59,9 @@ func _ready() -> void:
 		cassien_visual.pause()
 		cassien_visual.animation = &"awakening"
 		cassien_visual.frame = cassien_visual.sprite_frames.get_frame_count(&"awakening") - 1
+	if not _is_coop() and bool(GameState.quest_domain.flags.get(MEMORY_PENDING, false)):
+		_resume_pending_memory.call_deferred()
+
 func _is_coop() -> bool:
 	return not MultiplayerGateway.standalone_expedition_id.is_empty() and MultiplayerGateway.standalone_expedition_region == "six_zone_forsaken_ruins"
 
@@ -73,13 +84,13 @@ func _refresh(_id: String = "") -> void:
 	var step := GameState.quest_domain.quest_step_index(QUEST)
 	if step > 0 or state == "complete":
 		global_position = zone.get_node("CassienTombPosition").global_position
-	enabled = state == "active" and (step == 0 or GameState.quest_domain.quest_state(PREP) == "complete") and MultiplayerGateway.standalone_expedition_id.is_empty()
+	enabled = not memory_running and not bool(GameState.quest_domain.flags.get(MEMORY_PENDING, false)) and state == "active" and (step == 0 or GameState.quest_domain.quest_state(PREP) == "complete") and MultiplayerGateway.standalone_expedition_id.is_empty()
 	prompt = "Speak to Cassien" if step == 0 else "Begin resurrection"
 	label.text = prompt
 	label.visible = enabled
 	cassien_visual.visible = MultiplayerGateway.standalone_expedition_id.is_empty()
 func interact() -> void:
-	if not can_interact() or owns_dialogue or engaged or ritual_departing or dialogue.visible:
+	if not can_interact() or owns_dialogue or engaged or memory_running or ritual_departing or dialogue.visible:
 		return
 	var player := zone.get("checkpoint_player") as Player
 	if player == null or not player.input_enabled or player.network_recovery_paused or player.global_position.distance_to(global_position) > interaction_radius:
@@ -98,17 +109,24 @@ func interact() -> void:
 		if not is_inside_tree() or not owns_dialogue:
 			return
 	if (not coop_defeated if _is_coop() else GameState.quest_domain.quest_step_index(QUEST) == 0):
-		dialogue.open("cassien_meeting")
+		dialogue.open("cassien_meeting_coop" if _is_coop() else "cassien_meeting")
 	else:
 		_begin_ritual_view()
 		dialogue.open("cassien_ritual")
 func _choice(id: String, choice: Dictionary) -> void:
 	if owns_dialogue:
-		chosen = (id == "cassien_meeting" and str(choice.get("text")) == "I will help you prepare the ritual.") or (id == "cassien_ritual" and str(choice.get("text")) == "Follow Ravienna to the tower")
+		var text := str(choice.get("text"))
+		chosen = (id == "cassien_meeting" and text == "Tell me about her.") or (id == "cassien_meeting_coop" and text == "I will help you prepare the ritual.") or (id == "cassien_tomb_approach" and text == "Approach the tomb.") or (id == "cassien_ritual" and text == "Follow Ravienna to the tower")
 func _closed(id: String) -> void:
 	if not owns_dialogue:
 		return
 	owns_dialogue = false
+	if id == "cassien_after_victory" and memory_running:
+		return
+	if id == "cassien_meeting" and chosen:
+		chosen = false
+		_play_first_memory.call_deferred()
+		return
 	if id == "cassien_ritual" and chosen:
 		# Keep the cinematic lock until Revienna has actually reached the road.
 		chosen = false
@@ -121,7 +139,7 @@ func _closed(id: String) -> void:
 		tomb_animation.play("RESET")
 		tomb_animation.advance(0)
 	zone.remove_meta("cassien_ritual_active")
-	if chosen and id == "cassien_meeting":
+	if chosen and id in ["cassien_tomb_approach", "cassien_meeting_coop"]:
 		chosen = false
 		engaged = true
 		_begin_battle.call_deferred()
@@ -132,6 +150,92 @@ func _closed(id: String) -> void:
 	if is_instance_valid(player):
 		player.input_enabled = true
 	_refresh()
+
+func _lock_memory_input() -> void:
+	zone.set_meta("cassien_ritual_active", true)
+	var player := zone.get("checkpoint_player") as Player
+	if is_instance_valid(player):
+		player.input_enabled = false
+		player.velocity = Vector2.ZERO
+	TouchInput.release()
+
+func _show_memory(part: int) -> bool:
+	var packed := load(MEMORY_SCENES[part - 1]) as PackedScene
+	if packed == null:
+		push_error("[CrimsonOath] Missing chapter scene")
+		return false
+	var story := packed.instantiate() as Control
+	if not story.get_node("Sequence").load_sequence():
+		story.free()
+		return false
+	var hud := zone.get_node("UI/HUD") as Control
+	var was_visible := hud.visible
+	hud.hide()
+	story.name = "CrimsonOathMemory"
+	story.z_index = 100
+	var track_id := "ravienna_story_%d" % part
+	var previous_music := AudioDirector.requested_music_track()
+	if AudioDirector.play_track(track_id, 0.35):
+		story.set("music_track_id", track_id)
+		story.tree_exiting.connect(AudioDirector.end_screen_music.bind(track_id, previous_music), CONNECT_ONE_SHOT)
+	zone.get_node("UI/Overlays").add_child(story)
+	await story.finished
+	story.queue_free()
+	await get_tree().process_frame
+	hud.visible = was_visible
+	return true
+
+func _play_first_memory() -> void:
+	if memory_running:
+		return
+	memory_running = true
+	_lock_memory_input()
+	if not bool(GameState.quest_domain.flags.get(MEMORY_ONE, false)):
+		if not await _show_memory(1):
+			memory_running = false
+			zone.remove_meta("cassien_ritual_active")
+			_resume_after_battle()
+			return
+		GameState.quest_domain.flags[MEMORY_ONE] = true
+		GameState.queue_save()
+	memory_running = false
+	owns_dialogue = true
+	chosen = false
+	dialogue.open("cassien_tomb_approach")
+
+func _resume_pending_memory() -> void:
+	await get_tree().process_frame
+	if not is_inside_tree() or memory_running or _is_coop():
+		return
+	if bool(GameState.quest_domain.flags.get(MEMORY_PENDING, false)):
+		_play_second_memory()
+
+func _play_second_memory() -> void:
+	if memory_running or _is_coop():
+		return
+	memory_running = true
+	_lock_memory_input()
+	owns_dialogue = true
+	dialogue.open("cassien_after_victory")
+	if dialogue.visible:
+		await dialogue.closed
+	owns_dialogue = false
+	if not await _show_memory(2):
+		# Keep the pending marker so a later reload can retry, and do not
+		# silently block access to the original resurrection quest.
+		memory_running = false
+		zone.remove_meta("cassien_ritual_active")
+		GameState.quest_domain.start_quest(PREP)
+		GameState.queue_save()
+		_resume_after_battle()
+		return
+	GameState.quest_domain.flags[MEMORY_TWO] = true
+	GameState.quest_domain.flags[MEMORY_PENDING] = false
+	GameState.quest_domain.start_quest(PREP)
+	GameState.save_now()
+	memory_running = false
+	zone.remove_meta("cassien_ritual_active")
+	_resume_after_battle()
 
 func _begin_battle() -> void:
 	if _is_coop():
@@ -243,13 +347,19 @@ func _battle_finished(result: Dictionary) -> void:
 		return
 	if bool(result.get("victory", false)) and GameState.quest_domain.quest_state(QUEST) == "active" and GameState.quest_domain.quest_step_index(QUEST) == 0:
 		GameState.quest_domain.flags["cassien_defeated"] = true
+		GameState.quest_domain.flags[MEMORY_PENDING] = not bool(GameState.quest_domain.flags.get(MEMORY_TWO, false))
 		GameState.quest_domain.advance_quest(QUEST)
-		GameState.quest_domain.start_quest(PREP)
-		GameState.queue_save()
+		if not bool(GameState.quest_domain.flags[MEMORY_PENDING]):
+			GameState.quest_domain.start_quest(PREP)
+		GameState.save_now()
 
 func _combat_closed() -> void:
 	if engaged:
 		engaged = false
+		if not _is_coop() and bool(GameState.quest_domain.flags.get(MEMORY_PENDING, false)):
+			_lock_memory_input()
+			_play_second_memory.call_deferred()
+			return
 		_resume_after_battle()
 
 func _resume_after_battle() -> void:

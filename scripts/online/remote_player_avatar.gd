@@ -19,6 +19,7 @@ var _presentation_culled := false
 var _presentation_phase := 0.0
 
 func _ready() -> void:
+	add_to_group("bridge_remote_avatar")
 	visual = $ActorVisual as ActorVisual
 	name_label = $NameLabel as Label
 	title_label = $TitleLabel as Label

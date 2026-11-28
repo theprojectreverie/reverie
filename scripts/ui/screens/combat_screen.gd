@@ -14,6 +14,7 @@ const PORTRAIT_VIEW_SCENE: PackedScene = preload("res://scenes/ui/components/por
 
 var group_id: String = ""
 var _previous_music := ""
+var _battle_music := "combat"
 var engine: CombatEngine
 var _battlefield: Battlefield = null
 var _enemy_row: HBoxContainer
@@ -96,12 +97,13 @@ func _ready() -> void:
 	_hud_component.bind(self)
 	_session_component.bind(self)
 	_input_component.bind(self)
-	_previous_music = AudioDirector.begin_screen_music("combat")
+	_battle_music = "ravienna_boss" if group_id == "revienna_encounter" else "combat"
+	_previous_music = AudioDirector.begin_screen_music(_battle_music)
 	_start_battle()
 
 
 func _exit_tree() -> void:
-	AudioDirector.end_screen_music("combat", _previous_music)
+	AudioDirector.end_screen_music(_battle_music, _previous_music)
 	# Invalidate turn/event continuations before releasing their presentation owners.
 	_turn_token += 1
 	if _battlefield != null and is_instance_valid(_battlefield):

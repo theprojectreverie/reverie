@@ -31,6 +31,10 @@
 [ext_resource type="Texture2D" uid="uid://eo1o2xbsvl2o" path="res://assets/environment/six_zone_reverie/royal_gardens/decorative_v3/17_flowering_rock_cluster.png" id="garden_v3_extra_7"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_marble_crest_inlays.tscn" id="gold_crest_inlays"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_lawn_paving_inlays.tscn" id="lawn_inlays"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_09_prop.png" id="parterre_rose"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_14_prop.png" id="parterre_pink"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_15_prop.png" id="parterre_white"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/royal_gardens_v4/royal_garden_20_prop.png" id="parterre_rose_low"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_v4_plaza_lanterns.tscn" id="plaza_lanterns"]
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/individual_zones/royal_gardens_waterfall_landscaping_v4.tscn" id="pond_landscaping"]
 [ext_resource type="Script" uid="uid://cp27whako3sxc" path="res://scripts/world/six_zone_reverie/royal_gardens_prop_collision.gd" id="prop_collision"]
@@ -622,18 +626,68 @@ collision_mask = 0
 polygon = PackedVector2Array(-55.555603, 1.388916, 44.444397, -27.777832, 68, 29.693995, 68, 57.035995, 34.72223, 33.333252, -41.666687, 44.444336, -68, 57.035995, -68, 29.693995)
 
 [node name="LawnPavingInlays" parent="." unique_id=275099358 instance=ExtResource("lawn_inlays")]
+[node name="WestParterreRoseCenter" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 36
+position = Vector2(-1860, 1925)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("parterre_rose")
 
-[node name="SouthLawnPaver1" parent="LawnPavingInlays" index="40"]
-position = Vector2(-396.00003, 2599.0002)
+[node name="WestParterreWhiteLilies" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 30
+position = Vector2(-1968, 1958)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("parterre_white")
 
-[node name="SouthLawnPaver2" parent="LawnPavingInlays" index="41"]
-position = Vector2(-350, 2622.0002)
+[node name="WestParterrePinkBloom" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 27
+position = Vector2(-1756, 1948)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("parterre_pink")
 
-[node name="SouthLawnPaver3" parent="LawnPavingInlays" index="42"]
-position = Vector2(-395.00003, 2629)
+[node name="EntranceParterreWhiteCenter" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 30
+position = Vector2(-1488, 2148)
+scale = Vector2(0.88, 0.88)
+texture = ExtResource("parterre_white")
 
-[node name="SouthLawnPaver4" parent="LawnPavingInlays" index="43"]
-position = Vector2(-354, 2592)
+[node name="EntranceParterreRose" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 26
+position = Vector2(-1574, 2120)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("parterre_rose_low")
+
+[node name="EntranceParterrePink" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 26
+position = Vector2(-1398, 2180)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("parterre_pink")
+
+[node name="SouthParterreRoseCenter" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 34
+position = Vector2(-380, 2675)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("parterre_rose")
+
+[node name="SouthParterreWhiteLilies" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 28
+position = Vector2(-485, 2710)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("parterre_white")
+
+[node name="SouthParterrePinkBloom" type="Sprite2D" parent="."]
+texture_filter = 1
+y_sort_origin = 25
+position = Vector2(-277, 2718)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("parterre_pink")
 
 [node name="LowerEdgeGarden" parent="." unique_id=443275934 instance=ExtResource("edge_garden")]
 position = Vector2(-35, 33)

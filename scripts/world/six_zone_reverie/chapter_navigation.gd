@@ -7,7 +7,8 @@ const STORY_ENTRIES = {
 	"gerald_story": {"name":"The Fallen Guardian","region":"Village","summary":"Confront Gerald and discover the memories behind his fall.","steps":[{"text":"Defeat Gerald"},{"text":"Witness Gerald's memories and Lilith's awakening"}]},
 	"ravienna_finale": {"name":"The Eclipse Sovereign","region":"Ruined Tower","summary":"Face Ravienna and witness the end of the chapter.","steps":[{"text":"Defeat Ravienna"},{"text":"Witness the ending"}]},
 }
-const JOURNAL_IDS = ["gerald_story","elathra_first_audience","royal_gate_patrol","willow_crossing","elderwood_relics","cassien_resurrection","forsaken_braziers","ravienna_finale"]
+const VILLAGE_QUESTS = ["village_clear_approach","village_crimson_duel","village_clear_ruins","village_nyx_duel","village_gerald_trial"]
+const JOURNAL_IDS = ["village_clear_approach","village_crimson_duel","village_clear_ruins","village_nyx_duel","village_gerald_trial","gerald_story","elathra_first_audience","royal_gate_patrol","willow_crossing","elderwood_relics","cassien_resurrection","forsaken_braziers","ravienna_finale"]
 
 static func journal_definition(id: String) -> Dictionary:
 	return STORY_ENTRIES[id] if STORY_ENTRIES.has(id) else ContentDB.get_quest(id)
@@ -26,7 +27,7 @@ static func journal_state(zone: Node2D, id: String) -> String:
 	var step := journal_step_index(id)
 	if step == 2:
 		return "complete"
-	if step == 1 or (id == "gerald_story" and index(zone)==0) or (id=="ravienna_finale" and (index(zone)==6 or GameState.quest_domain.flags.get("ravienna_resurrected",false))):
+	if step == 1 or (id == "gerald_story" and index(zone)==0 and (GameState.quest_domain.quest_state("village_clear_approach")=="not_started" or GameState.quest_domain.quest_state("village_nyx_duel")=="complete")) or (id=="ravienna_finale" and (index(zone)==6 or GameState.quest_domain.flags.get("ravienna_resurrected",false))):
 		return "active"
 	return "not_started"
 
@@ -50,6 +51,8 @@ static func can_track(zone: Node2D, id: String) -> bool:
 		return false
 	if STORY_ENTRIES.has(id):
 		return journal_state(zone,id)=="active"
+	if id in VILLAGE_QUESTS:
+		return index(zone)==0 and domain.quest_state(id)=="active"
 	if not IDS.has(id) or domain.quest_state(id) == "complete":
 		return false
 	if domain.quest_state(id) == "active":
@@ -120,9 +123,24 @@ static func _local(zone: Node2D) -> Dictionary:
 	var i := index(zone)
 	if i == 0:
 		if not bool(domain.flags.get("village_gerald_defeated",false)):
+			for quest in VILLAGE_QUESTS:
+				if domain.quest_state(quest) != "active":
+					continue
+				if quest == "village_gerald_trial":
+					return _target(zone,zone.get_node_or_null("VillageMap/GeraldBossSpawn/GeraldChallenge") as Node2D,"The Fallen Guardian","Challenge Gerald with your allies",quest)
+				return _quest_target(zone,quest)
+			var sync := zone.get_node_or_null("StoryVillageProgressionSync")
+			if sync != null and not bool(sync.get("_fresh")):
+				return _target(zone,null,"Village","Connecting to verified story progress")
 			return _target(zone,zone.get_node_or_null("VillageMap/GeraldBossSpawn/GeraldChallenge") as Node2D,"The Fallen Guardian","Speak to Gerald and defeat him","gerald_story")
 		if bool(domain.flags.get("village_gerald_backstory_pending",false)):
 			return _target(zone,null,"The Fallen Guardian","Witness Gerald's memories","gerald_story")
+	elif i == 1 and zone.has_node("StoryGardenCombatSync"):
+		var sync = zone.get_node("StoryGardenCombatSync")
+		if sync.audience_state() != "complete":
+			return _target(zone,zone.get_node_or_null("Zone/RoyalGardenV3Decorations/Elathra") as Node2D,"Royal Gardens","Speak to Elathra","elathra_first_audience")
+		if not sync.royal_gate_unlocked():
+			return _target(zone,zone.get_node_or_null("MireneEncounter") as Node2D,"The Crimson Fool","Defeat Mirène")
 	elif i == 6:
 		if not bool(domain.flags.get("ravienna_ending_seen",false)):
 			var text := "Speak to Ravienna and defeat her" if not bool(domain.flags.get("revienna_defeated",false)) else "Speak to Ravienna to finish the story"
@@ -146,13 +164,13 @@ static func resolve(zone: Node2D) -> Dictionary:
 	var current := index(zone)
 	var manual := str(domain.flags.get("chapter_manual_quest",""))
 	if can_track(zone,manual):
-		var destination := 0 if manual=="gerald_story" else (6 if manual=="ravienna_finale" else int(QUEST_ZONES[manual]))
+		var destination := 0 if manual=="gerald_story" or manual in VILLAGE_QUESTS else (6 if manual=="ravienna_finale" else int(QUEST_ZONES[manual]))
 		if destination != current:
 			var route := _portal(zone,destination)
 			if not route.is_empty():
 				route["quest_id"]=manual
 				return route
-		elif STORY_ENTRIES.has(manual):
+		elif STORY_ENTRIES.has(manual) or manual == "village_gerald_trial":
 			return _local(zone)
 		elif manual != "cassien_resurrection" or domain.quest_step_index(manual)==0 or domain.quest_state("forsaken_braziers")=="complete":
 			return _quest_target(zone,manual)

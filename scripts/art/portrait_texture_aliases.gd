@@ -26,8 +26,6 @@ const COLLECTION_FOLDERS := {
 	"lilith_legendary": "lilith_mythic",
 	"mirene_common": "mirene",
 	"mirene_epic": "mirene",
-	"mirene_legendary": "mirene",
-	"mirene_mythic": "mirene",
 	"nyx_common": "nyx_mythic",
 	"nyx_epic": "nyx_mythic",
 	"nyx_rare": "nyx_mythic",

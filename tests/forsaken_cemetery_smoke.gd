@@ -8,7 +8,7 @@ func run():
  for i in range(5):await physics_frame
  var z=current_scene
  var dressing=z.get_node("CemeteryDressing")
- assert(dressing.get_child_count()==46)
+ assert(dressing.get_child_count()==41)
  for prop in dressing.get_children():
   assert(prop.get_node("Artwork").texture!=null)
   assert(prop.get_node("Body").get_child_count()>0)
@@ -25,7 +25,7 @@ func run():
    if dressing.is_ancestor_of(hit.collider):blocked.append(c)
  assert(blocked.is_empty(),str(blocked))
  assert(z.get_node("RaviennaCourtyard/RaviennaStoneTomb/RitualAnimation").has_animation("awakening"))
- assert(z.get_node("CassienRitual").global_position==Vector2(-908,1196))
+ assert(z.get_node("CassienRitual").global_position==z.get_node("RaviennaCourtyard/WestEntrance").global_position)
  print("FORSAKEN CEMETERY PASS: ",dressing.get_child_count()," props, zero new blocked paved cells, original guard and ritual retained")
  z.queue_free()
  for i in range(3):await process_frame

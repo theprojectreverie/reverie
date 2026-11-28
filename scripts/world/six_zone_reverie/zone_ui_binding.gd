@@ -10,10 +10,7 @@ func _ready() -> void:
     if zone.has_node("CombatRouter"):
         EventBus.encounter_requested.connect(_encounter)
         zone.get_node("CombatRouter").combat_closed.connect(_resume)
-    var beacon := preload("res://scenes/world/quest_destination_marker.tscn").instantiate() as Node2D
-    beacon.name = "ChapterQuestBeacon"
-    beacon.visible = false
-    zone.add_child.call_deferred(beacon)
+    call_deferred("_install_quest_beacon")
     hud.screen_requested.connect(_open_screen)
     hud.menu_requested.connect(_open_pause)
     hud.return_to_title_requested.connect(_return_to_title)
@@ -31,6 +28,17 @@ func _ready() -> void:
     # Royal Gardens already owns the top-center interaction instruction.
     if zone.has_node("NPCDialogueLayer/InteractionPrompt"):
         hud.get_node("Prompt").set_process(false)
+
+
+func _install_quest_beacon() -> void:
+    if not is_inside_tree() or not is_instance_valid(zone) or not zone.is_inside_tree() or zone.is_queued_for_deletion():
+        return
+    if zone.has_node("ChapterQuestBeacon"):
+        return
+    var beacon := preload("res://scenes/world/quest_destination_marker.tscn").instantiate() as Node2D
+    beacon.name = "ChapterQuestBeacon"
+    beacon.visible = false
+    zone.add_child(beacon)
 
 func _player() -> CharacterBody2D:
     return zone.get("checkpoint_player") as CharacterBody2D

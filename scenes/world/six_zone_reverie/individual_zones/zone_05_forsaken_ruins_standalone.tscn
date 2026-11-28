@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=27 format=3]
 
-[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/reverie_exit_southeast.png" id="southeast_exit_art"]
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/ruined_tower_entrance.png" id="southeast_exit_art"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/exit_chevrons.png" id="exit_chevrons"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_01.png" id="perimeter_cloud_1"]
 [ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/road_fog/road_fog_02.png" id="perimeter_cloud_2"]
@@ -38,6 +38,18 @@
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/bird_mob.tscn" id="optional_new_mob"]
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/cemetery_dressing.tscn" id="cemetery_dressing"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/architectural_districts.tscn" id="architectural_districts"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/ruined_kingdom_landmarks.tscn" id="kingdom_landmarks"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/crimson_woodland_clusters.tscn" id="crimson_woodland"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/forsaken_ground_dressing.tscn" id="ruin_ground_dressing"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/central_ruins_clusters.tscn" id="central_ruins_clusters"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/forsaken_cemetery/ruin_atmosphere.tscn" id="ruin_atmosphere"]
 
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
@@ -117,6 +129,7 @@ region_rect = Rect2(-3344, -1882, 8360, 4705)
 position = Vector2(-1654.0, 968.0)
 
 [node name="TransferPoints" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="SafeSpawnFromPreviousZone" type="Marker2D" parent="TransferPoints"]
 position = Vector2(-1600, 1050)
@@ -131,6 +144,7 @@ metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zo
 metadata/connection = "entry"
 
 [node name="ToNextZone" type="Marker2D" parent="TransferPoints"]
+y_sort_enabled = true
 position = Vector2(1664, 2432)
 metadata/target_zone = 6
 metadata/target_scene = "res://scenes/world/six_zone_reverie/individual_zones/zone_06_ruined_tower_standalone.tscn"
@@ -173,7 +187,7 @@ z_index = 30
 position = Vector2(-48, -24)
 rotation = -0.25
 scale = Vector2(0.48, 0.48)
-modulate = Color(1, 1, 1, 0.68)
+modulate = Color(0.87, 0.25, 0.39, 0.68)
 texture = ExtResource("road_fog_ToPreviousZone")
 
 [node name="RoadFog" type="Sprite2D" parent="TransferPoints/ToNextZone"]
@@ -182,7 +196,7 @@ z_index = 30
 position = Vector2(48, 24)
 rotation = 0.25
 scale = Vector2(0.33, 0.33)
-modulate = Color(1, 1, 1, 0.68)
+modulate = Color(0.87, 0.25, 0.39, 0.68)
 texture = ExtResource("road_fog_ToNextZone")
 [node name="FogDrift" type="AnimationPlayer" parent="TransferPoints/ToPreviousZone/RoadFog"]
 autoplay = "drift"
@@ -197,7 +211,7 @@ z_index = 30
 position = Vector2(-115, 48)
 rotation = -0.35
 scale = Vector2(0.58, 0.58)
-modulate = Color(1, 1, 1, 0.55)
+modulate = Color(0.87, 0.25, 0.39, 0.55)
 texture = ExtResource("road_fog_ToPreviousZone")
 
 [node name="RoadFogFlankB" type="Sprite2D" parent="TransferPoints/ToPreviousZone"]
@@ -206,7 +220,7 @@ z_index = 30
 position = Vector2(115, -48)
 rotation = 0.35
 scale = Vector2(0.58, 0.58)
-modulate = Color(1, 1, 1, 0.55)
+modulate = Color(0.87, 0.25, 0.39, 0.55)
 flip_h = true
 texture = ExtResource("road_fog_ToPreviousZone")
 
@@ -216,7 +230,7 @@ z_index = 30
 position = Vector2(-115, 48)
 rotation = -0.35
 scale = Vector2(0.58, 0.58)
-modulate = Color(1, 1, 1, 0.55)
+modulate = Color(0.87, 0.25, 0.39, 0.55)
 texture = ExtResource("road_fog_ToNextZone")
 
 [node name="RoadFogFlankB" type="Sprite2D" parent="TransferPoints/ToNextZone"]
@@ -225,11 +239,12 @@ z_index = 30
 position = Vector2(115, -48)
 rotation = 0.35
 scale = Vector2(0.58, 0.58)
-modulate = Color(1, 1, 1, 0.55)
+modulate = Color(0.87, 0.25, 0.39, 0.55)
 flip_h = true
 texture = ExtResource("road_fog_ToNextZone")
 
 [node name="PerimeterFog" type="Node2D" parent="."]
+modulate = Color(0.87, 0.25, 0.39, 1)
 z_index = 28
 
 [node name="Cloud01" type="Sprite2D" parent="PerimeterFog"]
@@ -649,10 +664,19 @@ modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_1")
 [node name="SoutheastRoadContinuation" type="Sprite2D" parent="TransferPoints/ToNextZone"]
 texture_filter = 1
-z_index = -5
-position = Vector2(-160, -130)
-scale = Vector2(1.25, 1.25)
+position = Vector2(-96, -89)
+offset = Vector2(0, -57)
 texture = ExtResource("southeast_exit_art")
+
+[node name="RuinedTowerWalls" type="StaticBody2D" parent="TransferPoints/ToNextZone"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="LeftWallFootprint" type="CollisionPolygon2D" parent="TransferPoints/ToNextZone/RuinedTowerWalls"]
+polygon = PackedVector2Array(-270, -79, -249, -98, -223, -94, -161, -125, -141, -121, -131, -96, -203, -65, -236, -51, -266, -62)
+
+[node name="RightWallFootprint" type="CollisionPolygon2D" parent="TransferPoints/ToNextZone/RuinedTowerWalls"]
+polygon = PackedVector2Array(-60, -125, -38, -119, 23, -91, 50, -95, 78, -74, 79, -57, 43, -49, 11, -64, -62, -96)
 
 [node name="ContinuationMarker" type="Node2D" parent="TransferPoints/ToNextZone"]
 position = Vector2(-134, -67)
@@ -762,22 +786,22 @@ text = "Purify brazier"
 horizontal_alignment = 1
 
 [node name="RaviennaCourtyard" parent="." instance=ExtResource("ritual_tomb")]
-position = Vector2(-1100, 1100)
+position = Vector2(1588, 1836)
 
 [node name="CombatRouter" type="Node" parent="."]
 script = ExtResource("cassien_combat_router")
 
 [node name="RitualCamera" type="Camera2D" parent="."]
 process_callback = 0
-position = Vector2(-1100, 1250)
+position = Vector2(1588, 1986)
 zoom = Vector2(0.9, 0.9)
 enabled = false
 
 [node name="CassienTombPosition" type="Marker2D" parent="."]
-position = Vector2(-1250, 1050)
+position = Vector2(1438, 1786)
 
 [node name="CassienRitual" type="Node2D" parent="."]
-position = Vector2(-908, 1196)
+position = Vector2(1396, 1932)
 script = ExtResource("cassien_ritual")
 
 
@@ -824,33 +848,51 @@ offset = Vector2(0, -63)
 [node name="ReviennaDepartureRoute" type="Node2D" parent="."]
 
 [node name="Waypoint00" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(-968, 1130)
+position = Vector2(1498, 1946)
 
 [node name="Waypoint01" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(-880, 1170)
+position = Vector2(1396, 1932)
 
 [node name="Waypoint02" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(-780, 1260)
+position = Vector2(1344, 1980)
 
 [node name="Waypoint03" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(-650, 1390)
+position = Vector2(1344, 2016)
 
 [node name="Waypoint04" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(-100, 1500)
+position = Vector2(1376, 2032)
 
 [node name="Waypoint05" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(100, 1550)
+position = Vector2(1216, 2112)
 
 [node name="Waypoint06" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(850, 1980)
+position = Vector2(1568, 2288)
 
 [node name="Waypoint07" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(1030, 2050)
+position = Vector2(1536, 2304)
 
 [node name="Waypoint08" type="Marker2D" parent="ReviennaDepartureRoute"]
-position = Vector2(1568, 2352)
+position = Vector2(1568, 2320)
 
 [node name="Waypoint09" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(1536, 2336)
+
+[node name="Waypoint10" type="Marker2D" parent="ReviennaDepartureRoute"]
+position = Vector2(1568, 2352)
+
+[node name="Waypoint11" type="Marker2D" parent="ReviennaDepartureRoute"]
 position = Vector2(1664, 2432)
 
 [node name="CemeteryDressing" parent="." instance=ExtResource("cemetery_dressing")]
+
+[node name="ArchitecturalDistricts" parent="." instance=ExtResource("architectural_districts")]
+
+[node name="RuinedKingdomLandmarks" parent="." instance=ExtResource("kingdom_landmarks")]
+
+[node name="CrimsonWoodlandClusters" parent="." instance=ExtResource("crimson_woodland")]
+
+[node name="ForsakenGroundDressing" parent="." instance=ExtResource("ruin_ground_dressing")]
+
+[node name="CentralRuinsClusters" parent="." instance=ExtResource("central_ruins_clusters")]
+
+[node name="RuinAtmosphere" parent="." instance=ExtResource("ruin_atmosphere")]

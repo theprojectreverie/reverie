@@ -16,10 +16,12 @@ var _advance_pending := false
 var _music_track_id := ""
 var _cue_end_times: Array[float] = []
 var _total_duration := 0.0
+var _music_started := false
 
 func configure(authored_shots: Array[Dictionary], music_track_id: String = "") -> void:
 	shots = authored_shots
 	_music_track_id = music_track_id
+	_music_started = false
 	_cue_end_times.clear()
 	_total_duration = 0.0
 	for shot in shots:
@@ -61,7 +63,12 @@ func move_next() -> void:
 
 ## Start the authored 0.32-second fade before the next musical cue.
 func cue_due(position: float) -> bool:
-	return active and shot_index < _cue_end_times.size() and position >= _cue_end_times[shot_index] - 0.32
+	if not active or shot_index >= _cue_end_times.size():
+		return false
+	var lead := 0.32
+	if _music_track_id.begins_with("ravienna_story_"):
+		lead = float(shots[shot_index + 1].get("dissolve", 1.5)) * 0.5 if shot_index + 1 < shots.size() else 2.0
+	return position >= _cue_end_times[shot_index] - lead
 
 func _process(delta: float) -> void:
 	if not active or not auto_play or _advance_pending:
@@ -69,7 +76,10 @@ func _process(delta: float) -> void:
 	if not _music_track_id.is_empty():
 		var position := AudioDirector.music_position_for(_music_track_id)
 		if position < 0.0:
+			if _music_started and _music_track_id.begins_with("ravienna_story_"):
+				_music_track_id = ""
 			return
+		_music_started = true
 		progress_changed.emit(clampf(position / maxf(_total_duration, 1.0), 0.0, 1.0))
 		if cue_due(position):
 			request_advance()

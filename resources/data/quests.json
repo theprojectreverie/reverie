@@ -490,15 +490,99 @@
       "crystals": 0,
       "xp": 25
     }
+  },
+  "royal_gate_patrol": {"name":"The Silent Avenue","region":"royal_gate","summary":"Clear the roaming Crownlings from the royal avenue before continuing to Willow Fields.","steps":[{"type":"kill","target":"gate_crownling","count":2,"text":"Defeat two Royal Gate Crownlings"}],"rewards":{"gold":100,"xp":60,"crystals":10,"items":{"royal_seal":1}}},
+  "willow_crossing": {"name":"Echoes Across the Willow","region":"willow_fields","summary":"Follow the river crossing and investigate the ruins on the eastern bank.","steps":[{"type":"explore","target":"willow_bridge","text":"Reach the river crossing"},{"type":"explore","target":"willow_ruins","text":"Investigate the eastern ruins"}],"rewards":{"gold":120,"xp":75,"crystals":15,"items":{"glade_sap":2,"moonpetal":1}}},
+  "elderwood_relics": {"name":"Memories in Stone","region":"elderwood_grove","summary":"Examine the abandoned memorial and ruined pillar for traces of the kingdom's past.","steps":[{"type":"explore","target":"elderwood_memorial","text":"Examine the broken memorial"},{"type":"explore","target":"elderwood_pillar","text":"Examine the weathered pillar"}],"rewards":{"gold":140,"xp":90,"crystals":20,"items":{"gothic_shard":1,"dew_of_awakening":1}}},
+  "forsaken_braziers": {"name":"Ashes of the Forsaken","region":"forsaken_ruins","summary":"Purify three corrupted braziers to open the road to the Ruined Tower.","steps":[{"type":"explore","target":"ruins_western_brazier","text":"Purify the western brazier"},{"type":"explore","target":"ruins_central_brazier","text":"Purify the central brazier"},{"type":"explore","target":"ruins_eastern_brazier","text":"Purify the eastern brazier"}],"rewards":{"gold":180,"xp":120,"crystals":25,"items":{"gothic_shard":2,"dew_of_awakening":1}}},
+  "cassien_resurrection": {"name":"The Crimson Oath","region":"forsaken_ruins","summary":"Meet Cassien, prepare the ritual with him, and witness Ravienna's return.","steps":[{"type":"explore","target":"cassien_altar","text":"Meet Cassien"},{"type":"explore","target":"cassien_altar","text":"Return to Cassien after preparing the ritual"}],"rewards":{"gold":0,"xp":0,"crystals":0}},
+  "village_clear_approach": {
+    "name": "Clear the Village Approach",
+    "region": "greenward",
+    "summary": "Clear the first two village monsters.",
+    "steps": [
+      {
+        "type": "kill",
+        "target": "rose_slime",
+        "count": 2,
+        "text": "Clear the first two village monsters."
+      }
+    ],
+    "rewards": {
+      "xp": 60,
+      "gold": 20
+    }
+  },
+  "village_crimson_duel": {
+    "name": "A Crimson Challenge",
+    "region": "greenward",
+    "summary": "Challenge the scythe wielder on the outskirts.",
+    "steps": [
+      {
+        "type": "kill",
+        "target": "crimson_witch_rival",
+        "count": 1,
+        "text": "Challenge the scythe wielder on the outskirts."
+      }
+    ],
+    "rewards": {
+      "xp": 60,
+      "gold": 20
+    },
+    "requires": "village_clear_approach"
+  },
+  "village_clear_ruins": {
+    "name": "Through the Ruins",
+    "region": "greenward",
+    "summary": "Fight three Crownlings with your new ally.",
+    "steps": [
+      {
+        "type": "kill",
+        "target": "crownling",
+        "count": 3,
+        "text": "Fight three Crownlings with your new ally."
+      }
+    ],
+    "rewards": {
+      "xp": 100,
+      "gold": 20
+    },
+    "requires": "village_crimson_duel"
+  },
+  "village_nyx_duel": {
+    "name": "The Moonlit Stranger",
+    "region": "greenward",
+    "summary": "Find and challenge Nyx after clearing the ruins.",
+    "steps": [
+      {
+        "type": "kill",
+        "target": "nyx_rival",
+        "count": 1,
+        "text": "Find and challenge Nyx after clearing the ruins."
+      }
+    ],
+    "rewards": {
+      "xp": 80,
+      "gold": 20
+    },
+    "requires": "village_clear_ruins"
+  },
+  "village_gerald_trial": {
+    "name": "The Fallen Guardian",
+    "region": "greenward",
+    "summary": "Confront Gerald with your recruited companions.",
+    "steps": [
+      {
+        "type": "kill",
+        "target": "gerald_boss",
+        "count": 1,
+        "text": "Confront Gerald with your recruited companions."
+      }
+    ],
+    "rewards": {
+      "xp": 100,
+      "gold": 20
+    },
+    "requires": "village_nyx_duel"
   }
-,
-"royal_gate_patrol": {"name":"The Silent Avenue","region":"royal_gate","summary":"Clear the roaming Crownlings from the royal avenue before continuing to Willow Fields.","steps":[{"type":"kill","target":"gate_crownling","count":2,"text":"Defeat two Royal Gate Crownlings"}],"rewards":{"gold":100,"xp":60,"crystals":10,"items":{"royal_seal":1}}}
-,
-"willow_crossing": {"name":"Echoes Across the Willow","region":"willow_fields","summary":"Follow the river crossing and investigate the ruins on the eastern bank.","steps":[{"type":"explore","target":"willow_bridge","text":"Reach the river crossing"},{"type":"explore","target":"willow_ruins","text":"Investigate the eastern ruins"}],"rewards":{"gold":120,"xp":75,"crystals":15,"items":{"glade_sap":2,"moonpetal":1}}}
-,
-"elderwood_relics": {"name":"Memories in Stone","region":"elderwood_grove","summary":"Examine the abandoned memorial and ruined pillar for traces of the kingdom's past.","steps":[{"type":"explore","target":"elderwood_memorial","text":"Examine the broken memorial"},{"type":"explore","target":"elderwood_pillar","text":"Examine the weathered pillar"}],"rewards":{"gold":140,"xp":90,"crystals":20,"items":{"gothic_shard":1,"dew_of_awakening":1}}}
-,
-"forsaken_braziers": {"name":"Ashes of the Forsaken","region":"forsaken_ruins","summary":"Purify three corrupted braziers to open the road to the Ruined Tower.","steps":[{"type":"explore","target":"ruins_western_brazier","text":"Purify the western brazier"},{"type":"explore","target":"ruins_central_brazier","text":"Purify the central brazier"},{"type":"explore","target":"ruins_eastern_brazier","text":"Purify the eastern brazier"}],"rewards":{"gold":180,"xp":120,"crystals":25,"items":{"gothic_shard":2,"dew_of_awakening":1}}}
-,
-"cassien_resurrection": {"name":"The Crimson Oath","region":"forsaken_ruins","summary":"Meet Cassien, prepare the ritual with him, and witness Ravienna's return.","steps":[{"type":"explore","target":"cassien_altar","text":"Meet Cassien"},{"type":"explore","target":"cassien_altar","text":"Return to Cassien after preparing the ritual"}],"rewards":{"gold":0,"xp":0,"crystals":0}}
 }

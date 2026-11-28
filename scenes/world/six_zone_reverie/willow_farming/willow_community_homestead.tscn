@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/cottage.tscn" id="cottage"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/wooden_shed.tscn" id="shed"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/vegetable_garden.tscn" id="garden"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/stone_well.tscn" id="well"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_tree.tscn" id="tree"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/rural_flowers.tscn" id="flowers"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/willow_farming/farm_straight_rail.tscn" id="garden_rail"]
+
+[node name="WillowCommunityHomestead" type="Node2D"]
+y_sort_enabled = true
+
+[node name="FamilyCottage" parent="." instance=ExtResource("cottage")]
+position = Vector2(-180, -90)
+
+[node name="ToolShed" parent="." instance=ExtResource("shed")]
+position = Vector2(215, -155)
+
+[node name="GardenWell" parent="." instance=ExtResource("well")]
+position = Vector2(-215, 145)
+
+[node name="VegetablePlot" parent="." instance=ExtResource("garden")]
+position = Vector2(180, 105)
+
+[node name="OrchardTree" parent="." instance=ExtResource("tree")]
+position = Vector2(340, 5)
+scale = Vector2(0.7, 0.7)
+
+[node name="CottageFlowers" parent="." instance=ExtResource("flowers")]
+position = Vector2(-310, 100)
+
+[node name="GardenFlowers" parent="." instance=ExtResource("flowers")]
+position = Vector2(82, 187)
+
+
+[node name="KitchenGardenNorthwest" parent="." instance=ExtResource("garden_rail")]
+position = Vector2(247, 12)
+
+[node name="KitchenGardenNorth" parent="." instance=ExtResource("garden_rail")]
+position = Vector2(317, 47)
+scale = Vector2(-1, 1)
+
+[node name="KitchenGardenLaneReturn" parent="." instance=ExtResource("garden_rail")]
+position = Vector2(247, 82)
+scale = Vector2(-1, 1)

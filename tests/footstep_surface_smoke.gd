@@ -28,9 +28,40 @@ func _run() -> void:
 				sprite = child
 				break
 		samples.append([sprite.to_global(sprite.get_rect().get_center()), cases[i][1]])
+	# Real authored atlas cells, including road overlays above grass.
+	var layer := TileMapLayer.new()
+	layer.tile_set = load("res://scenes/world/six_zone_reverie/tilemaps/willow_refined_ground_tileset.tres")
+	layer.position = Vector2(1200, 0)
+	layer.z_index = 3
+	world.add_child(layer)
+	var expected := {"grass_step": -1, "dirt_step": -1, "stone_step": -1}
+	for i in range(layer.tile_set.get_source_count()):
+		var source_id := layer.tile_set.get_source_id(i)
+		var source := layer.tile_set.get_source(source_id) as TileSetAtlasSource
+		if source == null or source.texture == null:
+			continue
+		var material: String = locomotion._surface_material(source.texture.resource_path)
+		if expected.has(material) and expected[material] == -1:
+			expected[material] = source_id
+	for material in expected:
+		var source_id: int = expected[material]
+		if source_id < 0:
+			push_error("Missing atlas fixture: " + material)
+			get_tree().quit(1)
+			return
+		var coord := Vector2i(samples.size() * 4, 0)
+		var source := layer.tile_set.get_source(source_id) as TileSetAtlasSource
+		layer.set_cell(coord, source_id, source.get_tile_id(0))
+		samples.append([layer.to_global(layer.map_to_local(coord)), material])
+	var wood := Sprite2D.new()
+	wood.texture = load("res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Bedroom/wood_floor_tile_source.png")
+	wood.position = Vector2(2400, 0)
+	world.add_child(wood)
+	samples.append([wood.to_global(wood.get_rect().get_center()), "wood_step"])
+	samples.append([Vector2(9000, 9000), "dirt_step"])
 	var failed := 0
 	for sample in samples:
-		var result: String = locomotion._surface_at(sample[0], "training_ground")
+		var result: String = locomotion._surface_at(sample[0], "willow_fields")
 		if result != sample[1]:
 			failed += 1
 			push_error("Expected %s, got %s" % [sample[1], result])
@@ -38,7 +69,7 @@ func _run() -> void:
 			print("PASS surface: " + result)
 	var audio = get_tree().root.get_node("AudioDirector")
 	for sample in samples:
-		audio.play_variant(locomotion._surface_at(sample[0], "training_ground"))
+		audio.play_variant(locomotion._surface_at(sample[0], "willow_fields"))
 		await get_tree().process_frame
 		var playing := false
 		for p in audio._sfx_players:

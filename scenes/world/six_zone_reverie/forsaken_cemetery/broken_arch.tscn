@@ -16,7 +16,7 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Foot0" type="CollisionPolygon2D" parent="Body"]
-polygon = PackedVector2Array(-82.2775,-10,-63.2775,-23,-44.2775,-10,-63.2775,5)
+polygon = PackedVector2Array(-94, -15, -64, -31, -35, -15, -35, -4, -64, 8, -94, -4)
 
 [node name="Foot1" type="CollisionPolygon2D" parent="Body"]
-polygon = PackedVector2Array(44.2775,-10,63.2775,-23,82.2775,-10,63.2775,5)
+polygon = PackedVector2Array(35, -15, 64, -31, 94, -15, 94, -4, 64, 8, 35, -4)

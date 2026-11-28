@@ -1,0 +1,5 @@
+﻿# Lilith battle and exploration voice assets
+Cherry Twinkle, voice XJ2fW4ybq7HouelYYGcL; ElevenLabs multilingual v2. Battle take 1 (lxl6e0gavHY1QOWN5fGt), exploration take 2 (jaLpMPrnBDcYCrRzkYBr). Selected on measured silence boundaries; source peak -0.4 dBFS for both; attenuation -2.7 dB. 44.1 kHz mono PCM WAV, no added reverb.
+Battle: entrance = Here I go!; basic_attack = Take that!; special_attack = Boo! Got you!; hurt = Ouch!; low_health = I'm not scared!; victory = We did it!
+Exploration: next_destination = Where are we going next?; wait_for_me = Wait for me!; shiny_discovery = Look! Something shiny!; curiosity = I wonder what's over there.; quiet_surroundings = It's so quiet here.; remember_gerald = Big brother would like this place.
+Technical QC only; listening and actual gameplay hooks remain pending. Suggested exploration scheduler: randomized 45-90 s during active walking, no interruptions during dialogue, menus or combat; do not repeat last line. Contextual discovery lines only on relevant events.

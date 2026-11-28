@@ -9,7 +9,7 @@ func _run() -> void:
 	add_child(zone)
 	await get_tree().process_frame
 	var sync := zone.get_node("StoryGardenCombatSync")
-	assert(sync._monsters.size()==9)
+	assert(sync._monsters.size()==10)
 	var slime = sync._monsters["rose_slime_garden_1"]
 	var crown = zone.get_node("Crownling1")
 	var player = zone.checkpoint_player
@@ -21,7 +21,7 @@ func _run() -> void:
 	print("PASS disconnected attacks cannot damage slimes or crownlings")
 	var rows: Array = []
 	for group in sync.GROUPS:rows.append({"groupId":group,"remainingMs":1000 if group==slime.group_id or group==crown.group_id else 0})
-	var data := {"ok":true,"playerId":"qa","encounters":rows,"active":null,"audience":{"questId":"elathra_first_audience","state":"not_started","step":0,"royalGateUnlocked":false}}
+	var data := {"ok":true,"playerId":"qa","encounters":rows,"active":null,"audience":{"questId":"elathra_first_audience","state":"not_started","step":0,"mireneDefeated":false,"royalGateUnlocked":false}}
 	assert(not sync.apply_status(data,"other"))
 	assert(sync.apply_status(data,"qa"))
 	assert(slime.defeated and slime.world_hp==0.0 and slime.sprite.animation==&"defeat")
@@ -41,6 +41,14 @@ func _run() -> void:
 	assert(sync.apply_status(data,"qa"))
 	assert(not crown.defeated and crown.world_hp==crown.max_world_hp and crown.sprite.animation==&"idle")
 	print("PASS independent Crownling and Rose Slime server cooldowns and authored animations")
+	var boss = sync._monsters["mirene_encounter"]
+	assert(not boss.can_interact())
+	data.audience = {"questId":"elathra_first_audience","state":"complete","step":2,"mireneDefeated":false,"royalGateUnlocked":false}
+	assert(sync.apply_status(data,"qa") and boss.can_interact() and boss.visible)
+	data.audience.mireneDefeated = true
+	data.audience.royalGateUnlocked = true
+	assert(sync.apply_status(data,"qa") and boss.defeated and not boss.visible)
+	print("MIRENE SERVER STATUS GATE PASS")
 	zone.queue_free()
 	await get_tree().process_frame
 	await AudioDirector.drain_for_shutdown()

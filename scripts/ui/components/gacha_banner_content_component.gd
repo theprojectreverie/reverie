@@ -144,6 +144,13 @@ func rebuild_main() -> void:
 		var fallback := "res://assets/portraits/summon/%s.png" % featured_id
 		if ResourceLoader.exists(fallback): hero.set_portrait_texture(load(fallback) as Texture2D)
 	hero.visible = hero.portrait_texture != null
+	# Mirene uses the approved complete swing composition (no duplicate hero layer).
+	if featured_id == "mirene" or featured_id.begins_with("mirene_"):
+		var mirene_banner := directory + "mirene_background.png"
+		if ResourceLoader.exists(mirene_banner):
+			backdrop.texture = load(mirene_banner) as Texture2D
+			hero.set_portrait_texture(null)
+			hero.hide()
 	# The approved Lilith composition is a full image until its separate layer exists.
 	if screen._selected_banner == "moonlit_requiem" and not ResourceLoader.exists(character_path):
 		hero.set_portrait_texture(null)

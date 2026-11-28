@@ -1,0 +1,1260 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/royal_gardens_ground_64x32/garden_stone_path.png" id="floor"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/antique_chest.png" id="antique_chest"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/garden_lantern.png" id="garden_lantern"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/rose_gazebo.png" id="gazebo"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/ivory_fence.png" id="ivory_fence"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/marionette_stand.png" id="marionette_stand"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/victorian_dollmaker_manor.png" id="pavilion"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/porcelain_bust.png" id="porcelain_bust"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/porcelain_doll.png" id="porcelain_doll"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/porcelain_pillar.png" id="porcelain_pillar"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/ornamental_gates.png" id="rose_arch"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/rose_planter.png" id="rose_planter"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/stone_balustrade.png" id="stone_balustrade"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/stone_bench.png" id="stone_bench"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/pink_fountain.png" id="pink_fountain"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/rose_arch.png" id="rose_arch_generated"]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/forgotten_pavilion/generated/rose_bed.png" id="rose_bed"]
+
+[node name="ForgottenPavilion" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CourtyardPaving" type="Node2D" parent="."]
+z_index = -18
+
+[node name="Paving_1_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, -128)
+texture = ExtResource("floor")
+
+[node name="Paving_1_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, -112)
+texture = ExtResource("floor")
+
+[node name="Paving_1_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, -96)
+texture = ExtResource("floor")
+
+[node name="Paving_1_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, -80)
+texture = ExtResource("floor")
+
+[node name="Paving_1_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, -64)
+texture = ExtResource("floor")
+
+[node name="Paving_1_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-160, -48)
+texture = ExtResource("floor")
+
+[node name="Paving_1_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-192, -32)
+texture = ExtResource("floor")
+
+[node name="Paving_1_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-224, -16)
+texture = ExtResource("floor")
+
+[node name="Paving_1_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-256, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_2_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, -112)
+texture = ExtResource("floor")
+
+[node name="Paving_2_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, -96)
+texture = ExtResource("floor")
+
+[node name="Paving_2_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, -80)
+texture = ExtResource("floor")
+
+[node name="Paving_2_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, -64)
+texture = ExtResource("floor")
+
+[node name="Paving_2_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, -48)
+texture = ExtResource("floor")
+
+[node name="Paving_2_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, -32)
+texture = ExtResource("floor")
+
+[node name="Paving_2_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-160, -16)
+texture = ExtResource("floor")
+
+[node name="Paving_2_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-192, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_2_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-224, 16)
+texture = ExtResource("floor")
+
+[node name="Paving_3_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, -96)
+texture = ExtResource("floor")
+
+[node name="Paving_3_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, -80)
+texture = ExtResource("floor")
+
+[node name="Paving_3_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, -64)
+texture = ExtResource("floor")
+
+[node name="Paving_3_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, -48)
+texture = ExtResource("floor")
+
+[node name="Paving_3_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, -32)
+texture = ExtResource("floor")
+
+[node name="Paving_3_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, -16)
+texture = ExtResource("floor")
+
+[node name="Paving_3_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_3_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-160, 16)
+texture = ExtResource("floor")
+
+[node name="Paving_3_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-192, 32)
+texture = ExtResource("floor")
+
+[node name="Paving_4_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, -80)
+texture = ExtResource("floor")
+
+[node name="Paving_4_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, -64)
+texture = ExtResource("floor")
+
+[node name="Paving_4_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, -48)
+texture = ExtResource("floor")
+
+[node name="Paving_4_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, -32)
+texture = ExtResource("floor")
+
+[node name="Paving_4_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, -16)
+texture = ExtResource("floor")
+
+[node name="Paving_4_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_4_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, 16)
+texture = ExtResource("floor")
+
+[node name="Paving_4_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, 32)
+texture = ExtResource("floor")
+
+[node name="Paving_4_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-160, 48)
+texture = ExtResource("floor")
+
+[node name="Paving_5_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, -64)
+texture = ExtResource("floor")
+
+[node name="Paving_5_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, -48)
+texture = ExtResource("floor")
+
+[node name="Paving_5_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, -32)
+texture = ExtResource("floor")
+
+[node name="Paving_5_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, -16)
+texture = ExtResource("floor")
+
+[node name="Paving_5_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_5_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, 16)
+texture = ExtResource("floor")
+
+[node name="Paving_5_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, 32)
+texture = ExtResource("floor")
+
+[node name="Paving_5_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, 48)
+texture = ExtResource("floor")
+
+[node name="Paving_5_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, 64)
+texture = ExtResource("floor")
+
+[node name="Paving_6_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, -48)
+texture = ExtResource("floor")
+
+[node name="Paving_6_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, -32)
+texture = ExtResource("floor")
+
+[node name="Paving_6_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, -16)
+texture = ExtResource("floor")
+
+[node name="Paving_6_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_6_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, 16)
+texture = ExtResource("floor")
+
+[node name="Paving_6_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, 32)
+texture = ExtResource("floor")
+
+[node name="Paving_6_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, 48)
+texture = ExtResource("floor")
+
+[node name="Paving_6_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, 64)
+texture = ExtResource("floor")
+
+[node name="Paving_6_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, 80)
+texture = ExtResource("floor")
+
+[node name="Paving_7_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, -32)
+texture = ExtResource("floor")
+
+[node name="Paving_7_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, -16)
+texture = ExtResource("floor")
+
+[node name="Paving_7_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_7_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, 16)
+texture = ExtResource("floor")
+
+[node name="Paving_7_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, 32)
+texture = ExtResource("floor")
+
+[node name="Paving_7_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, 48)
+texture = ExtResource("floor")
+
+[node name="Paving_7_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, 64)
+texture = ExtResource("floor")
+
+[node name="Paving_7_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, 80)
+texture = ExtResource("floor")
+
+[node name="Paving_7_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, 96)
+texture = ExtResource("floor")
+
+[node name="Paving_8_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, -16)
+texture = ExtResource("floor")
+
+[node name="Paving_8_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_8_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, 16)
+texture = ExtResource("floor")
+
+[node name="Paving_8_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, 32)
+texture = ExtResource("floor")
+
+[node name="Paving_8_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, 48)
+texture = ExtResource("floor")
+
+[node name="Paving_8_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, 64)
+texture = ExtResource("floor")
+
+[node name="Paving_8_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, 80)
+texture = ExtResource("floor")
+
+[node name="Paving_8_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, 96)
+texture = ExtResource("floor")
+
+[node name="Paving_8_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, 112)
+texture = ExtResource("floor")
+
+[node name="Paving_9_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, 0)
+texture = ExtResource("floor")
+
+[node name="Paving_9_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, 16)
+texture = ExtResource("floor")
+
+[node name="Paving_9_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, 32)
+texture = ExtResource("floor")
+
+[node name="Paving_9_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, 48)
+texture = ExtResource("floor")
+
+[node name="Paving_9_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, 64)
+texture = ExtResource("floor")
+
+[node name="Paving_9_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, 80)
+texture = ExtResource("floor")
+
+[node name="Paving_9_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, 96)
+texture = ExtResource("floor")
+
+[node name="Paving_9_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, 112)
+texture = ExtResource("floor")
+
+[node name="Paving_9_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(0, 128)
+texture = ExtResource("floor")
+
+[node name="Paving_10_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, 112)
+texture = ExtResource("floor")
+
+[node name="Paving_10_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, 128)
+texture = ExtResource("floor")
+
+[node name="Paving_10_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(32, 144)
+texture = ExtResource("floor")
+
+[node name="Paving_11_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, 128)
+texture = ExtResource("floor")
+
+[node name="Paving_11_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, 144)
+texture = ExtResource("floor")
+
+[node name="Paving_11_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(64, 160)
+texture = ExtResource("floor")
+
+[node name="Paving_12_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, 144)
+texture = ExtResource("floor")
+
+[node name="Paving_12_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, 160)
+texture = ExtResource("floor")
+
+[node name="Paving_12_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, 176)
+texture = ExtResource("floor")
+
+[node name="Paving_13_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, 160)
+texture = ExtResource("floor")
+
+[node name="Paving_13_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, 176)
+texture = ExtResource("floor")
+
+[node name="Paving_13_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, 192)
+texture = ExtResource("floor")
+
+[node name="Paving_14_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, 176)
+texture = ExtResource("floor")
+
+[node name="Paving_14_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, 192)
+texture = ExtResource("floor")
+
+[node name="Paving_14_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, 208)
+texture = ExtResource("floor")
+
+[node name="Paving_15_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, 192)
+texture = ExtResource("floor")
+
+[node name="Paving_15_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, 208)
+texture = ExtResource("floor")
+
+[node name="Paving_15_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, 224)
+texture = ExtResource("floor")
+
+[node name="Paving_16_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(288, 208)
+texture = ExtResource("floor")
+
+[node name="Paving_16_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, 224)
+texture = ExtResource("floor")
+
+[node name="Paving_16_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, 240)
+texture = ExtResource("floor")
+
+[node name="Paving_17_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(320, 224)
+texture = ExtResource("floor")
+
+[node name="Paving_17_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(288, 240)
+texture = ExtResource("floor")
+
+[node name="Paving_17_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, 256)
+texture = ExtResource("floor")
+
+[node name="Paving_18_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(352, 240)
+texture = ExtResource("floor")
+
+[node name="Paving_18_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(320, 256)
+texture = ExtResource("floor")
+
+[node name="Paving_18_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(288, 272)
+texture = ExtResource("floor")
+
+
+[node name="GardenWing_8_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, -176)
+texture = ExtResource("floor")
+
+[node name="GardenWing_8_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, -160)
+texture = ExtResource("floor")
+
+[node name="GardenWing_8_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, -144)
+texture = ExtResource("floor")
+
+[node name="GardenWing_8_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, -128)
+texture = ExtResource("floor")
+
+[node name="GardenWing_8_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(96, -112)
+texture = ExtResource("floor")
+
+[node name="GardenWing_9_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, -160)
+texture = ExtResource("floor")
+
+[node name="GardenWing_9_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, -144)
+texture = ExtResource("floor")
+
+[node name="GardenWing_9_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, -128)
+texture = ExtResource("floor")
+
+[node name="GardenWing_9_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, -112)
+texture = ExtResource("floor")
+
+[node name="GardenWing_9_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(128, -96)
+texture = ExtResource("floor")
+
+[node name="GardenWing_10_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(288, -144)
+texture = ExtResource("floor")
+
+[node name="GardenWing_10_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, -128)
+texture = ExtResource("floor")
+
+[node name="GardenWing_10_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, -112)
+texture = ExtResource("floor")
+
+[node name="GardenWing_10_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, -96)
+texture = ExtResource("floor")
+
+[node name="GardenWing_10_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(160, -80)
+texture = ExtResource("floor")
+
+[node name="GardenWing_11_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(320, -128)
+texture = ExtResource("floor")
+
+[node name="GardenWing_11_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(288, -112)
+texture = ExtResource("floor")
+
+[node name="GardenWing_11_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, -96)
+texture = ExtResource("floor")
+
+[node name="GardenWing_11_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, -80)
+texture = ExtResource("floor")
+
+[node name="GardenWing_11_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(192, -64)
+texture = ExtResource("floor")
+
+[node name="GardenWing_12_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(352, -112)
+texture = ExtResource("floor")
+
+[node name="GardenWing_12_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(320, -96)
+texture = ExtResource("floor")
+
+[node name="GardenWing_12_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(288, -80)
+texture = ExtResource("floor")
+
+[node name="GardenWing_12_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, -64)
+texture = ExtResource("floor")
+
+[node name="GardenWing_12_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(224, -48)
+texture = ExtResource("floor")
+
+[node name="GardenWing_13_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(384, -96)
+texture = ExtResource("floor")
+
+[node name="GardenWing_13_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(352, -80)
+texture = ExtResource("floor")
+
+[node name="GardenWing_13_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(320, -64)
+texture = ExtResource("floor")
+
+[node name="GardenWing_13_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(288, -48)
+texture = ExtResource("floor")
+
+[node name="GardenWing_13_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(256, -32)
+texture = ExtResource("floor")
+
+[node name="GardenWing_14_1" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(416, -80)
+texture = ExtResource("floor")
+
+[node name="GardenWing_14_2" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(384, -64)
+texture = ExtResource("floor")
+
+[node name="GardenWing_14_3" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(352, -48)
+texture = ExtResource("floor")
+
+[node name="GardenWing_14_4" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(320, -32)
+texture = ExtResource("floor")
+
+[node name="GardenWing_14_5" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(288, -16)
+texture = ExtResource("floor")
+
+
+[node name="WestTerrace_2_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, -192)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_2_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-160, -176)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_2_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-192, -160)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_2_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-224, -144)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_2_10" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-256, -128)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_2_11" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-288, -112)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_2_12" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-320, -96)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_3_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, -176)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_3_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, -160)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_3_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-160, -144)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_3_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-192, -128)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_3_10" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-224, -112)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_3_11" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-256, -96)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_3_12" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-288, -80)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_4_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, -160)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_4_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, -144)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_4_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, -128)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_4_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-160, -112)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_4_10" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-192, -96)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_4_11" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-224, -80)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_4_12" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-256, -64)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_5_6" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-32, -144)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_5_7" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-64, -128)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_5_8" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-96, -112)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_5_9" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-128, -96)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_5_10" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-160, -80)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_5_11" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-192, -64)
+texture = ExtResource("floor")
+
+[node name="WestTerrace_5_12" type="Sprite2D" parent="CourtyardPaving"]
+texture_filter = 1
+position = Vector2(-224, -48)
+texture = ExtResource("floor")
+
+[node name="DollmakerPavilion" type="StaticBody2D" parent="."]
+position = Vector2(-15, -66)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="DollmakerPavilion"]
+texture_filter = 1
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("pavilion")
+offset = Vector2(0, -175)
+[node name="Footprint" type="CollisionPolygon2D" parent="DollmakerPavilion"]
+polygon = PackedVector2Array(-190, -76, 14, -160, 194, -72, 0, 0)
+
+[node name="GardenGazebo" type="StaticBody2D" parent="."]
+position = Vector2(198, 23)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="GardenGazebo"]
+texture_filter = 1
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("gazebo")
+offset = Vector2(0, -168)
+[node name="Footprint" type="CollisionPolygon2D" parent="GardenGazebo"]
+polygon = PackedVector2Array(-83, -37, 0, -80, 83, -38, 0, 0)
+
+[node name="RoseEntrance" type="StaticBody2D" parent="."]
+position = Vector2(167, 197)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RoseEntrance"]
+texture_filter = 1
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("rose_arch")
+offset = Vector2(0, -124)
+[node name="Footprint" type="CollisionPolygon2D" parent="RoseEntrance"]
+polygon = PackedVector2Array(-42, -2, -40, -4, -38, -2, -40, 0)
+[node name="RightFootprint" type="CollisionPolygon2D" parent="RoseEntrance"]
+polygon = PackedVector2Array(38, -2, 40, -4, 42, -2, 40, 0)
+
+[node name="PorcelainDollWest" type="StaticBody2D" parent="."]
+position = Vector2(-172, -24)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="PorcelainDollWest"]
+texture_filter = 1
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("porcelain_doll")
+offset = Vector2(0, -148.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="PorcelainDollWest"]
+polygon = PackedVector2Array(-24, -11, 0, -25, 25, -12, 0, 0)
+
+[node name="PorcelainBustEast" type="StaticBody2D" parent="."]
+position = Vector2(165, 3)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="PorcelainBustEast"]
+texture_filter = 1
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("porcelain_bust")
+offset = Vector2(0, -102.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="PorcelainBustEast"]
+polygon = PackedVector2Array(-23, -11, 0, -24, 23, -11, 0, 0)
+
+[node name="MarionetteDisplay" type="StaticBody2D" parent="."]
+position = Vector2(-120, -31)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="MarionetteDisplay"]
+texture_filter = 1
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("marionette_stand")
+offset = Vector2(0, -138.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="MarionetteDisplay"]
+polygon = PackedVector2Array(-14, -6, 0, -15, 14, -6, 0, 0)
+
+[node name="AntiqueChest" type="StaticBody2D" parent="."]
+position = Vector2(79, -56)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="AntiqueChest"]
+texture_filter = 1
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("antique_chest")
+offset = Vector2(0, -77.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="AntiqueChest"]
+polygon = PackedVector2Array(-26, -12, 0, -27, 26, -12, 0, 0)
+
+[node name="RosePlanterWest" type="StaticBody2D" parent="."]
+position = Vector2(-245, -40)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RosePlanterWest"]
+texture_filter = 1
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("rose_planter")
+offset = Vector2(0, -126.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="RosePlanterWest"]
+polygon = PackedVector2Array(-17, -7, 0, -16, 17, -7, 0, 0)
+
+[node name="RosePlanterEast" type="StaticBody2D" parent="."]
+position = Vector2(213, 95)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RosePlanterEast"]
+texture_filter = 1
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("rose_planter")
+offset = Vector2(0, -126.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="RosePlanterEast"]
+polygon = PackedVector2Array(-17, -7, 0, -16, 17, -7, 0, 0)
+
+[node name="BenchWest" type="StaticBody2D" parent="."]
+position = Vector2(-193, -2)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="BenchWest"]
+texture_filter = 1
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("stone_bench")
+offset = Vector2(0, -98.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="BenchWest"]
+polygon = PackedVector2Array(-35, -24, 18, -40, 35, -14, -18, 0)
+
+[node name="IvoryFenceWest" type="StaticBody2D" parent="."]
+position = Vector2(-293, -37)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="IvoryFenceWest"]
+texture_filter = 1
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("ivory_fence")
+offset = Vector2(0, -67.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="IvoryFenceWest"]
+polygon = PackedVector2Array(-25, -4, 23, -28, 28, -21, -20, 4)
+
+[node name="BalustradeEast" type="StaticBody2D" parent="."]
+position = Vector2(406, -65)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="BalustradeEast"]
+texture_filter = 1
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("stone_balustrade")
+offset = Vector2(0, -123.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="BalustradeEast"]
+polygon = PackedVector2Array(-43, -41, 44, -5, 39, 3, -48, -33)
+
+[node name="PillarWest" type="StaticBody2D" parent="."]
+position = Vector2(-263, 32)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="PillarWest"]
+texture_filter = 1
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("porcelain_pillar")
+offset = Vector2(0, -117.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="PillarWest"]
+polygon = PackedVector2Array(-12, -6, 0, -13, 12, -6, 0, 0)
+
+[node name="LanternWest" type="StaticBody2D" parent="."]
+position = Vector2(145, 110)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="LanternWest"]
+texture_filter = 1
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("garden_lantern")
+offset = Vector2(0, -133.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="LanternWest"]
+polygon = PackedVector2Array(-12, -5, 0, -12, 12, -5, 0, 0)
+
+[node name="LanternEast" type="StaticBody2D" parent="."]
+position = Vector2(245, 203)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="LanternEast"]
+texture_filter = 1
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("garden_lantern")
+offset = Vector2(0, -133.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="LanternEast"]
+polygon = PackedVector2Array(-12, -5, 0, -12, 12, -5, 0, 0)
+
+[node name="PorcelainFountain" type="StaticBody2D" parent="."]
+position = Vector2(-114, 33)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Artwork" type="Sprite2D" parent="PorcelainFountain"]
+texture_filter = 1
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("pink_fountain")
+offset = Vector2(0, -72.5)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="PorcelainFountain"]
+polygon = PackedVector2Array(-48, -13, 0, -25, 48, -13, 0, 0)
+
+[node name="RoseGardenArchEast" type="StaticBody2D" parent="."]
+position = Vector2(374, 45)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Artwork" type="Sprite2D" parent="RoseGardenArchEast"]
+texture_filter = 1
+scale = Vector2(0.43, 0.43)
+texture = ExtResource("rose_arch_generated")
+offset = Vector2(0, -143)
+
+[node name="Footprint" type="CollisionPolygon2D" parent="RoseGardenArchEast"]
+polygon = PackedVector2Array(-77, -4, -68, -8, -59, -4, -68, 0)
+
+[node name="RightFootprint" type="CollisionPolygon2D" parent="RoseGardenArchEast"]
+polygon = PackedVector2Array(59, -4, 68, -8, 77, -4, 68, 0)
+
+[node name="BossCourtyard" type="Marker2D" parent="."]
+position = Vector2(0, 58)
+
+[node name="Entrance" type="Marker2D" parent="."]
+position = Vector2(246, 258)
+
+[node name="WingRoseNorth" type="StaticBody2D" parent="."]
+position = Vector2(264, -138)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="WingRoseNorth"]
+texture_filter = 1
+scale = Vector2(0.43, 0.43)
+texture = ExtResource("rose_planter")
+offset = Vector2(0, -126.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="WingRoseNorth"]
+polygon = PackedVector2Array(-25, -12.5, 0, -25, 25, -12.5, 0, 0)
+
+[node name="WingRoseEast" type="StaticBody2D" parent="."]
+position = Vector2(443, -85)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="WingRoseEast"]
+texture_filter = 1
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("rose_planter")
+offset = Vector2(0, -126.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="WingRoseEast"]
+polygon = PackedVector2Array(-23, -11.5, 0, -23, 23, -11.5, 0, 0)
+
+[node name="WingPorcelain" type="StaticBody2D" parent="."]
+position = Vector2(365, -132)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="WingPorcelain"]
+texture_filter = 1
+scale = Vector2(0.44, 0.44)
+texture = ExtResource("porcelain_bust")
+offset = Vector2(0, -102.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="WingPorcelain"]
+polygon = PackedVector2Array(-24, -12.0, 0, -24, 24, -12.0, 0, 0)
+
+[node name="WingLantern" type="StaticBody2D" parent="."]
+position = Vector2(430, -8)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="WingLantern"]
+texture_filter = 1
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("garden_lantern")
+offset = Vector2(0, -133.0)
+[node name="Footprint" type="CollisionPolygon2D" parent="WingLantern"]
+polygon = PackedVector2Array(-10, -5.0, 0, -10, 10, -5.0, 0, 0)
+
+[node name="RearRoseBed" type="StaticBody2D" parent="."]
+position = Vector2(210, -175)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RearRoseBed"]
+texture_filter = 1
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("rose_bed")
+offset = Vector2(0, -192.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="RearRoseBed"]
+polygon = PackedVector2Array(-65.71, -27.93, 0, -55.85, 65.71, -27.93, 0, 0)
+
+[node name="WestTerraceRoses" type="StaticBody2D" parent="."]
+position = Vector2(-265, -100)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="WestTerraceRoses"]
+texture_filter = 1
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("rose_bed")
+offset = Vector2(0, -192.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="WestTerraceRoses"]
+polygon = PackedVector2Array(-55, -27.5, 0, -55, 55, -27.5, 0, 0)
+
+[node name="WestTerracePlanter" type="StaticBody2D" parent="."]
+position = Vector2(-335, -118)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="WestTerracePlanter"]
+texture_filter = 1
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("rose_planter")
+offset = Vector2(0, -126.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="WestTerracePlanter"]
+polygon = PackedVector2Array(-23, -11.5, 0, -23, 23, -11.5, 0, 0)
+
+[node name="RiverTerraceBalustrade1" type="StaticBody2D" parent="."]
+position = Vector2(-218, 50)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RiverTerraceBalustrade1"]
+texture_filter = 1
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("stone_balustrade")
+offset = Vector2(0, -123.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="RiverTerraceBalustrade1"]
+polygon = PackedVector2Array(-43, -41, 44, -5, 39, 3, -48, -33)
+
+[node name="RiverTerraceBalustrade2" type="StaticBody2D" parent="."]
+position = Vector2(-136, 86)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RiverTerraceBalustrade2"]
+texture_filter = 1
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("stone_balustrade")
+offset = Vector2(0, -123.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="RiverTerraceBalustrade2"]
+polygon = PackedVector2Array(-43, -41, 44, -5, 39, 3, -48, -33)
+
+[node name="RiverTerraceBalustrade3" type="StaticBody2D" parent="."]
+position = Vector2(-54, 122)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RiverTerraceBalustrade3"]
+texture_filter = 1
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("stone_balustrade")
+offset = Vector2(0, -123.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="RiverTerraceBalustrade3"]
+polygon = PackedVector2Array(-43, -41, 44, -5, 39, 3, -48, -33)
+
+[node name="RiverTerraceBalustrade4" type="StaticBody2D" parent="."]
+position = Vector2(-300, 14)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RiverTerraceBalustrade4"]
+texture_filter = 1
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("stone_balustrade")
+offset = Vector2(0, -123.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="RiverTerraceBalustrade4"]
+polygon = PackedVector2Array(-43, -41, 44, -5, 39, 3, -48, -33)
+
+[node name="RiverTerraceBalustrade5" type="StaticBody2D" parent="."]
+position = Vector2(-382, -22)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="RiverTerraceBalustrade5"]
+texture_filter = 1
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("stone_balustrade")
+offset = Vector2(0, -123.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="RiverTerraceBalustrade5"]
+polygon = PackedVector2Array(-43, -41, 44, -5, 39, 3, -48, -33)
+
+[node name="GateEastReturn" type="StaticBody2D" parent="."]
+position = Vector2(255, 185)
+scale = Vector2(-1, 1)
+collision_layer = 1
+collision_mask = 0
+[node name="Artwork" type="Sprite2D" parent="GateEastReturn"]
+texture_filter = 1
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("stone_balustrade")
+offset = Vector2(0, -123.5)
+[node name="Footprint" type="CollisionPolygon2D" parent="GateEastReturn"]
+polygon = PackedVector2Array(-43, -41, 44, -5, 39, 3, -48, -33)
+

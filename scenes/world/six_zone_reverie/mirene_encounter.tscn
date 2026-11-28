@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/mirene_encounter.gd" id="logic"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/harlequin/world_sheet.tres" id="art"]
+
+[node name="MireneEncounter" type="Node2D"]
+script = ExtResource("logic")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -39)
+scale = Vector2(0.68, 0.68)
+sprite_frames = ExtResource("art")
+animation = &"idle_0"

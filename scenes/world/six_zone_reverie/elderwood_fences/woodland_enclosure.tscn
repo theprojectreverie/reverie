@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/environment/six_zone_reverie/elderwood_fences/woodland_enclosure.png" id="1"]
+
+[node name="WoodlandEnclosure" type="Node2D"]
+
+[node name="Artwork" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+texture = ExtResource("1")
+scale = Vector2(0.40, 0.40)
+offset = Vector2(-212.00, -372.00)
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Footprint1" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-67.81, -49.72, -18.21, -79.72, -23.39, -88.28, -72.99, -58.28)
+
+[node name="Footprint2" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-23.10, -79.56, 65.70, -33.56, 70.30, -42.44, -18.50, -88.44)
+
+[node name="Footprint3" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(65.56, -42.36, -2.44, -4.36, 2.44, 4.36, 70.44, -33.64)
+
+[node name="Footprint4" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(3.04, -3.97, -67.36, -57.97, -73.44, -50.03, -3.04, 3.97)
+
+[node name="Footprint5" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-78.40, -54.00, -70.40, -58.40, -62.40, -54.00, -70.40, -49.60)
+
+[node name="Footprint6" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-28.80, -84.00, -20.80, -88.40, -12.80, -84.00, -20.80, -79.60)
+
+[node name="Footprint7" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(60.00, -38.00, 68.00, -42.40, 76.00, -38.00, 68.00, -33.60)
+
+[node name="Footprint8" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-8.00, 0.00, 0.00, -4.40, 8.00, 0.00, 0.00, 4.40)

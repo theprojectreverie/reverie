@@ -1,5 +1,7 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=12 format=3]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/drowned_orchid_ruins/elderwood_flooded_landscape.tscn" id="flooded_landscape"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/drowned_orchid_ruins/drowned_orchid_ruins.tscn" id="orchid_ruins"]
 [ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/road_paint_tileset.tres" id="paint_roads"]
 
 [ext_resource type="TileSet" path="res://scenes/world/six_zone_reverie/tilemaps/water_tileset.tres" id="paint_water"]
@@ -51,3 +53,8 @@ texture_filter = 1
 z_index = -19
 tile_set = ExtResource("paint_roads")
 
+
+[node name="DrownedOrchidRuins" parent="." instance=ExtResource("orchid_ruins")]
+position = Vector2(800, 1040)
+
+[node name="FloodedLandscape" parent="." instance=ExtResource("flooded_landscape")]

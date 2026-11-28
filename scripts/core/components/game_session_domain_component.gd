@@ -7,6 +7,7 @@ var has_player_position: bool = false
 var player_facing: Vector2 = Vector2(0.0, 1.0)
 var player_region: String = "greenward"
 var active_world_id: String = "greenward"
+var active_avatar_id: String = ""
 var region_positions: Dictionary = {}
 var loaded_from_save: bool = false
 
@@ -17,6 +18,7 @@ func reset() -> void:
 	player_facing = Vector2(0.0, 1.0)
 	player_region = "greenward"
 	active_world_id = "greenward"
+	active_avatar_id = ""
 	region_positions.clear()
 	loaded_from_save = false
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/characters/elathra/elathra_idle_128x128.png" id="idle"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/elathra/combat_frames.tres" id="combat_frames"]
 
 [sub_resource type="AtlasTexture" id="frame0"]
 atlas = ExtResource("idle")
@@ -56,7 +57,7 @@ _data = {"cast": SubResource("cast"), "hit": SubResource("hit"), "defeat": SubRe
 
 [node name="ElathraCombatArt" type="AnimatedSprite2D"]
 texture_filter = 1
-sprite_frames = SubResource("frames")
+sprite_frames = ExtResource("combat_frames")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -64)

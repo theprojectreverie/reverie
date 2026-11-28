@@ -1,0 +1,39 @@
+﻿[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/pearl_city_draft/pearl_city_playable_preview.tscn" id="city"]
+[ext_resource type="Script" path="res://scenes/world/six_zone_reverie/pearl_city_draft/preview_walk_controller.gd" id="walk"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/kael_avatar/world_sheet.tres" id="frames"]
+
+[sub_resource type="CircleShape2D" id="feet"]
+radius = 18.0
+
+[node name="PearlCityWalkReview" type="Node2D"]
+texture_filter = 1
+y_sort_enabled = true
+
+[node name="City" parent="." instance=ExtResource("city")]
+
+[node name="PreviewKael" type="CharacterBody2D" parent="."]
+position = Vector2(0, 900)
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("walk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PreviewKael"]
+shape = SubResource("feet")
+
+[node name="Artwork" type="AnimatedSprite2D" parent="PreviewKael"]
+texture_filter = 1
+position = Vector2(0, -43)
+scale = Vector2(0.85, 0.85)
+sprite_frames = ExtResource("frames")
+animation = &"idle_0"
+autoplay = "idle_0"
+
+[node name="Camera2D" type="Camera2D" parent="PreviewKael"]
+zoom = Vector2(0.85, 0.85)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+

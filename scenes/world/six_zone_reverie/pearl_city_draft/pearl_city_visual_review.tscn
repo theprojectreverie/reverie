@@ -1,0 +1,15 @@
+﻿[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/pearl_city_draft/pearl_city_playable_preview.tscn" id="city"]
+[ext_resource type="Script" path="res://scenes/world/six_zone_reverie/pearl_city_draft/preview_camera.gd" id="camera"]
+
+[node name="PearlCityVisualReview" type="Node2D"]
+texture_filter = 1
+
+[node name="City" parent="." instance=ExtResource("city")]
+
+[node name="ReviewCamera" type="Camera2D" parent="."]
+position = Vector2(0, 1450)
+zoom = Vector2(0.25, 0.25)
+script = ExtResource("camera")
+

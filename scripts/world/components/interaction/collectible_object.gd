@@ -33,6 +33,13 @@ func interact() -> void:
 		GameState.inventory_domain.grant_reward_items(rewards)
 	GameState.queue_save()
 	AudioDirector.play_variant("item_pickup")
+	var avatar := get_tree().get_first_node_in_group("player")
+	if avatar != null and AudioDirector.is_lilith_voice_id(str(avatar.get("avatar_id"))):
+		AudioDirector.play_lilith_voice("exploration/shiny_discovery", avatar)
+	elif avatar != null and AudioDirector.is_kael_voice_id(str(avatar.get("avatar_id"))) and ("memory" in key.to_lower() or "memory" in str(collectible_id).to_lower()):
+		AudioDirector.play_kael_voice("exploration/memory", avatar)
+	elif avatar != null and AudioDirector.final_voice_character(str(avatar.get("avatar_id"))) == "elathra" and ("orchid" in key.to_lower() or "orchid" in str(collectible_id).to_lower()):
+		AudioDirector.play_character_voice("elathra", "exploration/orchid", avatar)
 	collected.emit(collectible_id, rewards.duplicate(true))
 	EventBus.toast_requested.emit(collect_message)
 	enabled = false

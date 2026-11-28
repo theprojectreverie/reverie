@@ -152,6 +152,8 @@ func _open_coop_panel() -> void:
 		return
 	coop_panel = preload("res://scenes/ui/components/coop_revienna_battle.tscn").instantiate()
 	zone.get_node("UI/Combat").add_child(coop_panel)
+	var previous_music := AudioDirector.begin_screen_music("ravienna_boss")
+	coop_panel.tree_exiting.connect(AudioDirector.end_screen_music.bind("ravienna_boss", previous_music), CONNECT_ONE_SHOT)
 	coop_panel.call("apply_state", coop_hp, false, false, "", coop_phase, coop_warning)
 	coop_panel.get_node("Center/Panel/Content/Attack").pressed.connect(_coop_strike)
 	coop_panel.get_node("Center/Panel/Content/Guard").pressed.connect(_coop_guard)

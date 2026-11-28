@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/corrected/willow_tree_large.png" id="willow_large"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/corrected/willow_tree_medium.png" id="willow_medium"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_028.png" id="rose_flowers"]
+[ext_resource type="Texture2D" path="res://assets/world/six_zone_reverie/zone_03_willow_fields/extracted/willow_asset_037.png" id="white_flowers"]
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/terrain/willow_environment_footprint.tscn" id="trunk"]
+
+[node name="WillowMeadowGrove" type="Node2D"]
+y_sort_enabled = true
+
+[node name="RearWillow" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(150, -150)
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("willow_large")
+offset = Vector2(0, -261.5)
+
+[node name="RearTrunk" parent="." instance=ExtResource("trunk")]
+position = Vector2(150, -150)
+scale = Vector2(0.66, 0.66)
+
+[node name="WestWillow" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-155, -32)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("willow_medium")
+offset = Vector2(0, -222.5)
+
+[node name="WestTrunk" parent="." instance=ExtResource("trunk")]
+position = Vector2(-155, -32)
+scale = Vector2(0.78, 0.78)
+
+[node name="FrontWillow" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(112, 110)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("willow_large")
+offset = Vector2(0, -261.5)
+
+[node name="FrontTrunk" parent="." instance=ExtResource("trunk")]
+position = Vector2(112, 110)
+scale = Vector2(0.82, 0.82)
+
+[node name="BlushWildflowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-135, -10)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("rose_flowers")
+
+[node name="WhiteWildflowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(260, 75)
+scale = Vector2(0.44, 0.44)
+texture = ExtResource("white_flowers")
+
+[node name="OrchardFlowers" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-35, 135)
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("rose_flowers")
+

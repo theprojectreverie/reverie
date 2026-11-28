@@ -61,7 +61,7 @@ func _on_body_entered(body: Node2D) -> void:
     if not MultiplayerGateway.standalone_expedition_id.is_empty():
         MultiplayerGateway.request_expedition_travel(destination_scene)
         return
-    if current_scene != null and current_scene.has_node("StoryOpeningWorldSync"):
+    if current_scene != null and current_scene.has_node("StoryOpeningWorldSync") and not (current_scene.name == &"StandaloneZone01" and required_quest == "elathra_first_audience" and _story_unlocked()):
         EventBus.toast_requested.emit("The next online story region is not available in this pilot yet.")
         return
     if current_scene == null or bool(current_scene.get_meta("portal_load_pending", false)):
@@ -130,8 +130,8 @@ func _recover_transfer(message: String) -> void:
 
 func _story_unlocked() -> bool:
     var zone := get_tree().current_scene
-    if zone != null and zone.has_node("StoryGardenCombatSync") and required_quest == "elathra_first_audience":
-        return zone.get_node("StoryGardenCombatSync").audience_state() == "complete"
+    if required_quest == "elathra_first_audience":
+        return zone != null and zone.name == &"StandaloneZone01" and zone.has_node("StoryGardenCombatSync") and zone.get_node("StoryGardenCombatSync").royal_gate_unlocked()
     if zone != null and zone.has_node("StoryGardenCombatSync") and required_quest == "royal_gate_patrol":
         return zone.get_node("StoryGardenCombatSync").patrol_state() == "complete"
     if required_story_flag == "village_gerald_defeated" and bool(GameState.quest_domain.flags.get("village_gerald_backstory_pending", false)):

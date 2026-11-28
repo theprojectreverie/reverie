@@ -1,0 +1,1 @@
+﻿Matthew approved; English; battle take 1, exploration take 1, audition take 1. 44.1 kHz mono PCM, -1.5 dB attenuation, no added effects. Split boundaries need listening verification.

@@ -17,7 +17,7 @@ func _ready() -> void:
 	# SaveService starts before GameState and AuthGateway. F6 supplies the
 	# scene path as a positional command-line argument.
 	for arg in OS.get_cmdline_args():
-		if arg.replace("\\", "/").ends_with(STORY_PREVIEW_PATH):
+		if arg.replace("\\", "/").ends_with(STORY_PREVIEW_PATH) or arg.replace("\\", "/").ends_with("scenes/qa/ravienna_soundtrack_preview.tscn"):
 			story_preview_mode = true
 			OS.set_environment("REVERIE_E2E_DISABLE_LOCAL_SAVE", "1")
 			print("[GeraldPreview] Read-only preview: saves and remembered login disabled.")
