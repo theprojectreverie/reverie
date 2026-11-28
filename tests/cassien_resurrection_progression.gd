@@ -42,7 +42,22 @@ func _run():
  assert(player.input_enabled and gs.quest_domain.quest_step_index("cassien_resurrection")==0)
  assert(not zone.get_meta("cassien_ritual_active",false))
  cassien.interact()
+ assert(dialog.visible and dialog._dialogue_id=="cassien_meeting")
  dialog._show_node("oath")
+ dialog._choose(dialog._node.choices[0])
+ for i in range(120):
+  if zone.get_node_or_null("UI/Overlays/CrimsonOathMemory")!=null: break
+  await process_frame
+ var memory=zone.get_node_or_null("UI/Overlays/CrimsonOathMemory")
+ assert(memory!=null and not player.input_enabled)
+ memory.get_node("SkipButton").pressed.emit()
+ for i in range(600):
+  if dialog.visible and dialog._dialogue_id=="cassien_tomb_approach": break
+  await process_frame
+ assert(dialog.visible and dialog._dialogue_id=="cassien_tomb_approach")
+ assert(gs.quest_domain.flags.get("cassien_crimson_oath_part_1_seen",false))
+ dialog._choose(dialog._node.choices[0])
+ assert(dialog.visible)
  dialog._choose(dialog._node.choices[0])
  await process_frame
  await process_frame
@@ -50,7 +65,25 @@ func _run():
  assert(cassien_battle!=null and cassien_battle.group_id=="cassien_encounter")
  assert(gs.quest_domain.quest_state("forsaken_braziers")=="not_started")
  cassien_battle._claim(true)
- await process_frame
+ for i in range(120):
+  if dialog.visible and dialog._dialogue_id=="cassien_after_victory": break
+  await process_frame
+ assert(dialog.visible and dialog._dialogue_id=="cassien_after_victory")
+ assert(gs.quest_domain.flags.get("cassien_crimson_oath_part_2_pending",false))
+ assert(gs.quest_domain.quest_state("forsaken_braziers")=="not_started")
+ dialog._show_node("oath")
+ dialog.close()
+ for i in range(120):
+  if zone.get_node_or_null("UI/Overlays/CrimsonOathMemory")!=null: break
+  await process_frame
+ var second_memory=zone.get_node_or_null("UI/Overlays/CrimsonOathMemory")
+ assert(second_memory!=null and not player.input_enabled)
+ second_memory.get_node("SkipButton").pressed.emit()
+ for i in range(600):
+  if gs.quest_domain.quest_state("forsaken_braziers")=="active" and player.input_enabled: break
+  await process_frame
+ assert(gs.quest_domain.flags.get("cassien_crimson_oath_part_2_seen",false))
+ assert(not gs.quest_domain.flags.get("cassien_crimson_oath_part_2_pending",false))
  assert(gs.quest_domain.quest_state("forsaken_braziers")=="active")
  assert(not cassien.can_interact())
  for b in braziers:

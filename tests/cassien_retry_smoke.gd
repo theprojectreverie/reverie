@@ -21,7 +21,22 @@ func run():
  cassien.interact()
  await cassien.cassien_visual.animation_finished
  await process_frame
+ assert(dialog.visible and dialog._dialogue_id=="cassien_meeting")
  dialog._show_node("oath")
+ dialog._choose(dialog._node.choices[0])
+ for i in range(120):
+  if zone.get_node_or_null("UI/Overlays/CrimsonOathMemory")!=null: break
+  await process_frame
+ var memory=zone.get_node_or_null("UI/Overlays/CrimsonOathMemory")
+ assert(memory!=null and not player.input_enabled)
+ memory.get_node("SkipButton").pressed.emit()
+ for i in range(600):
+  if dialog.visible and dialog._dialogue_id=="cassien_tomb_approach": break
+  await process_frame
+ assert(dialog.visible and dialog._dialogue_id=="cassien_tomb_approach")
+ assert(gs.quest_domain.flags.get("cassien_crimson_oath_part_1_seen",false))
+ dialog._choose(dialog._node.choices[0])
+ assert(dialog.visible)
  dialog._choose(dialog._node.choices[0])
  await process_frame
  await process_frame
@@ -51,7 +66,14 @@ func run():
  print("CASSIEN RETREAT NO PROGRESSION PASS")
  cassien.interact()
  assert(dialog.visible)
+ assert(dialog.visible and dialog._dialogue_id=="cassien_meeting")
  dialog._show_node("oath")
+ dialog._choose(dialog._node.choices[0])
+ await process_frame
+ await process_frame
+ assert(dialog.visible and dialog._dialogue_id=="cassien_tomb_approach")
+ assert(zone.get_node_or_null("UI/Overlays/CrimsonOathMemory")==null)
+ dialog._choose(dialog._node.choices[0])
  dialog._choose(dialog._node.choices[0])
  await process_frame
  await process_frame
