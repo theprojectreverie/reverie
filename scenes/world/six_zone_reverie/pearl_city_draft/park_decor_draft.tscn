@@ -1,4 +1,4 @@
-﻿[gd_scene format=3]
+[gd_scene format=3]
 
 [ext_resource type="Texture2D" path="res://assets/royal_gate_isometric_cleaned/garden/white_planter.png" id="white"]
 [ext_resource type="Texture2D" path="res://assets/royal_gate_isometric_cleaned/garden/pink_planter.png" id="rose"]

@@ -1,4 +1,4 @@
-﻿[gd_scene format=3]
+[gd_scene format=3]
 
 [node name="PearlCityDraft" type="Node2D"]
 y_sort_enabled = true

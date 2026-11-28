@@ -1,4 +1,4 @@
-﻿[gd_scene format=3]
+[gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/pearl_city_draft/pearl_city_playable_preview.tscn" id="city"]
 [ext_resource type="Script" path="res://scenes/world/six_zone_reverie/pearl_city_draft/preview_camera.gd" id="camera"]

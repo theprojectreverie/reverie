@@ -891,7 +891,11 @@ func _test_ui_regressions() -> void:
 	# Preserve both requested featured banners and their independent artwork paths.
 	var vesper_banner: Dictionary = ContentDB.get_banner("crimson_covenant")
 	var scarlet_banner: Dictionary = ContentDB.get_banner("scarlet_requiem")
-	check(ContentDB.banners.size() == 7 and ContentDB.banners.has_all(["crimson_covenant", "scarlet_requiem", "lily_of_shadows", "crimson_oath", "eclipse_sovereign", "flamebound_guardian", "moonlit_requiem"]), "All seven configured summon banners are present")
+	var active_banner_ids: Dictionary = {}
+	for banner_id in ContentDB.banners:
+		if not bool(ContentDB.get_banner(str(banner_id)).get("retired", false)):
+			active_banner_ids[str(banner_id)] = true
+	check(ContentDB.banners.size() == 8 and active_banner_ids.size() == 6 and active_banner_ids.has_all(["lily_of_shadows", "crimson_oath", "eclipse_sovereign", "flamebound_guardian", "moonlit_requiem", "crimson_fool"]) and bool(vesper_banner.get("retired", false)) and bool(scarlet_banner.get("retired", false)), "Six active and two retired summon banners are present")
 	check(not vesper_banner.is_empty() and str(vesper_banner.get("name", "")) == "Hollow Moon Overture" and str((vesper_banner.get("featured", [""]) as Array)[0]) == "nyx", "Hollow Moon Overture features Nyx Vaelora")
 	check(not scarlet_banner.is_empty() and str(scarlet_banner.get("name", "")) == "Scarlet Requiem" and str((scarlet_banner.get("featured", [""]) as Array)[0]) == "crimson_witch_legendary", "Scarlet Requiem remains a separate Crimson Witch featured banner")
 	check(ResourceLoader.exists("res://assets/characters/crimson_witch/portrait_512.png"), "Scarlet Requiem banner uses the supplied portrait asset")
