@@ -23,7 +23,10 @@ func _ready() -> void:
 	_refresh.call_deferred()
 
 static func local_story_available() -> bool:
-	return not AuthGateway.is_authenticated() and not preload("res://scripts/online/story_opening_world_sync.gd").pilot_enabled() and MultiplayerGateway.standalone_expedition_id.is_empty()
+	return permits_local_story(AuthGateway.is_authenticated(), OS.has_feature("reverie_public_alpha"), preload("res://scripts/online/story_opening_world_sync.gd").pilot_enabled(), not MultiplayerGateway.standalone_expedition_id.is_empty())
+
+static func permits_local_story(authenticated: bool, public_alpha: bool, pilot: bool, expedition: bool) -> bool:
+	return not pilot and not expedition and (not authenticated or public_alpha)
 
 func _on_quest_updated(_id: String) -> void:
 	_refresh()
@@ -80,14 +83,16 @@ func _on_battle_finished(result: Dictionary) -> void:
 		return
 	engaged = false
 	var q := GameState.quest_domain
-	if not local_story_available() or not bool(result.get("victory", false)) or bool(q.flags.get("village_encounter_won_" + group_id, false)):
+	if _online_sync() != null or not local_story_available() or not bool(result.get("victory", false)) or bool(q.flags.get("village_encounter_won_" + group_id, false)):
 		return
 	q.flags["village_encounter_won_" + group_id] = true
 	if not recruit_id.is_empty():
-		if not GameState.roster_domain.owns_character(recruit_id):
+		if not AuthGateway.is_authenticated() and not GameState.roster_domain.owns_character(recruit_id):
 			GameState.roster_domain.add_character(recruit_id)
 		q.flags["village_recruited_" + recruit_id] = true
 		GameState.roster_domain.deploy_village_recruits()
+		if AuthGateway.is_authenticated():
+			EventBus.party_changed.emit()
 		EventBus.toast_requested.emit(label_text + " joined Kael's team.")
 	if q.quest_ready(quest_id):
 		q.complete_quest(quest_id)

@@ -18,6 +18,8 @@ var interaction_prompt_elapsed := 0.1
 func _ready() -> void:
     var region: String = {"StandaloneVillage": "greenward", "StandaloneZone01": "castle_royal_gardens", "StandaloneZone02": "royal_gate", "StandaloneZone04": "elderwood_grove", "StandaloneZone05": "forsaken_ruins", "StandaloneZone06": "gothic_castle_boss_zone"}.get(str(name), "")
     AudioDirector.sync_region_ambience(region)
+    if name == &"StandaloneVillage":
+        AudioDirector.play_track("gerald_childhood", 1.0)
     if has_node("NPCDialogueLayer/Dialogue"):
         EventBus.dialogue_requested.connect(_open_local_npc_dialogue)
         EventBus.dialogue_finished.connect(_on_local_dialogue_finished)
@@ -63,6 +65,13 @@ func _ready() -> void:
             village_sync.name = "StoryVillageProgressionSync"
             add_child(village_sync)
             village_sync.bind(sync)
+
+    elif name == &"StandaloneVillage" and preload("res://scripts/online/story_village_progression_sync.gd").use_public_solo(OS.has_feature("reverie_public_alpha"), AuthGateway.is_authenticated(), not MultiplayerGateway.standalone_expedition_id.is_empty(), bool(GameState.quest_domain.flags.get("village_gerald_defeated", false))):
+        # Preserve completed legacy chapters; never erase local story saves.
+        var village_sync = preload("res://scripts/online/story_village_progression_sync.gd").new()
+        village_sync.name = "StoryVillageProgressionSync"
+        add_child(village_sync)
+        village_sync.bind(null, true)
 
     elif (is_royal_gardens or name == &"StandaloneZone02") and story_sync.pilot_enabled() and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") == "1" and MultiplayerGateway.standalone_expedition_id.is_empty():
         var sync = story_sync.new()

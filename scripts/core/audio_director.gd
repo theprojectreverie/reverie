@@ -286,6 +286,7 @@ func _start_character_voice(character: String, line: String, owner: Node) -> boo
 	_voice_owner = owner
 	_voice_character = character
 	_voice_player.stream = stream
+	_voice_player.volume_db = -11.0 if line.begins_with("exploration/") else -3.0
 	_voice_player.play()
 	_voice_next_ms = Time.get_ticks_msec() + 2500
 	return true
@@ -466,6 +467,12 @@ var _requested_track_id := ""
 var _fade_tween: Tween
 var _sfx_players: Array[AudioStreamPlayer] = []
 var _sfx_next_player := 0
+var _exploration_foley: AudioStreamPlayer
+const EXPLORATION_FOLEY_LEVELS := {
+	"dirt_step": -15.0, "wood_step": -15.0,
+	"stone_step": -9.0, "grass_step": -9.0,
+	"water_step": -17.0, "water_entry": -14.0
+}
 var _ambience_player: AudioStreamPlayer
 var _ambience_tween: Tween
 var _ambience_id := ""
@@ -478,6 +485,12 @@ func _ready() -> void:
 	AudioServer.set_bus_layout(BUS_LAYOUT)
 	_player.bus = "Music"
 	_create_sfx_players()
+	_exploration_foley = AudioStreamPlayer.new()
+	_exploration_foley.name = "ExplorationFoley"
+	_exploration_foley.bus = "SFX"
+	_exploration_foley.max_polyphony = 1
+	add_child(_exploration_foley)
+	_exploration_foley.finished.connect(_release_finished_sfx.bind(_exploration_foley))
 	_voice_player = AudioStreamPlayer.new()
 	_voice_player.name = "CharacterVoicePlayer"
 	_voice_player.bus = "SFX"
@@ -622,7 +635,7 @@ func _resolve_sfx(sound_id: String) -> AudioStream:
 	var path := str(AMBIENCE_PATHS.get(sound_id, ""))
 	return load(path) as AudioStream if not path.is_empty() else null
 
-func play_variant(category: String, volume_db: float = -2.0, pitch_scale: float = 1.0) -> void:
+func play_variant(category: String, volume_db: float = -2.0, pitch_scale: float = 1.0, exploration_foley: bool = false) -> void:
 	var count := int(EXTENDED_SFX.get(category, 0))
 	if count <= 0:
 		return
@@ -637,6 +650,16 @@ func play_variant(category: String, volume_db: float = -2.0, pitch_scale: float 
 	if stream == null:
 		return
 	_last_sfx_variant[category] = index
+	if exploration_foley and EXPLORATION_FOLEY_LEVELS.has(category):
+		# The previous sample must not layer with the next step or splash.
+		if not is_instance_valid(_exploration_foley):
+			return
+		_exploration_foley.stop()
+		_exploration_foley.stream = stream
+		_exploration_foley.volume_db = minf(volume_db, float(EXPLORATION_FOLEY_LEVELS[category])) - (5.0 if is_instance_valid(_voice_player) and _voice_player.playing else 0.0)
+		_exploration_foley.pitch_scale = pitch_scale
+		_exploration_foley.play()
+		return
 	_play_sfx_stream(stream, volume_db, pitch_scale)
 
 func play_damage_reaction(unit: Combatant) -> void:
@@ -876,6 +899,9 @@ func stop_music_immediately() -> void:
 
 
 func stop_all_audio_immediately() -> void:
+	if is_instance_valid(_exploration_foley):
+		_exploration_foley.stop()
+		_exploration_foley.stream = null
 	stop_lilith_voice()
 	_lilith_walk_remaining = 0.0
 	_lilith_last_walk = ""

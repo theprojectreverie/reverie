@@ -5,6 +5,7 @@ extends Node
 @export var attack_cooldown := 0.55
 var cooldown := 0.0
 var attack_pending := false
+var skill_pending := false
 var attack_facing := Vector2.DOWN
 var attack_avatar := ""
 var dodge_time := 0.0
@@ -27,6 +28,12 @@ func _physics_process(delta: float) -> void:
 		elif player.visual.animator.frame >= 3:
 			attack_pending = false
 			_resolve_attack()
+	if skill_pending:
+		if not player.input_enabled or player.network_recovery_paused or player.avatar_id != attack_avatar or player.visual.animator.state != CharacterAnimator.CAST_STATE:
+			skill_pending = false
+		elif player.visual.animator.frame >= 4:
+			skill_pending = false
+			_resolve_skill()
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("world_attack") and not event.is_echo():
 		if try_attack():
@@ -37,7 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func try_dodge() -> bool:
-	if not player.input_enabled or player.network_recovery_paused or dodge_recovery > 0.0 or attack_pending:
+	if not player.input_enabled or player.network_recovery_paused or dodge_recovery > 0.0 or attack_pending or skill_pending:
 		return false
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if TouchInput.move_vector.length_squared() > 0.01:
@@ -50,17 +57,28 @@ func try_dodge() -> bool:
 func try_skill() -> bool:
 	if not MultiplayerGateway.standalone_expedition_id.is_empty():
 		return false # Only server-validated basic attacks are enabled in this co-op prototype.
-	if not player.input_enabled or player.network_recovery_paused or skill_cooldown > 0.0 or dodge_time > 0.0 or attack_pending:
+	if not player.input_enabled or player.network_recovery_paused or skill_cooldown > 0.0 or dodge_time > 0.0 or attack_pending or skill_pending:
+		return false
+	if player.visual == null or player.visual.animator == null or (not player.visual.animator.is_looping() and not player.visual.animator.is_finished()):
+		return false
+	player.presentation_component.play_cast()
+	if player.visual.animator.state != CharacterAnimator.CAST_STATE:
 		return false
 	skill_cooldown = 4.0
-	player.presentation_component.play_cast()
+	if player.avatar_id.begins_with("kael"):
+		attack_avatar = player.avatar_id
+		skill_pending = true
+	else:
+		_resolve_skill()
+	return true
+
+func _resolve_skill() -> void:
 	for target in get_tree().get_nodes_in_group("world_action_targets"):
 		if is_instance_valid(target) and not target.get("defeated") and target.has_method("receive_world_hit") and player.global_position.distance_to(target.global_position) <= 95.0:
 			target.receive_world_hit(40.0)
-	return true
 
 func try_attack() -> bool:
-	if not player.input_enabled or player.network_recovery_paused or cooldown > 0.0 or dodge_time > 0.0:
+	if not player.input_enabled or player.network_recovery_paused or cooldown > 0.0 or dodge_time > 0.0 or skill_pending:
 		return false
 	if player.visual == null or player.visual.animator == null or (not player.visual.animator.is_looping() and not player.visual.animator.is_finished()):
 		return false
@@ -95,6 +113,7 @@ func receive_world_damage(amount: float) -> void:
 	if not player.input_enabled or player.network_recovery_paused or hurt_cooldown > 0.0 or dodge_time > 0.0:
 		return
 	attack_pending = false
+	skill_pending = false
 	hurt_cooldown = 0.8
 	hp = maxf(0.0, hp - amount)
 	player.play_damage()
@@ -112,6 +131,7 @@ func apply_coop_health(authoritative_hp: float, knocked_out: bool = false, anima
 	if not animate:
 		return
 	attack_pending = false
+	skill_pending = false
 	if knocked_out:
 		player.play_defeat()
 		EventBus.toast_requested.emit("Knocked out. Expedition health restored.")

@@ -59,7 +59,7 @@ func _village_recruits_ready() -> bool:
   var sync := current.get_node_or_null("StoryVillageProgressionSync")
   if sync != null:
    return sync.ready_for_group(GROUP_ID, "village_gerald_trial") or sync.won(GROUP_ID)
- if AuthGateway.is_authenticated() or preload("res://scripts/online/story_opening_world_sync.gd").pilot_enabled():
+ if not preload("res://scripts/world/six_zone_reverie/village_witch_duo_encounter.gd").local_story_available():
   return true
  var zone := get_tree().current_scene
  if zone == null or zone.name != &"StandaloneVillage":

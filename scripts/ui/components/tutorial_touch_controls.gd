@@ -40,9 +40,9 @@ func _refresh() -> void:
 	skill.visible = practice
 	dodge.visible = practice
 	if practice:
-		attack.disabled = combat.cooldown > 0.0 or combat.attack_pending or combat.dodge_time > 0.0
-		skill.disabled = combat.skill_cooldown > 0.0 or combat.attack_pending or combat.dodge_time > 0.0
-		dodge.disabled = combat.dodge_recovery > 0.0 or combat.attack_pending
+		attack.disabled = combat.cooldown > 0.0 or combat.attack_pending or combat.skill_pending or combat.dodge_time > 0.0
+		skill.disabled = combat.skill_cooldown > 0.0 or combat.attack_pending or combat.skill_pending or combat.dodge_time > 0.0
+		dodge.disabled = combat.dodge_recovery > 0.0 or combat.attack_pending or combat.skill_pending
 
 func _interact() -> void:
 	if _enabled() and training_actions:

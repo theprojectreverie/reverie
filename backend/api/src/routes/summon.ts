@@ -8,6 +8,7 @@ const progressionItems=loadProgression("items") as Record<string,{category:strin
 const progressionSkills=loadProgression("skills") as Record<string,{kind:string;ultimate?:boolean}>;
 
 import {pool} from "../db.js";
+import {claimTutorialSummon} from "../world/tutorial-summon.js";
 import {summonAdmission} from "../world/summon-admission.js";
 import {auditPaidGuarantees} from "../world/paid-guarantee-audit.js";
 import {STARTER_PARTY,xpToNext} from "../world/character-xp.js";
@@ -51,6 +52,23 @@ export const summonRoutes:FastifyPluginAsync=async app=>{
   const claimed=receipts.filter(r=>r.reason==='live_event_reward').map(r=>r.ref_id),purchased=receipts.filter(r=>r.reason==='live_event_shop').map(r=>r.ref_id);
   const eventViews=await Promise.all(events.map(async e=>({...e,...await eventProgress(pool,c.playerId!,e),claimed:claimed.includes(e.id),purchased:purchased.includes(e.id)})));
   return {liveEvents:eventViews,bannerCatalog:catalog,playerId:c.playerId,paidTotal:row.paid_total,paidProgress:Number(BigInt(row.paid_total)%BigInt(PAID_MILESTONE)),paidMilestone:PAID_MILESTONE,paidGuaranteePolicy:PAID_GUARANTEE_POLICY,currencies:row.currencies,pity:row.pity,partyLocked:row.partyLocked,party:row.party.length?row.party:STARTER_PARTY,roster:[...characters.values()].map(character=>({...character,equipment:row.equipment.filter((e:{char_id:string})=>e.char_id===character.char_id)})),cards:Object.fromEntries(Object.entries(row.inventory).filter(([id])=>id.startsWith("upgrade_")).map(([id,quantity])=>[id,Number(quantity)])),inventory:row.inventory};
+ });
+
+ app.post("/tutorial-claim",{config:{rateLimit:{max:8,timeWindow:"1 minute"}}},async(req,reply)=>{
+  try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}
+  const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};
+  if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({error:"authentication_required"});
+  if(!z.object({}).strict().safeParse(req.body).success)return reply.code(400).send({error:"invalid_tutorial_claim"});
+  const db=await pool.connect();
+  try{
+   await db.query("BEGIN");
+   const account=await db.query("SELECT id FROM accounts WHERE id=$1 AND status='active' AND token_version=$2 FOR UPDATE",[c.sub,c.tokenVersion]);
+   const player=await db.query("SELECT id FROM players WHERE id=$1 AND account_id=$2 FOR UPDATE",[c.playerId,c.sub]);
+   if(!account.rowCount||!player.rowCount){await db.query("ROLLBACK");return reply.code(401).send({error:"authentication_required"});}
+   const result=await claimTutorialSummon(db,c.playerId);
+   if(!result.ok){await db.query("ROLLBACK");return reply.code(409).send({error:result.reason});}
+   await db.query("COMMIT");return {...result,playerId:c.playerId};
+  }catch(e){await db.query("ROLLBACK");throw e;}finally{db.release();}
  });
 
  app.get("/character-content",async(req,reply)=>{try{await req.jwtVerify();}catch{return reply.code(401).send({error:"authentication_required"});}const c=req.user as {sub?:string;playerId?:string;tokenVersion?:number};if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion)||!(await pool.query("SELECT p.id FROM players p JOIN accounts a ON a.id=p.account_id WHERE p.id=$1 AND a.id=$2 AND a.status='active' AND a.token_version=$3",[c.playerId,c.sub,c.tokenVersion])).rowCount)return reply.code(401).send({error:"authentication_required"});return {schema:1,playerId:c.playerId,packs:publishedCharacterPacks()};});

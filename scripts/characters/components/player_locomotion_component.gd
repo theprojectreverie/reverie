@@ -143,12 +143,12 @@ func physics_step(delta: float) -> void:
 	var movement_ratio := clampf(body.velocity.length() / maxf(1.0, nominal_speed), 0.0, 1.0)
 	var moving := body.velocity.length() > STOP_SNAP_SPEED
 	AudioDirector.tick_lilith_exploration(body, delta, moving and body.get_real_velocity().length() > STOP_SNAP_SPEED and input_vector.length_squared() > 0.001)
-	if moving and body.get_real_velocity().length() > STOP_SNAP_SPEED and not in_water and not _avatar_id().begins_with("lilith"):
+	if actual_motion and not in_water and not _avatar_id().begins_with("lilith"):
 		_step_timer -= delta
 		if _step_timer <= 0.0:
 			var region: String = AudioDirector._region_ambience_id if not AudioDirector._region_ambience_id.is_empty() else str(GameState.player_region)
 			var surface := _surface_at(body.global_position, region)
-			AudioDirector.play_variant(surface, -5.0)
+			AudioDirector.play_variant(surface, -5.0, 1.0, true)
 			_step_timer = 0.30 if sprinting else 0.44
 	else:
 		_step_timer = 0.0
@@ -175,7 +175,7 @@ func _sync_water_state(depth: float, actual_motion: bool) -> void:
 		_water_step_timer = 0.62 if wet else 0.0
 		_step_timer = 0.30
 		if actual_motion and _water_transition_cooldown <= 0.0:
-			AudioDirector.play_variant("water_entry" if wet else "water_step", -8.0 if wet else -13.0)
+			AudioDirector.play_variant("water_entry" if wet else "water_step", -8.0 if wet else -13.0, 1.0, true)
 			_water_transition_cooldown = 0.30
 			if wet:
 				body.get_node("PresentationComponent").play_water_splash(true)
@@ -188,7 +188,7 @@ func _tick_water_foley(delta: float, actual_motion: bool) -> void:
 	_water_step_timer -= delta
 	if _water_step_timer <= 0.0:
 		var pitch := randf_range(0.90, 1.10) * (0.88 if _avatar_id().begins_with("gerald") else 1.0)
-		AudioDirector.play_variant("water_step", -12.0 if _avatar_id().begins_with("lilith") else -9.0, pitch)
+		AudioDirector.play_variant("water_step", -12.0 if _avatar_id().begins_with("lilith") else -9.0, pitch, true)
 		body.get_node("PresentationComponent").play_water_splash(false)
 		_water_step_timer = 0.58
 

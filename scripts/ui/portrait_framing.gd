@@ -29,6 +29,8 @@ static func authored_texture(id: String, mode: String = "icon") -> Texture2D:
  var candidates: Array[String] = []
  if mode == "card" and base == "elathra":
   candidates.append("res://assets/portraits/summon/elathra.png")
+ if base in ["nyx", "crimson_witch", "caelith"] and id == base:
+  candidates.append("res://assets/characters/%s_mythic/portrait_512.png" % base)
  for key in [id, folder]:
   for file in ["portrait.png", "portrait_512.png", "portrait_battle.png"]:
    if file == "portrait_512.png":

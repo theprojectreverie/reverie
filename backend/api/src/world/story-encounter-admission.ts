@@ -12,7 +12,7 @@ const rules:Readonly<Record<string,EncounterRule>>=Object.freeze({
  rose_slime_garden_1:rule(-1100,2200),rose_slime_garden_2:rule(-800,1850),rose_slime_garden_3:rule(-1450,1500),
  rose_slime_garden_4:rule(700,2250),rose_slime_garden_5:rule(1200,1750),rose_slime_garden_6:rule(950,1000),
  crownling_garden_1:rule(-900,2100),crownling_garden_2:rule(550,2100),crownling_garden_3:rule(1100,1500),
- [MIRENE_GROUP]:{...rule(2179,1080),radius:120,cooldownSeconds:0},
+ [MIRENE_GROUP]:{...rule(1240,1240),radius:120,cooldownSeconds:0},
  royal_gate_patrol_1:gateRule(-65,1200),royal_gate_patrol_2:gateRule(75,1840),
 });
 export const gardenEncounterIds=Object.freeze(Object.keys(rules).filter(id=>rules[id]!.region==="story_royal_gardens"));

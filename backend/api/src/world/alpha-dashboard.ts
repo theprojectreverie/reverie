@@ -1,7 +1,8 @@
 import type {Pool} from "pg";
+import {config} from "../config.js";
 import {alphaRealtimeSnapshot} from "../routes/realtime.js";
 
-const PUBLIC_HEALTH="https://reverie.tailad29fa.ts.net:8443/health";
+const PUBLIC_HEALTH="https://reverie-staging-fra1.tailad29fa.ts.net:8443/health";
 const LOCAL_HEALTH="http://127.0.0.1:8791/health";
 type Probe={state:"open"|"closed"|"unavailable"|"unknown";httpStatus:number|null;durationMs:number;checkedAt:string};
 export async function probeAlphaHealth(url:string,fetcher:typeof fetch=fetch):Promise<Probe>{
@@ -27,7 +28,7 @@ export function createAlphaDashboard(pool:Pool){
  return async()=>{
   const [network,q]=await Promise.all([probes(),pool.query(`
     WITH enrolled AS (
-     SELECT DISTINCT a.id,a.status FROM reverie_alpha_invites i JOIN accounts a ON a.id=i.used_by WHERE i.used_at IS NOT NULL
+     SELECT a.id,a.status FROM accounts a WHERE $1::boolean OR EXISTS(SELECT 1 FROM reverie_alpha_invites i WHERE i.used_by=a.id AND i.used_at IS NOT NULL)
     ), recent AS (
      SELECT p.id FROM enrolled e JOIN players p ON p.account_id=e.id JOIN player_presence pr ON pr.player_id=p.id
      WHERE e.status='active' AND pr.state<>'offline' AND pr.last_heartbeat_at>now()-interval '45 seconds'
@@ -39,8 +40,8 @@ export function createAlphaDashboard(pool:Pool){
      (SELECT count(*)::int FROM reverie_alpha_invites WHERE used_at IS NOT NULL) AS consumed,
      (SELECT count(*)::int FROM recent) AS recent_presence,
      (SELECT count(DISTINCT m.lobby_id)::int FROM co_op_lobby_members m JOIN recent r ON r.id=m.player_id JOIN co_op_lobbies l ON l.id=m.lobby_id WHERE l.status IN ('open','in_world')) AS recent_lobbies
-   `)]);
+   `,[config.REVERIE_ALPHA_REGISTRATION_MODE==="open"])]);
   const row=q.rows[0]??{};
-  return {network,enrollment:{enrolled:Number(row.enrolled??0),active:Number(row.active??0),unused:Number(row.unused??0),consumed:Number(row.consumed??0),issuanceLimit:20,remaining:Math.max(0,20-Number(row.consumed??0)-Number(row.unused??0))},recentPresence:Number(row.recent_presence??0),recentLobbies:Number(row.recent_lobbies??0),realtime:alphaRealtimeSnapshot(),scope:"host_probe_and_single_api_process",restrictions:{inviteOnly:true,paidPurchases:false,paidSummons:false,persistentRegionalWorld:false},asOf:new Date().toISOString()};
+  return {network,enrollment:{enrolled:Number(row.enrolled??0),active:Number(row.active??0),unused:Number(row.unused??0),consumed:Number(row.consumed??0),issuanceLimit:20,remaining:Math.max(0,20-Number(row.consumed??0)-Number(row.unused??0))},recentPresence:Number(row.recent_presence??0),recentLobbies:Number(row.recent_lobbies??0),realtime:alphaRealtimeSnapshot(),scope:"host_probe_and_single_api_process",restrictions:{inviteOnly:config.REVERIE_ALPHA_REGISTRATION_MODE==="invite",paidPurchases:false,paidSummons:false,persistentRegionalWorld:false},asOf:new Date().toISOString()};
  };
 }

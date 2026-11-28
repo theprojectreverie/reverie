@@ -8,7 +8,8 @@ export const villageStages=[
 ] as const;
 export const villageGroups:readonly string[]=villageStages.flatMap(s=>[...s.groups]);
 export const villageRecruit=(group:string)=>group==="village_crimson_encounter"?"crimson_witch_legendary":group==="village_nyx_encounter"?"nyx":null;
-export const villageProgressionEnabled=()=>process.env.NODE_ENV!=="production"&&process.env.REVERIE_VILLAGE_PROGRESSION_PILOT==="1";
+export const publicVillageEnabled=()=>process.env.NODE_ENV!=="production"&&process.env.REVERIE_PUBLIC_VILLAGE==="1";
+export const villageProgressionEnabled=()=>process.env.NODE_ENV!=="production"&&(process.env.REVERIE_VILLAGE_PROGRESSION_PILOT==="1"||publicVillageEnabled());
 export function villageStageFor(group:string){return villageStages.findIndex(s=>(s.groups as readonly string[]).includes(group));}
 export function villageParty(group:string):string[]{
  const stage=villageStageFor(group);
@@ -24,11 +25,16 @@ export function villageProgress(wins:readonly string[]){
   total:stage.groups.length,state:legacy||stage.groups.every(g=>completed.has(g))?"complete":villageStages.slice(0,index).every(s=>s.groups.every(g=>completed.has(g)))?"active":"not_started"
  }));
 }
-export function villageAdmission(group:string,wins:readonly string[],position:{x:number;y:number}|null):string|null{
+export function villageOrderAdmission(group:string,wins:readonly string[]):string|null{
  const i=villageStageFor(group);if(i<0)return "encounter_not_enabled";
  if(!wins.includes("tutorial_fairy_spar"))return "story_progression_required";
  if(wins.includes(group)||wins.includes("gerald_boss_encounter"))return "already_claimed";
  if(!villageStages.slice(0,i).every(s=>s.groups.every(g=>wins.includes(g))))return "story_progression_required";
+ return null;
+}
+export function villageAdmission(group:string,wins:readonly string[],position:{x:number;y:number}|null):string|null{
+ const order=villageOrderAdmission(group,wins);if(order)return order;
+ const i=villageStageFor(group);
  const stage=villageStages[i]!,p=stage.positions[(stage.groups as readonly string[]).indexOf(group)]!;
  if(!position||!Number.isFinite(position.x)||!Number.isFinite(position.y)||Math.hypot(position.x-p[0]!,position.y-p[1]!)>95)return "encounter_position_required";
  return null;

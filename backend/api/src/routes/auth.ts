@@ -1,8 +1,10 @@
 import type {FastifyPluginAsync} from "fastify";
+import {alphaLoginRateKey} from "../world/alpha-access.js";
 import argon2 from "argon2";
 import {createHash,randomBytes,createHmac,timingSafeEqual} from "node:crypto";
 import {z} from "zod";
 import {pool} from "../db.js";
+import {grantStarterWallet} from "../world/starter-wallet.js";
 import {ownedProfilePicture} from "./social.js";
 import {currentSuspension,expireSuspension} from "../world/account-suspensions.js";
 import {config,localDevelopmentRegistration} from "../config.js";
@@ -31,6 +33,7 @@ function parseAppealTicket(ticket:string){
  }catch{return null;}
 }
 const issueAccess=(app:any,row:AccountRow)=>app.jwt.sign({sub:row.id,playerId:row.player_id,playerName:row.player_name,tokenVersion:row.token_version});
+const authReject=(req:any,reason:string,accountId?:string)=>{const accountRef=accountId?createHmac("sha256",config.JWT_SECRET).update("auth-diagnostic-v1:"+accountId).digest("hex").slice(0,24):undefined;req.log.warn({event:"auth.login_rejected",reason,...(accountRef?{accountRef}:{})},"Login rejected");};
 
 export const authRoutes:FastifyPluginAsync=async app=>{
  app.addHook("onSend",async(req,reply,payload)=>{
@@ -52,8 +55,12 @@ export const authRoutes:FastifyPluginAsync=async app=>{
  app.post("/register",{config:{rateLimit:{max:5,timeWindow:"1 hour"}}},async(req,reply)=>{
   const parsed=registerBody.safeParse(req.body);
   if(!parsed.success)return reply.code(400).send({error:"invalid_registration",details:parsed.error.issues.map(i=>({field:i.path.join("."),message:i.message}))});
-  const invite=parsed.data.inviteCode;
-  if(req.headers["x-reverie-alpha"]==="1"&&!invite)return reply.code(403).send({error:"alpha_invite_required"});
+  const publicAlpha=req.headers["x-reverie-alpha"]==="1";
+  const openAlpha=publicAlpha&&config.REVERIE_ALPHA_REGISTRATION_MODE==="open";
+  if(publicAlpha&&config.REVERIE_ALPHA_SIGNUPS_ENABLED!=="1")return reply.code(503).send({error:"registration_paused"});
+  // Old alpha clients may still send an obsolete invite. Open registration ignores it.
+  const invite=openAlpha?undefined:parsed.data.inviteCode;
+  if(publicAlpha&&!openAlpha&&!invite)return reply.code(403).send({error:"alpha_invite_required"});
   if(invite&&(!localDevelopmentRegistration||parsed.data.password.length<8))return reply.code(400).send({error:"invalid_alpha_registration"});
   const inviteHash=invite?hashToken(invite):null;
   if(inviteHash&&!(await pool.query("SELECT 1 FROM reverie_alpha_invites WHERE token_hash=$1 AND used_at IS NULL AND expires_at>clock_timestamp()",[inviteHash])).rowCount)return reply.code(403).send({error:"invalid_alpha_invite"});
@@ -66,6 +73,7 @@ export const authRoutes:FastifyPluginAsync=async app=>{
    const a=await client.query<{id:string}>("INSERT INTO accounts(email,password_hash,email_verified) VALUES($1,$2,false) RETURNING id",[email,passwordHash]);
    const p=await client.query<{id:string}>("INSERT INTO players(account_id,name) VALUES($1,$2) RETURNING id",[a.rows[0]!.id,parsed.data.playerName]);
    await client.query("INSERT INTO player_currencies(player_id,currency_id,balance) SELECT $1,id,0 FROM currencies ON CONFLICT DO NOTHING",[p.rows[0]!.id]);
+   if(await grantStarterWallet(client,p.rows[0]!.id)!=="granted")throw new Error("starter_wallet_initialization_failed");
    if(inviteHash)await client.query("UPDATE reverie_alpha_invites SET used_at=clock_timestamp(),used_by=$2 WHERE token_hash=$1",[inviteHash,a.rows[0]!.id]);
    if(!localDevelopmentRegistration) await client.query("INSERT INTO email_verification_tokens(account_id,token_hash,expires_at) VALUES($1,$2,now()+interval '24 hours')",[a.rows[0]!.id,hashToken(verifyToken)]);
    await client.query("COMMIT");
@@ -94,13 +102,15 @@ export const authRoutes:FastifyPluginAsync=async app=>{
   finally{client.release();}
  });
 
- app.post("/login",{config:{rateLimit:{max:8,timeWindow:"15 minutes"}}},async(req,reply)=>{
-  const parsed=loginBody.safeParse(req.body);if(!parsed.success)return reply.code(400).send({error:"invalid_credentials"});
+ app.post("/login",{config:{rateLimit:{max:8,timeWindow:"15 minutes",hook:"preHandler",keyGenerator:req=>alphaLoginRateKey(app,req)}}},async(req,reply)=>{
+  const parsed=loginBody.safeParse(req.body);if(!parsed.success){authReject(req,"invalid_request");return reply.code(400).send({error:"invalid_credentials"});}
   const q=await pool.query<AccountRow>("SELECT a.id,a.status,a.password_hash,a.token_version,p.id AS player_id,p.name AS player_name,p.settings->>'profile_picture' AS avatar FROM accounts a JOIN players p ON p.account_id=a.id WHERE (CASE WHEN $2::boolean THEN lower(p.name)=lower($1) ELSE lower(a.email)=lower($1) END) LIMIT 2",[parsed.data.playerName ?? parsed.data.email,Boolean(parsed.data.playerName)]);
   const row=q.rows.length===1?q.rows[0]:undefined;
-  if(req.headers["x-reverie-alpha"]==="1"&&(!row||!(await pool.query("SELECT 1 FROM reverie_alpha_invites WHERE used_by=$1 AND used_at IS NOT NULL",[row.id])).rowCount))return reply.code(401).send({error:"invalid_credentials"});
-  const valid=row?await argon2.verify(row.password_hash,parsed.data.password).catch(()=>false):false;
-  if(!row||!valid||!["active","suspended"].includes(row.status))return reply.code(401).send({error:"invalid_credentials"});
+  if(!row){authReject(req,q.rows.length===0?"account_not_found":"account_not_unique");return reply.code(401).send({error:"invalid_credentials"});}
+  if(req.headers["x-reverie-alpha"]==="1"&&config.REVERIE_ALPHA_REGISTRATION_MODE==="invite"&&!(await pool.query("SELECT 1 FROM reverie_alpha_invites WHERE used_by=$1 AND used_at IS NOT NULL",[row.id])).rowCount){authReject(req,"alpha_enrollment_missing",row.id);return reply.code(401).send({error:"invalid_credentials"});}
+  let valid=false;try{valid=await argon2.verify(row.password_hash,parsed.data.password);}catch{authReject(req,"password_verification_error",row.id);return reply.code(401).send({error:"invalid_credentials"});}
+  if(!valid){authReject(req,"password_verification_failed",row.id);return reply.code(401).send({error:"invalid_credentials"});}
+  if(!["active","suspended"].includes(row.status)){authReject(req,"account_status_rejected",row.id);return reply.code(401).send({error:"invalid_credentials"});}
   const verified=await pool.query<{email_verified:boolean}>("SELECT email_verified FROM accounts WHERE id=$1",[row.id]);
   if(!localDevelopmentRegistration && !verified.rows[0]?.email_verified)return reply.code(403).send({error:"email_verification_required"});
   const refreshToken=newToken();
@@ -121,10 +131,10 @@ export const authRoutes:FastifyPluginAsync=async app=>{
     }
     if(parsed.data.appeal){await client.query("ROLLBACK");return reply.code(409).send({error:"suspension_changed"});}
     if(!suspension||!await expireSuspension(client,row.id,account.token_version,suspension.id)){
-     await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_credentials"});
+     authReject(req,"suspension_state_changed",row.id);await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_credentials"});
     }
    }else if(account?.status!=="active"){
-    await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_credentials"});
+    authReject(req,account?"account_status_changed":"account_missing_during_login",row.id);await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_credentials"});
    }
    if(parsed.data.appeal){await client.query("ROLLBACK");return reply.code(409).send({error:"suspension_changed"});}
    await client.query(
@@ -168,7 +178,7 @@ export const authRoutes:FastifyPluginAsync=async app=>{
     [tokenHash]);
    const accountId=owner.rows[0]?.account_id;
    if(!accountId){await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_session"});}
-   if(req.headers["x-reverie-alpha"]==="1"&&!(await client.query("SELECT 1 FROM reverie_alpha_invites WHERE used_by=$1 AND used_at IS NOT NULL",[accountId])).rowCount){await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_session"});}
+   if(req.headers["x-reverie-alpha"]==="1"&&config.REVERIE_ALPHA_REGISTRATION_MODE==="invite"&&!(await client.query("SELECT 1 FROM reverie_alpha_invites WHERE used_by=$1 AND used_at IS NOT NULL",[accountId])).rowCount){await client.query("ROLLBACK");return reply.code(401).send({error:"invalid_session"});}
    const account=await client.query<{status:string;token_version:number}>(
     "SELECT status,token_version FROM accounts WHERE id=$1 FOR UPDATE",[accountId]);
    const q=await client.query<AccountRow & {session_id:string}>(

@@ -54,6 +54,32 @@ func run() -> void:
 			if child is Control and not viewport_bounds.grow(1).encloses(child.get_global_rect()):
 				fail("clipped skill card "+str(child.get_global_rect()));return
 		print("PASS full-screen tablet battle, six visible action categories, skill card bounds ",viewport_bounds)
+	var first_id := battle._session_component._spar_id
+	battle.close_screen()
+	await get_tree().process_frame
+	if battle._confirm_layer == null:
+		fail("retreat prompt");return
+	battle._confirm_layer.get_node("Center/Panel/Content/Actions/StayButton").pressed.emit()
+	await get_tree().process_frame
+	if battle._confirm_layer != null or not training.sparring or training.player.input_enabled:
+		fail("retreat cancel");return
+	battle.close_screen()
+	await get_tree().process_frame
+	battle._confirm_layer.get_node("Center/Panel/Content/Actions/LeaveButton").pressed.emit()
+	if not await wait_until(func():return not training.sparring and training.player.input_enabled and training.get_node("TutorialHUD/SparringRoot").get_child_count()==0):
+		fail("retreat return");return
+	if not training.dummy_complete or training.farewell_pending or training.transformed:
+		fail("retreat changed tutorial progress");return
+	training._open_challenge()
+	if training.dialogue_stage!="retry":
+		fail("retry dialogue");return
+	for i in range(2):training._accept_challenge()
+	battle=training.get_node("TutorialHUD/SparringRoot").get_child(0) as CombatScreen
+	if not await wait_until(func():return is_instance_valid(battle) and battle.engine!=null and not battle._animating):
+		fail("retry battle");return
+	if battle._session_component._spar_id==first_id or battle.engine.combatants.size()!=2:
+		fail("retry fresh server battle");return
+	print("PASS actual retreat prompt, cancel, abandon, movement restore and fresh retry")
 	var session := battle._session_component
 	if session._spar_id.is_empty() or not session._spar_actor.begins_with("p_server:"):
 		fail("server battle identity");return
@@ -88,8 +114,23 @@ func run() -> void:
 		fail("unlock label missing");return
 	await battle._result_component.claim(true)
 	print("PASS Godot live spar: server identity, defend, skill, confirmed victory, unlock notice acknowledged")
-	if training.dialogue_stage!="farewell" or not training.spar_won:
-		fail("training verified farewell");return
+	if training.dialogue_stage!="summon" or not training.spar_won:
+		fail("training verified summon prompt");return
+	for i in range(training.DIALOGUES["summon"].size()):training._accept_challenge()
+	if not await wait_until(func():return training.get_node_or_null("TutorialHUD/SummonRevealOverlay")!=null):
+		fail("tutorial reveal opens");return
+	var reveal=training.get_node("TutorialHUD/SummonRevealOverlay")
+	reveal.skip_all()
+	if not await wait_until(func():return training.dialogue_stage=="summon_lesson_complete"):
+		fail("summon completion");return
+	if not GameState.quest_domain.flags.get("tutorial_summon_seen",false) or not AuthGateway.account_roster.get("roster",[]).any(func(row):return row.get("char_id","")=="kael_legendary"):
+		fail("summon grant and roster refresh");return
+	print("PASS real tutorial claim, reveal overlay, roster and guided lesson")
+	if not training.line.text.contains("me"):
+		fail("Kael response after summon");return
+	for i in range(training.DIALOGUES["summon_lesson_complete"].size()):training._accept_challenge()
+	if training.dialogue_stage!="farewell":
+		fail("lesson to farewell");return
 	for i in range(5):training._accept_challenge()
 	if not await wait_until(func():return training.dialogue_stage=="travel",20):
 		fail("companion transformation");return

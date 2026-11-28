@@ -9,14 +9,16 @@ signal choice_selected(dialogue_id: String, choice: Dictionary)
 
 const TYPE_SPEED := 52.0
 const STORY_PORTRAITS := {
-	"kael": preload("res://assets/portraits/summon/kael.png"),
-	"kael ashford": preload("res://assets/portraits/summon/kael.png"),
+	"kael": preload("res://assets/characters/kael_avatar/dialogue_portrait.tres"),
+	"kael ashford": preload("res://assets/characters/kael_avatar/dialogue_portrait.tres"),
 	"gerald": preload("res://assets/portraits/profile/gerald_mythic.jpg"),
 	"lilith": preload("res://assets/portraits/profile/lilith_legendary.png"),
 	"cassien": preload("res://assets/portraits/profile/cassien_mythic.png"),
 	"ravienna": preload("res://assets/portraits/profile/ravienna_mythic.png"),
 	"revienna": preload("res://assets/portraits/profile/ravienna_mythic.png"),
 	"elathra": preload("res://assets/portraits/summon/elathra.png"),
+	"companion": preload("res://assets/characters/companion_normal/dialogue_portrait.tres"),
+	"mysterious companion": preload("res://assets/characters/companion_normal/dialogue_portrait.tres"),
 	"mirene": preload("res://assets/portraits/profile/mirene_base.jpg"),
 	"mir\u00e9ne": preload("res://assets/portraits/profile/mirene_base.jpg"),
 }
@@ -125,6 +127,10 @@ func _show_node(node_id: String) -> void:
 	_node = nodes[node_id]
 	var speaker := str(_node.get("speaker", "???"))
 	_speaker_label.text = speaker
+	if speaker.strip_edges().to_lower() in ["companion", "mysterious companion"]:
+		var chosen_name := str(GameState.quest_domain.flags.get("tutorial_companion_name", "")).strip_edges()
+		if not chosen_name.is_empty():
+			_speaker_label.text = chosen_name
 	_name_label.text = str(_data.get("caption", _dialogue_id.replace("revienna", "ravienna").replace("_", " "))).to_upper()
 	var palette: Dictionary = _node.get("portrait", {})
 	_portrait.setup(palette, _race_for_speaker(speaker), "neutral", "legendary", _dialogue_id.hash())

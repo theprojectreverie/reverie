@@ -3,6 +3,7 @@ extends Node
 const GROUPS := ["village_slime_1","village_slime_2","village_crimson_encounter","village_crownling_1","village_crownling_2","village_crownling_3","village_nyx_encounter","gerald_boss_encounter"]
 const QUESTS := ["village_clear_approach","village_crimson_duel","village_clear_ruins","village_nyx_duel","village_gerald_trial"]
 var _world: Node
+var _solo := false
 var _owner := ""
 var _http: HTTPRequest
 var _fresh := false
@@ -11,25 +12,33 @@ var _next := 0
 var _wins: Array = []
 var _quests: Dictionary = {}
 
-func bind(world: Node) -> void:
+static func use_public_solo(public_alpha: bool, authenticated: bool, expedition: bool, legacy_completed: bool) -> bool:
+	return public_alpha and authenticated and not expedition and not legacy_completed
+
+func bind(world: Node, solo: bool = false) -> void:
 	_world = world
+	_solo = solo
 	_owner = str(AuthGateway.current_player().get("id",""))
 	_http = HTTPRequest.new()
 	_http.timeout = 8
 	add_child(_http)
 	_http.request_completed.connect(_on_status)
-	world.status_changed.connect(_on_connection)
+	if is_instance_valid(world):
+		world.status_changed.connect(_on_connection)
 	EventBus.battle_finished.connect(_on_battle_finished)
 
+func _connection_ready() -> bool:
+	return AuthGateway.is_authenticated() if _solo else is_instance_valid(_world) and _world.is_story_ready()
+
 func _process(_delta: float) -> void:
-	if not is_instance_valid(_world) or not _world.is_story_ready() or str(AuthGateway.current_player().get("id","")) != _owner:
+	if not _connection_ready() or str(AuthGateway.current_player().get("id","")) != _owner:
 		if _fresh:
 			_fresh = false
 			_notify()
 		return
 	if _pending or Time.get_ticks_msec() < _next or not AuthGateway.access_token_ready_for_connection():
 		return
-	_next = Time.get_ticks_msec() + 2000
+	_next = Time.get_ticks_msec() + (5000 if _solo else 2000)
 	_pending = true
 	var err := _http.request(AuthGateway.api_base_url + "/v1/village-story/", PackedStringArray(["Authorization: Bearer "+AuthGateway.access_token_for_request(),"Content-Type: application/json"]), HTTPClient.METHOD_POST, JSON.stringify({"operation":"status"}))
 	if err != OK:
@@ -54,7 +63,7 @@ func _on_battle_finished(result: Dictionary) -> void:
 func _on_status(result: int, code: int, _headers: PackedStringArray, bytes: PackedByteArray) -> void:
 	_pending = false
 	var data: Variant = JSON.parse_string(bytes.get_string_from_utf8())
-	if result != HTTPRequest.RESULT_SUCCESS or code != 200 or not data is Dictionary or not _world.is_story_ready() or str(AuthGateway.current_player().get("id","")) != _owner or not apply_status(data):
+	if result != HTTPRequest.RESULT_SUCCESS or code != 200 or not data is Dictionary or not _connection_ready() or str(AuthGateway.current_player().get("id","")) != _owner or not apply_status(data):
 		_fresh = false
 		_notify()
 

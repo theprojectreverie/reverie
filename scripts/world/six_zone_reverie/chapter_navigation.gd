@@ -141,6 +141,11 @@ static func _local(zone: Node2D) -> Dictionary:
 			return _target(zone,zone.get_node_or_null("Zone/RoyalGardenV3Decorations/Elathra") as Node2D,"Royal Gardens","Speak to Elathra","elathra_first_audience")
 		if not sync.royal_gate_unlocked():
 			return _target(zone,zone.get_node_or_null("MireneEncounter") as Node2D,"The Crimson Fool","Defeat Mirène")
+	elif i == 1:
+		if domain.quest_state("elathra_first_audience") != "complete":
+			return _quest_target(zone,"elathra_first_audience")
+		if not bool(domain.flags.get("mirene_local_defeated",false)):
+			return _target(zone,zone.get_node_or_null("MireneEncounter") as Node2D,"The Crimson Fool","Defeat Mirene")
 	elif i == 6:
 		if not bool(domain.flags.get("ravienna_ending_seen",false)):
 			var text := "Speak to Ravienna and defeat her" if not bool(domain.flags.get("revienna_defeated",false)) else "Speak to Ravienna to finish the story"

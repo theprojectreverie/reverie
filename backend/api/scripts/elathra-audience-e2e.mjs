@@ -55,7 +55,7 @@ try{
  console.log("PASS Elathra audience does not unlock the Royal Gate without Mirene");
  const boss="mirene_encounter";
  assert.equal((await req({operation:"start",groupId:boss})).body.reason,"encounter_out_of_range");
- await pool.query("UPDATE game_server_player_state SET x=2179,y=1080,updated_at=now() WHERE server_id=$1",[server]);
+ await pool.query("UPDATE game_server_player_state SET x=1240,y=1240,updated_at=now() WHERE server_id=$1",[server]);
  await pool.query("UPDATE owned_characters SET level=80,ascension=3 WHERE player_id=$1",[a]);
  const start=await req({operation:"start",groupId:boss});assert.equal(start.status,200,JSON.stringify(start.body));
  let r=start.body;const bid=r.battleId;

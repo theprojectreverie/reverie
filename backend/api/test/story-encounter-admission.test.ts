@@ -31,10 +31,10 @@ test("Crownling authored locations are independently admitted only in the story 
 });
 
 test("Mirene requires verified opening and audience, live nearby position, and is one-time",()=>{
- const boss={...proof,x:2179,y:1080,audienceComplete:true};
+ const boss={...proof,x:1240,y:1240,audienceComplete:true};
  assert.deepEqual(evaluateStoryEncounter("mirene_encounter",boss),{ok:true});
  assert.deepEqual(evaluateStoryEncounter("mirene_encounter",{...boss,audienceComplete:false}),{ok:false,reason:"encounter_progression_required"});
- assert.deepEqual(evaluateStoryEncounter("mirene_encounter",{...boss,x:2000}),{ok:false,reason:"encounter_out_of_range"});
+ assert.deepEqual(evaluateStoryEncounter("mirene_encounter",{...boss,x:2179,y:1080}),{ok:false,reason:"encounter_out_of_range"});
  assert.deepEqual(evaluateStoryEncounter("mirene_encounter",{...boss,victories:[]}),{ok:false,reason:"encounter_progression_required"});
  assert.equal(isOneTimeStoryEncounter("mirene_encounter"),true);
  const gate={...boss,x:-65,y:1200,region:"story_royal_gate"};

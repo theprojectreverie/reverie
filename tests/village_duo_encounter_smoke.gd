@@ -30,6 +30,12 @@ func _run():
   query.collision_mask=1
   assert(space.intersect_shape(query,1).is_empty())
  print("ALL SEVEN CLEAR")
+ var policy=load("res://scripts/world/six_zone_reverie/village_witch_duo_encounter.gd")
+ assert(policy.permits_local_story(true,true,false,false))
+ assert(not policy.permits_local_story(true,false,false,false))
+ assert(not policy.permits_local_story(true,true,true,false))
+ assert(not policy.permits_local_story(true,true,false,true))
+ print("PUBLIC ALPHA VILLAGE POLICY PASS")
  assert(q.quest_state("village_clear_approach")=="active")
  assert(not gerald.can_interact())
  assert(roster.effective_party_ids().size()==1)

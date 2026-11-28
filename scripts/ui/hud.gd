@@ -98,9 +98,9 @@ func _process(delta: float) -> void:
 		_touch_combat.visible = active
 		var combat = player.get_node_or_null("WorldCombatComponent") if active else null
 		if combat != null:
-			_touch_combat.get_node("Attack").disabled = combat.cooldown > 0.0 or combat.attack_pending or combat.dodge_time > 0.0
-			_touch_combat.get_node("Dodge").disabled = combat.dodge_recovery > 0.0 or combat.attack_pending
-			_touch_combat.get_node("Skill").disabled = combat.skill_cooldown > 0.0 or combat.attack_pending or combat.dodge_time > 0.0 or not MultiplayerGateway.standalone_expedition_id.is_empty()
+			_touch_combat.get_node("Attack").disabled = combat.cooldown > 0.0 or combat.attack_pending or combat.skill_pending or combat.dodge_time > 0.0
+			_touch_combat.get_node("Dodge").disabled = combat.dodge_recovery > 0.0 or combat.attack_pending or combat.skill_pending
+			_touch_combat.get_node("Skill").disabled = combat.skill_cooldown > 0.0 or combat.attack_pending or combat.skill_pending or combat.dodge_time > 0.0 or not MultiplayerGateway.standalone_expedition_id.is_empty()
 	if _touch_interact != null:
 		_touch_interact.visible = active and not player.current_prompt().is_empty()
 	if _touch_switch != null:

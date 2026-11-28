@@ -131,7 +131,10 @@ func _recover_transfer(message: String) -> void:
 func _story_unlocked() -> bool:
     var zone := get_tree().current_scene
     if required_quest == "elathra_first_audience":
-        return zone != null and zone.name == &"StandaloneZone01" and zone.has_node("StoryGardenCombatSync") and zone.get_node("StoryGardenCombatSync").royal_gate_unlocked()
+        if zone == null or zone.name != &"StandaloneZone01": return false
+        if zone.has_node("StoryGardenCombatSync"): return zone.get_node("StoryGardenCombatSync").royal_gate_unlocked()
+        var boss = zone.get_node_or_null("MireneEncounter")
+        return boss != null and boss._local_mode() and GameState.quest_domain.quest_state(required_quest) == "complete" and bool(GameState.quest_domain.flags.get("mirene_local_defeated", false))
     if zone != null and zone.has_node("StoryGardenCombatSync") and required_quest == "royal_gate_patrol":
         return zone.get_node("StoryGardenCombatSync").patrol_state() == "complete"
     if required_story_flag == "village_gerald_defeated" and bool(GameState.quest_domain.flags.get("village_gerald_backstory_pending", false)):

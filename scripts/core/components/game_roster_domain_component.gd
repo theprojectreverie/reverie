@@ -165,12 +165,20 @@ func party_instances() -> Array:
 		var zone := get_tree().current_scene
 		if story_solo_active() and zone != null and zone.has_node("StoryVillageProgressionSync"):
 			ids = zone.get_node("StoryVillageProgressionSync").party_ids()
+		var local_village: bool = story_solo_active() and zone != null and zone.name == &"StandaloneVillage" and OS.has_feature("reverie_public_alpha") and not zone.has_node("StoryVillageProgressionSync") and MultiplayerGateway.standalone_expedition_id.is_empty()
+		if local_village:
+			for guest in ["crimson_witch_legendary", "nyx"]:
+				if bool(GameState.quest_domain.flags.get("village_recruited_" + guest, false)):
+					ids.append(guest)
 		var owned := account_instances()
 		for id in ids:
 			for instance in owned:
 				if instance.char_id == id:
 					result.append(instance)
 					break
+			if local_village and id != "kael" and not result.any(func(entry): return entry.char_id == id):
+				# Chapter-only ally; not inserted into account roster or saved ownership.
+				result.append(CharacterInstance.create(id, "story_guest:" + id))
 		return result
 	return local_party_instances()
 

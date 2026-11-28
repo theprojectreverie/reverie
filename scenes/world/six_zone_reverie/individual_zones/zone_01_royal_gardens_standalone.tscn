@@ -32,6 +32,8 @@
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
 
+[ext_resource type="Texture2D" path="res://assets/environment/castle_gardens/royal_garden_v1/tiles/path_stone_plain.png" id="circus_paver"]
+
 [sub_resource type="SegmentShape2D" id="edge_1"]
 a = Vector2(3, 12)
 b = Vector2(3150, 1584)
@@ -84,13 +86,76 @@ player_start_zoom = 1.55
 [node name="Zone" parent="." instance=ExtResource("zone")]
 
 [node name="WisteriaGazebo" parent="Zone/RoyalGardenV3Decorations" index="0"]
-visible = false
+position = Vector2(2110, 1080)
 
 [node name="CollisionPolygon2D" parent="Zone/RoyalGardenV3Decorations/WisteriaGazebo/FootprintCollision" index="0"]
-disabled = true
+disabled = false
 
 [node name="MireneMoonroseSanctuary" parent="." instance=ExtResource("mirene_sanctuary")]
-position = Vector2(2179, 1080)
+position = Vector2(1240, 1240)
+
+[node name="CircusApproach" type="Node2D" parent="."]
+z_index = -3
+
+[node name="Paver1" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1213, 1385)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver2" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1267, 1385)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver3" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1213, 1435)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver4" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1267, 1435)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver5" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1213, 1485)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver6" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1267, 1485)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver7" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1213, 1535)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver8" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1267, 1535)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver9" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1213, 1585)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
+
+[node name="Paver10" type="Sprite2D" parent="CircusApproach"]
+texture_filter = 1
+position = Vector2(1267, 1585)
+scale = Vector2(1.45, 1.45)
+texture = ExtResource("circus_paver")
 
 [node name="ZoneCamera" type="Camera2D" parent="."]
 position = Vector2(0, 1450)
@@ -638,7 +703,7 @@ modulate = Color(1, 1, 1, 0.72)
 texture = ExtResource("perimeter_cloud_5")
 
 [node name="MireneEncounter" parent="." instance=ExtResource("mirene_boss")]
-position = Vector2(2179, 1080)
+position = Vector2(1240, 1240)
 
 [node name="CombatRouter" type="Node" parent="."]
 script = ExtResource("combat_router")

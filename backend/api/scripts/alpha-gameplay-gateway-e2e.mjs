@@ -31,15 +31,16 @@ try{
  for(const path of ["/developer","/v1/developer/activity","/v1/shop/catalog","/v1/game-servers","/ready","/v1/summon/guarantee-audit"])assert.equal((await req(path)).status,404,path);
  assert.equal((await req("/v1/shop/checkout",{})).status,404);
  assert.equal((await req("/v1/summon/pull",{currency:"paid_moonstones"})).status,403);
- assert.equal((await req("/v1/auth/register",{})).status,403);
+ const open=config.REVERIE_ALPHA_REGISTRATION_MODE==="open";
+ assert.equal((await req("/v1/auth/register",{})).status,open?400:403);
  const privateName="PrivateQA"+randomBytes(4).toString("hex"),privateEmail=privateName+"@example.test",privatePassword=randomBytes(16).toString("hex");emails.push(privateEmail);
  const privateReg=await app.inject({method:"POST",url:"/v1/auth/register",payload:{playerName:privateName,email:privateEmail,password:privatePassword}});
  assert.equal(privateReg.statusCode,201);
  const privateLogin=await app.inject({method:"POST",url:"/v1/auth/login",payload:{playerName:privateName,password:privatePassword}});
  assert.equal(privateLogin.statusCode,200);
- assert.equal((await req("/v1/auth/login",{playerName:privateName,password:privatePassword})).status,401);
- assert.equal((await req("/v1/auth/refresh",{refreshToken:privateLogin.json().refreshToken})).status,401);
- assert.equal((await req("/v1/auth/wallet",undefined,privateLogin.json().accessToken)).status,403);
+ assert.equal((await req("/v1/auth/login",{playerName:privateName,password:privatePassword})).status,open?200:401);
+ assert.equal((await req("/v1/auth/refresh",{refreshToken:privateLogin.json().refreshToken})).status,open?200:401);
+ assert.equal((await req("/v1/auth/wallet",undefined,privateLogin.json().accessToken)).status,open?200:403);
  assert.equal(alphaRateKey(app,{headers:{"x-reverie-alpha":"1",authorization:"Bearer "+privateLogin.json().accessToken},ip:"127.0.0.1"}).startsWith("alpha-account:"),true);
  assert.equal(alphaRateKey(app,{headers:{"x-reverie-alpha":"1",authorization:"Bearer invalid"},ip:"127.0.0.1"}),"alpha-anonymous");
  const players=[];
@@ -47,11 +48,11 @@ try{
  for(let i=0;i<2;i++){
   const name="AlphaQA"+randomBytes(4).toString("hex"),email=sharedEmail,password=randomBytes(4).toString("hex"),code=randomBytes(32).toString("base64url");
   emails.push(email);hashes.push(hash(code));
-  await pool.query("INSERT INTO reverie_alpha_invites(token_hash,expires_at) VALUES($1,now()+interval '1 hour')",[hash(code)]);
-  const data={playerName:name,email,password,inviteCode:code};
-  assert.equal((await req("/v1/auth/register",{...data,inviteCode:randomBytes(32).toString("base64url")})).status,403);
+  if(!open)await pool.query("INSERT INTO reverie_alpha_invites(token_hash,expires_at) VALUES($1,now()+interval '1 hour')",[hash(code)]);
+  const data={playerName:name,email,password,...(open?{}:{inviteCode:code})};
+  if(!open)assert.equal((await req("/v1/auth/register",{...data,inviteCode:randomBytes(32).toString("base64url")})).status,403);
   const register=await req("/v1/auth/register",data);assert.equal(register.status,201,await register.text());
-  assert.equal((await req("/v1/auth/register",data)).status,403);
+  assert.equal((await req("/v1/auth/register",data)).status,open?409:403);
   const login=await req("/v1/auth/login",{playerName:name,password});assert.equal(login.status,200);players.push(await login.json());
  }
  const [a,b]=players;assert.notEqual(a.player.id,b.player.id);
@@ -67,7 +68,7 @@ try{
   peers.push(ws);await once(ws,"open");
  }
  assert.equal(peers.filter(p=>p.readyState===WebSocket.OPEN).length,2);
- console.log("PASS same-email accounts and 8-character passwords, single-use invites, unauthorized rejection, protected routes, payment isolation, two-player chat and co-op WebSocket handshake");
+ console.log("PASS account registration mode, login, refresh, unauthorized rejection, protected routes, payment isolation, two-player chat and co-op WebSocket handshake");
 }finally{
  for(const p of peers)p.terminate();
  if(gateway)await new Promise(r=>gateway.close(r));

@@ -28,11 +28,11 @@ func run() -> void:
 			count+=1
 	box.open("revienna_challenge")
 	box._show_node("reply")
-	if box._portrait.portrait_texture.resource_path != "res://assets/portraits/summon/kael.png":
+	if box._portrait.portrait_texture.resource_path != "res://assets/characters/kael_avatar/dialogue_portrait.tres":
 		fail("Ruined Tower Kael portrait incorrect");return
 	box._node.erase("portrait_asset")
 	box._show_node("reply")
-	if box._portrait.portrait_texture.resource_path != "res://assets/portraits/summon/kael.png":
+	if box._portrait.portrait_texture.resource_path != "res://assets/characters/kael_avatar/dialogue_portrait.tres":
 		fail("Kael fallback incorrect");return
 	print("PASS ",count," authored dialogue portraits, Ruined Tower Kael, and named fallback")
 	box.queue_free()

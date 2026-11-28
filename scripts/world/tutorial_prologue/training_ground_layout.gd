@@ -9,6 +9,21 @@ const DIALOGUES := {
  "practice": [["Kael", "Who are you? And how do you know my name?"], [COMPANION, "There is much I cannot explain yet. But I can teach you to survive what lies ahead."], [COMPANION, "See that practice dummy? Approach it and face it. Strike twice with your basic attack (F), then use your skill (R)."], ["Kael", "Very well. Show me what I need to learn."]],
  "challenge": [[COMPANION, "Good. Your strikes are steady, but a wooden dummy will never strike back."], ["Kael", "Then what do you suggest?"], [COMPANION, "A friendly duel. Watch your opponent, choose your attacks wisely, and guard when danger approaches. Shall we begin?"]],
  "retry": [[COMPANION, "Do not let one defeat discourage you. Take a moment, then try again."], ["Kael", "I am ready."]],
+ "summon": [
+  [COMPANION, "A blade alone will not carry you through this world, Kael. There is another art you must learn: summoning."],
+  ["Kael", "Summoning? You mean calling someone to my side?"],
+  [COMPANION, "In a way. Souls leave echoes behind. With Moon Stones, a summoner can call those echoes into a form that can fight beside them."],
+  [COMPANION, "Each summon begins with a tarot card. Watch its symbol and the light around it. They hint at the soul and its rarity."],
+  ["Kael", "Then how do I begin?"],
+  [COMPANION, "Close your eyes. Reach for the echo within yourself, then channel your magic. I will guide you through this first ritual. It is my gift, so it costs you nothing."]
+ ],
+ "summon_lesson_complete": [
+  ["Kael", "That was... me. Yet the power felt different."],
+  [COMPANION, "Your Legendary Aspect. It is another manifestation of your own soul, not a stranger. The echo is yours now."],
+  [COMPANION, "Whenever you wish to summon again, open SUMMON from the main menu. Choose a banner, check its rewards and rates, then use your Moon Stones for one or ten summons."],
+  [COMPANION, "Every echo you obtain can be found in your collection. Choose your allies carefully when you prepare your party."],
+  ["Kael", "I understand. Thank you for showing me."]
+ ],
  "farewell": [[COMPANION, "Enough, Kael. You have proven that you can defend yourself."], ["Kael", "And now? Where am I supposed to go?"], [COMPANION, "There is a village beyond these grounds. Perhaps its people can help you find answers."], ["Kael", "Will you come with me?"], [COMPANION, "Of course. Though my magic has a rather unusual way of making travel easier. Watch closely."]],
  "travel": [["Kael", "A fairy? I did not expect that."], [COMPANION, "This form is easier to maintain while we travel. I will stay beside you. Ready? Let us go to the village."]],
 }
@@ -35,12 +50,14 @@ var dialogue_stage := ""
 var dialogue_index := 0
 var companion_name := ""
 var _name_busy := false
+var _tutorial_summon_busy := false
 var _name_http: HTTPRequest
 var _name_owner := ""
 @onready var name_entry: LineEdit = $TutorialHUD/SparDialogue/Content/CompanionNameEntry
 
 func _ready() -> void:
  AudioDirector.sync_region_ambience("training_ground")
+ AudioDirector.play_exploration_theme(1.0)
  player.set_avatar("kael")
  dummy.world_struck.connect(_on_practice_hit)
  $CompanionNPC.challenge_requested.connect(_open_challenge)
@@ -93,6 +110,8 @@ func _show_line() -> void:
    "arrival": next_button.text = "Approach the tent"
    "practice": next_button.text = "Begin training"
    "challenge", "retry": next_button.text = "Accept challenge"
+   "summon": next_button.text = "Perform free summon"
+   "summon_lesson_complete": next_button.text = "Continue journey"
    "farewell": next_button.text = "Watch her magic"
    "travel": next_button.text = "Travel to the village"
 
@@ -255,7 +274,10 @@ func _on_spar_closed() -> void:
   farewell_pending = true
   $CompanionNPC.enabled = false
   $CompanionNPC/Marker.hide()
-  _show_dialogue("farewell")
+  if AuthGateway.is_authenticated() and not bool(GameState.quest_domain.flags.get("tutorial_summon_seen", false)):
+   _show_dialogue("summon")
+  else:
+   _show_dialogue("farewell")
  else:
   $CompanionNPC.unlock()
   _resume_movement("Talk to your companion again to retry the challenge.")
@@ -301,6 +323,8 @@ func _accept_challenge() -> void:
    practice_ready = true
    _resume_movement("Face the practice dummy and press F twice for basic attacks.")
   "challenge", "retry": _start_spar()
+  "summon": _claim_tutorial_summon()
+  "summon_lesson_complete": _show_dialogue("farewell")
   "farewell":
    farewell_pending = false
    _finish_training()
@@ -392,3 +416,80 @@ func _finish_companion_naming() -> void:
  GameState.quest_domain.flags["tutorial_companion_name"] = companion_name
  GameState.queue_save()
  _show_dialogue("practice")
+
+func _claim_tutorial_summon() -> void:
+ if _tutorial_summon_busy:
+  return
+ _tutorial_summon_busy = true
+ player.input_enabled = false
+ player.velocity = Vector2.ZERO
+ var owner := str(AuthGateway.current_player().get("id", ""))
+ if owner.is_empty() or not AuthGateway.access_token_ready_for_connection():
+  _tutorial_summon_retry("Reconnect to receive your free summon.")
+  return
+ var http := HTTPRequest.new()
+ http.timeout = 15
+ add_child(http)
+ var headers := PackedStringArray(["Authorization: Bearer " + AuthGateway.access_token_for_request(), "Content-Type: application/json"])
+ var err := http.request(AuthGateway.api_base_url + "/v1/summon/tutorial-claim", headers, HTTPClient.METHOD_POST, "{}")
+ if err != OK:
+  http.queue_free()
+  _tutorial_summon_retry("Connection busy. Try again.")
+  return
+ var response: Array = await http.request_completed
+ http.queue_free()
+ if not is_inside_tree():
+  return
+ if owner != str(AuthGateway.current_player().get("id", "")):
+  _tutorial_summon_retry("Account changed. Reconnect before continuing.")
+  return
+ var payload: Variant = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
+ if response[0] != HTTPRequest.RESULT_SUCCESS or response[1] != 200 or not payload is Dictionary or str(payload.get("playerId", "")) != owner or not bool(payload.get("ok", false)):
+  _tutorial_summon_retry("Free summon unavailable. Please reconnect and retry.")
+  return
+ var rolls: Array = payload.get("results", [])
+ if rolls.size() != 1 or not rolls[0] is Dictionary or str(rolls[0].get("character_id", "")) != "kael_legendary":
+  _tutorial_summon_retry("Unexpected summon response. Retry safely.")
+  return
+ # Kael performs the authored cast himself. This is presentation only, not
+ # a world-combat attack; the server has already settled the one-time gift.
+ speaker.text = "Kael"
+ objective.text = "Channeling the summon..."
+ objective.show()
+ player.presentation_component.play_cast()
+ await get_tree().create_timer(0.7).timeout
+ if not is_inside_tree():
+  return
+ if owner != str(AuthGateway.current_player().get("id", "")):
+  objective.hide()
+  _tutorial_summon_retry("Account changed. Reconnect before continuing.")
+  return
+ objective.hide()
+ var previous := AudioDirector.begin_screen_music("summoning")
+ var reveal := preload("res://scenes/ui/components/summon_reveal_overlay.tscn").instantiate() as SummonRevealOverlay
+ reveal.tutorial_lesson = true
+ $TutorialHUD.add_child(reveal)
+ AudioDirector.play_summon_ritual_ambience()
+ await reveal.play_batch(rolls)
+ AudioDirector.stop_summon_ritual_ambience()
+ AudioDirector.end_screen_music("summoning", previous)
+ reveal.queue_free()
+ if not is_inside_tree():
+  return
+ if owner != str(AuthGateway.current_player().get("id", "")):
+  _tutorial_summon_retry("Account changed. Reconnect before continuing.")
+  return
+ GameState.quest_domain.flags["tutorial_summon_seen"] = true
+ GameState.queue_save()
+ await AuthGateway.refresh_account_roster()
+ if not is_inside_tree():
+  return
+ _tutorial_summon_busy = false
+ _show_dialogue("summon_lesson_complete")
+
+func _tutorial_summon_retry(message: String) -> void:
+ _tutorial_summon_busy = false
+ EventBus.toast_requested.emit(message)
+ _show_dialogue("summon")
+ dialogue_index = DIALOGUES["summon"].size() - 1
+ _show_line()

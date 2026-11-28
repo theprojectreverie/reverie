@@ -1,6 +1,6 @@
 extends RefCounted
 ## One trusted origin for public alpha HTTPS and WSS; no client supplied host.
-const PUBLIC_ORIGIN := "https://reverie.tailad29fa.ts.net:8443"
+const PUBLIC_ORIGIN := "https://reverie-staging-fra1.tailad29fa.ts.net:8443"
 const LOCAL_ORIGIN := "http://127.0.0.1:8787"
 static func is_public_alpha() -> bool:
 	return OS.has_feature("reverie_public_alpha")

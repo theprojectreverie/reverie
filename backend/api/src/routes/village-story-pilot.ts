@@ -2,7 +2,7 @@ import type {FastifyPluginAsync} from "fastify";
 import {z} from "zod";
 import {actionSchema,startStoryBattle,actStoryBattle,resumeStoryBattle,abandonStoryBattle,storyTransactionAdmission} from "../world/story-combat-service.js";
 import {verifiedStoryVictories,TUTORIAL_GROUP} from "../world/story-progression-proof.js";
-import {villageGroups,villageProgress,villageAdmission} from "../world/village-progression.js";
+import {villageGroups,villageProgress,villageAdmission,villageOrderAdmission,publicVillageEnabled} from "../world/village-progression.js";
 type Outcome={ok:true;[key:string]:unknown}|{ok:false;reason:string};
 type Claims={sub?:string;playerId?:string;tokenVersion?:number};
 const group=z.string().refine(g=>villageGroups.includes(g));
@@ -20,6 +20,11 @@ export const villageStoryPilotRoutes:FastifyPluginAsync=async app=>{
   if(!c.sub||!c.playerId||!Number.isInteger(c.tokenVersion))return reply.code(401).send({ok:false,reason:"authentication_required"});
   const parsed=schema.safeParse(req.body);if(!parsed.success)return reply.code(400).send({ok:false,reason:"invalid_action"});
   const id=c.playerId,op=parsed.data;
+  // Public solo story has no shared-world position lease. Only the gateway
+  // may supply the alpha header; its account-enrollment hook remains required.
+  const solo=req.headers["x-reverie-alpha"]==="1"&&publicVillageEnabled();
+  if(req.headers["x-reverie-alpha"]==="1"&&!solo)return reply.code(404).send({ok:false,reason:"encounter_not_enabled"});
+  if(!solo&&process.env.REVERIE_VILLAGE_PROGRESSION_PILOT!=="1")return reply.code(404).send({ok:false,reason:"encounter_not_enabled"});
   const result=await storyTransactionAdmission.run<Outcome>(id,async db=>{
    const identity=await db.query("SELECT p.id FROM players p JOIN accounts a ON a.id=p.account_id WHERE p.id=$1 AND a.id=$2 AND a.status='active' AND a.token_version=$3 FOR UPDATE OF p",[id,c.sub,c.tokenVersion]);
    if(!identity.rowCount)return {ok:false,reason:"authentication_required"};
@@ -36,6 +41,10 @@ export const villageStoryPilotRoutes:FastifyPluginAsync=async app=>{
     if(op.groupId==="gerald_boss_encounter"&&wins.includes(op.groupId)){
      const won=(await db.query<{id:string}>("SELECT id FROM story_battle_sessions WHERE player_id=$1 AND group_id=$2 AND status='victory' AND settled_at IS NOT NULL ORDER BY finished_at DESC LIMIT 1",[id,op.groupId])).rows[0];
      if(won)return resumeStoryBattle(db,id,won.id);
+    }
+    if(solo){
+     const reason=villageOrderAdmission(op.groupId,wins);if(reason)return {ok:false,reason};
+     return startStoryBattle(db,id,op.groupId);
     }
     const pos=(await db.query<{x:number;y:number}>(`SELECT p.x,p.y FROM game_server_player_state p JOIN game_servers s ON s.id=p.server_id JOIN game_server_players a ON a.server_id=s.id AND a.player_id=p.player_id WHERE p.player_id=$1 AND s.region_id='story_village' AND s.status='online' AND s.heartbeat_at>now()-interval '60 seconds' AND p.updated_at>now()-interval '15 seconds' AND EXISTS(SELECT 1 FROM game_server_player_connections c WHERE c.server_id=s.id AND c.player_id=p.player_id AND c.lease_expires_at>now())`,[id])).rows[0];
     const reason=villageAdmission(op.groupId,wins,pos??null);if(reason)return {ok:false,reason};

@@ -84,6 +84,10 @@ func refresh() -> void:
 				portrait.set_portrait_texture(preload("res://scripts/art/approved_character_portraits.gd").texture("gerald_mythic"))
 			elif unit.def_id == "cassien_boss":
 				portrait.set_portrait_texture(preload("res://scripts/art/approved_character_portraits.gd").texture("cassien_mythic"))
+			elif unit.def_id in ["mirene_boss", "revienna_boss"]:
+				var portrait_id := "mirene_base" if unit.def_id == "mirene_boss" else "ravienna_mythic"
+				var art_path := "res://assets/portraits/profile/" + portrait_id + (".jpg" if unit.def_id == "mirene_boss" else ".png")
+				portrait.set_portrait_texture(load(art_path) as Texture2D)
 			elif unit.def_id == "fallen_matron":
 				var matron_phase := 1
 				if unit.hp_ratio() <= 0.33:

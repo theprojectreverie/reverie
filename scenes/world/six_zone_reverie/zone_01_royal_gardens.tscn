@@ -1176,6 +1176,7 @@ collision_mask = 0
 polygon = PackedVector2Array(-75.561, 6.5999985, 75.561, 6.5999985, 125.935, 16.104, 125.935, 44.615997, 75.561, 54.12, -75.561, 54.12, -125.935, 44.615997, -127.34021, 5.6713867)
 
 [node name="GazeboNorth08" type="Sprite2D" parent="RoadsideFloweringHedges" unique_id=910292637]
+visible = false
 texture_filter = 1
 position = Vector2(1240, 1554)
 rotation = -0.261139

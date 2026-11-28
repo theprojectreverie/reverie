@@ -24,9 +24,12 @@ func _ready() -> void:
 	print("KAEL ANIMATED BASIC HIT PASS")
 	combat.skill_cooldown = 0.0
 	assert(combat.try_skill())
+	assert(mob.world_hp == 75.0)
+	await get_tree().create_timer(0.75).timeout
 	assert(mob.world_hp == 35.0)
 	combat.skill_cooldown = 0.0
 	assert(combat.try_skill())
+	await get_tree().create_timer(0.75).timeout
 	assert(mob.defeated)
 	assert(GameState.inventory_domain.currency("gold") == starting_gold + reward_gold)
 	mob.receive_world_hit(1000.0)
@@ -44,6 +47,7 @@ func _ready() -> void:
 	for i in range(3):
 		combat.skill_cooldown = 0.0
 		assert(combat.try_skill())
+		await get_tree().create_timer(0.75).timeout
 	assert(mob.defeated)
 	assert(GameState.inventory_domain.currency("gold") == starting_gold + reward_gold * 2)
 	mob.receive_world_hit(1000.0)

@@ -103,7 +103,7 @@ func request_encounter(group: String) -> bool:
 		EventBus.toast_requested.emit("Finish your previous story battle first.")
 		return false
 	var mob = _monsters.get(group)
-	if not is_instance_valid(mob) or _player.global_position.distance_to(mob.global_position)>95.0:return false
+	if not is_instance_valid(mob) or _player.global_position.distance_to(mob.global_position)>(60.0 if group == "mirene_encounter" else 95.0):return false
 	var router := _zone.get_node_or_null("CombatRouter") as GameCombatRouterComponent
 	if router == null:return false
 	_opened = true

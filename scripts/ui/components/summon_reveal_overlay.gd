@@ -7,6 +7,7 @@ signal reveal_finished
 signal stream_completed
 signal advance_requested
 var skipped := false
+var tutorial_lesson := false
 var ravienna_cinematic: Control
 var waiting_for_card := false
 var reveal_count := 0
@@ -260,7 +261,7 @@ func _show_character(roll: Dictionary, index: int, total: int) -> void:
 	if roll.has("ascended_count"):
 		$CardStage/CharacterTitle.text += "\n" + (CharacterInstance.star_text(int(roll.ascended_count)) + " | +%d%% power" % (4 * clampi(int(roll.ascended_count)-1,0,6)))
 	$CardStage/CharacterTitle.modulate = UITheme.rarity_color(rarity)
-	$CardStage/NextButton.text = "View all results" if index + 1 == total else "Next reward"
+	$CardStage/NextButton.text = ("Return to companion" if tutorial_lesson else "View all results") if index + 1 == total else "Next reward"
 	reveal_count += 1
 	var fade: Tween
 	if _quality_at_start == 0:

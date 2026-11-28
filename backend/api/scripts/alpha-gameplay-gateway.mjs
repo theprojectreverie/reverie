@@ -3,7 +3,7 @@ import {pathToFileURL} from "node:url";
 const UUID="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
 const paths={
  GET:{auth:["wallet"],chat:["moderation-status","stickers","contacts","messages","blocks"],guilds:["me","competition","search"],social:["championship-hall","season-challenges","season-results","leaderboard","friend-profile","profile","companion-name","menu-character","search","summary","friends"],summon:["state","history","character-content"],"daily-quests":["","weekly","monthly","achievements","history"],"co-op":["lobbies/current"],pvp:["queue/status"]},
- POST:{auth:["register","login","refresh","logout","logout-all","suspension-appeal"],chat:["reports","moderation-ack","messages","block","unblock"],guilds:["competition/claim","raid/start","raid/action","raid/abandon","raid/claim","shop/buy","perks/purchase","treasury/donate","missions/claim","create","apply","invite","application","invitation","cancel","role","kick","leave","settings"],social:["showcase","leaderboard/visibility","season-challenges/claim","season-challenges/claim-all","season-results/claim","profile","companion-name","menu-character","title","friends"],summon:["event-shop-buy","event-claim","train","upgrade","skill-upgrade","equipment","party","pull"],"daily-quests":["achievements/claim","achievements/claim-all","claim","claim-all","weekly/claim","weekly/claim-all","monthly/claim","monthly/claim-all"],"co-op":["lobbies","lobbies/join","friend-invites","friend-invites/respond"],pvp:["queue/join","queue/leave"],progression:["milestones"],"tutorial-spar":[""],"gerald-story":[""],"gardens-story":[""],"royal-gate-story":[""]}
+ POST:{auth:["register","login","refresh","logout","logout-all","suspension-appeal"],chat:["reports","moderation-ack","messages","block","unblock"],guilds:["competition/claim","raid/start","raid/action","raid/abandon","raid/claim","shop/buy","perks/purchase","treasury/donate","missions/claim","create","apply","invite","application","invitation","cancel","role","kick","leave","settings"],social:["showcase","leaderboard/visibility","season-challenges/claim","season-challenges/claim-all","season-results/claim","profile","companion-name","menu-character","title","friends"],summon:["tutorial-claim","event-shop-buy","event-claim","train","upgrade","skill-upgrade","equipment","party","pull"],"daily-quests":["achievements/claim","achievements/claim-all","claim","claim-all","weekly/claim","weekly/claim-all","monthly/claim","monthly/claim-all"],"co-op":["lobbies","lobbies/join","friend-invites","friend-invites/respond"],pvp:["queue/join","queue/leave"],progression:["milestones"],"tutorial-spar":[""],"village-story":[""],"gerald-story":[""],"gardens-story":[""],"royal-gate-story":[""]}
 };
 const allowed=new Set();
 for(const [method,groups] of Object.entries(paths))for(const [prefix,items] of Object.entries(groups))for(const item of items){const path="/v1/"+prefix+(item?"/"+item:"");allowed.add(method+" "+path);if(!item)allowed.add(method+" "+path+"/");}
@@ -12,7 +12,8 @@ function pathOf(url){if(typeof url!=="string"||url.length>2048||!url.startsWith(
 function permitted(method,path){return allowed.has(method+" "+path)||dynamic.some(([m,re])=>m===method&&re.test(path));}
 function json(res,status,data){res.writeHead(status,{"Content-Type":"application/json","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(JSON.stringify(data));}
 const requestHeaders=(req,body)=>{const h={host:"127.0.0.1:8787",accept:"application/json","x-reverie-alpha":"1"};if(typeof req.headers.authorization==="string"&&req.headers.authorization.length<4096)h.authorization=req.headers.authorization;if(req.headers["x-reverie-character-content"]==="1")h["x-reverie-character-content"]="1";if(body){h["content-type"]="application/json";h["content-length"]=String(body.length)}return h;};
-export function createGateway({upstreamPort=8787,maxSockets=20,maxRequests=32}={}){
+export function createGateway({upstreamPort=8787,maxSockets=20,maxRequests=32,registrationMode=process.env.REVERIE_ALPHA_REGISTRATION_MODE??"invite",signupsEnabled=process.env.REVERIE_ALPHA_SIGNUPS_ENABLED!=="0"}={}){
+ if(!["invite","open"].includes(registrationMode))throw new Error("invalid_alpha_registration_mode");
  let inflight=0,sockets=0,windowStart=Date.now(),count=0;
  function rate(){if(Date.now()-windowStart>=60000){windowStart=Date.now();count=0}return ++count<=600}
  const server=http.createServer({requestTimeout:12000,headersTimeout:5000,maxHeaderSize:8192},async(req,res)=>{
@@ -37,7 +38,9 @@ export function createGateway({upstreamPort=8787,maxSockets=20,maxRequests=32}={
     body=Buffer.concat(chunks);
     if(path==="/v1/auth/register"){
      let data;try{data=JSON.parse(body.toString("utf8"))}catch{return json(res,400,{error:"invalid_registration"})}
-     if(!data||typeof data.inviteCode!=="string"||!/^[A-Za-z0-9_-]{32,100}$/.test(data.inviteCode))return json(res,403,{error:"alpha_invite_required"});
+     if(!signupsEnabled)return json(res,503,{error:"registration_paused"});
+     if(!data||typeof data!=="object"||Array.isArray(data))return json(res,400,{error:"invalid_registration"});
+     if(registrationMode==="invite"&&(typeof data.inviteCode!=="string"||!/^[A-Za-z0-9_-]{32,100}$/.test(data.inviteCode)))return json(res,403,{error:"alpha_invite_required"});
      if(typeof data.password!=="string"||data.password.length<8||data.password.length>128)return json(res,400,{error:"password_length_invalid"});
     }
     if(path==="/v1/summon/pull"){

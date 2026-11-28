@@ -96,7 +96,7 @@ func start_battle() -> void:
 	var profile := ""
 	var world := screen.get_tree().current_scene
 	if screen.group_id == "gerald_boss_encounter" and world != null and world.name == &"StandaloneVillage":
-		if not AuthGateway.is_authenticated() and GameState.quest_domain.quest_state("village_nyx_duel") == "complete":
+		if preload("res://scripts/world/six_zone_reverie/village_witch_duo_encounter.gd").local_story_available() and GameState.quest_domain.quest_state("village_nyx_duel") == "complete":
 			profile = "village_recruited"
 		else:
 			profile = "village_solo"
@@ -285,7 +285,12 @@ func _start_online_spar() -> void:
 	_record_server_rewards(data)
 	var view: Dictionary = data.view
 	var players: Array = []
-	var enemies := CombatFactory.enemy_units(screen.group_id, "village_solo" if is_online_gerald() else "")
+	var village_profile := ""
+	if screen.group_id == "gerald_boss_encounter":
+		var has_witch: bool = view.units.any(func(row): return int(row.team) == 0 and str(row.charId) == "crimson_witch_legendary")
+		var has_nyx: bool = view.units.any(func(row): return int(row.team) == 0 and str(row.charId) == "nyx")
+		village_profile = "village_recruited" if has_witch and has_nyx else "village_solo"
+	var enemies := CombatFactory.enemy_units(screen.group_id, village_profile)
 	for row in view.units:
 		if int(row.team) != CombatEngine.PLAYER_TEAM:continue
 		var instance := CharacterInstance.from_dict({"char_id":str(row.charId),"uid":"server:"+str(row.charId),"level":1})

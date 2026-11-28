@@ -17,6 +17,7 @@ import {StoryWorkerQueue} from "./story-worker-queue.js";
 import {StoryWorkerBatcher} from "./story-worker-batcher.js";
 import {StoryTransactionAdmission} from "./story-transaction-admission.js";
 import {pool} from "../db.js";
+import {config} from "../config.js";
 import {isOneTimeStoryEncounter,TUTORIAL_GROUP} from "./story-progression-proof.js";
 // Future authenticated route handlers must enter through this shared gate.
 export const storyTransactionAdmission=new StoryTransactionAdmission(pool,8);
@@ -39,7 +40,7 @@ type Row={id:string;group_id:string;status:string;state:Stored;rewards:unknown};
 type Result={ok:true;battleId:string;view:Snapshot;rewards:unknown;replayed:boolean}|Rejected;
 const MAX_ACTIONS=256;
 // At most eight admitted transactions; the local pool has twelve connections.
-const workerQueue=new StoryWorkerQueue(2,6,15000);
+const workerQueue=new StoryWorkerQueue(config.REVERIE_STORY_WORKER_CONCURRENCY,6,15000);
 // Fingerprint actual authored inputs and the shared combat implementation.
 export function fingerprint(){
  const hash=createHash("sha256");
@@ -73,7 +74,7 @@ const batcher=new StoryWorkerBatcher<ReplayInput,WorkerResult>(async inputs=>{
    return result;
   });
  }finally{await rm(dir,{recursive:true,force:true});}
-});
+},config.REVERIE_STORY_WORKER_CONCURRENCY);
 export async function replayStoryCombat(groupId:string,state:Pick<Stored,"seed"|"party"|"collectionCount"|"actions">):Promise<WorkerResult>{
  const exe=process.env.REVERIE_STORY_GODOT;
  if(!exe)return {ok:false,reason:"story_worker_unconfigured"};

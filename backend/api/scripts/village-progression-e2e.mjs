@@ -8,7 +8,8 @@ import {authRoutes} from "../src/routes/auth.ts";
 import {villageStoryPilotRoutes} from "../src/routes/village-story-pilot.ts";
 import {villageStages,villageParty} from "../src/world/village-progression.ts";
 assert.ok(["localhost","127.0.0.1","[::1]"].includes(new URL(config.DATABASE_URL).hostname)&&config.NODE_ENV!=="production");
-assert.equal(process.env.REVERIE_VILLAGE_PROGRESSION_PILOT,"1");
+const solo=process.argv.includes("--public-solo");
+assert.equal(solo?process.env.REVERIE_PUBLIC_VILLAGE:process.env.REVERIE_VILLAGE_PROGRESSION_PILOT,"1");
 assert.ok(process.env.REVERIE_STORY_GODOT);
 const app=Fastify({logger:false}),emails=[];
 const suffix=randomBytes(4).toString("hex");let server;
@@ -23,17 +24,19 @@ async function create(n){
 try{
  await app.register(jwt,{secret:config.JWT_SECRET});await app.register(authRoutes,{prefix:"/v1/auth"});await app.register(villageStoryPilotRoutes,{prefix:"/v1/village-story"});await app.ready();
  const a=await create(0),b=await create(1);
- const req=async(payload,token=a.token)=>(await app.inject({method:"POST",url:"/v1/village-story/",headers:{authorization:"Bearer "+token},payload})).json();
+ const req=async(payload,token=a.token)=>(await app.inject({method:"POST",url:"/v1/village-story/",headers:{authorization:"Bearer "+token,...(solo?{"x-reverie-alpha":"1"}:{})},payload})).json();
  const start=groupId=>req({operation:"start",groupId});
  assert.equal((await start("village_slime_1")).reason,"story_progression_required");
  await pool.query("INSERT INTO story_battle_sessions(player_id,group_id,party_ids,status,finished_at,state) VALUES($1,'tutorial_fairy_spar',ARRAY['kael'],'victory',now(),$2::jsonb)",[a.id,JSON.stringify({view:{status:"victory"},actions:[{kind:"skill"}]})]);
  assert.equal((await start("gerald_boss_encounter")).reason,"story_progression_required");
- assert.equal((await start("village_slime_1")).reason,"encounter_position_required");
- server=(await pool.query("INSERT INTO game_servers(server_key,display_name,region_id,status,heartbeat_at) VALUES($1,'Village QA','story_village','online',now()) RETURNING id",["village-qa-"+suffix])).rows[0].id;
+ if(!solo)assert.equal((await start("village_slime_1")).reason,"encounter_position_required");
+ if(!solo){server=(await pool.query("INSERT INTO game_servers(server_key,display_name,region_id,status,heartbeat_at) VALUES($1,'Village QA','story_village','online',now()) RETURNING id",["village-qa-"+suffix])).rows[0].id;
  await pool.query("INSERT INTO game_server_players(server_id,player_id) VALUES($1,$2)",[server,a.id]);
  await pool.query("INSERT INTO game_server_player_state(server_id,player_id,x,y) VALUES($1,$2,-2090,112)",[server,a.id]);
  const lease=randomUUID();await pool.query("INSERT INTO game_server_player_connections(connection_id,server_id,player_id,lease_expires_at) VALUES($1,$2,$3,now()+interval '10 minutes')",[lease,server,a.id]);
+ }
  const pos=async(x,y)=>{
+  if(solo)return;
   await pool.query("UPDATE game_servers SET heartbeat_at=now() WHERE id=$1",[server]);
   await pool.query("UPDATE game_server_player_state SET x=$2,y=$3,updated_at=now() WHERE server_id=$1 AND player_id=$4",[server,x,y,a.id]);
  };
@@ -73,5 +76,5 @@ try{
   }
  }
  assert.equal(battleCount,8);
- console.log("VILLAGE SERVER E2E COMPLETE");
+ console.log(solo?"PUBLIC SOLO VILLAGE SERVER E2E COMPLETE":"VILLAGE SERVER E2E COMPLETE");
 }finally{await app.close();if(server)await pool.query("DELETE FROM game_servers WHERE id=$1",[server]);await pool.query("DELETE FROM accounts WHERE email=ANY($1::text[])",[emails]);await pool.end();}

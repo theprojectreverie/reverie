@@ -1,4 +1,4 @@
-﻿extends SceneTree
+extends SceneTree
 var failures: Array[String] = []
 func _initialize() -> void:
 	call_deferred("run")
@@ -13,6 +13,9 @@ func wait_dialogue(box: Control, id: String) -> bool:
 func finish_dialogue(box: Control) -> void:
 	for i in range(30):
 		if not box.visible: return
+		if str(box._node.get("speaker", "")) == "Companion":
+			var art: Texture2D = box._portrait.portrait_texture
+			check(art != null and art.resource_path == "res://assets/characters/companion_normal/dialogue_portrait.tres", "Companion shows her own portrait in " + box._dialogue_id + "/" + box._node_id)
 		box._finish_typing()
 		if box._node.has("choices"):
 			box._choose(box._node.choices[0])

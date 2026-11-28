@@ -76,7 +76,7 @@ static func unavailable_reason(zone: Node2D, id: String) -> String:
 	var player := zone.get("checkpoint_player") as CharacterBody2D
 	if is_instance_valid(player):
 		var world_combat := player.get_node_or_null("WorldCombatComponent")
-		if world_combat != null and (world_combat.attack_pending or world_combat.hurt_cooldown > 0.0 or world_combat.dodge_time > 0.0 or world_combat.cooldown > 0.0):
+		if world_combat != null and (world_combat.attack_pending or world_combat.skill_pending or world_combat.hurt_cooldown > 0.0 or world_combat.dodge_time > 0.0 or world_combat.cooldown > 0.0):
 			return "Unavailable during combat"
 		for enemy in zone.get_tree().get_nodes_in_group("world_action_targets"):
 			if enemy is Node2D and zone.is_ancestor_of(enemy) and not enemy.get("defeated") and player.global_position.distance_to(enemy.global_position) <= 95.0:
