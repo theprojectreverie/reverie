@@ -49,3 +49,11 @@ backend/api/dist/
 
 # Server-local published content
 /backend/api/live-content/
+
+# Local development archives and QA captures
+/backups/
+/artifacts/qa/
+/artifacts/backups/
+/artifacts/willow_exit_gate_review/
+/artifacts/wading_polish_kael.png
+/.godot_tmp_*/
