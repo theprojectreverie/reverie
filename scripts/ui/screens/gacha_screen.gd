@@ -574,7 +574,7 @@ func summon_available(count: int, cost: int, currency: String) -> bool:
 	if not _account_state_ready(): return false
 	if currency == "paid_moonstones" and not paid_guarantee_verified(): return false
 	var pending: Dictionary = _summon_flow.pending_online
-	if currency == "paid_moonstones" and OS.has_feature("reverie_public_alpha") and pending.is_empty(): return false
+	if currency == "paid_moonstones" and preload("res://scripts/online/connection_profile.gd").is_public_alpha() and pending.is_empty(): return false
 	if not pending.is_empty(): return pending.get("bannerId") == _selected_banner and int(pending.get("count", 0)) == count and str(pending.get("currency","crystals")) == currency
 	if active_banner(_selected_banner).is_empty(): return false
 	if currency == "paid_moonstones" and _selected_banner.begins_with("live_"): return false

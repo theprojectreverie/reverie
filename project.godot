@@ -56,6 +56,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=4
 
+[editor]
+
+run/main_run_args="-- --reverie-cloud"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gerald_storyboard/plugin.cfg", "res://addons/crimson_oath_storyboard/plugin.cfg", "res://addons/net.yarvis.pixel_pen/plugin.cfg")

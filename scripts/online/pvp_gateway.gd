@@ -22,7 +22,7 @@ var _polling_enabled := false
 var _session_player_id := ""
 
 func _ready() -> void:
-	if OS.has_feature("reverie_public_alpha"):
+	if preload("res://scripts/online/connection_profile.gd").is_public_alpha():
 		api_base_url=preload("res://scripts/online/connection_profile.gd").api_origin(true)
 	for request_node in [queue_join_request, queue_leave_request, queue_status_request, match_events_request, match_action_request, match_surrender_request]:
 		request_node.timeout = request_timeout_seconds

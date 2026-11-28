@@ -23,7 +23,7 @@ func _ready() -> void:
 	_refresh.call_deferred()
 
 static func local_story_available() -> bool:
-	return permits_local_story(AuthGateway.is_authenticated(), OS.has_feature("reverie_public_alpha"), preload("res://scripts/online/story_opening_world_sync.gd").pilot_enabled(), not MultiplayerGateway.standalone_expedition_id.is_empty())
+	return permits_local_story(AuthGateway.is_authenticated(), preload("res://scripts/online/connection_profile.gd").is_public_alpha(), preload("res://scripts/online/story_opening_world_sync.gd").pilot_enabled(), not MultiplayerGateway.standalone_expedition_id.is_empty())
 
 static func permits_local_story(authenticated: bool, public_alpha: bool, pilot: bool, expedition: bool) -> bool:
 	return not pilot and not expedition and (not authenticated or public_alpha)

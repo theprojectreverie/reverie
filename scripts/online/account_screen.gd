@@ -27,7 +27,7 @@ func show_registration() -> void:
 func _ready() -> void:
 	UIFactory.set_full_rect(self)
 	password_register.placeholder_text = "Password (at least %d characters)" % AuthGateway.minimum_registration_password_length()
-	if OS.has_feature("reverie_public_alpha"):
+	if preload("res://scripts/online/connection_profile.gd").is_public_alpha():
 		$Center/Panel/Margins/Content/Tabs/CreateAccount/InviteCode.hide()
 		verification_token.hide()
 		$Center/Panel/Margins/Content/Tabs/CreateAccount/VerifyButton.hide()

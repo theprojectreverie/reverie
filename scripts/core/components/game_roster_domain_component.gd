@@ -165,7 +165,7 @@ func party_instances() -> Array:
 		var zone := get_tree().current_scene
 		if story_solo_active() and zone != null and zone.has_node("StoryVillageProgressionSync"):
 			ids = zone.get_node("StoryVillageProgressionSync").party_ids()
-		var local_village: bool = story_solo_active() and zone != null and zone.name == &"StandaloneVillage" and OS.has_feature("reverie_public_alpha") and not zone.has_node("StoryVillageProgressionSync") and MultiplayerGateway.standalone_expedition_id.is_empty()
+		var local_village: bool = story_solo_active() and zone != null and zone.name == &"StandaloneVillage" and preload("res://scripts/online/connection_profile.gd").is_public_alpha() and not zone.has_node("StoryVillageProgressionSync") and MultiplayerGateway.standalone_expedition_id.is_empty()
 		if local_village:
 			for guest in ["crimson_witch_legendary", "nyx"]:
 				if bool(GameState.quest_domain.flags.get("village_recruited_" + guest, false)):

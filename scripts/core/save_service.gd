@@ -14,6 +14,8 @@ const STORY_PREVIEW_PATH := "scenes/qa/gerald_story_preview.tscn"
 var story_preview_mode := false
 
 func _ready() -> void:
+	if preload("res://scripts/online/connection_profile.gd").is_editor_cloud():
+		select_player("")
 	# SaveService starts before GameState and AuthGateway. F6 supplies the
 	# scene path as a positional command-line argument.
 	for arg in OS.get_cmdline_args():
@@ -174,5 +176,6 @@ func select_player(player_id: String) -> void:
 	var valid := RegEx.new()
 	valid.compile("^[0-9a-fA-F-]{36}$")
 	var suffix := "_" + player_id.to_lower() if valid.search(player_id) != null else ""
-	SAVE_PATH = "user://project_fantasy_save" + suffix + ".json"
-	BACKUP_PATH = "user://project_fantasy_save" + suffix + ".backup.json"
+	var prefix := "user://reverie_cloud_editor_save" if preload("res://scripts/online/connection_profile.gd").is_editor_cloud() else "user://project_fantasy_save"
+	SAVE_PATH = prefix + suffix + ".json"
+	BACKUP_PATH = prefix + suffix + ".backup.json"

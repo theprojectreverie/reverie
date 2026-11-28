@@ -234,7 +234,7 @@ func rebuild_main() -> void:
 	var paid_progress := screen.paid_summon_progress()
 	var paid_box := UIFactory.vbox(6)
 	paid_box.name = "PaidMilestone"
-	if OS.has_feature("reverie_public_alpha"):
+	if preload("res://scripts/online/connection_profile.gd").is_public_alpha():
 		paid_box.add_child(UIFactory.wrapped("Paid summons are currently unavailable in public alpha. Ordinary crystal summons are available. Recover any rejected pending request using Retry.",13,UITheme.GOLD))
 	if screen.paid_guarantee_verified():
 		paid_box.add_child(pity_row("Featured character guarantee",paid_progress,100,"%d / 100" % paid_progress,UITheme.VIOLET))

@@ -18,7 +18,14 @@ Requirements:
 Run from the editor:
 
 1. Open `project.godot` in Godot 4.7.
-2. Press **F5**.
+2. Press **F5**. The editor launches with the public cloud connection profile by default.
+3. Choose the in-game account option and register or sign in with your own account. No local backend, Tailscale client, or shared developer login is needed for the public staging profile.
+
+For editor users, the public cloud is staging and its current release may lag behind this repository. Public dedicated persistent-world access remains gated. Do not treat a successful login as full multiplayer acceptance.
+
+**Local development:** start Godot from a terminal with `godot --path .` (no cloud argument), set `REVERIE_LOCAL_DEV=1` before starting the editor, or change Project Settings > Editor > Run > Main Run Args to `-- --reverie-local`. The cloud editor profile uses separate save and remembered-login files.
+
+**Explicit cloud launch:** `godot --path . -- --reverie-cloud`.
 
 Run from a terminal:
 

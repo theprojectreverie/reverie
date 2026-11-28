@@ -21,7 +21,7 @@ func _ready() -> void:
 		EventBus.battle_finished.connect(_on_local_battle_finished)
 
 func _local_mode() -> bool:
-	return permits_local_story(AuthGateway.is_authenticated(), OS.has_feature("reverie_public_alpha"), not MultiplayerGateway.standalone_expedition_id.is_empty(), OS.get_environment("REVERIE_STORY_WORLD_PILOT") == "1" and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") == "1")
+	return permits_local_story(AuthGateway.is_authenticated(), preload("res://scripts/online/connection_profile.gd").is_public_alpha(), not MultiplayerGateway.standalone_expedition_id.is_empty(), OS.get_environment("REVERIE_STORY_WORLD_PILOT") == "1" and OS.get_environment("REVERIE_GARDENS_STORY_PILOT") == "1")
 
 static func permits_local_story(authenticated: bool, public_alpha: bool, expedition: bool, pilot: bool) -> bool:
 	# Public alpha uses account-specific local story saves, just like Gerald.

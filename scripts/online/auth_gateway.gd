@@ -76,6 +76,8 @@ const SESSION_FILE := "user://remembered_session_v2.dpapi"
 const ANDROID_SESSION_FILE := "user://remembered_session_v3.keystore"
 
 func _session_path() -> String:
+ if preload("res://scripts/online/connection_profile.gd").is_editor_cloud():
+  return "user://remembered_cloud_editor_session_v2.dpapi"
  return ANDROID_SESSION_FILE if OS.get_name()=="Android" else SESSION_FILE
 const ACCESS_TOKEN_REFRESH_LEAD_SECONDS := 60.0
 const REFRESH_RETRY_SECONDS := 15.0
@@ -87,7 +89,7 @@ const REFRESH_RETRY_SECONDS := 15.0
 @onready var logout_all_request: HTTPRequest = $LogoutAllRequest
 
 func _ready() -> void:
- if OS.has_feature("reverie_public_alpha"):
+ if preload("res://scripts/online/connection_profile.gd").is_public_alpha():
   api_base_url=preload("res://scripts/online/connection_profile.gd").api_origin(true)
  wallet_request.request_completed.connect(_on_wallet_completed)
  authentication_changed.connect(_roster_identity_changed)
@@ -377,7 +379,7 @@ func access_token_for_request() -> String:
  return _access_token
 
 func minimum_registration_password_length() -> int:
- return 8 if OS.has_feature("reverie_public_alpha") or (OS.is_debug_build() and api_base_url.begins_with("http://127.0.0.1:")) else 12
+ return 8 if preload("res://scripts/online/connection_profile.gd").is_public_alpha() or (OS.is_debug_build() and api_base_url.begins_with("http://127.0.0.1:")) else 12
 
 func register_account(email: String,password: String,player_name: String,invite_code: String="") -> Error:
  if not _valid_email(email) or password.length() < minimum_registration_password_length() or password.length() > 128 or not _valid_player_name(player_name):

@@ -66,7 +66,7 @@ func _ready() -> void:
             add_child(village_sync)
             village_sync.bind(sync)
 
-    elif name == &"StandaloneVillage" and preload("res://scripts/online/story_village_progression_sync.gd").use_public_solo(OS.has_feature("reverie_public_alpha"), AuthGateway.is_authenticated(), not MultiplayerGateway.standalone_expedition_id.is_empty(), bool(GameState.quest_domain.flags.get("village_gerald_defeated", false))):
+    elif name == &"StandaloneVillage" and preload("res://scripts/online/story_village_progression_sync.gd").use_public_solo(preload("res://scripts/online/connection_profile.gd").is_public_alpha(), AuthGateway.is_authenticated(), not MultiplayerGateway.standalone_expedition_id.is_empty(), bool(GameState.quest_domain.flags.get("village_gerald_defeated", false))):
         # Preserve completed legacy chapters; never erase local story saves.
         var village_sync = preload("res://scripts/online/story_village_progression_sync.gd").new()
         village_sync.name = "StoryVillageProgressionSync"

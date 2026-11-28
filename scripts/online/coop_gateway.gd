@@ -14,7 +14,7 @@ var _pending_operation := ""
 var _pending_lobby_id := ""
 
 func _ready() -> void:
-	if OS.has_feature("reverie_public_alpha"):
+	if preload("res://scripts/online/connection_profile.gd").is_public_alpha():
 		api_base_url=preload("res://scripts/online/connection_profile.gd").api_origin(true)
 	for request_node in [create_request, join_request, current_request, leave_request]:
 		request_node.timeout = request_timeout_seconds
