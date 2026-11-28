@@ -1,0 +1,1530 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/idle_approved_128.png" id="idle_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/fly_se_128.png" id="fly_se_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/fly_se_body_128.png" id="fly_se_body_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/attack_se_body_128.png" id="attack_se_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/fly_sw_128.png" id="fly_sw_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/fly_sw_body_128.png" id="fly_sw_body_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/attack_sw_body_128.png" id="attack_sw_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/fly_ne_128.png" id="fly_ne_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/fly_ne_body_128.png" id="fly_ne_body_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/attack_ne_body_128.png" id="attack_ne_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/fly_nw_128.png" id="fly_nw_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/fly_nw_body_128.png" id="fly_nw_body_tex"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/attack_nw_body_128.png" id="attack_nw_tex"]
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("idle_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("idle_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("idle_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("idle_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_4"]
+atlas = ExtResource("idle_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_5"]
+atlas = ExtResource("idle_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_6"]
+atlas = ExtResource("idle_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_7"]
+atlas = ExtResource("idle_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_8"]
+atlas = ExtResource("idle_tex")
+region = Rect2(1024, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_9"]
+atlas = ExtResource("idle_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_10"]
+atlas = ExtResource("idle_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_11"]
+atlas = ExtResource("idle_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_12"]
+atlas = ExtResource("idle_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_13"]
+atlas = ExtResource("idle_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_14"]
+atlas = ExtResource("idle_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_15"]
+atlas = ExtResource("idle_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_16"]
+atlas = ExtResource("idle_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_17"]
+atlas = ExtResource("idle_tex")
+region = Rect2(1024, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_18"]
+atlas = ExtResource("idle_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_19"]
+atlas = ExtResource("idle_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_20"]
+atlas = ExtResource("idle_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_21"]
+atlas = ExtResource("idle_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_22"]
+atlas = ExtResource("idle_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_23"]
+atlas = ExtResource("idle_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_24"]
+atlas = ExtResource("idle_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_25"]
+atlas = ExtResource("idle_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_26"]
+atlas = ExtResource("idle_tex")
+region = Rect2(1024, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_27"]
+atlas = ExtResource("idle_tex")
+region = Rect2(0, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_28"]
+atlas = ExtResource("idle_tex")
+region = Rect2(128, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_29"]
+atlas = ExtResource("idle_tex")
+region = Rect2(256, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_30"]
+atlas = ExtResource("idle_tex")
+region = Rect2(384, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_31"]
+atlas = ExtResource("idle_tex")
+region = Rect2(512, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_32"]
+atlas = ExtResource("idle_tex")
+region = Rect2(640, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_33"]
+atlas = ExtResource("idle_tex")
+region = Rect2(768, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_34"]
+atlas = ExtResource("idle_tex")
+region = Rect2(896, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="idle_35"]
+atlas = ExtResource("idle_tex")
+region = Rect2(1024, 384, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_0"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_1"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_2"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_3"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_4"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_5"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_6"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_7"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_8"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_9"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_10"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_11"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_12"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_13"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_14"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_15"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_16"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_17"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_18"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_19"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_20"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_21"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_22"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_23"]
+atlas = ExtResource("fly_se_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_0"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_1"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_2"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_3"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_4"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_5"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_6"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_7"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_8"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_9"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_10"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_11"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_12"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_13"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_14"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_15"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_16"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_17"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_18"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_19"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_20"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_21"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_22"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_se_body_23"]
+atlas = ExtResource("fly_se_body_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_0"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_1"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_2"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_3"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_4"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_5"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_6"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_7"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_8"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_9"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_10"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_11"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_12"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_13"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_14"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_15"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_16"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_se_17"]
+atlas = ExtResource("attack_se_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_0"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_1"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_2"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_3"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_4"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_5"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_6"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_7"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_8"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_9"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_10"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_11"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_12"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_13"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_14"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_15"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_16"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_17"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_18"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_19"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_20"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_21"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_22"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_23"]
+atlas = ExtResource("fly_sw_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_0"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_1"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_2"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_3"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_4"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_5"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_6"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_7"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_8"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_9"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_10"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_11"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_12"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_13"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_14"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_15"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_16"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_17"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_18"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_19"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_20"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_21"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_22"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_sw_body_23"]
+atlas = ExtResource("fly_sw_body_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_0"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_1"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_2"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_3"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_4"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_5"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_6"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_7"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_8"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_9"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_10"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_11"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_12"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_13"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_14"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_15"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_16"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_sw_17"]
+atlas = ExtResource("attack_sw_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_0"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_1"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_2"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_3"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_4"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_5"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_6"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_7"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_8"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_9"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_10"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_11"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_12"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_13"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_14"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_15"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_16"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_17"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_18"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_19"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_20"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_21"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_22"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_23"]
+atlas = ExtResource("fly_ne_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_0"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_1"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_2"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_3"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_4"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_5"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_6"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_7"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_8"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_9"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_10"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_11"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_12"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_13"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_14"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_15"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_16"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_17"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_18"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_19"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_20"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_21"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_22"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_ne_body_23"]
+atlas = ExtResource("fly_ne_body_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_0"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_1"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_2"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_3"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_4"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_5"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_6"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_7"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_8"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_9"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_10"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_11"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_12"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_13"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_14"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_15"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_16"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_ne_17"]
+atlas = ExtResource("attack_ne_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_0"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_1"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_2"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_3"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_4"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_5"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_6"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_7"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_8"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_9"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_10"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_11"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_12"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_13"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_14"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_15"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_16"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_17"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_18"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_19"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_20"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_21"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_22"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_23"]
+atlas = ExtResource("fly_nw_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_0"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_1"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_2"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_3"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_4"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_5"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_6"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(768, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_7"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(896, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_8"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_9"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_10"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_11"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_12"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_13"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_14"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(768, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_15"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(896, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_16"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_17"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_18"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_19"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_20"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_21"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_22"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(768, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="fly_nw_body_23"]
+atlas = ExtResource("fly_nw_body_tex")
+region = Rect2(896, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_0"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(0, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_1"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(128, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_2"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(256, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_3"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(384, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_4"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(512, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_5"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(640, 0, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_6"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(0, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_7"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(128, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_8"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(256, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_9"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(384, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_10"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(512, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_11"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(640, 128, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_12"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(0, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_13"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(128, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_14"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(256, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_15"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(384, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_16"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(512, 256, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="attack_nw_17"]
+atlas = ExtResource("attack_nw_tex")
+region = Rect2(640, 256, 128, 128)
+filter_clip = true
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("idle_0")}, {"duration": 1.0, "texture": SubResource("idle_1")}, {"duration": 1.0, "texture": SubResource("idle_2")}, {"duration": 1.0, "texture": SubResource("idle_3")}, {"duration": 1.0, "texture": SubResource("idle_4")}, {"duration": 1.0, "texture": SubResource("idle_5")}, {"duration": 1.0, "texture": SubResource("idle_6")}, {"duration": 1.0, "texture": SubResource("idle_7")}, {"duration": 1.0, "texture": SubResource("idle_8")}, {"duration": 1.0, "texture": SubResource("idle_9")}, {"duration": 1.0, "texture": SubResource("idle_10")}, {"duration": 1.0, "texture": SubResource("idle_11")}, {"duration": 1.0, "texture": SubResource("idle_12")}, {"duration": 1.0, "texture": SubResource("idle_13")}, {"duration": 1.0, "texture": SubResource("idle_14")}, {"duration": 1.0, "texture": SubResource("idle_15")}, {"duration": 1.0, "texture": SubResource("idle_16")}, {"duration": 1.0, "texture": SubResource("idle_17")}, {"duration": 1.0, "texture": SubResource("idle_18")}, {"duration": 1.0, "texture": SubResource("idle_19")}, {"duration": 1.0, "texture": SubResource("idle_20")}, {"duration": 1.0, "texture": SubResource("idle_21")}, {"duration": 1.0, "texture": SubResource("idle_22")}, {"duration": 1.0, "texture": SubResource("idle_23")}, {"duration": 1.0, "texture": SubResource("idle_24")}, {"duration": 1.0, "texture": SubResource("idle_25")}, {"duration": 1.0, "texture": SubResource("idle_26")}, {"duration": 1.0, "texture": SubResource("idle_27")}, {"duration": 1.0, "texture": SubResource("idle_28")}, {"duration": 1.0, "texture": SubResource("idle_29")}, {"duration": 1.0, "texture": SubResource("idle_30")}, {"duration": 1.0, "texture": SubResource("idle_31")}, {"duration": 1.0, "texture": SubResource("idle_32")}, {"duration": 1.0, "texture": SubResource("idle_33")}, {"duration": 1.0, "texture": SubResource("idle_34")}, {"duration": 1.0, "texture": SubResource("idle_35")}], "loop": true, "name": &"idle", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("fly_se_0")}, {"duration": 1.0, "texture": SubResource("fly_se_1")}, {"duration": 1.0, "texture": SubResource("fly_se_2")}, {"duration": 1.0, "texture": SubResource("fly_se_3")}, {"duration": 1.0, "texture": SubResource("fly_se_4")}, {"duration": 1.0, "texture": SubResource("fly_se_5")}, {"duration": 1.0, "texture": SubResource("fly_se_6")}, {"duration": 1.0, "texture": SubResource("fly_se_7")}, {"duration": 1.0, "texture": SubResource("fly_se_8")}, {"duration": 1.0, "texture": SubResource("fly_se_9")}, {"duration": 1.0, "texture": SubResource("fly_se_10")}, {"duration": 1.0, "texture": SubResource("fly_se_11")}, {"duration": 1.0, "texture": SubResource("fly_se_12")}, {"duration": 1.0, "texture": SubResource("fly_se_13")}, {"duration": 1.0, "texture": SubResource("fly_se_14")}, {"duration": 1.0, "texture": SubResource("fly_se_15")}, {"duration": 1.0, "texture": SubResource("fly_se_16")}, {"duration": 1.0, "texture": SubResource("fly_se_17")}, {"duration": 1.0, "texture": SubResource("fly_se_18")}, {"duration": 1.0, "texture": SubResource("fly_se_19")}, {"duration": 1.0, "texture": SubResource("fly_se_20")}, {"duration": 1.0, "texture": SubResource("fly_se_21")}, {"duration": 1.0, "texture": SubResource("fly_se_22")}, {"duration": 1.0, "texture": SubResource("fly_se_23")}], "loop": true, "name": &"fly_se", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("fly_se_body_0")}, {"duration": 1.0, "texture": SubResource("fly_se_body_1")}, {"duration": 1.0, "texture": SubResource("fly_se_body_2")}, {"duration": 1.0, "texture": SubResource("fly_se_body_3")}, {"duration": 1.0, "texture": SubResource("fly_se_body_4")}, {"duration": 1.0, "texture": SubResource("fly_se_body_5")}, {"duration": 1.0, "texture": SubResource("fly_se_body_6")}, {"duration": 1.0, "texture": SubResource("fly_se_body_7")}, {"duration": 1.0, "texture": SubResource("fly_se_body_8")}, {"duration": 1.0, "texture": SubResource("fly_se_body_9")}, {"duration": 1.0, "texture": SubResource("fly_se_body_10")}, {"duration": 1.0, "texture": SubResource("fly_se_body_11")}, {"duration": 1.0, "texture": SubResource("fly_se_body_12")}, {"duration": 1.0, "texture": SubResource("fly_se_body_13")}, {"duration": 1.0, "texture": SubResource("fly_se_body_14")}, {"duration": 1.0, "texture": SubResource("fly_se_body_15")}, {"duration": 1.0, "texture": SubResource("fly_se_body_16")}, {"duration": 1.0, "texture": SubResource("fly_se_body_17")}, {"duration": 1.0, "texture": SubResource("fly_se_body_18")}, {"duration": 1.0, "texture": SubResource("fly_se_body_19")}, {"duration": 1.0, "texture": SubResource("fly_se_body_20")}, {"duration": 1.0, "texture": SubResource("fly_se_body_21")}, {"duration": 1.0, "texture": SubResource("fly_se_body_22")}, {"duration": 1.0, "texture": SubResource("fly_se_body_23")}], "loop": true, "name": &"fly_se_body", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("attack_se_0")}, {"duration": 1.0, "texture": SubResource("attack_se_1")}, {"duration": 1.0, "texture": SubResource("attack_se_2")}, {"duration": 1.0, "texture": SubResource("attack_se_3")}, {"duration": 1.0, "texture": SubResource("attack_se_4")}, {"duration": 1.0, "texture": SubResource("attack_se_5")}, {"duration": 1.0, "texture": SubResource("attack_se_6")}, {"duration": 1.0, "texture": SubResource("attack_se_7")}, {"duration": 1.0, "texture": SubResource("attack_se_8")}, {"duration": 1.0, "texture": SubResource("attack_se_9")}, {"duration": 1.0, "texture": SubResource("attack_se_10")}, {"duration": 1.0, "texture": SubResource("attack_se_11")}, {"duration": 1.0, "texture": SubResource("attack_se_12")}, {"duration": 1.0, "texture": SubResource("attack_se_13")}, {"duration": 1.0, "texture": SubResource("attack_se_14")}, {"duration": 1.0, "texture": SubResource("attack_se_15")}, {"duration": 1.0, "texture": SubResource("attack_se_16")}, {"duration": 1.0, "texture": SubResource("attack_se_17")}], "loop": false, "name": &"attack_se", "speed": 15.384615},
+{"frames": [{"duration": 1.0, "texture": SubResource("fly_sw_0")}, {"duration": 1.0, "texture": SubResource("fly_sw_1")}, {"duration": 1.0, "texture": SubResource("fly_sw_2")}, {"duration": 1.0, "texture": SubResource("fly_sw_3")}, {"duration": 1.0, "texture": SubResource("fly_sw_4")}, {"duration": 1.0, "texture": SubResource("fly_sw_5")}, {"duration": 1.0, "texture": SubResource("fly_sw_6")}, {"duration": 1.0, "texture": SubResource("fly_sw_7")}, {"duration": 1.0, "texture": SubResource("fly_sw_8")}, {"duration": 1.0, "texture": SubResource("fly_sw_9")}, {"duration": 1.0, "texture": SubResource("fly_sw_10")}, {"duration": 1.0, "texture": SubResource("fly_sw_11")}, {"duration": 1.0, "texture": SubResource("fly_sw_12")}, {"duration": 1.0, "texture": SubResource("fly_sw_13")}, {"duration": 1.0, "texture": SubResource("fly_sw_14")}, {"duration": 1.0, "texture": SubResource("fly_sw_15")}, {"duration": 1.0, "texture": SubResource("fly_sw_16")}, {"duration": 1.0, "texture": SubResource("fly_sw_17")}, {"duration": 1.0, "texture": SubResource("fly_sw_18")}, {"duration": 1.0, "texture": SubResource("fly_sw_19")}, {"duration": 1.0, "texture": SubResource("fly_sw_20")}, {"duration": 1.0, "texture": SubResource("fly_sw_21")}, {"duration": 1.0, "texture": SubResource("fly_sw_22")}, {"duration": 1.0, "texture": SubResource("fly_sw_23")}], "loop": true, "name": &"fly_sw", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("fly_sw_body_0")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_1")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_2")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_3")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_4")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_5")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_6")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_7")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_8")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_9")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_10")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_11")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_12")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_13")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_14")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_15")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_16")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_17")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_18")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_19")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_20")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_21")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_22")}, {"duration": 1.0, "texture": SubResource("fly_sw_body_23")}], "loop": true, "name": &"fly_sw_body", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("attack_sw_0")}, {"duration": 1.0, "texture": SubResource("attack_sw_1")}, {"duration": 1.0, "texture": SubResource("attack_sw_2")}, {"duration": 1.0, "texture": SubResource("attack_sw_3")}, {"duration": 1.0, "texture": SubResource("attack_sw_4")}, {"duration": 1.0, "texture": SubResource("attack_sw_5")}, {"duration": 1.0, "texture": SubResource("attack_sw_6")}, {"duration": 1.0, "texture": SubResource("attack_sw_7")}, {"duration": 1.0, "texture": SubResource("attack_sw_8")}, {"duration": 1.0, "texture": SubResource("attack_sw_9")}, {"duration": 1.0, "texture": SubResource("attack_sw_10")}, {"duration": 1.0, "texture": SubResource("attack_sw_11")}, {"duration": 1.0, "texture": SubResource("attack_sw_12")}, {"duration": 1.0, "texture": SubResource("attack_sw_13")}, {"duration": 1.0, "texture": SubResource("attack_sw_14")}, {"duration": 1.0, "texture": SubResource("attack_sw_15")}, {"duration": 1.0, "texture": SubResource("attack_sw_16")}, {"duration": 1.0, "texture": SubResource("attack_sw_17")}], "loop": false, "name": &"attack_sw", "speed": 15.384615},
+{"frames": [{"duration": 1.0, "texture": SubResource("fly_ne_0")}, {"duration": 1.0, "texture": SubResource("fly_ne_1")}, {"duration": 1.0, "texture": SubResource("fly_ne_2")}, {"duration": 1.0, "texture": SubResource("fly_ne_3")}, {"duration": 1.0, "texture": SubResource("fly_ne_4")}, {"duration": 1.0, "texture": SubResource("fly_ne_5")}, {"duration": 1.0, "texture": SubResource("fly_ne_6")}, {"duration": 1.0, "texture": SubResource("fly_ne_7")}, {"duration": 1.0, "texture": SubResource("fly_ne_8")}, {"duration": 1.0, "texture": SubResource("fly_ne_9")}, {"duration": 1.0, "texture": SubResource("fly_ne_10")}, {"duration": 1.0, "texture": SubResource("fly_ne_11")}, {"duration": 1.0, "texture": SubResource("fly_ne_12")}, {"duration": 1.0, "texture": SubResource("fly_ne_13")}, {"duration": 1.0, "texture": SubResource("fly_ne_14")}, {"duration": 1.0, "texture": SubResource("fly_ne_15")}, {"duration": 1.0, "texture": SubResource("fly_ne_16")}, {"duration": 1.0, "texture": SubResource("fly_ne_17")}, {"duration": 1.0, "texture": SubResource("fly_ne_18")}, {"duration": 1.0, "texture": SubResource("fly_ne_19")}, {"duration": 1.0, "texture": SubResource("fly_ne_20")}, {"duration": 1.0, "texture": SubResource("fly_ne_21")}, {"duration": 1.0, "texture": SubResource("fly_ne_22")}, {"duration": 1.0, "texture": SubResource("fly_ne_23")}], "loop": true, "name": &"fly_ne", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("fly_ne_body_0")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_1")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_2")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_3")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_4")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_5")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_6")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_7")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_8")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_9")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_10")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_11")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_12")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_13")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_14")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_15")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_16")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_17")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_18")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_19")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_20")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_21")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_22")}, {"duration": 1.0, "texture": SubResource("fly_ne_body_23")}], "loop": true, "name": &"fly_ne_body", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("attack_ne_0")}, {"duration": 1.0, "texture": SubResource("attack_ne_1")}, {"duration": 1.0, "texture": SubResource("attack_ne_2")}, {"duration": 1.0, "texture": SubResource("attack_ne_3")}, {"duration": 1.0, "texture": SubResource("attack_ne_4")}, {"duration": 1.0, "texture": SubResource("attack_ne_5")}, {"duration": 1.0, "texture": SubResource("attack_ne_6")}, {"duration": 1.0, "texture": SubResource("attack_ne_7")}, {"duration": 1.0, "texture": SubResource("attack_ne_8")}, {"duration": 1.0, "texture": SubResource("attack_ne_9")}, {"duration": 1.0, "texture": SubResource("attack_ne_10")}, {"duration": 1.0, "texture": SubResource("attack_ne_11")}, {"duration": 1.0, "texture": SubResource("attack_ne_12")}, {"duration": 1.0, "texture": SubResource("attack_ne_13")}, {"duration": 1.0, "texture": SubResource("attack_ne_14")}, {"duration": 1.0, "texture": SubResource("attack_ne_15")}, {"duration": 1.0, "texture": SubResource("attack_ne_16")}, {"duration": 1.0, "texture": SubResource("attack_ne_17")}], "loop": false, "name": &"attack_ne", "speed": 15.384615},
+{"frames": [{"duration": 1.0, "texture": SubResource("fly_nw_0")}, {"duration": 1.0, "texture": SubResource("fly_nw_1")}, {"duration": 1.0, "texture": SubResource("fly_nw_2")}, {"duration": 1.0, "texture": SubResource("fly_nw_3")}, {"duration": 1.0, "texture": SubResource("fly_nw_4")}, {"duration": 1.0, "texture": SubResource("fly_nw_5")}, {"duration": 1.0, "texture": SubResource("fly_nw_6")}, {"duration": 1.0, "texture": SubResource("fly_nw_7")}, {"duration": 1.0, "texture": SubResource("fly_nw_8")}, {"duration": 1.0, "texture": SubResource("fly_nw_9")}, {"duration": 1.0, "texture": SubResource("fly_nw_10")}, {"duration": 1.0, "texture": SubResource("fly_nw_11")}, {"duration": 1.0, "texture": SubResource("fly_nw_12")}, {"duration": 1.0, "texture": SubResource("fly_nw_13")}, {"duration": 1.0, "texture": SubResource("fly_nw_14")}, {"duration": 1.0, "texture": SubResource("fly_nw_15")}, {"duration": 1.0, "texture": SubResource("fly_nw_16")}, {"duration": 1.0, "texture": SubResource("fly_nw_17")}, {"duration": 1.0, "texture": SubResource("fly_nw_18")}, {"duration": 1.0, "texture": SubResource("fly_nw_19")}, {"duration": 1.0, "texture": SubResource("fly_nw_20")}, {"duration": 1.0, "texture": SubResource("fly_nw_21")}, {"duration": 1.0, "texture": SubResource("fly_nw_22")}, {"duration": 1.0, "texture": SubResource("fly_nw_23")}], "loop": true, "name": &"fly_nw", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("fly_nw_body_0")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_1")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_2")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_3")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_4")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_5")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_6")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_7")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_8")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_9")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_10")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_11")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_12")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_13")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_14")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_15")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_16")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_17")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_18")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_19")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_20")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_21")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_22")}, {"duration": 1.0, "texture": SubResource("fly_nw_body_23")}], "loop": true, "name": &"fly_nw_body", "speed": 12.500000},
+{"frames": [{"duration": 1.0, "texture": SubResource("attack_nw_0")}, {"duration": 1.0, "texture": SubResource("attack_nw_1")}, {"duration": 1.0, "texture": SubResource("attack_nw_2")}, {"duration": 1.0, "texture": SubResource("attack_nw_3")}, {"duration": 1.0, "texture": SubResource("attack_nw_4")}, {"duration": 1.0, "texture": SubResource("attack_nw_5")}, {"duration": 1.0, "texture": SubResource("attack_nw_6")}, {"duration": 1.0, "texture": SubResource("attack_nw_7")}, {"duration": 1.0, "texture": SubResource("attack_nw_8")}, {"duration": 1.0, "texture": SubResource("attack_nw_9")}, {"duration": 1.0, "texture": SubResource("attack_nw_10")}, {"duration": 1.0, "texture": SubResource("attack_nw_11")}, {"duration": 1.0, "texture": SubResource("attack_nw_12")}, {"duration": 1.0, "texture": SubResource("attack_nw_13")}, {"duration": 1.0, "texture": SubResource("attack_nw_14")}, {"duration": 1.0, "texture": SubResource("attack_nw_15")}, {"duration": 1.0, "texture": SubResource("attack_nw_16")}, {"duration": 1.0, "texture": SubResource("attack_nw_17")}], "loop": false, "name": &"attack_nw", "speed": 15.384615}]

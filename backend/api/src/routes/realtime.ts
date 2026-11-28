@@ -59,11 +59,35 @@ const gateMonsters:Record<string,[number,number]>={royal_gate_patrol_1:[-65,1200
 const willowMonsters:Record<string,[number,number]>={willow_slime_1:[-2350,1370],willow_mossling_1:[-2020,1450]};
 const optionalGateMonsters:Record<string,[number,number]>={royal_gate_rainbow_1:[500,1450]};
 const forsakenMonsters:Record<string,[number,number]>={forsaken_bird_1:[600,1650]};
-const worldMonsters={...gardenMonsters,...gateMonsters,...willowMonsters,...optionalGateMonsters,...forsakenMonsters};
+const elderwoodMonsters:Record<string,[number,number]>={
+ elderwood_aether_wisp_1:[-1250,1320],
+ elderwood_aether_wisp_2:[-1000,950],
+ elderwood_aether_wisp_3:[400,850],
+ elderwood_aether_wisp_4:[800,1050],
+ elderwood_aether_wisp_5:[1440,1170],
+ elderwood_aether_wisp_6:[1280,1570],
+ elderwood_aether_wisp_7:[-300,1550],
+ elderwood_aether_wisp_8:[100,1850],
+ elderwood_aether_wisp_9:[300,2050],
+ elderwood_aether_wisp_10:[1100,2150]
+};
+const towerMonsters:Record<string,[number,number]>={
+ tower_eclipse_raven_1:[-1400,1100],
+ tower_eclipse_raven_2:[1400,1100],
+ tower_eclipse_raven_3:[-800,1300],
+ tower_eclipse_raven_4:[800,1300],
+ tower_eclipse_raven_5:[-1700,1700],
+ tower_eclipse_raven_6:[1700,1700],
+ tower_eclipse_raven_7:[-400,1800],
+ tower_eclipse_raven_8:[400,1800],
+ tower_eclipse_raven_9:[-800,2300],
+ tower_eclipse_raven_10:[800,2300]
+};
+const worldMonsters={...gardenMonsters,...gateMonsters,...willowMonsters,...optionalGateMonsters,...forsakenMonsters,...elderwoodMonsters,...towerMonsters};
 function monstersForRegion(region:string):Record<string,[number,number]>{
- return region==="six_zone_royal_gardens"?gardenMonsters:region==="six_zone_royal_gate"?{...gateMonsters,...optionalGateMonsters}:region==="six_zone_willow_fields"?willowMonsters:region==="six_zone_forsaken_ruins"?forsakenMonsters:{};
+ return region==="six_zone_royal_gardens"?gardenMonsters:region==="six_zone_royal_gate"?{...gateMonsters,...optionalGateMonsters}:region==="six_zone_willow_fields"?willowMonsters:region==="six_zone_forsaken_ruins"?forsakenMonsters:region==="six_zone_elderwood_grove"?elderwoodMonsters:region==="six_zone_ruined_tower"?towerMonsters:{};
 }
-function monsterMaxHp(id:string):number{return Object.hasOwn(forsakenMonsters,id)?150:(Object.hasOwn(gateMonsters,id)||Object.hasOwn(optionalGateMonsters,id))?120:100;}
+function monsterMaxHp(id:string):number{return (Object.hasOwn(forsakenMonsters,id)||Object.hasOwn(towerMonsters,id))?150:(Object.hasOwn(gateMonsters,id)||Object.hasOwn(optionalGateMonsters,id)||Object.hasOwn(elderwoodMonsters,id))?120:100;}
 // Small server-clock-driven patrols around the authored, collision-safe spawn areas.
 // The same position function is used for presentation and melee range checks.
 const lastMonsterMotion=new Map<string,number>();
@@ -189,7 +213,7 @@ async function patrolProgress(lobbyId:string,regionId:string,sequence:number){
  return q.rows.map(r=>r.id).filter(id=>Object.hasOwn(gateMonsters,id)).sort();
 }
 async function combatHealthSnapshot(lobbyId:string,regionId:string,sequence:number){
- if(!["six_zone_royal_gardens","six_zone_royal_gate","six_zone_willow_fields","six_zone_forsaken_ruins","six_zone_ruined_tower"].includes(regionId))return {};
+ if(!["six_zone_royal_gardens","six_zone_royal_gate","six_zone_willow_fields","six_zone_elderwood_grove","six_zone_forsaken_ruins","six_zone_ruined_tower"].includes(regionId))return {};
  const result=await pool.query<{target:string;hp:string}>("SELECT DISTINCT ON (payload->'counterattack'->>'playerId') payload->'counterattack'->>'playerId' AS target,payload->'counterattack'->>'hp' AS hp FROM co_op_world_events WHERE lobby_id=$1 AND event_type='interaction' AND payload->'counterattack' IS NOT NULL AND payload->'counterattack' <> 'null'::jsonb AND sequence<=$2 AND sequence>COALESCE((SELECT max(sequence) FROM co_op_world_events WHERE lobby_id=$1 AND event_type='region_transition' AND sequence<=$2),0) ORDER BY payload->'counterattack'->>'playerId',sequence DESC",[lobbyId,sequence]);
  return Object.fromEntries(result.rows.map(r=>[r.target,Number(r.hp)]));
 }

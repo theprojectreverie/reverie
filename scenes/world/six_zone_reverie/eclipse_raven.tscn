@@ -1,0 +1,23 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/eclipse_raven.gd" id="logic"]
+[ext_resource type="SpriteFrames" path="res://assets/monsters/eclipse_raven/sprite_frames.tres" id="frames"]
+[node name="EclipseRaven" type="Node2D"]
+script = ExtResource("logic")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -47)
+scale = Vector2(0.8, 0.8)
+sprite_frames = ExtResource("frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="WorldHealth" type="ProgressBar" parent="."]
+visible = false
+offset_left = -25.0
+offset_top = -100.0
+offset_right = 25.0
+offset_bottom = -95.0
+mouse_filter = 2
+show_percentage = false
+value = 150.0

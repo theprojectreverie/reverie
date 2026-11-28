@@ -31,6 +31,8 @@
 
 [ext_resource type="Texture2D" path="res://assets/tutorial_prologue/Reverie_Tutorial_Asset_Pack/Training_Ground/mossy_rock_cluster_a.png" id="grove_mossy_rock"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/aether_wisp.tscn" id="aether_wisp"]
+
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(112, 96)
 
@@ -86,6 +88,46 @@ y_sort_enabled = true
 script = ExtResource("zone_controller")
 
 [node name="Zone" parent="." instance=ExtResource("zone")]
+
+[node name="AetherWisp" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(-1250, 1320)
+group_id = "elderwood_aether_wisp_1"
+
+[node name="AetherWisp02" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(-1000, 950)
+group_id = "elderwood_aether_wisp_2"
+
+[node name="AetherWisp03" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(400, 850)
+group_id = "elderwood_aether_wisp_3"
+
+[node name="AetherWisp04" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(800, 1050)
+group_id = "elderwood_aether_wisp_4"
+
+[node name="AetherWisp05" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(1440, 1170)
+group_id = "elderwood_aether_wisp_5"
+
+[node name="AetherWisp06" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(1280, 1570)
+group_id = "elderwood_aether_wisp_6"
+
+[node name="AetherWisp07" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(-300, 1550)
+group_id = "elderwood_aether_wisp_7"
+
+[node name="AetherWisp08" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(100, 1850)
+group_id = "elderwood_aether_wisp_8"
+
+[node name="AetherWisp09" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(300, 2050)
+group_id = "elderwood_aether_wisp_9"
+
+[node name="AetherWisp10" parent="." instance=ExtResource("aether_wisp")]
+position = Vector2(1100, 2150)
+group_id = "elderwood_aether_wisp_10"
 
 [node name="ZoneCamera" type="Camera2D" parent="."]
 process_callback = 0

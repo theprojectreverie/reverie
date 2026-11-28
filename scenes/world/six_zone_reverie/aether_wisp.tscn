@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/six_zone_reverie/aether_wisp.gd" id="logic"]
+[ext_resource type="SpriteFrames" path="res://assets/monsters/aether_wisp/sprite_frames.tres" id="frames"]
+[ext_resource type="Texture2D" path="res://assets/monsters/aether_wisp/pearl_projectile.png" id="pearl"]
+
+[node name="AetherWisp" type="Node2D"]
+script = ExtResource("logic")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -40)
+scale = Vector2(0.72, 0.72)
+sprite_frames = ExtResource("frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Pearl" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+texture_filter = 1
+texture = ExtResource("pearl")
+
+[node name="WorldHealth" type="ProgressBar" parent="."]
+visible = false
+offset_left = -25.0
+offset_top = -91.0
+offset_right = 25.0
+offset_bottom = -86.0
+mouse_filter = 2
+show_percentage = false
+value = 120.0

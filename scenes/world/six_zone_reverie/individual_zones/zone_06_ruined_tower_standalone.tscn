@@ -20,6 +20,8 @@
 
 [ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/fast_travel_waypoint.tscn" id="travel_waypoint"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/six_zone_reverie/eclipse_raven.tscn" id="eclipse_raven"]
+
 [sub_resource type="RectangleShape2D" id="TransferDetection"]
 size = Vector2(180, 100)
 
@@ -54,6 +56,46 @@ script = ExtResource("zone_controller")
 [node name="Artwork" parent="Zone/GothicArchitecture/Carpet" index="0"]
 z_index = 0
 position = Vector2(-185, -464.16663)
+
+[node name="EclipseRaven01" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(-1400, 1100)
+group_id = "tower_eclipse_raven_1"
+
+[node name="EclipseRaven02" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(1400, 1100)
+group_id = "tower_eclipse_raven_2"
+
+[node name="EclipseRaven03" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(-800, 1300)
+group_id = "tower_eclipse_raven_3"
+
+[node name="EclipseRaven04" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(800, 1300)
+group_id = "tower_eclipse_raven_4"
+
+[node name="EclipseRaven05" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(-1700, 1700)
+group_id = "tower_eclipse_raven_5"
+
+[node name="EclipseRaven06" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(1700, 1700)
+group_id = "tower_eclipse_raven_6"
+
+[node name="EclipseRaven07" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(-400, 1800)
+group_id = "tower_eclipse_raven_7"
+
+[node name="EclipseRaven08" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(400, 1800)
+group_id = "tower_eclipse_raven_8"
+
+[node name="EclipseRaven09" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(-800, 2300)
+group_id = "tower_eclipse_raven_9"
+
+[node name="EclipseRaven10" parent="." instance=ExtResource("eclipse_raven")]
+position = Vector2(800, 2300)
+group_id = "tower_eclipse_raven_10"
 
 [node name="ZoneCamera" type="Camera2D" parent="." unique_id=1078493038]
 process_callback = 0

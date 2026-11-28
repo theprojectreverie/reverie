@@ -795,5 +795,345 @@
         }
       }
     }
+  },
+  "elderwood_aether_wisp_1": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_2": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_3": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_4": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_5": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_6": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_7": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_8": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_9": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "elderwood_aether_wisp_10": {
+    "name": "Aether Wisp",
+    "region": "elderwood_grove",
+    "level": 4,
+    "enemies": [
+      "aether_wisp"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_1": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_2": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_3": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_4": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_5": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_6": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_7": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_8": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_9": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
+  },
+  "tower_eclipse_raven_10": {
+    "name": "Eclipse Raven",
+    "region": "gothic_castle_boss_zone",
+    "level": 6,
+    "enemies": [
+      "eclipse_raven"
+    ],
+    "rewards": {
+      "gold": 15,
+      "xp": 10,
+      "items": {
+        "glade_sap": 1
+      }
+    },
+    "quest_kills": {},
+    "drops": []
   }
 }

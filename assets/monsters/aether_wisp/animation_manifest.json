@@ -1,0 +1,46 @@
+{
+  "frame_size": [
+    128,
+    128
+  ],
+  "directions": [
+    "se",
+    "sw",
+    "ne",
+    "nw"
+  ],
+  "idle": {
+    "file": "idle_approved_128.png",
+    "frames": 36,
+    "columns": 9,
+    "fps": 12.5
+  },
+  "flight": {
+    "frames": 24,
+    "columns": 8,
+    "fps": 12.5,
+    "loop": true,
+    "combined": "fly_{direction}_128.png",
+    "body_only": "fly_{direction}_body_128.png"
+  },
+  "basic_attack": {
+    "frames": 18,
+    "columns": 6,
+    "fps": 15.384615384615385,
+    "loop": false,
+    "body": "attack_{direction}_body_128.png",
+    "release_frame_zero_based": 5,
+    "projectile": "pearl_projectile.png",
+    "projectile_behavior": "launch and return; preview only, gameplay trajectory and hit detection not implemented"
+  },
+  "preview_order": [
+    [
+      "se",
+      "sw"
+    ],
+    [
+      "ne",
+      "nw"
+    ]
+  ]
+}

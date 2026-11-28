@@ -590,5 +590,51 @@
       "skin": "#e8cdd8"
     },
     "ultimate": ""
+  },
+  "aether_wisp": {
+    "name": "Aether Wisp",
+    "element": "water",
+    "rarity": "common",
+    "role": "Minion",
+    "base": {
+      "hp": 120,
+      "atk": 12,
+      "def": 6,
+      "spd": 14,
+      "crit": 0.03
+    },
+    "skills": [
+      "spark"
+    ],
+    "ultimate": "",
+    "lore": "A wandering water spirit whose pearl follows the currents of Elderwood Grove.",
+    "palette": {
+      "primary": "#6150bc",
+      "secondary": "#65e5ed",
+      "accent": "#d7b8ff"
+    }
+  },
+  "eclipse_raven": {
+    "name": "Eclipse Raven",
+    "element": "dark",
+    "rarity": "common",
+    "role": "Minion",
+    "base": {
+      "hp": 150,
+      "atk": 12,
+      "def": 7,
+      "spd": 16,
+      "crit": 0.05
+    },
+    "skills": [
+      "shadow_feint"
+    ],
+    "ultimate": "",
+    "lore": "A masked raven drawn to the shadow of the ruined tower.",
+    "palette": {
+      "primary": "#24152f",
+      "secondary": "#8341ba",
+      "accent": "#e9d8ff"
+    }
   }
 }

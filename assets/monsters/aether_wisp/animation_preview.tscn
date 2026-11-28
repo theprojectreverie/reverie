@@ -1,0 +1,127 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://assets/monsters/aether_wisp/sprite_frames.tres" id="1"]
+
+[node name="AetherWispAnimationPreview" type="Node2D"]
+
+[node name="idle" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(88, 90)
+sprite_frames = ExtResource("1")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="idle_label" type="Label" parent="."]
+offset_left = 26.0
+offset_top = 155.0
+offset_right = 150.0
+text = "idle"
+horizontal_alignment = 1
+
+[node name="fly_se" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(248, 90)
+sprite_frames = ExtResource("1")
+animation = &"fly_se"
+autoplay = "fly_se"
+
+[node name="fly_se_label" type="Label" parent="."]
+offset_left = 186.0
+offset_top = 155.0
+offset_right = 310.0
+text = "fly_se"
+horizontal_alignment = 1
+
+[node name="fly_sw" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(408, 90)
+sprite_frames = ExtResource("1")
+animation = &"fly_sw"
+autoplay = "fly_sw"
+
+[node name="fly_sw_label" type="Label" parent="."]
+offset_left = 346.0
+offset_top = 155.0
+offset_right = 470.0
+text = "fly_sw"
+horizontal_alignment = 1
+
+[node name="fly_ne" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(88, 250)
+sprite_frames = ExtResource("1")
+animation = &"fly_ne"
+autoplay = "fly_ne"
+
+[node name="fly_ne_label" type="Label" parent="."]
+offset_left = 26.0
+offset_top = 315.0
+offset_right = 150.0
+text = "fly_ne"
+horizontal_alignment = 1
+
+[node name="fly_nw" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(248, 250)
+sprite_frames = ExtResource("1")
+animation = &"fly_nw"
+autoplay = "fly_nw"
+
+[node name="fly_nw_label" type="Label" parent="."]
+offset_left = 186.0
+offset_top = 315.0
+offset_right = 310.0
+text = "fly_nw"
+horizontal_alignment = 1
+
+[node name="attack_se" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(408, 250)
+sprite_frames = ExtResource("1")
+animation = &"attack_se"
+
+[node name="attack_se_label" type="Label" parent="."]
+offset_left = 346.0
+offset_top = 315.0
+offset_right = 470.0
+text = "attack_se"
+horizontal_alignment = 1
+
+[node name="attack_sw" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(88, 410)
+sprite_frames = ExtResource("1")
+animation = &"attack_sw"
+
+[node name="attack_sw_label" type="Label" parent="."]
+offset_left = 26.0
+offset_top = 475.0
+offset_right = 150.0
+text = "attack_sw"
+horizontal_alignment = 1
+
+[node name="attack_ne" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(248, 410)
+sprite_frames = ExtResource("1")
+animation = &"attack_ne"
+
+[node name="attack_ne_label" type="Label" parent="."]
+offset_left = 186.0
+offset_top = 475.0
+offset_right = 310.0
+text = "attack_ne"
+horizontal_alignment = 1
+
+[node name="attack_nw" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(408, 410)
+sprite_frames = ExtResource("1")
+animation = &"attack_nw"
+
+[node name="attack_nw_label" type="Label" parent="."]
+offset_left = 346.0
+offset_top = 475.0
+offset_right = 470.0
+text = "attack_nw"
+horizontal_alignment = 1

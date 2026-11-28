@@ -1,0 +1,1 @@
+Eclipse Raven: Picsart-derived 128x128 sprites. Front views use three drawn wing poses; rear views use transformed layers of existing drawn wings. Mirrored left views. Attack is an animated swoop with a separate gameplay hit check. No generated procedural art.

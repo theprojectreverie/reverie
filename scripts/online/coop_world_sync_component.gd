@@ -657,7 +657,7 @@ func _apply_snapshot(event: Dictionary) -> bool:
 		if monster is Dictionary:
 			_apply_monster_state(monster)
 	var health: Dictionary = event.get("combatHealth", {})
-	if is_instance_valid(local_player) and active_region_id in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_forsaken_ruins", "six_zone_ruined_tower"]:
+	if is_instance_valid(local_player) and active_region_id in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_elderwood_grove", "six_zone_forsaken_ruins", "six_zone_ruined_tower"]:
 		local_player.get_node("WorldCombatComponent").apply_coop_health(float(health.get(local_player_id,100)))
 	var snapshot_sequence := int(event.get("sequence", last_sequence))
 	if snapshot_sequence > last_sequence:
@@ -712,7 +712,7 @@ func _play_remote_monster_attack(event: Dictionary) -> void:
 			avatar.play_confirmed_attack(target.global_position)
 			return
 func _apply_coop_counterattack(event: Dictionary, animate: bool) -> void:
-	if active_region_id not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_forsaken_ruins", "six_zone_ruined_tower"] or not event.get("counterattack") is Dictionary:
+	if active_region_id not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_elderwood_grove", "six_zone_forsaken_ruins", "six_zone_ruined_tower"] or not event.get("counterattack") is Dictionary:
 		return
 	var counter: Dictionary = event["counterattack"]
 	var victim := str(counter.get("playerId", ""))
@@ -810,7 +810,7 @@ func _apply_monster_state(event: Dictionary, live: bool = false) -> void:
 		if boss != null:
 			boss.apply_coop_boss_state(event, live)
 		return
-	if active_region_id not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_forsaken_ruins"] or str(event.get("kind", "")) != "monster_hit":
+	if active_region_id not in ["six_zone_royal_gardens", "six_zone_royal_gate", "six_zone_willow_fields", "six_zone_elderwood_grove", "six_zone_forsaken_ruins", "six_zone_ruined_tower"] or str(event.get("kind", "")) != "monster_hit":
 		return
 	for target in get_tree().get_nodes_in_group("world_action_targets"):
 		if is_instance_valid(target) and target.has_method("apply_coop_monster_state") and str(target.get("group_id")) == str(event.get("monsterId", "")):
