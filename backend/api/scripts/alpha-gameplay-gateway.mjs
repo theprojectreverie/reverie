@@ -1,5 +1,30 @@
 import http from "node:http";
 import {pathToFileURL} from "node:url";
+import {createReadStream,statSync} from "node:fs";
+import {resolve} from "node:path";
+const webFiles=new Set(["index.html","index.js","index.wasm","index.pck","index.png","index.icon.png","index.apple-touch-icon.png","index.audio.worklet.js","index.audio.position.worklet.js"]);
+const webTypes={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".wasm":"application/wasm",".pck":"application/octet-stream",".png":"image/png"};
+// Explicit Godot export files only. Never expose the backend or arbitrary files.
+function createStaticHandler(webRoot,maxDownloads=2){
+ const root=webRoot?resolve(webRoot):null;let active=0;
+ return (req,res)=>{
+  if(!root||!["GET","HEAD"].includes(req.method))return false;
+  const path=req.url?.split("?")[0];const name=path==="/"?"index.html":path?.slice(1);
+  if(!name||!webFiles.has(name))return false;
+  const file=resolve(root,name);
+  let info;try{info=statSync(file)}catch{return false}
+  if(!info.isFile())return false;
+  if(req.method==="GET"&&active>=maxDownloads){json(res,503,{error:"web_download_busy"});return true}
+  const ext=name.slice(name.lastIndexOf("."));
+  res.writeHead(200,{"Content-Type":webTypes[ext]??"application/octet-stream","Content-Length":info.size,"Cache-Control":"no-cache","X-Content-Type-Options":"nosniff","Cross-Origin-Resource-Policy":"same-origin"});
+  if(req.method==="HEAD"){res.end();return true}
+  active++;
+  let released=false;const release=()=>{if(!released){released=true;active--}};
+  const stream=createReadStream(file);
+  stream.on("error",()=>res.destroy());stream.on("close",release);
+  res.on("close",()=>stream.destroy());stream.pipe(res);return true;
+ };
+}
 const UUID="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
 const paths={
  GET:{auth:["wallet"],chat:["moderation-status","stickers","contacts","messages","blocks"],guilds:["me","competition","search"],social:["championship-hall","season-challenges","season-results","leaderboard","friend-profile","profile","companion-name","menu-character","search","summary","friends"],summon:["state","history","character-content"],"daily-quests":["","weekly","monthly","achievements","history"],"co-op":["lobbies/current"],pvp:["queue/status"]},
@@ -12,13 +37,15 @@ function pathOf(url){if(typeof url!=="string"||url.length>2048||!url.startsWith(
 function permitted(method,path){return allowed.has(method+" "+path)||dynamic.some(([m,re])=>m===method&&re.test(path));}
 function json(res,status,data){res.writeHead(status,{"Content-Type":"application/json","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(JSON.stringify(data));}
 const requestHeaders=(req,body)=>{const h={host:"127.0.0.1:8787",accept:"application/json","x-reverie-alpha":"1"};if(typeof req.headers.authorization==="string"&&req.headers.authorization.length<4096)h.authorization=req.headers.authorization;if(req.headers["x-reverie-character-content"]==="1")h["x-reverie-character-content"]="1";if(body){h["content-type"]="application/json";h["content-length"]=String(body.length)}return h;};
-export function createGateway({upstreamPort=8787,maxSockets=20,maxRequests=32,registrationMode=process.env.REVERIE_ALPHA_REGISTRATION_MODE??"invite",signupsEnabled=process.env.REVERIE_ALPHA_SIGNUPS_ENABLED!=="0"}={}){
+export function createGateway({upstreamPort=8787,maxSockets=20,maxRequests=32,registrationMode=process.env.REVERIE_ALPHA_REGISTRATION_MODE??"invite",signupsEnabled=process.env.REVERIE_ALPHA_SIGNUPS_ENABLED!=="0",webRoot=process.env.REVERIE_ALPHA_WEB_ROOT??""}={}){
  if(!["invite","open"].includes(registrationMode))throw new Error("invalid_alpha_registration_mode");
+ const serveStatic=createStaticHandler(webRoot);
  let inflight=0,sockets=0,windowStart=Date.now(),count=0;
  function rate(){if(Date.now()-windowStart>=60000){windowStart=Date.now();count=0}return ++count<=600}
  const server=http.createServer({requestTimeout:12000,headersTimeout:5000,maxHeaderSize:8192},async(req,res)=>{
   const path=pathOf(req.url);
   if(!rate())return json(res,429,{error:"alpha_rate_limited"});
+  if(serveStatic(req,res))return;
   if(!path)return json(res,400,{error:"invalid_path"});
   if(req.method==="GET"&&path==="/health"){
    const probe=http.get({hostname:"127.0.0.1",port:upstreamPort,path:"/health",timeout:2000},r=>{
